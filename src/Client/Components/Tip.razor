@@ -1,0 +1,15 @@
+﻿<div class="tip">
+ <div class="row m-0" style="background-color:#1abc9c">
+  <div class="col-12 m-0 tip-title">tip</div>
+ </div>
+ <div class="row m-0" style="background-color:#dbfaf4">
+  <div class="col-12 m-0 tip-desc">
+   @Message
+  </div>
+ </div>
+</div>
+
+@code {
+ [Parameter]
+ public RenderFragment Message { get; set; }
+}

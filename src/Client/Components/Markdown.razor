@@ -1,0 +1,42 @@
+﻿@using Markdig;
+@using Markdig.Extensions;
+@inject System.Net.Http.HttpClient Http
+
+@if (Content == null)
+{
+	<span>Loading...</span>
+}
+else
+{
+	@((MarkupString)RenderHtmlContent(Content))
+}
+
+@code {
+	[Parameter]
+	public string Content { get; set; }
+
+	[Parameter]
+	public string FromFile { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (Content == null)
+			Content = String.IsNullOrEmpty(FromFile) ?
+				"Content or FromUrl property is not set or invalid" : await InitContentFromUrl();
+	}
+
+	private async Task<string> InitContentFromUrl()
+	{
+		HttpResponseMessage httpResponse = await Http.GetAsync(FromFile);
+		return httpResponse.IsSuccessStatusCode ?
+			await httpResponse.Content.ReadAsStringAsync() : httpResponse.ReasonPhrase;
+	}
+	private string RenderHtmlContent(string value) => Markdig.Markdown.ToHtml(
+		markdown: value,
+		pipeline: new MarkdownPipelineBuilder()
+											.UseBootstrap()
+											.UseAdvancedExtensions()
+											.Build()
+	);
+	@*https://github.com/lunet-io/markdig/tree/master/src/Markdig/Extensions/AutoIdentifiers*@
+}

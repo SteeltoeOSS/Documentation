@@ -1,0 +1,9 @@
+---
+applications:
+- name: steeltoe-docs-prod
+  memory: 512M
+  instances: 1
+  buildpacks:
+    - https://github.com/cloudfoundry/dotnet-core-buildpack.git#v2.3.1
+  #routes:
+  #  - docs.steeltoe.io
