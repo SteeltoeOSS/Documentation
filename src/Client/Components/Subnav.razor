@@ -1,0 +1,33 @@
+﻿@using System.IO
+
+@((MarkupString)content)
+
+@code {
+	[Parameter]
+	public string markdownFolderName { get; set; }
+
+	private string content { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		System.Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory(),"wwwroot"));
+		//Find the folder in /Markdown
+		DirectoryInfo di = new DirectoryInfo("wwwroot/Markdown/" + markdownFolderName);
+		
+		content = await BuildNav(di);
+	}
+
+	private async Task<string> BuildNav(DirectoryInfo parentDir)
+	{
+		string ret = "123";
+		foreach (FileInfo f in parentDir.GetFiles())
+		{
+			ret += BuildNavItem(f.Name, f.Name);
+		}
+		return ret;
+	}
+
+	private string BuildNavItem(string name, string url)
+	{
+		return "<div>&nbsp;&nbsp;<a href=\"" + url + "\">" + name + "</a></div>";
+	}
+}

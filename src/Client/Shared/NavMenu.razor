@@ -1,37 +1,55 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">tmp</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+﻿<div class="row no-gutters">
+	<div class="col overall-get-started-item">
+		<div class="title"><NavLink class="nav-link" href="/service-discovery">Service Discovery</NavLink></div>
+		@*<Subnav markdownFolderName="ServiceDiscovery" />*@
+	</div>
 </div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-    </ul>
+<div class="row no-gutters">
+	<div class="col overall-get-started-item">
+		<div class="title"><NavLink class="nav-link" href="/circuit-breaker">Circuit Breaker</NavLink></div>
+		@*<Subnav markdownFolderName="CircuitBreaker" />*@
+	</div>
+</div>
+<div class="row no-gutters">
+	<div class="col overall-get-started-item">
+		<div class="title"><NavLink class="nav-link" href="/cloud-management">Cloud Management</NavLink></div>
+	</div>
+</div>
+<div class="row no-gutters">
+	<div class="col overall-get-started-item">
+		<div class="title"><NavLink class="nav-link" href="/app-configuration">App Configuration</NavLink></div>
+	</div>
+</div>
+<div class="row no-gutters">
+	<div class="col overall-get-started-item">
+		<div class="title"><NavLink class="nav-link" href="/cloud-management">Cloud Management</NavLink></div>
+	</div>
+</div>
+<div class="row no-gutters">
+	<div class="col overall-get-started-item">
+		<div class="title"><NavLink class="nav-link" href="/service-connectors">Service Connectors</NavLink></div>
+	</div>
+</div>
+<div class="row no-gutters">
+	<div class="col overall-get-started-item">
+		<div class="title"><NavLink class="nav-link" href="/security-providers">Cloud Security Providers</NavLink></div>
+	</div>
+</div>
+<div class="row no-gutters">
+	<div class="col overall-get-started-item">
+		<div class="title"><NavLink class="nav-link" href="/logging">Logging</NavLink></div>
+	</div>
+</div>
+<div class="row no-gutters">
+	<div class="col overall-get-started-item">
+		<div class="title"><NavLink class="nav-link" href="/network-file-sharing">Network File Sharing</NavLink></div>
+	</div>
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+	//protected override async Task OnInitializedAsync()
+	//{
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+	//}
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
 }
