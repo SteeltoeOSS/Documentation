@@ -6,7 +6,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: dotnet publish './src/Server/Steeltoe.Docs.csproj' --output './publish' --configuration Release --framework netcoreapp3.0 --runtime linux-x64 --self-contained
+- script: dotnet publish './src/Server/Steeltoe.Server.csproj' --output './publish' --configuration Release --framework netcoreapp3.0 --runtime linux-x64 --self-contained
 
 - task: CopyFiles@2
   inputs:
