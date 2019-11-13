@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steeltoe.Shared", "Shared\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steeltoe.Server", "Server\Steeltoe.Server.csproj", "{DE1BFD0E-403F-4448-B7D9-EE2210473AFB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazored.Menu", "Blazored.Menu\Blazored.Menu.csproj", "{2FAE0153-3327-4FF9-ABE9-405FB32C5411}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -27,6 +29,10 @@ Global
 		{DE1BFD0E-403F-4448-B7D9-EE2210473AFB}.Debug|x64.Build.0 = Debug|Any CPU
 		{DE1BFD0E-403F-4448-B7D9-EE2210473AFB}.Release|x64.ActiveCfg = Release|Any CPU
 		{DE1BFD0E-403F-4448-B7D9-EE2210473AFB}.Release|x64.Build.0 = Release|Any CPU
+		{2FAE0153-3327-4FF9-ABE9-405FB32C5411}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2FAE0153-3327-4FF9-ABE9-405FB32C5411}.Debug|x64.Build.0 = Debug|Any CPU
+		{2FAE0153-3327-4FF9-ABE9-405FB32C5411}.Release|x64.ActiveCfg = Release|Any CPU
+		{2FAE0153-3327-4FF9-ABE9-405FB32C5411}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

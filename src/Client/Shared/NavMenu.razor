@@ -1,55 +1,24 @@
-﻿<div class="row no-gutters">
-	<div class="col overall-get-started-item">
-		<div class="title"><NavLink class="nav-link" href="/service-discovery">Service Discovery</NavLink></div>
-		@*<Subnav markdownFolderName="ServiceDiscovery" />*@
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col overall-get-started-item">
-		<div class="title"><NavLink class="nav-link" href="/circuit-breaker">Circuit Breaker</NavLink></div>
-		@*<Subnav markdownFolderName="CircuitBreaker" />*@
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col overall-get-started-item">
-		<div class="title"><NavLink class="nav-link" href="/cloud-management">Cloud Management</NavLink></div>
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col overall-get-started-item">
-		<div class="title"><NavLink class="nav-link" href="/app-configuration">App Configuration</NavLink></div>
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col overall-get-started-item">
-		<div class="title"><NavLink class="nav-link" href="/cloud-management">Cloud Management</NavLink></div>
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col overall-get-started-item">
-		<div class="title"><NavLink class="nav-link" href="/service-connectors">Service Connectors</NavLink></div>
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col overall-get-started-item">
-		<div class="title"><NavLink class="nav-link" href="/security-providers">Cloud Security Providers</NavLink></div>
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col overall-get-started-item">
-		<div class="title"><NavLink class="nav-link" href="/logging">Logging</NavLink></div>
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col overall-get-started-item">
-		<div class="title"><NavLink class="nav-link" href="/network-file-sharing">Network File Sharing</NavLink></div>
-	</div>
-</div>
+﻿
+@inject System.Net.Http.HttpClient Http
+@using System.Diagnostics
+@using Blazored.Menu
+
+@if (MenuBuilder == null)
+{
+
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<BlazoredMenu MenuBuilder="@MenuBuilder" />
+}
 
 @code {
-	//protected override async Task OnInitializedAsync()
-	//{
+	MenuBuilder MenuBuilder;
 
-	//}
-
+	protected override async Task OnInitializedAsync()
+	{
+		MenuItem[] menuItems = await Http.GetJsonAsync<MenuItem[]>("Markdown/toc.json");
+		MenuBuilder = new MenuBuilder(menuItems.ToList());
+	}
 }

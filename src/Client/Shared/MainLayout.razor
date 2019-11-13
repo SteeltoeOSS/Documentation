@@ -1,8 +1,9 @@
 ﻿@inherits LayoutComponentBase
 
-<header class="sticky-top bg-white" style="box-shadow: 0 0 20px -4px #eeeeee;">
-	<SiteHeader />
-</header>
+@*<header class="sticky-top bg-white" style="box-shadow: 0 0 20px -4px #eeeeee;">
+		<SiteHeader />
+	</header>*@
+
 <div id="main">
 	<div class="width-all">
 		<div class="width-90 container">
@@ -17,10 +18,17 @@
 		</div>
 	</div>
 </div>
-<footer>
-	<SiteFooter />
-</footer>
+@*<footer>
+		<SiteFooter />
+	</footer>*@
 
 @code {
-	
+	protected override async Task OnInitializedAsync()
+	{
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstrun)
+	{
+
+	}
 }

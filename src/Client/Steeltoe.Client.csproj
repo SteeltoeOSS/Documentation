@@ -22,6 +22,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\Blazored.Menu\Blazored.Menu.csproj" />
     <ProjectReference Include="..\Shared\Steeltoe.Shared.csproj" />
   </ItemGroup>
   
@@ -36,8 +37,6 @@
     </Content>
   </ItemGroup>
   
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4markdown_4toc_1json__JsonSchema="http://json-schema.org/draft-04/schema" /></VisualStudio></ProjectExtensions>
 
 </Project>

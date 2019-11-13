@@ -1,0 +1,230 @@
+﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,800&display=swap');
+
+/* DEVELOP WIDTH = 1400px */
+html, body {
+	font-family: 'Raleway', sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+
+/*=====================CONTAINER SIZING===================== */
+.width-90 {
+	max-width: 90%;
+}
+
+.width-80 {
+	max-width: 80%;
+}
+
+.width-75 {
+	max-width: 75%;
+}
+
+.width-70 {
+	max-width: 70%;
+}
+
+.width-60 {
+	max-width: 60%;
+}
+
+.width-55 {
+	max-width: 55%;
+}
+
+.width-50 {
+	max-width: 50%;
+}
+.width-all {
+	max-width: 100%;
+}
+@media (min-width: 1400px) {
+	.width-90 {
+		max-width: 1400px;
+	}
+
+	.width-80 {
+		max-width: 80%;
+	}
+
+	.width-75 {
+		max-width: 75%;
+	}
+
+	.width-70 {
+		max-width: 1120px;
+	}
+
+	.width-60 {
+		max-width: 960px;
+	}
+
+	.width-55 {
+		max-width: 55%;
+	}
+
+	.width-50 {
+		max-width: 50%;
+	}
+
+	.width-all {
+		max-width: 100%;
+	}
+}
+/*=====================FONT COLORS===================== */
+.yellow {
+	color: #ffd700;
+}
+
+.grey {
+	color: #373737;
+}
+
+.black {
+	color: black;
+}
+
+.steeltoe-blue {
+	color: #0066cc;
+}
+
+.midnight-blue {
+	color: #00376e;
+}
+/* =====================BOOTSTRAP OVERRIDE===================== */
+.row {
+	width: 100%;
+}
+
+.hide {
+	display: none;
+}
+
+.container {
+	padding: 0;
+}
+/* =====================HTML ELEMENT OVERRIDE===================== */
+pre {
+	background-color: #242937;
+	border: 0; /*1px solid #373737;*/
+	overflow: inherit;
+	padding: 15px;
+	margin-left: 0;
+	font-size: 83%;
+	color: white;
+	tab-size: 4;
+	overflow-x: scroll;
+}
+
+code.inline, code.inline-no-ps {
+	display: block;
+	margin: 10px 0 10px 0;
+	background-color: #fff0b3;
+	color: black;
+	padding: 5px 15px 5px 15px;
+	font-size: 83%;
+}
+
+code.inline:before {
+	content: "PS C:\\>";
+	display: inline-block;
+	padding-right: 5px;
+}
+
+ol {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 250%;
+}
+
+h2 {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 200%;
+}
+
+h3 {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 150%;
+}
+
+h4 {
+	font-style: normal;
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+	color: #0066cc;
+}
+
+/* =========================NAVIGATION======================== */
+ul.blazored-menu li {
+	list-style: none;
+}
+ul.blazored-menu li a {
+	cursor: pointer;
+}
+ul.blazored-menu li a.active {
+	color: #333;
+}
+li.blazored-sub-menu-header {
+	color: #303030;
+	position: relative;
+	cursor: pointer;
+	transition: 0.3s;
+}
+li.blazored-sub-menu-header div:hover {
+	color: #3371e3;
+}
+.blazored-sub-menu-header div::before {
+	content: "";
+	position: absolute;
+	top: 10px;
+	left: -13px;
+	border-style: solid;
+	border-width: 5px 0 5px 8px;
+	border-color: transparent transparent transparent #3371e3;
+	transform: rotate(0deg);
+	transition: 0.3s;
+}
+.blazored-sub-menu-header.open div::before {
+	transform: rotate(90deg);
+}
+.blazored-sub-menu {
+	display: none;
+	list-style: none;
+}
+.blazored-sub-menu-header.open .blazored-sub-menu {
+	display: block;
+}
+.blazored-sub-menu .blazored-sub-menu-header .blazored-sub-menu {
+	display: none;
+	list-style: none;
+}
+.blazored-sub-menu .blazored-sub-menu-header.open .blazored-sub-menu {
+	display: block;
+}
+.blazored-sub-menu .blazored-sub-menu-header div::before {
+	content: "";
+	position: absolute;
+	top: 10px;
+	left: -13px;
+	border-style: solid;
+	border-width: 5px 0 5px 8px;
+	border-color: transparent transparent transparent #3371e3;
+	transform: rotate(0deg);
+	transition: 0.3s;
+}
+.blazored-sub-menu .blazored-sub-menu-header.open div::before {
+	transform: rotate(90deg);
+}
