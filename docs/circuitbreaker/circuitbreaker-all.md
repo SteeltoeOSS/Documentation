@@ -1,6 +1,3 @@
-# Circuit Breaker
---------------------------
-
 The Steeltoe Circuit Breaker framework provides applications with an implementation of the Circuit Breaker pattern. Cloud-native architectures  typically consist of multiple layers of distributed services. End-user requests may require multiple calls to these services, and failures in lower-level services can spread to other dependent services and cascade up to the end user. Heavy traffic to a failing service can also make it difficult to repair. By using Circuit Breaker frameworks, you can prevent failures from cascading and provide fallback behavior until a failing service is restored to normal operation.
 
 ![cb](/images/circuit-breaker-overview.png)
@@ -31,9 +28,30 @@ The Steeltoe Hystrix framework supports the following .NET application types:
 * ASP.NET Core
 * Console apps (.NET Framework and .NET Core)
 
-The source code for the Steeltoe Circuit Breaker libraries can be found [here](https://github.com/SteeltoeOSS/steeltoe/tree/master/src/CircuitBreaker).
+The source code for the Steeltoe Circuit Breaker libraries can be found [here](https://github.com/SteeltoeOSS/CircuitBreaker).
 
-##  Add NuGet References
+## Usage
+
+You should have a good understanding of how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the Hystrix framework. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the framework.
+
+You should also have a good understanding of how the [ASP.NET Core Startup class](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) is used in configuring the application services and the middleware used in the app. You should pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
+
+In addition to the information below, review the [Netflix Hystrix Wiki](https://github.com/Netflix/Hystrix/wiki). The Steeltoe Hystrix framework implementation aligns closely with the Netflix implementation. Consequently, the Wiki information applies directly to Steeltoe.
+
+If you plan to use the Hystrix Dashboard, you should also spend time understanding the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard) information on the wiki.
+
+To use the Steeltoe framework:
+
+* Add Hystrix NuGet package references to your project
+* Define Hystrix Command(s) and/or Hystrix Collapser(s)
+* Configure Hystrix settings
+* Add Hystrix Command(s) and/or Collapser(s) to the container
+* Use Hystrix Command(s) and/or Collapser(s) to invoke dependent services
+* Add and Use the Hystrix metrics stream service
+
+>NOTE: Most of the code in the following sections is based on using Hystrix in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/CircuitBreaker) for example code you can use.
+
+### Add NuGet References
 
 There are two types of NuGet references to consider with when adding Hystrix to your application.
 
@@ -134,7 +152,7 @@ public class HelloWorldCommand : HystrixCommand<string>
 
 It's important to understand that `HystrixCommands` are stateful objects. Once they have been run, they can no longer be reused. If you want to execute a command again, you must create another instance (for example, `new MyCommand()`) and call one of the execute methods again.
 
-###  Command Settings
+### Command Settings
 
 Each Hystrix command that you define can be individually configured by using normal .NET configuration services. You can specify everything from thread pool sizes and command time-outs to circuit-breaker thresholds.
 
@@ -151,7 +169,7 @@ All Hystrix command settings should be prefixed with `hystrix:command:`.
 
 `hystrix:command:default:execution:isolation:thread:timeoutInMilliseconds=750`
 
-To configure the settings for a command in code, use [`HystrixCommandOptions`](https://github.com/SteeltoeOSS/steeltoe/blob/master/src/CircuitBreaker/src/HystrixBase/HystrixCommandOptions.cs) from the `Steeltoe.CircuitBreaker.HystrixBase` package. More information on how to use this type can be found under[Add Commands](#add-commands) and [Use Commands](#use-commands).
+To configure the settings for a command in code, use [`HystrixCommandOptions`](https://github.com/SteeltoeOSS/CircuitBreaker/blob/master/src/Steeltoe.CircuitBreaker.HystrixBase/HystrixCommandOptions.cs) from the `Steeltoe.CircuitBreaker.HystrixBase` package. More information on how to use this type can be found under[Add Commands](#1-2-7-add-commands) and [Use Commands](#1-2-8-use-commands).
 
 All configured command-specific settings, as described earlier in #4, should be prefixed with `hystrix:command:HYSTRIX_COMMAND_KEY:`, where `HYSTRIX_COMMAND_KEY` is the `name` of the command. The following example configures the timeout for the Hystrix command with a name of `sample` to be 750 milliseconds:
 
@@ -189,7 +207,7 @@ Each setting is prefixed with a key of `fallback`, as shown in the following exa
 
 `hystrix:command:sample:fallback:enabled=false`
 
-####  Circuit Breaker
+#### Circuit Breaker
 
 The following table describes the settings that control the behavior of the default Circuit Breaker used by Hystrix commands:
 
@@ -279,7 +297,7 @@ All configured global settings, as described earlier in #2, should be placed und
 
 `hystrix:threadpool:default:coreSize=20`
 
-To configure the settings for a thread pool in code, use the [`HystrixThreadPoolOptions`](https://github.com/SteeltoeOSS/steeltoe/blob/master/src/CircuitBreaker/src/HystrixBase/HystrixThreadPoolOptions.cs) type found in the `Steeltoe.CircuitBreaker.HystrixBase` package.
+To configure the settings for a thread pool in code, use the [`HystrixThreadPoolOptions`](https://github.com/SteeltoeOSS/CircuitBreaker/blob/master/src/Steeltoe.CircuitBreaker.HystrixBase/HystrixThreadPoolOptions.cs) type found in the `Steeltoe.CircuitBreaker.HystrixBase` package.
 
 All configured pool-specific settings, as described in #4 above, should be placed under a prefix of `hystrix:threadpool:HYSTRIX_THREADPOOL_KEY:`, where `HYSTRIX_THREADPOOL_KEY` is the `name` of the thread pool. Note that the default name of the thread pool used by a command, if not overridden, is the command group name applied to the command. The following example configures the number of threads for the Hystrix thread pool with a `name` of `sample` to be 40:
 
@@ -645,7 +663,7 @@ public class FortuneServiceCollapser  : HystrixCollapser<List<Fortune>, Fortune,
 
 Notice that `FortuneServiceCollapser` inherits from `HystrixCollapser<List<Fortune>, Fortune, int>`. It is a collapser that returns results of type `List<Fortune>`. Further notice that the constructor has `IHystrixCollapserOptions` as a first argument and that you can add additional constructor arguments. However, the first argument must be a `IHystrixCollapserOptions`.
 
-###  Use Collapsers
+### Use Collapsers
 
 You can use Hystrix collapsers in a similar way to the way you use Hystrix commands. If you add the collapser to the service container, you can inject it into any controller, view, or other services created by the container.
 
@@ -895,84 +913,3 @@ Once you have performed the steps described earlier and you have made the change
 1. Open a browser and connect to the Pivotal Apps Manager.
 1. Follow [these instructions](https://docs.pivotal.io/spring-cloud-services/1-3/common/circuit-breaker/using-the-dashboard.html) to open the Hystrix Dashboard service.
 1. Use your application and see the metrics begin to flow.
-
-# Common Steps
-
-This section contains snippets of commands that you are likely to use repeatedly for common tasks.
-
-## Publish Sample
-
-### ASP.NET Core
-
-Use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish) the application for the framework and runtime you will deploy the application to:
-
-* Linux with .NET Core: `dotnet publish -f netcoreapp2.1 -r ubuntu.14.04-x64`
-* Windows with .NET Core: `dotnet publish -f netcoreapp2.1 -r win10-x64`
-* Windows with .NET Platform: `dotnet publish -f net461 -r win10-x64`
-
->NOTE: Starting with .NET Core 2.0, the `dotnet publish` command will automatically restore dependencies for you. Running `dotnet restore` explicitly is not generally required.
-
-### ASP.NET 4.x
-
-1. Open the solution for the sample in Visual Studio
-1. Right click on the project, select "Publish"
-1. Use the included `FolderProfile` to publish to `bin/Debug/net461/win10-x64/publish`
-
-## Push Sample
-
-Use the Cloud Foundry CLI to push the published application to Cloud Foundry using the parameters that match what you selected for framework and runtime:
-
-```bash
-# Push to Linux cell
-cf push -f manifest.yml -p bin/Debug/netcoreapp2.1/ubuntu.14.04-x64/publish
-
-# Push to Windows cell, .NET Core
-cf push -f manifest-windows.yml -p bin/Debug/netcoreapp2.1/win10-x64/publish
-
-# Push to Windows cell, .NET Framework
-cf push -f manifest-windows.yml -p bin/Debug/net461/win10-x64/publish
-```
-
-Manifest file names may vary, some samples use a different manifest for .NET 4 vs .NET Core.
-
->NOTE: All sample manifests have been defined to bind their application to their services, as created earlier.
-
-## Reading Configuration Values
-
-Once settings have been defined, the next step is to read them so that they can be made available.
-
-The following code reads settings from the `appsettings.json` file with the .NET JSON configuration provider (`AddJsonFile("appsettings.json"))` and from `VCAP_SERVICES` with `AddCloudFoundry()`:
-
-```csharp
-public class Program {
-    ...
-    public static IWebHost BuildWebHost(string[] args)
-    {
-        return new WebHostBuilder()
-            ...
-            .UseCloudFoundryHosting()
-            ...
-            .ConfigureAppConfiguration((builderContext, configBuilder) =>
-            {
-                var env = builderContext.HostingEnvironment;
-                configBuilder.SetBasePath(env.ContentRootPath)
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                    .AddEnvironmentVariables()
-                    // Add to configuration the Cloudfoundry VCAP settings
-                    .AddCloudFoundry();
-            })
-            .Build();
-    }
-    ...
-```
-
-Both sources are then added to the configuration builder.
-
-When pushing the application to Cloud Foundry, the settings from service bindings merge with the settings from other configuration mechanisms (such as `appsettings.json`).
-
-If there are merge conflicts, the last provider added to the Configuration take precedence and overrides all others.
-
-To manage application settings centrally instead of with individual files, use [Steeltoe Configuration](/docs/steeltoe-configuration) and a tool such as [Spring Cloud Config Server](https://github.com/spring-cloud/spring-cloud-config).
-
->NOTE: If you use the Spring Cloud Config Server, `AddConfigServer()` automatically calls `AddCloudFoundry()` for you.
