@@ -1,37 +1,60 @@
 ﻿@inherits BlazoredSubMenuBase
 @using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Routing
 
-  <li class="@CssString" disabled="@(!IsEnabled)">
-    @if (HeaderTemplate != null)
-    {
-        <div role="button" tabindex="0" @onclick="ToggleSubMenu" @onkeydown="KeyDownHandler">@HeaderTemplate</div>
-    }
-    else
-    {
-		<div role="button" tabindex="0" @onclick="ToggleSubMenu" @onkeydown="KeyDownHandler">@Header</div>
-        }
+<li class="@CssString" disabled="@(!IsEnabled)">
+	@if (HeaderTemplate != null)
+	{
+		<div role="button" tabindex="0">
+			@if (Link != null)
+			{
+				<NavLink href="@Link" class="">@HeaderTemplate</NavLink>
+			}
+			else
+			{
+				@HeaderTemplate
+			}
+		</div>
+	}
+	else
+	{
+		<div role="button" tabindex="0" @onclick="ToggleSubMenu" @onkeydown="KeyDownHandler">
+			@if (Link != null && !IsOpen)
+			{
+				<NavLink href="@Link" class="" Match="@Match">@Header</NavLink>
+			}
+			else
+			{
+				<NavLink href="@Link" class="disabled" Match="@Match">@Header</NavLink>
+			}
+		</div>
+	}
 
-        <ul class="blazored-sub-menu">
-            @if (MenuTemplate != null)
-            {
-                @MenuTemplate
-						}
-						else
-						{
-							foreach (var item in MenuItems)
-							{
-								if (!item.IsVisible)
-									continue;
+	<ul class="blazored-sub-menu">
+		@if (MenuTemplate != null)
+		{
+			@MenuTemplate
+		}
+		else
+		{
+			foreach (var item in MenuItems)
+			{
+				if (!item.IsVisible)
+					continue;
 
-								 @if (item.MenuItems != null && item.IsVisible)
-                {
-                  <BlazoredSubMenu Header="@item.Title" IsEnabled="@item.IsEnabled" MenuItems="@item.MenuItems" Css="" />
-                }
-                else if (item.IsVisible)
-                {
-                    <BlazoredMenuItem MenuItem="@item" IsEnabled="@item.IsEnabled" />
-                }
-							}
-						}
-        </ul>
-    </li>
+				@if (item.MenuItems != null && item.IsVisible)
+				{
+					<BlazoredSubMenu MatchLink="@item.MatchLink" Link="@item.Link" Header="@item.Title" IsEnabled="@item.IsEnabled" MenuItems="@item.MenuItems" Css="" />
+				}
+				else if (item.IsVisible)
+				{
+					<BlazoredMenuItem MenuItem="@item" IsEnabled="@item.IsEnabled" />
+				}
+			}
+		}
+	</ul>
+</li>
+
+@code {
+	
+}

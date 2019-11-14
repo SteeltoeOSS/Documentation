@@ -6,11 +6,11 @@
 @if (MenuBuilder == null)
 {
 
-	<p><em>Loading...</em></p>
+	<p><em>...</em></p>
 }
 else
 {
-	<BlazoredMenu MenuBuilder="@MenuBuilder" />
+	<BlazoredMenu Css="sticky-top" MenuBuilder="@MenuBuilder" />
 }
 
 @code {

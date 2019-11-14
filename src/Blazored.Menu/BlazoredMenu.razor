@@ -16,7 +16,7 @@ else
             {
                 @if (item.MenuItems != null && item.IsVisible)
                 {
-                    <BlazoredSubMenu Header="@item.Title" IsEnabled="@item.IsEnabled" MenuItems="@item.MenuItems" />
+                    <BlazoredSubMenu Link="@item.Link" Header="@item.Title" IsEnabled="@item.IsEnabled" MenuItems="@item.MenuItems" MatchLink="@item.MatchLink" />
                 }
                 else if (item.IsVisible)
                 {

@@ -177,6 +177,9 @@ ul.blazored-menu li a {
 ul.blazored-menu li a.active {
 	color: #333;
 }
+ul.blazored-sub-menu {
+	padding-left: 15px;
+}
 li.blazored-sub-menu-header {
 	color: #303030;
 	position: relative;
@@ -227,4 +230,15 @@ li.blazored-sub-menu-header div:hover {
 }
 .blazored-sub-menu .blazored-sub-menu-header.open div::before {
 	transform: rotate(90deg);
+}
+div[role=button] a.active,
+.blazored-sub-menu li a.active {
+	background-color: #dddddd;
+}
+
+.blazored-sub-menu .blazored-sub-menu-header.open .blazored-sub-menu li a.active {
+	background-color: white;
+}
+.blazored-sub-menu .blazored-sub-menu-header.open .blazored-sub-menu li a.active::before {
+	content: ">";
 }

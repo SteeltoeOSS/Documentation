@@ -1,4 +1,0 @@
-# Discovery
---------------------------
-
-All about it

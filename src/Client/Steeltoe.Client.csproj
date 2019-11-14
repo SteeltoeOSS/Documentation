@@ -23,6 +23,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Blazored.Menu\Blazored.Menu.csproj" />
+    <ProjectReference Include="..\DevExpress.Blazor.AnchorUtils\DevExpress.Blazor.AnchorUtils.csproj" />
     <ProjectReference Include="..\Shared\Steeltoe.Shared.csproj" />
   </ItemGroup>
   
