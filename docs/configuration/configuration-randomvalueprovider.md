@@ -18,13 +18,13 @@ You can also use the generator together with property placeholders. For example,
 
 ```json
 {
-    "my" : {
-        "secret" = "${random:value}",
-        "number" = "${random:int}",
-        "big_number" = "${random:long}",
-        "uuid" = "${random:uuid}",
-        "number_less_than_ten" = "${random:int(10)}",
-        "number_in_range" = "${random:int[1024,65536]}"
+    "my": {
+        "secret": "${random:value}",
+        "number": "${random:int}",
+        "big_number": "${random:long}",
+        "uuid": "${random:uuid}",
+        "number_less_than_ten": "${random:int(10)}",
+        "number_in_range": "${random:int[1024,65536]}"
     }
 }
 ```

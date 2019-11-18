@@ -13,9 +13,7 @@ A simple way to use the registry to lookup services is to use the Steeltoe `Disc
 This `FortuneService` class retrieves fortunes from the Fortune microservice, which is registered under a name of `fortuneService`:
 
 ```csharp
-using Pivotal.Discovery.Client;
-// or
-// using Steeltoe.Discovery.Client;
+using Steeltoe.Discovery.Client;
 
 ...
 public class FortuneService : IFortuneService

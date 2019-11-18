@@ -48,25 +48,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var host = new WebHostBuilder()
-            .UseKestrel()
-            .UseCloudFoundryHosting()
-            .UseContentRoot(Directory.GetCurrentDirectory())
-            .UseIISIntegration()
+        var host = WebHost.CreateDefaultBuilder(args)
             .UseStartup<Startup>()
-            .UseApplicationInsights()
-            .ConfigureAppConfiguration((builderContext, config) =>
-            {
-                config.SetBasePath(builderContext.HostingEnvironment.ContentRootPath)
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    .AddJsonFile($"appsettings.{builderContext.HostingEnvironment.EnvironmentName}.json", optional: true)
-                    .AddCloudFoundry()
-                    .AddEnvironmentVariables();
-            })
             .ConfigureLogging((builderContext, loggingBuilder) =>
             {
-                loggingBuilder.AddConfiguration(builderContext.Configuration.GetSection("Logging"));
-
                 // Add Steeltoe Dynamic Logging provider
                 loggingBuilder.AddDynamicConsole();
             })

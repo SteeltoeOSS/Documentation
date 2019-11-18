@@ -76,7 +76,7 @@ Configuration = builder.Build();
 
 ```
 
-When developing an ASP.NET Core application, you can do the same thing by using the `AddCloudFoundry()` extension method on the `IWebHostBuilder`. The following example shows how to do so:
+When developing a .NET Core application, you can do the same thing by using the `AddCloudFoundry()` extension method for either the `IWebHostBuilder` or Generic `IHostBuilder`. The following example shows how to do so:
 
 ```csharp
 public class Program

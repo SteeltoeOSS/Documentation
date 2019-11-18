@@ -82,7 +82,7 @@ Configuration = builder.Build();
 
 ```
 
-The following example shows how to add to the `IWebHostBuilder`:
+Extensions are also provided for quick addition to both `IHostBuilder` and `IWebHostBuilder`. Their usage is identical - the following example shows how to add to the `IWebHostBuilder`:
 
 ```csharp
 public class Program
@@ -94,7 +94,6 @@ public class Program
     public static IWebHost BuildWebHost(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
             .UseCloudFoundryHosting()
-
             .AddPlaceholderResolver()
             .UseStartup<Startup>()
             .Build();

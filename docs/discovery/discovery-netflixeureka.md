@@ -206,7 +206,6 @@ Sometimes, it is desirable to turn on debug logging in the Eureka client. To do 
     "IncludeScopes": false,
     "LogLevel": {
       "Default": "Information",
-      "Pivotal": "Debug",
       "Steeltoe":  "Debug"
     }
   }

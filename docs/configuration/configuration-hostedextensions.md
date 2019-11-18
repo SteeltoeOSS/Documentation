@@ -1,6 +1,6 @@
 # Hosting Extensions
 
-Many cloud hosting providers, including Pivotal Cloud Foundry, dynamically provide port numbers at runtime. For ASP.NET Core applications, Steeltoe provides an extension method for `IWebHostBuilder` named `UseCloudFoundryHosting` that will automatically use the environment variable `PORT` (when present) to set the address the application is listening on. This sample illustrates basic usage:
+Many cloud hosting providers, including Pivotal Cloud Foundry, dynamically provide port numbers at runtime. For ASP.NET Core applications, Steeltoe provides an extension method for both `IWebHostBuilder` and `IHostBuilder` named `UseCloudFoundryHosting` that will automatically use the environment variable `PORT` (when present) to set the address the application is listening on. This sample illustrates basic usage:
 
 ```csharp
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

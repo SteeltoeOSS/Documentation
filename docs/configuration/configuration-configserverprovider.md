@@ -23,7 +23,7 @@ In addition to the Quick Start below, there are several other Steeltoe sample ap
 
 The source code for this provider can be found [here](https://github.com/SteeltoeOSS/Configuration).
 
->IMPORTANT: The `Pivotal.Extensions.Configuration.ConfigServer*` packages have been deprecated in Steeltoe 2.2 and will be removed in a future release.  All functionality provided in those packages has been pushed into the corresponding `Steeltoe.Extensions.Configuration.ConfigServer*` packages.
+>IMPORTANT: The `Pivotal.Extensions.Configuration.ConfigServer*` packages have been deprecated in Steeltoe 2.2 and are not included in future releases.  All functionality provided in those packages has been pushed into the corresponding `Steeltoe.Extensions.Configuration.ConfigServer*` packages.
 
 ## Usage
 
@@ -74,26 +74,6 @@ To add this type of NuGet to your project, add a `PackageReference` that resembl
 ...
 </ItemGroup>
 ```
-
-If you plan to connect to the open source version of [Spring Cloud Config Server](https://projects.spring.io/spring-cloud/) and you plan to push your application to Cloud Foundry to use [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/index.html), you should use one of the packages described in the following table, depending on your application type and needs:
-
-|App Type|Package|Description|
-|---|---|---|
-|Console/ASP.NET 4.x|`Pivotal.Extensions.Configuration.ConfigServerBase`|Base functionality. No dependency injection.|
-|ASP.NET Core|`Pivotal.Extensions.Configuration.ConfigServerCore`|Includes base. Adds ASP.NET Core dependency injection.|
-|ASP.NET 4.x with Autofac|`Pivotal.Extensions.Configuration.ConfigServerAutofac`|Includes base. Adds Autofac dependency injection.|
-
-To add this type of NuGet to your project add a `PackageReference` similar to the following:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Pivotal.Extensions.Configuration.ConfigServerCore" Version= "2.1.0"/>
-...
-</ItemGroup>
-```
-
->IMPORTANT: The `Pivotal.Extensions.Configuration.ConfigServer*` packages have been deprecated in Steeltoe 2.2 and will be removed in a future release.  All functionality provided in those packages has been pushed into the corresponding `Steeltoe.Extensions.Configuration.ConfigServer*` packages.
 
 ### 2.2.2 Configure Settings
 
@@ -182,7 +162,7 @@ var config = builder.Build();
 ...
 ```
 
-When developing an ASP.NET Core application, you can accomplish the same thing by using the `AddConfigServer()` extension method on the `IWebHostBuilder`. The following example shows how to do so:
+When developing a .NET Core application, you can accomplish the same thing by using the `AddConfigServer()` extension method for either the `IWebHostBuilder` or Generic `IHostBuilder`. The following example shows how to do so:
 
 ```csharp
 public class Program

@@ -102,7 +102,6 @@ Sometimes, it is desirable to turn on debug logging. To do that simply add the f
     "IncludeScopes": false,
     "LogLevel": {
       "Default": "Information",
-      "Pivotal": "Debug",
       "Steeltoe":  "Debug"
     }
   }

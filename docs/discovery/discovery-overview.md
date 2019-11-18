@@ -12,8 +12,6 @@ In order to use any Steeltoe Discovery client, you need to do the following:
 
 >NOTE: The Steeltoe Discovery implementation (for example: the decision between Eureka and Consul) is automatically setup within the application based on the application configuration provided.
 
->IMPORTANT: The `Pivotal.Discovery.*` packages have been deprecated in Steeltoe 2.2 and will be removed in a future release.  All functionality provided in those packages has been pushed into the corresponding `Steeltoe.Discovery.*` packages.
-
 ## Add NuGet References
 
 <!-- TODO: review this section, its not completely correct -->
@@ -35,4 +33,3 @@ To add this type of NuGet to your project, add an element resembling the followi
 ...
 </ItemGroup>
 ```
-
