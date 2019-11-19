@@ -6,7 +6,7 @@
 
 @if (MdFileName != null)
 {
-	<Markdown FromFile="@(MdFileName)" />
+	<Markdown FromFile="@(MdFileName+".html")" />
 }
 
 @code {

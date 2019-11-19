@@ -1,0 +1,14 @@
+<h2 id="enable-logging">Enable Logging</h2>
+<p>Sometimes, it is desirable to turn on debug logging in the Discovery client. To do so, you can modify the <code>appsettings.json</code> file and turn on Debug level logging for the Steeltoe components, as shown in the following example:</p>
+<p>Here is an example <code>appsettings.json</code> file:</p>
+<pre><code class="language-json">{
+  &quot;Logging&quot;: {
+    &quot;IncludeScopes&quot;: false,
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Warning&quot;,
+      &quot;Steeltoe&quot;: &quot;Debug&quot;
+    }
+  },
+  ...
+}
+</code></pre>

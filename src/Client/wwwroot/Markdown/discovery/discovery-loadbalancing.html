@@ -1,0 +1,106 @@
+<h2 id="load-balancing">Load Balancing</h2>
+<p>Any time a client needs to select a service instance to send a request to, some mechanism is required for selecting the instance to call. In all mechanisms provided for service discovery in Steeltoe versions before 2.2.0, service instances were selected randomly. <code>Steeltoe.Common</code> 2.2.0 added a new abstraction named <code>ILoadBalancer</code>, which provides configurable load balancing.</p>
+<h3 id="iloadbalancer">ILoadBalancer</h3>
+<p>The <code>ILoadBalancer</code> interface defines two methods:</p>
+<pre><code class="language-csharp">  public interface ILoadBalancer
+  {
+      /// &lt;summary&gt;
+      /// Evaluates a Uri for a host name that can be resolved into a service instance
+      /// &lt;/summary&gt;
+      /// &lt;param name=&quot;request&quot;&gt;A Uri containing a service name that can be resolved into one or more service instances&lt;/param&gt;
+      /// &lt;returns&gt;The original Uri, with serviceName replaced by the host:port of a service instance&lt;/returns&gt;
+      Task&lt;Uri&gt; ResolveServiceInstanceAsync(Uri request);
+
+      /// &lt;summary&gt;
+      /// A mechanism for tracking statistics for service instances
+      /// &lt;/summary&gt;
+      /// &lt;param name=&quot;originalUri&quot;&gt;The original request Uri&lt;/param&gt;
+      /// &lt;param name=&quot;resolvedUri&quot;&gt;The Uri resolved by the load balancer&lt;/param&gt;
+      /// &lt;param name=&quot;responseTime&quot;&gt;The amount of time taken for a remote call to complete&lt;/param&gt;
+      /// &lt;param name=&quot;exception&quot;&gt;Any exception called during calls to a resolved service instance&lt;/param&gt;
+      /// &lt;returns&gt;A task&lt;/returns&gt;
+      Task UpdateStatsAsync(Uri originalUri, Uri resolvedUri, TimeSpan responseTime, Exception exception);
+  }
+</code></pre>
+<p>Any implementation of <code>ILoadBalancer</code> is expected to know how to interact with some form of service discovery mechanism. The included load balancers expect an <code>IServiceInstanceProvider</code> to be available in the DI service container, so they still require configuration of Eureka, Consul or some other mechanism for providing service instances.</p>
+<h3 id="random-load-balancer">Random Load Balancer</h3>
+<p>The <code>RandomLoadBalancer</code>, as the name implies, randomly selects a service instance from all instances that are resolved from a given service name. The <code>ILoadBalancer</code> implementation adds the (optional) ability to cache service instance data, which is useful for <code>IServiceInstanceProvider</code> or <code>IDiscoveryClient</code> implementations that do not provide their own caching (such as the Consul provider). Service instance data caching happens automatically if an <code>IDistributedCache</code> instance is provided via constructor injection.</p>
+<blockquote class="blockquote">
+<p>NOTE: <code>RandomLoadBalancer</code> does not track stats or exceptions. <code>UpdateStatsAsync</code> simply returns <code>Task.CompletedTask</code></p>
+</blockquote>
+<h4 id="using-httpclientfactory">Using HttpClientFactory</h4>
+<p>To add a service registry-backed random load balancer to an <code>HttpClient</code> constructed using <code>HttpClientFactory</code>, you may use the <code>AddRandomLoadBalancer()</code> extension:</p>
+<pre><code class="language-csharp">  services.AddHttpClient(&quot;fortunes&quot;)
+      .AddRandomLoadBalancer()
+</code></pre>
+<blockquote class="blockquote">
+<p>NOTE: This is functionally equivalent to using the default behavior of the <code>DiscoveryHttpMessageHandler</code>, as described <a href="#1-3-2-using-httpclientfactory">above</a></p>
+</blockquote>
+<h4 id="using-an-httpclienthandler">Using an HttpClientHandler</h4>
+<p>The random load balancer can be used with the included <code>HttpClientHandler</code> that works with any <code>ILoadBalancer</code>:</p>
+<pre><code class="language-csharp">  private HttpClient _httpClient;
+  public FortuneService(IDiscoveryClient discoveryClient)
+  {
+      var loadBalancer = new RandomLoadBalancer(discoveryClient);
+      var handler = new LoadBalancerHttpClientHandler(loadBalancer);
+      _httpClient = new HttpClient(handler);
+  }
+</code></pre>
+<h3 id="round-robin-load-balancer">Round Robin Load Balancer</h3>
+<p>The provided round robin load balancer sends traffic to service instances in sequential order, as they are provided by the <code>IServiceInstanceProvider</code>. Like the <code>RandomLoadBalancer</code>, the <code>RoundRobinLoadBalancer</code> also includes the (optional) ability to cache service instances if an <code>IDistributedCache</code> instance is provided via constructor injection. Additionally, when a provided <code>IDistributedCache</code> instance is shared amongst clients (for example: using a shared Redis cache for multiple front-end application instances) the round robin sequence tracking will be shared across clients, ensuring an even load distribution.</p>
+<blockquote class="blockquote">
+<p>NOTE: <code>RoundRobinLoadBalancer</code> does not track stats or exceptions. <code>UpdateStatsAsync</code> simply returns <code>Task.CompletedTask</code></p>
+</blockquote>
+<h4 id="using-with-httpclientfactory">Using with HttpClientFactory</h4>
+<p>To add a service registry-backed round robin load balancer to an <code>HttpClient</code>, you may use the <code>AddRoundRobinLoadBalancer()</code> extension. This example also adds a Redis cache so that regardless of which client service instance makes the call, backend service instances will be called in round robin order:</p>
+<pre><code class="language-csharp">  services.AddDistributedRedisCache(Configuration);
+  services.AddHttpClient(&quot;fortunes&quot;)
+      .AddRoundRobinLoadBalancer()
+</code></pre>
+<h4 id="using-an-httpclienthandler-1">Using an HttpClientHandler</h4>
+<p>The round robin load balancer can be used with the included <code>HttpClientHandler</code> that works with any <code>ILoadBalancer</code>:</p>
+<pre><code class="language-csharp">  private HttpClient _httpClient;
+  public FortuneService(IDiscoveryClient discoveryClient)
+  {
+      var loadBalancer = new RoundRobinLoadBalancer(discoveryClient);
+      var handler = new LoadBalancerHttpClientHandler(loadBalancer);
+      _httpClient = new HttpClient(handler);
+  }
+</code></pre>
+<h3 id="custom-iloadbalancer">Custom ILoadBalancer</h3>
+<p>If the provided load balancer implementations don't suit your needs, you are free to create your own implementation of <code>ILoadBalancer</code>.</p>
+<p>This example shows a load balancer that would always return the first listed instance, no matter what:</p>
+<pre><code class="language-csharp">  private readonly IServiceInstanceProvider _serviceInstanceProvider;
+
+  public FirstInstanceLoadBalancer(IServiceInstanceProvider serviceInstanceProvider)
+  {
+      _serviceInstanceProvider = serviceInstanceProvider;
+  }
+
+  public Task&lt;Uri&gt; ResolveServiceInstanceAsync(Uri request)
+  {
+      var availableServiceInstances = _serviceInstanceProvider.GetInstances(request.Host);
+      return Task.FromResult(new Uri(availableServiceInstances[0].Uri, request.PathAndQuery));
+  }
+
+  public Task UpdateStatsAsync(Uri originalUri, Uri resolvedUri, TimeSpan responseTime, Exception exception)
+  {
+      return Task.CompletedTask;
+  }
+</code></pre>
+<h4 id="usage-with-httpclientfactory">Usage with HttpClientFactory</h4>
+<p>Custom load balancers can be added to the HttpClient pipeline with an included generic extension:</p>
+<pre><code class="language-csharp">    services.AddHttpClient(&quot;fortunes&quot;)
+        .AddLoadBalancer&lt;RandomLoadBalancer&gt;()
+</code></pre>
+<p>With this model, a <code>LoadBalancerDelegatingHandler</code> will expect an <code>ILoadBalancer</code> to be provided via dependency injection, so be sure to add yours to the DI container.</p>
+<h4 id="using-an-httpclienthandler-2">Using an HttpClientHandler</h4>
+<p>Additionally, your custom load balancer can also be used with the included <code>HttpClientHandler</code>. Create an instance of your load balancer, pass it to a <code>LoadBalancerHttpClientHandler</code> and create an <code>HttpClient</code> that uses that handler:</p>
+<pre><code class="language-csharp">  private HttpClient _httpClient;
+  public FortuneService(IDiscoveryClient discoveryClient)
+  {
+      var loadBalancer = new FirstInstanceLoadBalancer(discoveryClient);
+      var handler = new LoadBalancerHttpClientHandler(loadBalancer);
+      _httpClient = new HttpClient(handler);
+  }
+</code></pre>

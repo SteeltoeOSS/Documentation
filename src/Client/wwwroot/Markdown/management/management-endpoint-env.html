@@ -1,0 +1,44 @@
+<h3 id="env">Env</h3>
+<p>The Steeltoe Env endpoint can be used to query and return the configuration values and keys currently in use in your application. The endpoint returns the keys and values from the applications <code>IConfiguration</code>.</p>
+<h4 id="configure-settings">Configure Settings</h4>
+<p>The following table describes the settings that you can apply to the endpoint:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>The ID of the env endpoint</td>
+<td><code>env</code></td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>Whether to enable the env management endpoint</td>
+<td>true</td>
+</tr>
+<tr>
+<td>keysToSanitize</td>
+<td>Keys that should be sanitized. Keys can be simple strings that the property ends with or regex expressions</td>
+<td><code>[&quot;password&quot;, &quot;secret&quot;, &quot;key&quot;, &quot;token&quot;, &quot;.*credentials.*&quot;, &quot;vcap_services&quot;]</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: <strong>Each setting above must be prefixed with <code>management:endpoints:env</code></strong>.</p>
+<h4 id="enable-http-access">Enable HTTP Access</h4>
+<p>The default path to the Env endpoint is computed by combining the global <code>path</code> prefix setting together with the <code>id</code> setting from above. The default path is <code>/env</code>.</p>
+<p>The coding steps you take to enable HTTP access to the Env endpoint differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.</p>
+<h5 id="asp.net-core-app">ASP.NET Core App</h5>
+<p>Refer to the <a href="#http-access-asp-net-core">HTTP Access ASP.NET Core</a> section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.</p>
+<p>To add the Env actuator to the service container, use the <code>AddEnvActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Env/EndpointServiceCollectionExtensions.cs">EndpointServiceCollectionExtensions</a>.</p>
+<p>To add the Env actuator middleware to the ASP.NET Core pipeline, use the <code>UseEnvActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Env/EndpointApplicationBuilderExtensions.cs">EndpointApplicationBuilderExtensions</a>.</p>
+<h5 id="asp.net-4.x-app">ASP.NET 4.x App</h5>
+<p>Refer to the <a href="#http-access-asp-net-4-x">HTTP Access ASP.NET 4.x</a> section below to see the overall steps required to enable HTTP access to endpoints in a 4.x application.</p>
+<p>To add the Env actuator endpoint, use the <code>UseEnvActuator()</code> method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointWeb/ActuatorConfigurator.cs">ActuatorConfigurator</a>.</p>
+<h5 id="asp.net-owin-app">ASP.NET OWIN App</h5>
+<p>Refer to the <a href="#http-access-asp-net-owin">HTTP Access ASP.NET OWIN</a> section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x OWIN application.</p>
+<p>To add the Env actuator middleware to the ASP.NET OWIN pipeline, use the <code>UseEnvActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointOwin/Env/EnvEndpointAppBuilderExtensions.cs">EnvEndpointAppBuilderExtensions</a>.</p>

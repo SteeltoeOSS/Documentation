@@ -1,0 +1,200 @@
+<h1 id="placeholder-provider">Placeholder Provider</h1>
+<p>The Placeholder resolver enables usage of <code>${....}</code> placeholders in your configuration. The provider enables you to define configuration values as placeholders in your configuration and have them resolved to <code>real</code> values at runtime during configuration access.</p>
+<p>A placeholders takes the form of <code>${key:subkey1:subkey2?default_value}</code> where <code>key:subkey1:subkey2</code> represents another key in the configuration. At runtime when you access the key associated with the placeholder the resolver is called to resolve the placeholder key to a value that exists in the configuration.  If a value for the placeholder key is not found, the key will be returned unresolved. If a <code>default_value</code> is specified in the placeholder, then the <code>default_value</code> will returned instead.</p>
+<p>Note that placeholder defaults (for example, <code>default_value</code>) can be defined to be placeholders as well and those will be resolved as well.</p>
+<p>The Placeholder resolver provider supports the following .NET application types:</p>
+<ul>
+<li>ASP.NET (MVC, WebForms, WebAPI, WCF)</li>
+<li>ASP.NET Core</li>
+<li>Console apps (.NET Framework and .NET Core)</li>
+</ul>
+<p>The source code for this provider can be found <a href="https://github.com/SteeltoeOSS/Configuration">here</a>.</p>
+<h2 id="usage">Usage</h2>
+<p>The following sections describe how to use the Placeholder resolver configuration provider:</p>
+<ul>
+<li><a href="#3-2-1-add-nuget-reference">Add NuGet Reference</a></li>
+<li><a href="#3-2-2-add-configuration-provider">Add Configuration Provider</a></li>
+<li><a href="#3-2-3-access-configuration-data">Access Configuration Data</a></li>
+<li><a href="#3-2-4-access-configuration-data-as-options">Access Configuration Data as Options</a></li>
+</ul>
+<p>You should have a good understanding of how the .NET <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration">Configuration services</a> work before starting to use this provider.</p>
+<p>In order to use the Steeltoe Placeholder resolver provider you need to do the following:</p>
+<ol>
+<li>Add a NuGet package reference to your project.</li>
+<li>Add the provider to the Configuration Builder.</li>
+<li>Optionally, configure Options classes by binding configuration data to the classes.</li>
+<li>Inject and use the Options classes or access configuration data directly.</li>
+</ol>
+<blockquote class="blockquote">
+<p>NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the <a href="https://github.com/SteeltoeOSS/Samples/tree/master/Configuration">other samples</a> for example code you can use.</p>
+</blockquote>
+<h3 id="add-nuget-reference">Add NuGet Reference</h3>
+<p>To use the provider, you need to add a reference to the appropriate Steeltoe NuGet based on the type of the application you are building and what Dependency Injector you have chosen, if any. The following table describes the available packages:</p>
+<table class="table">
+<thead>
+<tr>
+<th>App Type</th>
+<th>Package</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Console/ASP.NET 4.x</td>
+<td><code>Steeltoe.Extensions.Configuration.PlaceholderBase</code></td>
+<td>Base functionality. No dependency injection.</td>
+</tr>
+<tr>
+<td>ASP.NET Core</td>
+<td><code>Steeltoe.Extensions.Configuration.PlaceholderCore</code></td>
+<td>Includes base. Adds ASP.NET Core dependency injection.</td>
+</tr>
+</tbody>
+</table>
+<p>To add this type of NuGet to your project, add a <code>PackageReference</code> resembling the following:</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+...
+    &lt;PackageReference Include=&quot;Steeltoe.Extensions.Configuration.PlaceholderCore&quot; Version= &quot;2.2.0&quot;/&gt;
+...
+&lt;/ItemGroup&gt;
+</code></pre>
+<h3 id="add-configuration-provider">Add Configuration Provider</h3>
+<p>In order to have placeholders resolved when accessing your configuration data, you need to add the Placeholder resolver provider to the <code>ConfigurationBuilder</code>.</p>
+<p>There are four different ways in which you can do this.</p>
+<ol>
+<li>Add the resolver using <code>ConfigurationBuilder</code> extension method <code>AddPlaceholderResolver()</code>.</li>
+<li>Add the resolver to an already built configuration using <code>IConfiguration</code> extension method <code>AddPlaceholderResolver()</code>.</li>
+<li>Add the resolver using <code>IWebHostBuilder</code> extension method <code>AddPlaceholderResolver()</code>.</li>
+<li>Use the <code>ConfigurePlaceholderResolver()</code> in <code>ConfigureServices()</code> to add the resolver to the already built <code>IConfiguration</code> and to replace it in the container.</li>
+</ol>
+<p>The following example shows how to add to the <code>ConfigurationBuilder</code>:</p>
+<pre><code class="language-csharp">using Steeltoe.Extensions.Configuration.Placeholder;
+...
+
+var builder = new ConfigurationBuilder()
+    .SetBasePath(env.ContentRootPath)
+    .AddJsonFile(&quot;appsettings.json&quot;, optional: true, reloadOnChange: true)
+    .AddJsonFile($&quot;appsettings.{env.EnvironmentName}.json&quot;, optional: true)
+
+    // Add Placeholder resolver
+    .AddPlaceholderResolver();
+Configuration = builder.Build();
+...
+
+</code></pre>
+<p>Extensions are also provided for quick addition to both <code>IHostBuilder</code> and <code>IWebHostBuilder</code>. Their usage is identical - the following example shows how to add to the <code>IWebHostBuilder</code>:</p>
+<pre><code class="language-csharp">public class Program
+{
+    public static void Main(string[] args)
+    {
+        BuildWebHost(args).Run();
+    }
+    public static IWebHost BuildWebHost(string[] args) =&gt;
+        WebHost.CreateDefaultBuilder(args)
+            .UseCloudFoundryHosting()
+            .AddPlaceholderResolver()
+            .UseStartup&lt;Startup&gt;()
+            .Build();
+}
+</code></pre>
+<blockquote class="blockquote">
+<p>NOTE: It is important to understand that the Placeholder resolver works by wrapping and replacing the existing configuration providers already added to the <code>ConfigurationBuilder</code>. As a result you typically will want to add it as the last provider.</p>
+</blockquote>
+<h3 id="access-configuration-data">Access Configuration Data</h3>
+<p>Once the configuration has been built, the Placeholder resolver will be used to resolve any placeholders as you access your configuration data.  Simply access the configuration data as your normally would and the resolver will attempt to resolve and placeholder before returning the value for the key requested.</p>
+<p>Consider the following <code>appsettings.json</code> file:</p>
+<pre><code class="language-json">{
+    &quot;spring&quot;: {
+        &quot;bar&quot;: {
+            &quot;name&quot;: &quot;myName&quot;
+    },
+      &quot;cloud&quot;: {
+        &quot;config&quot;: {
+            &quot;name&quot; : &quot;${spring:bar:name?no_name}&quot;,
+        }
+      }
+    }
+  ...
+}
+</code></pre>
+<p>When using the normal <code>IConfiguration</code> indexer to access the configuration you will see the Placeholder resolver do its thing:</p>
+<pre><code class="language-csharp">var config = builder.Build();
+
+Assert.Equal(&quot;myName&quot;, config[&quot;spring:cloud:config:name&quot;]);
+...
+</code></pre>
+<h3 id="access-configuration-data-as-options">Access Configuration Data as Options</h3>
+<p>Alternatively, instead of accessing the configuration data directly from the configuration, you can also use the .NET <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration">Options</a> framework together with placeholders.</p>
+<p>First, consider the following <code>appsettings.json</code> and <code>appsettings.Development.json</code> files:</p>
+<pre><code class="language-json">// appsettings.json
+{
+  &quot;Logging&quot;: {
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Warning&quot;
+    }
+  },
+  &quot;AllowedHosts&quot;: &quot;*&quot;,
+  &quot;ResolvedPlaceholderFromEnvVariables&quot;: &quot;${PATH?NotFound}&quot;,
+  &quot;UnresolvedPlaceholder&quot;: &quot;${SomKeyNotFound?NotFound}&quot;,
+  &quot;ResolvedPlaceholderFromJson&quot;: &quot;${Logging:LogLevel:System?${Logging:LogLevel:Default?NotFound}}&quot;
+}
+// appsettings.Development.json
+{
+  &quot;Logging&quot;: {
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Debug&quot;,
+      &quot;System&quot;: &quot;Information&quot;,
+      &quot;Microsoft&quot;: &quot;Information&quot;
+    }
+  }
+}
+</code></pre>
+<p>Notice <code>ResolvedPlaceholderFromEnvVariables</code> uses a placeholder that references the <code>PATH</code> environment variable which is added to the configuration by the default Web host builder.
+Also notice <code>ResolvedPlaceholderFromJson</code> uses a placeholder that references keys that come from the <code>.json</code> configuration files.</p>
+<p>Next, add the Placeholder resolver to the <code>IWebHostBuilder</code> in <code>Program.cs</code> or in any of the other ways described above:</p>
+<pre><code class="language-csharp">using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Steeltoe.Extensions.Configuration.PlaceholderCore;
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateWebHostBuilder(args).Build().Run();
+    }
+
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;
+        WebHost.CreateDefaultBuilder(args)
+
+            // Add Steeltoe Placeholder resolver to apps configuration providers
+            .AddPlaceholderResolver()
+            .UseStartup&lt;Startup&gt;();
+}
+</code></pre>
+<p>Then to use the configuration and the added Placeholder resolver together with your Options classes simply configure the Options as you normally would.</p>
+<pre><code class="language-csharp">
+// Options class
+public class SampleOptions
+{
+        public string ResolvedPlaceholderFromEnvVariables { get; set; }
+        public string UnresolvedPlaceholder { get; set; }
+        public string ResolvedPlaceholderFromJson { get; set; }
+}
+
+// Startup.cs
+public class Startup
+{
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Setup Options framework with DI
+        services.AddOptions();
+
+        // Configure the SampleOptions class with configuration data
+        services.Configure&lt;SampleOptions&gt;(Configuration);
+    }
+    ....
+}
+</code></pre>

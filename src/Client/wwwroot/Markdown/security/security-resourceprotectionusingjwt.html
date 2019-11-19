@@ -1,0 +1,361 @@
+<h1 id="resource-protection-using-jwt">Resource Protection using JWT</h1>
+<p>This provider lets you control access to REST resources by using JWT tokens issued by Cloud Foundry Security services (such as <a href="https://github.com/cloudfoundry/uaa">UAA Server</a> or <a href="https://docs.pivotal.io/p-identity">Pivotal Single Sign-on</a>) in ASP.NET Core, ASP.NET WebAPI and WCF.</p>
+<p>In addition to the <a href="#2-1-quick-start">Quick Start</a>, other Steeltoe sample applications can help you understand how to use this tool, including:</p>
+<ul>
+<li><a href="https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ">FreddysBBQ</a>: A polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.</li>
+</ul>
+<h2 id="usage-in-asp.net-core">Usage in ASP.NET Core</h2>
+<p>This package uses JSON Web Tokens (JWT) and builds on JWT Security services provided by ASP.NET Core Security. You should take some time to understand both before proceeding to use this provider.</p>
+<p>Many resources are available for understanding JWT (for example, see <a href="https://jwt.io/">JWT IO</a> or <a href="https://en.wikipedia.org/wiki/JSON_Web_Token">JSON Web Token</a>).</p>
+<p>To get a good understanding of ASP.NET Core Security, review the <a href="https://docs.microsoft.com/en-us/aspnet/core/">documentation</a> provided by Microsoft.</p>
+<p>Additionally, you should know how the .NET <a href="https://docs.asp.net/en/latest/fundamentals/configuration.html">Configuration services</a> the <code>ConfigurationBuilder</code> work and how to add providers to the builder.</p>
+<p>You should also know how the ASP.NET Core <a href="https://docs.asp.net/en/latest/fundamentals/startup.html">Startup</a> class is used in configuring the application services and how the middleware is used by the app. Pay particular attention to the usage of the <code>Configure()</code> and <code>ConfigureServices()</code> methods.</p>
+<p>With regard to Cloud Foundry, you should have a good understanding of Cloud Foundry OAuth2 security services (such as <a href="https://github.com/cloudfoundry/uaa">UAA Server</a> or <a href="https://docs.pivotal.io/p-identity/">Pivotal Single Signon</a>) along with an understanding how they use and issue JWT.</p>
+<p>To use the JWT Security provider:</p>
+<ol>
+<li>Create and bind an instance of a Cloud Foundry OAuth2 service to your application.</li>
+<li>(Optional) Configure any additional settings the Security provider will need.</li>
+<li>Add the Cloud Foundry configuration provider to the ConfigurationBuilder.</li>
+<li>Add and Use the security provider in the application.</li>
+<li>Secure your endpoints</li>
+</ol>
+<h3 id="add-nuget-reference">Add NuGet Reference</h3>
+<p>To use the provider, add a reference to the Steeltoe Cloud Foundry Security NuGet package, <code>Steeltoe.Security.Authentication.CloudFoundryCore</code>, with the NuGet package manager or directly to your project file by using the following <code>PackageReference</code>:</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+...
+    &lt;PackageReference Include=&quot;Steeltoe.Security.Authentication.CloudFoundryCore&quot; Version= &quot;2.1.0&quot;/&gt;
+...
+&lt;/ItemGroup&gt;
+</code></pre>
+<h3 id="configure-settings">Configure Settings</h3>
+<p>Configuring additional settings for the provider is not typically required, but, when Cloud Foundry uses self-signed certificates, you might need to disable certificate validation, as shown in the following example:</p>
+<pre><code class="language-json">{
+  &quot;security&quot;: {
+    &quot;oauth2&quot;: {
+      &quot;client&quot;: {
+        &quot;validateCertificates&quot;: false
+      }
+    }
+  }
+}
+</code></pre>
+<p>The JWT provider uses Microsoft's JWT implementation, and settings are based on <code>Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions</code>, with these additional properties:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>validateCertificates</td>
+<td>Validate Auth server certificate</td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: <strong>Each setting above must be prefixed with <code>security:oauth2:client</code></strong>.</p>
+<p>The samples and most templates are already set up to read from <code>appsettings.json</code>. See <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<h3 id="cloud-foundry">Cloud Foundry</h3>
+<p>As mentioned earlier. you can use a couple of OAuth2 services (such as UAA Server or Pivotal SSO) on Cloud Foundry. Rather than explaining how to create and bind OAuth2 services to your app here, we recommend that you read the documentation provided by each of the service providers.</p>
+<p>Regardless of which provider you choose, once the service is bound to your application, the settings are available in <code>VCAP_SERVICES</code>. See <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<h3 id="add-cloud-foundry-jwtauthentication">Add Cloud Foundry JwtAuthentication</h3>
+<p>To use the provider in your application, add it to your service collection in the <code>ConfigureServices()</code> method of the <code>Startup</code> class, as shown in the following example:</p>
+<pre><code class="language-csharp">using Steeltoe.Security.Authentication.CloudFoundryCore;
+
+public class Startup {
+    ...
+    public IConfiguration Configuration { get; private set; }
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Add Cloud Foundry JWT Authentication service as the default
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddCloudFoundryJwtBearer(Configuration);
+        // Add authorization policies
+        services.AddAuthorization(options =&gt;
+        {
+            options.AddPolicy(&quot;Orders&quot;, policy =&gt; policy.RequireClaim(&quot;scope&quot;, &quot;order.me&quot;));
+            options.AddPolicy(&quot;AdminOrders&quot;, policy =&gt; policy.RequireClaim(&quot;scope&quot;, &quot;order.admin&quot;));
+        });
+        ...
+    }
+    public void Configure(IApplicationBuilder app, ...)
+    {
+        ...
+        // Add the authentication middleware to the pipeline
+        app.UseAuthentication();
+    }
+    ...
+</code></pre>
+<p>The <code>AddCloudFoundryJwtBearer(Configuration)</code> method call configures and adds the Cloud Foundry JWT authentication service to the service container. Once in place, the authentication middleware can use it during request processing.</p>
+<h3 id="securing-endpoints">Securing Endpoints</h3>
+<p>Once you have the work done in your <code>Startup</code> class, you can then you can start to secure endpoints by using the standard ASP.NET Core <code>Authorize</code> attribute.</p>
+<p>See the Microsoft documentation on <a href="https://docs.asp.net/en/latest/security/">ASP.NET Core Security</a> for a better understanding of how to use these attributes.</p>
+<p>The following example shows a controller using the security attributes:</p>
+<pre><code class="language-csharp">using Microsoft.AspNetCore.Authentication;
+...
+
+[Route(&quot;api/[controller]&quot;)]
+public class ValuesController : Controller
+{
+    // GET api/values
+    [HttpGet]
+    [Authorize(Policy = &quot;testgroup&quot;)]
+    public IEnumerable&lt;string&gt; Get()
+    {
+        return new string[] { &quot;value1&quot;, &quot;value2&quot; };
+    }
+}
+</code></pre>
+<p>In the preceding example, if an incoming REST request is made to the <code>api/values</code> endpoint and the request does not contain a valid JWT bearer token with a <code>scope</code> claim equal to <code>testgroup</code>, the request is rejected.</p>
+<h2 id="usage-in-asp.net-webapi">Usage in ASP.NET WebAPI</h2>
+<p>This package is an extension of the Microsoft OWIN JWT bearer token middleware. You should take some time to understand both JWT and OWIN middlewares before proceeding to use this provider.</p>
+<p>Many resources are available for understanding JWT (for example, see <a href="https://jwt.io/">JWT IO</a> or <a href="https://en.wikipedia.org/wiki/JSON_Web_Token">JSON Web Token</a>).</p>
+<p>To learn more about OWIN, start with the <a href="https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana">Overview of Project Katana</a>.</p>
+<p>Additionally, you should know how the .NET <a href="https://docs.asp.net/en/latest/fundamentals/configuration.html">Configuration services</a> the <code>ConfigurationBuilder</code> work and how to add providers to the builder.</p>
+<p>With regard to Cloud Foundry, you should have a good understanding of Cloud Foundry OAuth2 security services (such as <a href="https://github.com/cloudfoundry/uaa">UAA Server</a> or <a href="https://docs.pivotal.io/p-identity/">Pivotal Single Signon</a>) along with an understanding how they use and issue JWT.</p>
+<p>To use the JWT Security provider:</p>
+<ol>
+<li>Create and bind an instance of a Cloud Foundry OAuth2 service to your application.</li>
+<li>(Optional) Configure any additional settings the Security provider will need.</li>
+<li>Add the Cloud Foundry configuration provider to the ConfigurationBuilder.</li>
+<li>Add the security provider to the OWIN pipeline in the application.</li>
+<li>Secure your endpoints</li>
+</ol>
+<h3 id="add-nuget-reference-1">Add NuGet Reference</h3>
+<p>To use the provider, use the NuGet package manager to add a reference to the <code>Steeltoe.Security.Authentication.CloudFoundryOwin</code> package.</p>
+<h3 id="configure-settings-1">Configure Settings</h3>
+<p>Configuring additional settings for the provider is not typically required, but, when Cloud Foundry uses self-signed certificates, you might need to disable certificate validation, as shown in the following example:</p>
+<pre><code class="language-json">{
+  &quot;security&quot;: {
+    &quot;oauth2&quot;: {
+      &quot;client&quot;: {
+        &quot;validateCertificates&quot;: false
+      }
+    }
+  }
+}
+</code></pre>
+<p>The JWT provider uses Microsoft's JWT implementation, and settings are based on <code>Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions</code>, with these additional properties:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>skipAuthIfNoBoundSSOService</td>
+<td>JWT Middleware will not be added if SSO binding is not found</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td>validateCertificates</td>
+<td>Validate Auth server certificate</td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: <strong>Each setting above must be prefixed with <code>security:oauth2:client</code></strong>.</p>
+<p>The Steeltoe sample is set up to read from <code>appsettings.json</code>. If you require additional information, see <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<blockquote class="blockquote">
+<p>NOTE: The setting <code>SkipAuthIfNoBoundSSOService</code> was added in Steeltoe 2.2.0, and has a default value of <code>true</code> for backwards compatibility with previous versions. This setting was added to control functionality that was previously always-on. A future release is likely to change the default to <code>false</code> or may remove the functionality entirely.</p>
+</blockquote>
+<h3 id="cloud-foundry-1">Cloud Foundry</h3>
+<p>As mentioned earlier, there are two auth services (UAA Server and Pivotal SSO) on Cloud Foundry. Rather than explaining how to create and bind those services to your app here, we recommend that you read the documentation provided by each of the service providers.</p>
+<p>Regardless of which provider you choose, once the service is bound to your application, the settings are available in <code>VCAP_SERVICES</code>. See <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<h3 id="add-cloud-foundry-jwtauthentication-1">Add Cloud Foundry JwtAuthentication</h3>
+<p>In order to configure the Cloud Foundry OWIN JWT provider in your application, you will need an <a href="https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/owin-startup-class-detection">OWIN Startup class</a> if you do not already have one, along with an <code>IConfigurationRoot</code> that includes a service binding for UAA or Pivotal SSO.</p>
+<pre><code class="language-csharp">using Owin;
+using Steeltoe.Security.Authentication.CloudFoundry;
+
+namespace CloudFoundryJwtAuthentication
+{
+    public partial class Startup
+    {
+        public void ConfigureAuth(IAppBuilder app)
+        {
+            app.UseCloudFoundryJwtBearerAuthentication(ApplicationConfig.Configuration);
+        }
+   }
+}
+</code></pre>
+<p>The <code>UseCloudFoundryJwtBearerAuthentication(Configuration)</code> method call configures and adds the Microsoft OWIN JWT authentication middleware to the OWIN pipeline with configuration for Cloud Foundry. Once in place, the authentication middleware can use it during request processing.</p>
+<h3 id="securing-endpoints-1">Securing Endpoints</h3>
+<p>Once the <code>Startup</code> class is in place and the middleware is configured, you can use the standard ASP.NET <code>Authorize</code> attribute to require authentication.</p>
+<p>The <code>CloudFoundryJwtAuthentication</code> sample demonstrates extending the AuthorizeAttribute with a <a href="https://github.com/SteeltoeOSS/Samples/blob/dev/Security/src/AspDotNet4/CloudFoundryJwtAuthentication/CustomClaimsAuthorizeAttribute.cs">CustomClaimsAuthorizeAttribute</a> to require a given claim on an endpoint in a straightforward way. The following example shows a controller using the <code>CustomClaimsAuthorizeAttribute</code>:</p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Web.Http;
+
+public class ValuesController : ApiController
+{
+    // GET: api/Values
+    [CustomClaimsAuthorize(&quot;testgroup&quot;)]
+    public IEnumerable&lt;string&gt; Get()
+    {
+        Console.WriteLine(&quot;Received GET Request&quot;);
+        return new string[] { &quot;value1&quot;, &quot;value2&quot; };
+    }
+}
+</code></pre>
+<p>In the preceding example, if an incoming REST request is made to the <code>api/values</code> endpoint and the request does not contain a valid JWT bearer token with a <code>scope</code> claim equal to <code>testgroup</code>, the request is rejected.</p>
+<h2 id="usage-in-asp.net-wcf">Usage in ASP.NET WCF</h2>
+<p>This package is a custom authorization provider for using JWT Bearer tokens in Windows Communication Foundation (WCF) applications. The provider is built on <code>System.IdentityModel.Claims</code>. You should take some time to understand both JWT and WCF security before proceeding to use this provider.</p>
+<p>Many resources are available for understanding JWT (for example, see <a href="https://jwt.io/">JWT IO</a> or <a href="https://en.wikipedia.org/wiki/JSON_Web_Token">JSON Web Token</a>).</p>
+<p>Additionally, you should know how the .NET <a href="https://docs.asp.net/en/latest/fundamentals/configuration.html">Configuration services</a> the <code>ConfigurationBuilder</code> work and how to add providers to the builder.</p>
+<p>With regard to Cloud Foundry, you should have a good understanding of Cloud Foundry OAuth2 security services (such as <a href="https://github.com/cloudfoundry/uaa">UAA Server</a> or <a href="https://docs.pivotal.io/p-identity/">Pivotal Single Signon</a>) along with an understanding how they use and issue JWT.</p>
+<p>To use the JWT Security provider:</p>
+<ol>
+<li>Create and bind an instance of a Cloud Foundry OAuth2 service to your application.</li>
+<li>(Optional) Configure any additional settings the Security provider will need.</li>
+<li>Add the Cloud Foundry configuration provider to the ConfigurationBuilder.</li>
+<li>Configure JwtAuthorizationManager as the ServiceAuthorizationManger for the server application.</li>
+<li>Secure your endpoints</li>
+<li>Update your WCF client(s) to include JWTs in the request</li>
+</ol>
+<h3 id="add-nuget-reference-2">Add NuGet Reference</h3>
+<p>To use the provider, use the NuGet package manager to add a reference to the <code>Steeltoe.Security.Authentication.CloudFoundryWcf</code> package in both your client and server applications.</p>
+<h3 id="configure-settings-2">Configure Settings</h3>
+<p>Configuring additional settings for the provider is not typically required, but, when Cloud Foundry uses self-signed certificates, you might need to disable certificate validation, as shown in the following example:</p>
+<pre><code class="language-json">{
+  &quot;security&quot;: {
+    &quot;oauth2&quot;: {
+      &quot;client&quot;: {
+        &quot;validateCertificates&quot;: false
+      }
+    }
+  }
+}
+</code></pre>
+<p>The Steeltoe sample is set up to read from <code>appsettings.json</code>, if you require additional information, see <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>forwardUserCredentials</td>
+<td>Whether to use app credentials or forward users's credentials</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td>validateAudience</td>
+<td>Whether or not a token's audience should be validated</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td>validateIssuer</td>
+<td>Whether or not a token's issuer should be validated</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td>validateLifeTime</td>
+<td>Whether or not a token's lifetime should be validated</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td>validateCertificates</td>
+<td>Validate Auth server certificate</td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cloud-foundry-2">Cloud Foundry</h3>
+<p>As mentioned earlier. you can use a couple of OAuth2 services (such as UAA Server or Pivotal SSO) on Cloud Foundry. Rather than explaining how to create and bind OAuth2 services to your app here, we recommend that you read the documentation provided by each of the service providers.</p>
+<p>Regardless of which provider you choose, once the service is bound to your application, the settings are available in <code>VCAP_SERVICES</code>. See <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<h3 id="set-serviceauthorizationmanager">Set ServiceAuthorizationManager</h3>
+<p>To configure the Cloud Foundry JWT provider for your WCF service, provide your <code>IConfiguration</code> to the <code>AddJwtAuthorization</code> extension, as shown in the following example:</p>
+<pre><code class="language-csharp">using Steeltoe.Security.Authentication.CloudFoundry.Wcf;
+using System;
+using System.ServiceModel;
+
+public class Global : System.Web.HttpApplication
+{
+    protected void Application_Start(object sender, EventArgs e)
+    {
+        ApplicationConfig.RegisterConfig(&quot;development&quot;);
+        var serviceHost = new ServiceHost(typeof(ValueService));
+        serviceHost.AddJwtAuthorization(ApplicationConfig.Configuration);
+    }
+}
+</code></pre>
+<blockquote class="blockquote">
+<p>NOTE: The above is not the only way to configure the JwtAuthorizationManager. WCF can be configured many ways, which are beyond the scope of this documentation.</p>
+</blockquote>
+<h3 id="securing-endpoints-2">Securing Endpoints</h3>
+<p>Inside your WCF service, apply claims rules to endpoints with the <code>ScopePermission</code> attribute, as seen in this example:</p>
+<pre><code class="language-csharp">using Steeltoe.Security.Authentication.CloudFoundry.Wcf;
+using System.Security.Permissions;
+
+namespace CloudFoundryWcf
+{
+    public class ValueService : IValueService
+    {
+        [ScopePermission(SecurityAction.Demand, Scope = &quot;testgroup&quot;)]
+        public string GetData()
+        {
+            return &quot;Hello from the WCF Sample!&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="updating-client-to-send-jwt">Updating Client to Send JWT</h3>
+<p>In order to include a JWT in the request to a WCF service, you will need to apply an EndpointBehavior. The <code>JwtHeaderEndpointBehavior</code> is provided for you in the CloudFoundryWcf package.
+The <code>JwtHeaderEndpointBehavior</code> can be configured to pass a user's credentials forward to backing services, or to get a token on behalf of the application (Client Credentials flow).</p>
+<p>The default behavior of the library is the Client Credentials flow. The <a href="https://github.com/SteeltoeOSS/Security/blob/dev/src/Steeltoe.Security.Authentication.CloudFoundryWcf/CloudFoundryOptions.cs">CloudFoundryOptions</a> required by the <code>JwtHeaderEndpointBehavior</code> can be configured several ways:</p>
+<ol>
+<li>From an <code>IConfiguration</code>
+<ul>
+<li><code>new CloudFoundryOptions(configuration)</code></li>
+<li>Settings bound from the subsection defined as <code>security:oauth2:client</code></li>
+</ul>
+</li>
+<li>Inline
+<ul>
+<li><code>new CloudFoundryOptions {  ClientId = &quot;client-id&quot;, ClientSecret = &quot;client-secret&quot; }</code>)</li>
+</ul>
+</li>
+<li>From environment variables
+<ul>
+<li><code>new CloudFoundryOptions()</code>
+<ul>
+<li>Auth domain is set with <code>sso_auth_domain</code></li>
+<li>Client Id is set with <code>sso_client_id</code></li>
+<li>Client Secret is set with <code>sso_client_secret</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>Regardless of the method chosen for instantiating the <code>CloudFoundryOptions</code>, the code to apply the behavior should look something like this:</p>
+<pre><code class="language-csharp">    // create an instance of the WCF client
+    var sRef = new ValueService.ValueServiceClient();
+
+    // apply the behavior, expecting it to manage and pass the token for the application
+    sRef.Endpoint.EndpointBehaviors.Add(new JwtHeaderEndpointBehavior(new CloudFoundryOptions(configuration)));
+    string serviceResponse = await sRef.GetDataAsync();
+</code></pre>
+<p>To pass a user's token (instead of the application's) to the backing service, first set <code>security:oauth2:client:forwardUserCredentials</code> to <code>true</code> in your configuration. You will also need to retrieve the user's token and pass that into the <code>JwtHeaderEndpointBehavior</code> when making requests, as seen in this example:</p>
+<pre><code class="language-csharp">    // retrieve the user's token
+    var token = Request.GetOwinContext().Authentication.User.Claims.First(c =&gt; c.Type == ClaimTypes.Authentication)?.Value;
+
+    // create an instance of the WCF client
+    var sRef = new ValueService.ValueServiceClient(binding, address);
+
+    // apply the behavior, including the user's token
+    sRef.Endpoint.EndpointBehaviors.Add(new JwtHeaderEndpointBehavior(new CloudFoundryOptions(ApplicationConfig.Configuration), token));
+    string serviceResponse = await sRef.GetDataAsync();
+</code></pre>

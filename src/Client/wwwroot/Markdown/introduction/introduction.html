@@ -1,0 +1,40 @@
+<h1 id="prerequisites">Prerequisites</h1>
+<p>While not required, we recommend installing one of the development tools (<a href="https://www.visualstudio.com/">Visual Studio</a> or <a href="https://code.visualstudio.com/">Visual Studio Code</a>) provided by Microsoft.</p>
+<p>If you plan to develop with <a href="https://docs.microsoft.com/en-us/dotnet/articles/core/">.NET Core</a> or <a href="https://docs.microsoft.com/en-us/aspnet/core/">ASP.NET Core</a>, you will need to download and install the latest <a href="https://www.microsoft.com/net/download/core">.NET Core SDK</a>. Additionally, if you do not already know the language and framework well, we recommend you first spend time working through some of the following tutorials from Microsoft:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/getting-started">Getting Started with ASP.NET Core</a></li>
+<li><a href="https://www.microsoft.com/net/tutorials/csharp/getting-started">Getting Started with C#</a></li>
+</ul>
+<blockquote class="blockquote">
+<p>NOTE: Many of the Steeltoe packages can also be used with .NET Framework and ASP.NET 4 based applications. You are not required to target .NET/ASP.NET Core when using Steeltoe.</p>
+</blockquote>
+<h2 id="nuget-feeds">NuGet Feeds</h2>
+<p>When developing applications with Steeltoe, whether on .NET Core or .NET Framework, you need to pull the Steeltoe NuGet packages into your application.</p>
+<p>To use the latest releases of Steeltoe, you can subscribe to any one of the following feeds, depending on your needs:</p>
+<ul>
+<li><a href="https://www.nuget.org/profiles/steeltoe">Release or Release Candidates</a></li>
+<li><a href="https://www.myget.org/gallery/steeltoemaster">Pre-release - Stable</a></li>
+<li><a href="https://www.myget.org/gallery/steeltoedev">Development - Less Stable</a></li>
+</ul>
+<p>The following example shows a NuGet.config file that you can edit and use when developing applications with Steeltoe:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;packageSources&gt;
+    &lt;add key=&quot;SteeltoeMaster&quot; value=&quot;https://www.myget.org/F/steeltoemaster/api/v3/index.json&quot; /&gt;
+    &lt;add key=&quot;SteeltoeDev&quot; value=&quot;https://www.myget.org/F/steeltoedev/api/v3/index.json&quot; /&gt;
+    &lt;add key=&quot;NuGet&quot; value=&quot;https://api.nuget.org/v3/index.json&quot; /&gt;
+  &lt;/packageSources&gt;
+&lt;/configuration&gt;
+</code></pre>
+<blockquote class="blockquote">
+<p>NOTE: If you only want to use release or pre-release (RC) versions of Steeltoe, you need not make any changes to your NuGet.config file, as those are served from <code>nuget.org</code>.</p>
+</blockquote>
+<h2 id="quick-starts">Quick Starts</h2>
+<p>For many of the Steeltoe components, we provide Quick Start samples and a guide that describes how to quickly get a sample application up and running by using a particular Steeltoe component. A detailed breakdown of the sample code, describing how Steeltoe has been integrated into the app, is provided.</p>
+<p>In many cases, these guides provide two ways of exercising the applications: one that describes how to create and run the application locally on your development machine and a second that describes running the application on Cloud Foundry.</p>
+<p>For the Quick Starts in which we run the application locally, Java is required to run instances of some of the servers (such as Spring Cloud Config Server, Netflix Eureka Server, and others) on your machine. If you do not have Java available on your machine, you may want to install that now.</p>
+<p>For the Quick Starts running on Cloud Foundry, you need access to a Cloud Foundry environment that has the appropriate services (such as Spring Cloud Config Server, Netflix Eureka Server, and others) installed. One option is to run <a href="https://docs.pivotal.io/pcf-dev/">PCF Dev</a>, the local developer version of Pivotal Cloud Foundry on your development machine. PCF Dev depends on Virtual Box, so, depending on your desktop operating system and configuration, you may not be able to use it.</p>
+<p>Alternatively, you can sign up for a free trial account of <a href="https://run.pivotal.io/">Pivotal Web Services</a>, the hosted multi-tenant edition of <a href="https://pivotal.io/platform">Pivotal Cloud Foundry</a>. Note that, if you want to work solely with .NET framework applications that target the Windows operating system, you likely need access to a corporate Cloud Foundry environment, as neither of the above options currently support deploying Windows apps.</p>
+<p>Regardless of which Cloud Foundry option you choose, in order to work with Cloud Foundry, you need to install the <a href="https://github.com/cloudfoundry/cli/releases">Cloud Foundry Command Line Interface (CLI)</a>.</p>
+<p>Finally, for all of the Quick Starts, you need to install the <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">GIT command line tools</a> so that you can fetch the Quick Start sample code and work with it on your computer.</p>
+<div style="height:500px"></div>

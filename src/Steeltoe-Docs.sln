@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazored.Menu", "Blazored.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevExpress.Blazor.AnchorUtils", "DevExpress.Blazor.AnchorUtils\DevExpress.Blazor.AnchorUtils.csproj", "{FE70928A-97A6-4577-A5A7-D55838B5B494}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseMD", "ParseMD\ParseMD.csproj", "{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{FE70928A-97A6-4577-A5A7-D55838B5B494}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE70928A-97A6-4577-A5A7-D55838B5B494}.Release|x64.ActiveCfg = Release|Any CPU
 		{FE70928A-97A6-4577-A5A7-D55838B5B494}.Release|x64.Build.0 = Release|Any CPU
+		{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}.Debug|x64.Build.0 = Debug|Any CPU
+		{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}.Release|x64.ActiveCfg = Release|Any CPU
+		{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

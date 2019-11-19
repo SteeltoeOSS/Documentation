@@ -1,0 +1,54 @@
+<h1 id="steeltoe-discovery">Steeltoe Discovery</h1>
+<p>Steeltoe provides a set of generalized interfaces for interacting with multiple service discovery back ends. This section will cover the general components first. If you are looking for something specific to the registry server you are using, feel free to skip ahead to the section for <a href="#2-0-netflix-eureka">Netflix Eureka</a> or <a href="#3-0-hashicorp-consul">HashiCorp Consul</a>.</p>
+<p>In order to use any Steeltoe Discovery client, you need to do the following:</p>
+<ul>
+<li>Add appropriate NuGet package reference to your project.</li>
+<li>Configure the settings the Discovery client will use to register services in the service registry.</li>
+<li>Configure the settings the Discovery client will use to discover services in the service registry.</li>
+<li>Add and Use the Discovery client service in the application.</li>
+<li>Use an injected <code>IDiscoveryClient</code> to lookup services.</li>
+</ul>
+<blockquote class="blockquote">
+<p>NOTE: The Steeltoe Discovery implementation (for example: the decision between Eureka and Consul) is automatically setup within the application based on the application configuration provided.</p>
+</blockquote>
+<h2 id="add-nuget-references">Add NuGet References</h2>
+<!-- TODO: review this section, its not completely correct -->
+<p>The simplest way to get started with Steeltoe Discovery is to add a reference to a package built for either Microsoft's dependency injection or Autofac. Either package will also include all relevant dependencies. If you are using another DI tool, please file an issue to let us know, and in the mean time use the relevant base package:</p>
+<table class="table">
+<thead>
+<tr>
+<th>App Type</th>
+<th>Package</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASP.NET Core</td>
+<td><code>Steeltoe.Discovery.ClientCore</code></td>
+<td>Includes base. Adds ASP.NET Core dependency injection.</td>
+</tr>
+<tr>
+<td>ASP.NET 4.x with Autofac</td>
+<td><code>Steeltoe.Discovery.ClientAutofac</code></td>
+<td>Includes base. Adds Autofac dependency injection.</td>
+</tr>
+<tr>
+<td>Console/ASP.NET 4.x</td>
+<td><code>Steeltoe.Discovery.EurekaBase</code></td>
+<td>Base Eureka functionality. No dependency injection.</td>
+</tr>
+<tr>
+<td>Console/ASP.NET 4.x</td>
+<td><code>Steeltoe.Discovery.ConsulBase</code></td>
+<td>Base Consul functionality. No dependency injection.</td>
+</tr>
+</tbody>
+</table>
+<p>To add this type of NuGet to your project, add an element resembling the following <code>PackageReference</code>:</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+...
+    &lt;PackageReference Include=&quot;Steeltoe.Discovery.ClientCore&quot; Version= &quot;2.1.0&quot;/&gt;
+...
+&lt;/ItemGroup&gt;
+</code></pre>

@@ -1,0 +1,155 @@
+<h1 id="rabbitmq">RabbitMQ</h1>
+<p>This connector simplifies using the <a href="https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html">RabbitMQ Client</a> in an application running on Cloud Foundry. We recommend following that tutorial, because you need to know how to use it before proceeding to use the connector.</p>
+<p>This connector provides a <code>IHealthContributor</code> which you can use in conjunction with the <a href="https://steeltoe.io/docs/steeltoe-management/#1-2-3-health">Steeltoe Management Health</a> check endpoint.  See the <a href="#using-health-contributors">Using Health Contributors</a> section for details on how to make use of it.</p>
+<p>The source code for this connector can be found <a href="https://github.com/SteeltoeOSS/Connectors">here</a>.</p>
+<h2 id="usage">Usage</h2>
+<p>You should know how the new .NET <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration">Configuration service</a> works before starting to use the connector. To configure the connector, you need a basic understanding of the <code>ConfigurationBuilder</code> and how to add providers to the builder.</p>
+<p>You should also know how the ASP.NET Core <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup">Startup</a> class is used in configuring the application services for the application. Pay particular attention to the usage of the <code>ConfigureServices()</code> method.</p>
+<p>You probably want some understanding of how to use the <a href="https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html">RabbitMQ Client</a> before starting to use this connector.</p>
+<p>To use this Connector:</p>
+<ol>
+<li>Create and bind a RabbitMQ service instance to your application.</li>
+<li>Optionally, configure any RabbitMQ client settings (such as in <code>appsettings.json</code>)</li>
+<li>Add the Steeltoe Cloud Foundry config provider to your <code>ConfigurationBuilder</code>.</li>
+<li>Add the RabbitMQ <code>ConnectionFactory</code> to your <code>ServiceCollection</code>.</li>
+</ol>
+<h3 id="add-nuget-reference">Add NuGet Reference</h3>
+<p>To use the RabbitMQ connector, you need to add a reference to the appropriate <a href="#add-nuget-references">Steeltoe Connector NuGet package</a> and <code>RabbitMQ.Client</code>.</p>
+<h3 id="configure-settings">Configure Settings</h3>
+<p>The connector supports several settings for the RabbitMQ ConnectionFactory that can be useful when you are developing and testing an application locally and you need to have the connector configure the connection for non-default settings.</p>
+<p>The following example of the connectors configuration in JSON shows how to setup a connection to a RabbitMQ server at <code>amqp://guest:guest@127.0.0.1/</code>:</p>
+<pre><code class="language-json">{
+  ...
+  &quot;rabbitmq&quot;: {
+    &quot;client&quot;: {
+      &quot;uri&quot;: &quot;amqp://guest:guest@127.0.0.1/&quot;
+    }
+  }
+  ...
+}
+</code></pre>
+<p>The following table describes all the possible settings for the connector:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server</td>
+<td>Hostname or IP Address of the server</td>
+<td>127.0.0.1</td>
+</tr>
+<tr>
+<td>port</td>
+<td>Port number of the server</td>
+<td>5672</td>
+</tr>
+<tr>
+<td>username</td>
+<td>Username for authentication</td>
+<td>not set</td>
+</tr>
+<tr>
+<td>password</td>
+<td>Password for authentication</td>
+<td>not set</td>
+</tr>
+<tr>
+<td>virtualHost</td>
+<td>Virtual host to which to connect</td>
+<td>not set</td>
+</tr>
+<tr>
+<td>sslEnabled</td>
+<td>Should SSL be enabled</td>
+<td>false</td>
+</tr>
+<tr>
+<td>sslPort</td>
+<td>SSL Port number of server</td>
+<td>5671</td>
+</tr>
+<tr>
+<td>uri</td>
+<td>Full connection string</td>
+<td>built from settings</td>
+</tr>
+<tr>
+<td>urlEncodedCredentials</td>
+<td>Set to <code>true</code> if your service broker provides URL-encoded credentials</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>IMPORTANT: All of these settings should be prefixed with <code>rabbitmq:client:</code>.</p>
+</blockquote>
+<p>The samples and most templates are already set up to read from <code>appsettings.json</code>. See <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<h3 id="cloud-foundry">Cloud Foundry</h3>
+<p>To use RabbitMQ on Cloud Foundry, you can create and bind an instance to your application using the Cloud Foundry CLI, as follows:</p>
+<pre><code class="language-bash"># Create RabbitMQ service
+cf create-service p-rabbitmq standard myRabbitMQService
+
+# Bind the service to `myApp`
+cf bind-service myApp myRabbitMQService
+
+# Restage the app to pick up changes
+cf restage myApp
+</code></pre>
+<blockquote class="blockquote">
+<p>NOTE: The preceding commands assume you use the RabbitMQ service provided by Pivotal on Cloud Foundry. If you use a different service, adjust the <code>create-service</code> command to fit your environment.</p>
+</blockquote>
+<p>Once the service is bound to your application, the connector's settings are available in <code>VCAP_SERVICES</code>. See <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<h3 id="add-rabbitmq-connectionfactory">Add RabbitMQ ConnectionFactory</h3>
+<p>To use a RabbitMQ <code>ConnectionFactory</code> in your application, add it to the service container in the <code>ConfigureServices()</code> method of the <code>Startup</code> class, as shown in the following example:</p>
+<pre><code class="language-csharp">using Steeltoe.CloudFoundry.Connector.RabbitMQ;
+
+public class Startup {
+    ...
+    public IConfiguration Configuration { get; private set; }
+    public Startup(...)
+    {
+      ...
+    }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Add RabbitMQ ConnectionFactory configured from Cloud Foundry
+        services.AddRabbitMQConnection(Configuration);
+
+        // Add framework services.
+        services.AddMvc();
+        ...
+    }
+    ...
+</code></pre>
+<h3 id="use-rabbitmq-connectionfactory">Use RabbitMQ ConnectionFactory</h3>
+<p>Once you have configured and added the RabbitMQ <code>ConnectionFactory</code> to the service container, you can inject it and use it in a controller or a view, as shown in the following example:</p>
+<pre><code class="language-csharp">using RabbitMQ.Client;
+...
+public class HomeController : Controller
+{
+    ...
+    public IActionResult RabbitMQData([FromServices] ConnectionFactory factory)
+    {
+
+        using (var connection = factory.CreateConnection())
+        using (var channel = connection.CreateModel())
+        {
+            CreateQueue(channel);
+            var body = Encoding.UTF8.GetBytes(&quot;a message&quot;);
+            channel.BasicPublish(exchange: &quot;&quot;,
+                                 routingKey: &quot;a-topic&quot;,
+                                 basicProperties: null,
+                                 body: body);
+
+        }
+        return View();
+    }
+
+}
+
+</code></pre>

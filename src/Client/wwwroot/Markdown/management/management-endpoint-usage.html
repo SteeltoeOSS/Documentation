@@ -1,0 +1,145 @@
+<h2 id="usage">Usage</h2>
+<p>Steeltoe provides a base set of endpoint functionality, along with several implementations for exposing the endpoints over HTTP. HTTP implementations are provided with ASP.NET Core middleware, OWIN middleware and HTTP Modules. Should you wish to expose the core endpoint functionality over some protocol other than HTTPS, you are free to provide your own implementation.</p>
+<p>Regardless of the endpoint exposure method you select, you should understand how the .NET <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration">Configuration service</a> works before starting to use the management endpoints. You need at least a basic understanding of the <code>ConfigurationBuilder</code> and how to add providers to the builder to configure the endpoints.</p>
+<p>When developing ASP.NET Core applications, you should also understand how the ASP.NET Core <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup">Startup</a> class is used in configuring the application services for the app. Pay particular attention to the usage of the <code>ConfigureServices()</code> and <code>Configure()</code> methods.</p>
+<p>When adding Steeltoe Management endpoints to your ASP.NET 4.x applications, you can choose between using HTTP modules and OWIN middleware. If you select HTTP modules, you should be familiar with <code>Global.asax.cs</code> and how it is used in initializing and configuring your application. If you select the OWIN middleware approach, you should be familiar with how the Startup class is used in configuring application middleware. The rest of this document will refer to the HTTP Module implementation simply as ASP.NET 4.x, and the OWIN implementation as ASP.NET OWIN.</p>
+<blockquote class="blockquote">
+<p>NOTE: You may wish to select the OWIN implementation for your ASP.NET 4.x application when you don't want to depend on <code>System.Web</code> or you also plan to use <a href="../steeltoe-security">Steeltoe security providers</a> for authentication/authorization on Cloud Foundry.</p>
+</blockquote>
+<p>The following table describes the available Steeltoe management endpoints that can be used in an application:</p>
+<p>|ID|Description|
+|---|---|
+|<strong>hypermedia</strong>|Provides hypermedia endpoint for discovery of all available endpoints|
+|<strong>cloudfoundry</strong>|Enables management endpoint integration with Cloud Foundry|
+|<strong>health</strong>|Customizable endpoint that gathers application health information|
+|<strong>info</strong>|Customizable endpoint that gathers arbitrary application information (such as Git Build info)|
+|<strong>loggers</strong>|Gathers existing loggers and allows modification of logging levels|
+|<strong>trace</strong>|Gathers a configurable set of trace information (such as the last 100 HTTP requests)|
+|<strong>refresh</strong>|Triggers the application configuration to be reloaded|
+|<strong>env</strong>|Reports the keys and values from the applications configuration|
+|<strong>mappings</strong>|Reports the configured ASP.NET routes and route templates|
+|<strong>metrics</strong>|Reports the collected metrics for the application|
+|<strong>dump</strong>|Generates and reports a snapshot of the application's threads (Windows only)|
+|<strong>heapdump</strong>|Generates and downloads a mini-dump of the application (Windows only)|
+Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the <code>health</code> endpoint below is mapped to <code>/health</code>.</p>
+<blockquote class="blockquote">
+<p>NOTE: When you want to integrate with the <a href="https://docs.pivotal.io/pivotalcf/2-0/console/index.html">Pivotal Apps Manager</a>, you need to configure the global management path prefix, as described in the <a href="#1-2-2-settings">Endpoint Settings</a> section, to be <code>/cloudfoundryapplication</code>. To do so, add <code>management:endpoints:path=/cloudfoundryapplication</code> to your configuration.</p>
+</blockquote>
+<h3 id="add-nuget-references">Add NuGet References</h3>
+<p>To use the management endpoints, you need to add a reference to the appropriate Steeltoe NuGet based on the type of the application you are building and what Dependency Injector you have chosen, if any.</p>
+<p>The following table describes the available packages:</p>
+<table class="table">
+<thead>
+<tr>
+<th>App Type</th>
+<th>Package</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All</td>
+<td><code>Steeltoe.Management.EndpointBase</code></td>
+<td>Base functionality, no dependency injection, no HTTP middleware.</td>
+</tr>
+<tr>
+<td>ASP.NET Core</td>
+<td><code>Steeltoe.Management.EndpointCore</code></td>
+<td>Includes <code>EndpointBase</code>, adds ASP.NET Core DI, includes HTTP middleware,  no Pivotal Apps Manager integration.</td>
+</tr>
+<tr>
+<td>ASP.NET Core</td>
+<td><code>Steeltoe.Management.CloudFoundryCore</code></td>
+<td>Includes <code>EndpointCore</code>, enables Pivotal Apps Manager integration.</td>
+</tr>
+<tr>
+<td>ASP.NET 4.x</td>
+<td><code>Steeltoe.Management.EndpointWeb</code></td>
+<td>Includes <code>EndpointBase</code>, enables Pivotal Apps Manager integration.</td>
+</tr>
+<tr>
+<td>ASP.NET 4.x OWIN</td>
+<td><code>Steeltoe.Management.EndpointOwin</code></td>
+<td>Includes <code>EndpointBase</code>, enables Pivotal Apps Manager integration.</td>
+</tr>
+<tr>
+<td>ASP.NET 4.x OWIN with Autofac</td>
+<td><code>Steeltoe.Management.EndpointOwin.Autofac</code></td>
+<td>Includes <code>EndpointOwin</code>, adds Autofac DI, enables Pivotal Apps Manager integration.</td>
+</tr>
+</tbody>
+</table>
+<p>To add this type of NuGet to your project, add a <code>PackageReference</code> resembling the following:</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+...
+    &lt;PackageReference Include=&quot;Steeltoe.Management.EndpointCore&quot; Version= &quot;2.2.0&quot;/&gt;
+...
+&lt;/ItemGroup&gt;
+</code></pre>
+<p>or</p>
+<pre><code class="language-powershell">PM&gt;Install-Package  Steeltoe.Management.EndpointWeb -Version 2.2.0
+</code></pre>
+<h3 id="configure-global-settings">Configure Global Settings</h3>
+<p>Endpoints can be configured by using the normal .NET <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration">Configuration service</a>. You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.</p>
+<p>All management endpoint settings should be placed under the prefix with the key <code>management:endpoints</code>. Any settings found under this prefix apply to all endpoints globally.</p>
+<p>Settings that you want to apply to specific endpoints should be placed under the prefix with the key <code>management:endpoints:</code> + ID (for example, <code>management:endpoints:health</code>). Any settings you apply to a specific endpoint override any settings applied globally.</p>
+<p>The following table describes the settings that you can apply globally:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td>Whether to enable all management endpoints</td>
+<td>true</td>
+</tr>
+<tr>
+<td>path</td>
+<td>The path prefix applied to all endpoints when exposed over HTTP</td>
+<td><code>/</code></td>
+</tr>
+</tbody>
+</table>
+<p>When you want to integrate with the <a href="https://docs.pivotal.io/pivotalcf/2-0/console/index.html">Pivotal Apps Manager</a>, you need to configure the global management path prefix to be <code>/cloudfoundryapplication</code>.</p>
+<h4 id="exposing-endpoints">Exposing Endpoints</h4>
+<p>Since endpoints may contain sensitive information, only Health and Info are exposed by default. To change which endpoints are exposed, use the <code>include</code> and <code>exclude</code> properties:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exposure:include</td>
+<td>[<code>info</code>, <code>health</code>]</td>
+</tr>
+<tr>
+<td>exposure:exclude</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: <strong>Each setting above must be prefixed with <code>management:endpoints:actuator</code></strong>. To select all endpoints,
+<code>*</code>  can be used. For example, to expose everything except <code>env</code> and <code>refresh</code>, use the following property:</p>
+<pre><code class="language-json">&quot;management&quot;: {
+    &quot;endpoints&quot;: {
+        &quot;actuator&quot;:{
+            &quot;exposure&quot;: {
+                &quot;include&quot;: [ &quot;*&quot; ],
+                &quot;exclude&quot;: [ &quot;env&quot;, &quot;refresh&quot;]
+            }
+        }
+    }
+}
+</code></pre>
+<blockquote class="blockquote">
+<p>NOTE: The exposure settings do not apply to endpoint routes mapped to the /cloudfoundryapplication context. If you add the Cloud Foundry endpoint, it will provide a route to access all endpoints without respecting the exposure settings through either the global path specified or its default of &quot;/actuator&quot;. On the contrary, if you do not add either the Cloud Foundry or Hypermedia actuators, the default settings still apply. Adding endpoints other than health and info will require you to explicitly set the exposure setting.</p>
+</blockquote>
+<p>The upcoming sections show the settings that you can apply to specific endpoints.</p>

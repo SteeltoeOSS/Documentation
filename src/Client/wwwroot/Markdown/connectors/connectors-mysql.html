@@ -1,0 +1,334 @@
+<h1 id="mysql">MySQL</h1>
+<p>This connector simplifies using MySQL ADO.NET providers in an application running on Cloud Foundry.</p>
+<p>Currently, the connector supports the following providers:</p>
+<ul>
+<li><a href="https://dev.mysql.com/doc/connector-net/en/">Connector/NET</a></li>
+<li><a href="https://mysql-net.github.io/MySqlConnector/">MySqlConnector</a></li>
+</ul>
+<p>In addition to the <a href="#1-1-quick-start">Quick Start</a>, you can refer to several other Steeltoe sample applications to help you understand how to use this connector:</p>
+<ul>
+<li><a href="https://github.com/SteeltoeOSS/Samples/tree/master/Connectors/src/AspDotNet4/MySql4">AspDotNet4/MySql4</a>: Same as the next Quick Start but built for ASP.NET 4.x.</li>
+<li><a href="https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore">MusicStore</a>: A sample app showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a micro-services based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.</li>
+<li><a href="https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ">FreddysBBQ</a>: A polyglot (Java and .NET) micro-services based sample application showing interoperability between Java and .NET based micro-services running on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.</li>
+</ul>
+<p>This connector provides a <code>IHealthContributor</code> which you can use in conjunction with the <a href="https://steeltoe.io/docs/steeltoe-management/#1-2-3-health">Steeltoe Management Health</a> check endpoint.  See the <a href="#using-health-contributors">Using Health Contributors</a> section for details on how to make use of it.</p>
+<p>The source code for this connector can be found <a href="https://github.com/SteeltoeOSS/Connectors">here</a>.</p>
+<h2 id="usage">Usage</h2>
+<p>You should know how the new .NET <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration">Configuration service</a> works before starting to use the connector. A basic understanding of the <code>ConfigurationBuilder</code> and how to add providers to the builder is necessary in order to configure the connector.</p>
+<p>You should also know how the ASP.NET Core <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup">Startup</a> class is used in configuring the application services for the app. Pay particular attention to the usage of the <code>ConfigureServices()</code> method.</p>
+<p>To use this connector:</p>
+<ol>
+<li>Create a MySQL Service instance and bind it to your application.</li>
+<li>Optionally, configure any MySQL client settings (such as <code>appsettings.json</code>) you need.</li>
+<li>Add the Steeltoe Cloud Foundry configuration provider to your <code>ConfigurationBuilder</code>.</li>
+<li>Add <code>MySqlConnection</code> or <code>DbContext</code> to your <code>IServiceCollection</code>.</li>
+</ol>
+<h3 id="add-nuget-reference">Add NuGet Reference</h3>
+<p>To use the MySQL connector, add your choice of MySQL-specific package(s) between <a href="https://www.nuget.org/packages/MySql.Data">MySql.Data</a>/<a href="https://www.nuget.org/packages/MySql.Data.Entity">MySql.Data.Entity</a>, <a href="https://www.nuget.org/packages/MySqlConnector/">MySqlConnector</a>, and <a href="https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/">Pomelo.EntityFrameworkCore.MySql</a> as you would if you weren't using Steeltoe. Then, add a reference to the appropriate <a href="#add-nuget-references">Steeltoe Connector NuGet package</a>.</p>
+<h3 id="configure-settings">Configure Settings</h3>
+<p>The connector supports a variety of configuration options. You can use these settings to develop or test an application locally and override them during deployment.</p>
+<p>The following MySQL connector configuration shows how to connect to a database at <code>myserver:3306</code>:</p>
+<pre><code class="language-json">{
+  ...
+  &quot;mysql&quot;: {
+    &quot;client&quot;: {
+      &quot;server&quot;: &quot;myserver&quot;,
+      &quot;port&quot;: 3306
+    }
+  }
+  ...
+}
+</code></pre>
+<p>The following table describes the available settings for the connector. These settings are not specific to Steeltoe. They are passed through to the underlying data provider. See the <a href="https://dev.mysql.com/doc/connector-net/en/connector-net-connection-options.html">Oracle MySQL Connection String docs</a> or <a href="https://mysql-net.github.io/MySqlConnector/connection-options/">open source MySQL Connection String docs</a>.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th style="text-align: center;">Steeltoe Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server</td>
+<td>Hostname or IP Address of the server</td>
+<td style="text-align: center;">localhost</td>
+</tr>
+<tr>
+<td>port</td>
+<td>Port number of server</td>
+<td style="text-align: center;">3306</td>
+</tr>
+<tr>
+<td>username</td>
+<td>Username for authentication</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>password</td>
+<td>Password for authentication</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>database</td>
+<td>Schema to which to connect</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>connectionString</td>
+<td>Full connection string</td>
+<td style="text-align: center;">built from settings</td>
+</tr>
+<tr>
+<td>sslMode</td>
+<td>SSL usage option. One of <code>None</code>, <code>Preferred</code>, or <code>Required</code></td>
+<td style="text-align: center;"><code>None</code></td>
+</tr>
+<tr>
+<td>allowPublicKeyRetrieval</td>
+<td>Whether RSA public keys should be retrieved from the server</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>allowUserVariables</td>
+<td>Whether the provider expects user variables in the SQL</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>connectionTimeout</td>
+<td>Seconds to wait for a connection before throwing an error</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>connectionLifeTime</td>
+<td>The maximum length of time a connection to the server can be open</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>connectionReset</td>
+<td>Whether the connection state is reset when it is retrieved from the pool</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>convertZeroDateTime</td>
+<td>Whether to have MySqlDataReader.GetValue() and MySqlDataReader.GetDateTime() return DateTime.MinValue for date or datetime columns that have disallowed values</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>defaultCommandTimeout</td>
+<td>Seconds each command can execute before timing out. Use 0 to disable timeouts</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>keepalive</td>
+<td>TCP keep-alive idle time</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>maximumPoolsize</td>
+<td>Maximum number of connections allowed in the pool</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>minimumPoolsize</td>
+<td>Minimum number of connections to leave in the pool if ConnectionIdleTimeout is reached</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>oldGuids</td>
+<td>Whether to use a GUID of data type BINARY(16)</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>persistSecurityInfo</td>
+<td>Whether to allow the application to access to security-sensitive information, such as the password. <strong><em>(Not recommended)</em></strong></td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>pooling</td>
+<td>Enables connection pooling</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>treatTinyAsBoolean</td>
+<td>Whether to return tinyint(1) as a boolean. Set to <code>false</code> to return tinyint(1) as sbyte/byte</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>useAffectedRows</td>
+<td>Set to <code>false</code> to report found rows instead of changed (affected) rows</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>useCompression</td>
+<td>If <code>true</code> (and server-supported), packets sent between client and server are compressed</td>
+<td style="text-align: center;">not set</td>
+</tr>
+<tr>
+<td>urlEncodedCredentials</td>
+<td>Set to <code>true</code> if your service broker provides URL-encoded credentials</td>
+<td style="text-align: center;">false</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>IMPORTANT: All of the settings described in the preceding table should be prefixed with <code>mysql:client:</code>.</p>
+</blockquote>
+<p>The samples and most templates are already set up to read from <code>appsettings.json</code>. See <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<blockquote class="blockquote">
+<p>NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.</p>
+</blockquote>
+<h3 id="cloud-foundry">Cloud Foundry</h3>
+<p>To use MySQL on Cloud Foundry, you can create and bind an instance of MySQL to your application by using the Cloud Foundry CLI, as follows:</p>
+<pre><code class="language-bash"># Create MySQL service
+cf create-service p-mysql 100mb myMySqlService
+
+# Bind service to `myApp`
+cf bind-service myApp myMySqlService
+
+# Restage the app to pick up change
+cf restage myApp
+</code></pre>
+<blockquote class="blockquote">
+<p>NOTE: The preceding commands assume you use <a href="https://network.pivotal.io/products/p-mysql">MySQL for PCF</a>, provided by Pivotal on Cloud Foundry. If you use a different service, you must adjust the <code>create-service</code> command to fit your environment.</p>
+</blockquote>
+<p>Version 2.1.1+ of this connector works with the <a href="https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html">Azure Open Service Broker for PCF</a>. Be sure to set <code>mysql:client:urlEncodedCredentials</code> to <code>true</code> as this broker may provide credentials that have been URL Encoded.</p>
+<p>Once the service is bound to your application, the connector's settings are available in <code>VCAP_SERVICES</code>. See <a href="#reading-configuration-values">Reading Configuration Values</a>.</p>
+<h3 id="add-mysqlconnection">Add MySqlConnection</h3>
+<p>To use a <code>MySqlConnection</code> in your application, add it to the service container in the <code>ConfigureServices()</code> method of the <code>Startup</code> class, as shown in the following example:</p>
+<pre><code class="language-csharp">using Steeltoe.CloudFoundry.Connector.MySql;
+
+public class Startup {
+    ...
+    public IConfiguration Configuration { get; private set; }
+    public Startup(...)
+    {
+      ...
+    }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Add MySqlConnection configured from Configuration
+        services.AddMySqlConnection(Configuration);
+
+        // Add framework services.
+        services.AddMvc();
+        ...
+    }
+    ...
+</code></pre>
+<p>The <code>AddMySqlConnection(Configuration)</code> method call configures the <code>MySqlConnection</code> by using the configuration built by the application and adds the connection to the service container.</p>
+<h3 id="use-mysqlconnection">Use MySqlConnection</h3>
+<p>Once you have configured and added the connection to the service container, it is trivial to inject and use in a controller or a view, as shown in the following example:</p>
+<pre><code class="language-csharp">using MySql.Data.MySqlClient;
+...
+public class HomeController : Controller
+{
+    public IActionResult MySqlData([FromServices] MySqlConnection dbConnection)
+    {
+        dbConnection.Open();
+
+        MySqlCommand cmd = new MySqlCommand(&quot;SELECT * FROM TestData;&quot;, dbConnection);
+        MySqlDataReader rdr = cmd.ExecuteReader();
+
+        while (rdr.Read())
+        {
+            ViewData[&quot;Key&quot; + rdr[0]] = rdr[1];
+        }
+
+        rdr.Close();
+        dbConnection.Close();
+
+        return View();
+    }
+}
+</code></pre>
+<h3 id="add-dbcontext">Add DbContext</h3>
+<h4 id="entity-framework-6">Entity Framework 6</h4>
+<p>To use the MySQL connector with Entity Framework 6, inject a <code>DbContext</code> into your application using the <code>AddDbContext&lt;&gt;()</code> method (provided by Steeltoe) that takes an <code>IConfiguration</code> as a parameter, as shown in the following example:</p>
+<pre><code class="language-csharp">using Steeltoe.CloudFoundry.Connector.MySql.EF6;
+
+public class Startup {
+    ...
+    public IConfiguration Configuration { get; private set; }
+    public Startup(...)
+    {
+      ...
+    }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        ...
+        services.AddDbContext&lt;TestContext&gt;(Configuration);
+        ...
+    }
+    ...
+</code></pre>
+<p>The <code>AddDbContext&lt;TestContext&gt;(..)</code> method call configures <code>TestContext</code> using the configuration built earlier and then adds the DbContext (called <code>TestContext</code>) to the service container.</p>
+<p>Your <code>DbContext</code> does not need to be modified from a standard EF6 <code>DbContext</code> to work with Steeltoe:</p>
+<pre><code class="language-csharp">using MySql.Data.Entity;
+using System.Data.Entity;
+...
+
+[DbConfigurationType(typeof(MySqlEFConfiguration))]
+public class TestContext : DbContext
+{
+    public TestContext(string connectionString) : base(connectionString)
+    {
+    }
+    public DbSet&lt;TestData&gt; TestData { get; set; }
+}
+</code></pre>
+<h4 id="entity-framework-core">Entity Framework Core</h4>
+<p>To use the MySQL connector with Entity Framework Core, inject a <code>DbContext</code> into your application with the standard <code>AddDbContext&lt;&gt;()</code> method, substituting Steeltoe's <code>UseMySql</code> method that takes an <code>IConfiguration</code> as a parameter in the options configuration for the standard <code>UseMySql</code> method. This example demonstrates the basic usage:</p>
+<pre><code class="language-csharp">using Steeltoe.CloudFoundry.Connector.MySql.EFCore;
+
+public class Startup {
+    ...
+    public IConfiguration Configuration { get; private set; }
+    public Startup(...)
+    {
+      ...
+    }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        ...
+        services.AddDbContext&lt;TestContext&gt;(options =&gt; options.UseMySql(Configuration));
+        ...
+    }
+    ...
+</code></pre>
+<p>Your <code>DbContext</code> does not need to be modified from a standard <code>DbContext</code> to work with Steeltoe:</p>
+<pre><code class="language-csharp">using Microsoft.EntityFrameworkCore;
+...
+
+public class TestContext : DbContext
+{
+    public TestContext(DbContextOptions options) : base(options)
+    {
+
+    }
+    public DbSet&lt;TestData&gt; TestData { get; set; }
+}
+
+</code></pre>
+<p>If you need to set additional properties for the <code>DbContext</code> like <code>MigrationsAssembly</code> or connection retry settings, create an <code>Action&lt;MySqlDbContextOptionsBuilder&gt;</code> like this:</p>
+<pre><code class="language-csharp">Action&lt;MySqlDbContextOptionsBuilder&gt; mySqlOptionsAction = (o) =&gt;
+{
+  o.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+  // Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
+  o.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+};
+</code></pre>
+<p>Pass your new options action into the AddDbContext method:</p>
+<pre><code class="language-csharp">services.AddDbContext&lt;TestContext&gt;(options =&gt; options.UseMySql(Configuration, mySqlOptionsAction));
+</code></pre>
+<h3 id="use-dbcontext">Use DbContext</h3>
+<p>Once you have configured and added the DbContext to the service container, inject and use it in a controller or a view, as shown in the following example:</p>
+<pre><code class="language-csharp">using Project.Models;
+...
+public class HomeController : Controller
+{
+    public IActionResult MySqlData([FromServices] TestContext context)
+    {
+        return View(context.TestData.ToList());
+    }
+</code></pre>

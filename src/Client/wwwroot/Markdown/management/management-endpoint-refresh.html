@@ -1,0 +1,39 @@
+<h3 id="refresh">Refresh</h3>
+<p>The Steeltoe Refresh endpoint can be used to cause the applications configuration to be reloaded and return the new values and keys currently in use in your application. The endpoint reloads the configuration using the applications <code>IConfigurationRoot</code>.</p>
+<h4 id="configure-settings">Configure Settings</h4>
+<p>The following table describes the settings that you can apply to the endpoint:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>The ID of the refresh endpoint</td>
+<td><code>refresh</code></td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>Whether to enable the refresh management endpoint</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: <strong>Each setting above must be prefixed with <code>management:endpoints:refresh</code></strong>.</p>
+<h4 id="enable-http-access">Enable HTTP Access</h4>
+<p>The default path to the Refresh endpoint is computed by combining the global <code>path</code> prefix setting together with the <code>id</code> setting from above. The default path is <code>/refresh</code>.</p>
+<p>The coding steps you take to enable HTTP access to the Refresh endpoint differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.</p>
+<h5 id="asp.net-core-app">ASP.NET Core App</h5>
+<p>Refer to the <a href="#http-access-asp-net-core">HTTP Access ASP.NET Core</a> section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.</p>
+<p>To add the Refresh actuator to the service container, use the <code>AddRefreshActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Refresh/EndpointServiceCollectionExtensions.cs">EndpointServiceCollectionExtensions</a>.</p>
+<p>To add the Refresh actuator middleware to the ASP.NET Core pipeline, use the <code>UseRefreshActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Refresh/EndpointApplicationBuilderExtensions.cs">EndpointApplicationBuilderExtensions</a>.</p>
+<h5 id="asp.net-4.x-app">ASP.NET 4.x App</h5>
+<p>Refer to the <a href="#http-access-asp-net-4-x">HTTP Access ASP.NET 4.x</a> section below to see the overall steps required to enable HTTP access to endpoints in a 4.x application.</p>
+<p>To add the Refresh actuator endpoint, use the <code>UseRefreshActuator()</code> method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointWeb/ActuatorConfigurator.cs">ActuatorConfigurator</a>.</p>
+<h5 id="asp.net-owin-app">ASP.NET OWIN App</h5>
+<p>Refer to the <a href="#http-access-asp-net-owin">HTTP Access ASP.NET OWIN</a> section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x OWIN application.</p>
+<p>To add the Refresh actuator middleware to the ASP.NET OWIN pipeline, use the <code>UseRefreshActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointOwin/Refresh/RefreshEndpointAppBuilderExtensions.cs">RefreshEndpointAppBuilderExtensions</a>.</p>

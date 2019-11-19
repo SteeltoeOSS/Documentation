@@ -1,6 +1,4 @@
-﻿@using Markdig;
-@using Markdig.Extensions;
-@inject System.Net.Http.HttpClient Http;
+﻿@inject System.Net.Http.HttpClient Http;
 
 @if (Content == null)
 {
@@ -8,7 +6,7 @@
 }
 else
 {
-	@((MarkupString)RenderHtmlContent(Content))
+	@((MarkupString)Content)
 }
 
 @code {
@@ -31,12 +29,4 @@ else
 		return httpResponse.IsSuccessStatusCode ?
 			await httpResponse.Content.ReadAsStringAsync() : httpResponse.ReasonPhrase;
 	}
-	private string RenderHtmlContent(string value) => Markdig.Markdown.ToHtml(
-		markdown: value,
-		pipeline: new MarkdownPipelineBuilder()
-											.UseBootstrap()
-											.UseAdvancedExtensions()
-											.Build()
-	);
-	@*https://github.com/lunet-io/markdig/tree/master/src/Markdig/Extensions/AutoIdentifiers*@
 }

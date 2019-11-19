@@ -1,0 +1,101 @@
+<h1 id="randomvalue-provider">RandomValue Provider</h1>
+<p>Sometimes you might find the need to generate random values as part of your applications configuration values.</p>
+<p>The Steeltoe RandomValue generator is a configuration provider which you can use to do just that. It can produce integers, longs, uuids or strings as shown in the following examples:</p>
+<pre><code class="language-csharp">var my_secret = config[&quot;random:value&quot;];
+var my_number = config[&quot;random:int&quot;];
+var my_big_number = config[&quot;random:long&quot;];
+var my_uuid = config[&quot;random:uuid&quot;];
+var my_number_less_than_ten = config[&quot;random:int(10)&quot;];
+var my_number_in_range = config[&quot;random:int[1024,65536]&quot;];
+
+</code></pre>
+<p>You can also use the generator together with property placeholders. For example, consider the following <code>appsettings.json</code></p>
+<pre><code class="language-json">{
+    &quot;my&quot;: {
+        &quot;secret&quot;: &quot;${random:value}&quot;,
+        &quot;number&quot;: &quot;${random:int}&quot;,
+        &quot;big_number&quot;: &quot;${random:long}&quot;,
+        &quot;uuid&quot;: &quot;${random:uuid}&quot;,
+        &quot;number_less_than_ten&quot;: &quot;${random:int(10)}&quot;,
+        &quot;number_in_range&quot;: &quot;${random:int[1024,65536]}&quot;
+    }
+}
+</code></pre>
+<p>The RandomValue provider supports the following .NET application types:</p>
+<ul>
+<li>ASP.NET (MVC, WebForms, WebAPI, WCF)</li>
+<li>ASP.NET Core</li>
+<li>Console apps (.NET Framework and .NET Core)</li>
+</ul>
+<p>The source code for this provider can be found <a href="https://github.com/SteeltoeOSS/Configuration">here</a>.</p>
+<h2 id="usage">Usage</h2>
+<p>The following sections describe how to use the Placeholder resolver configuration provider:</p>
+<ul>
+<li><a href="#4-2-1-add-nuget-reference">Add NuGet Reference</a></li>
+<li><a href="#4-2-2-add-configuration-provider">Add Configuration Provider</a></li>
+<li><a href="#4-2-3-access-random-value-data">Access Random Value Data</a></li>
+</ul>
+<p>You should have a good understanding of how the .NET <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration">Configuration services</a> work before starting to use this provider.</p>
+<p>In order to use the Steeltoe RandomValue provider you need to do the following:</p>
+<ol>
+<li>Add a NuGet package reference to your project.</li>
+<li>Add the provider to the Configuration Builder.</li>
+<li>Access random values from the <code>IConfiguration</code>.</li>
+</ol>
+<blockquote class="blockquote">
+<p>NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the <a href="https://github.com/SteeltoeOSS/Samples/tree/master/Configuration">other samples</a> for example code you can use.</p>
+</blockquote>
+<h3 id="add-nuget-reference">Add NuGet Reference</h3>
+<p>To use the provider, you need to add a reference to the appropriate Steeltoe NuGet.</p>
+<p>To do this add a <code>PackageReference</code> resembling the following:</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+...
+    &lt;PackageReference Include=&quot;Steeltoe.Extensions.Configuration.RandomValueBase&quot; Version= &quot;2.2.0&quot;/&gt;
+...
+&lt;/ItemGroup&gt;
+</code></pre>
+<h3 id="add-configuration-provider">Add Configuration Provider</h3>
+<p>In order to have the ability to generate random values from the configuration, you need to add the RandomValue generatore provider to the <code>ConfigurationBuilder</code>.</p>
+<p>The following example shows how to add to this:</p>
+<pre><code class="language-csharp">using Steeltoe.Extensions.Configuration.RandomValue;
+...
+
+var builder = new ConfigurationBuilder()
+    .SetBasePath(env.ContentRootPath)
+    .AddJsonFile(&quot;appsettings.json&quot;, optional: true, reloadOnChange: true)
+    .AddJsonFile($&quot;appsettings.{env.EnvironmentName}.json&quot;, optional: true)
+
+    // Add RandomValue generator
+    .AddRandomValueSource();
+Configuration = builder.Build();
+...
+
+</code></pre>
+<blockquote class="blockquote">
+<p>NOTE: It if you wish to generate random values as part of using placeholders, then it's important to add the RandomValue provider to the builder before you add the Placeholder resolver.</p>
+</blockquote>
+<h3 id="access-random-value-data">Access Random Value Data</h3>
+<p>Once the configuration has been built, the RandomValue generator can be used to generate values.  Simply access the configuration data using the appropriate <code>random</code> keys.</p>
+<p>Consider the following <code>HomeController</code>:</p>
+<pre><code class="language-csharp">public class HomeController : Controller
+{
+    private IConfiguration _config;
+    public HomeController(IConfiguration config)
+    {
+        _config = config;
+    }
+    public IActionResult Index()
+    {
+        ViewData[&quot;random:int&quot;] = _config[&quot;random:int&quot;];
+        ViewData[&quot;random:long&quot;] = _config[&quot;random:long&quot;];
+        ViewData[&quot;random:int(10)&quot;] = _config[&quot;random:int(10)&quot;];
+        ViewData[&quot;random:long(100)&quot;] = _config[&quot;random:long(100)&quot;];
+        ViewData[&quot;random:int(10,20)&quot;] = _config[&quot;random:int(10,20)&quot;];
+        ViewData[&quot;random:long(100,200)&quot;] = _config[&quot;random:long(100,200)&quot;];
+        ViewData[&quot;random:uuid&quot;] = _config[&quot;random:uuid&quot;];
+        ViewData[&quot;random:string&quot;] = _config[&quot;random:string&quot;];
+        return View();
+    }
+    ...
+}
+</code></pre>

@@ -1,0 +1,105 @@
+<h3 id="tracing">Tracing</h3>
+<p>The Steeltoe Tracing endpoint provides the ability to view the last several requests made of your application.</p>
+<p>When you activate the Tracing endpoint, an <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Trace/ITraceRepository.cs">ITraceRepository</a> implementation is configured and created to hold <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Trace/Trace.cs">Trace</a> information that can be retrieved using the endpoint.</p>
+<h4 id="configure-settings">Configure Settings</h4>
+<p>The following table describes the settings that you can apply to the endpoint:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>The ID of the trace endpoint</td>
+<td><code>trace</code></td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>Enable or disable trace management endpoint</td>
+<td>true</td>
+</tr>
+<tr>
+<td>sensitive</td>
+<td>Currently not used</td>
+<td>false</td>
+</tr>
+<tr>
+<td>requiredPermissions</td>
+<td>User permissions required on Cloud Foundry to access endpoint</td>
+<td>RESTRICTED</td>
+</tr>
+<tr>
+<td>capacity</td>
+<td>Size of the circular buffer of traces</td>
+<td>100</td>
+</tr>
+<tr>
+<td>addRequestHeaders</td>
+<td>Add request headers</td>
+<td>true</td>
+</tr>
+<tr>
+<td>addResponseHeaders</td>
+<td>Add response headers</td>
+<td>true</td>
+</tr>
+<tr>
+<td>addPathInfo</td>
+<td>Add path information</td>
+<td>false</td>
+</tr>
+<tr>
+<td>addUserPrincipal</td>
+<td>Add user principal</td>
+<td>false</td>
+</tr>
+<tr>
+<td>addParameters</td>
+<td>Add request parameters</td>
+<td>false</td>
+</tr>
+<tr>
+<td>addQueryString</td>
+<td>Add query string</td>
+<td>false</td>
+</tr>
+<tr>
+<td>addAuthType</td>
+<td>Add authentication type</td>
+<td>false</td>
+</tr>
+<tr>
+<td>addRemoteAddress</td>
+<td>Add remote address of user</td>
+<td>false</td>
+</tr>
+<tr>
+<td>addSessionId</td>
+<td>Add session id</td>
+<td>false</td>
+</tr>
+<tr>
+<td>addTimeTaken</td>
+<td>Add time take</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: <strong>Each setting above must be prefixed with <code>management:endpoints:trace</code></strong>.</p>
+<h4 id="enable-http-access">Enable HTTP Access</h4>
+<p>The default path to the Trace endpoint is computed by combining the global <code>path</code> prefix setting together with the <code>id</code> setting from above. The default path is <code>/trace</code>.</p>
+<p>The coding steps you take to enable HTTP access to the Trace endpoint differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.</p>
+<h5 id="asp.net-core-app">ASP.NET Core App</h5>
+<p>Refer to the <a href="#http-access-asp-net-core">HTTP Access ASP.NET Core</a> section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.</p>
+<p>To add the Trace actuator to the service container, use the <code>AddTraceActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Trace/EndpointServiceCollectionExtensions.cs">EndpointServiceCollectionExtensions</a>.</p>
+<p>To add the Trace actuator middleware to the ASP.NET Core pipeline, use the <code>UseTraceActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Trace/EndpointApplicationBuilderExtensions.cs">EndpointApplicationBuilderExtensions</a>.</p>
+<h5 id="asp.net-4.x-app">ASP.NET 4.x App</h5>
+<p>Refer to the <a href="#http-access-asp-net-4-x">HTTP Access ASP.NET 4.x</a> section below to see the overall steps required to enable HTTP access to endpoints in a 4.x application.</p>
+<p>To add the Trace actuator endpoint, use the <code>UseTraceActuator()</code> method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointWeb/ActuatorConfigurator.cs">ActuatorConfigurator</a>.</p>
+<h5 id="asp.net-owin-app">ASP.NET OWIN App</h5>
+<p>Refer to the <a href="#http-access-asp-net-owin">HTTP Access ASP.NET OWIN</a> section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x OWIN application.</p>
+<p>To add the Trace actuator middleware to the ASP.NET OWIN pipeline, use the <code>UseTraceActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointOwin/Trace/TraceEndpointAppBuilderExtensions.cs">TraceEndpointAppBuilderExtensions</a>.</p>

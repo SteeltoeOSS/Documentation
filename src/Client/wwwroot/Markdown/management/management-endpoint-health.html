@@ -1,0 +1,208 @@
+<h3 id="health">Health</h3>
+<p>The Steeltoe Health management endpoint can be used to check and return the status of your running application. It can often be used by monitoring software to alert someone if a production system goes down. The information exposed by the <code>health</code> endpoint depends on the <code>management:endpoints:health:showdetails</code> property which can be configured with one of the following values:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>never</code></td>
+<td>Details are never shown.</td>
+</tr>
+<tr>
+<td><code>whenauthorized</code></td>
+<td>Details are only shown to authorized users.</td>
+</tr>
+<tr>
+<td><code>always</code></td>
+<td>Details are always shown.</td>
+</tr>
+</tbody>
+</table>
+<p>The default value is <code>always</code>. Authorized roles can be configured using <code>management:endpoints:health:claim or management:endpoints:health:role</code>. A user is considered to be authorized when they are in the given role or have the specified claim. For example:</p>
+<pre><code class="language-json">&quot;management&quot;: {
+    &quot;endpoints&quot;: {
+        &quot;health&quot;: {
+            &quot;showdetails&quot;: &quot;whenauthorized&quot;,
+            &quot;claim&quot;: {
+                &quot;type&quot;: &quot;health_actuator&quot;,
+                &quot;value&quot;: &quot;see_details&quot;
+            }
+        }
+    }
+}
+</code></pre>
+<p>Health information is collected from all <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Health/IHealthContributor.cs">IHealthContributor</a> implementations provided to the <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Health/HealthEndpoint.cs">HealthEndpoint</a>. Steeltoe includes several <code>IHealthContributor</code> implementations out of the box that you can use, and, more importantly, you can write your own.</p>
+<p>By default, the final application health state is computed by the <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Health/IHealthAggregator.cs">IHealthAggregator</a> that is provided to the <code>HealthEndpoint</code>. The <code>IHealthAggregator</code> is responsible for sorting out all of the returned statuses from each <code>IHealthContributor</code> and deriving an overall application health state. The <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Health/DefaultHealthAggregator.cs">DefaultHealthAggregator</a> returns the <code>worst</code> status returned from all of the <code>IHealthContributors</code>.</p>
+<h4 id="health-contributors">Health Contributors</h4>
+<p>At present, Steeltoe provides the following <code>IHealthContributor</code> implementations you can choose from:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Health/Contributor/DiskSpaceContributor.cs">DiskSpaceContributor</a></td>
+<td>checks for low disk space, configure using <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Health/Contributor/DiskSpaceContributorOptions.cs">DiskSpaceContributorOptions</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/SteeltoeOSS/Connectors/blob/master/src/Steeltoe.CloudFoundry.ConnectorBase/Queue/RabbitMQHealthContributor.cs">RabbitMQHealthContributor</a></td>
+<td>checks RabbitMQ connection health</td>
+</tr>
+<tr>
+<td><a href="https://github.com/SteeltoeOSS/Connectors/blob/master/src/Steeltoe.CloudFoundry.ConnectorBase/Cache/RedisHealthContributor.cs">RedisHealthContributor</a></td>
+<td>checks Redis cache connection health</td>
+</tr>
+<tr>
+<td><a href="https://github.com/SteeltoeOSS/Connectors/blob/master/src/Steeltoe.CloudFoundry.ConnectorBase/Relational/RelationalHealthContributor.cs">RelationalHealthContributor</a></td>
+<td>checks relational database connection health (MySql, Postgres, SqlServer)</td>
+</tr>
+</tbody>
+</table>
+<p>Many of the above health contributors are located in the <a href="https://github.com/SteeltoeOSS/Connectors">Steeltoe Connectors</a> package and are made available to your application when you reference the Connectors package.</p>
+<p>If you wish to provide custom health information for your application, create a class that implements the <code>IHealthContributor</code> interface and then add that to the <code>HealthEndpoint</code>. Details on how to add a contributor to the endpoint is provided below.</p>
+<p>The following is an example <code>IHealthContributor</code> that always returns a <code>HealthStatus</code> of <code>UP</code>.</p>
+<pre><code class="language-csharp">public class CustomHealthContributor : IHealthContributor
+{
+    public string Id =&gt; &quot;CustomHealthContributor&quot;;
+
+    public HealthCheckResult Health()
+    {
+        var result = new HealthCheckResult {
+            // this is used as part of the aggregate, it is not directly part of the middleware response
+            Status = HealthStatus.UP,
+            Description = &quot;This health check does not check anything&quot;
+        };
+        result.Details.Add(&quot;status&quot;, HealthStatus.UP.ToString());
+        return result;
+    }
+}
+</code></pre>
+<h4 id="configure-settings">Configure Settings</h4>
+<p>The following table describes the settings that you can apply to the endpoint.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>The ID of the health endpoint</td>
+<td><code>health</code></td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>Whether to enable the health management endpoint</td>
+<td>true</td>
+</tr>
+<tr>
+<td>sensitive</td>
+<td>Currently not used</td>
+<td>false</td>
+</tr>
+<tr>
+<td>requiredPermissions</td>
+<td>The user permissions required on Cloud Foundry to access endpoint</td>
+<td>RESTRICTED</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: <strong>Each setting above must be prefixed with <code>management:endpoints:health</code></strong>.</p>
+<h4 id="enable-http-access">Enable HTTP Access</h4>
+<p>The default path to the Health endpoint is computed by combining the global <code>path</code> prefix setting together with the <code>id</code> setting from above. The default path is <code>/health</code>.</p>
+<p>The coding steps you take to enable HTTP access to the Health endpoint together with how to use custom Health contributors differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.</p>
+<h5 id="asp.net-core-app">ASP.NET Core App</h5>
+<p>Refer to the <a href="#http-access-asp-net-core">HTTP Access ASP.NET Core</a> section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.</p>
+<p>To add the Health actuator to the service container, use any one of the <code>AddHealthActuator()</code> extension methods from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Health/EndpointServiceCollectionExtensions.cs">EndpointServiceCollectionExtensions</a>.</p>
+<p>To add the Health actuator middleware to the ASP.NET Core pipeline, use the <code>UseHealthActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Health/EndpointApplicationBuilderExtensions.cs">EndpointApplicationBuilderExtensions</a>.</p>
+<p>The following example shows how enable the Health endpoint and to add a custom <code>IHealthContributor</code> to the service container by adding <code>CustomHealthContributor</code> as a singleton. Once that's done the Health endpoint will discover and use it during health checks.</p>
+<pre><code class="language-csharp">public class Startup
+{
+    ...
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Add your own IHealthContributor, registered with the interface
+        services.AddSingleton&lt;IHealthContributor, CustomHealthContributor&gt;();
+
+        // Add health actuator
+        services.AddHealthActuator(Configuration);
+
+        // Add framework services.
+        services.AddMvc();
+    }
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+    {
+        app.UseStaticFiles();
+
+        // Add management endpoint into pipeline
+        app.UseHealthActuator();
+    }
+}
+</code></pre>
+<blockquote class="blockquote">
+<p>NOTE: When you use any of the Steeltoe Connectors in your application we automatically add the corresponding health contributors to the service container.</p>
+</blockquote>
+<h5 id="asp.net-4.x-app">ASP.NET 4.x App</h5>
+<p>Refer to the <a href="#http-access-asp-net-4-x">HTTP Access ASP.NET 4.x</a> section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x application.</p>
+<p>To add the Health actuator endpoint, use the <code>UseHealthActuator()</code> method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointWeb/ActuatorConfigurator.cs">ActuatorConfigurator</a>. Optionally you can provide a custom <code>IIHealthAggregator</code> and a list of <code>IHealthContributor</code>s should you want to customize the actuator endpoint.  If none are provided, defaults will be provided.</p>
+<p>The following example shows how enable the Health endpoint and use the default <code>IIHealthAggregator</code> together with two <code>IHealthContributor</code>s.</p>
+<pre><code class="language-csharp">public class ManagementConfig
+{
+    public static void ConfigureManagementActuators(IConfiguration configuration, ILoggerFactory loggerFactory = null)
+    {
+        ...
+        ActuatorConfigurator.UseHealthActuator(
+            configuration,
+            new DefaultHealthAggregator(),
+            GetHealthContributors(configuration),
+            loggerFactory);
+        ...
+    }
+    private static IEnumerable&lt;IHealthContributor&gt; GetHealthContributors(IConfiguration configuration)
+    {
+        var healthContributors = new List&lt;IHealthContributor&gt;
+        {
+            new DiskSpaceContributor(),
+            RelationalHealthContributor.GetMySqlContributor(configuration)
+        };
+        return healthContributors;
+    }
+</code></pre>
+<h5 id="asp.net-owin-app">ASP.NET OWIN App</h5>
+<p>Refer to the <a href="#http-access-asp-net-owin">HTTP Access ASP.NET OWIN</a> section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x OWIN application.</p>
+<p>To add the Health actuator middleware to the ASP.NET OWIN pipeline, use the <code>UseHealthActuator()</code> extension method from <a href="https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointOwin/Health/HealthEndpointAppBuilderExtensions.cs">HealthEndpointAppBuilderExtensions</a>.</p>
+<p>The following example shows how enable the Health endpoint and use the default <code>IIHealthAggregator</code> together with two <code>IHealthContributor</code>s.</p>
+<pre><code class="language-csharp">public class Startup
+{
+    ...
+    public void Configuration(IAppBuilder app)
+    {
+        ...
+        app.UseHealthActuator(
+            new HealthOptions(ApplicationConfig.Configuration),
+            new DefaultHealthAggregator(),
+            GetHealthContributors(ApplicationConfig.Configuration),
+            LoggingConfig.LoggerFactory);
+        ...
+    }
+    private static IEnumerable&lt;IHealthContributor&gt; GetHealthContributors(IConfiguration configuration)
+    {
+        var healthContributors = new List&lt;IHealthContributor&gt;
+        {
+            new DiskSpaceContributor(),
+            RelationalHealthContributor.GetMySqlContributor(configuration)
+        };
+        return healthContributors;
+    }
+}
+</code></pre>
