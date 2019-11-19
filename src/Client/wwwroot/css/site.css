@@ -1,176 +1,83 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,800&display=swap');
+@import url('https://steeltoe.io/css/site.css');
 
-/* DEVELOP WIDTH = 1400px */
+
+/*=======================================================================
+	Override main site styling
+	========================================================================
+*/
 html, body {
-	font-family: 'Raleway', sans-serif;
-	font-size: 20px;
-	font-style: normal;
-	font-weight: normal;
+	font-size: 16px;
 }
-
-
-/*=====================CONTAINER SIZING===================== */
-.width-90 {
-	max-width: 90%;
-}
-
-.width-80 {
-	max-width: 80%;
-}
-
-.width-75 {
-	max-width: 75%;
-}
-
-.width-70 {
-	max-width: 70%;
-}
-
-.width-60 {
-	max-width: 60%;
-}
-
-.width-55 {
-	max-width: 55%;
-}
-
-.width-50 {
-	max-width: 50%;
-}
-.width-all {
-	max-width: 100%;
-}
-@media (min-width: 1400px) {
-	.width-90 {
-		max-width: 1400px;
-	}
-
-	.width-80 {
-		max-width: 80%;
-	}
-
-	.width-75 {
-		max-width: 75%;
-	}
-
-	.width-70 {
-		max-width: 1120px;
-	}
-
-	.width-60 {
-		max-width: 960px;
-	}
-
-	.width-55 {
-		max-width: 55%;
-	}
-
-	.width-50 {
-		max-width: 50%;
-	}
-
-	.width-all {
-		max-width: 100%;
-	}
-}
-/*=====================FONT COLORS===================== */
-.yellow {
-	color: #ffd700;
-}
-
-.grey {
-	color: #373737;
-}
-
-.black {
-	color: black;
-}
-
-.steeltoe-blue {
-	color: #0066cc;
-}
-
-.midnight-blue {
+h1, h2, h3 {
 	color: #00376e;
 }
-/* =====================BOOTSTRAP OVERRIDE===================== */
-.row {
+h2, h3 {
+	margin-top: 4%;
+}
+h1::after, h2::after {
+	content: '';
 	width: 100%;
-}
-
-.hide {
-	display: none;
-}
-
-.container {
-	padding: 0;
-}
-/* =====================HTML ELEMENT OVERRIDE===================== */
-pre {
-	background-color: #242937;
-	border: 0; /*1px solid #373737;*/
-	overflow: inherit;
-	padding: 15px;
-	margin-left: 0;
-	font-size: 83%;
-	color: white;
-	tab-size: 4;
-	overflow-x: scroll;
-}
-
-code.inline, code.inline-no-ps {
+	height: 1px;
+	background-color: #373737;
 	display: block;
-	margin: 10px 0 10px 0;
-	background-color: #fff0b3;
-	color: black;
-	padding: 5px 15px 5px 15px;
-	font-size: 83%;
+	margin: 1% 0 3% 0;
 }
-
-code.inline:before {
-	content: "PS C:\\>";
-	display: inline-block;
-	padding-right: 5px;
+ul li {
+	text-decoration-style: dotted;
+	text-decoration-color: #0066cc;
+	color: #00376e;
 }
-
-ol {
+pre {
+	overflow-x: visible;
+}
+code {
+	background-color: #ffd70061;
+	padding: 0 4px 0 4px;
+	color: #00376e;
+}
+pre code {
+	background-color: #242937;
+	
+}
+.table{
+	margin: 2% 0 3% 0;
+	font-size: 90%;
+}
+.table thead {
+	background-color: #e4f1ff;
+	color: #00376e;
+}
+.table thead th, .table td, .table th {
+	border: 0;
+	color: #00376e;
+}
+.table tbody tr:nth-child(2n) {
+	background-color: #f7f7f7;
+}
+.blockquote {
+	font-size: inherit;
+}
+.blockquote::before {
+	content: '! Note';
+	width: 100%;
+	background-color: #1abc9c;
+	text-transform: capitalize;
+	color: white;
+	padding: 5px 0 5px 10px;
+	display: block;
 	margin: 0;
-	padding: 0;
-}
-
-h1 {
-	font-style: normal;
-	font-weight: bold;
-	font-size: 250%;
-}
-
-h2 {
-	font-style: normal;
-	font-weight: bold;
-	font-size: 200%;
-}
-
-h3 {
-	font-style: normal;
-	font-weight: bold;
-	font-size: 150%;
-}
-
-h4 {
-	font-style: normal;
 	font-weight: bold;
 }
-
-a {
-	text-decoration: none;
-	color: #0066cc;
-}
-
-/* =========================NAVIGATION======================== */
-ul.blazored-menu li {
-	list-style: none;
-}
+	.blockquote p {
+		background-color: #dbfaf4;
+		padding: 5px;
+	}
+	/* =========================NAVIGATION======================== */
+	ul.blazored-menu li {
+		list-style: none;
+	}
 ul.blazored-menu li a {
 	cursor: pointer;
 }
