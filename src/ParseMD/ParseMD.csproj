@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Blazored.Menu\Blazored.Menu.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Blazored.Menu">
+      <HintPath>..\..\..\MainSite\src\Blazored.Menu\bin\Release\netstandard2.0\Blazored.Menu.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

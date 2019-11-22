@@ -32,15 +32,16 @@ namespace ParseMD
 			if (Directory.Exists(_publishDirPath)) { publish.Delete(true);  }
 			publish.Create();
 			List<MenuItem> menuItems = new List<MenuItem>();
-
+			int componentCnt = 0;
 			foreach (var componentDir in parent.GetDirectories())
 			{
 				DirectoryInfo componentPublishDir = publish.CreateSubdirectory(componentDir.Name);
 				MenuItem rootItem = new MenuItem()
 				{
 					Title = componentLookup[componentDir.Name],
-					Link = componentDir.Name,
-					MatchLink = "All"
+					Link = "/docs/" + componentDir.Name,
+					MatchLink = "All",
+					Position = componentCnt++
 				};
 
 				FileInfo[] files = componentDir.GetFiles();
@@ -50,13 +51,15 @@ namespace ParseMD
 				}
 
 				List<MenuItem> childItems = new List<MenuItem>();
+				int fileCnt = 0;
 				foreach (var componentFile in files)
 				{
 					MenuItem childItem = new MenuItem()
 					{
 						Title = parseTitleFromFileName(componentFile.Name),
-						Link = componentDir.Name+"/"+componentFile.Name.Replace(".md", ""),
-						MatchLink = "Prefix"
+						Link = "/docs/" + componentDir.Name + "/" + componentFile.Name.Replace(".md", ""),
+						MatchLink = "Prefix",
+						Position = fileCnt++
 					};
 
 					string fileContent = File.ReadAllText(componentFile.FullName);
@@ -73,21 +76,24 @@ namespace ParseMD
 					var h2Elements = doc.DocumentNode.Descendants("h3");
 					var elements = h1Elements.Union(h2Elements);
 
-					if (elements.Count() < 1){
+					if (elements.Count() < 1)
+					{
 						childItem.MenuItems = null;
-						childItems.Add(childItem);
+						childItems.Insert(0, childItem);
 						continue;
 					}
-
+					
 					childItem.MenuItems = new List<MenuItem>();
+					int hTagCnt = 0;
 					foreach (HtmlNode node in elements)
 					{
 						//Console.WriteLine(s.InnerText);
 						childItem.MenuItems.Add(new MenuItem()
 						{
 							Title = node.InnerText,
-							Link = childItem.Link + "#" + node.Attributes["id"].Value,
-							MatchLink = "Prefix"
+							Link = "#" + node.Attributes["id"].Value,
+							MatchLink = "Prefix",
+							Position = hTagCnt++
 						});
 					}
 
@@ -114,10 +120,10 @@ namespace ParseMD
 				if (componentLookup.ContainsKey(s))
 					continue;
 
-				ret += Char.ToUpperInvariant(s[0]) + s.Substring(1).ToLower();
+				ret += Char.ToUpperInvariant(s[0]) + s.Substring(1).ToLower() + " ";
 			}
 
-			return ret;
+			return ret.Trim();
 		}
 		private string parseHeaderValue(string line)
 		{

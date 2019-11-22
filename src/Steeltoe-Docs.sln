@@ -3,16 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29209.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steeltoe.Client", "Client\Steeltoe.Client.csproj", "{52B7F368-0A7D-44A1-986A-A187B42ED2FA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steeltoe.Shared", "Shared\Steeltoe.Shared.csproj", "{26C7B9E2-A804-409E-9716-FF6AF0B6AE7B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steeltoe.Server", "Server\Steeltoe.Server.csproj", "{DE1BFD0E-403F-4448-B7D9-EE2210473AFB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazored.Menu", "Blazored.Menu\Blazored.Menu.csproj", "{2FAE0153-3327-4FF9-ABE9-405FB32C5411}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevExpress.Blazor.AnchorUtils", "DevExpress.Blazor.AnchorUtils\DevExpress.Blazor.AnchorUtils.csproj", "{FE70928A-97A6-4577-A5A7-D55838B5B494}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseMD", "ParseMD\ParseMD.csproj", "{73D5F50F-25A9-44B4-A5A7-06084F4E12C8}"
 EndProject
 Global
