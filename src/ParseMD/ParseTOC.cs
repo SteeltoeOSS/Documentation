@@ -73,8 +73,8 @@ namespace ParseMD
 					var doc = new HtmlDocument();
 					doc.LoadHtml(html);
 					var h1Elements = doc.DocumentNode.Descendants("h2");
-					var h2Elements = doc.DocumentNode.Descendants("h3");
-					var elements = h1Elements.Union(h2Elements);
+					//var h2Elements = doc.DocumentNode.Descendants("h3");
+					var elements = h1Elements;//.Union(h2Elements);
 
 					if (elements.Count() < 1)
 					{

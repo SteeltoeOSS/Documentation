@@ -1,4 +1,4 @@
-# Steeltoe Discovery
+# Service Discovery
 
 Steeltoe provides a set of generalized interfaces for interacting with multiple service discovery back ends. This section will cover the general components first. If you are looking for something specific to the registry server you are using, feel free to skip ahead to the section for [Netflix Eureka](#2-0-netflix-eureka) or [HashiCorp Consul](#3-0-hashicorp-consul).
 
