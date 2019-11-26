@@ -7,7 +7,8 @@ pool:
 
 steps:
 - script: dotnet publish './src/ParseMD/ParseMD.csproj' --output './publish' --configuration Release
-
+- script: ls
+- script: ls ./publish
 - script: ./publish/ParseMD.exe "./docs" "./output"
 
 - task: CopyFiles@2
