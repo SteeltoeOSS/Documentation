@@ -38,80 +38,96 @@ namespace ParseMD
 			foreach (var componentDir in parent.GetDirectories())
 			{
 				DirectoryInfo componentPublishDir = publish.CreateSubdirectory(componentDir.Name);
-				MenuItem rootItem = new MenuItem()
-				{
-					Title = componentLookup[componentDir.Name],
-					Link = "/docs/" + componentDir.Name,
-					MatchLink = "All",
-					Position = componentCnt++
-				};
+
+				MenuItem rootItem = buildMenuItem(componentDir, componentCnt++);
 
 				FileInfo[] files = componentDir.GetFiles();
-				if (files == null || files.Length < 1){
+				if (files != null & files.Length > 0){
+					rootItem.MenuItems = parseFiles(componentPublishDir, files);
+				}
+
+				if (! componentDir.Name.ToLower().Equals("introduction"))
 					menuItems.Add(rootItem);
-					continue;
-				}
-
-				List<MenuItem> childItems = new List<MenuItem>();
-				int fileCnt = 0;
-				foreach (var componentFile in files)
-				{
-					MenuItem childItem = new MenuItem()
-					{
-						Title = parseTitleFromFileName(componentFile.Name),
-						Link = "/docs/" + componentDir.Name + "/" + componentFile.Name.Replace(".md", ""),
-						MatchLink = "Prefix",
-						Position = fileCnt++
-					};
-
-					string fileContent = File.ReadAllText(componentFile.FullName);
-					string html = RenderHtmlContent(fileContent);
-					string filePath = Path.Combine(componentPublishDir.FullName, componentFile.Name.Replace(".md", ".html"));
-
-					using (StreamWriter sw = File.CreateText(filePath)){
-						sw.Write(html);
-					}
-					
-					var doc = new HtmlDocument();
-					doc.LoadHtml(html);
-					var h1Elements = doc.DocumentNode.Descendants("h2");
-					//var h2Elements = doc.DocumentNode.Descendants("h3");
-					var elements = h1Elements;//.Union(h2Elements);
-
-					if (elements.Count() < 1)
-					{
-						childItem.MenuItems = null;
-						childItems.Insert(0, childItem);
-						continue;
-					}
-					
-					childItem.MenuItems = new List<MenuItem>();
-					int hTagCnt = 0;
-					foreach (HtmlNode node in elements)
-					{
-						//Console.WriteLine(s.InnerText);
-						childItem.MenuItems.Add(new MenuItem()
-						{
-							Title = node.InnerText,
-							Link = "#" + node.Attributes["id"].Value,
-							MatchLink = "Prefix",
-							Position = hTagCnt++
-						});
-					}
-
-					childItems.Add(childItem);
-				}
-
-				rootItem.MenuItems = childItems;
-				menuItems.Add(rootItem);
 			}
 
-			//Console.Write(JsonConvert.SerializeObject(menuItems));
-
-			using (StreamWriter sw = File.CreateText(Path.Combine(_publishDirPath, "toc.json")))
-			{
+			using (StreamWriter sw = File.CreateText(Path.Combine(_publishDirPath, "toc.json"))){
 				sw.Write(JsonConvert.SerializeObject(menuItems));
 			}
+		}
+		private List<MenuItem> parseFiles(DirectoryInfo parentDir, FileInfo[] files) {
+			List<MenuItem> items = new List<MenuItem>();
+			int fileCnt = 0;
+
+			foreach (var file in files) {
+				string html = writeHTMLFile(parentDir.FullName, file);
+
+				MenuItem childItem = buildMenuItem("/docs/" + parentDir.Name, file, fileCnt++);
+
+				if (childItem == null)
+					continue;
+
+				var elements = parseHtmlNodes(html);
+
+				if (elements.Count() > 0) {
+					childItem.MenuItems = new List<MenuItem>();
+					int hTagCnt = 0;
+					foreach (HtmlNode node in elements) {
+						childItem.MenuItems.Add(buildMenuItem(node, hTagCnt++));
+					}
+				}
+
+				items.Add(childItem);
+			}
+
+			return items;
+		}
+		private string writeHTMLFile(string destDirName, FileInfo soureFile) {
+			string filePath = Path.Combine(destDirName, soureFile.Name.Replace(".md", ".html"));
+			string fileContent = File.ReadAllText(soureFile.FullName);
+			string html = RenderHtmlContent(fileContent);
+
+			using (StreamWriter sw = File.CreateText(filePath)) {
+				sw.Write(html);
+			}
+
+			return html;
+		}
+		private IEnumerable<HtmlNode> parseHtmlNodes(string html) {
+			var doc = new HtmlDocument();
+			doc.LoadHtml(html);
+
+			var h1Elements = doc.DocumentNode.Descendants("h2");
+			var h2Elements = doc.DocumentNode.Descendants("h3");
+			return h1Elements.Union(h2Elements);
+		}
+		private MenuItem buildMenuItem(DirectoryInfo dir, int cnt) {
+			return new MenuItem() {
+				Title = componentLookup[dir.Name],
+				Link = "/docs/" + dir.Name,
+				MatchLink = "All",
+				Position = cnt
+			};
+		}
+		private MenuItem buildMenuItem(string parentDirName, FileInfo file, int cnt) {
+			if (file.Name.ToLower().Equals("overview.md"))
+				return null;
+
+			int? pos = parsePositionFromFileName(file.Name);
+
+			return new MenuItem() {
+				Title = parseTitleFromFileName(file.Name),
+				Link = parentDirName+"/"+file.Name.Replace(".md", ""),
+				MatchLink = "Prefix",
+				Position = (pos.HasValue ? pos.Value : cnt)
+			};
+		}
+		private MenuItem buildMenuItem(HtmlNode node, int cnt) {
+			return new MenuItem() {
+				Title = node.InnerText,
+				Link = "#" + node.Attributes["id"].Value,
+				MatchLink = "Prefix",
+				Position = cnt
+			};
 		}
 		private string parseTitleFromFileName(string fileName)
 		{
@@ -119,13 +135,25 @@ namespace ParseMD
 			string ret = "";
 			foreach (string s in str.Split(" "))
 			{
-				if (componentLookup.ContainsKey(s))
+				if (componentLookup.ContainsKey(s)) //don't include the component name in title
 					continue;
 
 				ret += Char.ToUpperInvariant(s[0]) + s.Substring(1).ToLower() + " ";
 			}
 
 			return ret.Trim();
+		}
+		private int? parsePositionFromFileName(string fileName) {
+			if (! fileName.Contains("-"))
+				return null;
+
+			string[] splt = fileName.Split("-");
+
+			int pos;
+			if (int.TryParse(splt[0], out pos))
+				return pos;
+
+			return null;
 		}
 		private string parseHeaderValue(string line)
 		{
@@ -152,7 +180,7 @@ namespace ParseMD
 
 		private Dictionary<string, string> componentLookup = new Dictionary<string, string>()
 		{
-			{"circuitbreaker","Circuit Breaker" },
+			{"circuitbreaker","Circuit Breakers" },
 			{"configuration","Application Configuration" },
 			{"connectors","Cloud Connectors" },
 			{"discovery","Service Discovery" },
@@ -160,7 +188,7 @@ namespace ParseMD
 			{"introduction","Introduction" },
 			{"logging","Dynamic Logging" },
 			{"management","Cloud Management" },
-			{"security","Security Providers" }
+			{"security","Cloud Security" }
 		};
 	}
 }
