@@ -68,11 +68,14 @@ namespace ParseMD
 
 				var elements = parseHtmlNodes(html);
 
-				if (elements.Count() > 0) {
+				if (elements.Count() > 1) { //only add subelements are there are multiple
 					childItem.MenuItems = new List<MenuItem>();
 					int hTagCnt = 0;
 					foreach (HtmlNode node in elements) {
-						childItem.MenuItems.Add(buildMenuItem(node, hTagCnt++));
+						MenuItem hMenuItem = buildMenuItem(node, hTagCnt++);
+
+						if(hMenuItem != null)
+							childItem.MenuItems.Add(hMenuItem);
 					}
 				}
 
@@ -122,6 +125,9 @@ namespace ParseMD
 			};
 		}
 		private MenuItem buildMenuItem(HtmlNode node, int cnt) {
+			if (node.InnerText.ToLower().Equals("Usage"))
+				return null;
+
 			return new MenuItem() {
 				Title = node.InnerText,
 				Link = "#" + node.Attributes["id"].Value,
