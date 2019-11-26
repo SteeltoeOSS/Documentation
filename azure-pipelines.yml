@@ -6,17 +6,16 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: dotnet publish './src/Server/Steeltoe.Server.csproj' --output './publish' --configuration Release --framework netcoreapp3.0 --runtime linux-x64 --self-contained
+- script: dotnet publish './src/ParseMD/ParseMD.csproj' --output './publish' --configuration Release
+
+- script: ./publish/ParseMD.exe "./docs" "./output"
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: './publish'
+    SourceFolder: './output'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
-
-- script: cp "manifest-staging.yml" "$(Build.ArtifactStagingDirectory)/manifest-staging.yml"
-- script: cp "manifest-prod.yml" "$(Build.ArtifactStagingDirectory)/manifest-prod.yml"
 
 - task: PublishBuildArtifacts@1
   inputs:

@@ -1,10 +1,8 @@
 ﻿using Markdig;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Blazored.Menu;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
@@ -14,12 +12,17 @@ namespace ParseMD
 {
 	class ParseTOC
 	{
-		string _parentDirPath;
-		string _publishDirPath;
+		private readonly string _parentDirPath;
+		private readonly string _publishDirPath;
 
 		public ParseTOC(string parentDirPath, string publishDirPath) {
-			if (! Directory.Exists(parentDirPath))
-				throw new Exception("Parent path no found");
+			if (!Directory.Exists(parentDirPath)) {
+				Console.Write("Parent path no found");
+				Environment.Exit(1);
+			}
+
+			if (Directory.Exists(publishDirPath)) { Directory.Delete(publishDirPath,true); }
+			Directory.CreateDirectory(publishDirPath);
 
 			_parentDirPath = parentDirPath;
 			_publishDirPath = publishDirPath;
@@ -29,10 +32,9 @@ namespace ParseMD
 			DirectoryInfo publish = new DirectoryInfo(_publishDirPath);
 			DirectoryInfo parent = new DirectoryInfo(_parentDirPath);
 
-			if (Directory.Exists(_publishDirPath)) { publish.Delete(true);  }
-			publish.Create();
 			List<MenuItem> menuItems = new List<MenuItem>();
 			int componentCnt = 0;
+			
 			foreach (var componentDir in parent.GetDirectories())
 			{
 				DirectoryInfo componentPublishDir = publish.CreateSubdirectory(componentDir.Name);
@@ -104,7 +106,7 @@ namespace ParseMD
 				menuItems.Add(rootItem);
 			}
 
-			Console.Write(JsonConvert.SerializeObject(menuItems));
+			//Console.Write(JsonConvert.SerializeObject(menuItems));
 
 			using (StreamWriter sw = File.CreateText(Path.Combine(_publishDirPath, "toc.json")))
 			{

@@ -1,9 +1,0 @@
----
-applications:
-- name: steeltoe-docs-stage
-  memory: 512M
-  instances: 1
-  buildpacks:
-    - https://github.com/cloudfoundry/dotnet-core-buildpack.git#v2.3.1
-  #routes:
-  #  - docs-dev.steeltoe.io
