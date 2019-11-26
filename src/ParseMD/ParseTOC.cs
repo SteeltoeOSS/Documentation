@@ -133,12 +133,18 @@ namespace ParseMD
 		{
 			string str = fileName.Replace(".md", "").Replace("-", " ");
 			string ret = "";
+			int idx = 0;
 			foreach (string s in str.Split(" "))
 			{
 				if (componentLookup.ContainsKey(s)) //don't include the component name in title
 					continue;
 
+				int t;
+				if (idx == 0 && int.TryParse(s, out t)) //if the item has a position index, don't add to title
+					continue;
+
 				ret += Char.ToUpperInvariant(s[0]) + s.Substring(1).ToLower() + " ";
+				idx++;
 			}
 
 			return ret.Trim();
