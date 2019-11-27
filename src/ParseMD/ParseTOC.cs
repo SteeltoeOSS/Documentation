@@ -104,11 +104,14 @@ namespace ParseMD
 			return h1Elements.Union(h2Elements);
 		}
 		private MenuItem buildMenuItem(DirectoryInfo dir, int cnt) {
+			int? pos = parsePositionFromFileName(dir.Name);
+			string key = (pos.HasValue ? dir.Name.Replace(pos.Value + "-", "") : dir.Name);
+
 			return new MenuItem() {
-				Title = componentLookup[dir.Name],
+				Title = componentLookup[key],
 				Link = "/docs/" + dir.Name,
 				MatchLink = "All",
-				Position = cnt
+				Position = (pos.HasValue ? pos.Value : cnt)
 			};
 		}
 		private MenuItem buildMenuItem(string parentDirName, FileInfo file, int cnt) {
@@ -125,7 +128,7 @@ namespace ParseMD
 			};
 		}
 		private MenuItem buildMenuItem(HtmlNode node, int cnt) {
-			if (node.InnerText.ToLower().Equals("Usage"))
+			if (node.InnerText.ToLower().Equals("usage"))
 				return null;
 
 			return new MenuItem() {
@@ -166,20 +169,6 @@ namespace ParseMD
 				return pos;
 
 			return null;
-		}
-		private string parseHeaderValue(string line)
-		{
-			
-
-
-
-			Match m = Regex.Match(line, @"<h1(.*)>\s*(.+?)\s*</h1>");
-			
-			if (!m.Success)
-				return null;
-			Console.WriteLine(line);
-			Console.WriteLine("[MATCH]:" + m.Value);
-			return m.Value;
 		}
 
 		private string RenderHtmlContent(string value) => Markdig.Markdown.ToHtml(
