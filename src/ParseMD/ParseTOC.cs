@@ -35,7 +35,16 @@ namespace ParseMD
 
 			List<MenuItem> menuItems = new List<MenuItem>();
 			int componentCnt = 0;
-			
+
+			foreach (var file in parent.GetFiles()) {
+				string html = writeHTMLFile(publish.FullName, file);
+
+				MenuItem childItem = buildMenuItem("/docs", file, componentCnt++, true);
+				childItem.MenuItems = null;
+
+				menuItems.Add(childItem);
+			}
+
 			foreach (var componentDir in parent.GetDirectories())
 			{
 				DirectoryInfo componentPublishDir = publish.CreateSubdirectory(componentDir.Name);
@@ -52,7 +61,7 @@ namespace ParseMD
 			}
 
 			using (StreamWriter sw = File.CreateText(Path.Combine(_publishDirPath, "toc.json"))){
-				sw.Write(JsonConvert.SerializeObject(menuItems));
+				sw.Write(JsonConvert.SerializeObject(sortMenuItems(menuItems)));
 			}
 		}
 		private List<MenuItem> parseFiles(DirectoryInfo parentDir, FileInfo[] files) {
@@ -78,12 +87,14 @@ namespace ParseMD
 						if(hMenuItem != null)
 							childItem.MenuItems.Add(hMenuItem);
 					}
+
+					childItem.MenuItems = sortMenuItems(childItem.MenuItems);
 				}
 
 				items.Add(childItem);
 			}
 
-			return items;
+			return sortMenuItems(items);
 		}
 		private string writeHTMLFile(string destDirName, FileInfo soureFile) {
 			string filePath = Path.Combine(destDirName, soureFile.Name.Replace(".md", ".html"));
@@ -95,6 +106,10 @@ namespace ParseMD
 			}
 
 			return html;
+		}
+		private List<MenuItem> sortMenuItems(List<MenuItem> items) {
+			items.Sort((x, y) => x.Position.CompareTo(y.Position));
+			return items;
 		}
 		private IEnumerable<HtmlNode> parseHtmlNodes(string html) {
 			var doc = new HtmlDocument();
@@ -115,7 +130,7 @@ namespace ParseMD
 				Position = (pos.HasValue ? pos.Value : cnt)
 			};
 		}
-		private MenuItem buildMenuItem(string parentDirName, FileInfo file, int cnt) {
+		private MenuItem buildMenuItem(string parentDirName, FileInfo file, int cnt, bool asHTML = false) {
 			if (file.Name.ToLower().Equals("overview.md"))
 				return null;
 
@@ -123,7 +138,7 @@ namespace ParseMD
 
 			return new MenuItem() {
 				Title = parseTitleFromFileName(file.Name),
-				Link = parentDirName+"/"+ HttpUtility.UrlEncode(file.Name.Replace(".md", "")),
+				Link = parentDirName+"/"+ HttpUtility.UrlEncode(file.Name.Replace(".md", (asHTML ? ".html" : ""))),
 				MatchLink = "Prefix",
 				Position = (pos.HasValue ? pos.Value : cnt)
 			};
@@ -192,7 +207,8 @@ namespace ParseMD
 			{"logging","Dynamic Logging" },
 			{"management","Cloud Management" },
 			{"security","Cloud Security" },
-			{"tooling","Tooling" }
+			{"tooling","Tooling" },
+			{"welcome","Welcome" }
 		};
 	}
 }
