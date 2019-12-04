@@ -7,6 +7,7 @@ using Blazored.Menu;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using System.Web;
 
 namespace ParseMD
 {
@@ -109,7 +110,7 @@ namespace ParseMD
 
 			return new MenuItem() {
 				Title = componentLookup[key],
-				Link = "/docs/" + dir.Name,
+				Link = "/docs/" + HttpUtility.UrlEncode(dir.Name),
 				MatchLink = "All",
 				Position = (pos.HasValue ? pos.Value : cnt)
 			};
@@ -122,7 +123,7 @@ namespace ParseMD
 
 			return new MenuItem() {
 				Title = parseTitleFromFileName(file.Name),
-				Link = parentDirName+"/"+file.Name.Replace(".md", ""),
+				Link = parentDirName+"/"+ HttpUtility.UrlEncode(file.Name.Replace(".md", "")),
 				MatchLink = "Prefix",
 				Position = (pos.HasValue ? pos.Value : cnt)
 			};
@@ -152,7 +153,8 @@ namespace ParseMD
 				if (idx == 0 && int.TryParse(s, out t)) //if the item has a position index, don't add to title
 					continue;
 
-				ret += Char.ToUpperInvariant(s[0]) + s.Substring(1).ToLower() + " ";
+				string decoded = HttpUtility.UrlDecode(s);
+				ret += Char.ToUpperInvariant(decoded[0]) + decoded.Substring(1).ToLower() + " ";
 				idx++;
 			}
 
@@ -189,7 +191,8 @@ namespace ParseMD
 			{"introduction","Introduction" },
 			{"logging","Dynamic Logging" },
 			{"management","Cloud Management" },
-			{"security","Cloud Security" }
+			{"security","Cloud Security" },
+			{"tooling","Tooling" }
 		};
 	}
 }

@@ -1,4 +1,7 @@
-Usage
+# Management Tasks
+Steeltoe Management Tasks provide a means of running administrative tasks for ASP.NET Core applications with the same context as the running version of your application. The original use case for this feature is managing database migrations with a bound database service on Cloud Foundry, but the framework is extensible for you to create your own tasks.
+
+## Usage
 This package provides an extension for Microsoft.AspNetCore.Hosting.IWebHost. It is not currently compatible with any form of .NET application besides ASP.NET Core.
 
 3.1.1 Add NuGet Reference
