@@ -14,20 +14,20 @@ Running `st init` creates the file `steeltoe.yaml` in your project directory.  S
 
 ## Application and Services
 
-The `st add` and `st remove` commands add and remove applications and services to the Steeltoe Tooling configuration.
+The `st add-app`, `st add-service`, and `st remove` commands add and remove applications and services to the Steeltoe Tooling configuration.
 
 ### Adding an Application
 
-Running `st add app <appname>` adds an application to the configuration. _appname_ must correspond to a `.csproj` file of the same name.
+Running `st add-app <appname>` adds an application to the configuration. _appname_ must correspond to a `.csproj` file of the same name.
 
 ```sh
-$ st add app MyProject
+$ st add-app MyProject
 Added app 'MyProject'
 ```
 
 ### Adding a Service
 
-Running `st add <svctype> <svcname>` adds a service to the configuration.
+Running `st add-service <svctype> <svcname>` adds a service to the configuration.
 
 Supported service types include:
 
@@ -44,7 +44,7 @@ Supported service types include:
 |zipkin|Zipkin Tracing Collector and UI|
 
 ```sh
-$ st add config-server MyConfigServer
+$ st add-service config-server MyConfigServer
 Added config-server service 'MyConfigServer'
 ```
 
