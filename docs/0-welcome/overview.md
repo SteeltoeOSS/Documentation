@@ -22,10 +22,12 @@ Steeltoe includes a .NET client to both register and discover microservices in y
 
 ### Network File Sharing
 
+Steeltoe's WindowsNetworkFileShare provides a simplified experience for interacting with SMB file shares by making P/Invoke calls to underlying Windows APIs, specifically to mpr.dll.
 [read more](/docs/5-fileshares)
 
 ### Dynamic Logging
 
+Steeltoe adds a Logging provider to the set of available logging packages in order to support the Steeltoe Management Logger endpoint.
 [read more](/docs/6-logging)
 
 ### Cloud Management
