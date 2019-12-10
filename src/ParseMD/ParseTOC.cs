@@ -207,7 +207,7 @@ namespace ParseMD
 			{"logging","Dynamic Logging" },
 			{"management","Cloud Management" },
 			{"security","Cloud Security" },
-			{"tooling","Tooling" },
+			{"developer-tools","Developer Tools" },
 			{"welcome","Welcome" }
 		};
 	}
