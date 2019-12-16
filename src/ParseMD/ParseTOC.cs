@@ -122,9 +122,13 @@ namespace ParseMD
 		private MenuItem buildMenuItem(DirectoryInfo dir, int cnt) {
 			int? pos = parsePositionFromFileName(dir.Name);
 			string key = (pos.HasValue ? dir.Name.Replace(pos.Value + "-", "") : dir.Name);
+			string title = "key";
+
+			if (componentLookup.ContainsKey(key))
+				title = componentLookup[key];
 
 			return new MenuItem() {
-				Title = componentLookup[key],
+				Title = title,
 				Link = "/docs/" + HttpUtility.UrlEncode(dir.Name),
 				MatchLink = "All",
 				Position = (pos.HasValue ? pos.Value : cnt)
@@ -139,7 +143,7 @@ namespace ParseMD
 			return new MenuItem() {
 				Title = parseTitleFromFileName(file.Name),
 				Link = parentDirName+"/"+ HttpUtility.UrlEncode(file.Name.Replace(".md", (asHTML ? ".html" : ""))),
-				MatchLink = "Prefix",
+				MatchLink = "All",
 				Position = (pos.HasValue ? pos.Value : cnt)
 			};
 		}
@@ -150,7 +154,7 @@ namespace ParseMD
 			return new MenuItem() {
 				Title = node.InnerText,
 				Link = "#" + node.Attributes["id"].Value,
-				MatchLink = "Prefix",
+				MatchLink = "All",
 				Position = cnt
 			};
 		}
