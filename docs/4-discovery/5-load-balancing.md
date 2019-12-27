@@ -45,8 +45,6 @@ To add a service registry-backed random load balancer to an `HttpClient` constru
       .AddRandomLoadBalancer()
 ```
 
->NOTE: This is functionally equivalent to using the default behavior of the `DiscoveryHttpMessageHandler`, as described [above](#1-3-2-using-httpclientfactory)
-
 #### Using an HttpClientHandler
 
 The random load balancer can be used with the included `HttpClientHandler` that works with any `ILoadBalancer`:

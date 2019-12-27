@@ -1,6 +1,6 @@
 ### Loggers
 
-The Steeltoe Loggers management endpoint includes the ability to view and configure the logging levels of your application at runtime when using the [Steeltoe Logging provider](https://github.com/SteeltoeOSS/Logging).
+The Steeltoe Loggers management endpoint includes the ability to view and configure the logging levels of your application at runtime when using the Steeltoe Logging provider.
 
 You can view a list of all active loggers in an application and their current configuration. The configuration information is made up of both the explicitly configured logging levels as well as the effective level given to it by the logging framework.
 
@@ -21,19 +21,17 @@ The following table describes the settings that you can apply to the endpoint.
 
 The default path to the Loggers endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is `/loggers`.
 
-The coding steps you take to enable HTTP access to the Loggers endpoint together with how to use the [Steeltoe Logging provider](https://github.com/SteeltoeOSS/Logging) differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.
+The coding steps you take to enable HTTP access to the Loggers endpoint together with how to use the Steeltoe Logging provider, differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.
 
->NOTE: The Steeltoe logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider from Microsoft. This wrapper allows querying defined loggers and modifying the levels dynamically at runtime. For more information, see the [Steeltoe Logging documentation](/docs/steeltoe-logging).
+>NOTE: The Steeltoe logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider from Microsoft. This wrapper allows querying defined loggers and modifying the levels dynamically at runtime. 
 
 ##### ASP.NET Core App
 
-Refer to the [HTTP Access ASP.NET Core](#http-access-asp-net-core) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+To add the Loggers actuator to the service container, use the `AddLoggersActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
-To add the Loggers actuator to the service container, use the `AddLoggersActuator()` extension method from [EndpointServiceCollectionExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Loggers/EndpointServiceCollectionExtensions.cs).
+To add the Loggers actuator middleware to the ASP.NET Core pipeline, use the `UseLoggersActuator()` extension method from `EndpointApplicationBuilderExtensions`.
 
-To add the Loggers actuator middleware to the ASP.NET Core pipeline, use the `UseLoggersActuator()` extension method from [EndpointApplicationBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Loggers/EndpointApplicationBuilderExtensions.cs).
-
-To add the [Steeltoe Logging provider](https://github.com/SteeltoeOSS/Logging) to the `ILoggerFactory`, use the `AddDynamicConsole()` extension method and update the `Program.cs` class as shown below:
+To add the Steeltoe Logging provider to the `ILoggerFactory`, use the `AddDynamicConsole()` extension method and update the `Program.cs` class as shown below:
 
 ```csharp
 using Steeltoe.Extensions.Logging;
@@ -68,11 +66,9 @@ public class Program
 
 ##### ASP.NET 4.x App
 
-Refer to the [HTTP Access ASP.NET 4.x](#http-access-asp-net-4-x) section below to see the overall steps required to enable HTTP access to endpoints in a 4.x application.
+To add the Loggers actuator endpoint, use the `UseLoggerActuator()` method from `ActuatorConfigurator`.
 
-To add the Loggers actuator endpoint, use the `UseLoggerActuator()` method from [ActuatorConfigurator](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointWeb/ActuatorConfigurator.cs).
-
-The following example shows how enable the Loggers endpoint and configure it with the [Steeltoe Logging provider](https://github.com/SteeltoeOSS/Logging).
+The following example shows how enable the Loggers endpoint and configure it with the Steeltoe Logging provider.
 
 ```csharp
 public class ManagementConfig
@@ -85,7 +81,7 @@ public class ManagementConfig
     }
 ```
 
-Below is an example of how you can create a [Steeltoe Logging provider](https://github.com/SteeltoeOSS/Logging) in an 4.x application.
+Below is an example of how you can create a Steeltoe Logging provider in an 4.x application.
 
 ```csharp
 public static class LoggingConfig
@@ -104,11 +100,9 @@ public static class LoggingConfig
 
 ##### ASP.NET OWIN App
 
-Refer to the [HTTP Access ASP.NET OWIN](#http-access-asp-net-owin) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x OWIN application.
+To add the Loggers actuator middleware to the ASP.NET OWIN pipeline, use the `UseLoggersActuator()` extension method from `LoggersEndpointAppBuilderExtensions`.
 
-To add the Loggers actuator middleware to the ASP.NET OWIN pipeline, use the `UseLoggersActuator()` extension method from [LoggersEndpointAppBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointOwin/Loggers/LoggersEndpointAppBuilderExtensions.cs).
-
-The following example shows how enable the Loggers endpoint and configure it with the [Steeltoe Logging provider](https://github.com/SteeltoeOSS/Logging).
+The following example shows how enable the Loggers endpoint and configure it with the Steeltoe Logging provider.
 
 ```csharp
 public class Startup
@@ -126,7 +120,7 @@ public class Startup
 }
 ```
 
-Below is an example of how you can create a [Steeltoe Logging provider](https://github.com/SteeltoeOSS/Logging) in an 4.x application.
+Below is an example of how you can create a Steeltoe Logging provider in an 4.x application.
 
 ```csharp
 public static class LoggingConfig

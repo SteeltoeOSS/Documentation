@@ -39,13 +39,13 @@ public class FortuneService : IFortuneService
 }
 ```
 
-First, notice that the `FortuneService` constructor takes an `IDiscoveryClient` as a parameter. This is Steeltoe's interface for finding services in the service registry. The `IDiscoveryClient` implementation is registered with the service container for use in any controller, view, or service [during initialization](#1-2-initialize-discovery-client). The constructor code for this class uses the client to create an instance of Steeltoe's `DiscoveryHttpClientHandler`.
+First, notice that the `FortuneService` constructor takes an `IDiscoveryClient` as a parameter. This is Steeltoe's interface for finding services in the service registry. The `IDiscoveryClient` implementation is registered with the service container for use in any controller, view, or service during initialization. The constructor code for this class uses the client to create an instance of Steeltoe's `DiscoveryHttpClientHandler`.
 
 Next, notice that when the `RandomFortuneAsync()` method is called, the `HttpClient` is created with the Steeltoe handler. The handler's role is to intercept any requests made with the `HttpClient` and to evaluate the URL to see if the host portion of the URL can be resolved from the service registry. In this example, the `fortuneService` name should be resolved into an actual `host:port` before letting the request continue.
 
 If the name cannot be resolved, the handler ignores the request URL and lets the request continue unchanged.
 
->NOTE: `DiscoveryHttpClientHandler` performs random load balancing by default. That is, if there are multiple instances registered under a particular service name, the handler randomly selects one of those instances each time the handler is invoked. For more information, see the section on [load balancing](#1-4-load-balancing)
+>NOTE: `DiscoveryHttpClientHandler` performs random load balancing by default. That is, if there are multiple instances registered under a particular service name, the handler randomly selects one of those instances each time the handler is invoked. 
 
 ### Using HttpClientFactory
 
@@ -53,7 +53,7 @@ In addition to the `DiscoveryHttpClientHandler` mentioned above, you also have t
 
 `DiscoveryHttpMessageHandler` is a `DelegatingHandler` that can be used, much like the `DiscoveryHttpClientHandler`, to intercept requests and to evaluate the URL to see if the host portion of the URL can be resolved from the current service registry.  The handler will do this for any `HttpClient` created by the factory.
 
-After [initializing the discovery client](#1-2-initialize-discovery-client), you can easily configure `HttpClient`:
+After initializing the discovery client, you can easily configure `HttpClient`:
 
 ```csharp
 public class Startup

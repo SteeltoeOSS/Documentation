@@ -58,7 +58,7 @@ cf restage myApp
 
 >NOTE: The preceding commands are for the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command.
 
-Once the service is bound to your application, the settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values).
+Once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
 ### Add Redis IConnectionMultiplexer
 
@@ -88,7 +88,7 @@ public class Startup {
     ...
 ```
 
-See the documentation on the [Steeltoe Redis connector](../steeltoe-connectors/#5-2-2-configure-settings) for details on how you can configure additional settings to control its behavior.
+See the documentation on the Steeltoe Redis connector for details on how you can configure additional settings to control its behavior.
 
 ### Add PersistKeysToRedis
 

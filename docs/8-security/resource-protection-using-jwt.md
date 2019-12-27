@@ -4,7 +4,7 @@ This provider lets you control access to REST resources by using JWT tokens issu
 
 In addition to the [Quick Start](#2-1-quick-start), other Steeltoe sample applications can help you understand how to use this tool, including:
 
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
+* `FreddysBBQ`: A polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
 
 ## Usage in ASP.NET Core
 
@@ -64,13 +64,13 @@ The JWT provider uses Microsoft's JWT implementation, and settings are based on 
 
 **Note**: **Each setting above must be prefixed with `security:oauth2:client`**.
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
+The samples and most templates are already set up to read from `appsettings.json`.
 
 ### Cloud Foundry
 
 As mentioned earlier. you can use a couple of OAuth2 services (such as UAA Server or Pivotal SSO) on Cloud Foundry. Rather than explaining how to create and bind OAuth2 services to your app here, we recommend that you read the documentation provided by each of the service providers.
 
-Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values).
+Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
 ### Add Cloud Foundry JwtAuthentication
 
@@ -186,7 +186,7 @@ The JWT provider uses Microsoft's JWT implementation, and settings are based on 
 
 **Note**: **Each setting above must be prefixed with `security:oauth2:client`**.
 
-The Steeltoe sample is set up to read from `appsettings.json`. If you require additional information, see [Reading Configuration Values](#reading-configuration-values).
+The Steeltoe sample is set up to read from `appsettings.json`.
 
 >NOTE: The setting `SkipAuthIfNoBoundSSOService` was added in Steeltoe 2.2.0, and has a default value of `true` for backwards compatibility with previous versions. This setting was added to control functionality that was previously always-on. A future release is likely to change the default to `false` or may remove the functionality entirely.
 
@@ -194,7 +194,7 @@ The Steeltoe sample is set up to read from `appsettings.json`. If you require ad
 
 As mentioned earlier, there are two auth services (UAA Server and Pivotal SSO) on Cloud Foundry. Rather than explaining how to create and bind those services to your app here, we recommend that you read the documentation provided by each of the service providers.
 
-Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values).
+Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
 ### Add Cloud Foundry JwtAuthentication
 
@@ -282,7 +282,7 @@ Configuring additional settings for the provider is not typically required, but,
 }
 ```
 
-The Steeltoe sample is set up to read from `appsettings.json`, if you require additional information, see [Reading Configuration Values](#reading-configuration-values).
+The Steeltoe sample is set up to read from `appsettings.json`.
 
 |Name|Description|Default|
 |---|---|---|
@@ -296,7 +296,7 @@ The Steeltoe sample is set up to read from `appsettings.json`, if you require ad
 
 As mentioned earlier. you can use a couple of OAuth2 services (such as UAA Server or Pivotal SSO) on Cloud Foundry. Rather than explaining how to create and bind OAuth2 services to your app here, we recommend that you read the documentation provided by each of the service providers.
 
-Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values).
+Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
 ### Set ServiceAuthorizationManager
 

@@ -2,9 +2,7 @@
 
 This connector simplifies using Microsoft SQL Server in an application running on Cloud Foundry. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using Entity Framework.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](https://steeltoe.io/docs/steeltoe-management/#1-2-3-health) check endpoint.  See the [Using Health Contributors](#using-health-contributors) section for details on how to make use of it.
-
-The source code for this connector can be found [here](https://github.com/SteeltoeOSS/Connectors).
+This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/7-management/6-%252fhealth) check endpoint. 
 
 ## Usage
 
@@ -21,7 +19,7 @@ To use this connector:
 
 ### Add NuGet Reference
 
-To use the Microsoft SQL Server connector, add your choice of Microsoft SQL Server package between [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient/), [Entity Framework](https://www.nuget.org/packages/EntityFramework/) and [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/), as you would if you weren't using Steeltoe. Then, add a reference to the appropriate [Steeltoe Connector NuGet package](#add-nuget-references).
+To use the Microsoft SQL Server connector, add your choice of Microsoft SQL Server package between [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient/), [Entity Framework](https://www.nuget.org/packages/EntityFramework/) and [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/), as you would if you weren't using Steeltoe. Then, add a reference to the appropriate Steeltoe Connector NuGet package.
 
 ### Configure Settings
 
@@ -56,7 +54,7 @@ The following table shows the available settings for the connector:
 
 >IMPORTANT: All of the settings shown in the preceding table should be prefixed with `sqlserver:credentials:`.
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
+The samples and most templates are already set up to read from `appsettings.json`. 
 
 >NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
 
@@ -90,7 +88,7 @@ If you have not already deployed the application, a reference in the `manifest.y
 
 >NOTE: The commands shown in the preceding example may not exactly match the service or plan names available in your environment. You may have to adjust the `create-service` command to fit your environment. Use `cf marketplace` to see what is available.
 
-Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values).
+Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
 ### Add SqlConnection
 

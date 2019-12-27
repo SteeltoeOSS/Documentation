@@ -22,21 +22,15 @@ The coding steps you take to enable HTTP access to the Env endpoint differs depe
 
 ##### ASP.NET Core App
 
-Refer to the [HTTP Access ASP.NET Core](#http-access-asp-net-core) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+To add the Env actuator to the service container, use the `AddEnvActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
-To add the Env actuator to the service container, use the `AddEnvActuator()` extension method from [EndpointServiceCollectionExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Env/EndpointServiceCollectionExtensions.cs).
-
-To add the Env actuator middleware to the ASP.NET Core pipeline, use the `UseEnvActuator()` extension method from [EndpointApplicationBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Env/EndpointApplicationBuilderExtensions.cs).
+To add the Env actuator middleware to the ASP.NET Core pipeline, use the `UseEnvActuator()` extension method from `EndpointApplicationBuilderExtensions`.
 
 ##### ASP.NET 4.x App
 
-Refer to the [HTTP Access ASP.NET 4.x](#http-access-asp-net-4-x) section below to see the overall steps required to enable HTTP access to endpoints in a 4.x application.
-
-To add the Env actuator endpoint, use the `UseEnvActuator()` method from [ActuatorConfigurator](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointWeb/ActuatorConfigurator.cs).
+To add the Env actuator endpoint, use the `UseEnvActuator()` method from `ActuatorConfigurator`.
 
 ##### ASP.NET OWIN App
 
-Refer to the [HTTP Access ASP.NET OWIN](#http-access-asp-net-owin) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x OWIN application.
-
-To add the Env actuator middleware to the ASP.NET OWIN pipeline, use the `UseEnvActuator()` extension method from [EnvEndpointAppBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointOwin/Env/EnvEndpointAppBuilderExtensions.cs).
+To add the Env actuator middleware to the ASP.NET OWIN pipeline, use the `UseEnvActuator()` extension method from `EnvEndpointAppBuilderExtensions`.
 

@@ -18,8 +18,6 @@ The Steeltoe Hystrix framework supports the following .NET application types:
 * ASP.NET Core
 * Console apps (.NET Framework and .NET Core)
 
-The source code for the Steeltoe Circuit Breaker libraries can be found [here](https://github.com/SteeltoeOSS/CircuitBreaker).
-
 ## Usage
 
 You should have a good understanding of how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the Hystrix framework. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the framework.
@@ -159,7 +157,7 @@ All Hystrix command settings should be prefixed with `hystrix:command:`.
 
 `hystrix:command:default:execution:isolation:thread:timeoutInMilliseconds=750`
 
-To configure the settings for a command in code, use [`HystrixCommandOptions`](https://github.com/SteeltoeOSS/CircuitBreaker/blob/master/src/Steeltoe.CircuitBreaker.HystrixBase/HystrixCommandOptions.cs) from the `Steeltoe.CircuitBreaker.HystrixBase` package. More information on how to use this type can be found under[Add Commands](#1-2-7-add-commands) and [Use Commands](#1-2-8-use-commands).
+To configure the settings for a command in code, use `HystrixCommandOptions` from the `Steeltoe.CircuitBreaker.HystrixBase` package. 
 
 All configured command-specific settings, as described earlier in #4, should be prefixed with `hystrix:command:HYSTRIX_COMMAND_KEY:`, where `HYSTRIX_COMMAND_KEY` is the `name` of the command. The following example configures the timeout for the Hystrix command with a name of `sample` to be 750 milliseconds:
 
@@ -287,7 +285,7 @@ All configured global settings, as described earlier in #2, should be placed und
 
 `hystrix:threadpool:default:coreSize=20`
 
-To configure the settings for a thread pool in code, use the [`HystrixThreadPoolOptions`](https://github.com/SteeltoeOSS/CircuitBreaker/blob/master/src/Steeltoe.CircuitBreaker.HystrixBase/HystrixThreadPoolOptions.cs) type found in the `Steeltoe.CircuitBreaker.HystrixBase` package.
+To configure the settings for a thread pool in code, use the `HystrixThreadPoolOptions` type found in the `Steeltoe.CircuitBreaker.HystrixBase` package.
 
 All configured pool-specific settings, as described in #4 above, should be placed under a prefix of `hystrix:threadpool:HYSTRIX_THREADPOOL_KEY:`, where `HYSTRIX_THREADPOOL_KEY` is the `name` of the thread pool. Note that the default name of the thread pool used by a command, if not overridden, is the command group name applied to the command. The following example configures the number of threads for the Hystrix thread pool with a `name` of `sample` to be 40:
 
@@ -344,7 +342,7 @@ All configured global settings, as described in #2 above, should be placed under
 
 `hystrix:collapser:default:timerDelayInMilliseconds=20`
 
-If you wish to configure the settings for a collapser in code, you must use the [`HystrixCollapserOptions`](https://github.com/SteeltoeOSS/CircuitBreaker/blob/master/src/Steeltoe.CircuitBreaker.HystrixBase/HystrixCollapserOptions.cs) found in the `Steeltoe.CircuitBreaker.HystrixBase` package.
+If you wish to configure the settings for a collapser in code, you must use the `HystrixCollapserOptions` found in the `Steeltoe.CircuitBreaker.HystrixBase` package.
 
 All configured collapser specific settings, as described in #4 above, should be placed under a  prefix of `hystrix:collapser:HYSTRIX_COLLAPSER_KEY:`, where `HYSTRIX_COLLAPSER_KEY` is the "name" of the collapser.
 
@@ -794,8 +792,6 @@ The first is the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/
 
 The second is the [Spring Cloud Services Hystrix Dashboard](https://docs.pivotal.io/spring-cloud-services/1-5/common/circuit-breaker/). This dashboard is part of the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/) offering and is made available to applications through the normal service instance binding mechanisms on Cloud Foundry.
 
->NOTE: As described in the [Add NuGet References](#1-2-1-add-nuget-references) section, depending on which dashboard you target, you must include the correct Steeltoe NuGet in your project.
-
 You should use the `Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore` package in an ASP.NET Core application when targeting the Netflix Hystrix Dashboard. When added to your app, it exposes a new REST endpoint in your application: `/hystrix/hystrix.stream`. This endpoint is used by the Netflix dashboard in receiving `SSE` metrics and status events from your application.
 
 You should use the `Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore` package in an ASP.NET Core application when targeting the Spring Cloud Services Hystrix Dashboard. When added to your app, it starts up a background thread and uses messaging to push the metrics to the bound dashboard.
@@ -896,9 +892,9 @@ cf services
 
 For more information on using the Hystrix Dashboard on Cloud Foundry, see the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-4/common/) documentation.
 
-Once the service is bound to your application, the settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values) for more information on reading configuration values.
+Once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
-Once you have performed the steps described earlier and you have made the changes described in the [Use Metrics](#1-2-11-use-metrics) section, you can use the Spring Cloud Services dashboard by following these instructions:
+Once you have performed the steps described earlier and you have made the changes described in the use metrics section, you can use the Spring Cloud Services dashboard by following these instructions:
 
 1. Open a browser and connect to the Pivotal Apps Manager.
 1. Follow [these instructions](https://docs.pivotal.io/spring-cloud-services/1-3/common/circuit-breaker/using-the-dashboard.html) to open the Hystrix Dashboard service.

@@ -4,9 +4,7 @@ This connector simplifies using PostgreSQL in an application running on Cloud Fo
 
 Currently, the connector supports the [Npgsql](https://www.npgsql.org/) provider.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](https://steeltoe.io/docs/steeltoe-management/#1-2-3-health) check endpoint.  See the [Using Health Contributors](#using-health-contributors) section for details on how to make use of it.
-
-You can find the source code for this connector [here](https://github.com/SteeltoeOSS/Connectors).
+This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/7-management/6-%252fhealth) check endpoint. 
 
 ## Usage
 
@@ -23,7 +21,7 @@ To use this connector:
 
 ### Add NuGet Reference
 
-To use the PostgreSQL connector, add your choice of PostgreSQL package between [Npgsql](https://www.nuget.org/packages/Npgsql/) and [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/) as you would if you weren't using Steeltoe. Then, add a reference to the appropriate [Steeltoe Connector NuGet package](#add-nuget-references).
+To use the PostgreSQL connector, add your choice of PostgreSQL package between [Npgsql](https://www.nuget.org/packages/Npgsql/) and [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/) as you would if you weren't using Steeltoe. Then, add a reference to the appropriate Steeltoe connector NuGet package.
 
 >NOTE: Steeltoe does not currently include direct support for PostgreSQL with Entity Framework 6
 
@@ -60,7 +58,7 @@ The following table describes all of the possible settings for the connector:
 
 >IMPORTANT: All of these settings should be prefixed with `postgres:client:`.
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
+The samples and most templates are already set up to read from `appsettings.json`.
 
 >NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
 
@@ -83,7 +81,7 @@ cf restage myApp
 
 Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `postgres:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
 
-Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values).
+Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
 ### Add NpgsqlConnection
 

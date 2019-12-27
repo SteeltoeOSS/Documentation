@@ -68,8 +68,8 @@ All settings should be placed under the prefix with the key `management:tracing:
 |Key|Description|Default|
 |---|---|---|
 |name|the name of the application|spring:application:name, Cloud Foundry name, or "Unknown"|
-|ingressIgnorePattern|Regex pattern describing what incoming requests to ignore|See [TracingOptions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.TracingBase/TracingOptions.cs)|
-|egressIgnorePattern|Regex pattern describing what outgoing requests to ignore|See [TracingOptions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.TracingBase/TracingOptions.cs)|
+|ingressIgnorePattern|Regex pattern describing what incoming requests to ignore|See `TracingOptions`|
+|egressIgnorePattern|Regex pattern describing what outgoing requests to ignore|See `TracingOptions`|
 |maxNumberOfAttributes|max attributes attachable to OpenCensus span|32|
 |maxNumberOfAnnotations|max annotations attachable to OpenCensus span|32|
 |maxNumberOfMessageEvents|max events attachable to OpenCensus span|128|
@@ -80,9 +80,9 @@ All settings should be placed under the prefix with the key `management:tracing:
 
 ### Enabling Log Correlation
 
-If you want to use distributed tracing together with log correlation, then you must utilize the [Steeltoe Logging provider](https://github.com/SteeltoeOSS/Logging) in your application.
+If you want to use distributed tracing together with log correlation, then you must utilize the `Steeltoe Logging provider` in your application.
 
-Follow these [instructions](https://steeltoe.io/docs/steeltoe-logging/#1-0-dynamic-logging-provider) for how to enable the provider in your application.
+<!-- TODO Update links Follow these [instructions](https://steeltoe.io/docs/steeltoe-logging/#1-0-dynamic-logging-provider) for how to enable the provider in your application. -->
 
 Once that is done, then whenever your application issues any log statements, the Steeltoe logger will add additional trace information to each log message if there is an active trace context. The format of that information is of the form:
 
@@ -96,7 +96,7 @@ Steeltoe distributed tracing handles this for you by default when using the .NET
 
 ### Add Distributed Tracing
 
-To enable distributed tracing all you need to to do is add the service to the container. To do this use the `AddDistributedTracing()` extension method from [TracingServiceCollectionExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.TracingCore/TracingServiceCollectionExtensions.cs).
+To enable distributed tracing all you need to to do is add the service to the container. To do this use the `AddDistributedTracing()` extension method from `TracingServiceCollectionExtensions`.
 
 ```csharp
 public class Startup

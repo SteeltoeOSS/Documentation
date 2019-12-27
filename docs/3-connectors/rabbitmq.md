@@ -2,9 +2,7 @@
 
 This connector simplifies using the [RabbitMQ Client](https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html) in an application running on Cloud Foundry. We recommend following that tutorial, because you need to know how to use it before proceeding to use the connector.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](https://steeltoe.io/docs/steeltoe-management/#1-2-3-health) check endpoint.  See the [Using Health Contributors](#using-health-contributors) section for details on how to make use of it.
-
-The source code for this connector can be found [here](https://github.com/SteeltoeOSS/Connectors).
+This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/7-management/6-%252fhealth) check endpoint.
 
 ## Usage
 
@@ -12,7 +10,7 @@ You should know how the new .NET [Configuration service](https://docs.microsoft.
 
 You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
 
-You probably want some understanding of how to use the [RabbitMQ Client](https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html) before starting to use this connector.
+You will also want some understanding of how to use the [RabbitMQ Client](https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html) before starting to use this connector.
 
 To use this Connector:
 
@@ -23,7 +21,7 @@ To use this Connector:
 
 ### Add NuGet Reference
 
-To use the RabbitMQ connector, you need to add a reference to the appropriate [Steeltoe Connector NuGet package](#add-nuget-references) and `RabbitMQ.Client`.
+To use the RabbitMQ connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and `RabbitMQ.Client`.
 
 ### Configure Settings
 
@@ -59,7 +57,7 @@ The following table describes all the possible settings for the connector:
 
 >IMPORTANT: All of these settings should be prefixed with `rabbitmq:client:`.
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
+The samples and most templates are already set up to read from `appsettings.json`.
 
 ### Cloud Foundry
 
@@ -78,7 +76,7 @@ cf restage myApp
 
 >NOTE: The preceding commands assume you use the RabbitMQ service provided by Pivotal on Cloud Foundry. If you use a different service, adjust the `create-service` command to fit your environment.
 
-Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values).
+Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
 ### Add RabbitMQ ConnectionFactory
 

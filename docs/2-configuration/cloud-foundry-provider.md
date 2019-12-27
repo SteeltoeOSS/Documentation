@@ -12,16 +12,8 @@ The Steeltoe Cloud Foundry provider supports the following .NET application type
 * ASP.NET Core
 * Console apps (.NET Framework and .NET Core)
 
- The source code for this provider can be found [here](https://github.com/SteeltoeOSS/Configuration).
 
 ## Usage
-
-The following sections describe how to use the Cloud Foundry configuration provider:
-
-* [Add NuGet Reference](#1-2-1-add-nuget-reference)
-* [Add Configuration Provider](#1-2-2-add-configuration-provider)
-* [Access Configuration Data](#1-2-3-access-configuration-data)
-* [Access Configuration Data as Options](#1-2-4-access-configuration-data-as-options)
 
 You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider.
 

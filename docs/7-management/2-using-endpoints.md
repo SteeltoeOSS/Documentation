@@ -8,7 +8,7 @@ When developing ASP.NET Core applications, you should also understand how the AS
 
 When adding Steeltoe Management endpoints to your ASP.NET 4.x applications, you can choose between using HTTP modules and OWIN middleware. If you select HTTP modules, you should be familiar with `Global.asax.cs` and how it is used in initializing and configuring your application. If you select the OWIN middleware approach, you should be familiar with how the Startup class is used in configuring application middleware. The rest of this document will refer to the HTTP Module implementation simply as ASP.NET 4.x, and the OWIN implementation as ASP.NET OWIN.
 
->NOTE: You may wish to select the OWIN implementation for your ASP.NET 4.x application when you don't want to depend on `System.Web` or you also plan to use [Steeltoe security providers](../steeltoe-security) for authentication/authorization on Cloud Foundry.
+>NOTE: You may wish to select the OWIN implementation for your ASP.NET 4.x application when you don't want to depend on `System.Web` or you also plan to use Steeltoe security providers for authentication/authorization on Cloud Foundry.
 
 The following table describes the available Steeltoe management endpoints that can be used in an application:
 
@@ -26,9 +26,10 @@ The following table describes the available Steeltoe management endpoints that c
 |**metrics**|Reports the collected metrics for the application|
 |**dump**|Generates and reports a snapshot of the application's threads (Windows only)|
 |**heapdump**|Generates and downloads a mini-dump of the application (Windows only)|
+
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint below is mapped to `/health`.
 
->NOTE: When you want to integrate with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix, as described in the [Endpoint Settings](#1-2-2-settings) section, to be `/cloudfoundryapplication`. To do so, add `management:endpoints:path=/cloudfoundryapplication` to your configuration.
+>NOTE: When you want to integrate with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`. To do so, add `management:endpoints:path=/cloudfoundryapplication` to your configuration.
 
 ### Add NuGet References
 

@@ -59,5 +59,3 @@ public class Startup {
 ### Registering Services
 
 If you configured the clients settings to register services, the service is automatically registered when the `UseDiscoveryClient()` method is called in the `Configure()` method. You do not need to do anything else to cause service registration.
-
-See the [Eureka Client Settings](#2-2-2-eureka-client-settings) or [Consul Client Settings](#3-0-hashicorp-consul)

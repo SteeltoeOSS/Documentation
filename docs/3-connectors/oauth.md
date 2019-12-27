@@ -1,6 +1,6 @@
 # OAuth
 
-This connector simplifies using Cloud Foundry OAuth2 security services (for example, [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) by exposing the Cloud Foundry OAuth service configuration data as injectable `IOption<OAuthServiceOptions>`. It is used by the [Cloud Foundry External Security Providers](../steeltoe-security) but can be used separately.
+This connector simplifies using Cloud Foundry OAuth2 security services (for example, [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) by exposing the Cloud Foundry OAuth service configuration data as injectable `IOption<OAuthServiceOptions>`. It is used by the [Cloud Foundry External Security Providers](/docs/8-security) but can be used separately.
 
 ## Usage
 
@@ -20,7 +20,7 @@ To use this Connector:
 
 ### Add NuGet Reference
 
-To use the OAuth connector, you need to add a reference to the appropriate [Steeltoe Connector NuGet package](#add-nuget-references).
+To use the OAuth connector, you need to add a reference to the appropriate Steeltoe connector NuGet package.
 
 ### Configure Settings
 
@@ -42,15 +42,15 @@ Configuring additional settings for the connector is not typically required, but
 
 >CAUTION: Self-signed certificates are inherently insecure. Never use them for a production environment.
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
+The samples and most templates are already set up to read from `appsettings.json`. 
 
 ### Cloud Foundry
 
 There are multiple ways to set up OAuth services on Cloud Foundry.
 
-In the [quick start](#6-1-quick-start), we used a user-provided service to define a direct binding to the Cloud Foundry UAA server. Alternatively, you can use the [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) product to provision an OAuth service binding. The process to create service binding varies for each of the approaches.
+There is a user-provided service to define a direct binding to the Cloud Foundry UAA server. Alternatively, you can use the [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) product to provision an OAuth service binding. The process to create service binding varies for each of the approaches.
 
-Regardless of which you choose, once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values).
+Regardless of which you choose, once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`. 
 
 ### Add OAuthServiceOptions
 

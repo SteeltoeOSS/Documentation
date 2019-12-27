@@ -13,8 +13,6 @@ The following instrumentation is automatically configured:
 
 All of the above metrics are tagged with values specific to the requests being processed; thereby giving multi-dimensional views of the collected metrics.
 
->NOTE: The OpenCensus implementation used in Steeltoe (for example, `Steeltoe.Management.OpenCensus`) has been contributed to the OpenCensus community. At some point in the near future the metrics collection functionality will move to using it, instead of the Steeltoe version.
-
 #### Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
@@ -23,8 +21,8 @@ The following table describes the settings that you can apply to the endpoint:
 |---|---|---|
 |id|The ID of the metrics endpoint|`metrics`|
 |enabled|Whether to enable the metrics management endpoint|true|
-|ingressIgnorePattern|Regex pattern describing what incoming requests to ignore|See [MetricsOptions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Metrics/MetricsOptions.cs)|
-|egressIgnorePattern|Regex pattern describing what outgoing requests to ignore|See [MetricsOptions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Metrics/MetricsOptions.cs)|
+|ingressIgnorePattern|Regex pattern describing what incoming requests to ignore|See `MetricsOptions`|
+|egressIgnorePattern|Regex pattern describing what outgoing requests to ignore|See `MetricsOptions`|
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:metrics`**.
 
@@ -36,23 +34,17 @@ The coding steps you take to enable HTTP access to the Metrics endpoint differs 
 
 ##### ASP.NET Core App
 
-Refer to the [HTTP Access ASP.NET Core](#http-access-asp-net-core) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+To add the Metrics actuator to the service container, use the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
-To add the Metrics actuator to the service container, use the `AddMetricsActuator()` extension method from [EndpointServiceCollectionExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Metrics/EndpointServiceCollectionExtensions.cs).
-
-To add the Mappings actuator middleware to the ASP.NET Core pipeline, use the `UseMetricsActuator()` extension method from [EndpointApplicationBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Metrics/EndpointApplicationBuilderExtensions.cs).
+To add the Mappings actuator middleware to the ASP.NET Core pipeline, use the `UseMetricsActuator()` extension method from `EndpointApplicationBuilderExtensions`.
 
 ##### ASP.NET 4.x App
 
-Refer to the [HTTP Access ASP.NET 4.x](#http-access-asp-net-4-x) section below to see the overall steps required to enable HTTP access to endpoints in a 4.x application.
-
-To add the Metrics actuator endpoint, use the `UseMetricsActuator()` method from [ActuatorConfigurator](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointWeb/ActuatorConfigurator.cs).
+To add the Metrics actuator endpoint, use the `UseMetricsActuator()` method from `ActuatorConfigurator`.
 
 ##### ASP.NET OWIN App
 
-Refer to the [HTTP Access ASP.NET OWIN](#http-access-asp-net-owin) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x OWIN application.
-
-To add the Metrics actuator middleware to the ASP.NET OWIN pipeline, use the `UseMetricsActuator()` extension method from [MetricsEndpointAppBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointOwin/Metrics/MappingsEndpointAppBuilderExtensions.cs).
+To add the Metrics actuator middleware to the ASP.NET OWIN pipeline, use the `UseMetricsActuator()` extension method from `MetricsEndpointAppBuilderExtensions`.
 
 #### Exporting
 
@@ -123,8 +115,8 @@ The following table describes the settings that you can apply to the exporter:
 There are three steps needed to use the Metrics Forwarder for Pivotal Cloud Foundry (PCF) service:
 
 1. Create and bind a forwarder service to your application. Follow the steps in the Metrics Forwarder for PCF [documentation](https://docs.pivotal.io/metrics-forwarder/using.html).
-1. Add the exporter to the service container. Use the `AddMetricsForwarderExporter()` extension method from [EndpointServiceCollectionExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.ExporterCore/Metrics/CloudFoundryForwarder/EndpointServiceCollectionExtensions.cs).
-1. Start the exporter background thread. Use the `UseMetricsExporter()` extension method from [EndpointApplicationBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.ExporterCore/Metrics/CloudFoundryForwarder/EndpointApplicationBuilderExtensions.cs).
+1. Add the exporter to the service container. Use the `AddMetricsForwarderExporter()` extension method from `EndpointServiceCollectionExtensions`.
+1. Start the exporter background thread. Use the `UseMetricsExporter()` extension method from `EndpointApplicationBuilderExtensions`.
 
 ```csharp
 public class Startup

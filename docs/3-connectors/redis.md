@@ -2,15 +2,13 @@
 
  This connector simplifies using a Microsoft [RedisCache](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [IConnectionMultiplexer](https://stackexchange.github.io/StackExchange.Redis/) in an application running on Cloud Foundry.
 
-In addition to the [Quick Start](#5-1-quick-start), other Steeltoe sample applications are available to help you understand how to use this connector:
+Here are some Steeltoe sample applications are available to help you understand how to use this connector:
 
 * [AspDotNet4/Redis4](https://github.com/SteeltoeOSS/Samples/tree/dev/Connectors/src/AspDotNet4/Redis4): Same as the next Quick Start but built for ASP.NET 4.x.
 * [DataProtection](https://github.com/SteeltoeOSS/Samples/tree/master/Security/src/RedisDataProtectionKeyStore): A sample application showing how to use the Steeltoe DataProtection Key Storage Provider for Redis.
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a micro-services based application built from the ASP.NET Core reference app MusicStore provided by Microsoft.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](https://steeltoe.io/docs/steeltoe-management/#1-2-3-health) check endpoint.  See the [Using Health Contributors](#using-health-contributors) section for details on how to make use of it.
-
-The source code for this connector can be found [here](https://github.com/SteeltoeOSS/Connectors).
+This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/7-management/6-%252fhealth) check endpoint. 
 
 ## Usage
 
@@ -29,7 +27,7 @@ To use this connector:
 
 ### Add NuGet Reference
 
-To use the Redis connector, you need to add a reference to the appropriate [Steeltoe Connector NuGet package](#add-nuget-references) and a reference to `Microsoft.Extensions.Caching.Redis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
+To use the Redis connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and a reference to `Microsoft.Extensions.Caching.Redis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
 
 >NOTE: The requirement to add a direct Redis package reference is new as of version 2.0.0.
 
@@ -77,7 +75,7 @@ The following table table describes all possible settings for the connector
 
 >IMPORTANT: All of these settings should be prefixed with `redis:client:`.
 
-The samples and most templates are already set up to read from `appsettings.json`See [Reading Configuration Values](#reading-configuration-values).
+The samples and most templates are already set up to read from `appsettings.json`.
 
 >NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
 
@@ -100,7 +98,7 @@ cf restage myApp
 
 Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `redis:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
 
-Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values).
+Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
 ### Add IDistributedCache
 

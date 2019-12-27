@@ -8,18 +8,7 @@ The Consul client implementation supports the following .NET application types:
 * ASP.NET Core
 * Console apps (.NET Framework and .NET Core)
 
-The source code for discovery can be found [here](https://github.com/SteeltoeOSS/Discovery).
-
 ## Usage
-
-The following sections describe how to use the Consul client.
-
-* [Consul Settings](#3-2-1-consul-settings)
-* [Enable Logging](#3-2-2-enable-logging)
-* [Health Contributor](#3-2-3-health-contributors)
-* [Configuring Health Check](#3-2-4-configuring-health-check)
-* [Configuring Metadata](#3-2-5-configuring-metadata)
-* [Configuring InstanceId](#3-2-6-configuring-instanceid)
 
 You should know how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the client. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the client.
 

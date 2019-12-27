@@ -21,5 +21,3 @@ Steeltoe adds four additional configuration providers to the preceding list:
 * RandomValue generator
 
 The following sections provide more more detail on each of these new providers.
-
->NOTE: Depending on your hosting environment, service instances you create for the purpose of exploring the Quick Starts on this page may have a cost associated.

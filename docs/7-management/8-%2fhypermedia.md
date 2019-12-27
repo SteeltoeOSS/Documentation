@@ -25,21 +25,15 @@ The coding steps you take to enable HTTP access to the endpoint differs dependin
 
 ##### ASP.NET Core App
 
-Refer to the [HTTP Access ASP.NET Core](#http-access-asp-net-core) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+To add the Cloud Foundry actuator to the service container, you can use the `AddHypermediaActuator()` extension method from `EndpointServiceCollectionExtensions`
 
-To add the Cloud Foundry actuator to the service container, you can use the `AddHypermediaActuator()` extension method from [EndpointServiceCollectionExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Hypermedia/EndpointServiceCollectionExtensions.cs).
-
-To add the Cloud Foundry actuator and security middleware to the ASP.NET Core pipeline, use the `UseHypermediaActuator()`  extension methods from [EndpointApplicationBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Hypermedia/EndpointApplicationBuilderExtensions.cs).
+To add the Cloud Foundry actuator and security middleware to the ASP.NET Core pipeline, use the `UseHypermediaActuator()`  extension methods from `EndpointApplicationBuilderExtensions`.
 
 ##### ASP.NET 4.x App
 
-Refer to the [HTTP Access ASP.NET 4.x](#http-access-asp-net-4-x) section below to see the overall steps required to enable HTTP access to endpoints in a 4.x application.
-
-To add the Hypermedia actuator endpoint, use the `UseHypermediaActuator()` methods from [ActuatorConfigurator](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointWeb/ActuatorConfigurator.cs).
+To add the Hypermedia actuator endpoint, use the `UseHypermediaActuator()` methods from `ActuatorConfigurator`.
 
 ##### ASP.NET OWIN App
 
-Refer to the [HTTP Access ASP.NET OWIN](#http-access-asp-net-owin) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x OWIN application.
-
-To add the Hypermedia actuator to the ASP.NET OWIN pipeline, use the `UseHypermediaActuator()` from [HypermediaEndpointAppBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointOwin/Hypermedia/HypermediaEndpointAppBuilderExtensions.cs).
+To add the Hypermedia actuator to the ASP.NET OWIN pipeline, use the `UseHypermediaActuator()` from `HypermediaEndpointAppBuilderExtensions`.
 

@@ -21,25 +21,9 @@ In addition to the Quick Start below, there are several other Steeltoe sample ap
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a micro-services based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
 * [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample app showing inter-operability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and using Spring Cloud Services.
 
-The source code for this provider can be found [here](https://github.com/SteeltoeOSS/Configuration).
-
 >IMPORTANT: The `Pivotal.Extensions.Configuration.ConfigServer*` packages have been deprecated in Steeltoe 2.2 and are not included in future releases.  All functionality provided in those packages has been pushed into the corresponding `Steeltoe.Extensions.Configuration.ConfigServer*` packages.
 
 ## Usage
-
-The following sections describe how to use the config server configuration provider.
-
-* [Add NuGet Reference](#2-2-1-add-nuget-reference)
-* [Configure Settings](#2-2-2-configure-settings)
-* [Add Configuration Provider](#2-2-3-add-configuration-provider)
-* [Bind to Cloud Foundry](#2-2-4-bind-to-cloud-foundry)
-* [Access Configuration Data](#2-2-5-access-configuration-data)
-* [Enable Logging](#2-2-6-enable-logging)
-* [Configuring Discovery First](#2-2-7-configuring-discovery-first)
-* [Configuring Health Contributor](#2-2-8-configuring-health-contributor)
-* [Configuring Fail Fast](#2-2-9-configuring-fail-fast)
-* [Configuring Retry](#2-2-10-configuring-retry)
-* [Configuring Multiple Urls](#2-2-11-configuring-multiple-urls)
 
 You should know how the new .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary.
 

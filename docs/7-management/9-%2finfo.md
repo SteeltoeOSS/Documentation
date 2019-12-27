@@ -1,6 +1,6 @@
 ### Info
 
-The Steeltoe `Info` management endpoint exposes various application information collected from all [IInfoContributor's](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Info/IInfoContributor.cs) provided to the [InfoEndpoint](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Info/InfoEndpoint.cs).
+The Steeltoe `Info` management endpoint exposes various application information collected from all `IInfoContributor` provided to the `InfoEndpoint`.
 
 Steeltoe includes a couple `IInfoContributor`s out of the box that you can use, but most importantly you can also write your own.
 
@@ -10,8 +10,8 @@ The following table describes the `IInfoContributor` implementations provided by
 
 |Name|Description|
 |---|---|
-| [AppSettingsInfoContributor](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Info/Contributor/AppSettingsInfoContributor.cs)|Exposes any values under the key `info` (for example, `info:foo:bar=foobar`) that is in your apps configuration (for example, `appsettings.json`)|
-| [GitInfoContributor](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointBase/Info/Contributor/GitInfoContributor.cs)|Exposes git information (if a git.properties file is available)|
+| `AppSettingsInfoContributor`|Exposes any values under the key `info` (for example, `info:foo:bar=foobar`) that is in your apps configuration (for example, `appsettings.json`)|
+| `GitInfoContributor`|Exposes git information (if a git.properties file is available)|
 
 For an example of how to use the above `GitInfoContributor` within MSBuild using [GitInfo](https://github.com/kzu/GitInfo), see the [Steeltoe management sample](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/CloudFoundry) and the [CloudFoundry.csproj](https://github.com/SteeltoeOSS/Samples/blob/master/Management/src/AspDotNetCore/CloudFoundry/CloudFoundry.csproj) file.
 
@@ -55,11 +55,9 @@ The coding steps you take to enable HTTP access to the Info endpoint together wi
 
 ##### ASP.NET Core App
 
-Refer to the [HTTP Access ASP.NET Core](#http-access-asp-net-core) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+To add the Info actuator to the service container, you can use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 
-To add the Info actuator to the service container, you can use any of the `AddInfoActuator()` extension methods from [EndpointServiceCollectionExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Info/EndpointServiceCollectionExtensions.cs).
-
-To add the Info actuator middleware to the ASP.NET Core pipeline, use the `UseInfoActuator()` extension method from [EndpointApplicationBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointCore/Info/EndpointApplicationBuilderExtensions.cs).
+To add the Info actuator middleware to the ASP.NET Core pipeline, use the `UseInfoActuator()` extension method from `EndpointApplicationBuilderExtensions`.
 
 The following example shows how enable the Info endpoint and to add a custom `IInfoContributor` to the service container by adding `ArbitraryInfoContributor` as a singleton. Once that's done the Info endpoint will discover and use it during info requests.
 
@@ -90,9 +88,7 @@ public class Startup
 
 ##### ASP.NET 4.x App
 
-Refer to the [HTTP Access ASP.NET 4.x](#http-access-asp-net-4-x) section below to see the overall steps required to enable HTTP access to endpoints in a 4.x application.
-
-To add the Info actuator endpoint, use the `UseInfoActuator()` method from [ActuatorConfigurator](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointWeb/ActuatorConfigurator.cs). Optionally you can provide a list of `IInfoContributor`s should you want to customize the actuator endpoint.  If none are provided, defaults will be provided.
+To add the Info actuator endpoint, use the `UseInfoActuator()` method from `ActuatorConfigurator`. Optionally you can provide a list of `IInfoContributor`s should you want to customize the actuator endpoint.  If none are provided, defaults will be provided.
 
 The following example shows how enable the Info endpoint and use the `GitInfoContributor` and `AppSettingsInfoContributor` as `IInfoContributor`s.
 
@@ -114,9 +110,7 @@ public class ManagementConfig
 
 ##### ASP.NET OWIN App
 
-Refer to the [HTTP Access ASP.NET OWIN](#http-access-asp-net-owin) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET 4.x OWIN application.
-
-To add the Info actuator middleware to the ASP.NET OWIN pipeline, use the `UseInfoActuator()` extension method from [InfoEndpointAppBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.EndpointOwin/Info/InfoEndpointAppBuilderExtensions.cs).
+To add the Info actuator middleware to the ASP.NET OWIN pipeline, use the `UseInfoActuator()` extension method from `InfoEndpointAppBuilderExtensions`.
 
 The following example shows how to enable the Info endpoint and use the `GitInfoContributor` and `AppSettingsInfoContributor` as `IInfoContributor`s.
 

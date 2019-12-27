@@ -50,8 +50,8 @@ The following table describes the settings that you can apply to the exporter:
 
 There are two steps needed to use the Zipkin exporter:
 
-1. Add the exporter to the service container. Use the `AddZipkinExporter()` extension method from [ZipkinExporterServiceCollectionExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.ExporterCore/Tracing/Zipkin/ZipkinExporterServiceCollectionExtensions.cs).
-1. Start the exporter background thread. Use the `UseTracingExporter()` extension method from [ZipkinExporterApplicationBuilderExtensions](https://github.com/SteeltoeOSS/Management/blob/master/src/Steeltoe.Management.ExporterCore/Tracing/Zipkin/ZipkinExporterApplicationBuilderExtensions.cs).
+1. Add the exporter to the service container. Use the `AddZipkinExporter()` extension method from `ZipkinExporterServiceCollectionExtensions`.
+1. Start the exporter background thread. Use the `UseTracingExporter()` extension method from `ZipkinExporterApplicationBuilderExtensions`.
 
 ```csharp
 public class Startup

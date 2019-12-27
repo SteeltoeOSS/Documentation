@@ -8,26 +8,14 @@ The Eureka client implementation supports the following .NET application types:
 * ASP.NET Core
 * Console apps (.NET Framework and .NET Core)
 
- In addition to the [quick start](#2-1-quick-start), you can choose from several other Steeltoe sample applications when looking for help in understanding how to use this client:
+Here are several Steeltoe sample applications when looking for help in understanding how to use this client:
 
 * [AspDotNet4/Fortune-Teller-Service4](https://github.com/SteeltoeOSS/Samples/tree/master/Discovery/src/AspDotNet4/Fortune-Teller-Service4): Same as the Quick Start next but built for ASP.NET 4.x and using the Autofac IOC container.
 * [AspDotNet4/Fortune-Teller-UI4](https://github.com/SteeltoeOSS/Samples/tree/master/Discovery/src/AspDotNet4/Fortune-Teller-UI4): Same as the Quick Start next but built for ASP.NET 4.x and using the Autofac IOC container
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices-based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
 * [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and using Spring Cloud Services.
 
-The source code for discovery can be found [here](https://github.com/SteeltoeOSS/Discovery).
-
 ## Usage
-
-The following sections describe how to use the Eureka client.
-
-* [Eureka Settings](#2-2-1-eureka-settings)
-* [Bind to Cloud Foundry](#2-2-2-bind-to-cloud-foundry)
-* [Enable Logging](#2-2-3-enable-logging)
-* [Configuring Health Contributors](#2-2-4-configuring-health-contributors)
-* [Configuring Health Checks](#2-2-5-configuring-health-checks)
-* [Configuring Multiple ServiceUrls](#2-2-6-configuring-multiple-serviceurls)
-* [Configuring Metadata](#2-2-7-configuring-metadata)
 
 You should know how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the client. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the client.
 
@@ -172,7 +160,7 @@ The following example shows the clients settings in JSON that are necessary to c
 
 The `eureka:instance:port` setting is the port on which the service is registered. The hostName portion is determined automatically at runtime. The `eureka:client:shouldFetchRegistry` setting instructs the client NOT to fetch the registry as the app does not need to discover services. It only wants to register a service. The default for the `shouldFetchRegistry` setting is true.
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values) for more information about reading configuration values.
+The samples and most templates are already set up to read from `appsettings.json`. 
 
 ### Bind to Cloud Foundry
 
@@ -194,7 +182,7 @@ cf restage myApp
 
 For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/index.html) documentation.
 
-Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`. See [Reading Configuration Values](#reading-configuration-values) for more information on reading `VCAP_SERVICES`.
+Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`. 
 
 ### Enable Logging
 
