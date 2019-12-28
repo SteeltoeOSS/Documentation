@@ -204,7 +204,7 @@ namespace ParseMD
 		{
 			{"circuitbreaker","Circuit Breakers" },
 			{"configuration","Application Configuration" },
-			{"connectors","Cloud Connectors" },
+			{"connectors","Service Connectors" },
 			{"discovery","Service Discovery" },
 			{"fileshares","Network File Sharing" },
 			{"introduction","Introduction" },
