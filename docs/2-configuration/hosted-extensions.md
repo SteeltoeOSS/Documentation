@@ -26,9 +26,9 @@ The extension includes an optional parameter to explicitly set ports used for HT
 
 >NOTE: If either environment variable `PORT` or `SERVER_PORT` is found, neither of the optional parameters will be used.
 
-## UseCloudFoundryHosting [Deprecated]
+## UseCloudFoundryHosting
 
- `UseCloudFoundryHosting` is provided in the NuGet package `Steeltoe.Extensions.Configuration.CloudFoundryCore`. This extension has been superseded by `UseCloudHosting`, but is still available in the 2.x line. This extension will automatically use the environment variable `PORT` (when present) to set the address the application is listening on. This sample illustrates basic usage:
+ `UseCloudFoundryHosting` is now deprecated, but is still available in the NuGet package `Steeltoe.Extensions.Configuration.CloudFoundryCore`. This extension has been superseded by `UseCloudHosting`, but is still available in the 2.x line. This extension will automatically use the environment variable `PORT` (when present) to set the address the application is listening on. This sample illustrates basic usage:
 
 ```csharp
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
