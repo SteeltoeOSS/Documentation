@@ -36,7 +36,7 @@ The coding steps you take to enable HTTP access to the Metrics endpoint differs 
 
 To add the Metrics actuator to the service container, use the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
-To add the Mappings actuator middleware to the ASP.NET Core pipeline, use the `UseMetricsActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+To add the Metrics actuator middleware to the ASP.NET Core pipeline, use the `UseMetricsActuator()` extension method from `EndpointApplicationBuilderExtensions`.
 
 ##### ASP.NET 4.x App
 
