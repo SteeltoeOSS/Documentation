@@ -59,7 +59,7 @@ To register your endpoint for metrics collection install the metrics-registrar p
 
 ##### Prometheus Server
 
-[Prometheus Server](https://prometheus.io/) can be set up to scrape this endpoint by registering it via configuration. For example this prometheus.yml expects steeltoe app running on port 8000 and the actuator management path is the default of /actuator:
+[Prometheus Server](https://prometheus.io/) can be set up to scrape this endpoint by registering your application in the server's configuration. For example, this prometheus.yml expects a Steeltoe-enabled app running on port 8000 with the actuator management path at the default of /actuator:
 
 ```yml
 global:
@@ -74,7 +74,7 @@ scrape_configs:
     static_configs:
       - targets: ['host.docker.internal:8000']
 ```
-Running Prometheus server with this config will allow you view metrics in the built in UI. Other visualization tools such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/) can then be configured to use prometheus as a datasource. 
+Running Prometheus server with this configuration will allow you view metrics in the built-in UI. Other visualization tools such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/) can then be configured to use Prometheus as a datasource. 
 
 ```docker
 docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
