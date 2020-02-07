@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "ParseMD": {
+      "commandName": "Project",
+      "commandLineArgs": "\"./docs\" \"./output\"",
+      "workingDirectory": "$(SolutionDir)/.."
+    }
+  }
+}
