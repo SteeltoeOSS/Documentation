@@ -59,7 +59,7 @@ To add this type of NuGet to your project, add a `PackageReference` that resembl
 </ItemGroup>
 ```
 
-### 2.2.2 Configure Settings
+### Configure Settings
 
 The most convenient way to configure settings for the provider is to put them in a file and then use one of the other file-based configuration providers to read them.
 
