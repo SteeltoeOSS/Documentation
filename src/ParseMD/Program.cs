@@ -13,7 +13,7 @@ namespace ParseMD
 				Environment.Exit(1);
 			}
 
-			ParseTOC p = new ParseTOC(args[0],args[1]);
+			ParseMD p = new ParseMD(args[0],args[1]);
 			p.Run();
 
 			Environment.Exit(0);
