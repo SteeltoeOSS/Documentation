@@ -2,7 +2,7 @@
 
 >Note: This feature is avaible in version 2.3.0+
 
-[GemFire](https://tanzu.vmware.com/gemfire). GemFire is VMware's distribution of [Apache Geode](https://geode.apache.org/). This connector was built for using GemFire in an application using the [GemFire Native Client](https://gemfire-native.docs.pivotal.io/100/gemfire-native-client/about-client-users-guide.html) on Cloud Foundry. It has not been extensively tested under other deployment configurations, but will be best-effort supported for other situations as well.
+[VMware Tanzu GemFire](https://tanzu.vmware.com/gemfire) is VMware's distribution of [Apache Geode](https://geode.apache.org/). This connector was built for using GemFire in an application using the [GemFire Native Client](https://gemfire-native.docs.pivotal.io/100/gemfire-native-client/about-client-users-guide.html) on Cloud Foundry. It has not been extensively tested under other deployment configurations, but will be best-effort supported for other situations as well.
 
 >WARNING: The GemFire Native Client currently only supports 64 bit applications running on Windows. See [GemFire Native Client System Requirements](https://gemfire-native.docs.pivotal.io/100/gemfire-native-client/system_requirements.html) for more.
 
