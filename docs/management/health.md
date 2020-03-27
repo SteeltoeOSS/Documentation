@@ -35,7 +35,7 @@ At present, Steeltoe provides the following `IHealthContributor` implementations
 |Name|Description|
 |---|---|
 |`DiskSpaceContributor`|checks for low disk space, configure using `DiskSpaceContributorOptions`|
-|`RabbitMQHealthContributor|checks RabbitMQ connection health|
+|`RabbitMQHealthContributor`|checks RabbitMQ connection health|
 |`RedisHealthContributor`|checks Redis cache connection health|
 |`RelationalHealthContributor`|checks relational database connection health (MySql, Postgres, SqlServer)|
 
