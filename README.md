@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repo holds the markdown files of Steeltoe documentation in the `docs` sub-folder and a markdown parser console app. The app converts the markdown to HTML using the Markdig library and creates a json table of contents file.
+This repo holds the markdown files of Steeltoe documentation in the `docs` sub-folder and a markdown parser console app. The app converts the markdown to HTML using the Markdig library. It also uses the contents of `docs/nav-menu.yaml` to create a toc.json (table of contents). 
 
 The pipeline attached to this repo creates an artifact that holds the created files, in a specific folder structure. The `MainSite` repository contains the release pipelines that copy the contents of this artifact into the wwwroot folder during deployment.
 

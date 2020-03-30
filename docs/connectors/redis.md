@@ -8,7 +8,7 @@ Here are some Steeltoe sample applications are available to help you understand 
 * [DataProtection](https://github.com/SteeltoeOSS/Samples/tree/master/Security/src/RedisDataProtectionKeyStore): A sample application showing how to use the Steeltoe DataProtection Key Storage Provider for Redis.
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a micro-services based application built from the ASP.NET Core reference app MusicStore provided by Microsoft.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/7-management/6-%252fhealth) check endpoint.
+This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
 
 ## Usage
 
