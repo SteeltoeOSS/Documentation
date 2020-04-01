@@ -106,7 +106,7 @@
   name: Service Connectors
   items:
     - page: /docs/connectors/mysql  
-      name: Mysql
+      name: MySQL
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -123,7 +123,7 @@
         - page_ref: use-dbcontext
           name: Use DbContext
     - page: /docs/connectors/microsoft-sql-server  
-      name: Microsoft Sql Server
+      name: Microsoft SQL Server
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -140,7 +140,7 @@
         - page_ref: use-dbcontext
           name: Use DbContext
     - page: /docs/connectors/postgresql  
-      name: Postgresql
+      name: PostgreSQL
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -157,7 +157,7 @@
         - page_ref: use-dbcontext
           name: Use DbContext
     - page: /docs/connectors/rabbitmq  
-      name: Rabbitmq
+      name: RabbitMQ
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -183,7 +183,7 @@
         - page_ref: use-oauthserviceoptions
           name: Use OAuthServiceOptions
     - page: /docs/connectors/mongodb  
-      name: Mongodb
+      name: MongoDB
     - page: /docs/connectors/redis  
       name: Redis
       items:
@@ -201,6 +201,15 @@
           name: Add IConnectionMultiplexer
         - page_ref: use-iconnectionmultiplexer
           name: Use IConnectionMultiplexer
+    - page: /docs/connectors/gemfire
+      name: Apache Geode/GemFire
+      items: 
+        - page_ref: add-nuget-reference
+          name: Add NuGet Reference
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: cloud-foundry
+          name: Cloud Foundry
 - page: /docs/discovery  
   name: Service Discovery
   items:
@@ -370,7 +379,7 @@
   name: Cloud Security
   items:
     - page: /docs/security/jwt-authentication-in-asp.NET-core  
-      name: Jwt Authentication In Asp.net Core
+      name: Jwt Authentication In ASP.NET Core
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -383,7 +392,7 @@
         - page_ref: securing-endpoints
           name: Securing Endpoints
     - page: /docs/security/jwt-authentication-in-asp.NET-WCF  
-      name: Jwt Authentication In Asp.net Wcf
+      name: Jwt Authentication In ASP.NET WCF
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -411,7 +420,7 @@
         - page_ref: use-redis-key-store
           name: Use Redis Key Store
     - page: /docs/security/sso-open-id  
-      name: Sso Open Id
+      name: SSO OpenId
       items:
         - page_ref: usage-in-asp.net-core
           name: Usage in ASP.NET Core
@@ -431,7 +440,7 @@
         - page_ref: securing-endpoints
           name: Securing Endpoints
     - page: /docs/security/sso-oauth2  
-      name: Sso Oauth2
+      name: SSO Oauth2
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -444,7 +453,7 @@
         - page_ref: securing-endpoints
           name: Securing Endpoints
     - page: /docs/security/credhub-api-client  
-      name: Credhub Api Client
+      name: CredHub Api Client
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
