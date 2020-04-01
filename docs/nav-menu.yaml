@@ -242,21 +242,20 @@
       items:
         - page_ref: usage
           name: Usage
-          items:
-            - page_ref: eureka-settings
-              name: Eureka Settings
-            - page_ref: bind-to-cloud-foundry
-              name: Bind to Cloud Foundry
-            - page_ref: enable-logging
-              name: Enable Logging
-            - page_ref: configuring-health-contributors
-              name: Configuring Health Contributors
-            - page_ref: configuring-health-checks
-              name: Configuring Health Checks
-            - page_ref: configuring-multiple-serviceurls
-             name: Configuring Multiple ServiceUrls
-            - page_ref: configuring-metadata
-              name: Configuring Metadata
+        - page_ref: eureka-settings
+          name: Eureka Settings
+        - page_ref: bind-to-cloud-foundry
+          name: Bind to Cloud Foundry
+        - page_ref: enable-logging
+          name: Enable Logging
+        - page_ref: configuring-health-contributors
+          name: Configuring Health Contributors
+        - page_ref: configuring-health-checks
+          name: Configuring Health Checks
+        - page_ref: configuring-multiple-serviceurls
+          name: Configuring Multiple ServiceUrls
+        - page_ref: configuring-metadata
+          name: Configuring Metadata
     - page: /docs/discovery/hashicorp-consul  
       name: Hashicorp Consul
       items:
