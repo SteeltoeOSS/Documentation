@@ -213,6 +213,8 @@
 - page: /docs/discovery  
   name: Service Discovery
   items:
+    - page_ref: add-nuget-reference
+      name: Add NuGet Reference
     - page: /docs/discovery/initialize-discovery-client  
       name: Initialize Client
       items:
@@ -220,8 +222,6 @@
           name: Initialize Discovery Client
         - page_ref: asp.net-core
           name: ASP.NET Core
-        - page_ref: asp.net
-          name: ASP.NET
         - page_ref: registering-services
           name: Registering Services
     - page: /docs/discovery/discovering-services  
@@ -236,24 +236,27 @@
         - page_ref: using-idiscoveryclient
           name: Using IDiscoveryClient
     - page: /docs/discovery/enable-logging  
-      name: Enable
+      name: Enable Logging
     - page: /docs/discovery/netflix-eureka  
       name: Netflix Eureka
       items:
-        - page_ref: eureka-settings
-          name: Eureka Settings
-        - page_ref: bind-to-cloud-foundry
-          name: Bind to Cloud Foundry
-        - page_ref: enable-logging
-          name: Enable Logging
-        - page_ref: configuring-health-contributors
-          name: Configuring Health Contributors
-        - page_ref: configuring-health-checks
-          name: Configuring Health Checks
-        - page_ref: configuring-multiple-serviceurls
-          name: Configuring Multiple ServiceUrls
-        - page_ref: configuring-metadata
-          name: Configuring Metadata
+        - page_ref: usage
+          name: Usage
+          items:
+            - page_ref: eureka-settings
+              name: Eureka Settings
+            - page_ref: bind-to-cloud-foundry
+              name: Bind to Cloud Foundry
+            - page_ref: enable-logging
+              name: Enable Logging
+            - page_ref: configuring-health-contributors
+              name: Configuring Health Contributors
+            - page_ref: configuring-health-checks
+              name: Configuring Health Checks
+            - page_ref: configuring-multiple-serviceurls
+             name: Configuring Multiple ServiceUrls
+            - page_ref: configuring-metadata
+              name: Configuring Metadata
     - page: /docs/discovery/hashicorp-consul  
       name: Hashicorp Consul
       items:
@@ -365,10 +368,8 @@
         - page_ref: add-distributed-tracing
           name: Add Distributed Tracing
     - page: /docs/management/distributed-tracing-exporting  
-      name: Distributed Tracing Exporting
+      name: Distributed Tracing with Zipkin
       items:
-        - page_ref: exporting
-          name: Exporting
         - page_ref: add-nuget-references
           name: Add NuGet References
         - page_ref: zipkin-server
@@ -379,7 +380,7 @@
   name: Cloud Security
   items:
     - page: /docs/security/jwt-authentication-in-asp.NET-core  
-      name: Jwt Authentication In ASP.NET Core
+      name: JWT for ASP.NET Core
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -387,12 +388,10 @@
           name: Configure Settings
         - page_ref: cloud-foundry
           name: Cloud Foundry
-        - page_ref: add-cloud-foundry-jwtauthentication
-          name: Add Cloud Foundry JwtAuthentication
         - page_ref: securing-endpoints
           name: Securing Endpoints
     - page: /docs/security/jwt-authentication-in-asp.NET-WCF  
-      name: Jwt Authentication In ASP.NET WCF
+      name: JWT for ASP.NET WCF
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -400,12 +399,21 @@
           name: Configure Settings
         - page_ref: cloud-foundry
           name: Cloud Foundry
-        - page_ref: set-serviceauthorizationmanager
-          name: Set ServiceAuthorizationManager
         - page_ref: securing-endpoints
           name: Securing Endpoints
         - page_ref: updating-client-to-send-jwt
           name: Updating Client to Send JWT
+    - page: /docs/security/jwt-authentication-in-asp.NET-WebAPI  
+      name: JWT for ASP.NET WebAPI
+      items:
+        - page_ref: add-nuget-reference
+          name: Add NuGet Reference
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: cloud-foundry
+          name: Cloud Foundry
+        - page_ref: securing-endpoints
+          name: Securing Endpoints
     - page: /docs/security/redis-key-storage-provider  
       name: Redis Key Storage Provider
       items:
@@ -426,19 +434,6 @@
           name: Usage in ASP.NET Core
         - page_ref: usage-in-asp.net-4.x
           name: Usage in ASP.NET 4.x
-    - page: /docs/security/jwt-authentication-in-asp.NET-WebAPI  
-      name: Jwt Authentication In Asp.net Webapi
-      items:
-        - page_ref: add-nuget-reference
-          name: Add NuGet Reference
-        - page_ref: configure-settings
-          name: Configure Settings
-        - page_ref: cloud-foundry
-          name: Cloud Foundry
-        - page_ref: add-cloud-foundry-jwtauthentication
-          name: Add Cloud Foundry JwtAuthentication
-        - page_ref: securing-endpoints
-          name: Securing Endpoints
     - page: /docs/security/sso-oauth2  
       name: SSO Oauth2
       items:

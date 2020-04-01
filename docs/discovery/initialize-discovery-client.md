@@ -1,4 +1,4 @@
-## Initialize Discovery Client
+# Initialize Discovery Client
 
 ### ASP.NET Core
 
@@ -53,8 +53,6 @@ public class Startup {
 ```
 
 > NOTE: The `Pivotal.Discovery.*` packages have been deprecated, with all functionality rolled into the Steeltoe packages. Update your references and using statements to use the Steeltoe packages.
-
-### ASP.NET
 
 ### Registering Services
 

@@ -61,7 +61,7 @@ As mentioned earlier. you can use a couple of OAuth2 services (such as UAA Serve
 
 Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
-### Set ServiceAuthorizationManager
+#### Set ServiceAuthorizationManager
 
 To configure the Cloud Foundry JWT provider for your WCF service, provide your `IConfiguration` to the `AddJwtAuthorization` extension, as shown in the following example:
 
