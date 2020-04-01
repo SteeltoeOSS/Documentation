@@ -65,7 +65,7 @@ As mentioned earlier, there are two auth services (UAA Server and Pivotal SSO) o
 
 Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
-### Add Cloud Foundry JwtAuthentication
+#### Add Cloud Foundry JwtAuthentication
 
 In order to configure the Cloud Foundry OWIN JWT provider in your application, you will need an [OWIN Startup class](https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/owin-startup-class-detection) if you do not already have one, along with an `IConfigurationRoot` that includes a service binding for UAA or Pivotal SSO.
 

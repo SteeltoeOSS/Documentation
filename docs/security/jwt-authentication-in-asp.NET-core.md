@@ -72,7 +72,7 @@ As mentioned earlier. you can use a couple of OAuth2 services (such as UAA Serve
 
 Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
-### Add Cloud Foundry JwtAuthentication
+#### Add Cloud Foundry JwtAuthentication
 
 To use the provider in your application, add it to your service collection in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
 

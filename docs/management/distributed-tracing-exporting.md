@@ -1,4 +1,4 @@
-## Exporting
+# Distributed Tracing with Zipkin
 
 By default when you enable distributed tracing in your application you do *NOT* automatically enable exporting of those traces to a backend system. Currently, Steeltoe supports exporting traces to a backend Zipkin server.
 
