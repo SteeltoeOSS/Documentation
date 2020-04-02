@@ -28,7 +28,7 @@ Health information is collected from all `IHealthContributor` implementations pr
 
 By default, the final application health state is computed by the `IHealthAggregator` that is provided to the `HealthEndpoint`. The `IHealthAggregator` is responsible for sorting out all of the returned statuses from each `IHealthContributor` and deriving an overall application health state. The `DefaultHealthAggregator` returns the `worst` status returned from all of the `IHealthContributors`.
 
-#### Health Contributors
+## Steeltoe Health Contributors
 
 At present, Steeltoe provides the following `IHealthContributor` implementations you can choose from:
 
@@ -39,7 +39,13 @@ At present, Steeltoe provides the following `IHealthContributor` implementations
 |`RedisHealthContributor`|checks Redis cache connection health|
 |`RelationalHealthContributor`|checks relational database connection health (MySql, Postgres, SqlServer)|
 
-Many of the above health contributors are located in the Steeltoe Connectors package and are made available to your application when you reference the Connectors package.
+Each of these contributors are located in the `Steeltoe.CloudFoundry.ConnectorBase` package and are made available to your application when you reference the connector package.
+
+If you want to use any one of the `IHealthContributor`s above in an ASP.NET Core application, simply make use of the corresponding connector as you would normally. By doing so, the contributor is automatically added to the service container for you and is automatically discovered and used by the Health endpoint.
+
+If you want to make use of any of the contributors in an ASP.NET 4.x application, where no service container exists, you must construct an instance of it using a factory method contained in the contributor and then provide it to the Health endpoint.
+
+### Creating a Custom Health Contributor
 
 If you wish to provide custom health information for your application, create a class that implements the `IHealthContributor` interface and then add that to the `HealthEndpoint`. Details on how to add a contributor to the endpoint is provided below.
 
@@ -63,7 +69,7 @@ public class CustomHealthContributor : IHealthContributor
 }
 ```
 
-#### Configure Settings
+### Configure Settings
 
 The following table describes the settings that you can apply to the endpoint.
 
@@ -76,15 +82,15 @@ The following table describes the settings that you can apply to the endpoint.
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:health`**.
 
-#### Enable HTTP Access
+### Enable HTTP Access
 
 The default path to the Health endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is `/health`.
 
 The coding steps you take to enable HTTP access to the Health endpoint together with how to use custom Health contributors differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.
 
-##### ASP.NET Core App
+#### ASP.NET Core App
 
-Refer to the [HTTP Access ASP.NET Core](#http-access-asp-net-core) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+Refer to the [Exposing Endpoints](/docs/management/using-endpoints#exposing-endpoints) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the Health actuator to the service container, use any one of the `AddHealthActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 
@@ -119,9 +125,9 @@ public class Startup
 
 >NOTE: When you use any of the Steeltoe Connectors in your application we automatically add the corresponding health contributors to the service container.
 
-##### ASP.NET 4.x App
+#### ASP.NET 4.x App
 
-To add the Health actuator endpoint, use the `UseHealthActuator()` method from `ActuatorConfigurator`. Optionally you can provide a custom `IIHealthAggregator` and a list of `IHealthContributor`s should you want to customize the actuator endpoint.  If none are provided, defaults will be provided.
+To add the Health actuator endpoint, use the `UseHealthActuator()` method from `ActuatorConfigurator`. Optionally you can provide a custom `IHealthAggregator` and a list of `IHealthContributor`s should you want to customize the actuator endpoint.  If none are provided, defaults will be provided.
 
 The following example shows how enable the Health endpoint and use the default `IIHealthAggregator` together with two `IHealthContributor`s.
 
@@ -149,11 +155,11 @@ public class ManagementConfig
     }
 ```
 
-##### ASP.NET OWIN App
+#### ASP.NET OWIN App
 
 To add the Health actuator middleware to the ASP.NET OWIN pipeline, use the `UseHealthActuator()` extension method from `HealthEndpointAppBuilderExtensions`.
 
-The following example shows how enable the Health endpoint and use the default `IIHealthAggregator` together with two `IHealthContributor`s.
+The following example shows how enable the Health endpoint and use the default `IHealthAggregator` together with two `IHealthContributor`s.
 
 ```csharp
 public class Startup
@@ -180,3 +186,59 @@ public class Startup
     }
 }
 ```
+
+## ASP.NET Core Health Checks
+
+ASP.NET Core also offers [Middleware and libraries](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-2.
+) and abstractions for reporting health. There is wide community support for these abstractions from libraries such as [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). It is now possible to use these community provided health checks and make them available via this management health endpoint (for integration with PCF or any other infrastructure that depends on this format). In addition, Steeltoe connectors now exposes functionality to easily get connection information which is needed to setup these community health checks.
+
+For example, to use the Steeltoe MySql connector but instead use ASP.NET Core community health checks, make these changes to Startup.cs:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // Get connection information from Steeltoe helper
+    var cm = new ConnectionStringManager(Configuration);
+    var connectionString = cm.Get<MySqlConnectionInfo>().ConnectionString;
+
+    // Add microsoft community health checks from xabaril
+    services.AddHealthChecks().AddMySql(connectionString);  
+
+    // Add in a MySql connection (this method also adds an IHealthContributor for it)
+    services.AddMySqlConnection(Configuration); // will now use community health check instead of Steeltoe health check
+
+    // Add  Steeltoe Management endpoint services
+    services.AddCloudFoundryActuators(Configuration);
+
+    services.AddHealthChecksUI(); // Optionally use the health checks UI
+
+    // Add framework services.
+    services.AddMvc();
+}
+```
+
+>NOTE: AddMySqlConnection will default to the ASP.NET Core health check if found in the service container. This behavior can be toggled off by passing AddMySqlConnection(Configuration, addSteeltoeHealthChecks: true) which will add both health checks. Be warned that this will make the Health check endpoint slower by calling multiple health checks for the same service.
+  
+  ```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+{
+  ...
+
+  // Optionally use ASP.NET Core health middleware for community health checks at /Health
+  app.UseHealthChecks("/Health", new HealthCheckOptions()
+  {
+      Predicate = _ => true,
+      ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+  });
+
+  // Optionally use health checks ui at /healthchecks-ui
+  app.UseHealthChecksUI();
+
+  // Add management endpoints into pipeline
+  // Steeltoe health check shows up at /cloudfoundryapplication/health
+  app.UseCloudFoundryActuators();
+  ...
+```
+
+A complete example is available [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/MicrosoftHealthChecks).
+

@@ -4,7 +4,7 @@ Single Sign-on with OpenID Connect enables you to leverage existing credentials 
 
 ## Usage
 
-### Usage in ASP.NET Core
+### Usage in ASP NET Core
 
 Steeltoe builds on top of `Microsoft.AspNetCore.Authentication.OpenIdConnect`. You may benefit from reading more about using [OpenID Connect in ASP.NET Core](https://andrewlock.net/an-introduction-to-openid-connect-in-asp-net-core/).
 
@@ -19,7 +19,7 @@ Usage of Steeltoe's OpenID Connect provider is effectively identical to that of 
 
 Aside from the different base class for options, the only usage change is to call `.AddCloudFoundryOpenId` instead of `.AddCloudFoundryOAuth`.
 
-### Usage in ASP.NET 4.x
+### Usage in ASP NET 4
 
 This package is built on OpenID Connect and OWIN Middleware. You should take some time to understand both before proceeding to use this provider.
 

@@ -8,6 +8,13 @@
           name: NuGet Feeds
         - page_ref: quick-starts
           name: Quick Starts
+    - page: /docs/welcome/common-steps
+      name: Common Steps
+      items:
+        - page_ref: publish-sample
+          name: Publish Sample
+        - page_ref: cloud-foundry-push-sample
+          name: Cloud Foundry Push Sample
 - page: /docs/circuitbreaker  
   name: Circuit Breakers
   items:
@@ -170,7 +177,7 @@
         - page_ref: use-rabbitmq-connectionfactory
           name: Use RabbitMQ ConnectionFactory
     - page: /docs/connectors/oauth  
-      name: Oauth
+      name: OAuth
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -184,6 +191,19 @@
           name: Use OAuthServiceOptions
     - page: /docs/connectors/mongodb  
       name: MongoDB
+      items:
+        - page_ref: usage
+          name: Usage
+        - page_ref: add-nuget-reference
+          name: Add Nuget Reference
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: cloud-foundry
+          name: Cloud Foundry
+        - page_ref: add-mongo-client
+          name: Add Mongo Client
+        - page_ref: use-mongo-client
+          name: Use Mongo Client
     - page: /docs/connectors/redis  
       name: Redis
       items:
@@ -213,14 +233,14 @@
 - page: /docs/discovery  
   name: Service Discovery
   items:
-    - page_ref: add-nuget-reference
-      name: Add NuGet Reference
+    - page_ref: add-nuget-references
+      name: Add NuGet References
+    - page_ref: enable-debug-logging  
+      name: Enable Debug Logging
     - page: /docs/discovery/initialize-discovery-client  
-      name: Initialize Client
+      name: Initialize Discovery Client
       items:
-        - page_ref: initialize-discovery-client
-          name: Initialize Discovery Client
-        - page_ref: asp.net-core
+        - page_ref: asp-net-core
           name: ASP.NET Core
         - page_ref: registering-services
           name: Registering Services
@@ -235,8 +255,6 @@
           name: Using HttpClientFactory
         - page_ref: using-idiscoveryclient
           name: Using IDiscoveryClient
-    - page: /docs/discovery/enable-logging  
-      name: Enable Logging
     - page: /docs/discovery/netflix-eureka  
       name: Netflix Eureka
       items:
@@ -318,15 +336,8 @@
           name: Add NuGet References
         - page_ref: configure-global-settings
           name: Configure Global Settings
-    - page: /docs/management/common-steps  
-      name: Common Steps
-      items:
-        - page_ref: http-access-asp.net-core
-          name: HTTP Access ASP.NET Core
-        - page_ref: http-access-asp.net-4.x
-          name: HTTP Access ASP.NET 4.x
-        - page_ref: http-access-asp.net-owin
-          name: HTTP Access ASP.NET OWIN
+        - page_ref: exposing-endpoints
+          name: Exposing Endpoints
     - page: /docs/management/tasks  
       name: Tasks
       items:
@@ -434,12 +445,12 @@
     - page: /docs/security/sso-open-id  
       name: SSO OpenId
       items:
-        - page_ref: usage-in-asp.net-core
+        - page_ref: usage-in-asp-net-core
           name: Usage in ASP.NET Core
-        - page_ref: usage-in-asp.net-4.x
+        - page_ref: usage-in-asp-net-4
           name: Usage in ASP.NET 4.x
     - page: /docs/security/sso-oauth2  
-      name: SSO Oauth2
+      name: SSO OAuth2
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
