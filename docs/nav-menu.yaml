@@ -366,13 +366,13 @@
           name: Propagating Trace Context
         - page_ref: add-distributed-tracing
           name: Add Distributed Tracing
-    - page: /docs/management/distributed-tracing-exporting  
-      name: Distributed Tracing with Zipkin
-      items:
-        - page_ref: add-nuget-references
-          name: Add NuGet References
-        - page_ref: zipkin-server
-          name: Zipkin Server
+        - page: /docs/management/distributed-tracing-exporting  
+          name: Using Zipkin Exporter
+          items:
+              - page_ref: add-nuget-references
+                name: Add NuGet References
+              - page_ref: zipkin-server
+                name: Zipkin Server
     - page: /docs/management/tasks  
       name: Tasks
 - page: /docs/security  
