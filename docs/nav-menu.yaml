@@ -373,13 +373,13 @@
       name: Propagating Trace Context
     - page_ref: add-distributed-tracing
       name: Add Distributed Tracing
-- page: /docs/management/distributed-tracing-exporting  
-  name: Using Zipkin Trace Exporter
-  items:
-      - page_ref: add-nuget-reference
-        name: Add NuGet Reference
-      - page_ref: zipkin-server
-        name: Zipkin Server
+    - page: /docs/tracing/distributed-tracing-exporting  
+      name: Using Zipkin Trace Exporter
+      items:
+        - page_ref: add-nuget-reference
+          name: Add NuGet Reference
+        - page_ref: zipkin-server
+          name: Zipkin Server
 - page: /docs/security  
   name: Cloud Security
   items:
