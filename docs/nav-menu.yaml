@@ -242,21 +242,20 @@
       items:
         - page_ref: usage
           name: Usage
-          items:
-            - page_ref: eureka-settings
-              name: Eureka Settings
-            - page_ref: bind-to-cloud-foundry
-              name: Bind to Cloud Foundry
-            - page_ref: enable-logging
-              name: Enable Logging
-            - page_ref: configuring-health-contributors
-              name: Configuring Health Contributors
-            - page_ref: configuring-health-checks
-              name: Configuring Health Checks
-            - page_ref: configuring-multiple-serviceurls
-             name: Configuring Multiple ServiceUrls
-            - page_ref: configuring-metadata
-              name: Configuring Metadata
+        - page_ref: eureka-settings
+          name: Eureka Settings
+        - page_ref: bind-to-cloud-foundry
+          name: Bind to Cloud Foundry
+        - page_ref: enable-logging
+          name: Enable Logging
+        - page_ref: configuring-health-contributors
+          name: Configuring Health Contributors
+        - page_ref: configuring-health-checks
+          name: Configuring Health Checks
+        - page_ref: configuring-multiple-serviceurls
+          name: Configuring Multiple ServiceUrls
+        - page_ref: configuring-metadata
+          name: Configuring Metadata
     - page: /docs/discovery/hashicorp-consul  
       name: Hashicorp Consul
       items:
@@ -328,6 +327,13 @@
           name: HTTP Access ASP.NET 4.x
         - page_ref: http-access-asp.net-owin
           name: HTTP Access ASP.NET OWIN
+    - page: /docs/management/tasks  
+      name: Tasks
+      items:
+        - page_ref: add-nuget-reference
+          name: Add NuGet Reference
+        - page_ref: implement-task
+          name: Implement Task 
     - page: /docs/management/cloud-foundry  
       name: /cloudFoundry
     - page: /docs/management/env  
@@ -354,28 +360,26 @@
       name: /threaddump
     - page: /docs/management/tracing  
       name: /tracing
-    - page: /docs/management/distributed-tracing  
-      name: Distributed Tracing
+- page: /docs/tracing/distributed-tracing  
+  name: Distributed Tracing
+  items:
+    - page_ref: add-nuget-references
+      name: Add NuGet References
+    - page_ref: configure-settings
+      name: Configure Settings
+    - page_ref: enabling-log-correlation
+      name: Enabling Log Correlation
+    - page_ref: propagating-trace-context
+      name: Propagating Trace Context
+    - page_ref: add-distributed-tracing
+      name: Add Distributed Tracing
+    - page: /docs/tracing/distributed-tracing-exporting  
+      name: Using Zipkin Trace Exporter
       items:
-        - page_ref: add-nuget-references
-          name: Add NuGet References
-        - page_ref: configure-settings
-          name: Configure Settings
-        - page_ref: enabling-log-correlation
-          name: Enabling Log Correlation
-        - page_ref: propagating-trace-context
-          name: Propagating Trace Context
-        - page_ref: add-distributed-tracing
-          name: Add Distributed Tracing
-    - page: /docs/management/distributed-tracing-exporting  
-      name: Distributed Tracing with Zipkin
-      items:
-        - page_ref: add-nuget-references
-          name: Add NuGet References
+        - page_ref: add-nuget-reference
+          name: Add NuGet Reference
         - page_ref: zipkin-server
           name: Zipkin Server
-    - page: /docs/management/tasks  
-      name: Tasks
 - page: /docs/security  
   name: Cloud Security
   items:
