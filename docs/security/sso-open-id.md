@@ -19,7 +19,7 @@ Usage of Steeltoe's OpenID Connect provider is effectively identical to that of 
 
 Aside from the different base class for options, the only usage change is to call `.AddCloudFoundryOpenId` instead of `.AddCloudFoundryOAuth`.
 
-### Usage in ASP NET 4.x
+### Usage in ASP NET 4
 
 This package is built on OpenID Connect and OWIN Middleware. You should take some time to understand both before proceeding to use this provider.
 

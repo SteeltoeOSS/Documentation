@@ -447,7 +447,7 @@
       items:
         - page_ref: usage-in-asp-net-core
           name: Usage in ASP.NET Core
-        - page_ref: usage-in-asp-net-4.x
+        - page_ref: usage-in-asp-net-4
           name: Usage in ASP.NET 4.x
     - page: /docs/security/sso-oauth2  
       name: SSO OAuth2
