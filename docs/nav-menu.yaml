@@ -170,7 +170,7 @@
         - page_ref: use-rabbitmq-connectionfactory
           name: Use RabbitMQ ConnectionFactory
     - page: /docs/connectors/oauth  
-      name: Oauth
+      name: OAuth
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -184,6 +184,19 @@
           name: Use OAuthServiceOptions
     - page: /docs/connectors/mongodb  
       name: MongoDB
+      items:
+        - page_ref: usage
+          name: Usage
+        - page_ref: add-nuget-reference
+          name: Add Nuget Reference
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: cloud-foundry
+          name: Cloud Foundry
+        - page_ref: add-mongo-client
+          name: Add Mongo Client
+        - page_ref: use-mongo-client
+          name: Use Mongo Client
     - page: /docs/connectors/redis  
       name: Redis
       items:
