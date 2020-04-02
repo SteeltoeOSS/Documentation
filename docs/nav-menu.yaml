@@ -327,6 +327,13 @@
           name: HTTP Access ASP.NET 4.x
         - page_ref: http-access-asp.net-owin
           name: HTTP Access ASP.NET OWIN
+    - page: /docs/management/tasks  
+      name: Tasks
+      items:
+        - page_ref: add-nuget-reference
+          name: Add NuGet Reference
+        - page_ref: implement-task
+          name: Implement Task 
     - page: /docs/management/cloud-foundry  
       name: /cloudFoundry
     - page: /docs/management/env  
@@ -353,28 +360,26 @@
       name: /threaddump
     - page: /docs/management/tracing  
       name: /tracing
-    - page: /docs/management/distributed-tracing  
-      name: Distributed Tracing
-      items:
-        - page_ref: add-nuget-references
-          name: Add NuGet References
-        - page_ref: configure-settings
-          name: Configure Settings
-        - page_ref: enabling-log-correlation
-          name: Enabling Log Correlation
-        - page_ref: propagating-trace-context
-          name: Propagating Trace Context
-        - page_ref: add-distributed-tracing
-          name: Add Distributed Tracing
-        - page: /docs/management/distributed-tracing-exporting  
-          name: Using Zipkin Exporter
-          items:
-              - page_ref: add-nuget-reference
-                name: Add NuGet References
-              - page_ref: zipkin-server
-                name: Zipkin Server
-    - page: /docs/management/tasks  
-      name: Tasks
+- page: /docs/tracing/distributed-tracing  
+  name: Distributed Tracing
+  items:
+    - page_ref: add-nuget-references
+      name: Add NuGet References
+    - page_ref: configure-settings
+      name: Configure Settings
+    - page_ref: enabling-log-correlation
+      name: Enabling Log Correlation
+    - page_ref: propagating-trace-context
+      name: Propagating Trace Context
+    - page_ref: add-distributed-tracing
+      name: Add Distributed Tracing
+- page: /docs/management/distributed-tracing-exporting  
+  name: Using Zipkin Trace Exporter
+  items:
+      - page_ref: add-nuget-reference
+        name: Add NuGet Reference
+      - page_ref: zipkin-server
+        name: Zipkin Server
 - page: /docs/security  
   name: Cloud Security
   items:
