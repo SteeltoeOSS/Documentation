@@ -35,6 +35,11 @@ Steeltoe adds a Logging provider to the set of available logging packages in ord
 Monitor and manage your app while it runs in production with Steeltoe Cloud Management.
 [read more](/docs/management)
 
+### Distributed Tracing
+
+Allows you to capture trace data for your microservice application using logs, or by sending it to a remote collector service.
+[read more](/docs/tracing)
+
 ### Cloud Security
 
 Integrate ASP.NET authentication and authorization features in your app, no matter what platform you use.
