@@ -369,7 +369,7 @@
         - page: /docs/management/distributed-tracing-exporting  
           name: Using Zipkin Exporter
           items:
-              - page_ref: add-nuget-references
+              - page_ref: add-nuget-reference
                 name: Add NuGet References
               - page_ref: zipkin-server
                 name: Zipkin Server

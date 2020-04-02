@@ -8,7 +8,7 @@ To enable exporting you will need to do the following:
 * Configure the settings the exporter will use during export.
 * Add and Use the exporter service in the application
 
-### Add NuGet References
+### Add NuGet Reference
 
 All of the exporters can be found in the `Steeltoe.Management.ExporterBase` and in `Steeltoe.Management.OpenCensus`.
 
