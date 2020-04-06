@@ -2,7 +2,7 @@
 
 This connector simplifies using Microsoft SQL Server in an application running on Cloud Foundry. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using Entity Framework.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint. 
+This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
 
 ## Usage
 
@@ -54,7 +54,7 @@ The following table shows the available settings for the connector:
 
 >IMPORTANT: All of the settings shown in the preceding table should be prefixed with `sqlserver:credentials:`.
 
-The samples and most templates are already set up to read from `appsettings.json`. 
+The samples and most templates are already set up to read from `appsettings.json`.
 
 >NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
 
