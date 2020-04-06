@@ -19,7 +19,7 @@ To use the MongoDB connector, add the official [MongoDB.Driver NuGet package](ht
 
 ### Configure Settings
 
-The MongoDB connector supports several settings for creating
+This connector supports several settings for local interaction with MongoDB that will be overridden by service bindings on deployment:
 
 ```json
 {
