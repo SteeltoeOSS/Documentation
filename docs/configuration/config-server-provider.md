@@ -334,3 +334,24 @@ To ensure high availability when you have multiple instances of Config Server de
 Note that doing so ensures high availability only when the Config Server is not running or responding (for example, when the server has exited or when a connection timeout has occurred). For example, if the Config Server returns a 500 (Internal Server Error) response or the Steeltoe client receives a 401 from the Config Server (due to bad credentials or other causes), the client does not try to fetch properties from other URLs. An error of that kind indicates a user issue rather than an availability problem.
 
 If you use HTTP basic auth security on your Config Server, it is currently only possible to support per-Config Server auth credentials if you embed the credentials in each URL you specify for the `spring:cloud:config:uri` setting. If you use any other kind of security mechanism, you cannot currently support per-Config Server authentication and authorization.
+
+### Configuring Mutual TLS
+
+When Spring Cloud Config Server is configured to require Mutual TLS authentication, Steeltoe needs to be provided with a valid client certificate. A client certificate can be provided by an implementation of `Steeltoe.Common.ICertificateSource` that has been included the configuration or directly as a property on the settings object.
+
+Steeltoe includes `ICertificateSource` implementations that work with PEM files or a single file (such as PKCS#12).
+
+```csharp
+var configurationBuilder = new ConfigurationBuilder()
+        .AddPemFiles("instance.crt", "instance.key") /* OR */ .AddCertificateFile("instance.p12")
+        .AddConfigServer();
+```
+
+If that methodology doesn't work for your use case, it is also possible to supply an x509Certificate2 on the `ConfigServerClientSettings` object:
+
+```csharp
+var clientCertificate = new X509Certificate2(); // construct or retrieve your certificate as needed
+var settings = new ConfigServerClientSettings { ClientCertificate = clientCertificate };
+var configurationBuilder = new ConfigurationBuilder()
+        .AddConfigServer(settings);
+```
