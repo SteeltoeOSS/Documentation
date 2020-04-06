@@ -355,3 +355,5 @@ var settings = new ConfigServerClientSettings { ClientCertificate = clientCertif
 var configurationBuilder = new ConfigurationBuilder()
         .AddConfigServer(settings);
 ```
+
+>NOTE: A single `ICertificateSource` can be used for both Config Server and [Eureka mTLS connections](../discovery/netflix-eureka#configuring-mutual-tls).
