@@ -44,8 +44,3 @@ Allows you to capture trace data for your microservice application using logs, o
 
 Integrate ASP.NET authentication and authorization features in your app, no matter what platform you use.
 [read more](/docs/security)
-
-### Developer Tools
-
-Along with the framework, the Steeltoe team has developed tooling to help you code microservices and interact with cloud platforms easier.
-[read more](/docs/developer-tools)

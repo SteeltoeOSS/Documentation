@@ -49,6 +49,3 @@ Alternatively, you can sign up for a free trial account of [Pivotal Web Services
 Regardless of which Cloud Foundry option you choose, in order to work with Cloud Foundry, you need to install the [Cloud Foundry Command Line Interface (CLI)](https://github.com/cloudfoundry/cli/releases).
 
 Finally, for all of the Quick Starts, you need to install the [GIT command line tools](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) so that you can fetch the Quick Start sample code and work with it on your computer.
-
-[//]: # (this is a hack to prevent the TOC from drifting down into the footer)
-<div style="height:500px"></div>
