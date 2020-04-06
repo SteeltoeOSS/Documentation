@@ -160,7 +160,7 @@ The following example shows the clients settings in JSON that are necessary to c
 
 The `eureka:instance:port` setting is the port on which the service is registered. The hostName portion is determined automatically at runtime. The `eureka:client:shouldFetchRegistry` setting instructs the client NOT to fetch the registry as the app does not need to discover services. It only wants to register a service. The default for the `shouldFetchRegistry` setting is true.
 
-The samples and most templates are already set up to read from `appsettings.json`. 
+The samples and most templates are already set up to read from `appsettings.json`.
 
 ### Bind to Cloud Foundry
 
@@ -182,7 +182,7 @@ cf restage myApp
 
 For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/index.html) documentation.
 
-Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`. 
+Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`.
 
 ### Enable Logging
 
@@ -248,3 +248,29 @@ Additional metadata can be added to instance registrations using the configurati
 
 In general, additional metadata does not change the behavior of the client, unless the client is made aware of the meaning of the metadata.
 
+### Configuring Mutual TLS
+
+In cases where customizations to communications with the Eureka Server are needed (for example: when using mutual TLS authentication), `IHttpClientHandlerProvider` is available. In order to simplify mTLS setup in applications, `Steeltoe.Common.Http.ClientCertificateHttpHandlerProvider` is automatically injected when `IHttpClientHandlerProvider` is not detected and `IOptions<CertificateOptions>` is available.
+
+```csharp
+// Add an ICertificateSource to your configuration builder
+var configurationBuilder = new ConfigurationBuilder()
+        .AddPemFiles("instance.crt", "instance.key");
+         /* OR */
+        .AddCertificateFile("instance.p12");
+
+var services = new ServiceCollection();
+// Add Options and configure CertificateOptions
+services.AddOptions();
+services.Configure<CertificateOptions>(config);
+services.AddDiscoveryClient(config);
+```
+
+If you wish to supply your own `IHttpClientHandlerProvider`, add it into the service collection before calling `AddDiscoveryClient`:
+
+```csharp
+services.AddSingleton<IHttpClientHandlerProvider>(new MyCustomHttpClientHandlerProvider());
+services.AddDiscoveryClient(config);
+```
+
+>NOTE: A single `ICertificateSource` can be used for both Eureka and [Config Server mTLS connections](../configuration/config-server-provider#configuring-mutual-tls).
