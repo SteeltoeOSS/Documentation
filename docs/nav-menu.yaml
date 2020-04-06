@@ -109,6 +109,8 @@
           name: Configuring Retry
         - page_ref: configuring-multiple-urls
           name: Configuring Multiple Urls
+        - page_ref: configuring-mutual-tls
+          name: Configuring Mutual TLS
 - page: /docs/connectors  
   name: Service Connectors
   items:
