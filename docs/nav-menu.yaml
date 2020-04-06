@@ -204,6 +204,19 @@
           name: Add Mongo Client
         - page_ref: use-mongo-client
           name: Use Mongo Client
+    - page: /docs/connectors/cosmosdb  
+      name: CosmosDB
+      items:
+        - page_ref: usage
+          name: Usage
+        - page_ref: add-nuget-references
+          name: Add Nuget References
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: cloud-foundry
+          name: Cloud Foundry
+        - page_ref: use-CosmosClient
+          name: Use Cosmos Client
     - page: /docs/connectors/redis  
       name: Redis
       items:
