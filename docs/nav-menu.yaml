@@ -1,24 +1,24 @@
-- page: /docs/welcome  
+- page: /docs/3/welcome  
   name: Welcome
   items:
-    - page: /docs/welcome/prerequisites
+    - page: /docs/3/welcome/prerequisites
       name: Prerequisites
       items:
         - page_ref: nuget-feeds
           name: NuGet Feeds
         - page_ref: quick-starts
           name: Quick Starts
-    - page: /docs/welcome/common-steps
+    - page: /docs/3/welcome/common-steps
       name: Common Steps
       items:
         - page_ref: publish-sample
           name: Publish Sample
         - page_ref: cloud-foundry-push-sample
           name: Cloud Foundry Push Sample
-- page: /docs/circuitbreaker  
+- page: /docs/3/circuitbreaker  
   name: Circuit Breakers
   items:
-    - page: /docs/circuitbreaker/hystrix  
+    - page: /docs/3/circuitbreaker/hystrix  
       name: Hystrix
       items:
         - page_ref: add-nuget-references
@@ -43,10 +43,10 @@
           name: Use Collapsers
         - page_ref: use-metrics
           name: Use Metrics
-- page: /docs/configuration  
+- page: /docs/3/configuration  
   name: Application Configuration
   items:
-    - page: /docs/configuration/random-value-provider  
+    - page: /docs/3/configuration/random-value-provider  
       name: Random Value Provider
       items:
         - page_ref: add-nuget-reference
@@ -55,14 +55,14 @@
           name: Add Configuration Provider
         - page_ref: access-random-value-data
           name: Access Random Value Data
-    - page: /docs/configuration/hosted-extensions  
+    - page: /docs/3/configuration/hosted-extensions  
       name: Hosted Extensions
       items:
         - page_ref: usecloudhosting
           name: UseCloudHosting
         - page_ref: usecloudfoundryhosting
           name: UseCloudFoundryHosting
-    - page: /docs/configuration/cloud-foundry-provider  
+    - page: /docs/3/configuration/cloud-foundry-provider  
       name: Cloud Foundry Provider
       items:
         - page_ref: add-nuget-reference
@@ -73,7 +73,7 @@
           name: Access Configuration Data
         - page_ref: access-configuration-data-as-options
           name: Access Configuration Data as Options
-    - page: /docs/configuration/placeholder-provider  
+    - page: /docs/3/configuration/placeholder-provider  
       name: Placeholder Provider
       items:
         - page_ref: add-nuget-reference
@@ -84,7 +84,7 @@
           name: Access Configuration Data
         - page_ref: access-configuration-data-as-options
           name: Access Configuration Data as Options
-    - page: /docs/configuration/config-server-provider  
+    - page: /docs/3/configuration/config-server-provider  
       name: Config Server Provider
       items:
         - page_ref: add-nuget-reference
@@ -111,10 +111,14 @@
           name: Configuring Multiple Urls
         - page_ref: configuring-mutual-tls
           name: Configuring Mutual TLS
+<<<<<<< HEAD
 - page: /docs/connectors  
+=======
+- page: /docs/3/connectors  
+>>>>>>> 3.x-staging
   name: Service Connectors
   items:
-    - page: /docs/connectors/mysql  
+    - page: /docs/3/connectors/mysql  
       name: MySQL
       items:
         - page_ref: add-nuget-reference
@@ -131,7 +135,7 @@
           name: Add DbContext
         - page_ref: use-dbcontext
           name: Use DbContext
-    - page: /docs/connectors/microsoft-sql-server  
+    - page: /docs/3/connectors/microsoft-sql-server  
       name: Microsoft SQL Server
       items:
         - page_ref: add-nuget-reference
@@ -148,7 +152,7 @@
           name: Add DbContext
         - page_ref: use-dbcontext
           name: Use DbContext
-    - page: /docs/connectors/postgresql  
+    - page: /docs/3/connectors/postgresql  
       name: PostgreSQL
       items:
         - page_ref: add-nuget-reference
@@ -165,7 +169,7 @@
           name: Add DbContext
         - page_ref: use-dbcontext
           name: Use DbContext
-    - page: /docs/connectors/rabbitmq  
+    - page: /docs/3/connectors/rabbitmq  
       name: RabbitMQ
       items:
         - page_ref: add-nuget-reference
@@ -178,7 +182,7 @@
           name: Add RabbitMQ ConnectionFactory
         - page_ref: use-rabbitmq-connectionfactory
           name: Use RabbitMQ ConnectionFactory
-    - page: /docs/connectors/oauth  
+    - page: /docs/3/connectors/oauth  
       name: OAuth
       items:
         - page_ref: add-nuget-reference
@@ -191,7 +195,7 @@
           name: Add OAuthServiceOptions
         - page_ref: use-oauthserviceoptions
           name: Use OAuthServiceOptions
-    - page: /docs/connectors/mongodb  
+    - page: /docs/3/connectors/mongodb  
       name: MongoDB
       items:
         - page_ref: usage
@@ -206,7 +210,11 @@
           name: Add Mongo Client
         - page_ref: use-mongo-client
           name: Use Mongo Client
+<<<<<<< HEAD
     - page: /docs/connectors/cosmosdb  
+=======
+    - page: /docs/3/connectors/cosmosdb  
+>>>>>>> 3.x-staging
       name: CosmosDB
       items:
         - page_ref: usage
@@ -219,7 +227,11 @@
           name: Cloud Foundry
         - page_ref: use-CosmosClient
           name: Use Cosmos Client
+<<<<<<< HEAD
     - page: /docs/connectors/redis  
+=======
+    - page: /docs/3/connectors/redis  
+>>>>>>> 3.x-staging
       name: Redis
       items:
         - page_ref: add-nuget-reference
@@ -236,7 +248,7 @@
           name: Add IConnectionMultiplexer
         - page_ref: use-iconnectionmultiplexer
           name: Use IConnectionMultiplexer
-    - page: /docs/connectors/gemfire
+    - page: /docs/3/connectors/gemfire
       name: Apache Geode/GemFire
       items: 
         - page_ref: add-nuget-reference
@@ -245,21 +257,21 @@
           name: Configure Settings
         - page_ref: cloud-foundry
           name: Cloud Foundry
-- page: /docs/discovery  
+- page: /docs/3/discovery  
   name: Service Discovery
   items:
     - page_ref: add-nuget-references
       name: Add NuGet References
     - page_ref: enable-debug-logging  
       name: Enable Debug Logging
-    - page: /docs/discovery/initialize-discovery-client  
+    - page: /docs/3/discovery/initialize-discovery-client  
       name: Initialize Discovery Client
       items:
         - page_ref: asp-net-core
           name: ASP.NET Core
         - page_ref: registering-services
           name: Registering Services
-    - page: /docs/discovery/discovering-services  
+    - page: /docs/3/discovery/discovering-services  
       name: Discovering Services
       items:
         - page_ref: discovering-services
@@ -270,7 +282,7 @@
           name: Using HttpClientFactory
         - page_ref: using-idiscoveryclient
           name: Using IDiscoveryClient
-    - page: /docs/discovery/netflix-eureka  
+    - page: /docs/3/discovery/netflix-eureka  
       name: Netflix Eureka
       items:
         - page_ref: usage
@@ -291,7 +303,11 @@
           name: Configuring Metadata
         - page_ref: configuring-mutual-tls
           name: Configuring Mutual TLS
+<<<<<<< HEAD
     - page: /docs/discovery/hashicorp-consul  
+=======
+    - page: /docs/3/discovery/hashicorp-consul  
+>>>>>>> 3.x-staging
       name: Hashicorp Consul
       items:
         - page_ref: consul-settings
@@ -306,7 +322,7 @@
           name: Configuring Metadata
         - page_ref: configuring-instanceid
           name: Configuring InstanceId
-    - page: /docs/discovery/load-balancing  
+    - page: /docs/3/discovery/load-balancing  
       name: Load Balancing
       items:
         - page_ref: load-balancing
@@ -319,10 +335,10 @@
           name: Round Robin Load Balancer
         - page_ref: custom-iloadbalancer
           name: Custom ILoadBalancer
-- page: /docs/fileshares  
+- page: /docs/3/fileshares  
   name: Network File Sharing
   items:
-    - page: /docs/fileshares/usage  
+    - page: /docs/3/fileshares/usage  
       name: Usage
       items:
         - page_ref: add-nuget-references
@@ -331,10 +347,10 @@
           name: Managing the Connection
         - page_ref: managing-credentials
           name: Managing Credentials
-- page: /docs/logging  
+- page: /docs/3/logging  
   name: Dynamic Logging
   items:
-    - page: /docs/logging/dynamic-logging-provider  
+    - page: /docs/3/logging/dynamic-logging-provider  
       name: Dynamic Provider
       items:
         - page_ref: add-nuget-references
@@ -343,10 +359,10 @@
           name: Configure Settings
         - page_ref: add-logging-provider
           name: Add Logging Provider
-- page: /docs/management  
+- page: /docs/3/management  
   name: Cloud Management
   items:
-    - page: /docs/management/using-endpoints  
+    - page: /docs/3/management/using-endpoints  
       name: Using Endpoints
       items:
         - page_ref: add-nuget-references
@@ -355,40 +371,40 @@
           name: Configure Global Settings
         - page_ref: exposing-endpoints
           name: Exposing Endpoints
-    - page: /docs/management/tasks  
+    - page: /docs/3/management/tasks  
       name: Tasks
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
         - page_ref: implement-task
           name: Implement Task 
-    - page: /docs/management/cloud-foundry  
+    - page: /docs/3/management/cloud-foundry  
       name: /cloudFoundry
-    - page: /docs/management/env  
+    - page: /docs/3/management/env  
       name: /env
-    - page: /docs/management/health  
+    - page: /docs/3/management/health  
       name: /health
-    - page: /docs/management/heapdump  
+    - page: /docs/3/management/heapdump  
       name: /heapdump
-    - page: /docs/management/hypermedia  
+    - page: /docs/3/management/hypermedia  
       name: /hypermedia
-    - page: /docs/management/info  
+    - page: /docs/3/management/info  
       name: /info
-    - page: /docs/management/loggers  
+    - page: /docs/3/management/loggers  
       name: /loggers
-    - page: /docs/management/mappings  
+    - page: /docs/3/management/mappings  
       name: /mappings
-    - page: /docs/management/metrics  
+    - page: /docs/3/management/metrics  
       name: /metrics
-    - page: /docs/management/prometheus  
+    - page: /docs/3/management/prometheus  
       name: /prometheus
-    - page: /docs/management/refresh  
+    - page: /docs/3/management/refresh  
       name: /refresh
-    - page: /docs/management/threaddump  
+    - page: /docs/3/management/threaddump  
       name: /threaddump
-    - page: /docs/management/tracing  
+    - page: /docs/3/management/tracing  
       name: /tracing
-- page: /docs/tracing/distributed-tracing  
+- page: /docs/3/tracing/distributed-tracing  
   name: Distributed Tracing
   items:
     - page_ref: add-nuget-references
@@ -401,17 +417,17 @@
       name: Propagating Trace Context
     - page_ref: add-distributed-tracing
       name: Add Distributed Tracing
-    - page: /docs/tracing/distributed-tracing-exporting  
+    - page: /docs/3/tracing/distributed-tracing-exporting  
       name: Using Zipkin Trace Exporter
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
         - page_ref: zipkin-server
           name: Zipkin Server
-- page: /docs/security  
+- page: /docs/3/security  
   name: Cloud Security
   items:
-    - page: /docs/security/jwt-authentication-in-asp.NET-core  
+    - page: /docs/3/security/jwt-authentication-in-asp.NET-core  
       name: JWT for ASP.NET Core
       items:
         - page_ref: add-nuget-reference
@@ -422,7 +438,7 @@
           name: Cloud Foundry
         - page_ref: securing-endpoints
           name: Securing Endpoints
-    - page: /docs/security/jwt-authentication-in-asp.NET-WCF  
+    - page: /docs/3/security/jwt-authentication-in-asp.NET-WCF  
       name: JWT for ASP.NET WCF
       items:
         - page_ref: add-nuget-reference
@@ -435,7 +451,7 @@
           name: Securing Endpoints
         - page_ref: updating-client-to-send-jwt
           name: Updating Client to Send JWT
-    - page: /docs/security/jwt-authentication-in-asp.NET-WebAPI  
+    - page: /docs/3/security/jwt-authentication-in-asp.NET-WebAPI  
       name: JWT for ASP.NET WebAPI
       items:
         - page_ref: add-nuget-reference
@@ -446,7 +462,7 @@
           name: Cloud Foundry
         - page_ref: securing-endpoints
           name: Securing Endpoints
-    - page: /docs/security/redis-key-storage-provider  
+    - page: /docs/3/security/redis-key-storage-provider  
       name: Redis Key Storage Provider
       items:
         - page_ref: add-nuget-reference
@@ -459,14 +475,14 @@
           name: Add PersistKeysToRedis
         - page_ref: use-redis-key-store
           name: Use Redis Key Store
-    - page: /docs/security/sso-open-id  
+    - page: /docs/3/security/sso-open-id  
       name: SSO OpenId
       items:
         - page_ref: usage-in-asp-net-core
           name: Usage in ASP.NET Core
         - page_ref: usage-in-asp-net-4
           name: Usage in ASP.NET 4.x
-    - page: /docs/security/sso-oauth2  
+    - page: /docs/3/security/sso-oauth2  
       name: SSO OAuth2
       items:
         - page_ref: add-nuget-reference
@@ -479,7 +495,7 @@
           name: Add Cloud Foundry OAuth
         - page_ref: securing-endpoints
           name: Securing Endpoints
-    - page: /docs/security/credhub-api-client  
+    - page: /docs/3/security/credhub-api-client  
       name: CredHub Api Client
       items:
         - page_ref: add-nuget-reference
@@ -498,10 +514,10 @@
           name: CredHub Change Operations
         - page_ref: permission-operations
           name: Permission Operations
-- page: /docs/developer-tools  
+- page: /docs/3/developer-tools  
   name: Developer Tools
   items:
-    - page: /docs/developer-tools/cli  
+    - page: /docs/3/developer-tools/cli  
       name: Cli
       items:
         - page_ref: getting-started
