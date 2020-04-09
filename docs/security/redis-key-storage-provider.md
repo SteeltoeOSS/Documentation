@@ -27,14 +27,14 @@ You can add the provider to your project by using the following `PackageReferenc
 </ItemGroup>
 ```
 
-You also need the Steeltoe Redis connector. Add the `Steeltoe.CloudFoundry.ConnectorCore` package to get the Redis connector and helpers for setting it up.
+You also need the Steeltoe Redis connector. Add the `Steeltoe.ConnectorCore` package to get the Redis connector and helpers for setting it up.
 
 You can use the NuGet Package Manager tools or directly add the following package reference to your .csproj file:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CloudFoundry.ConnectorCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.ConnectorCore" Version= "2.1.0"/>
 ...
 </ItemGroup>
 ```
@@ -65,7 +65,7 @@ The next step is to add the StackExchange Redis `IConnectionMultiplexer` to your
 You can do so in the `ConfigureServices()` method of the `Startup` class by using the Steeltoe Redis Connector, as follows:
 
 ```csharp
-using Steeltoe.CloudFoundry.Connector.Redis;
+using Steeltoe.Connector.Redis;
 
 public class Startup {
     ...
@@ -95,7 +95,7 @@ The last step is to use the provider to configure DataProtection to persist keys
 You can do so in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
 
 ```csharp
-using Steeltoe.CloudFoundry.Connector.Redis;
+using Steeltoe.Connector.Redis;
 
 public class Startup {
     ...

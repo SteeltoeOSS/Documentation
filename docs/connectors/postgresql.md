@@ -88,7 +88,7 @@ Once the service is bound to your application, the connector's settings are avai
 To use a `NpgsqlConnection` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
 
  ```csharp
- using Steeltoe.CloudFoundry.Connector.PostgreSql;
+ using Steeltoe.Connector.PostgreSql;
 
  public class Startup {
      ...
@@ -146,7 +146,7 @@ public class HomeController : Controller
 To use Entity Framework, inject and use a `DbContext` in your application instead of a `NpgsqlConnection` through the `AddDbContext<>()` method, as shown in the following example:
 
 ```csharp
-using Steeltoe.CloudFoundry.Connector.PostgreSql.EFCore;
+using Steeltoe.Connector.PostgreSql.EFCore;
 
 public class Startup {
     public IConfiguration Configuration { get; private set; }

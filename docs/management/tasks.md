@@ -27,7 +27,7 @@ PM>Install-Package  Steeltoe.Management.TaskCore -Version 2.3.0
 Management tasks for use with Steeltoe must implement `Steeltoe.Common.Tasks.IApplicationTask`. Two implementations are currently provided with Steeltoe:
 
 * `Steeltoe.Management.TaskCore.DelegatingTask` - runs an arbitrary Action
-* `Steeltoe.CloudFoundry.Connector.EFCore.MigrateDbContextTask<T>` - runs DbContext migrations with Entity Framework Core
+* `Steeltoe.Connector.EFCore.MigrateDbContextTask<T>` - runs DbContext migrations with Entity Framework Core
 
 The interface is simple:
 
