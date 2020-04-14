@@ -502,27 +502,9 @@
   name: Developer Tools
   items:
     - page: /docs/developer-tools/cli  
-      name: Cli
-      items:
-        - page_ref: getting-started
-          name: Getting Started
-        - page_ref: usage-of-tooling-cli
-          name: Usage of Tooling CLI
-        - page_ref: an-example-using-tooling
-          name: An Example Using Tooling
-        - page_ref: install-steeltoe-tooling
-          name: Install Steeltoe Tooling
-        - page_ref: add-dotnet-global-tools-to-your-path-variable
-          name: Add DotNet Global Tools to your PATH Variable
-        - page_ref: initialization
-          name: Initialization
-        - page_ref: application-and-services
-          name: Application and Services
-        - page_ref: deployment
-          name: Deployment
-        - page_ref: initialize-the-redis-connector-project-dev-environment
-          name: Initialize the Redis Connector Project Dev Environment
-        - page_ref: add-the-application-and-service
-          name: Add the Application and Service
-        - page_ref: deploy
-          name: Deploy
+  name: Developer Tools
+  items:
+    - page_ref: cli
+      name: CLI (coming soon)
+    - page_ref: initializr
+          name: Initializr
