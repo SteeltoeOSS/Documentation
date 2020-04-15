@@ -501,10 +501,7 @@
 - page: /docs/developer-tools  
   name: Developer Tools
   items:
-    - page: /docs/developer-tools/cli  
-  name: Developer Tools
-  items:
     - page_ref: cli
       name: CLI (coming soon)
     - page_ref: initializr
-          name: Initializr
+      name: Initializr
