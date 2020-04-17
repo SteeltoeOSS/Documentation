@@ -1,14 +1,14 @@
-- page: /docs/welcome  
+- page: /docs/3/welcome  
   name: Welcome
   items:
-    - page: /docs/welcome/prerequisites
+    - page: /docs/3/welcome/prerequisites
       name: Prerequisites
       items:
         - page_ref: nuget-feeds
           name: NuGet Feeds
         - page_ref: quick-starts
           name: Quick Starts
-    - page: /docs/welcome/common-steps
+    - page: /docs/3/welcome/common-steps
       name: Common Steps
       items:
         - page_ref: publish-sample
@@ -18,7 +18,7 @@
 - page: /docs/3/configuration  
   name: Application Configuration
   items:
-    - page: /docs/configuration/random-value-provider  
+    - page: /docs/3/configuration/random-value-provider  
       name: Random Value Provider
       items:
         - page_ref: add-nuget-reference
@@ -27,14 +27,14 @@
           name: Add Configuration Provider
         - page_ref: access-random-value-data
           name: Access Random Value Data
-    - page: /docs/configuration/hosted-extensions  
+    - page: /docs/3/configuration/hosted-extensions  
       name: Hosted Extensions
       items:
         - page_ref: usecloudhosting
           name: UseCloudHosting
         - page_ref: usecloudfoundryhosting
           name: UseCloudFoundryHosting
-    - page: /docs/configuration/cloud-foundry-provider  
+    - page: /docs/3/configuration/cloud-foundry-provider  
       name: Cloud Foundry Provider
       items:
         - page_ref: add-nuget-reference
@@ -45,7 +45,7 @@
           name: Access Configuration Data
         - page_ref: access-configuration-data-as-options
           name: Access Configuration Data as Options
-    - page: /docs/configuration/placeholder-provider  
+    - page: /docs/3/configuration/placeholder-provider  
       name: Placeholder Provider
       items:
         - page_ref: add-nuget-reference
@@ -56,7 +56,7 @@
           name: Access Configuration Data
         - page_ref: access-configuration-data-as-options
           name: Access Configuration Data as Options
-    - page: /docs/configuration/config-server-provider  
+    - page: /docs/3/configuration/config-server-provider  
       name: Config Server Provider
       items:
         - page_ref: add-nuget-reference
@@ -293,7 +293,7 @@
 - page: /docs/3/connectors  
   name: Service Connectors
   items:
-    - page: /docs/connectors/mysql  
+    - page: /docs/3/connectors/mysql  
       name: MySQL
       items:
         - page_ref: add-nuget-reference
@@ -310,7 +310,7 @@
           name: Add DbContext
         - page_ref: use-dbcontext
           name: Use DbContext
-    - page: /docs/connectors/microsoft-sql-server  
+    - page: /docs/3/connectors/microsoft-sql-server  
       name: Microsoft SQL Server
       items:
         - page_ref: add-nuget-reference
@@ -327,7 +327,7 @@
           name: Add DbContext
         - page_ref: use-dbcontext
           name: Use DbContext
-    - page: /docs/connectors/postgresql  
+    - page: /docs/3/connectors/postgresql  
       name: PostgreSQL
       items:
         - page_ref: add-nuget-reference
@@ -344,7 +344,7 @@
           name: Add DbContext
         - page_ref: use-dbcontext
           name: Use DbContext
-    - page: /docs/connectors/rabbitmq  
+    - page: /docs/3/connectors/rabbitmq  
       name: RabbitMQ
       items:
         - page_ref: add-nuget-reference
@@ -357,7 +357,7 @@
           name: Add RabbitMQ ConnectionFactory
         - page_ref: use-rabbitmq-connectionfactory
           name: Use RabbitMQ ConnectionFactory
-    - page: /docs/connectors/oauth  
+    - page: /docs/3/connectors/oauth  
       name: OAuth
       items:
         - page_ref: add-nuget-reference
@@ -370,7 +370,7 @@
           name: Add OAuthServiceOptions
         - page_ref: use-oauthserviceoptions
           name: Use OAuthServiceOptions
-    - page: /docs/connectors/mongodb  
+    - page: /docs/3/connectors/mongodb  
       name: MongoDB
       items:
         - page_ref: usage
@@ -385,7 +385,7 @@
           name: Add Mongo Client
         - page_ref: use-mongo-client
           name: Use Mongo Client
-    - page: /docs/connectors/cosmosdb  
+    - page: /docs/3/connectors/cosmosdb  
       name: CosmosDB
       items:
         - page_ref: usage
@@ -398,7 +398,7 @@
           name: Cloud Foundry
         - page_ref: use-CosmosClient
           name: Use Cosmos Client
-    - page: /docs/connectors/redis  
+    - page: /docs/3/connectors/redis  
       name: Redis
       items:
         - page_ref: add-nuget-reference
@@ -415,7 +415,7 @@
           name: Add IConnectionMultiplexer
         - page_ref: use-iconnectionmultiplexer
           name: Use IConnectionMultiplexer
-    - page: /docs/connectors/gemfire
+    - page: /docs/3/connectors/gemfire
       name: Apache Geode/GemFire
       items: 
         - page_ref: add-nuget-reference
@@ -424,21 +424,21 @@
           name: Configure Settings
         - page_ref: cloud-foundry
           name: Cloud Foundry
-- page: /docs/discovery  
+- page: /docs/3/discovery  
   name: Service Discovery
   items:
     - page_ref: add-nuget-references
       name: Add NuGet References
     - page_ref: enable-debug-logging  
       name: Enable Debug Logging
-    - page: /docs/discovery/initialize-discovery-client  
+    - page: /docs/3/discovery/initialize-discovery-client  
       name: Initialize Discovery Client
       items:
         - page_ref: asp-net-core
           name: ASP.NET Core
         - page_ref: registering-services
           name: Registering Services
-    - page: /docs/discovery/discovering-services  
+    - page: /docs/3/discovery/discovering-services  
       name: Discovering Services
       items:
         - page_ref: discovering-services
@@ -449,7 +449,7 @@
           name: Using HttpClientFactory
         - page_ref: using-idiscoveryclient
           name: Using IDiscoveryClient
-    - page: /docs/discovery/netflix-eureka  
+    - page: /docs/3/discovery/netflix-eureka  
       name: Netflix Eureka
       items:
         - page_ref: usage
@@ -470,7 +470,7 @@
           name: Configuring Metadata
         - page_ref: configuring-mutual-tls
           name: Configuring Mutual TLS
-    - page: /docs/discovery/hashicorp-consul  
+    - page: /docs/3/discovery/hashicorp-consul  
       name: Hashicorp Consul
       items:
         - page_ref: consul-settings
@@ -485,7 +485,7 @@
           name: Configuring Metadata
         - page_ref: configuring-instanceid
           name: Configuring InstanceId
-    - page: /docs/discovery/load-balancing  
+    - page: /docs/3/discovery/load-balancing  
       name: Load Balancing
       items:
         - page_ref: load-balancing
