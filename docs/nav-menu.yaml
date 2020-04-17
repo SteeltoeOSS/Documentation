@@ -288,7 +288,7 @@
           name: CredHub Change Operations
         - page_ref: permission-operations
           name: Permission Operations
- - page: /docs/2/connectors  
+- page: /docs/2/connectors  
   name: Service Connectors
   items:
     - page: /docs/2/connectors/mysql  
