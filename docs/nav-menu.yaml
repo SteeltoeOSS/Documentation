@@ -504,4 +504,4 @@
     - page_ref: cli
       name: CLI (coming soon)
     - page_ref: initializr
-          name: Initializr
+      name: Initializr
