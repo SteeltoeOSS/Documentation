@@ -57,7 +57,7 @@ Regardless of which you choose, once the service is bound to your application, t
 Once the OAuth service has been bound to the application, add the OAuth connector to your service collection in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
 
 ```csharp
-using Steeltoe.CloudFoundry.Connector.OAuth;
+using Steeltoe.Connector.OAuth;
 
 public class Startup {
     ...
@@ -85,7 +85,7 @@ The `AddOAuthServiceOptions(Configuration)` method call configures a `OAuthServi
 Finally, you can inject and use the configured `OAuthServiceOptions` into a controller, as shown in the following example:
 
  ```csharp
- using Steeltoe.CloudFoundry.Connector.OAuth;
+ using Steeltoe.Connector.OAuth;
  ...
  public class HomeController : Controller
  {

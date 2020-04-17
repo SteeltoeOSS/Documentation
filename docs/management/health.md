@@ -39,7 +39,7 @@ At present, Steeltoe provides the following `IHealthContributor` implementations
 |`RedisHealthContributor`|checks Redis cache connection health|
 |`RelationalHealthContributor`|checks relational database connection health (MySql, Postgres, SqlServer)|
 
-Each of these contributors are located in the `Steeltoe.CloudFoundry.ConnectorBase` package and are made available to your application when you reference the connector package.
+Each of these contributors are located in the `Steeltoe.ConnectorBase` package and are made available to your application when you reference the connector package.
 
 If you want to use any one of the `IHealthContributor`s above in an ASP.NET Core application, simply make use of the corresponding connector as you would normally. By doing so, the contributor is automatically added to the service container for you and is automatically discovered and used by the Health endpoint.
 

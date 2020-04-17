@@ -107,7 +107,7 @@ Once the service is bound to your application, the connector's settings are avai
 To use Microsoft's `IDistributedCache` in your application, add it to the service container, as shown in the following example:
 
  ```csharp
-using Steeltoe.CloudFoundry.Connector.Redis;
+using Steeltoe.Connector.Redis;
 public class Startup {
     public IConfiguration Configuration { get; private set; }
     public Startup()
@@ -158,7 +158,7 @@ The following example shows how to inject and use the `IDistributedCache` in a c
 To use a StackExchange `IConnectionMultiplexer` in your application directly, add it to the service container in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
 
  ```csharp
-using Steeltoe.CloudFoundry.Connector.Redis;
+using Steeltoe.Connector.Redis;
 
 public class Startup {
     ...

@@ -1,12 +1,12 @@
 # Distributed Tracing with Zipkin
 
-Steeltoe now uses the Zipkin Exporter provided by the [OpenTelemetry](opentelemetry.io) project. We no longer need to add  `Steeltoe.Management.ExporterBase` and  `Steeltoe.Management.ExporterCore` packages.
+Steeltoe now uses the Zipkin Exporter provided by the [OpenTelemetry](opentelemetry.io) project. Previous version required additional packages.  `Steeltoe.Management.ExporterBase` and  `Steeltoe.Management.ExporterCore` packages are no longer required.
 
-### Zipkin Server
+## Zipkin Server
 
 Zipkin is a popular distributed tracing system which has been around for several years. It is composed of client libraries for instrumenting application code and a backend server for collecting and viewing the collected data. For more information on Zipkin we encourage you to review the [documentation](https://zipkin.io/).  Check out the [Quickstart](https://zipkin.io/pages/quickstart) guide for details on how to set up a server.
 
-#### Configure Settings
+### Configure Settings
 
 The following table describes the settings that you can apply to the exporter:
 
@@ -18,7 +18,7 @@ The following table describes the settings that you can apply to the exporter:
 |serviceName|app name used in log messages|null|
 |useShortTraceIds|truncate the ids to 8 bytes instead of 16, use for backwards compatibility with Spring Sleuth, PCF Metrics, etc.|true|
 
-#### Use Zipkin Exporter
+### Use Zipkin Exporter
 
 
 ```csharp

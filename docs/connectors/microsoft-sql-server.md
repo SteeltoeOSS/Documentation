@@ -95,7 +95,7 @@ Once the service is bound to your application, the connector's settings are avai
 To use a `SqlConnection` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
 
 ```csharp
-using Steeltoe.CloudFoundry.Connector.SqlServer;
+using Steeltoe.Connector.SqlServer;
 
 public class Startup {
     ...
@@ -156,7 +156,7 @@ public class HomeController : Controller
 To use the Microsoft SQL connector with Entity Framework 6, inject a DbContext into your application using the AddDbContext<>() method (provided by Steeltoe) that takes an IConfiguration as a parameter, as shown in the following example:
 
 ```csharp
-using Steeltoe.CloudFoundry.Connector.SqlServer.EF6;
+using Steeltoe.Connector.SqlServer.EF6;
 
 public class Startup {
     ...
@@ -196,7 +196,7 @@ public class TestContext : DbContext
 To use the Microsoft SQL Server connector with Entity Framework Core, inject a `DbContext` into your application with the standard `AddDbContext<>()` method, substituting Steeltoe’s `UseSqlServer` method that takes an `IConfiguration` as a parameter in the options configuration for the standard `UseSqlServer` method. This example demonstrates the basic usage:
 
 ```csharp
-using Steeltoe.CloudFoundry.Connector.SqlServer.EFCore;
+using Steeltoe.Connector.SqlServer.EFCore;
 
 public class Startup {
     ...

@@ -76,7 +76,7 @@ cf restage myApp
 To use `MongoClient` and `MongoUrl` in your application, use the extension provided for Microsoft DI:
 
 ```csharp
-using Steeltoe.CloudFoundry.Connector.MongoDb;
+using Steeltoe.Connector.MongoDb;
 public class Startup
 {
   ...
@@ -91,7 +91,7 @@ public class Startup
 Or the extension provided for Autofac:
 
 ```csharp
-using Steeltoe.CloudFoundry.ConnectorAutofac;
+using Steeltoe.ConnectorAutofac;
 ...
   ContainerBuilder container = new ContainerBuilder();
   var regBuilder = container.RegisterMongoDbConnection(configuration);
