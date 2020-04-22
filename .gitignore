@@ -362,3 +362,6 @@ MigrationBackup/
 
 # OS X
 .DS_Store
+
+# JetBrains (Rider, etc)
+.idea/
