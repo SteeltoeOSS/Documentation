@@ -501,8 +501,13 @@
 - page: /docs/3/developer-tools
   name: Developer Tools
   items:
-    - page_ref: cli
-      name: CLI
     - page_ref: initializr
       name: Initializr
+    - page: /docs/3/developer-tools/cli
+      name: CLI
+      items:
+        - page_ref: getting-started
+          name: Getting Started
+        - page_ref: using-the-cli
+          name: Using the CLI
 
