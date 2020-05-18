@@ -41,7 +41,7 @@ To create in your environment:
 $ mkdir MyRedisApp
 $ curl https://start.steeltoe.io/starter.zip -o MyRedisApp.zip \
     -dprojectName=MyRedisApp \
-    -dtargetFrameworkVersion=netcoreapp3.1
+    -dtargetFrameworkVersion=netcoreapp3.1 \
     -ddependencies=redis
 $ unzip MyRedisApp.zip -d MyRedisApp
 $ cd MyRedisApp

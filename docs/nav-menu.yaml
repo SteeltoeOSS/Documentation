@@ -188,6 +188,14 @@
       name: /threaddump
     - page: /docs/3/management/tracing
       name: /tracing
+- page: /docs/3/messaging
+  name: Messaging 
+  items:
+    - page: /docs/3/messaging/quick-tour
+    - page: /docs/3/messaging/amqp
+    - page: /docs/3/messaging/messaging
+    - page: /docs/3/messaging/further-reading
+    - page: /docs/3/messaging/testing
 - page: /docs/3/fileshares
   name: Network File Sharing
   items:
