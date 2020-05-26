@@ -192,10 +192,15 @@
   name: Messaging 
   items:
     - page: /docs/3/messaging/quick-tour
+      name: Quick Tour
     - page: /docs/3/messaging/amqp
+      name: AMQP
     - page: /docs/3/messaging/messaging
+      name: Messaging
     - page: /docs/3/messaging/further-reading
+      name: Further Reading
     - page: /docs/3/messaging/testing
+      name: Testing
 - page: /docs/3/fileshares
   name: Network File Sharing
   items:
