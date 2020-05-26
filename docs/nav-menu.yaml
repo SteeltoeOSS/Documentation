@@ -193,14 +193,26 @@
   items:
     - page: /docs/3/messaging/quick-tour
       name: Quick Tour
+      items:
+        - page_ref: quick-tour
+        - name: Quick Tour
     - page: /docs/3/messaging/amqp
       name: AMQP
+      items:
+        - page_ref: using-steeltoe-amqp
+        - name: Using Steeltoe AMQP
     - page: /docs/3/messaging/messaging
       name: Messaging
+      items:
+        - page_ref: messaging
+        - name: Messaging
     - page: /docs/3/messaging/further-reading
       name: Further Reading
     - page: /docs/3/messaging/testing
       name: Testing
+      items:
+        - page_ref: testing-support
+        - name: Testing Support
 - page: /docs/3/fileshares
   name: Network File Sharing
   items:
