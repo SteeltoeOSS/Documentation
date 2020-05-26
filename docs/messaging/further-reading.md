@@ -1,4 +1,4 @@
-=== Further Reading
+# Further Reading
 
 For those who are not familiar with AMQP, the [specification](https://www.amqp.org/resources/download) is actually quite readable.
 It is, of course, the authoritative source of information, and the Spring AMQP code should be easy to understand for anyone who is familiar with the spec.
