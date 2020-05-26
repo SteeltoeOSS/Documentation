@@ -1,4 +1,4 @@
-# Overview
+# Messaging Overview
 
 Steeltoe provides extensive support for integrating with messaging systems, from simplified use of the JMS API with `JmsTemplate` to a complete infrastructure to receive messages asynchronously.
 Steeltoe Messaging provides a similar feature set for the Advanced Message Queuing Protocol (AMQP).
