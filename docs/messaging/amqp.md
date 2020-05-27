@@ -1,10 +1,10 @@
-# Using Steeltoe AMQP
+# Using Steeltoe RabbitMQ
 
-This chapter explores the interfaces and classes that are the essential components for developing applications with Steeltoe AMQP.
+This chapter explores the interfaces and classes that are the essential components for developing applications with Steeltoe RabbitMQ.
 
-## AMQP Abstractions
+## Steeltoe Messaging Abstractions
 
-Steeltoe AMQP consists of two modules (each represented by a JAR in the distribution): `spring-amqp` and `spring-rabbit`.
+Steeltoe RabbitMQ consists of two modules (each represented by a JAR in the distribution): `spring-amqp` and `spring-rabbit`.
 The `spring-amqp` module contains the `org.springframework.amqp.core` package.
 Within that package, you can find the classes that represent the core AMQP "model".
 Our intention is to provide generic abstractions that do not rely on any particular AMQP broker implementation or client library.
@@ -22,7 +22,7 @@ If not, have a look at the resources listed in <a href="steeltoe-messaging-furth
 
 The 0-9-1 AMQP specification does not define a `Message` class or interface.
 Instead, when performing an operation such as `basicPublish()`, the content is passed as a byte-array argument, and additional properties are passed in as separate arguments.
-Steeltoe AMQP defines a `Message` class as part of a more general AMQP domain model representation.
+Steeltoe RabbitMQ defines a `Message` class as part of a more general AMQP domain model representation.
 The purpose of the `Message` class is to encapsulate the body and properties within a single instance so that the API can, in turn, be simpler.
 The following example shows the `Message` class definition:
 
@@ -60,7 +60,7 @@ Bodies that cannot be deserialized are represented by `byte[<size>]` in log mess
 
 ### Exchange
 
-The `Exchange` interface represents an AMQP Exchange, which is what a message producer sends to.
+The `Exchange` interface represents an AMQP exchange, which is what a message producer sends to.
 Each Exchange within a virtual host of a broker has a unique name as well as a few other properties.
 The following example shows the `Exchange` interface:
 
@@ -91,7 +91,7 @@ For much more information about these and the other Exchange types, see <a href=
 
 >NOTE: The AMQP specification also requires that any broker provide a "default" direct exchange that has no name.
 All queues that are declared are bound to that default `Exchange` with their names as routing keys.
-You can learn more about the default Exchange's usage within Steeltoe AMQP in <a href="#steeltoe-messaging-amqptemplate"></a>.
+You can learn more about the default Exchange's usage within Steeltoe RabbitMQ in <a href="#steeltoe-messaging-amqptemplate"></a>.
 
 ### Queue
 
@@ -136,7 +136,7 @@ For that reason, the 'exclusive' and 'autoDelete' properties of an auto-generate
 ### Binding
 
 Given that a producer sends to an exchange and a consumer receives from a queue, the bindings that connect queues to exchanges are critical for connecting those producers and consumers via messaging.
-In Steeltoe AMQP, we define a `Binding` class to represent those connections.
+In Steeltoe RabbitMQ, we define a `Binding` class to represent those connections.
 This section reviews the basic options for binding queues to exchanges.
 
 You can bind a queue to a `DirectExchange` with a fixed routing key, as follows:
@@ -323,11 +323,11 @@ For convenience, a factory bean is provided to assist in configuring the connect
 [//]: # (There was an XML example here.)
 
 >NOTE: The 4.0.x client enables automatic recovery by default.
-While compatible with this feature, Steeltoe AMQP has its own recovery mechanisms and the client recovery feature generally is not needed.
+While compatible with this feature, Steeltoe RabbitMQ has its own recovery mechanisms and the client recovery feature generally is not needed.
 We recommend disabling `amqp-client` automatic recovery, to avoid getting `AutoRecoverConnectionNotCurrentlyOpenException` instances when the broker is available but the connection has not yet recovered.
 You may notice this exception, for example, when a `RetryTemplate` is configured in a `RabbitTemplate`, even when failing over to another broker in a cluster.
-Since the auto-recovering connection recovers on a timer, the connection may be recovered more quickly by using Steeltoe AMQP's recovery mechanisms.
-Steeltoe AMQP disables `amqp-client` automatic recovery unless you explicitly create your own RabbitMQ connection factory and provide it to the `CachingConnectionFactory`.
+Since the auto-recovering connection recovers on a timer, the connection may be recovered more quickly by using Steeltoe RabbitMQ's recovery mechanisms.
+Steeltoe RabbitMQ disables `amqp-client` automatic recovery unless you explicitly create your own RabbitMQ connection factory and provide it to the `CachingConnectionFactory`.
 RabbitMQ `ConnectionFactory` instances created by the `RabbitConnectionFactoryBean` also have the option disabled by default.
 
 <a name="steeltoe-messaging-rabbitconnectionfactorybean-configuring-ssl></a>
@@ -401,7 +401,7 @@ public CachingConnectionFactory ccf() {
 The `AbstractRoutingConnectionFactory` has been introduced.
 This factory provides a mechanism to configure mappings for several `ConnectionFactories` and determine a target `ConnectionFactory` by some `lookupKey` at runtime.
 Typically, the implementation checks a thread-bound context.
-For convenience, Steeltoe AMQP provides the `SimpleRoutingConnectionFactory`, which gets the current thread-bound `lookupKey` from the `SimpleResourceHolder`.
+For convenience, Steeltoe RabbitMQ provides the `SimpleRoutingConnectionFactory`, which gets the current thread-bound `lookupKey` from the `SimpleResourceHolder`.
 The following examples shows how to configure a `SimpleRoutingConnectionFactory`:
 
 ```Java
@@ -613,11 +613,11 @@ The following image shows a JVisualVM example:
 <a name="steeltoe-messaging-auto-recovery"></a>
 ### RabbitMQ Automatic Connection/Topology recovery
 
-Since the first version of Steeltoe AMQP, the framework has provided its own connection and channel recovery in the event of a broker failure.
+Since the first version of Steeltoe RabbitMQ, the framework has provided its own connection and channel recovery in the event of a broker failure.
 Also, as discussed in <a href="#steeltoe-messaging-broker-configuration"></a>, `RabbitAdmin` re-declares any infrastructure beans (queues and others) when the connection is re-established.
 It, therefore, does not rely on the [auto-recovery](https://www.rabbitmq.com/api-guide.html#recovery) that is now provided by the `amqp-client` library.
-Steeltoe AMQP now uses the `4.0.x` version of `amqp-client`, which has auto-recovery enabled by default.
-Steeltoe AMQP can still use its own recovery mechanisms if you wish, disabling it in the client, (by setting the `automaticRecoveryEnabled` property on the underlying `RabbitMQ connectionFactory` to `false`).
+Steeltoe RabbitMQ now uses the `4.0.x` version of `amqp-client`, which has auto-recovery enabled by default.
+Steeltoe RabbitMQ can still use its own recovery mechanisms if you wish, disabling it in the client, (by setting the `automaticRecoveryEnabled` property on the underlying `RabbitMQ connectionFactory` to `false`).
 However, the framework is completely compatible with auto-recovery being enabled.
 This means any consumers you create within your code (perhaps by using `RabbitTemplate.execute()`) can be automatically recovered.
 
@@ -641,7 +641,7 @@ These properties appear in the RabbitMQ Admin UI when viewing the connection.
 <a name="steeltoe-messaging-amqptemplate"></a>
 ## `AmqpTemplate`
 
-As with many other high-level abstractions provided by the Spring Framework and related projects, Steeltoe AMQP provides a "template" that plays a central role.
+As with many other high-level abstractions provided by the Spring Framework and related projects, Steeltoe RabbitMQ provides a "template" that plays a central role.
 The interface that defines the main operations is called `AmqpTemplate`.
 Those operations cover the general behavior for sending and receiving messages.
 In other words, they are not unique to any implementation &#151; hence the "AMQP" in the name.
@@ -909,7 +909,7 @@ Boolean result = this.template.invoke(t -> {
 `RabbitMessagingTemplate` (built on top of `RabbitTemplate`) provides an integration with the Spring Framework messaging abstraction &#151; that is, `org.springframework.messaging.Message`.
 This lets you send and receive messages by using the `spring-messaging` `Message<?>` abstraction.
 This abstraction is used by other Spring projects, such as Spring Integration and Spring's STOMP support.
-There are two message converters involved: one to convert between a spring-messaging `Message<?>` and Steeltoe AMQP's `Message` abstraction and one to convert between Steeltoe AMQP's `Message` abstraction and the format required by the underlying RabbitMQ client library.
+There are two message converters involved: one to convert between a spring-messaging `Message<?>` and Steeltoe RabbitMQ's `Message` abstraction and one to convert between Steeltoe RabbitMQ's `Message` abstraction and the format required by the underlying RabbitMQ client library.
 By default, the message payload is converted by the provided `RabbitTemplate` instance's message converter.
 Alternatively, you can inject a custom `MessagingMessageConverter` with some other payload converter, as the following example shows:
 
@@ -1262,7 +1262,7 @@ if (received) {
 <a name="steeltoe-messaging-async-consumer"></a>
 ### Asynchronous Consumer
 
->IMPORTANT: Steeltoe AMQP also supports annotated listener endpoints through the use of the `@RabbitListener` annotation and provides an open infrastructure to register endpoints programmatically.
+>IMPORTANT: Steeltoe RabbitMQ also supports annotated listener endpoints through the use of the `@RabbitListener` annotation and provides an open infrastructure to register endpoints programmatically.
 This is by far the most convenient way to setup an asynchronous consumer.
 See <a href="#steeltoe-messaging-async-annotation-driven"></a> for more details.
 
@@ -1385,7 +1385,7 @@ Now that you have seen the various options for the `Message`-listening callback,
 Basically, the container handles the "active" responsibilities so that the listener callback can remain passive.
 The container is an example of a "lifecycle" component.
 It provides methods for starting and stopping.
-When configuring the container, you essentially bridge the gap between an AMQP Queue and the `MessageListener` instance.
+When configuring the container, you essentially bridge the gap between an RabbitMQ Queue and the `MessageListener` instance.
 You must provide a reference to the `ConnectionFactory` and the queue names or Queue instances from which that listener should consume messages.
 
 Prior to version 2.0, there was one listener container, the `SimpleMessageListenerContainer`.
@@ -1810,10 +1810,10 @@ public void manual1(String in, Channel channel,
 #### Message Conversion for Annotated Methods
 
 There are two conversion steps in the pipeline before invoking the listener.
-The first step uses a `MessageConverter` to convert the incoming Steeltoe AMQP `Message` to a Spring-messaging `Message`.
+The first step uses a `MessageConverter` to convert the incoming Steeltoe RabbitMQ `Message` to a Spring-messaging `Message`.
 When the target method is invoked, the message payload is converted, if necessary, to the method parameter type.
 
-The default `MessageConverter` for the first step is a Steeltoe AMQP `SimpleMessageConverter` that handles conversion to
+The default `MessageConverter` for the first step is a Steeltoe RabbitMQ `SimpleMessageConverter` that handles conversion to
 `String` and `java.io.Serializable` objects.
 All others remain as a `byte[]`.
 In the following discussion, we call this the "message converter".
@@ -1936,7 +1936,7 @@ The following list shows the main elements you can inject in listener endpoints:
 
 * The raw `org.springframework.amqp.core.Message`.
 * The `com.rabbitmq.client.Channel` on which the message was received.
-* The `org.springframework.messaging.Message` representing the incoming AMQP message. Note that this message holds both the custom and the standard headers (as defined by `AmqpHeaders`).
+* The `org.springframework.messaging.Message` representing the incoming RabbitMQ message. Note that this message holds both the custom and the standard headers (as defined by `AmqpHeaders`).
 
 >NOTE: The inbound `deliveryMode` header is now available in the header with a name of
 `AmqpHeaders.RECEIVED_DELIVERY_MODE` instead of `AmqpHeaders.DELIVERY_MODE`.
@@ -2977,7 +2977,7 @@ You can set the patterns using the `whiteListPatterns` property on these convert
 [[message-properties-converters]]
 ### Message Properties Converters
 
-The `MessagePropertiesConverter` strategy interface is used to convert between the Rabbit Client `BasicProperties` and Steeltoe AMQP `MessageProperties`.
+The `MessagePropertiesConverter` strategy interface is used to convert between the Rabbit Client `BasicProperties` and Steeltoe RabbitMQ `MessageProperties`.
 The default implementation (`DefaultMessagePropertiesConverter`) is usually sufficient for most purposes, but you can implement your own if needed.
 The default properties converter converts `BasicProperties` elements of type `LongString` to `String` instances when the size is not greater than `1024` bytes.
 Larger `LongString` instances are not converted (see the next paragraph).
@@ -3141,7 +3141,7 @@ However, if you wish to use a custom property to hold correlation data, you can 
 Explicitly setting the attribute to `correlationId` is the same as omitting the attribute.
 The client and server must use the same header for correlation data.
 
->NOTE: Steeltoe AMQP version 1.1 used a custom property called `spring_reply_correlation` for this data.
+>NOTE: Steeltoe RabbitMQ version 1.1 used a custom property called `spring_reply_correlation` for this data.
 If you wish to revert to this behavior with the current version (perhaps to maintain compatibility with another application using 1.1), you must set the attribute to `spring_reply_correlation`.
 
 By default, the template generates its own correlation ID (ignoring any user-supplied value).
@@ -3330,16 +3330,16 @@ You must configure the underlying `RabbitTemplate` with a `SmartMessageConverter
 See <a href="#steeltoe-messaging-json-complex"></a> for more information.
 
 <a href="steeltoe-messaging-remoting"></a>
-### Spring Remoting with AMQP
+### Spring Remoting with RabbitMQ
 
 The Spring Framework has a general remoting capability, allowing [Remote Procedure Calls (RPC)](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/remoting.html) that use various transports.
 Spring-AMQP supports a similar mechanism with a `AmqpProxyFactoryBean` on the client and a `AmqpInvokerServiceExporter` on the server.
-This provides RPC over AMQP.
+This provides RPC over RabbitMQ.
 On the client side, a `RabbitTemplate` is used as described in <a href="#steeltoe-messaging-reply-listener"></a>.
 On the server side, the invoker (configured as a `MessageListener`) receives the message, invokes the configured service, and returns the reply by using the inbound message's `replyTo` information.
 
 You can inject the client factory bean into any bean (by using its `serviceInterface`).
-The client can then invoke methods on the proxy, resulting in remote execution over AMQP.
+The client can then invoke methods on the proxy, resulting in remote execution over RabbitMQ.
 
 >NOTE: With the default `MessageConverter` instances, the method parameters and returned value must be instances of `Serializable`.
 
@@ -3369,7 +3369,7 @@ The AMQP specification describes how the protocol can be used to configure queue
 These operations (which are portable from the 0.8 specification and higher) are present in the `AmqpAdmin` interface in the `org.springframework.amqp.core` package.
 The RabbitMQ implementation of that class is `RabbitAdmin` located in the `org.springframework.amqp.rabbit.core` package.
 
-The `AmqpAdmin` interface is based on using the Steeltoe AMQP domain abstractions and is shown in the following listing:
+The `AmqpAdmin` interface is based on using the Steeltoe RabbitMQ domain abstractions and is shown in the following listing:
 
 ```Java
 public interface AmqpAdmin {
@@ -3575,7 +3575,7 @@ public class RabbitServerConfiguration extends AbstractStockAppRabbitConfigurati
 This is the end of the whole inheritance chain of `@Configuration` classes.
 The end result is that `TopicExchange` and `Queue` are declared to the broker upon application startup.
 There is no binding of  `TopicExchange` to a queue in the server configuration, as that is done in the client application.
-The stock request queue, however, is automatically bound to the AMQP default exchange.
+The stock request queue, however, is automatically bound to the RabbitMQ default exchange.
 This behavior is defined by the specification.
 
 The client `@Configuration` class is a little more interesting.
@@ -3645,7 +3645,7 @@ The `ExchangeBuilder` now creates durable exchanges by default, to be consistent
 To make a non-durable exchange with the builder, use `.durable(false)` before invoking `.build()`.
 The `durable()` method with no parameter is no longer provided.
 
-Steeltoe AMQP uses fluent APIs to add "well known" exchange and queue arguments, as follows:
+Steeltoe RabbitMQ uses fluent APIs to add "well known" exchange and queue arguments, as follows:
 
 ```Java
 @Bean
@@ -3939,7 +3939,7 @@ You can read more about the Delayed Message Exchange Plugin [here](https://www.r
 
 >NOTE: The plugin is currently marked as experimental but has been available for over a year (at the time of writing).
 If changes to the plugin make it necessary, we plan to add support for such changes as soon as practical.
-For that reason, this support in Steeltoe AMQP should be considered experimental, too.
+For that reason, this support in Steeltoe RabbitMQ should be considered experimental, too.
 This functionality was tested with RabbitMQ 3.6.0 and version 0.0.1 of the plugin.
 
 To use a `RabbitAdmin` to declare an exchange as delayed, you can set the `delayed` property on the exchange bean to
@@ -3993,7 +3993,7 @@ See their Javadoc for more information.
 
 Many operations with the RabbitMQ Java client can throw checked exceptions.
 For example, there are a lot of cases where `IOException` instances may be thrown.
-The `RabbitTemplate`, `SimpleMessageListenerContainer`, and other Steeltoe AMQP components catch those exceptions and convert them into one of the exceptions within `AmqpException` hierarchy.
+The `RabbitTemplate`, `SimpleMessageListenerContainer`, and other Steeltoe RabbitMQ components catch those exceptions and convert them into one of the exceptions within `AmqpException` hierarchy.
 Those are defined in the 'org.springframework.amqp' package, and `AmqpException` is the base of the hierarchy.
 
 When a listener throws an exception, it is wrapped in a `ListenerExecutionFailedException`.
@@ -4046,7 +4046,7 @@ If there is already a transaction in progress when the framework is sending or r
 If the `channelTransacted` flag is `false`, no transaction semantics apply to the messaging operation (it is auto-acked).
 
 The `channelTransacted` flag is a configuration time setting.
-It is declared and processed once when the AMQP components are created, usually at application startup.
+It is declared and processed once when the RabbitMQ components are created, usually at application startup.
 The external transaction is more dynamic in principle because the system responds to the current thread state at runtime.
 However, in practice, it is often also a configuration setting, when the transactions are layered onto an application declaratively.
 
@@ -4092,7 +4092,7 @@ public class ExampleExternalTransactionAmqpConfiguration {
 In the preceding example, the transaction manager is added as a dependency injected from another bean definition (not shown), and the `channelTransacted` flag is also set to `true`.
 The effect is that if the listener fails with an exception, the transaction is rolled back, and the message is also returned to the broker.
 Significantly, if the transaction fails to commit (for example, because of
-a database constraint error or connectivity problem), the AMQP transaction is also rolled back, and the message is returned to the broker.
+a database constraint error or connectivity problem), the RabbitMQ transaction is also rolled back, and the message is returned to the broker.
 This is sometimes known as a "Best Efforts 1 Phase Commit", and is a very powerful pattern for reliable messaging.
 If the `channelTransacted` flag was set to `false` (the default) in the preceding example, the external transaction would still be provided for the listener, but all messaging operations would be auto-acked, so the effect is to commit the messaging operations even on a rollback of the business operation.
 
@@ -4128,8 +4128,8 @@ public AbstractMessageListenerContainer container() {
 <a name="steeltoe-messaging-transaction-rollback"></a>
 ### A note on Rollback of Received Messages
 
-AMQP transactions apply only to messages and acks sent to the broker.
-Consequently, when there is a rollback of a Spring transaction and a message has been received, Steeltoe AMQP has to not only rollback the transaction but also manually reject the message (sort of a nack, but that is not what the specification calls it).
+RabbitMQ transactions apply only to messages and acks sent to the broker.
+Consequently, when there is a rollback of a Spring transaction and a message has been received, Steeltoe RabbitMQ has to not only rollback the transaction but also manually reject the message (sort of a nack, but that is not what the specification calls it).
 The action taken on message rejection is independent of transactions and depends on the `defaultRequeueRejected` property (default: `true`).
 For more information about rejecting failed messages, see <a href="#steeltoe-messaging-async-listeners"></a>.
 
@@ -4153,7 +4153,7 @@ This transaction manager is an implementation of the [`PlatformTransactionManage
 >IMPORTANT: This strategy is not able to provide XA transactions &#151; for example, in order to share transactions between messaging and database access.
 
 Application code is required to retrieve the transactional Rabbit resources through `ConnectionFactoryUtils.getTransactionalResourceHolder(ConnectionFactory, boolean)` instead of a standard `Connection.createChannel()` call with subsequent channel creation.
-When using Steeltoe AMQP's [RabbitTemplate](https://docs.spring.io/spring-amqp/docs/latest_ga/api/org/springframework/amqp/rabbit/core/RabbitTemplate.html), it will autodetect a thread-bound Channel and automatically participate in its transaction.
+When using Steeltoe RabbitMQ's [RabbitTemplate](https://docs.spring.io/spring-amqp/docs/latest_ga/api/org/springframework/amqp/rabbit/core/RabbitTemplate.html), it will autodetect a thread-bound Channel and automatically participate in its transaction.
 
 With Java Configuration, you can setup a new RabbitTransactionManager by using the following bean:
 
@@ -4180,10 +4180,10 @@ These are indicated by `N/A` for the attribute.
 | -------- | ----------- | ---- | ---- |
 | ackTimeout (N/A) | When `messagesPerAck` is set, this timeout is used as an alternative to send an ack. When a new message arrives, the count of unacked messages is compared to `messagesPerAck`, and the time since the last ack is compared to this value. If either condition is `true`, the message is acknowledged. When no new messages arrive and there are unacked messages, this timeout is approximate since the condition is only checked each `monitorInterval`. See also `messagesPerAck` and `monitorInterval` in this table. | | ![tickmark](images/tickmark.png) |
 |acknowledgeMode (acknowledge) | * `NONE`: No acks are sent (incompatible with `channelTransacted=true`). RabbitMQ calls this "autoack", because the broker assumes all messages are acked without any action from the consumer.* `MANUAL`: The listener must acknowledge all messages by calling `Channel.basicAck()`.* `AUTO`: The container acknowledges the message automatically, unless the `MessageListener` throws an exception. Note that `acknowledgeMode` is complementary to `channelTransacted` &#151; if the channel is transacted, the broker requires a commit notification in addition to the ack. This is the default mode. See also `batchSize`. | ![tickmark](images/tickmark.png) | ![tickmark](images/tickmark.png) |
-| adviceChain (advice-chain) | An array of AOP Advice to apply to the listener execution. This can be used to apply additional cross-cutting concerns, such as automatic retry in the event of broker death. Note that simple re-connection after an AMQP error is handled by the `CachingConnectionFactory`, as long as the broker is still alive. | ![tickmark](images/tickmark.png) | ![tickmark](images/tickmark.png) |
+| adviceChain (advice-chain) | An array of AOP Advice to apply to the listener execution. This can be used to apply additional cross-cutting concerns, such as automatic retry in the event of broker death. Note that simple re-connection after an RabbitMQ error is handled by the `CachingConnectionFactory`, as long as the broker is still alive. | ![tickmark](images/tickmark.png) | ![tickmark](images/tickmark.png) |
 | afterReceivePostProcessors (N/A) | An array of `MessagePostProcessor` instances that are invoked before invoking the listener. Post processors can implement `PriorityOrdered` or `Ordered`. The array is sorted with un-ordered members invoked last. If a post processor returns `null`, the message is discarded (and acknowledged, if appropriate). | ![tickmark](images/tickmark.png) | ![tickmark](images/tickmark.png) |
 | alwaysRequeueWithTxManagerRollback (N/A) | Set to `true` to always requeue messages on rollback when a transaction manager is configured. | ![tickmark](images/tickmark.png) | ![tickmark](images/tickmark.png) |
-| autoDeclare (auto-declare) | When set to `true` (default), the container uses a `RabbitAdmin` to redeclare all AMQP objects (queues, exchanges, bindings), if it detects that at least one of its queues is missing during startup, perhaps because it is an `auto-delete` or an expired queue, but the redeclaration proceeds if the queue is missing for any reason. To disable this behavior, set this property to `false`. Note that the container fails to start if all of its queues are missing. NOTE: For `autoDeclare` to work, there must be exactly one `RabbitAdmin` in the context, or a reference to a specific instance must be configured on the container using the `rabbitAdmin` property. | ![tickmark](images/tickmark.png) | ![tickmark](images/tickmark.png) |
+| autoDeclare (auto-declare) | When set to `true` (default), the container uses a `RabbitAdmin` to redeclare all RabbitMQ objects (queues, exchanges, bindings), if it detects that at least one of its queues is missing during startup, perhaps because it is an `auto-delete` or an expired queue, but the redeclaration proceeds if the queue is missing for any reason. To disable this behavior, set this property to `false`. Note that the container fails to start if all of its queues are missing. NOTE: For `autoDeclare` to work, there must be exactly one `RabbitAdmin` in the context, or a reference to a specific instance must be configured on the container using the `rabbitAdmin` property. | ![tickmark](images/tickmark.png) | ![tickmark](images/tickmark.png) |
 |autoStartup (auto-startup) | Flag to indicate that the container should start when the `ApplicationContext` does (as part of the `SmartLifecycle` callbacks, which happen after all beans are initialized). Defaults to `true`, but you can set it to `false` if your broker might not be available on startup and call `start()` later manually when you know the broker is ready. | ![tickmark](images/tickmark.png) | ![tickmark](images/tickmark.png) |
 | batchSize (transaction-size) (batch-size) | When used with `acknowledgeMode` set to `AUTO`, the container tries to process up to this number of messages before sending an ack (waiting for each one up to the receive timeout setting). This is also when a transactional channel is committed. If the `prefetchCount` is less than the `batchSize`, it is increased to match the `batchSize`. | ![tickmark](images/tickmark.png) | |
 |batchingStrategy (N/A) | The strategy used when debatchng messages. Default `SimpleDebatchingStrategy`. See <a href="steeltoe-messaging-template-batching"></a> and <a href="#steeltoe-messaging-receiving-batch"></a>. | ![tickmark](images/tickmark.png) | ![tickmark](images/tickmark.png) |
@@ -4305,7 +4305,7 @@ If you wish to permanently remove a queue, you should update the container befor
 
 ## Resilience: Recovering from Errors and Broker Failures
 
-Some of the key (and most popular) high-level features that Steeltoe AMQP provides are to do with recovery and automatic re-connection in the event of a protocol error or broker failure.
+Some of the key (and most popular) high-level features that Steeltoe RabbitMQ provides are to do with recovery and automatic re-connection in the event of a protocol error or broker failure.
 We have seen all the relevant components already in this guide, but it should help to bring them all together here and call out the features and recovery scenarios individually.
 
 The primary reconnection features are enabled by the `CachingConnectionFactory` itself.
@@ -4351,13 +4351,13 @@ See also <a href="#steeltoe-messaging-auto-recovery"></a>.
 [[retry]]
 ### Failures in Synchronous Operations and Options for Retry
 
-If you lose your connection to the broker in a synchronous sequence when using `RabbitTemplate` (for instance), Steeltoe AMQP throws an `AmqpException` (usually, but not always, `AmqpIOException`).
+If you lose your connection to the broker in a synchronous sequence when using `RabbitTemplate` (for instance), Steeltoe RabbitMQ throws an `AmqpException` (usually, but not always, `AmqpIOException`).
 We do not try to hide the fact that there was a problem, so you have to be able to catch and respond to the exception.
 The easiest thing to do if you suspect that the connection was lost (and it was not your fault) is to try the operation again.
 You can do this manually, or you could look at using Spring Retry to handle the retry (imperatively or declaratively).
 
 Spring Retry provides a couple of AOP interceptors and a great deal of flexibility to specify the parameters of the retry (number of attempts, exception types, backoff algorithm, and others).
-Steeltoe AMQP also provides some convenience factory beans for creating Spring Retry interceptors in a convenient form for AMQP use cases, with strongly typed callback interfaces that you can use to implement custom recovery logic.
+Steeltoe RabbitMQ also provides some convenience factory beans for creating Spring Retry interceptors in a convenient form for RabbitMQ use cases, with strongly typed callback interfaces that you can use to implement custom recovery logic.
 See the Javadoc and properties of `StatefulRetryOperationsInterceptor` and `StatelessRetryOperationsInterceptor` for more detail.
 Stateless retry is appropriate if there is no transaction or if a transaction is started inside the retry callback.
 Note that stateless retry is simpler to configure and analyze than stateful retry, but it is not usually appropriate if there is an ongoing transaction that must be rolled back or definitely is going to roll back.
@@ -4500,7 +4500,7 @@ To use this classifier for retry, you can use a `SimpleRetryPolicy` created with
 
 ## Debugging
 
-Steeltoe AMQP provides extensive logging, especially at the `DEBUG` level.
+Steeltoe RabbitMQ provides extensive logging, especially at the `DEBUG` level.
 
 If you wish to monitor the AMQP protocol between the application and broker, you can use a tool such as WireShark, which has a plugin to decode the protocol.
 Alternatively, the RabbitMQ Java client comes with a very useful class called `Tracer`.
