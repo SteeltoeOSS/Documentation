@@ -15,6 +15,8 @@ The following table describes the settings that you can apply to the endpoint:
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:prometheus`**.
 
+To configure Observers, see [Metrics Observers](/metrics-observers)
+
 #### Enable HTTP Access
 
 The default path to the Prometheus endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is `actuator/prometheus`.
