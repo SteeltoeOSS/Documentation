@@ -11,7 +11,7 @@ Developers can attach a debugger to the running application, and since the proje
 Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
 
 ```sh
-$ dotnet tool install --global --version 0.7.0 Steeltoe.Cli
+$ dotnet tool install -g Steeltoe.Cli --version 0.7.1-2785 --add-source https://www.myget.org/F/steeltoedev/api/v3/index.json
 ```
 
 ### Add DotNet Global Tools to your PATH Variable
@@ -27,7 +27,7 @@ After adding of the above paths to your `PATH` env var, you can run the `st` exe
 
 ```sh
 $ st --version
-0.7.0
+0.7.1 (build 2785 -> https://dev.azure.com/SteeltoeOSS/Steeltoe/_build/results?buildId=2785)
 ```
 
 
