@@ -6,6 +6,10 @@ Developers can attach a debugger to the running application, and since the proje
 
 ## Getting Started
 
+### Pre-Requisites
+
+* [docker-compose](https://docs.docker.com/compose/)
+
 ### Install the CLI
 
 Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
