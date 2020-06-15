@@ -1,19 +1,19 @@
 # Redis Key Storage Provider
 
-By default, ASP.NET Core stores the key ring on the local file system. Local file system usage in a Cloud Foundry environment is unworkable and violates the [twelve-factor guidelines](https://12factor.net/) for developing cloud native applications. By using the Steeltoe Redis Key Storage provider, you can reconfigure the Data Protection service to use Redis on Cloud Foundry for storage.
+By default, ASP.NET Core stores the key ring on the local file system. Local file system usage in a Cloud Foundry environment is unworkable and violates the [twelve-factor guidelines](https://12factor.net/) for developing cloud native applications. By using the Steeltoe Redis key storage provider, you can reconfigure the data protection service to use Redis on Cloud Foundry for storage.
 
 ## Usage
 
 To use this provider:
 
-1. Create a Redis Service instance and bind it to your application.
-1. Add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
-1. Add the Redis `ConnectionMultiplexer` to your ServiceCollection.
+1. Create a Redis service instance and bind it to your application.
+1. Add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
+1. Add the Redis `ConnectionMultiplexer` to your `ServiceCollection`.
 1. Add `DataProtection` to your `ServiceCollection` and configure it to `PersistKeysToRedis`.
 
 ### Add NuGet Reference
 
-To use the provider, add a reference to the Steeltoe DataProtection Redis NuGet.
+To use the provider, add a reference to the Steeltoe data protection Redis NuGet.
 
 The provider can be found in the `Steeltoe.Security.DataProtection.RedisCore` package.
 
@@ -29,7 +29,7 @@ You can add the provider to your project by using the following `PackageReferenc
 
 You also need the Steeltoe Redis connector. Add the `Steeltoe.ConnectorCore` package to get the Redis connector and helpers for setting it up.
 
-You can use the NuGet Package Manager tools or directly add the following package reference to your .csproj file:
+You can use the NuGet package manager tools or directly add the following package reference to your .csproj file:
 
 ```xml
 <ItemGroup>
@@ -41,7 +41,7 @@ You can use the NuGet Package Manager tools or directly add the following packag
 
 ### Cloud Foundry
 
-To use the Redis Data Protection key ring provider on Cloud Foundry, you have to install a Redis service and create and bind an instance of it to your application by using the Cloud Foundry command line, as shown in the following example:
+To use the Redis data protection key ring provider on Cloud Foundry, you have to install a Redis service and create and bind an instance of it to your application by using the Cloud Foundry command line, as follows:
 
 ```bash
 # Create Redis service
@@ -84,15 +84,16 @@ public class Startup {
         ...
     }
     ...
+}
 ```
 
 See the documentation on the Steeltoe Redis connector for details on how you can configure additional settings to control its behavior.
 
 ### Add PersistKeysToRedis
 
-The last step is to use the provider to configure DataProtection to persist keys to Redis.
+The last step is to use the provider to configure data protection to persist keys to Redis.
 
-You can do so in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
+You can do so in the `ConfigureServices()` method of the `Startup` class:
 
 ```csharp
 using Steeltoe.Connector.Redis;
@@ -119,6 +120,7 @@ public class Startup {
         ...
     }
     ...
+}
 ```
 
 ### Use Redis Key Store
