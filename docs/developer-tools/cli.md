@@ -1,15 +1,23 @@
 # Steeltoe CLI
 
-The Steeltoe Tooling CLI is a tool to assist developers in the code-test-debug lifecycle of DotNet projects.
+The Steeltoe Tooling command-line interface (CLI) is a tool to assist developers in the code-test-debug lifecycle of DotNet projects.
 The CLI uses the local Docker environment to run a project’s application and its dependencies (typically services).
-Developers can attach a debugger to the running application, and since the project file system is mounted in the Docker container, code changes can be made and observed while the application is live.
+Developers can attach a debugger to the running application, and, since the project file system is mounted in the Docker container, code changes can be made and observed while the application is live.
 
 ## Getting Started
 
-### Pre-Requisites
+To get started, you need to do the following:
 
-* [docker-compose](https://docs.docker.com/compose/)
+1. <a href="#steeltoe-dev-tools-pre-requisites">Set up Pre-Requisites</a>
+1. <a href="#steeltoe-dev-tools-install-cli">Install the CLI</a>
+1. <a href="#steeltoe-dev-tools-add-dotnet-global-tools-path-variable">Add DotNet Global Tools to your PATH Variable</a>
 
+<a name="steeltoe-dev-tools-pre-requisites"></a>
+### Set up Pre-Requisites
+
+See [docker-compose](https://docs.docker.com/compose/)
+
+<a name="steeltoe-dev-tools-install-cli"></a>
 ### Install the CLI
 
 Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
@@ -18,16 +26,15 @@ Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/en-us/dot
 $ dotnet tool install -g Steeltoe.Cli --version 0.7.1-2785 --add-source https://www.myget.org/F/steeltoedev/api/v3/index.json
 ```
 
+<a name="steeltoe-dev-tools-add-dotnet-global-tools-path-variable"></a>
 ### Add DotNet Global Tools to your PATH Variable
 
-DotNet Global Tools are installed in an OS-dependent user directory.
+DotNet Global Tools are installed in an OS-dependent user directory
 
-|OS|Path|
-|---|---|
-|Windows|`%USERPROFILE%\.dotnet\tools`|
-|OS X/Linux|`$HOME/.dotnet/tools`|
+* Windows: `%USERPROFILE%\.dotnet\tools`
+* OS X/Linux: `$HOME/.dotnet/tools`
 
-After adding of the above paths to your `PATH` env var, you can run the `st` executable.
+After adding of the path to your `PATH` environment variable, you can run the `st` executable:
 
 ```sh
 $ st --version
@@ -37,9 +44,9 @@ $ st --version
 
 ## Using the CLI
 
-The example app used below can be created using the [Steeltoe Initializr](https://start.steeltoe.io/).
+You can create the sample application used by using the [Steeltoe Initializr](https://start.steeltoe.io/).
 
-To create in your environment:
+To create it in your environment:
 
 ```sh
 $ mkdir MyRedisApp
@@ -51,7 +58,9 @@ $ unzip MyRedisApp.zip -d MyRedisApp
 $ cd MyRedisApp
 ```
 
-### show
+### Using show
+
+The following example shows how to use the `show` command:
 
 ```sh
 Displays project details
@@ -72,8 +81,8 @@ Examples:
 The `show` command displays the deployment structure of the project.
 This structure is subsequently used by the `run` command to start the project and any dependent services.
 
-Running `show` in our example apps shows the project apps is a `netcoreapp3.1` app that listens on port `5000` for HTTP requests.
-The app depends on Redis which will be listening on port `5672`.
+Running `show` in our example application shows that the project application is a `netcoreapp3.1` application that listens on port `5000` for HTTP requests.
+The application depends on Redis to be listening on port `5672`.
 
 ```sh
 $ st show
@@ -92,7 +101,9 @@ project:
     port: 5672
 ```
 
-### run
+### Using run
+
+The following example shows how to use the `run` command:
 
 ```sh
 Runs project in the local Docker environment
@@ -100,7 +111,7 @@ Runs project in the local Docker environment
 Usage: st run [options]
 
 Options:
-  -g|--generate-only  Only generate configuration files (don't run in Docker)
+  -g|--generate-only  Only generate configuration files (do not run in Docker)
   -?|-h|--help        Show help information
 
 Overview:
@@ -116,15 +127,15 @@ See Also:
 
 The `run` command runs the project in your local Docker environment.
 
-The command generates a [Docker Compose](https://docs.docker.com/compose/) file that will be used to run the project in Docker.
+The command generates a [Docker Compose](https://docs.docker.com/compose/) file that you can use to run the project in Docker.
 
-_Note that the current version of the CLI regenerates the file each time the command is run.  An upcoming version will only regenerate the file upon request._
+>NOTE: The current version of the CLI regenerates the file each time the command is run.  An upcoming version will regenerate the file only upon request.
 
-A Docker container is created that mounts the project directory.  Any changes made to the app while the container is running will be evident in the running app.
+A Docker container is created to mount the project directory. Any changes made to the application while the container is running are evident in the running app.
 
 If the project has service dependencies, Docker containers are created for each service.
 
-Running `run` in our example app starts up the application and its dependent Redis service.
+Running `run` in our example app starts up the application and its dependent Redis service:
 
 ```sh
 $ st run
@@ -173,7 +184,9 @@ myredisapp_1  | Now listening on: http://0.0.0.0:5000
 myredisapp_1  | Application started. Press Ctrl+C to shut down.
 ```
 
-### stop
+### Using stop
+
+The following example shows how to use the `stop` command:
 
 ```sh
 Stops project running in the local Docker environment
@@ -196,7 +209,7 @@ See Also:
 
 Running `stop` stops the project running in your local Docker environment.
 
-Running `stop` in our example app tears down the project's Docker containers.
+Running `stop` in our example application tears down the project's Docker containers:
 
 ```sh
 $ st stop

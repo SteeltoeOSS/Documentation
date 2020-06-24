@@ -1,10 +1,10 @@
 # Application Configuration
 
-Steeltoe Configuration builds on the new .NET configuration API, which enables developers to configure an application with values from a variety of sources by using Configuration Providers. Each provider supports reading a set of name-value pairs from a given source location and adding them into a combined multi-level configuration dictionary.
+Steeltoe Configuration builds on the new .NET configuration API, which enables developers to configure an application with values from a variety of sources by using configuration providers. Each provider supports reading a set of name-value pairs from a given source location and adding them into a combined multi-level configuration dictionary.
 
 Each value contained in the configuration is tied to a string-typed key or name. The values are organized by key into a hierarchical list of name-value pairs in which the components of the keys are separated by a colon (for example, `spring:application:key = value`).
 
-.NET supports the following providers/sources:
+.NET supports the following providers and sources:
 
 * Command-line arguments
 * File sources (such as JSON, XML, and INI)

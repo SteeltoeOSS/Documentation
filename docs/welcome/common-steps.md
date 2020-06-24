@@ -1,26 +1,35 @@
 # Common Steps
 
+This section outlines how to work with two sample applications:
+
+* <a href="#steeltoe-common-steps-publish-sample">Publish Sample</a>
+* <a href="#steeltoe-common-steps-cloud-foundry-push-sample">Cloud Foundry Push Sample</a>
+
+<a name="steeltoe-common-steps-publish-sample"></a>
 ## Publish Sample
+
+This section describes how to deploy the publish sample on either Linux or Windows.
 
 ### ASP.NET Core
 
-Use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish) the application for the framework and runtime you will deploy the application to:
+You can use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish) the application for the framework and runtime to which you want to deploy the application:
 
 * Linux with .NET Core: `dotnet publish -f netcoreapp2.1 -r ubuntu.14.04-x64`
 * Windows with .NET Core: `dotnet publish -f netcoreapp2.1 -r win10-x64`
 * Windows with .NET Platform: `dotnet publish -f net461 -r win10-x64`
 
->NOTE: Starting with .NET Core 2.0, the `dotnet publish` command will automatically restore dependencies for you. Running `dotnet restore` explicitly is not generally required.
+>NOTE: Starting with .NET Core 2.0, the `dotnet publish` command automatically restores dependencies for you. Running `dotnet restore` explicitly is not generally required.
 
 ### ASP.NET 4.x
 
-1. Open the solution for the sample in Visual Studio
-1. Right click on the project, select "Publish"
-1. Use the included `FolderProfile` to publish to `bin/Debug/net461/win10-x64/publish`
+1. Open the solution for the sample in Visual Studio.
+1. Right click on the project, select "Publish".
+1. Use the included `FolderProfile` to publish to `bin/Debug/net461/win10-x64/publish`.
 
+<a name="steeltoe-common-steps-cloud-foundry-push-sample"></a>
 ## Cloud Foundry Push Sample
 
-Use the Cloud Foundry CLI to push the published application to Cloud Foundry using the parameters that match what you selected for framework and runtime:
+This section describes how to use the Cloud Foundry CLI to push the published application to Cloud Foundry by using the parameters that match what you selected for framework and runtime:
 
 ```bash
 # Push to Linux cell
@@ -33,13 +42,13 @@ cf push -f manifest-windows.yml -p bin/Debug/netcoreapp2.1/win10-x64/publish
 cf push -f manifest-windows.yml -p bin/Debug/net461/win10-x64/publish
 ```
 
->NOTE: all sample manifests have been defined to bind their application to their service(s) as created above.
+>NOTE: All sample manifests have been defined to bind their application to the services as created earlier.
 
-### Observe Logs
+### Observe the Logs
 
 To see the logs as you startup the application, use `cf logs oauth`.
 
-On a Linux cell, you should see something resembling the following during startup:
+On a Linux cell, you should see output that resembles the following during startup:
 
 ```bash
 2016-06-01T09:14:14.38-0600 [CELL/0]     OUT Creating container
@@ -52,7 +61,7 @@ On a Linux cell, you should see something resembling the following during startu
 2016-06-01T09:14:21.41-0600 [CELL/0]     OUT Container became healthy
 ```
 
-On Windows cells, you should see something slightly different but with the same information.
+On Windows cells, you should see something slightly different output with the same information.
 
 ### Reading Configuration Values
 
@@ -82,12 +91,13 @@ public class Program {
             .Build();
     }
     ...
+}
 ```
 
 When pushing the application to Cloud Foundry, the settings from service bindings merge with the settings from other configuration mechanisms (such as `appsettings.json`).
 
-If there are merge conflicts, the last provider added to the Configuration takes precedence and overrides all others.
+If there are merge conflicts, the last provider added to the configuration takes precedence and overrides all others.
 
-To manage application settings centrally instead of with individual files, use [Steeltoe Configuration](/docs/configuration) and a tool such as [Spring Cloud Config Server](https://github.com/spring-cloud/spring-cloud-config)
+To manage application settings centrally instead of with individual files, you can use [Steeltoe Configuration](/docs/configuration) and a tool such as [Spring Cloud Config Server](https://github.com/spring-cloud/spring-cloud-config)
 
 >NOTE: If you use the Spring Cloud Config Server, `AddConfigServer()` automatically calls `AddCloudFoundry()` for you.

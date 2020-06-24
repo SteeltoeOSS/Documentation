@@ -1,6 +1,6 @@
 # CosmosDB
 
-This connector simplifies using Azure Cosmos DB in an application running on Cloud Foundry. The connector is built to work with Azure Cosmos DB service instances that have been provisioned using the [Microsoft Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html), where  from either `Microsoft.Azure.Cosmos` or the newer package `Azure.Cosmos`.
+This connector simplifies using Azure Cosmos DB in an application running on Cloud Foundry. The connector is built to work with Azure Cosmos DB service instances that have been provisioned with the [Microsoft Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html), from either `Microsoft.Azure.Cosmos` or the newer package `Azure.Cosmos`.
 
 ## Usage
 
@@ -12,11 +12,11 @@ To use this connector:
 
 ### Add NuGet References
 
-To use the CosmosDB connector, add either [Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Microsoft.Azure.Cosmos) or [Azure.Cosmos](https://www.nuget.org/packages/Azure.Cosmos/) (pre-release only as of this writing) as you would if you weren't using Steeltoe. Then, add a reference to [Steeltoe.ConnectorBase](https://www.nuget.org/packages/Steeltoe.ConnectorBase)
+To use the CosmosDB connector, add either [Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Microsoft.Azure.Cosmos) or [Azure.Cosmos](https://www.nuget.org/packages/Azure.Cosmos/) (pre-release only as of this writing) as you would if you were not using Steeltoe. Then add a reference to [Steeltoe.ConnectorBase](https://www.nuget.org/packages/Steeltoe.ConnectorBase)
 
 ### Configure Settings
 
-This connector supports several settings for local interaction with CosmosDB that will be overridden by service bindings on deployment:
+This connector supports several settings for local interaction with CosmosDB that are overridden by service bindings on deployment:
 
 ```json
 {
@@ -33,23 +33,23 @@ The following table table describes all possible settings for the connector
 
 |Key|Description|Default|
 |---|---|---|
-|host|Protocol, hostname or IP Address and port of the server|not set|
-|masterKey|Authentication for read/write access|not set|
-|readOnlyKey|Authentication for read-only access|not set|
-|databaseId|Name of the database to use|not set|
-|useReadOnlyCredentials|Designate that the read-only key should be used|false|
-|connectionString|Full connection string|built from settings|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+|`host`|Protocol, hostname or IP Address and port of the server|not set|
+|`masterKey`|Authentication for read/write access|not set|
+|`readOnlyKey`|Authentication for read-only access|not set|
+|`databaseId`|Name of the database to use|not set|
+|`useReadOnlyCredentials`|Designate that the read-only key should be used|`false`|
+|`connectionString`|Full connection string|built from settings|
+|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
 >IMPORTANT: All of these settings should be prefixed with `cosmosdb:client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
+>NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
-To use CosmosDB on Cloud Foundry, create and bind an instance to your application by using the Cloud Foundry CLI, as shown in the following example:
+To use CosmosDB on Cloud Foundry, create and bind an instance to your application by using the Cloud Foundry CLI:
 
 ```bash
 # Create CosmosDB service
