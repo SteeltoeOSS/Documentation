@@ -1,21 +1,21 @@
 # Service Discovery
 
-Steeltoe provides a set of generalized interfaces for interacting with multiple service discovery back ends. This section will cover the general components first. If you are looking for something specific to the registry server you are using, feel free to skip ahead to the section for Netflix Eureka or HashiCorp Consul.
+Steeltoe provides a set of generalized interfaces for interacting with multiple service discovery back ends. This section covers the general components first. If you are looking for something specific to the registry server you are using, feel free to skip ahead to the section for Netflix Eureka or HashiCorp Consul.
 
-In order to use any Steeltoe Discovery client, you need to do the following:
+In order to use any Steeltoe Discovery client, you need to:
 
-* Add appropriate NuGet package reference to your project.
-* Configure the settings the Discovery client will use to register services in the service registry.
-* Configure the settings the Discovery client will use to discover services in the service registry.
-* Add and Use the Discovery client service in the application.
-* Use an injected `IDiscoveryClient` to lookup services.
+* Add the appropriate NuGet package reference to your project.
+* Configure the settings the discovery client uses to register services in the service registry.
+* Configure the settings the discovery client uses to discover services in the service registry.
+* Add and use the discovery client service in the application.
+* Use an injected `IDiscoveryClient` to look up services.
 
->NOTE: The Steeltoe Discovery implementation (for example: the decision between Eureka and Consul) is automatically setup within the application based on the application configuration provided.
+>NOTE: The Steeltoe discovery implementation (for example: the decision between Eureka and Consul) is automatically set up within the application, based on the application configuration provided.
 
 ## Add NuGet References
 
-<!-- TODO: review this section, its not completely correct -->
-The simplest way to get started with Steeltoe Discovery is to add a reference to a package built for either Microsoft's dependency injection or Autofac. Either package will also include all relevant dependencies. If you are using another DI tool, please file an issue to let us know, and in the mean time use the relevant base package:
+<!-- TODO: review this section. It is not completely correct. -->
+The simplest way to get started with Steeltoe Discovery is to add a reference to a package built for either Microsoft's dependency injection or Autofac. Either package also includes all the relevant dependencies. If you use another DI tool, file an issue to let us know. In the meantime, use the relevant base package:
 
 |App Type|Package|Description|
 |---|---|---|
@@ -36,9 +36,9 @@ To add this type of NuGet to your project, add an element resembling the followi
 
 ## Enable Debug Logging
 
-Sometimes, it is desirable to turn on debug logging in the Discovery client. To do so, you can modify the `appsettings.json` file and turn on Debug level logging for the Steeltoe components, as shown in the following example:
+Sometimes, you may want to turn on debug logging in the discovery client. To do so, you can modify the `appsettings.json` file and turn on Debug level logging for the Steeltoe components:
 
-Here is an example `appsettings.json` file:
+The following example shows a typical `appsettings.json` file:
 
 ```json
 {

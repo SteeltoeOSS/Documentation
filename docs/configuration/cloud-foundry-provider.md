@@ -2,13 +2,13 @@
 
 The Cloud Foundry provider enables the standard Cloud Foundry environment variables (`VCAP_APPLICATION`,  `VCAP_SERVICES`, and `CF_*`) to be parsed and accessed as configuration data within a .NET application.
 
-Cloud Foundry creates and uses these environment variables to communicate an application's environment and configuration to the application code running inside a container. More specifically, the values found in `VCAP_APPLICATION` provide information about the application's resource limits, routes (URIs), and version number, among other things. The `VCAP_SERVICES` environment variable provides information about the external services (Databases, Caches, and so on) to which the application is bound, along with details on how to contact those services.
+Cloud Foundry creates and uses these environment variables to communicate an application's environment and configuration to the application code running inside a container. More specifically, the values found in `VCAP_APPLICATION` provide information about the application's resource limits, routes (URIs), and version number, among other things. The `VCAP_SERVICES` environment variable provides information about the external services (databases, caches, and so on) to which the application is bound, along with details on how to contact those services.
 
 You can read more information on the Cloud Foundry environment variables at the [Cloud Foundry docs](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html) website.
 
 The Steeltoe Cloud Foundry provider supports the following .NET application types:
 
-* ASP.NET (MVC, WebForms, WebAPI, WCF)
+* ASP.NET (MVC, WebForms, WebAPI, and WCF)
 * ASP.NET Core
 * Console apps (.NET Framework and .NET Core)
 
@@ -17,20 +17,20 @@ The Steeltoe Cloud Foundry provider supports the following .NET application type
 
 You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider.
 
-In order to use the Steeltoe Cloud Foundry provider you need to do the following:
+In order to use the Steeltoe Cloud Foundry provider, you need to do the following:
 
 1. Add a NuGet package reference to your project.
 1. Add the provider to the Configuration Builder.
 1. Configure Cloud Foundry options classes by binding configuration data to the classes.
 1. Inject and use the Cloud Foundry Options to access Cloud Foundry configuration data.
 
->NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration) for example code you can use.
+>NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based application, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration) for example code you can use.
 
 ### Add NuGet Reference
 
 To use the provider, you need to add a reference to the appropriate Steeltoe Cloud Foundry NuGet based on the type of the application you are building and what Dependency Injector you have chosen, if any. The following table describes the available packages:
 
-|App Type|Package|Description|
+|Application Type|Package|Description|
 |---|---|---|
 |Console/ASP.NET 4.x|`Steeltoe.Extensions.Configuration.CloudFoundryBase`|Base functionality. No dependency injection.|
 |ASP.NET Core|`Steeltoe.Extensions.Configuration.CloudFoundryCore`|Includes base. Adds ASP.NET Core dependency injection.|
@@ -48,7 +48,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 
 ### Add Configuration Provider
 
-In order to parse the Cloud Foundry environment variables and make them available in the application's configuration, you need to add the Cloud Foundry configuration provider to the `ConfigurationBuilder`.
+To parse the Cloud Foundry environment variables and make them available in the application's configuration, you need to add the Cloud Foundry configuration provider to the `ConfigurationBuilder`, as follows:
 
 The following example shows how to do so:
 
@@ -96,8 +96,8 @@ You can access the values from the `VCAP_APPLICATION` environment variable setti
 
 ```csharp
 var config = builder.Build();
-var appName = config["vcap:application:application_name"]
-var instanceId = config["vcap:application:instance_id"]
+var appName = config["vcap:application:application_name"];
+var instanceId = config["vcap:application:instance_id"];
 ...
 ```
 
@@ -107,8 +107,8 @@ You can also directly access the values from the `VCAP_SERVICES` environment var
 
 ```csharp
 var config = builder.Build();
-var name = config["vcap:services:service-name:0:name"]
-var uri = config["vcap:services:service-name:0:credentials:uri"]
+var name = config["vcap:services:service-name:0:name"];
+var uri = config["vcap:services:service-name:0:credentials:uri"];
 ...
 ```
 
@@ -118,11 +118,17 @@ A list of all `VCAP_SERVICES` keys is available in the [VCAP_SERVICES](https://d
 
 ### Access Configuration Data as Options
 
-#### ConfigureCloudFoundryOptions()
+This section describes how to use two methods to configure configuration data:
+
+* <a href="#steeltoe-cloud-foundry-provider-using-the-configurecloudfoundryoptions-method">Using the ConfigureCloudFoundryOptions() Method</a>
+* <a href="#steeltoe-cloud-foundry-provider-using-the-configurecloudfoundryservice-method">Using the ConfigureCloudFoundryService() Method</a>
+
+<a name="">steeltoe-cloud-foundry-provider-using-the-configurecloudfoundryoptions-method</a>
+#### Using the ConfigureCloudFoundryOptions() Method
 
 Alternatively, instead of accessing the Cloud Foundry configuration data directly from the configuration, you can use the .NET [Options](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) framework together with [Dependency Injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection).
 
-The Cloud Foundry provider includes two additional classes, `CloudFoundryApplicationOptions` and `CloudFoundryServicesOptions`. Both can be configured through the Options framework to hold the parsed `VCAP_*` data by using the Options `Configure()` feature.
+The Cloud Foundry provider includes two additional classes, `CloudFoundryApplicationOptions` and `CloudFoundryServicesOptions`. You can configured both through the options framework to hold the parsed `VCAP_*` data by using the options `Configure()` feature.
 
 To use it in an ASP.NET Core application, add the the following to the `ConfigureServices()` method in the `Startup` class:
 
@@ -143,9 +149,7 @@ The `ConfigureCloudFoundryOptions(Configuration)` method call uses the Options f
 
 Both of these method calls also add these objects to the service container as `IOptions`.
 
-Once this is done, you can access these configuration objects in the Controllers or Views of an application by using normal Dependency Injection.
-
-The following example controller shows how to do so:
+Once this is done, you can access these configuration objects in the controllers or views of an application by using normal Dependency Injection, as follows:
 
 ```csharp
 using Steeltoe.Extensions.Configuration.CloudFoundry;
@@ -178,15 +182,16 @@ public class HomeController : Controller
 }
 ```
 
-#### ConfigureCloudFoundryService
+<a name="steeltoe-cloud-foundry-provider-using-the-configurecloudfoundryservice-method"></a>
+#### ConfigureCloudFoundryService()
 
-As an alternative to using `CloudFoundryServicesOptions` to access Cloud Foundry service data you can also use `ConfigureCloudFoundryService<TOption>()` or `ConfigureCloudFoundryServices<TOption>()` to easily gain access to service data.  
+As an alternative to using `CloudFoundryServicesOptions` to access Cloud Foundry service data, you can also use `ConfigureCloudFoundryService<TOption>()` or `ConfigureCloudFoundryServices<TOption>()` to easily gain access to service data.  
 
-These methods allow you to define an Option class which represents a particular type of Cloud Foundry service binding and then use either method to select that data from `VCAP_SERVICES` and bind the data to it.
+These methods let you define an `Options` class that represents a particular type of Cloud Foundry service binding and then use either method to select that data from `VCAP_SERVICES` and bind the data to it.
 
-To do this, you first need to create a Options class that derives from `AbstractServiceOptions`. That class must match the data provided in `VCAP_SERVICES`.  
+To do this, you first need to create an `Options` class that derives from `AbstractServiceOptions`. That class must match the data provided in `VCAP_SERVICES`.  
 
-Here is an example that illustrates how to do this for a MySql service binding on PCF:
+The following example shows how to do this for a MySql service binding on PCF:
 
 ```csharp
 using Steeltoe.Extensions.Configuration.CloudFoundry;
@@ -209,11 +214,11 @@ public class MySqlCredentials
 }
 ```
 
-Next in your `Startup` class you can use either `ConfigureCloudFoundryService<TOption>()` or `ConfigureCloudFoundryServices<TOption>()` to bind the service data from `VCAP_SERVICES` to your `TOption`.  There are multiple ways to do this depending on your needs.
+Next in your `Startup` class you can use either `ConfigureCloudFoundryService<TOption>()` or `ConfigureCloudFoundryServices<TOption>()` to bind the service data from `VCAP_SERVICES` to your `TOption`. There are multiple ways to do this depending on your needs.
 
-You can use `ConfigureCloudFoundryService<TOption>()` method to select a specific Cloud Foundry service binding from `VCAP_SERVICES` by specifying a service name. Or you can use `ConfigureCloudFoundryServices<TOption>()` to bind to all services of a particular type by specifying a Cloud Foundry service label.  
+You can use the `ConfigureCloudFoundryService<TOption>()` method to select a specific Cloud Foundry service binding from `VCAP_SERVICES` by specifying a service name. Alternatively, you can use `ConfigureCloudFoundryServices<TOption>()` to bind to all services of a particular type by specifying a Cloud Foundry service label.  
 
-Here are some examples:
+The following listing shows some examples:
 
 ```csharp
 using Steeltoe.Extensions.Configuration.CloudFoundry;
@@ -231,11 +236,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-As you can see all of this is built using the Microsoft provided Options framework.  As a result we are able to leverage the `named` Options feature Microsoft has implemented in options binding, and configure each `TOption` with a name equal to the Cloud Foundry service name found in `VCAP_SERVICES`.
+All of this is built byusing the Microsoft provided `Options` framework.  As a result we can leverage the `named` `Options` feature Microsoft has implemented in options binding and configure each `TOption` with a name equal to the Cloud Foundry service name found in `VCAP_SERVICES`.
 
-What this means is within a controller you can inject the `IOptionsSnapshot<MySqlServiceOption>` or `IOptionsMonitor<MySqlServiceOption>` as you normally would and then access the Option by name. (for example: specific Cloud Foundry service binding instance).
+What this means is that, within a controller, you can inject the `IOptionsSnapshot<MySqlServiceOption>` or `IOptionsMonitor<MySqlServiceOption>` as you normally would and then access the option by name (for example: specific Cloud Foundry service binding instance).
 
-Here is an example:
+The following listing shows how to do so:
 
 ```csharp
     public class HomeController : Controller
@@ -253,4 +258,5 @@ Here is an example:
         {
             _mySqlOptions = mySqlOptions;
         }
+    }
 ```
