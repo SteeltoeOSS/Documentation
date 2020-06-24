@@ -236,7 +236,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-All of this is built byusing the Microsoft provided `Options` framework.  As a result we can leverage the `named` `Options` feature Microsoft has implemented in options binding and configure each `TOption` with a name equal to the Cloud Foundry service name found in `VCAP_SERVICES`.
+All of this is built by using the Microsoft provided `Options` framework.  As a result we can leverage the `named` `Options` feature Microsoft has implemented in options binding and configure each `TOption` with a name equal to the Cloud Foundry service name found in `VCAP_SERVICES`.
 
 What this means is that, within a controller, you can inject the `IOptionsSnapshot<MySqlServiceOption>` or `IOptionsMonitor<MySqlServiceOption>` as you normally would and then access the option by name (for example: specific Cloud Foundry service binding instance).
 
