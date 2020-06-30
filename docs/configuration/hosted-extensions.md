@@ -1,10 +1,10 @@
 # Hosting Extensions
 
-Many cloud hosting providers, including Pivotal Cloud Foundry, dynamically provide port numbers at runtime. For ASP.NET Core applications, Steeltoe provides a extension methods for both `IWebHostBuilder` and `IHostBuilder` to read in these values and configure the application to lisen on the assigned port.
+Many cloud hosting providers, including Pivotal Cloud Foundry, dynamically provide port numbers at runtime. For ASP.NET Core applications, Steeltoe provides extension methods that let both `IWebHostBuilder` and `IHostBuilder` read in these values and configure the application to listen on the assigned port.
 
-## UseCloudHosting
+## The UseCloudHosting Method
 
- `UseCloudHosting` is provided in the NuGet package `Steeltoe.Common.Hosting`. This extension will automatically use the environment variables `PORT` or `SERVER_PORT` (when present) to set the address the application is listening on for HTTP traffic. When a port is not found in the environment or passed in as a parameter, the application will be configured to listen on port 8080. This sample illustrates basic usage:
+The `UseCloudHosting` method is provided in the `Steeltoe.Common.Hosting` NuGet package. This extension automatically uses the `PORT` or `SERVER_PORT` environment variables (when present) to set the address the application listens on for HTTP traffic. When a port is not found in the environment or passed in as a parameter, the application is configured to listen on port 8080. The following sample illustrates basic usage:
 
 ```csharp
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -14,7 +14,7 @@ Many cloud hosting providers, including Pivotal Cloud Foundry, dynamically provi
             ...
 ```
 
-The extension includes an optional parameter to explicitly set ports used for HTTP and HTTPS, which is particularly useful when you are running multiple services at once on your workstation that will later be deployed to a cloud platform.
+The extension includes an optional parameter to explicitly set the ports used for HTTP and HTTPS, which is particularly useful when you run multiple services (which will later be deployed to a cloud platform) at once on your workstation. The following example shows how to set the ports:
 
 ```csharp
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -26,9 +26,9 @@ The extension includes an optional parameter to explicitly set ports used for HT
 
 >NOTE: If either environment variable `PORT` or `SERVER_PORT` is found, neither of the optional parameters will be used.
 
-## UseCloudFoundryHosting
+## The UseCloudFoundryHosting Method
 
- `UseCloudFoundryHosting` is now deprecated, but is still available in the NuGet package `Steeltoe.Extensions.Configuration.CloudFoundryCore`. This extension has been superseded by `UseCloudHosting`, but is still available in the 2.x line. This extension will automatically use the environment variable `PORT` (when present) to set the address the application is listening on. This sample illustrates basic usage:
+The `UseCloudFoundryHosting` method is now deprecated but is still available in the `Steeltoe.Extensions.Configuration.CloudFoundryCore` NuGet package. This extension has been superseded by `UseCloudHosting` but is still available in the 2.x line. This extension automatically uses the `PORT` environment variable (when present) to set the address the application is listening on. The following sample illustrates basic usage:
 
 ```csharp
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -38,7 +38,7 @@ The extension includes an optional parameter to explicitly set ports used for HT
             ...
 ```
 
-The extension includes an optional parameter to explicitly set the HTTP port, which is particularly useful when you are running multiple services at once on your workstation that will later be deployed to a cloud platform.
+The extension includes an optional parameter to explicitly set the HTTP port, which is particularly useful when you are running multiple services (which will later be deployed to a cloud platform) at once on your workstation.
 
 ```csharp
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -48,4 +48,4 @@ The extension includes an optional parameter to explicitly set the HTTP port, wh
             ...
 ```
 
->NOTE: As this extension is intended for use on Cloud Foundry, if the 'PORT' environment variable is present, it will always override the parameter.
+>NOTE: As this extension is intended for use on Cloud Foundry, if the 'PORT' environment variable is present, it always overrides the parameter.

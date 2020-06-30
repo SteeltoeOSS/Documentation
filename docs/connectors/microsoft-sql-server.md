@@ -1,8 +1,8 @@
 # Microsoft SQL Server
 
-This connector simplifies using Microsoft SQL Server in an application running on Cloud Foundry. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using Entity Framework.
+This connector simplifies using Microsoft SQL Server in an application running on Cloud Foundry. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using the Entity Framework.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides an `IHealthContributor` that you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
 
 ## Usage
 
@@ -19,11 +19,17 @@ To use this connector:
 
 ### Add NuGet Reference
 
-To use the Microsoft SQL Server connector, add your choice of Microsoft SQL Server package between [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient/), [Entity Framework](https://www.nuget.org/packages/EntityFramework/) and [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/), as you would if you weren't using Steeltoe. Then, add a reference to the appropriate Steeltoe Connector NuGet package.
+To use the Microsoft SQL Server connector, add one of the following Microsoft SQL Server packages:
+
+* [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient/)
+* [Entity Framework](https://www.nuget.org/packages/EntityFramework/)
+* [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/)
+
+Add the package as you would if you were not using Steeltoe. Then add a reference to the appropriate Steeltoe Connector NuGet package.
 
 ### Configure Settings
 
-The Microsoft SQL Server connector supports several configuration options. These settings can be used to develop or test an application locally and then be overridden during deployment.
+The Microsoft SQL Server connector supports several configuration options. You can use these settings to develop or test an application locally and then override them during deployment.
 
 The following Microsoft SQL Server connector configuration shows how to connect to SQL Server 2016 Express LocalDB:
 
@@ -43,36 +49,36 @@ The following table shows the available settings for the connector:
 
 |Key|Description|Steeltoe Default|
 |---|---|---|
-|server|Hostname or IP Address of server|localhost|
-|port|Port number of server|1433|
-|username|Username for authentication|not set|
-|password|Password for authentication|not set|
-|database|Schema to which to connect|not set|
-|connectionString|Full connection string|built from settings|
-|integratedSecurity|Enable Windows Authentication (For local use only)|not set|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+|`server`|Hostname or IP Address of server|`localhost`|
+|`port`|Port number of server|1433|
+|`username`|Username for authentication|not set|
+|`password`|Password for authentication|not set|
+|`database`|Schema to which to connect|not set|
+|`connectionString`|Full connection string|built from settings|
+|`integratedSecurity`|Enable Windows Authentication (For local use only)|not set|
+|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
 >IMPORTANT: All of the settings shown in the preceding table should be prefixed with `sqlserver:credentials:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
+>NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
-To use Microsoft SQL Server on Cloud Foundry, you need a service instance bound to your application. If the [Microsoft SQL Server broker](https://github.com/cf-platform-eng/mssql-server-broker) is installed in your Cloud Foundry instance, use it to create a new service instance, as follows:
+To use Microsoft SQL Server on Cloud Foundry, you need a service instance bound to your application. If the [Microsoft SQL Server broker](https://github.com/cf-platform-eng/mssql-server-broker) is installed in your Cloud Foundry instance, use it to create a new service instance:
 
 ```bash
 cf create-service SqlServer sharedVM mySqlServerService
 ```
 
-An alternative to the broker is to use a user-provided service to explicitly provide connection information to the application, as shown in the following example:
+An alternative to the broker is to use a user-provided service to explicitly provide connection information to the application:
 
 ```bash
 cf cups mySqlServerService -p '{"pw": "|password|","uid": "|user id|","uri": "jdbc:sqlserver://|host|:|port|;databaseName=|database name|"}'
 ```
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `sqlServer:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
+Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `sqlServer:client:urlEncodedCredentials` to `true`, as this broker may provide credentials that have been URL-encoded.
 
 If you are creating a service for an application that has already been deployed, you need to bind the service and restart or restage the application with the following commands:
 
@@ -92,7 +98,7 @@ Once the service is bound to your application, the connector's settings are avai
 
 ### Add SqlConnection
 
-To use a `SqlConnection` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
+To use an `SqlConnection` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class:
 
 ```csharp
 using Steeltoe.Connector.SqlServer;
@@ -114,13 +120,14 @@ public class Startup {
         ...
     }
     ...
+}
 ```
 
 The `AddSqlServerConnection(Configuration)` method call shown in the previous example configures the `SqlConnection` by using the configuration built by the application and adds the connection to the service container.
 
 ### Use SqlConnection
 
-Once you have configured and added the connection to the service container, you can inject it and use it in a controller or a view, as shown in the following example:
+Once you have configured and added the connection to the service container, you can inject it and use it in a controller or a view:
 
 ```csharp
 using System.Data.SqlClient;
@@ -153,7 +160,7 @@ public class HomeController : Controller
 
 #### Entity Framework 6
 
-To use the Microsoft SQL connector with Entity Framework 6, inject a DbContext into your application using the AddDbContext<>() method (provided by Steeltoe) that takes an IConfiguration as a parameter, as shown in the following example:
+To use the Microsoft SQL connector with Entity Framework 6, inject a DbContext into your application by using the `AddDbContext<>()` method (provided by Steeltoe) that takes an `IConfiguration` as a parameter:
 
 ```csharp
 using Steeltoe.Connector.SqlServer.EF6;
@@ -172,6 +179,7 @@ public class Startup {
         ...
     }
     ...
+}
 ```
 
 The `AddDbContext<TestContext>(..)` method call configures `TestContext` by using the configuration built earlier and then adds the `DbContext` (`TestContext`) to the service container.
@@ -193,7 +201,7 @@ public class TestContext : DbContext
 
 #### Entity Framework Core
 
-To use the Microsoft SQL Server connector with Entity Framework Core, inject a `DbContext` into your application with the standard `AddDbContext<>()` method, substituting Steeltoe’s `UseSqlServer` method that takes an `IConfiguration` as a parameter in the options configuration for the standard `UseSqlServer` method. This example demonstrates the basic usage:
+To use the Microsoft SQL Server connector with Entity Framework Core, inject a `DbContext` into your application with the standard `AddDbContext<>()` method, substituting Steeltoe’s `UseSqlServer` method that takes an `IConfiguration` as a parameter in the options configuration for the standard `UseSqlServer` method. The following example demonstrates the basic usage:
 
 ```csharp
 using Steeltoe.Connector.SqlServer.EFCore;
@@ -212,6 +220,7 @@ public class Startup {
         ...
     }
     ...
+}
 ```
 
 Your `DbContext` does not need to be modified from a standard `DbContext` to work with Steeltoe:
@@ -231,7 +240,7 @@ public class TestContext : DbContext
 
 ```
 
-If you need to set additional properties for the `DbContext` like `MigrationsAssembly` or connection retry settings, create an `Action<SqlServerDbContextOptionsBuilder>` like this:
+If you need to set additional properties for the `DbContext` (such as `MigrationsAssembly` or connection retry settings), create an `Action<SqlServerDbContextOptionsBuilder>`:
 
 ```csharp
 Action<SqlServerDbContextOptionsBuilder> sqlServerOptionsAction = (o) =>
@@ -242,7 +251,7 @@ Action<SqlServerDbContextOptionsBuilder> sqlServerOptionsAction = (o) =>
 };
 ```
 
-Pass your new options action into the AddDbContext method:
+Then pass your new options action into the `AddDbContext` method:
 
 ```csharp
 services.AddDbContext<TestContext>(options => options.UseSqlServer(Configuration, sqlServerOptionsAction));
@@ -250,7 +259,7 @@ services.AddDbContext<TestContext>(options => options.UseSqlServer(Configuration
 
 ### Use DbContext
 
-Once you have configured and added the DbContext to the service container, you can inject it and use it in a controller or a view, as shown in the following example:
+Once you have configured and added the DbContext to the service container, you can inject it and use it in a controller or a view:
 
 ```csharp
 using Project.Models;
