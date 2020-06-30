@@ -4,7 +4,7 @@ This logging provider extends the dynamic logging provider with [Serilog](https:
 
 The source code for the Serilog Dynamic Logger can be found [here](https://github.com/SteeltoeOSS/steeltoe/tree/master/src/Logging/src/SerilogDynamicLoggerCore).
 
-A sample working project can be found [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/CloudFoundry).
+A sample working project can be found [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/CloudFoundry).
 
 ## Usage
 
