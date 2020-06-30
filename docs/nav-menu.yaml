@@ -143,6 +143,15 @@
           name: Configure Settings
         - page_ref: add-logging-provider
           name: Add Logging Provider
+    - page: /docs/3/logging/serilog-logger
+      name: Serilog Dynamic Provider
+      items:
+        - page_ref: add-nuget-references
+          name: Add NuGet References
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: add-serilog-dynamic-logger
+          name: Add Serilog Dynamic Logger
 - page: /docs/3/management
   name: Management
   items:
