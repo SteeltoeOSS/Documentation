@@ -44,7 +44,7 @@ The following table describes the available packages:
 |ASP.NET Core|`Steeltoe.Management.CloudFoundryCore`|Includes `EndpointCore`, enables Pivotal Apps Manager integration. |
 |ASP.NET 4.x|`Steeltoe.Management.EndpointWeb`|Includes `EndpointBase`, enables Pivotal Apps Manager integration.|
 |ASP.NET 4.x OWIN|`Steeltoe.Management.EndpointOwin`|Includes `EndpointBase`, enables Pivotal Apps Manager integration.|
-|ASP.NET 4.x OWIN with Autofac|`Steeltoe.Management.EndpointOwin.Autofac`|Includes `EndpointOwin`, adds Autofac DI, enables Pivotal Apps Manager integration.|
+|ASP.NET 4.x OWIN with Autofac|`Steeltoe.Management.EndpointOwinAutofac`|Includes `EndpointOwin`, adds Autofac DI, enables Pivotal Apps Manager integration.|
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
