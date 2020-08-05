@@ -1,6 +1,6 @@
 # Initialize Discovery Client
 
-### ASP NET Core
+### ASP.NET Core
 
 The next step is to add the Steeltoe Discovery client to the service container and use it to cause the client to start communicating with the server.
 

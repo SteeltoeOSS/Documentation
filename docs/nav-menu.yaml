@@ -171,7 +171,7 @@
           name: Steeltoe Health Contributors
         - page_ref: creating-a-custom-health-contributor
           name: Creating a Custom Health Contributor
-        - page_ref: asp.net-core-health-checks
+        - page_ref: asp%2Enet-core-health-checks
           name: ASP.NET Core Health Checks
     - page: /docs/2/management/heapdump  
       name: /heapdump
@@ -259,9 +259,9 @@
     - page: /docs/2/security/sso-open-id  
       name: SSO OpenId
       items:
-        - page_ref: usage-in-asp-net-core
+        - page_ref: usage-in-asp%2Enet-core
           name: Usage in ASP.NET Core
-        - page_ref: usage-in-asp-net-4
+        - page_ref: usage-in-asp%2Enet-4
           name: Usage in ASP.NET 4.x
     - page: /docs/2/security/sso-oauth2  
       name: SSO OAuth2
@@ -439,7 +439,7 @@
     - page: /docs/2/discovery/initialize-discovery-client  
       name: Initialize Discovery Client
       items:
-        - page_ref: asp-net-core
+        - page_ref: asp%2Enet-core
           name: ASP.NET Core
         - page_ref: registering-services
           name: Registering Services
