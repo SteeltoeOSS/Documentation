@@ -1,8 +1,6 @@
 ### Metrics
 
-The Steeltoe metrics endpoint configures application metrics collection by using the open source [OpenTelemetry](https://opentelemetry.io/) project. It automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics through the endpoint.
-
->NOTE: OpenTelemetry is under active development and subject to change and not suitable for production deployment.
+The Steeltoe metrics endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. It automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics via the endpoint.
 
 The following instrumentation is automatically configured:
 
@@ -30,7 +28,7 @@ The following table describes the settings that you can apply to the endpoint:
 
 #### Enable HTTP Access
 
-The default path to the metrics endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is `/metrics`.
+The default path to the metrics endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/metrics`.
 
 The coding steps you take to enable HTTP access to the metrics endpoint differ, depending on the type of .NET application your are developing. The sections that follow describe the steps needed for each of the supported application types.
 

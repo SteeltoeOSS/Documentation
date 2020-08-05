@@ -34,4 +34,4 @@ To add the heap dump actuator endpoint, use the `UseHeapDumpActuator()` method f
 
 ##### ASP.NET OWIN App
 
-To add the heap dDump actuator middleware to the ASP.NET OWIN pipeline, use the `UseHeapDumpActuator()` extension method from `HeapDumpEndpointAppBuilderExtensions`.
+To add the heap dump actuator middleware to the ASP.NET OWIN pipeline, use the `UseHeapDumpActuator()` extension method from `HeapDumpEndpointAppBuilderExtensions`.

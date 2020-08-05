@@ -19,11 +19,11 @@ The following table describes the settings that you can apply to the endpoint:
 
 #### Enable HTTP Access
 
-The default path to the Loggers endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is `/loggers`.
+The default path to the Loggers endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/loggers`.
 
-The coding steps you take to enable HTTP access to the loggers endpoint, together with how to use the Steeltoe logging provider, differ, depending on the type of .NET application your are developing. The sections that follow describe the steps needed for each of the supported application types.
+The coding steps you take to enable HTTP access to the loggers endpoint together with how to use the Steeltoe logging provider, differ depending on the type of .NET application your are developing. The sections that follow describe the steps needed for each of the supported application types.
 
->NOTE: The Steeltoe logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider from Microsoft. This wrapper allows querying defined loggers and modifying the levels dynamically at runtime.
+>NOTE: The Steeltoe logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider from Microsoft. This wrapper allows querying defined loggers and modifying the levels dynamically at runtime. 
 
 ##### ASP.NET Core App
 
