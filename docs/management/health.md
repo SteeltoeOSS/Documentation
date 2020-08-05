@@ -240,5 +240,5 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
   ...
 ```
 
-A complete example is available [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/MicrosoftHealthChecks).
+A complete example is available [here](https://github.com/SteeltoeOSS/Samples/tree/2.x/Management/src/AspDotNetCore/MicrosoftHealthChecks).
 
