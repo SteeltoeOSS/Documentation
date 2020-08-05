@@ -166,6 +166,13 @@
       name: /env
     - page: /docs/2/management/health  
       name: /health
+      items:
+        - page_ref: steeltoe-health-contributors
+          name: Steeltoe Health Contributors
+        - page_ref: creating-a-custom-health-contributor
+          name: Creating a Custom Health Contributors
+        - page_ref: aspnet-core-health-checks
+          name: ASP.NET Core Health Checks
     - page: /docs/2/management/heapdump  
       name: /heapdump
     - page: /docs/2/management/hypermedia  
