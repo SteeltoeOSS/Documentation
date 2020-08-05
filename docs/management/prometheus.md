@@ -1,8 +1,8 @@
 ### Prometheus
 
-The Steeltoe Prometheus endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. Similar to the [Metrics Endpoint](12-%2fmetrics), it automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics in the prometheus format.
+The Steeltoe Prometheus endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. Similar to the [Metrics Endpoint](metrics), it automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics in the prometheus format.
 
-The metrics collected are the same as those collected by the [Metrics Endpoint](12-%2fmetrics).
+The metrics collected are the same as those collected by the [Metrics Endpoint](metrics).
 
 #### Configure Settings
 
@@ -17,7 +17,7 @@ The following table describes the settings that you can apply to the endpoint:
 
 #### Enable HTTP Access
 
-The default path to the Prometheus endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is `actuator/prometheus`.
+The default path to the Prometheus endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is <[Context-Path](hypermedia#base-context-path)>`/prometheus`.
 
 ##### ASP.NET Core App
 
