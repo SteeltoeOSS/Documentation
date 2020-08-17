@@ -188,7 +188,7 @@ public class Startup
 }
 ```
 
-## ASP.NET Core Health Checks
+## ASP NET Core Health Checks
 
 ASP.NET Core also offers [middleware and libraries](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-2.
 ) and abstractions for reporting health. There is wide community support for these abstractions from libraries such as [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). You can now use these community-provided health checks and make them available over this management health endpoint (for integration with PCF or any other infrastructure that depends on this format). In addition, Steeltoe connectors now expose functionality to get connection information, which is needed to setup these community health checks.
