@@ -1,6 +1,13 @@
 - page: /docs/3/welcome
   name: Welcome
   items:
+    - page: /docs/3/welcome/whats-new
+      name: What's New in Steeltoe 3.0
+      items:
+        - page_ref: new-features-and-changes
+          name: New Features and Changes
+        - page_ref: package-name-changes
+          name: Package Name Changes
     - page: /docs/3/welcome/prerequisites
       name: Prerequisites
       items:
