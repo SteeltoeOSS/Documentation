@@ -1,4 +1,4 @@
-## Discovering Services
+# Discovering Services
 
 Depending on which Discovery service technology (for example, Eureka or Consul) you use, the behavior of the client differs.
 
@@ -6,7 +6,7 @@ With Eureka, once the application starts, the client begins to operate in the ba
 
 With Consul, once the app starts, the client registers any services (if required) and (if configured to do so) starts a health thread to keep updating the health of the service registration. The Consul client fetches no service registrations until you ask to look up a service. At that point, a request is made to the Consul server. As a result, you probably want to use the Steeltoe caching load balancer with the Consul service discovery.
 
-### DiscoveryHttpClientHandler
+## DiscoveryHttpClientHandler
 
 A simple way to use the registry to look up services is to use the Steeltoe `DiscoveryHttpClientHandler` with `HttpClient`.
 
@@ -49,7 +49,7 @@ If the name cannot be resolved, the handler ignores the request URL and lets the
 
 ### Using HttpClientFactory
 
-In addition to the `DiscoveryHttpClientHandler` mentioned above, you also have the option to use the new [HttpClientFactory](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests) together with the  `DiscoveryHttpMessageHandler` (provided by Steeltoe) for service lookup.
+In addition to the `DiscoveryHttpClientHandler` mentioned above, you also have the option to use the [HttpClientFactory](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests) together with the `DiscoveryHttpMessageHandler` (provided by Steeltoe) for service lookup.
 
 `DiscoveryHttpMessageHandler` is a `DelegatingHandler` that you can use, much like the `DiscoveryHttpClientHandler`, to intercept requests and to evaluate the URL to see if the host portion of the URL can be resolved from the current service registry. The handler does this for any `HttpClient` created by the factory.
 
@@ -62,9 +62,6 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
       ...
-      // Add Steeltoe handler to container (this line can be omitted when using Steeltoe versions >= 2.2.0)
-      services.AddTransient<DiscoveryHttpMessageHandler>();
-
       // Configure HttpClient
       services.AddHttpClient("fortunes", c =>
       {

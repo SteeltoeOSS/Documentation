@@ -40,21 +40,21 @@ The following example uses plain, console application to send and receive a mess
 ```csharp
 class Program
 {
-	static void Main(string[] args)
-	{
-		var connectionFactory = new CachingConnectionFactory()
-		{
-			Host = "localhost"
-		};
-		var admin = new RabbitAdmin(connectionFactory);
-		admin.DeclareQueue(new Queue("myqueue"));
-		var template = new RabbitTemplate(connectionFactory);
-		template.ConvertAndSend("myqueue", "foo");
-		var foo = template.ReceiveAndConvert<string>("myqueue");
-		admin.DeleteQueue("myQueue");
-		connectionFactory.Dispose();
-		Console.WriteLine(foo);
- 	}
+    static void Main(string[] args)
+    {
+        var connectionFactory = new CachingConnectionFactory()
+        {
+            Host = "localhost"
+        };
+        var admin = new RabbitAdmin(connectionFactory);
+        admin.DeclareQueue(new Queue("myqueue"));
+        var template = new RabbitTemplate(connectionFactory);
+        template.ConvertAndSend("myqueue", "foo");
+        var foo = template.ReceiveAndConvert<string>("myqueue");
+        admin.DeleteQueue("myQueue");
+        connectionFactory.Dispose();
+        Console.WriteLine(foo);
+     }
 }
 ```
 
@@ -73,57 +73,57 @@ class Program
 {
  private static ServiceProvider container;
 
-	static void Main(string[] args)
-	{
-		container = CreateServiceContainer();
-		var admin = container.GetRabbitAdmin();
-		var template = container.GetRabbitTemplate();
-		try
-		{
-			template.ConvertAndSend("myqueue", "foo");
-			var foo = template.ReceiveAndConvert<string>("myqueue");
-			Console.WriteLine(foo);
-		}
-		finally
-		{
-			// Delete queue and shutdown container
-			admin.DeleteQueue("myqueue");
-			container.Dispose();
-		}
-	}
-	private static ServiceProvider CreateServiceContainer()
-	{
-		var services = new ServiceCollection();
+    static void Main(string[] args)
+    {
+        container = CreateServiceContainer();
+        var admin = container.GetRabbitAdmin();
+        var template = container.GetRabbitTemplate();
+        try
+        {
+            template.ConvertAndSend("myqueue", "foo");
+            var foo = template.ReceiveAndConvert<string>("myqueue");
+            Console.WriteLine(foo);
+        }
+        finally
+        {
+            // Delete queue and shutdown container
+            admin.DeleteQueue("myqueue");
+            container.Dispose();
+        }
+    }
+    private static ServiceProvider CreateServiceContainer()
+    {
+        var services = new ServiceCollection();
 
-		// Add some logging
-		services.AddLogging(b =>
-		{
-			b.SetMinimumLevel(LogLevel.Information);
-			b.AddDebug();
-			b.AddConsole();
-		});
+        // Add some logging
+        services.AddLogging(b =>
+        {
+            b.SetMinimumLevel(LogLevel.Information);
+            b.AddDebug();
+            b.AddConsole();
+        });
 
-		// Add any configuration as needed
-		var config = new ConfigurationBuilder().Build();
+        // Add any configuration as needed
+        var config = new ConfigurationBuilder().Build();
 
-		// Configure any rabbit options from configuration
-		var rabbitSection = config.GetSection(RabbitOptions.PREFIX);
-		services.Configure<RabbitOptions>(rabbitSection);
-		services.AddSingleton<IConfiguration>(config);
+        // Configure any rabbit options from configuration
+        var rabbitSection = config.GetSection(RabbitOptions.PREFIX);
+        services.Configure<RabbitOptions>(rabbitSection);
+        services.AddSingleton<IConfiguration>(config);
 
-		// Add Steeltoe Rabbit services
-		services.AddRabbitServices();
-		services.AddRabbitAdmin();
-		services.AddRabbitTemplate();
+        // Add Steeltoe Rabbit services
+        services.AddRabbitServices();
+        services.AddRabbitAdmin();
+        services.AddRabbitTemplate();
 
-		// Add queue to be declared
-		services.AddRabbitQueue(new Queue("myqueue"));
+        // Add queue to be declared
+        services.AddRabbitQueue(new Queue("myqueue"));
 
-		// Build container and start
-		var provider = services.BuildServiceProvider();
-		provider.GetRequiredService<IHostedService>().StartAsync(default).Wait();
-		return provider;
-	}
+        // Build container and start
+        var provider = services.BuildServiceProvider();
+        provider.GetRequiredService<IHostedService>().StartAsync(default).Wait();
+        return provider;
+    }
 }
 ```
 
@@ -134,83 +134,83 @@ This example uses Steeltoe together with a .NET Generic host and shows how to co
 ```csharp
 class Program
 {
-	public static void Main(string[] args)
-	{
-		CreateHostBuilder(args).Build().Run();
-	}
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
 
-	public static IHostBuilder CreateHostBuilder(string[] args) =>
-		Host.CreateDefaultBuilder(args)
-		.ConfigureServices((hostContext, services) =>
-		{
-			// Add core services
-			services.AddRabbitServices();
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+        .ConfigureServices((hostContext, services) =>
+        {
+            // Add core services
+            services.AddRabbitServices();
 
-			// Add Rabbit admin
-			services.AddRabbitAdmin();
+            // Add Rabbit admin
+            services.AddRabbitAdmin();
 
-			// Add Rabbit template
-			services.AddRabbitTemplate();
+            // Add Rabbit template
+            services.AddRabbitTemplate();
 
-			// Add a queue to be declared
-			services.AddRabbitQueue(new Queue("myqueue"));
+            // Add a queue to be declared
+            services.AddRabbitQueue(new Queue("myqueue"));
 
-			// Add the rabbit listener service
-			services.AddSingleton<MyRabbitListener>();
+            // Add the rabbit listener service
+            services.AddSingleton<MyRabbitListener>();
 
-			// Tell Steeltoe about listener
-			services.AddRabbitListeners<MyRabbitListener>();
+            // Tell Steeltoe about listener
+            services.AddRabbitListeners<MyRabbitListener>();
 
-			// Add a background service to send messages to myqueue
-			services.AddSingleton<IHostedService, MyRabbitSender>();
+            // Add a background service to send messages to myqueue
+            services.AddSingleton<IHostedService, MyRabbitSender>();
 
-		});
+        });
 }
 
 // Listener to receive messages
 public class MyRabbitListener
 {
-	private ILogger<MyRabbitListener> logger;
-	public MyRabbitListener(ILogger<MyRabbitListener> logger)
-	{
-		this.logger = logger;
-	}
+    private ILogger<MyRabbitListener> logger;
+    public MyRabbitListener(ILogger<MyRabbitListener> logger)
+    {
+        this.logger = logger;
+    }
 
-	[RabbitListener("myqueue")]
-	public void Listen(string input)
-	{
-		// Process message from myqueue
-		logger.LogInformation(input);
-	}
+    [RabbitListener("myqueue")]
+    public void Listen(string input)
+    {
+        // Process message from myqueue
+        logger.LogInformation(input);
+    }
 }
 
 // Hosted service to periodically send messages
 public class MyRabbitSender : IHostedService
 {
-	private RabbitTemplate template;
-	private Timer timer;
+    private RabbitTemplate template;
+    private Timer timer;
 
-	public MyRabbitSender(IServiceProvider services)
-	{
-		template = services.GetRabbitTemplate();
-	}
+    public MyRabbitSender(IServiceProvider services)
+    {
+        template = services.GetRabbitTemplate();
+    }
 
-	public Task StartAsync(CancellationToken cancellationToken)
-	{
-		timer = new Timer(Sender, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(2));
-		return Task.CompletedTask;
-	}
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+        timer = new Timer(Sender, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(2));
+        return Task.CompletedTask;
+    }
 
-	public Task StopAsync(CancellationToken cancellationToken)
-	{
-		timer.Dispose();
-		return Task.CompletedTask;
-	}
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        timer.Dispose();
+        return Task.CompletedTask;
+    }
 
-	private void Sender(object state)
-	{
-		template.ConvertAndSend("myqueue", "foo");
-	}
+    private void Sender(object state)
+    {
+        template.ConvertAndSend("myqueue", "foo");
+    }
 }
 ```
 
@@ -219,27 +219,29 @@ public class MyRabbitSender : IHostedService
 [RabbitMQ](https://www.rabbitmq.com/) is a lightweight, reliable, scalable, and portable message broker based on the AMQP protocol.
 Steeltoe uses the `RabbitMQ` .NET client to communicate through the AMQP protocol.
 
-RabbitMQ configuration is controlled by external configuration properties in `spring:rabbitmq:*+`.
+RabbitMQ configuration is controlled by external configuration properties in `Spring:RabbitMq:*+`.
 For example, you might declare the following section in your `appsettings.json`:
 
 ```json
-"spring": {
-  "rabbitmq": {
-		"host": "localhost",
-		"port": 5672,
-		"username": "admin",
-		"password": "secret"
-	}
+{
+  "Spring": {
+    "RabbitMq": {
+      "Host": "localhost",
+      "Port": 5672,
+      "Username": "admin",
+      "Password": "secret"
+    }
+  }
 }
 ```
 
-Alternatively, you could configure the same connection settings using the `addresses` property:
+Alternatively, you could configure the same connection settings using the `Addresses` property:
 
 ```json
-"spring": {
-	"rabbitmq": {
-		"addresses": "amqp://admin:secret@localhost"
-	}
+"Spring": {
+    "RabbitMq": {
+        "Addresses": "amqp://admin:secret@localhost"
+    }
 }
 ```
 
@@ -261,15 +263,15 @@ using Steeltoe.RabbitMQ.Core..RabbitTemplate;
 public class MyService
 {
 
-	private readonly RabbitAdmin amqpAdmin;
-	private readonly RabbitTemplate amqpTemplate;
+    private readonly RabbitAdmin amqpAdmin;
+    private readonly RabbitTemplate amqpTemplate;
 
-	public MyService(RabbitAdmin amqpAdmin, RabbitTemplate amqpTemplate) {
-		this.amqpAdmin = amqpAdmin;
-		this.amqpTemplate = amqpTemplate;
-	}
+    public MyService(RabbitAdmin amqpAdmin, RabbitTemplate amqpTemplate) {
+        this.amqpAdmin = amqpAdmin;
+        this.amqpTemplate = amqpTemplate;
+    }
 
-	// ...
+    // ...
 
 }
 ```
@@ -281,15 +283,15 @@ If necessary, any `Steeltoe.RabbitMQ.Config.Queue` that is defined as a service 
 To retry operations, you can enable retries on the `RabbitTemplate` (for example, in the event that the broker connection is lost):
 
 ```json
-"spring": {
-	"rabbitmq": {
-		"template": {
-			"retry" : {
-				"enabled" : true,
-				"initialInterval : 2000
-			}
-		}
-	}
+"Spring": {
+    "RabbitMq": {
+        "Template": {
+            "Retry" : {
+                "Enabled" : true,
+                "InitialInterval : 2000
+            }
+        }
+    }
 }
 ```
 
@@ -309,10 +311,10 @@ The following sample component creates a listener endpoint on the `someQueue` qu
 ```csharp
 public class MyService {
 
-	[RabbitListener("someQueue")]
-	public void ProcessMessage(string content) {
-		// ...
-	}
+    [RabbitListener("someQueue")]
+    public void ProcessMessage(string content) {
+        // ...
+    }
 
 }
 ```
@@ -324,21 +326,21 @@ For instance, the following adds another factory to the service container that u
 ```csharp
 public class Startup
 {
-	public void ConfigureServices(IServiceCollection services)
-	{
-		// Configure any rabbit client values;
-		var rabbitSection = Configuration.GetSection(RabbitOptions.PREFIX);
-		services.Configure<RabbitOptions>(rabbitSection);
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Configure any rabbit client values;
+        var rabbitSection = Configuration.GetSection(RabbitOptions.PREFIX);
+        services.Configure<RabbitOptions>(rabbitSection);
 
-		...
-		// Add a named container factory `myFactory`
-		services.AddRabbitListenerContainerFactory((p, f) =>
-		{
-			f.ServiceName = "myFactory";
-			f.MessageConverter = new JsonMessageConverter();
-		});
-		...
-	}
+        ...
+        // Add a named container factory `myFactory`
+        services.AddRabbitListenerContainerFactory((p, f) =>
+        {
+            f.ServiceName = "myFactory";
+            f.MessageConverter = new JsonMessageConverter();
+        });
+        ...
+    }
 }
 ```
 
@@ -348,11 +350,11 @@ Then you can use the factory in any `[RabbitListener()]`-annotated method, as fo
 public class MyService
 {
 
-	[RabbitListener("someQueue", containerFactory="myFactory")]
-	public void ProcessMessage(string content)
-	{
-		// ...
-	}
+    [RabbitListener("someQueue", containerFactory="myFactory")]
+    public void ProcessMessage(string content)
+    {
+        // ...
+    }
 }
 ```
 

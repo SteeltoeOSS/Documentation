@@ -17,30 +17,18 @@ Typically, you need not do any additional configuration. However, the following 
 
 |Key|Description|Default|
 |---|---|---|
-|`id`|The ID of the Cloud Foundry endpoint|""|
-|`enabled`|Whether to enable Cloud Foundry management endpoint|`true`|
-|`validateCertificates`|Whether to validate server certificates|`true`|
-|`applicationId`|The ID of the application used in permissions check|VCAP settings|
-|`cloudFoundryApi`|The URL of the Cloud Foundry API|VCAP settings|
+|`Id`|The ID of the Cloud Foundry endpoint|""|
+|`Enabled`|Whether to enable Cloud Foundry management endpoint|`true`|
+|`ValidateCertificates`|Whether to validate server certificates|`true`|
+|`ApplicationId`|The ID of the application used in permissions check|VCAP settings|
+|`CloudFoundryApi`|The URL of the Cloud Foundry API|VCAP settings|
 
->NOTE: Each setting in the preceding table must be prefixed with `management:endpoints:cloudfoundry`.
+>NOTE: Each setting in the preceding table must be prefixed with `Management:Endpoints:cloudfoundry`.
 
 #### Enable HTTP Access
 
-The default path to the Cloud Foundry endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the previous section. The default path is `/cloudfoundryapplication`.
-
-The coding steps you take to enable HTTP access to the endpoint differs depend on the type of .NET application your are developing. The following sections describe the steps needed for each of the supported application types.
-
-##### ASP.NET Core App
+The default path to the Cloud Foundry endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/cloudfoundryapplication`.
 
 To add the Cloud Foundry actuator to the service container, you can use the `AddCloudFoundryActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
 To add the Cloud Foundry actuator and security middleware to the ASP.NET Core pipeline, use the `UseCloudFoundryActuator()` and `UseCloudFoundrySecurity()` extension methods from `EndpointApplicationBuilderExtensions`.
-
-##### ASP.NET 4.x App
-
-To add the Cloud Foundry actuator endpoint, use the `UseCloudFoundrySecurity()` and `UseCloudFoundryActuator()` methods from `ActuatorConfigurator`.
-
-##### ASP.NET OWIN App
-
-To add the Cloud Foundry actuator and security middleware to the ASP.NET OWIN pipeline, use the `UseCloudFoundryActuator()` from `CloudFoundryEndpointAppBuilderExtensions` and `UseCloudFoundrySecurityMiddleware()` from `CloudFoundrySecurityAppBuilderExtensions`.

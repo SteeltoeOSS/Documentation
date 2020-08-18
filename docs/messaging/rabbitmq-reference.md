@@ -292,18 +292,20 @@ A convenient `RabbitOptions.SslOptions` is provided to enable convenient configu
 See the [RabbitMQ Documentation](https://www.rabbitmq.com/ssl.html) for information about configuring SSL.
 
 ```json
-"spring": {
-  "rabbitmq": {
-      "ssl": {
-          "enabled" : true,
-          "validateServerCertificate" : true,
-          "certPath" : "file path",
-          "certPassphrase" : "passkey",
-          "verifyHostname": true,
-          "serverHostName" : "broker server name",
-          "algorithm": SslProtocols.Tls12
+{
+  "Spring": {
+    "RabbitMq": {
+      "Ssl": {
+        "Enabled" : true,
+        "ValidateServerCertificate" : true,
+        "CertPath" : "file path",
+        "CertPassphrase" : "passkey",
+        "VerifyHostname": true,
+        "ServerHostName" : "broker server name",
+        "Algorithm": SslProtocols.Tls12
       }
- }
+    }
+  }
 }
 ```
 
@@ -2001,7 +2003,7 @@ services.AddRabbitListenerContainerFactory();
 
 ....
 
-// Add a container and use the default factory to create it.  
+// Add a container and use the default factory to create it.
 services.AddRabbitDirecListenerContainer((p) =>
 {
     var context = p.GetRequiredService<IApplicationContext>();
@@ -2030,7 +2032,7 @@ services.AddRabbitListenerContainerFactory();
 
 ...
 
-// Add a container and use the factory to create it.  
+// Add a container and use the factory to create it.
 services.AddRabbitDirecListenerContainer((p) =>
 {
     var factory = p.GetRequiredService<IRabbitListenerContainerFactory>();
@@ -3041,7 +3043,7 @@ The effect is that containers created by this factory will have transactions ena
 Significantly, if the transaction fails to commit the RabbitMQ transaction is also rolled back, and the message is returned to the broker.
 This is sometimes known as a "Best Efforts 1 Phase Commit", and is a very powerful pattern for reliable messaging.
 If the `IsChannelTransacted` flag was set to `false` (the default) in the preceding example, the external transaction would still be provided for the listener, but all messaging operations would be auto-acked, so the effect is to commit the messaging operations even on a rollback of the business operation.
-<!--  
+<!--
 TODO: This is partially implemented.. needs more code to fully implement.
 
 ### Conditional Rollback

@@ -15,21 +15,22 @@ In order to use any Steeltoe Discovery client, you need to:
 ## Add NuGet References
 
 <!-- TODO: review this section. It is not completely correct. -->
-The simplest way to get started with Steeltoe Discovery is to add a reference to a package built for either Microsoft's dependency injection or Autofac. Either package also includes all the relevant dependencies. If you use another DI tool, file an issue to let us know. In the meantime, use the relevant base package:
+The simplest way to get started with Steeltoe Discovery is to add a reference to the package(s) containing the client technology you may wish to use. Any client package also includes all the relevant dependencies.
 
 |App Type|Package|Description|
 |---|---|---|
-|ASP.NET Core|`Steeltoe.Discovery.ClientCore`|Includes base. Adds ASP.NET Core dependency injection.|
-|ASP.NET 4.x with Autofac|`Steeltoe.Discovery.ClientAutofac`|Includes base. Adds Autofac dependency injection.|
-|Console/ASP.NET 4.x|`Steeltoe.Discovery.EurekaBase`|Base Eureka functionality. No dependency injection.|
-|Console/ASP.NET 4.x|`Steeltoe.Discovery.ConsulBase`|Base Consul functionality. No dependency injection.|
+|.NET Standard 2.0|`Steeltoe.Discovery.ClientBase`|Service Discovery base package.|
+|ASP.NET Core|`Steeltoe.Discovery.ClientCore`|Includes base. Adds WebHost compatibility.|
+|Eureka Client|`Steeltoe.Discovery.Eureka`|Eureka Client functionality. Depends on ClientBase.|
+|Consul Client|`Steeltoe.Discovery.Consul`|Consul Client functionality. Depends on ClientBase.|
+|Kubernetes Client|`Steeltoe.Discovery.Kubernetes`|Kubernetes Client functionality. Depends on ClientBase.|
 
 To add this type of NuGet to your project, add an element resembling the following `PackageReference`:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Discovery.ClientCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Discovery.ClientCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```

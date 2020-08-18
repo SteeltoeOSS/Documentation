@@ -20,10 +20,10 @@ This connector supports several settings for local interaction with CosmosDB tha
 
 ```json
 {
-  "cosmosdb": {
-    "client": {
-      "host": "https://localhost:8081",
-      "masterKey": "<yourMasterKeyHere>"
+  "Cosmosdb": {
+    "Client": {
+      "Host": "https://localhost:8081",
+      "MasterKey": "<yourMasterKeyHere>"
     }
   }
 }
@@ -33,15 +33,15 @@ The following table table describes all possible settings for the connector
 
 |Key|Description|Default|
 |---|---|---|
-|`host`|Protocol, hostname or IP Address and port of the server|not set|
-|`masterKey`|Authentication for read/write access|not set|
-|`readOnlyKey`|Authentication for read-only access|not set|
-|`databaseId`|Name of the database to use|not set|
-|`useReadOnlyCredentials`|Designate that the read-only key should be used|`false`|
-|`connectionString`|Full connection string|built from settings|
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+|`Host`|Protocol, hostname or IP Address and port of the server|not set|
+|`MasterKey`|Authentication for read/write access|not set|
+|`ReadOnlyKey`|Authentication for read-only access|not set|
+|`DatabaseId`|Name of the database to use|not set|
+|`UseReadOnlyCredentials`|Designate that the read-only key should be used|`false`|
+|`ConnectionString`|Full connection string|built from settings|
+|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
->IMPORTANT: All of these settings should be prefixed with `cosmosdb:client:`.
+>IMPORTANT: All of these settings should be prefixed with `CosmosDb:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 

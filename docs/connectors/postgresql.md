@@ -8,7 +8,7 @@ This connector provides an `IHealthContributor`, which you can use in conjunctio
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
+You should know how the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
 
 You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used to configure the application services for the app. Pay particular attention to the `ConfigureServices()` method.
 
@@ -34,10 +34,10 @@ The following example shows a PostgreSQL connector configuration (in JSON) to se
 ```json
 {
   ...
-  "postgres": {
-    "client": {
-      "host": "myserver",
-      "port": 5432
+  "Postgres": {
+    "Client": {
+      "Host": "myserver",
+      "Port": 5432
     }
   }
   ...
@@ -48,15 +48,15 @@ The following table describes all of the possible settings for the connector:
 
 |Key|Description|Default
 |---|---|---|
-|`server`|Hostname or IP Address of server|`localhost`|
-|`port`|Port number of server|5432|
-|`username`|Username for authentication|not set|
-|`password`|Password for authentication|not set|
-|`database`|Schema to which to connect|not set|
-|`connectionString`|Full connection string|built from settings
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+|`Server`|Hostname or IP Address of server|`localhost`|
+|`Port`|Port number of server|5432|
+|`Username`|Username for authentication|not set|
+|`Password`|Password for authentication|not set|
+|`Database`|Schema to which to connect|not set|
+|`ConnectionString`|Full connection string|built from settings
+|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
->IMPORTANT: All of these settings should be prefixed with `postgres:client:`.
+>IMPORTANT: All of these settings should be prefixed with `Postgres:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
