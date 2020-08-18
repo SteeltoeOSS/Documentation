@@ -82,7 +82,7 @@ Corresponding entry in api/v2/toc.yml:
 Use docfx's [user manual](https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html), to build and run the site in a few different ways. The simplest way is to `cd` into the root folder of this project and run the following command. The site will build in a temp folder named `_site` and be served at http://localhost:8080.
 
 ```powershell
-docfx build --serve
+docfx build --serve --port 8081
 ```
 
 You can also specify where the build output should land
