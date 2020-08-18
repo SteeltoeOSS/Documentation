@@ -1,13 +1,16 @@
 ---
+_disableContribution: true
+_disableToc: true
+
 uid: labs/spring-one
 ---
 
-[home-page-link]: /labs/spring-one
-[exercise-1-link]: (xref:labs/spring-one/exercise1)
-[exercise-2-link]: /labs/spring-one/exercise2
-[exercise-3-link]: /labs/spring-one/exercise3
-[exercise-4-link]: /labs/spring-one/exercise4
-[exercise-5-link]: /labs/spring-one/exercise5
+[home-page-link]: index.md
+[exercise-1-link]: exercise1.md
+[exercise-2-link]: exercise2.md
+[exercise-3-link]: exercise3.md
+[exercise-4-link]: exercise4.md
+[exercise-5-link]: exercise5.md
 
 ## Spring One Workshops - Getting started with .NET microserivces and Steeltoe
 

@@ -2,24 +2,24 @@
 uid: labs/spring-one/exercise1
 ---
 
-[vs-new-proj]: /site-data/labs/spring-one/images/vs-new-proj.png "New visual studio web project"
-[vs-name-proj]: /site-data/labs/spring-one/images/vs-configure-project.png "Name project"
-[vs-create-proj]: /site-data/labs/spring-one/images/vs-create-project.png "Create an api project"
-[vs-add-endpointcore]: /site-data/labs/spring-one/images/vs-add-endpointcore.png "Endpointcode nuget dependency"
-[vs-add-dynamiclogger]: /site-data/labs/spring-one/images/vs-add-dynamiclogger.png "Dynamiclogger nuget dependency"
-[vs-add-tracingcore]: /site-data/labs/spring-one/images/vs-add-tracingcore.png "TracingCode nuget dependency"
-[vs-run-application]: /site-data/labs/spring-one/images/vs-run-application.png "Run the project"
-[run-weatherforecast]: /site-data/labs/spring-one/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
-[health-endpoint]: /site-data/labs/spring-one/images/health-endpoint.png "Health endpoint"
-[info-endpoint]: /site-data/labs/spring-one/images/info-endpoint.png "Info endpoint"
-[trace-log]: /site-data/labs/spring-one/images/trace-log.png "Trace logs"
+[vs-new-proj]: images/vs-new-proj.png "New visual studio web project"
+[vs-name-proj]: images/vs-configure-project.png "Name project"
+[vs-create-proj]: images/vs-create-project.png "Create an api project"
+[vs-add-endpointcore]: images/vs-add-endpointcore.png "Endpointcode nuget dependency"
+[vs-add-dynamiclogger]: images/vs-add-dynamiclogger.png "Dynamiclogger nuget dependency"
+[vs-add-tracingcore]: images/vs-add-tracingcore.png "TracingCode nuget dependency"
+[vs-run-application]: images/vs-run-application.png "Run the project"
+[run-weatherforecast]: images/weatherforecast-endpoint.png "Weatherforecast endpoint"
+[health-endpoint]: images/health-endpoint.png "Health endpoint"
+[info-endpoint]: images/info-endpoint.png "Info endpoint"
+[trace-log]: images/trace-log.png "Trace logs"
 
-[home-page-link]: /labs/spring-one
-[exercise-1-link]: /labs/spring-one/exercise1
-[exercise-2-link]: /labs/spring-one/exercise2
-[exercise-3-link]: /labs/spring-one/exercise3
-[exercise-4-link]: /labs/spring-one/exercise4
-[exercise-5-link]: /labs/spring-one/exercise5
+[home-page-link]: index.md
+[exercise-1-link]: exercise1.md
+[exercise-2-link]: exercise2.md
+[exercise-3-link]: exercise3.md
+[exercise-4-link]: exercise4.md
+[exercise-5-link]: exercise5.md
 
 ## Getting to know Steeltoe
 
@@ -35,18 +35,32 @@ Begin building an API that will be enhanced with more components in the next exe
 
 Let's start by creating a brand new .NET Core webapi project. If you're using Visual Studio, choose `File > New > Project`
 
-|![vs-new-proj] Choose ASP.NET Core Web Application from the default templates. |![vs-name-proj] The default project name WebApplication1 will be used throughout, but you can rename.|![vs-create-proj] Choose an application type of API, everything else can keep its default value.|
-|:--|
-
-Or if you prefer the dotnet cli:
+# [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
 dotnet new webapi -n WebApplication1
 cd WebApplication1
 ```
 
+# [Visual Studio](#tab/visual-studio)
+
+|![vs-new-proj] Choose ASP.NET Core Web Application from the default templates. |![vs-name-proj] The default project name WebApplication1 will be used throughout, but you can rename.|![vs-create-proj] Choose an application type of API, everything else can keep its default value.|
+|:--|
+
+***
+
 Once created, open the new project in your IDE of choice (we will be using Visual Studio throughout this lab). The first action is to bring in the Steeltoe packages to the app. You can do this by right clicking on the project name in the solution explorer and choose `Manage NuGet packages...`. In the package manger window choose `Browse`, search for `Steeltoe.Management.Endpointcore`, and install.
-	
+
+# [.NET CLI](#tab/dotnet-cli)
+
+```powershell
+dotnet add package Steeltoe.Management.Endpointcore
+dotnet add package Steeltoe.Extensions.Logging.DynamicLogger
+dotnet add package Steeltoe.Management.TracingCore
+```
+
+# [Visual Studio](#tab/visual-studio)
+
 ![vs-add-endpointcore]
 
 Then search for the `Steeltoe.Extensions.Logging.DynamicLogger` package and install.
@@ -57,13 +71,7 @@ Finally the `Steeltoe.Management.TracingCore` package and install.
 
 ![vs-add-tracingcore]
 
-You could have done all this in the cli:
-
-```powershell
-dotnet add package Steeltoe.Management.Endpointcore
-dotnet add package Steeltoe.Extensions.Logging.DynamicLogger
-dotnet add package Steeltoe.Management.TracingCore
-```
+***
 
 Steeltoe features are broken up into packages, giving you the option to only bring in and extend the dependencies needed. As we implement each package within the application we'll discuss why these packages were chosen.
 
@@ -117,12 +125,17 @@ public IEnumerable<WeatherForecast> Get() {
 
 With the packages implemented in host builder, distributed tracing activated, and a sample log message being written to console, we are ready to see everything in action. Start the application by clicking the `Debug > Start Debugging` top menu item.
 
-![vs-run-application]
+# [.NET CLI](#tab/dotnet-cli)
 
-Or use the dotnet cli:
 ```powershell
 dotnet run
 ```
+
+# [Visual Studio](#tab/visual-studio)
+
+![vs-run-application]
+
+***
 
 Once started your default browser should open and automatically load the weather forecast endpoint.
 
