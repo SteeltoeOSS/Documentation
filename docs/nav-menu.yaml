@@ -226,28 +226,52 @@
 - page: /docs/3/messaging
   name: Messaging 
   items:
-    - page: /docs/3/messaging/quick-tour
-      name: Quick Tour
+    - page: /docs/3/messaging/rabbitmq-intro
+      name: RabbitMQ Introduction
       items:
-        - page_ref: quick-tour
-        - name: Quick Tour
-    - page: /docs/3/messaging/amqp
-      name: AMQP
+        - page_ref: quick-start
+        - name: Quick Start
+        - page_ref: basics
+        - name: Basics
+    - page: /docs/3/messaging/rabbitmq-reference
+      name: Reference
       items:
-        - page_ref: using-steeltoe-amqp
-        - name: Using Steeltoe AMQP
-    - page: /docs/3/messaging/messaging
-      name: Messaging
-      items:
-        - page_ref: messaging
-        - name: Messaging
-    - page: /docs/3/messaging/further-reading
-      name: Further Reading
-    - page: /docs/3/messaging/testing
-      name: Testing
-      items:
-        - page_ref: testing-support
-        - name: Testing Support
+        - page_ref: abstractions
+        - name: Abstractions
+        - page_ref: connection-and-resource-management
+        - name: Connections
+        - page_ref: rabbittemplate
+        - name: Rabbit Template
+        - page_ref: sending-messages
+        - name: Sending Messages
+        - page_ref: receiving-messages
+        - name: Receiving Messages
+        - page_ref: message-converters
+        - name: Message Converters
+        - page_ref: message-converters
+        - name: Message Converters
+        - page_ref: modifying-messages-compression-and-more
+        - name: Modifying Messages
+        - page_ref: request/reply-messaging
+        - name: Request/Reply Messaging
+        - page_ref: rabbitmq-direct-reply-to
+        - name: Direct Reply-to
+        - page_ref: configuring-the-broker
+        - name: Configuring Broker
+        - page_ref: delayed-message-exchange
+        - name: Delayed Exchange
+        - page_ref: exception-handling
+        - name: Exception Handling
+        - page_ref: transactions
+        - name: Transactions
+        - page_ref: listener-concurrency
+        - name: Listener Concurrency
+        - page_ref: exclusive-consumer
+        - name: Exclusive Consumer
+        - page_ref: listener-container-queues
+        - name: Listener Container Queues
+        - page_ref: resilience-recovering-from-errors
+        - name: Resilience & Recovery  
 - page: /docs/3/fileshares
   name: Network File Sharing
   items:
