@@ -53,3 +53,6 @@ header .subnav{
 #autocollapse .navbar-header {
     margin-right: 71px;
 }
+.nav.level2 li {
+	padding: 5px 0 5px 0;
+}
