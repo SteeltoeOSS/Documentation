@@ -1,7 +1,6 @@
 ---
 _disableToc: true
 _disableAffix: true
-_disableBreadcrumb: true
 _disableGitFeatures: true
 
 title: Steeltoe Blog

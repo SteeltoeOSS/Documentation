@@ -1,4 +1,6 @@
 ---
+_disableContribution: true
+
 title: The Easy Way to Modernize and Transform Your .NET Apps with Steeltoe
 _description: How do you plan to modernize your .NET application estate?
 description: How do you plan to modernize your .NET application estate?

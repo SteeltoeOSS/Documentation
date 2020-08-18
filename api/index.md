@@ -1,7 +1,6 @@
 ---
 _disableToc: true
 _disableAffix: false
-_disableBreadcrumb: true
 _disableGitFeatures: false
 
 title: Steeltoe Documentation

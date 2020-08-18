@@ -1,10 +1,12 @@
 {
     "$schema": "https://dotnet.github.io/docfx/schemas/v1.0/schema.json#",
     "version": "1.0",
+    "_appName": "Steeltoe Documentation",
     "_disableFooter": false,
     "_disableToc": false,
     "_appTitle": "Steeltoe",
-    "_appFooter": "Copyright © 2020 Licensed",
+    "_appFooter": "",
+    "__global.improveThisDoc": "Edit this page",
 
     "_gitContribute": {
         "repo": "https://github.com/steeltoeoss/docs",
@@ -18,7 +20,7 @@
 
     "_disableGitFeatures": false,
     "_disableDefaultFilter": false,
-    "_disableBreadcrumb": false,
+    "_disableBreadcrumb": true,
     "_disableNavbar": false,
     "_disableAffix": false,
 

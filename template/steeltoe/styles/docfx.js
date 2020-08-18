@@ -19,7 +19,7 @@ $(function () {
     renderSidebar();
     renderAffix();
     renderFooter();
-    renderLogo();
+    //renderLogo();
   
     breakText();
     renderTabs();
