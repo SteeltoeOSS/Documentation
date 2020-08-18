@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is the home of Steeltoe documentation and blog articles. The site uses [docfx](https://dotnet.github.io/docfx) to convert markdown to html as well site navigation.
+This is the home of Steeltoe documentation and blog articles. The site uses [docfx](https://dotnet.github.io/docfx) to convert markdown to html as well site navigation. To get the docfx cli visit [this](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html) page to see the different distributions.
 
 If you are using VS Code as your editor, there is a [super sweet plugin for docfx](https://marketplace.visualstudio.com/items?itemName=tintoy.docfx-assistant). All it really does is discover `UID`'s and provide intellisense with the `@` char is typed in markdown.
 
@@ -79,8 +79,14 @@ Corresponding entry in api/v2/toc.yml:
 
 ## Building the site
 
-Use docfx's [user manual](https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html), you can build and run the site in a few different ways. The simplest way is to `cd` into the root folder of this project and run the following command. The site will build in a temp folder named `_site` and be served at http://localhost:8080.
+Use docfx's [user manual](https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html), to build and run the site in a few different ways. The simplest way is to `cd` into the root folder of this project and run the following command. The site will build in a temp folder named `_site` and be served at http://localhost:8080.
 
 ```powershell
 docfx build --serve
+```
+
+You can also specify where the build output should land
+
+```powershell
+docfx build -o "../publish"
 ```

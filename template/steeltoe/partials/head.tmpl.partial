@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="{{_rel}}styles/docfx.css">
 	<link href="//steeltoe.io/css/site.css" rel="stylesheet" />
   <link rel="stylesheet" href="{{_rel}}styles/main.css">
-
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/a11y-dark.min.css">
+  
   <meta property="docfx:navrel" content="{{_navRel}}">
   <meta property="docfx:tocrel" content="{{_tocRel}}">
   {{#_noindex}}<meta name="searchOption" content="noindex">{{/_noindex}}

@@ -1,0 +1,12 @@
+<script type="text/javascript" src="{{_rel}}styles/docfx.vendor.js"></script>
+<script type="text/javascript" src="{{_rel}}styles/docfx.js"></script>
+<script type="text/javascript" src="{{_rel}}styles/main.js"></script>
+
+<script src="//dev.steeltoe.io/js/highlightjs-badge.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/powershell.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/csharp.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/bash.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/json.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/xml.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/yaml.min.js" type="text/javascript"></script>

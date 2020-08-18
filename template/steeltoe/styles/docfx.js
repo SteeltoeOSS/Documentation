@@ -23,7 +23,21 @@ $(function () {
   
     breakText();
     renderTabs();
-  
+
+    var options = {
+      contentSelector: "#wrapper",
+      loadDelay: 10,
+      // CSS class(es) used to render the copy icon.
+      copyIconClass: "oi oi-document",
+      // CSS class(es) used to render the done icon.
+      checkIconClass: "oi oi-check text-success",
+      // hook to allow modifying the text before it's pasted
+      onBeforeTextCopied: function (text, codeElement) {
+        return text;   //  you can fix up the text here
+      }
+    };
+    window.highlightJsBadge(options);
+
     window.refresh = function (article) {
       // Update markup result
       if (typeof article == 'undefined' || typeof article.content == 'undefined')
