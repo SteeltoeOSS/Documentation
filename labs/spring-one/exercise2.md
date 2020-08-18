@@ -1,12 +1,12 @@
-﻿[vs-run-application]: /site-data/labs/spring-one/images/vs-run-application.png "Run the project"
-[run-weatherforecast]: /site-data/labs/spring-one/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
+﻿[vs-run-application]: images/vs-run-application.png "Run the project"
+[run-weatherforecast]: images/weatherforecast-endpoint.png "Weatherforecast endpoint"
 
-[home-page-link]: /labs/spring-one
-[exercise-1-link]: /labs/spring-one/exercise1
-[exercise-2-link]: /labs/spring-one/exercise2
-[exercise-3-link]: /labs/spring-one/exercise3
-[exercise-4-link]: /labs/spring-one/exercise4
-[exercise-5-link]: /labs/spring-one/exercise5
+[home-page-link]: index.md
+[exercise-1-link]: exercise1.md
+[exercise-2-link]: exercise2.md
+[exercise-3-link]: exercise3.md
+[exercise-4-link]: exercise4.md
+[exercise-5-link]: exercise5.md
 
 ## Exploring all actuators
 
@@ -59,12 +59,17 @@ Expose all the actuator endpoints for debugging and demonstration purpose in `ap
 
 With all actuators implemented in host builder, start the application by clicking the `Debug > Start Debugging` top menu item.
 
-![vs-run-application]
+# [.NET CLI](#tab/dotnet-cli)
 
-Or use the dotnet cli:
 ```powershell
 dotnet run
 ```
+
+# [Visual Studio](#tab/visual-studio)
+
+![vs-run-application]
+
+***
 
 Once started your default browser should open and automatically load the weather forecast endpoint.
 
@@ -77,7 +82,7 @@ What exactly has happened? In the previous exercise 3 of the endpoints where imp
 - `/actuators/health`: The current health status of the app as reported in IHealthContributor, customized for different platforms.
 - `/actuators/info`: Various app information collected from the IInfoContributor.
 - `/actuators/loggers`: View and configure the logging levels of your application at runtime. This endpoints supports POST requests to adjust logging levels.
-- `/actuator/mappings`: Details about utomatically discovered MVC and WebAPI project routes and route templates.
+- `/actuator/mappings`: Details about automatically discovered MVC and WebAPI project routes and route templates.
 - `/actuators/metrics`: App CLR and HTTP metrics collected using OpenTelemetry library.
 - `/actuators/prometheus`: A copy of the metrics endpoint, in a Prometheus friendly format.
 - `/actuators/refresh`: Trigger the app’s IConfigurationRoot to automatically refresh all configuration values.

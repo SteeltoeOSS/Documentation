@@ -24,7 +24,6 @@ Exercise in this lab:
 |2.|Exploring all actuators|
 |3.|Adding a cloud connector with SQL|
 |4.|Using an external configuration provider|
-|5.|Exercise 5|
 
 |[Get Started][exercise-1-link]|
 |:--:|

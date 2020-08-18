@@ -141,7 +141,7 @@ Once started your default browser should open and automatically load the weather
 
 ![run-weatherforecast]
 
-Let's look at the health endpoint. Replace `WeatherForecast` with `/actuators/health` in the browser address bar. The health page will load with json formatted info.
+Let's look at the health endpoint. Replace `WeatherForecast` with `actuators/health` in the browser address bar. The health page will load with json formatted info.
 
 ![health-endpoint]
 

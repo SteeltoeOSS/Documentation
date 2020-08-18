@@ -7,3 +7,5 @@
       name: Exploring all actuators
     - topicHref: exercise3.md
       name: Adding a cloud connector with SQL
+    - topicHref: exercise4.md
+      name: Using an external configuration provider

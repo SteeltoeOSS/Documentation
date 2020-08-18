@@ -1,11 +1,12 @@
-﻿[vs-add-efcore]: /site-data/labs/spring-one/images/vs-add-efcore.png "SqlServer EFCore nuget dependency"
+﻿[vs-add-efcore]: images/vs-add-efcore.png "SqlServer EFCore nuget dependency"
+[single-todoitem]: images/single-todoitem.png "ToDo item retrieved from the database"
 
-[home-page-link]: /labs/spring-one
-[exercise-1-link]: /labs/spring-one/exercise1
-[exercise-2-link]: /labs/spring-one/exercise2
-[exercise-3-link]: /labs/spring-one/exercise3
-[exercise-4-link]: /labs/spring-one/exercise4
-[exercise-5-link]: /labs/spring-one/exercise5
+[home-page-link]: index.md
+[exercise-1-link]: exercise1.md
+[exercise-2-link]: exercise2.md
+[exercise-3-link]: exercise3.md
+[exercise-4-link]: exercise4.md
+[exercise-5-link]: exercise5.md
 
 ## Adding a cloud connector with SQL
 
@@ -21,15 +22,19 @@ App initializes the database and serves new endpoint for interacting with Todo l
 
 We're going to add a database connection and context using entity framework code, in the previously created application. To get started add the Steeltoe package `Steeltoe.Connector.SqlServer.EFCore`.
 
-![vs-add-efcore]
-
-Or use the dotnet cli:
+# [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
 dotnet add package Steeltoe.Connector.SqlServer.EFCore
 ```
 
-Now create a new folder named `Models` and within create a new class named `TodoContext.cs`. This class will server as our context for interacting with the database. Paste the following in the class.
+# [Visual Studio](#tab/visual-studio)
+
+![vs-add-efcore]
+
+***
+
+Now create a new folder named `Models`. Within create a new class named `TodoContext.cs`. This class will serve as our context for interacting with the database. Paste the following in the class.
 
 ```csharp
 using Microsoft.EntityFrameworkCore;
@@ -46,7 +51,7 @@ namespace WebApplication1.Models {
 }
 ```
 
-Also in the `Models` folder, create a class named `TodoItem.cs` and paste the following within. This will serve a definition of the things that make up a ToDo list item.
+Also in the `Models` folder, create a class named `TodoItem.cs` and paste the following within. This will serve as a definition of the things that make up a ToDo list item.
 
 ```csharp
 using System;
@@ -60,7 +65,10 @@ namespace WebApplication1.Models {
 }
 ```
 
-Now head over to `Startup.cs` and add the 'DBContext'. Visual Studio should prompt you to add `using Steeltoe.Connector.SqlServer.EFCore` package. Note - there is not need to add any other packages like a SqlClient. The Steeltoe package takes care of everything.
+Now head over to `Startup.cs` and add the 'DBContext'. Visual Studio should prompt you to add `using Steeltoe.Connector.SqlServer.EFCore` package.
+
+[NOTE!]
+There is not need to add any other packages like a SqlClient. The Steeltoe package takes care of everything.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services) {
@@ -70,7 +78,7 @@ public void ConfigureServices(IServiceCollection services) {
 }
 ```
 
-Because we are going to interacting with a brand new database server we'll need to make sure the database has been initialized before the application can fully start up. In  `Startup.cs` adjust the input parmaeters of the `Configure` function to include the TodoContext and add the `EnsureCreated` command as the last line in the function.
+Because we are going to be interacting with a brand new database instance we'll need to make sure the database has been initialized before the application can fully start up. In `Startup.cs` adjust the input parameters of the `Configure` function to include the TodoContext and add the `EnsureCreated` command as the last line in the function.
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TodoContext context) {
@@ -99,10 +107,12 @@ namespace WebApplication1.Controllers
     public class TodoItemsController : ControllerBase
     {
         private readonly TodoContext _context;
+        private readonly ILogger<TodoItemsController> _logger;
 
-        public TodoItemsController(TodoContext context)
+        public TodoItemsController(TodoContext context, ILogger<TodoItemsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/TodoItems1
@@ -116,6 +126,18 @@ namespace WebApplication1.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
         {
+            if (id == 0) {
+              var newItem = new TodoItem() {
+                IsComplete = false,
+                Name = "A new auto-generated todo item"
+              };
+
+              _context.TodoItems.Add(newItem);
+              await _context.SaveChangesAsync();
+
+              _logger.LogInformation("Super secret id==0 was provided, so a new item was auto-added.");
+            }
+
             var todoItem = await _context.TodoItems.FindAsync(id);
 
             if (todoItem == null)
@@ -195,7 +217,7 @@ namespace WebApplication1.Controllers
 
 ```
 
-Finally overwrite default values in `appsettings.json` that the Steeltoe package will use when connecting to the database.
+Finally overwrite default values in `appsettings.json` so that Steeltoe can connect to the database instance.
 
 ```json
 {
@@ -211,8 +233,8 @@ Finally overwrite default values in `appsettings.json` that the Steeltoe package
     "credentials": {
       //"server": null,
       //"port": null,
-      "username": "<PROVIDE_VALUE>",
-      "password": "<PROVIDE_VALUE>"
+      //"username": "<PROVIDE_VALUE>",
+      //"password": "<PROVIDE_VALUE>"
     }
   },
   "management": {
@@ -227,15 +249,16 @@ Finally overwrite default values in `appsettings.json` that the Steeltoe package
 }
 ```
 
-Before we see everything in action lets review what has been done. With the Steeltoe EFCore package added, we create a definition of a database context and list item, and then used them in startup to be a part of dependency injection. But instead of bringing in the typical SqlClient packages to help define things, we used `Steeltoe.Connector.SqlServer.EFCore`. This package not only has all needed sub-packages included but also introduces easily configurable settings with default values. To learn more about what values can be customised, [have a look at the docs](https://steeltoe.io/docs/3/connectors/microsoft-sql-server). In our example we're using the default port of '1433' and a server name of 'localhost'. If you wanted the app to connect to a SQL database hosted elsewhere you could privde different values in appsettings.json. We've provided the required credentials and server name in appsettings. The database name will be derived from our ToDo context. They key is to give Steeltoe connector a valid healthy connection to SQL, it will do the rest.
+Before we see everything in action lets review what has been done. With the Steeltoe EFCore package added we create a definition of a database context and list item. Then we used them in startup to be a part of dependency injection. Instead of bringing in the typical SqlClient packages to help define things, we used `Steeltoe.Connector.SqlServer.EFCore`. This package not only has all needed sub-packages included but also introduces easily configurable settings. To learn more about what values can be customised, [have a look at the docs](https://steeltoe.io/docs/3/connectors/microsoft-sql-server). In our example we're using the default port of '1433' and a server name of 'localhost'. If you wanted the app to connect to a SQL database hosted elsewhere you could provide different values. Also we've provided the required credentials and server name in `appsettings.json`. The database name will be derived from our ToDo context. They key is to give the Steeltoe connector a valid healthy connection to a SQL instance, it will do the rest.
 
-To get everything going you're going to need a runing instance of SQL. Depending on how that instance is made available, you'll want to adjust the values in `appsettings.json`.
+To get a running instance of SQL, you could go a few different paths. Depending on how the instance is made available, you'll want to adjust the values in `appsettings.json`.
 
 - [Running SQL locally](https://www.sqlservertutorial.net/install-sql-server/): Mostly likely the instance is running on `localhost` through port `1433`. If so then continue on, thats the default.
 - [Running in docker (desktop)](https://hub.docker.com/_/microsoft-mssql-server): If it's available on 'localhost' port '1433' then continue on. Otherwise you'll need to uncomment the `server` and `port` parameters in appsettings and provide valid values.
+- Using Visual Studio's built in SQL: If your Visual Studio installation has the ".NET Desktop Development" feature enabled and within the "SQL Server Express LocalBD" option is selected, then you have a ready to go SQL instance. Uncomment the `server` option and provide a value of `(localdb)\MSSQLLocalDB`. The port will default to 1433. If you would like to confirm the database server is running, open powershell and run `sqllocaldb i MSSQLLocalDB`.
 - Running outside your local desktop: If SQL is running somewhere else you'll need its URI and port number. Uncomment the `server` and `port` parameters in appsettings and provide valid values.
 
-As for the `username` and `password` values in `appsettings.json`, replace the placeholder with valid values. The account will need enough permission to create a new database and add tabels within. An example docker command you could run locally to get everything going is:
+As for the `username` and `password` values in `appsettings.json` if you are using Visual Studio's built in SQL leave them commented out. Otherwise replace the placeholder with valid values. The account will need enough permission to create a new database and add tables within. An example docker command you could run locally to get everything going is:
 
 ```powershell
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
@@ -243,19 +266,29 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d m
 
 Assuming all the SQL requirements are taken care of, start up the application by clicking the `Debug > Start Debugging` top menu item.
 
-![vs-run-application]
-
-Or use the dotnet cli:
+# [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
 dotnet run
 ```
 
+# [Visual Studio](#tab/visual-studio)
+
+![vs-run-application]
+
+***
+
 Once started your default browser should open and automatically load the weather forecast endpoint.
 
 ![run-weatherforecast]
 
-First lets make sure t
+To test the database connection, navigate to the "GET" endpoint where all saved ToDo list items will be retrieved. Oh wait! It's a new database there aren't any items saved yet. Let add a new ToDo list item. If you noticed in the `GetTodoItem` method of the `TodoItemsController`, there is a super secret value you can provide to add new list items. Replace `WeatherForecast` with `api/TodoItems/0` in the browser address bar. This page should load successfully but not provide much feedback. Behind the scenes you've just added a new list item. To confirm, lets retrieve the saved list of items by removing the `\0` in the address and loading the page. Wow! Now there is 1 list item retrieved from the database. Awesome!
+
+![single-todoitem]
+
+### Summary
+
+We've done quite a bit in this exercise but notice it was mostly focused on working with the ToDo list. Thats the purpose of this service. Working on business logic and spending less time with the boiler plate stuff is one of Steeltoe's super powers.
 
 |[<< Previous Exercise][exercise-2-link]|[Next Exercise >>][exercise-4-link]|
 |:--|--:|
