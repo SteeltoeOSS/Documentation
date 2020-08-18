@@ -1,0 +1,12 @@
+- name: Blog
+  href: articles/
+  homepage: articles/index.html
+- name: Documentation
+  href: api/
+  homepage: api/index.html
+- name: Training
+  href: https://steeltoe.io/training
+- name: Support
+  href: https://steeltoe.io/support
+- name: Community
+  href: https://steeltoe.io/community

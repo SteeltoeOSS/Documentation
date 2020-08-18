@@ -1,0 +1,44 @@
+{
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/**.md",
+          "api/**/toc.yml",
+
+          "articles/**.md",
+          "articles/**/toc.yml",
+
+          "labs/**.md",
+          "labs/**/toc.yml",
+          
+          "toc.yml",
+          "*.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "xref": [
+      "_site/xrefmap.yml"
+    ],
+    "dest": "_site",
+    "globalMetadataFiles": ["metadata.json"],
+    "fileMetadataFiles": [],
+    "template": [
+      "default",
+      "template/steeltoe"
+    ],
+    "postProcessors": [],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false
+  }
+}

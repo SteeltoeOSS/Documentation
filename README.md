@@ -2,52 +2,85 @@
 
 ## Overview
 
-This repo holds the markdown files of Steeltoe documentation in the `docs` sub-folder and a markdown parser console app. The app converts the markdown to HTML using the Markdig library. It also uses the contents of `docs/nav-menu.yaml` to create a toc.json (table of contents). 
+This is the home of Steeltoe documentation and blog articles. The site uses [docfx](https://dotnet.github.io/docfx) to convert markdown to html as well site navigation.
 
-The pipeline attached to this repo creates an artifact that holds the created files, in a specific folder structure. The `MainSite` repository contains the release pipelines that copy the contents of this artifact into the wwwroot folder during deployment.
+If you are using VS Code as your editor, there is a [super sweet plugin for docfx](https://marketplace.visualstudio.com/items?itemName=tintoy.docfx-assistant). All it really does is discover `UID`'s and provide intellisense with the `@` char is typed in markdown.
 
-## Directory Locations
+## Folders
 
-* Documentation - All markdown documentation is located under the `docs` folder. These are the files that need to be modified for updates to the documentation section on the website.
+- /api: holds the project documentation markdown and table of contents
+  - /v2: version 2 documentation
+  - /v3: version 3 documentation
+- /apidoc: in the future this will hold generated api docs from src
+- /articles: holds the markdown for blog posts
+- /images: the images
+- /template/steeltoe: odd files that overwrite the default docfx theme
 
-* The markdown parser - This converts the markdown files to html and is located under `src`.
+## Markdown parser
 
-## Build
+Docfx offers a custom flavor of markdown with quite a few enhanced capabilities. To see examples and learn more, view the [docfx specifications](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html?tabs=tabid-1%2Ctabid-a).
 
-* Running the markdown parser
-  * Usage: `> dotnet run --project src/ParseMD <location-of-markdown-files> <output-html-directory>`
-  * Example Usage: `> dotnet run --project src/ParseMD <location-of-markdown-files> <output-html-directory>`
+### Links and Cross References
 
-## Build docs and run on main site, locally
+As you get familiar with docfx you'll notice the addition of a yaml header in the markdown files. Values in this header let you control page design as well as set the pages `UID`. With this you can create `xref` as well as use docfx's `@` shorthand. Lean more about [linking in docfx](https://dotnet.github.io/docfx/tutorial/links_and_cross_references.html). **Note** is should be very rare that you hard code a link to an 'html' page with your markdown. Instead use it's `UID` and let the path get calculated as well links get validated when building the project.
 
-1. Publish the application to create the artifact
-    ```powershell
-    PS> dotnet publish '.\src\ParseMD\ParseMD.csproj' --output '.\publish' --configuration Release
-    ```
+## Creating a new blog post
 
-1. Note the branch you are working on
-    ```powershell
-    PS> git branch
+Create a new `.md` file in the `articles` folder. Name the file something authentic that is URL safe. Then in `/articles/index.md` include a shorthand link to the document as well as a short description. If the post should also be included in Steeltoe's rss feed, add a link entry in `articles/rss.xml`.
 
-      2.x
-    * 2.x-staging
-      3.x-staging
-      master
-    ```
+Here is a starter blog post:
 
-1. Run the application to convert the given branch markdown to html
-    ```powershell
-    PS> dotnet '.\publish\ParseMD.dll' '.\docs' '.\output-2xstaging'
-    ```
+```markdown
+---
+type: markdown
+title: My Very Authentic Blog Post Title
+_description: A short description about my topic. Maybe 2 sentences long.
+description: A short description about my topic. Maybe 2 sentences long.
+date: 01/01/2000
+uid: articles/my-very-authentic-blog-post-title
+tags: [ "modernize", 'something else", "and another thing" ]
+author.name: Joe Montana
+author.github: jmontana
+author.twitter: thebigguy
+---
 
-1. Move the generated html into a local instance of the main site, matching the version to the folder
-    ```powershell
-    PS> cp '.\output\*' '..\MainSite\src\Client\wwwroot\site-data\docs\2\'
-                                                                       ^
-    ```
+# My Very Authentic Blog Post Title
 
-1. Refer to the [main site readme](https://github.com/SteeltoeOSS/MainSite/blob/dev/README.md) for instructions on running the site locally
+Let's talk about something really cool...
+```
 
-## Related Repository
+## Creating a new api document
 
-* [MainSite](https://github.com/SteeltoeOSS/mainsite) - This repository contains the main site builder for steeltoe.io. It pulls in the html from the output of `ParseMD` and adds it to the documentation section of steeltoe.io.
+Similar to the blog post you're going to create a new markdown file, but in the `api` folder. The name needs to be URL safe. Notice in the api folder there is a `v2` and `v3` subfolder. Within each of those are folder for each component. Place your content accordingly. To include the file in the table of contents, add it in `api/(version)/toc.yml`. Notice in the examples below that the `topicHref` are not absolute paths. Docfx will calculate everything at build time.
+An example api doc:
+
+```markdown
+---
+uid: api/v2/circuitbreaker/hystrix
+---
+
+# Netflix Hystrix
+
+Steeltoe's Hystrix implementation lets application developers isolate and manage back-end dependencies so that a single failing dependency does not take down the entire application. This is accomplished by wrapping all calls to external dependencies in a `HystrixCommand`, which runs in its own...
+
+Here is an example cross reference link to config docs: @api/v2/configuration/cloud-foundry-provider
+Or you could link to the v3 version of this doc: @api/v3/circuitbreaker/hystrix
+Or do the same thing by provide custom link text: [view the v3 version](xref:api/v2/circuitbreaker/hystrix)
+```
+
+Corresponding entry in api/v2/toc.yml:
+
+```yml
+- name: Circuit Breakers
+  items:
+    - topicHref: circuitbreaker/hystrix.md
+      name: Hystrix
+```
+
+## Building the site
+
+Use docfx's [user manual](https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html), you can build and run the site in a few different ways. The simplest way is to `cd` into the root folder of this project and run the following command. The site will build in a temp folder named `_site` and be served at http://localhost:8080.
+
+```powershell
+docfx build --serve
+```

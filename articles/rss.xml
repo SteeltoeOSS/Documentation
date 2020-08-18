@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  <title>Steeltoe OSS</title>
+  <link>https://steeltoe.io</link>
+  <description>The Steeltoe Porject</description>
+  <image>
+    <url>https://www.w3schools.com/images/logo.gif</url>
+    <title>W3Schools.com</title>
+    <link>https://www.w3schools.com</link>
+  </image>
+  <pubDate>Thu, 27 Apr 2006</pubDate>
+  <webMaster>webmaster@w3schools.com</webMaster>
+  <category>IT/Internet/Web development</category>
+  <item>
+    <title></title>
+    <link></link>
+    <description></description>
+	<author></author>
+	<pubDate></pubDate>
+  </item>
+</channel>
+
+</rss>
