@@ -533,13 +533,13 @@ The template uses it as the second argument for the `RetryTemplate.Execute(Func<
 ### Publishing is Asynchronous How to Detect Success and Failure
 
 Publishing messages is an asynchronous mechanism and, by default, messages that cannot be routed to the proper location are dropped by RabbitMQ.
-For successful publishing, you can receive an asynchronous confirm, as described in [Template Publisher Confirms and Returns](#template-publisher-confirms-and-rReturns").
+For successful publishing, you can receive an asynchronous confirm, as described in [Template Publisher Confirms and Returns](#template-publisher-confirms-and-returns").
 Consider two failure scenarios:
 
 * Publish to an exchange but there is no matching destination queue.
 * Publish to a non-existent exchange.
 
-The first case is covered by publisher returns, as described in [Template Publisher Confirms and Returns](#template-publisher-confirms-and-rReturns").
+The first case is covered by publisher returns, as described in [Template Publisher Confirms and Returns](#template-publisher-confirms-and-returns").
 
 For the second case, the message is dropped and no return is generated.
 The underlying channel is closed with an exception.
@@ -1419,7 +1419,7 @@ public void HandleAFoo(Foo foo)
 
 The container factories provide methods for adding `IMessagePostProcessor` instances that are applied after receiving messages (before invoking the listener) and before sending replies.
 
-See [Reply Management](#reply-management") for information about replies.
+See [Reply Management](#reply-management) for information about replies.
 
 You can add a `RetryTemplate` and `RecoveryCallback` to the listener container factory.
 It is used when sending replies.
@@ -2334,7 +2334,7 @@ The default implementation (`DefaultMessageHeadersConverter`) is usually suffici
 A number of extension points exist.
 They let you perform some processing on a message, either before it is sent to RabbitMQ or immediately after it is received.
 
-As can be seen in [Message Converters](message-converters), one such extension point is in the `RabbitTemplate` `ConvertAndReceive` operations, where you can provide a `IMessagePostProcessor`.
+As can be seen in [Message Converters](#message-converters), one such extension point is in the `RabbitTemplate` `ConvertAndReceive` operations, where you can provide a `IMessagePostProcessor`.
 For example, after your POCO has been converted, the `IMessagePostProcessor` lets you set custom headers or properties on the `IMessage`.
 
 Additional extension points have been added to the `RabbitTemplate` - `SetBeforePublishPostProcessors()` and `SetAfterReceivePostProcessors()`.
@@ -2357,7 +2357,7 @@ Also there are methods provided to remove the post processors.
 Similarly, `DirectMessageListenerContainer` also has `AddAfterReceivePostProcessors()` and `RemoveAfterReceivePostProcessor()` methods added.
 See the code on Github of `RabbitTemplate` and `DirectMessageListenerContainer` for more detail.
 
-## Request/Reply Messaging
+## Request and Reply Messaging
 
 The `RabbitTemplate` also provides a variety of `SendAndReceive` methods that accept the same argument options that were described earlier for the one-way send operations (`exchange`, `routingKey`, and `IMessage`).
 Those methods are quite useful for request-reply scenarios, since they handle the configuration of the necessary `reply-to` property before sending and can listen for the reply message on an exclusive queue that is created internally for that purpose.
@@ -2381,7 +2381,7 @@ If you set the `Mandatory` property to `true` and the message cannot be delivere
 This exception has `ReturnedMessage`, `ReplyCode`, and `ReplyText` properties, as well as the `Exchange` and `RoutingKey` used for the send.
 
 >NOTE: This feature uses publisher returns.
-You can enable it by setting `PublisherReturns` to `true` on the `CachingConnectionFactory` (see [Publisher Confirms and Returns](#cf-pub-conf-ret).
+You can enable it by setting `PublisherReturns` to `true` on the `CachingConnectionFactory` (see [Factory Publisher Confirms and Returns](#factory-publisher-confirms-and-returns).
 Also, you must not have registered your own `ReturnCallback` with the `RabbitTemplate`.
 
 A `ReplyTimedOut()` method has been added, letting subclasses of `RabbitTemplate` be informed of the timeout so that they can clean up any retained state.
@@ -3077,7 +3077,7 @@ public AbstractMessageListenerContainer container() {
 RabbitMQ transactions apply only to messages and acks sent to the broker.
 Consequently, when there is a rollback of a transaction and a message has been received, Steeltoe RabbitMQ has to not only rollback the transaction but also manually reject the message (sort of a nack, but that is not what the specification calls it).
 The action taken on message rejection is independent of transactions and depends on the `DefaultRequeueRejected` property (default: `true`).
-For more information about rejecting failed messages, see[Message Listeners and the Asynchronous Case](#message-listeners-and-the-asynchronous-case).
+For more information about rejecting failed messages, see [Message Listeners and the Asynchronous Case](#message-listeners-and-the-asynchronous-case).
 
 For more information about RabbitMQ transactions and their limitations, see [RabbitMQ Broker Semantics](https://www.rabbitmq.com/semantics.html).
 
@@ -3107,10 +3107,10 @@ The following table shows the container property names you can use to configure 
 | AlwaysRequeueWithTxManagerRollback (N/A) | Set to `true` to always requeue messages on rollback when a transaction manager is configured. |
 | AutoDeclare| When set to `true` (default), the container uses a `RabbitAdmin` to redeclare all RabbitMQ objects (queues, exchanges, bindings), if it detects that at least one of its queues is missing during startup, perhaps because it is an `IsAutoDelete` or an expired queue, but the re-declaration proceeds if the queue is missing for any reason. To disable this behavior, set this property to `false`. Note that the container fails to start if all of its queues are missing. NOTE: For `AutoDeclare` to work, there must be exactly one `RabbitAdmin` in the container, or a reference to a specific instance must be configured on the container using the `RabbitAdmin` property. |
 |AutoStartup| Flag to indicate that the container should start when the container is started and the `ISmartLifecycle` callbacks are initialized. Defaults to `true`, but you can set it to `false` if your broker might not be available on startup and call `Start()` later manually when you know the broker is ready. |
-|BatchingStrategy| The strategy used when de-batching messages. Default `SimpleDebatchingStrategy`. See [Batching](#template-batching) and [RabbitListener with Batching](#rabbitlistener-with-batching). |
+|BatchingStrategy| The strategy used when de-batching messages. Default `SimpleDebatchingStrategy`. See [Batching](#batching) and [RabbitListener with Batching](#rabbitlistener-with-batching). |
 | IsChannelTransacted| Boolean flag to signal that all messages should be acknowledged in a transaction (either manually or automatically). |
 | ConnectionFactory| A reference to the `IConnectionFactory`.|
-| ConsumerTagStrategy| Set an implementation of [ConsumerTagStrategy](#consumertagstrategy), enabling the creation of a (unique) tag for each consumer. |
+| ConsumerTagStrategy| Set an implementation of [ConsumerTagStrategy](#consumer-tags), enabling the creation of a (unique) tag for each consumer. |
 | ConsumersPerQueue| The number of consumers to create for each configured queue. See [Listener Concurrency](#listener-concurrency). |
 | DefaultRequeueRejected| Determines whether messages that are rejected because the listener threw an exception should be requeued or not. Default: `true`. |
 | ErrorHandler| A reference to an `IErrorHandler` strategy for handling any uncaught exceptions that may occur during the execution of the MessageListener. Default: `ConditionalRejectingErrorHandler` |
@@ -3118,7 +3118,6 @@ The following table shows the container property names you can use to configure 
 | ExclusiveConsumerExceptionLogger| An exception logger used when an exclusive consumer cannot gain access to a queue. By default, this is logged at the `WARN` level.|
 | FailedDeclarationRetryInterval | The interval between passive queue declaration retry attempts. Passive queue declaration occurs when the consumer starts or, when consuming from multiple queues, when not all queues were available during initialization. Default: 5000 (five seconds). |
 | ForceCloseChannel| If the consumers do not respond to a shutdown within `ShutdownTimeout`, if this is `true`, the channel will be closed, causing any un-acked messages to be requeued. Defaults to `true` since 2.0. You can set it to `false` to revert to the previous behavior. |
-| IdleEventInterval| See [Detecting Idle Asynchronous Consumers](#detecting-idle-asynchronous-consumers). |
 | MessagesPerAck| The number of messages to receive between acks. Use this to reduce the number of acks sent to the broker (at the cost of increasing the possibility of redelivered messages). Generally, you should set this property only on high-volume listener containers. If this is set and a message is rejected (exception thrown), pending acks are acknowledged and the failed message is rejected. Not allowed with transacted channels. If the `PrefetchCount` is less than the `MessagesPerAck`, it is increased to match the `MessagesPerAck`. Default: ack every message. See also `AckTimeout` in this table. |
 | MismatchedQueuesFatal| When the container starts, if this property is `true` (default: `false`), the container checks that all queues declared in the context are compatible with queues already on the broker. If mismatched properties (such as `IsAutoDelete`) or arguments (such as `x-message-ttl`) exist, the container (and application context) fails to start with a fatal exception. If the problem is detected during recovery (for example, after a lost connection), the container is stopped. There must be a single `RabbitAdmin` in the application context (or one specifically configured on the container by using the `RabbitAdmin` property). Otherwise, this property must be `false`. <br\><br\>NOTE: If the broker is not available during initial startup, the container starts and the conditions are checked when the connection is established.<br\><br\> IMPORTANT: The check is done against all queues in the context, not just the queues that a particular listener is configured to use. If you wish to limit the checks to just those queues used by a container, you should configure a separate `RabbitAdmin` for the container, and provide a reference to it using the `RabbitAdmin` property. See [Conditional Declaration](#conditional-declaration) for more information|
 | MissingQueuesFatal| When set to `true` (default), if none of the configured queues are available on the broker, it is considered fatal. This causes the application context to fail to initialize during startup. Also, when the queues are deleted while the container is running, by default, the consumers make three retries to connect to the queues (at five second intervals) and stop the container if these attempts fail. This was not configurable in previous versions. When set to `false`, after making the three retries, the container goes into recovery mode, as with other problems, such as the broker being down. The container tries to recover according to the `RecoveryInterval` property. During each recovery attempt, each consumer again tries four times to passively declare the queues at five second intervals. This process continues indefinitely.  This global property is not applied to any containers that have an explicit `MissingQueuesFatal` property set. The default retry properties (three retries at five-second intervals) can be overridden by setting the properties below. |

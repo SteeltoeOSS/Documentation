@@ -246,11 +246,9 @@
           name: Receiving Messages
         - page_ref: message-converters
           name: Message Converters
-        - page_ref: message-converters
-          name: Message Converters
         - page_ref: modifying-messages-compression-and-more
           name: Modifying Messages
-        - page_ref: request/reply-messaging
+        - page_ref: request-and-reply-messaging
           name: Request/Reply Messaging
         - page_ref: rabbitmq-direct-reply-to
           name: Direct Reply-to
