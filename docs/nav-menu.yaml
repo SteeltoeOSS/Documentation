@@ -1,6 +1,13 @@
 - page: /docs/3/welcome
   name: Welcome
   items:
+    - page: /docs/3/welcome/whats-new
+      name: What's New in Steeltoe 3.0
+      items:
+        - page_ref: new-features-and-changes
+          name: New Features and Changes
+        - page_ref: package-name-changes
+          name: Package Name Changes
     - page: /docs/3/welcome/prerequisites
       name: Prerequisites
       items:
@@ -27,13 +34,11 @@
           name: Add Configuration Provider
         - page_ref: access-random-value-data
           name: Access Random Value Data
-    - page: /docs/3/configuration/hosted-extensions
-      name: Hosted Extensions
+    - page: /docs/3/configuration/hosting-extensions
+      name: Hosting Extensions
       items:
         - page_ref: usecloudhosting
           name: UseCloudHosting
-        - page_ref: usecloudfoundryhosting
-          name: UseCloudFoundryHosting
     - page: /docs/3/configuration/cloud-foundry-provider
       name: Cloud Foundry Provider
       items:
@@ -111,6 +116,18 @@
           name: Use Collapsers
         - page_ref: use-metrics
           name: Use Metrics
+- page: /docs/3/developer-tools
+  name: Developer Tools
+  items:
+    - page_ref: initializr
+      name: Initializr
+    - page: /docs/3/developer-tools/cli
+      name: CLI
+      items:
+        - page_ref: getting-started
+          name: Getting Started
+        - page_ref: using-the-cli
+          name: Using the CLI
 - page: /docs/3/tracing/distributed-tracing
   name: Distributed Tracing
   items:
@@ -143,6 +160,15 @@
           name: Configure Settings
         - page_ref: add-logging-provider
           name: Add Logging Provider
+    - page: /docs/3/logging/serilog-logger
+      name: Serilog Dynamic Provider
+      items:
+        - page_ref: add-nuget-references
+          name: Add NuGet References
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: add-serilog-dynamic-logger
+          name: Add Serilog Dynamic Logger
 - page: /docs/3/management
   name: Management
   items:
@@ -168,6 +194,13 @@
       name: /env
     - page: /docs/3/management/health
       name: /health
+      items:
+        - page_ref: steeltoe-health-contributors
+          name: Steeltoe Health Contributors
+        - page_ref: creating-a-custom-health-contributor
+          name: Creating a Custom Health Contributor
+        - page_ref: asp-net-core-health-checks
+          name: ASP.NET Core Health Checks
     - page: /docs/3/management/heapdump
       name: /heapdump
     - page: /docs/3/management/hypermedia
@@ -191,11 +224,50 @@
 - page: /docs/3/messaging
   name: Messaging 
   items:
-    - page: /docs/3/messaging/quick-tour
-    - page: /docs/3/messaging/amqp
-    - page: /docs/3/messaging/messaging
-    - page: /docs/3/messaging/further-reading
-    - page: /docs/3/messaging/testing
+    - page: /docs/3/messaging/rabbitmq-intro
+      name: RabbitMQ Introduction
+      items:
+        - page_ref: quick-start
+          name: Quick Start
+        - page_ref: basics
+          name: Basics
+    - page: /docs/3/messaging/rabbitmq-reference
+      name: RabbitMQ Reference
+      items:
+        - page_ref: abstractions
+          name: Abstractions
+        - page_ref: connection-and-resource-management
+          name: Connections
+        - page_ref: rabbittemplate
+          name: Rabbit Template
+        - page_ref: sending-messages
+          name: Sending Messages
+        - page_ref: receiving-messages
+          name: Receiving Messages
+        - page_ref: message-converters
+          name: Message Converters
+        - page_ref: modifying-messages-compression-and-more
+          name: Modifying Messages
+        - page_ref: request-and-reply-messaging
+          name: Request/Reply Messaging
+        - page_ref: rabbitmq-direct-reply-to
+          name: Direct Reply-to
+        - page_ref: configuring-the-broker
+          name: Configuring Broker
+        - page_ref: delayed-message-exchange
+          name: Delayed Exchange
+        - page_ref: exception-handling
+          name: Exception Handling
+        - page_ref: transactions
+          name: Transactions
+        - page_ref: listener-concurrency
+          name: Listener Concurrency
+        - page_ref: exclusive-consumer
+          name: Exclusive Consumer
+        - page_ref: listener-container-queues
+          name: Listener Container Queues
+        - page_ref: resilience-recovering-from-errors
+          name: Resilience & Recovery  
 - page: /docs/3/fileshares
   name: Network File Sharing
   items:
@@ -211,32 +283,8 @@
 - page: /docs/3/security
   name: Security
   items:
-    - page: /docs/3/security/jwt-authentication-in-asp.NET-core
+    - page: /docs/3/security/jwt-authentication
       name: JWT for ASP.NET Core
-      items:
-        - page_ref: add-nuget-reference
-          name: Add NuGet Reference
-        - page_ref: configure-settings
-          name: Configure Settings
-        - page_ref: cloud-foundry
-          name: Cloud Foundry
-        - page_ref: securing-endpoints
-          name: Securing Endpoints
-    - page: /docs/3/security/jwt-authentication-in-asp.NET-WCF
-      name: JWT for ASP.NET WCF
-      items:
-        - page_ref: add-nuget-reference
-          name: Add NuGet Reference
-        - page_ref: configure-settings
-          name: Configure Settings
-        - page_ref: cloud-foundry
-          name: Cloud Foundry
-        - page_ref: securing-endpoints
-          name: Securing Endpoints
-        - page_ref: updating-client-to-send-jwt
-          name: Updating Client to Send JWT
-    - page: /docs/3/security/jwt-authentication-in-asp.NET-WebAPI
-      name: JWT for ASP.NET WebAPI
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -264,8 +312,6 @@
       items:
         - page_ref: usage-in-asp-net-core
           name: Usage in ASP.NET Core
-        - page_ref: usage-in-asp-net-4
-          name: Usage in ASP.NET 4.x
     - page: /docs/3/security/sso-oauth2
       name: SSO OAuth2
       items:
@@ -423,15 +469,6 @@
           name: Add IConnectionMultiplexer
         - page_ref: use-iconnectionmultiplexer
           name: Use IConnectionMultiplexer
-    - page: /docs/3/connectors/gemfire
-      name: Apache Geode/GemFire
-      items:
-        - page_ref: add-nuget-reference
-          name: Add NuGet Reference
-        - page_ref: configure-settings
-          name: Configure Settings
-        - page_ref: cloud-foundry
-          name: Cloud Foundry
 - page: /docs/3/discovery
   name: Service Discovery
   items:
@@ -506,16 +543,4 @@
           name: Round Robin Load Balancer
         - page_ref: custom-iloadbalancer
           name: Custom ILoadBalancer
-- page: /docs/3/developer-tools
-  name: Developer Tools
-  items:
-    - page_ref: initializr
-      name: Initializr
-    - page: /docs/3/developer-tools/cli
-      name: CLI
-      items:
-        - page_ref: getting-started
-          name: Getting Started
-        - page_ref: using-the-cli
-          name: Using the CLI
 

@@ -2,7 +2,7 @@
 
 Steeltoe's Hystrix implementation lets application developers isolate and manage back-end dependencies so that a single failing dependency does not take down the entire application. This is accomplished by wrapping all calls to external dependencies in a `HystrixCommand`, which runs in its own separate external thread.
 
-Hystrix maintains its own small fixed-size thread pool from which commands are executed. When the pool becomes exhausted, Hystrix commands are immediately rejected, and, if provided, a fallback mechanism is executed. This prevents any single dependency from using up all of the threads for failing external dependencies.
+Hystrix maintains its own small, fixed-size thread pool from which commands are executed. When the pool becomes exhausted, Hystrix commands are immediately rejected, and, if provided, a fallback mechanism is executed. This prevents any single dependency from using up all of the threads for failing external dependencies.
 
 Each Hystrix command also has the ability to create a timeout for any calls that take longer than the configured threshold. If a timeout occurs, the command automatically executes a fallback mechanism (if the developer provided one). Developers can configure each command with custom fallback logic that runs when a command fails, is rejected, times out, or trips the circuit breaker.
 
@@ -10,84 +10,74 @@ Each command has a built-in configurable circuit breaker that stops all requests
 
 Hystrix also provides a means to measure command successes, failures, timeouts, short-circuits, and thread rejections. Statistics are gathered for all of these and can optionally be reported to a [Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard) for monitoring in real-time.
 
-The remaining sections of this chapter describe these features. Also, you should understand that Steeltoe's Hystrix implementation follows the Netflix implementation closely. As a result, its worthwhile to review the [Netflix documentation](https://github.com/Netflix/Hystrix/wiki) in addition to this documentation.  Pay particular attention to the [How it Works](https://github.com/Netflix/Hystrix/wiki/How-it-Works) section as it provides a [Flow Chart](https://github.com/Netflix/Hystrix/wiki/How-it-Works#Flow) explaining how a command executes and how the default [Circuit Breaker](https://github.com/Netflix/Hystrix/wiki/How-it-Works#CircuitBreaker) transitions between CLOSED, OPEN and HALF-OPEN states.  It also provides details on how the [Bulkhead pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/bulkhead) is implemented using isolation techniques employing [Threads and Thread Pools](https://github.com/Netflix/Hystrix/wiki/How-it-Works#isolation).
-
-The Steeltoe Hystrix framework supports the following .NET application types:
-
-* ASP.NET (MVC, WebForm, WebAPI, WCF)
-* ASP.NET Core
-* Console apps (.NET Framework and .NET Core)
+The remaining sections of this chapter describe these features. Also, you should understand that Steeltoe's Hystrix implementation follows the Netflix implementation closely. As a result, its worthwhile to review the [Netflix documentation](https://github.com/Netflix/Hystrix/wiki) in addition to this documentation.  Pay particular attention to the [How it Works](https://github.com/Netflix/Hystrix/wiki/How-it-Works) section as it provides a [Flow Chart](https://github.com/Netflix/Hystrix/wiki/How-it-Works#Flow) explaining how a command executes and how the default [Circuit Breaker](https://github.com/Netflix/Hystrix/wiki/How-it-Works#CircuitBreaker) transitions between the CLOSED, OPEN and HALF-OPEN states.  It also provides details on how the [Bulkhead pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/bulkhead) is implemented by using isolation techniques that employ [Threads and Thread Pools](https://github.com/Netflix/Hystrix/wiki/How-it-Works#isolation).
 
 ## Usage
 
-You should have a good understanding of how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the Hystrix framework. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the framework.
+You should have a good understanding of how the .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before you start to use the Hystrix framework. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary to configure the framework.
 
-You should also have a good understanding of how the [ASP.NET Core Startup class](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) is used in configuring the application services and the middleware used in the app. You should pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
+You should also have a good understanding of how the [ASP.NET Core Startup class](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) is used to configure the application services and the middleware used in the app. You should pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
 
-In addition to the information below, review the [Netflix Hystrix Wiki](https://github.com/Netflix/Hystrix/wiki). The Steeltoe Hystrix framework implementation aligns closely with the Netflix implementation. Consequently, the Wiki information applies directly to Steeltoe.
+In addition to the information in this section, you should review the [Netflix Hystrix Wiki](https://github.com/Netflix/Hystrix/wiki). The Steeltoe Hystrix framework implementation aligns closely with the Netflix implementation. Consequently, the Wiki information applies directly to Steeltoe.
 
 If you plan to use the Hystrix Dashboard, you should also spend time understanding the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard) information on the wiki.
 
 To use the Steeltoe framework:
 
-* Add Hystrix NuGet package references to your project
-* Define Hystrix Command(s) and/or Hystrix Collapser(s)
-* Configure Hystrix settings
-* Add Hystrix Command(s) and/or Collapser(s) to the container
-* Use Hystrix Command(s) and/or Collapser(s) to invoke dependent services
-* Add and Use the Hystrix metrics stream service
-
->NOTE: Most of the code in the following sections is based on using Hystrix in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/CircuitBreaker) for example code you can use.
+1. Add Hystrix NuGet package references to your project
+1. Define Hystrix Command(s) and/or Hystrix Collapser(s)
+1. Configure Hystrix settings
+1. Add Hystrix Command(s) and/or Collapser(s) to the container
+1. Use Hystrix Command(s) and/or Collapser(s) to invoke dependent services
+1. Add and Use the Hystrix metrics stream service
 
 ### Add NuGet References
 
 There are two types of NuGet references to consider with when adding Hystrix to your application.
 
-The first is required to bring the basic Hystrix functionality (the ability to define and execute commands) into your application. Choose from the following based on the type of the application you are building and what Dependency Injector you have chosen, if any.
+The first is required to bring the basic Hystrix functionality (the ability to define and execute commands) into your application. Choose from the following options based on the type of the application you are building and what Dependency Injector you have chosen, if any:
 
-|App Type|Package|Description|
+|.NET Target|Package|Description|
 |---|---|---|
-|Console/ASP.NET 4.x|`Steeltoe.CircuitBreaker.HystrixBase`|Base functionality, no DI|
-|ASP.NET Core|`Steeltoe.CircuitBreaker.HystrixCore`|Includes base, adds ASP.NET Core DI|
-|ASP.NET 4.x with Autofac|`Steeltoe.CircuitBreaker.HystrixAutofac`|Includes base, adds Autofac DI|
+|.NET Standard 2.0|`Steeltoe.CircuitBreaker.HystrixBase`|Base functionality, no DI|
+|ASP.NET Core 3.1|`Steeltoe.CircuitBreaker.HystrixCore`|Includes base, adds ASP.NET Core Integration|
 
-To add this type of NuGet to your project add something like the following `PackageReference`:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.CircuitBreaker.HystrixCore" Version= "2.1.0"/>
-...
-</ItemGroup>
-```
-
-The second type of NuGet that you need to consider pertains to Hystrix metrics. If you are developing an ASP.NET Core application and plan on using Hystrix metrics and the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard) then you need to also include the `Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore` package in your application.
-
-To do this include the following `PackageReference` in your application:
+To add this type of NuGet to your project, add something like the following `PackageReference`:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.HystrixCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
 
-Alternatively, if you will be pushing your application to Cloud Foundry and you want to use the [Spring Cloud Services Hystrix Dashboard](https://docs.pivotal.io/spring-cloud-services/1-5/common/circuit-breaker/), then include one of the following packages instead.
+The second type of NuGet that you need to consider pertains to Hystrix metrics. If you are developing an ASP.NET Core application and plan on using Hystrix metrics and the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard), you need to also include the `Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore` package in your application.
+
+To do so, include the following `PackageReference` in your application:
+
+```xml
+<ItemGroup>
+...
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore" Version= "3.0.0"/>
+...
+</ItemGroup>
+```
+
+Alternatively, if you want to push your application to Cloud Foundry and want to use the [Spring Cloud Services Hystrix Dashboard](https://docs.pivotal.io/spring-cloud-services/1-5/common/circuit-breaker/), include one of the following packages instead:
 
 |App Type|Package|Description|
 |---|---|---|
 |ASP.NET Core|`Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore`|ASP.NET Core DI|
-|ASP.NET 4.x with Autofac|`Steeltoe.CircuitBreaker.Hystrix.MetricsStreamAutofac`|Autofac DI|
 
 In addition to one of the above package references, you also need to include a package reference to a RabbitMQ client.
 
-To add this type of NuGet to your project add something like the following:
+To add this type of NuGet to your project, add something like the following:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore" Version= "3.0.0"/>
     <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
 ...
 </ItemGroup>
@@ -95,7 +85,7 @@ To add this type of NuGet to your project add something like the following:
 
 ### Define Commands
 
-There are many ways to define a Hystrix command. The simplest looks like this:
+There are many ways to define a Hystrix command. The simplest looks like the following example:
 
 ```csharp
 public class HelloWorldCommand : HystrixCommand<string>
@@ -115,7 +105,7 @@ The `RunAsync()` method should implement the fundamental logic of the command, a
 
 Each command must be a member of a group. The name of the group is specified by using the `HystrixCommandGroupKeyDefault.AsKey("YourGroupName")` method and must be provided in the constructor of the command.
 
-The following example shows the same command shown earlier rewritten by using method overrides:
+The following example shows the same command shown earlier after being rewritten by using method overrides:
 
 ```csharp
 public class HelloWorldCommand : HystrixCommand<string>
@@ -138,7 +128,7 @@ public class HelloWorldCommand : HystrixCommand<string>
 }
 ```
 
-It's important to understand that `HystrixCommands` are stateful objects. Once they have been run, they can no longer be reused. If you want to execute a command again, you must create another instance (for example, `new MyCommand()`) and call one of the execute methods again.
+`HystrixCommands` are stateful objects. Once they have been run, they can no longer be reused. If you want to run a command again, you must create another instance (for example, `new MyCommand()`) and call one of the execute methods again.
 
 ### Command Settings
 
@@ -151,21 +141,21 @@ For each of the possible Hystrix settings, there are four levels of precedence t
 1. `Command settings specified in code`: Specified in the constructor of your Hystrix command. Applies to that specific instance.
 1. `Configured command specific settings`: Specified in application configuration for named commands. Applies to all instances created with that name.
 
-All Hystrix command settings should be prefixed with `hystrix:command:`.
+All Hystrix command settings should be prefixed with `Hystrix:Command:`.
 
-`Configured global command settings` should be prefixed with `hystrix:command:default:`. The following example configures the default timeout for all commands to be 750 milliseconds:
+`Configured global command settings` should be prefixed with `Hystrix:Command:default:`. The following example configures the default timeout for all commands to be 750 milliseconds:
 
-`hystrix:command:default:execution:isolation:thread:timeoutInMilliseconds=750`
+`Hystrix:Command:default:Execution:Isolation:Thread:TimeoutInMilliseconds=750`
 
-To configure the settings for a command in code, use `HystrixCommandOptions` from the `Steeltoe.CircuitBreaker.HystrixBase` package. 
+To configure the settings for a command in code, use `HystrixCommandOptions` from the `Steeltoe.CircuitBreaker.HystrixBase` package.
 
-All configured command-specific settings, as described earlier in #4, should be prefixed with `hystrix:command:HYSTRIX_COMMAND_KEY:`, where `HYSTRIX_COMMAND_KEY` is the `name` of the command. The following example configures the timeout for the Hystrix command with a name of `sample` to be 750 milliseconds:
+All configured command-specific settings, as described earlier in #4, should be prefixed with `Hystrix:Command:HYSTRIX_COMMAND_KEY:`, where `HYSTRIX_COMMAND_KEY` is the `Name` of the command. The following example configures the timeout for the Hystrix command with a name of `sample` to be 750 milliseconds:
 
-`hystrix:command:sample:execution:isolation:thread:timeoutInMilliseconds=750`
+`Hystrix:Command:sample:Execution:Isolation:Thread:TimeoutInMilliseconds=750`
 
 The following set of tables specifies all of the possible settings by category.
 
->NOTE: The settings provided below follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix command operations.
+>NOTE: The settings described in the next section follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix command operations.
 
 #### Execution
 
@@ -173,14 +163,14 @@ The following table describes the settings that control how the HystrixCommand's
 
 |Key|Description|Default|
 |---|---|---|
-|timeout:enabled|Enables or disables `RunAsync()` timeouts|true|
-|isolation:strategy|`THREAD` or `SEMAPHORE`|`THREAD`|
-|isolation:thread:timeoutInMilliseconds|Time allowed for `RunAsync()` execution completion before fallback is executed|1000|
-|isolation:semaphore:maxConcurrentRequests|Maximum requests to `RunAsync()` method when using the `SEMAPHORE` strategy|10|
+|`Timeout:Enabled`|Enables or disables `RunAsync()` timeouts|true|
+|`Isolation:Strategy`|`THREAD` or `SEMAPHORE`|`THREAD`|
+|`Isolation:Thread:TimeoutInMilliseconds`|Time allowed for `RunAsync()` execution completion before fallback is executed|1000|
+|`Isolation:Semaphore:MaxConcurrentRequests`|Maximum requests to `RunAsync()` method when using the `SEMAPHORE` strategy|10|
 
-Each setting is prefixed with a key of `execution`, as shown in the following example:
+Each setting is prefixed with a key of `Execution`, as shown in the following example:
 
-`hystrix:command:sample:execution:isolation:strategy=SEMAPHORE`
+`Hystrix:Command:sample:Execution:Isolation:Strategy=SEMAPHORE`
 
 #### Fallback
 
@@ -188,12 +178,12 @@ The following table describes the settings that control how the HystrixCommand's
 
 |Key|Description|Default|
 |---|---|---|
-|enabled|Enables or disables `RunFallbackAsync()`|true|
-|isolation:semaphore:maxConcurrentRequests|Maximum requests to `RunFallbackAsync()` method when using the `SEMAPHORE` strategy|10|
+|`Enabled`|Enables or disables `RunFallbackAsync()`|true|
+|`Isolation:Semaphore:MaxConcurrentRequests`|Maximum requests to `RunFallbackAsync()` method when using the `SEMAPHORE` strategy|10|
 
-Each setting is prefixed with a key of `fallback`, as shown in the following example:
+Each setting is prefixed with a key of `Fallback`, as shown in the following example:
 
-`hystrix:command:sample:fallback:enabled=false`
+`Hystrix:Command:sample:Fallback:Enabled=false`
 
 #### Circuit Breaker
 
@@ -201,16 +191,16 @@ The following table describes the settings that control the behavior of the defa
 
 |Key|Description|Default|
 |---|---|---|
-|enabled|Enables or disables circuit breaker usage|true|
-|requestVolumeThreshold|Minimum number of requests in a rolling window that will trip the circuit|20|
-|sleepWindowInMilliseconds|Amount of time, after tripping the circuit, to reject requests before allowing attempts again|5000|
-|errorThresholdPercentage|Error percentage at or above which the circuit should trip open and start short-circuiting requests to fallback logic|50|
-|forceOpen|Force circuit open|false|
-|forceClosed|Force circuit closed|false|
+|`Enabled`|Enables or disables circuit breaker usage|`true`|
+|`RequestVolumeThreshold`|Minimum number of requests in a rolling window that will trip the circuit|20|
+|`SleepWindowInMilliseconds`|Amount of time, after tripping the circuit, to reject requests before allowing attempts again|5000|
+|`ErrorThresholdPercentage`|Error percentage at or above which the circuit should trip open and start short-circuiting requests to fallback logic|50|
+|`ForceOpen`|Force circuit open|`false`|
+|`ForceClosed`|Force circuit closed|`false`|
 
-Each setting is prefixed with a key of `circuitBreaker`, as shown in the following example:
+Each setting is prefixed with a key of `CircuitBreaker`, as shown in the following example:
 
-`hystrix:command:sample:circuitBreaker:enabled=false`
+`Hystrix:Command:sample:CircuitBreaker:Enabled=false`
 
 #### Metrics
 
@@ -218,17 +208,17 @@ The following table describes the settings that control the behavior of capturin
 
 |Key|Description|Default|
 |---|---|---|
-|rollingStats:timeInMilliseconds|duration of the statistical rolling window, used by circuit breaker and for publishing|10000|
-|rollingStats:numBuckets|number of buckets the rolling statistical window is divided into|10|
-|rollingPercentile:enabled|indicates whether execution latencies should be tracked and calculated as percentiles|true|
-|rollingPercentile:timeInMilliseconds|duration of the rolling window in which execution times are kept to allow for percentile calculations|60000|
-|rollingPercentile:numBuckets|number of buckets the rollingPercentile window will be divided into|6|
-|rollingPercentile:bucketSize|maximum number of execution times that are kept per bucket|100|
-|healthSnapshot:intervalInMilliseconds| time to wait between allowing health snapshots to be taken that calculate success and error percentages affecting circuit breaker status|500|
+|`RollingStats:TimeInMilliseconds`|Duration of the statistical rolling window, used by circuit breaker and for publishing|10000|
+|`RollingStats:NumBuckets`|Number of buckets the rolling statistical window is divided into|10|
+|`RollingPercentile:Enabled`|Indicates whether execution latencies should be tracked and calculated as percentiles|`true`|
+|`RollingPercentile:TimeInMilliseconds`|Duration of the rolling window in which execution times are kept to allow for percentile calculations|60000|
+|`RollingPercentile:NumBuckets`|Number of buckets the `RollingPercentile` window will be divided into|6|
+|`RollingPercentile:BucketSize`|Maximum number of execution times that are kept per bucket|100|
+|`HealthSnapshot:IntervalInMilliseconds`|Time to wait between allowing health snapshots to be taken that calculate success and error percentages affecting circuit breaker status|500|
 
-Each setting is prefixed with the key `metrics`, as shown in the following example:
+Each setting is prefixed with the key `Metrics`, as shown in the following example:
 
-`hystrix:command:sample:metrics:rollingPercentile:enabled=false`
+`Hystrix:Command:sample:Metrics:RollingPercentile:Enabled=false`
 
 #### Request Cache
 
@@ -236,11 +226,11 @@ The following table describes the settings that control whether Hystrix command 
 
 |Key|Description|Default|
 |---|---|---|
-|enabled|Enables or disables request scoped caching|true|
+|`Enabled`|Enables or disables request scoped caching|`true`|
 
-Each setting is prefixed with the key `requestCache`, as shown in the following example:
+Each setting is prefixed with the key `RequestCache`, as shown in the following example:
 
-`hystrix:command:sample:requestCache:enabled=false`
+`Hystrix:Command:sample:RequestCache:Enabled=false`
 
 #### Request Logging
 
@@ -248,11 +238,11 @@ The following table describes the settings that control whether Hystrix command 
 
 |Key|Description|Default|
 |---|---|---|
-|enabled|enable or disable request scoped logging|true|
+|`Enabled`|enable or disable request scoped logging|`true`|
 
-Each setting is prefixed with the key `requestLog`, as shown in the following example:
+Each setting is prefixed with the key `RequestLog`, as shown in the following example:
 
-`hystrix:command:foobar:requestLog:enabled=false`
+`Hystrix:Command:sample:RequestLog:Enabled=false`
 
 #### Thread Pool
 
@@ -260,70 +250,70 @@ The following table describes the settings that control what and how the command
 
 |Key|Description|Default|
 |---|---|---|
-|threadPoolKeyOverride|Sets the thread pool used by the command|command group key name|
+|`ThreadPoolKeyOverride`|Sets the thread pool used by the command|command group key name|
 
 The following listing shows an example:
 
-`hystrix:command:setting:threadPoolKeyOverride=FortuneServiceTPool`
+`Hystrix:Command:sample:ThreadPoolKeyOverride=FortuneServiceTPool`
 
 ### Thread Pool Settings
 
-In addition to configuring the settings for Hystrix commands, you can also configure the settings that Steeltoe Hystrix uses in creating and managing its thread pools.
+In addition to configuring the settings for Hystrix commands, you can also configure the settings that Steeltoe Hystrix uses to create and manage its thread pools.
 
-In most cases, you can take the defaults and not have to configure these settings.
+In most cases, you can take the defaults and need not configure these settings.
 
 As with the Hystrix command settings, there are four levels of precedence that are followed and applied by the framework:
 
-1. `Fixed global pool settings`: These are the defaults for all Hystrix pools. If nothing else is specified, these settings are used.
-1. `Configured global pool settings`: These are the defaults specified in configuration files that override the fixed values above and apply to all Hystrix pools.
-1. `Pool settings specified in code`: These are the settings you specify in the constructor of your Hystrix thread pool. These settings apply to all commands that are created that reference that pool.
+1. `Fixed global pool settings`: These are the defaults for all the Hystrix pools. If nothing else is specified, these settings are used.
+1. `Configured global pool settings`: These are the defaults specified in configuration files that override the fixed values described earlier and apply to all Hystrix pools.
+1. `Pool settings specified in code`: These are the settings you specify in the constructor of your Hystrix thread pool. These settings apply to all commands that reference that pool.
 1. `Configured pool specific settings`: These are the settings specified in configuration files that are targeted at named thread pools and apply to all commands that are created that reference that pool.
 
-All configured thread pool settings should be placed under the prefix with a key of `hystrix:threadpool:`.
+All configured thread pool settings should be placed under the prefix with a key of `Hystrix:Threadpool:`.
 
-All configured global settings, as described earlier in #2, should be placed under a prefix of `hystrix:threadpool:default:`. The following example configures the default number of threads in all thread pools to be 20:
+All configured global settings, as described earlier in #2, should be placed under a prefix of `Hystrix:Threadpool:default:`. The following example configures the default number of threads in all thread pools to be 20:
 
-`hystrix:threadpool:default:coreSize=20`
+`Hystrix:Threadpool:default:CoreSize=20`
 
 To configure the settings for a thread pool in code, use the `HystrixThreadPoolOptions` type found in the `Steeltoe.CircuitBreaker.HystrixBase` package.
 
-All configured pool-specific settings, as described in #4 above, should be placed under a prefix of `hystrix:threadpool:HYSTRIX_THREADPOOL_KEY:`, where `HYSTRIX_THREADPOOL_KEY` is the `name` of the thread pool. Note that the default name of the thread pool used by a command, if not overridden, is the command group name applied to the command. The following example configures the number of threads for the Hystrix thread pool with a `name` of `sample` to be 40:
+All configured pool-specific settings, as described in #4 above, should be placed under a prefix of `Hystrix:Threadpool:HYSTRIX_THREADPOOL_KEY:`, where `HYSTRIX_THREADPOOL_KEY` is the `Name` of the thread pool. Note that the default name of the thread pool used by a command, if not overridden, is the command group name applied to the command. The following example configures the number of threads for the Hystrix thread pool with a `Name` of `sample` to be 40:
 
-`hystrix:threadpool:foobar:coreSize=40`
+`Hystrix:Threadpool:sample:CoreSize=40`
 
 The tables in the following sections specify all of the possible settings.
 
->NOTE: the settings provided below follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix thread pool operations.
+>NOTE: The settings provided below follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix thread pool operations.
 
 #### Sizing
 
-These settings control the sizing of various aspects of the thread pool. There is no additional prefix used in these settings.
+These settings control the sizing of various aspects of the thread pool. There is no additional prefix used in these settings. The following table describes the sizing settings:
 
 |Key|Description|Default|
 |---|---|---|
-|coreSize|Sets the thread pool size.|10|
-|maximumSize|Maximum size of threadPool. See `allowMaximumSizeToDivergeFromCoreSize`.|10|
-|maxQueueSize|Maximum thread pool queue size. `value=-1` uses the sync queue.|-1|
-|queueSizeRejectionThreshold|Sets the queue size rejection threshold. An artificial maximum queue size, at which rejections occur even if maxQueueSize has not been reached, does not apply if `maxQueueSize=-1`.|5|
-|keepAliveTimeMinutes|Currently not used.|1|
-|allowMaximumSizeToDivergeFromCoreSize|Lets the configuration for `maximumSize` take effect.|false|
+|`CoreSize`|Sets the thread pool size.|10|
+|`MaximumSize`|Maximum size of threadPool. See `AllowMaximumSizeToDivergeFromCoreSize`.|10|
+|`MaxQueueSize`|Maximum thread pool queue size. `value=-1` uses the sync queue.|-1|
+|`QueueSizeRejectionThreshold`|Sets the queue size rejection threshold. An artificial maximum queue size, at which rejections occur even if `MaxQueueSize` has not been reached. Does not apply if `MaxQueueSize=-1`.|5|
+|`KeepAliveTimeMinutes`|Currently not used.|1|
+|`AllowMaximumSizeToDivergeFromCoreSize`|Lets the configuration for `MaximumSize` take effect.|false|
 
 The following listing shows an example:
 
-`hystrix:threadPool:foobar:coreSize=20`
+`Hystrix:ThreadPool:sample:CoreSize=20`
 
-#### Metrics
+#### Thread Pool Metrics
 
 The following table describes the settings that control the behavior of capturing metrics from Hystrix thread pools:
 
 |Key|Description|Default|
 |---|---|---|
-|rollingStats.timeInMilliseconds|Duration of the statistical rolling window. Defines how long metrics are kept for the thread pool.|10000|
-|rollingStats.numBuckets|Number of buckets into which the rolling statistical window is divided.|10|
+|`RollingStats:TimeInMilliseconds`|Duration of the statistical rolling window. Defines how long metrics are kept for the thread pool.|10000|
+|`RollingStats:NumBuckets`|Number of buckets into which the rolling statistical window is divided.|10|
 
-Each setting is prefixed with a key of `metrics`, as shown in the following example:
+Each setting is prefixed with a key of `Metrics`, as shown in the following example:
 
-`hystrix:threadpool:sample:metrics:rollingStats:timeInMilliseconds=20000`
+`Hystrix:Threadpool:sample:Metrics:RollingStats:TimeInMilliseconds=20000`
 
 ### Collapser Settings
 
@@ -336,58 +326,58 @@ As with all other Hystrix settings, there are four levels of precedence that are
 1. `Collapser settings specified in code`: Specified in the constructor of your Hystrix collapser. Applies to all collapsers that are created with that set of options.
 1. `Configured collapser specific settings`: Specified in application configuration for named collapsers. Applies to all collapsers created with that name.
 
-All configured collapser settings should be placed under a prefix of `hystrix:collapser:`.
+All configured collapser settings should be placed under a prefix of `Hystrix:Collapser:`.
 
-All configured global settings, as described in #2 above, should be placed under a prefix of `hystrix:collapser:default:`. The following example configures the default number of milliseconds after which a batch of requests created by the collapser triggers and runs all of the requests:
+All configured global settings, as described in #2 above, should be placed under a prefix of `Hystrix:Collapser:default:`. The following example configures the default number of milliseconds after which a batch of requests created by the collapser triggers and runs all of the requests:
 
-`hystrix:collapser:default:timerDelayInMilliseconds=20`
+`Hystrix:Collapser:default:TimerDelayInMilliseconds=20`
 
 If you wish to configure the settings for a collapser in code, you must use the `HystrixCollapserOptions` found in the `Steeltoe.CircuitBreaker.HystrixBase` package.
 
-All configured collapser specific settings, as described in #4 above, should be placed under a  prefix of `hystrix:collapser:HYSTRIX_COLLAPSER_KEY:`, where `HYSTRIX_COLLAPSER_KEY` is the "name" of the collapser.
+All configured collapser specific settings, as described in #4 above, should be placed under a  prefix of `Hystrix:Collapser:HYSTRIX_COLLAPSER_KEY:`, where `HYSTRIX_COLLAPSER_KEY` is the "name" of the collapser.
 
 >NOTE: The default name of the collapser, if not specified, is the type name of the collapser.
 
 The following example configures the number of milliseconds after which a batch of requests that have been created by the collapser with a name of `sample` triggers and runs all of the requests:
 
-`hystrix:collapser:foobar:timerDelayInMilliseconds=400`
+`Hystrix:Collapser:sample:TimerDelayInMilliseconds=400`
 
-The tables that follow specify all of the possible settings.
+The tables in the sections that follow specify all of the possible settings.
 
 >NOTE: The settings provided in the tables follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix collapser operations.
 
-#### Sizing
+#### Collapser Sizing
 
 The following table describes the settings that control the sizing of various aspects of collapsers:
 
 |Key|Description|Default|
 |---|---|---|
-|maxRequestsInBatch|sets the max number of requests in a batch|INT32.MaxValue|
-|timerDelayInMilliseconds|delay before a batch is executed|10|
-|requestCacheEnabled|indicates whether request cache is enabled|true|
+|`MaxRequestsInBatch`|sets the max number of requests in a batch|`INT32.MaxValue`|
+|`TimerDelayInMilliseconds`|delay before a batch is executed|10|
+|`RequestCacheEnabled`|indicates whether request cache is enabled|`true`|
 
 There is no additional prefix used in these settings.
 
 The following listing shows an example:
 
-`hystrix:collapser:sample:timerDelayInMilliseconds=400`
+`Hystrix:Collapser:sample:TimerDelayInMilliseconds=400`
 
-#### Metrics
+#### Collapser Metrics
 
 The following table describes the settings that control the behavior of capturing metrics from Hystrix collapsers.
 
 |Key|Description|Default|
 |---|---|---|
-|rollingStats:timeInMilliseconds|Duration of the statistical rolling window. Used by circuit breaker and for publishing.|10000|
-|rollingStats:numBuckets|Number of buckets into which the rolling statistical window is divided.|10|
-|rollingPercentile:enabled|Indicates whether execution latencies should be tracked and calculated as percentiles.|true|
-|rollingPercentile:timeInMilliseconds|Duration of the rolling window in which execution times are kept to allow for percentile calculations.|60000|
-|rollingPercentile:numBuckets|Number of buckets into which the rollingPercentile window will be divided.|6|
-|rollingPercentile:bucketSize|Maximum number of execution times that are kept per bucket.|100|
+|`RollingStats:TimeInMilliseconds`|Duration of the statistical rolling window. Used by circuit breaker and for publishing.|10000|
+|`RollingStats:NumBuckets`|Number of buckets into which the rolling statistical window is divided.|10|
+|`RollingPercentile:Enabled`|Indicates whether execution latencies should be tracked and calculated as percentiles.|`true`|
+|`RollingPercentile:TimeInMilliseconds`|Duration of the rolling window in which execution times are kept to allow for percentile calculations.|60000|
+|`RollingPercentile:NumBuckets`|Number of buckets into which the RollingPercentile window will be divided.|6|
+|`RollingPercentile:BucketSize`|Maximum number of execution times that are kept per bucket.|100|
 
 Each setting is prefixed with a key of `metrics`, as shown in the following example:
 
-`hystrix:collapser:foobar:metrics:rollingPercentile:enabled=false`
+`Hystrix:Collapser:sample:Metrics:RollingPercentile:Enabled=false`
 
 ### Configure Settings
 
@@ -397,21 +387,21 @@ The following example shows some Hystrix settings in JSON that configure the `Fo
 
 ```json
 {
-  "spring": {
-    "application": {
-      "name": "fortuneui"
+  "Spring": {
+    "Application": {
+      "Name": "fortuneui"
     }
   },
-  "eureka": {
-    "client": {
-      "serviceUrl": "http://localhost:8761/eureka/",
-      "shouldRegisterWithEureka": false
+  "Eureka": {
+    "Client": {
+      "ServiceUrl": "http://localhost:8761/eureka/",
+      "ShouldRegisterWithEureka": false
     }
   },
-  "hystrix": {
-    "command": {
+  "Hystrix": {
+    "Command": {
       "FortuneService": {
-        "threadPoolKeyOverride": "FortuneServiceTPool"
+        "ThreadPoolKeyOverride": "FortuneServiceTPool"
       }
     }
   }
@@ -452,9 +442,10 @@ public class Startup {
         ...
     }
     ...
+}
 ```
 
-You must follow one important requirement if you wish to use the `AddHystrixCommand()` extension methods: When you define your HystrixCommand, define a public constructor with the first argument a `IHystrixCommandOptions` (that is, `HystrixCommandOptions`).  You need not create or populate the `IHystrixCommandOptions`. The `AddHystrixCommand()` extension method does that for you by using the configuration data you provide in the extension method call.
+You must follow one important requirement if you wish to use the `AddHystrixCommand()` extension methods: When you define your `HystrixCommand`, define a public constructor with the first argument a `IHystrixCommandOptions` (that is, `HystrixCommandOptions`). You need not create or populate the `IHystrixCommandOptions`. The `AddHystrixCommand()` extension method does that for you by using the configuration data you provide in the extension method call.
 
 The following example shows how to define a compatible constructor:
 
@@ -478,7 +469,7 @@ Notice that `FortuneServiceCommand` inherits from `HystrixCommand<Fortune>`. It 
 
 ### Use Commands
 
-If you have used the `AddHystrixCommand()` extension methods described earlier, you can get an instance of the command in your controller or view by addig the command as an argument in the constructor.
+If you have used the `AddHystrixCommand()` extension methods described earlier, you can get an instance of the command in your controller or view by adding the command as an argument in the constructor.
 
 The following example controller uses a Hystrix command called `FortuneServiceCommand`, which was added to the container by using `AddHystrixCommand<FortuneServiceCommand>("FortuneService", Configuration)`.
 
@@ -510,7 +501,7 @@ public class HomeController : Controller
 }
 ```
 
-The following example shows the definition of the Hystrix command used above.
+The following example shows the definition of the Hystrix command used in the preceding example:
 
 ```csharp
 using Steeltoe.CircuitBreaker.Hystrix;
@@ -546,9 +537,9 @@ public class FortuneServiceCommand : HystrixCommand<Fortune>
 }
 ```
 
-The `FortuneServiceCommand` class is a Hystrix command and is intended to be used in retrieving Fortunes from a Fortune microservice. It uses another service, `IFortuneService` to actually make the request.
+The `FortuneServiceCommand` class is a Hystrix command and is intended to be used in retrieving `Fortune` instances from a `Fortune` microservice. It uses another service, `IFortuneService` to actually make the request.
 
-In the preceding example, notice that the `FortuneServiceCommand` constructor takes a `IHystrixCommandOptions` as its first parameter. This is the command's configuration, and it has been previously populated with configuration data during `Startup`.
+In the preceding example, notice that the `FortuneServiceCommand` constructor takes an `IHystrixCommandOptions` as its first parameter. This is the command's configuration, and it has been previously populated with configuration data during `Startup`.
 
 Further notice that the two protected methods, `RunAsync()` and `RunFallbackAsync()`, are the worker methods for the command and are the methods that do the work of the Hystrix command.
 
@@ -565,14 +556,14 @@ var command = new FortuneServiceCommand(...);
 var result = command.Execute();
 ```
 
-To execute a command asynchronously, use the `ExecuteAsync()` method:
+To execute a command asynchronously, use the `ExecuteAsync()` method, as follows:
 
 ```csharp
 var command = new FortuneServiceCommand(...);
 var result = await command.ExecuteAsync();
 ```
 
-You can also use Rx.NET extensions and observe the results of a command by using the `Observe()` method. The `Observe()` method returns a `hot` observable, which has already started execution upon return. The following listing shows an example:
+You can also use `Rx.NET` extensions and observe the results of a command by using the `Observe()` method. The `Observe()` method returns a "hot" observable, which has already started execution upon return. The following listing shows an example:
 
 ```csharp
 var command = new FortuneServiceCommand(...);
@@ -590,17 +581,17 @@ IDisposable subscription = cold.Subscribe((result) => { Console.WriteLine(result
 
 ### Add Collapsers
 
-In addition to Hystrix commands, you also might want to use Hystrix collapsers in your applications. Hystrix collapsers let you collapse multiple requests into a batch of requests that can then be executed by a single underlying HystrixCommand.
+In addition to Hystrix commands, you also might want to use Hystrix collapsers in your applications. Hystrix collapsers let you collapse multiple requests into a batch of requests that can then be executed by a single underlying `HystrixCommand`.
 
 Collapsers can be configured to use a batch size or an elapsed time since the creation of the batch as triggers for executing the underlying Hystrix command.
 
 There are two styles of request-collapsing supported by Hystrix: `request-scoped` and `globally-scoped`. You configure which style to use when you construct the collapser. The default is `request-scoped`. A `request-scoped` collapser collects a batch of requests for each `HystrixRequestContext`. A `globally-scoped` collapser collects a batch across multiple `HystrixRequestContext` instances.
 
-As with Hystrix commands, you can also add a Hystrix collapsers to the service container, making them available for injection in your application. You can use several Steeltoe extension methods to help you accomplish this.
+As with Hystrix commands, you can also add Hystrix collapsers to the service container, making them available for injection in your application. You can use several Steeltoe extension methods to help you accomplish this.
 
 >NOTE: Adding collapsers to the container is not required. You can create them in your application at any point.
 
-If you do want to have them injected, then use the `AddHystrixCollapser()` extension methods provided by the Steeltoe package in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
+If you do want to have them injected, you can use the `AddHystrixCollapser()` extension methods provided by the Steeltoe package in the `ConfigureServices()` method of the `Startup` class, as follows:
 
 ```csharp
 using Steeltoe.CircuitBreaker.Hystrix;
@@ -626,9 +617,10 @@ public class Startup {
     }
 
     ...
+}
 ```
 
-As with Hystrix commands, you must follow an important requirement if you wish to use the `AddHystrixCollapser()` extension methods: When you define your HystrixCollapser, you must define a public constructor with a `IHystrixCollapserOptions` (that is, `HystrixCollapserOptions`) as the first argument.  You need not create or populate its contents. Instead, the `AddHystrixCollapser()` extension method does that for you by using the configuration data you provide in the method call.
+As with Hystrix commands, you must follow an important requirement if you wish to use the `AddHystrixCollapser()` extension methods: When you define your `HystrixCollapser`, you must define a public constructor with a `IHystrixCollapserOptions` (that is, `HystrixCollapserOptions`) as the first argument.  You need not create or populate its contents. Instead, the `AddHystrixCollapser()` extension method does that for you by using the configuration data you provide in the method call.
 
 The following example shows how to define a compatible constructor:
 
@@ -693,7 +685,7 @@ public class HomeController : Controller
 }
 ```
 
-The following listing shows the definition of the Hystrix collapser used in the previous example.
+The following listing shows the definition of the Hystrix collapser used in the previous example:
 
 ```csharp
 using Steeltoe.CircuitBreaker.Hystrix;
@@ -742,7 +734,7 @@ public class FortuneServiceCollapser : HystrixCollapser<List<Fortune>, Fortune, 
 }
 ```
 
-The `FortuneServiceCollapser` class is a Hystrix collapser and is intended to batch up requests for Fortunes and then run a single Hystrix command called `MultiFortuneServiceCommand` to return a `List<Fortune>`.
+The `FortuneServiceCollapser` class is a Hystrix collapser and is intended to batch up requests for `Fortune` instances and then run a single Hystrix command called `MultiFortuneServiceCommand` to return a `List<Fortune>`.
 
 To understand how the collapser functions, you first need to understand what happens during the processing of an incoming request. For each incoming request, each separate run of a `FortuneServiceCollapser` instance causes the Hystrix collapser to add a request into a batch of requests to be handed off to a `MultiFortuneServiceCommand` created by `CreateCommand()`, shown in the previous example.
 
@@ -750,9 +742,9 @@ Notice that `CreateCommand()` takes a collection of `ICollapsedRequest<Fortune, 
 
 Next, notice the `MapResponseToRequests` method. After the `MultiFortuneServiceCommand` finishes, some logic must be applied to map the `Fortunes` returned from the command (as `List<Fortune> batchResponse`) to the individual requests (in `ICollection<ICollapsedRequest<Fortune, int>> requests`) that we started with. Doing so enables each separate execution of a `FortuneServiceCollapser` that has been used to group a request to run asynchronously and to return the `Fortune` that was requested by it.
 
-As with Hystrix commands, you have multiple ways in which you can cause collapsers to begin executing.
+As with Hystrix commands, you have multiple ways in which you can cause collapsers to begin running.
 
-To execute a collapser synchronouslym, you can use the `Execute()` method, as shown in the following example:
+To execute a collapser synchronously, you can use the `Execute()` method, as shown in the following example:
 
 ```csharp
 var collapser = new FortuneServiceCollapser(...);
@@ -766,7 +758,7 @@ var collapser = new FortuneServiceCollapser(...);
 var result = await collapser.ExecuteAsync();
 ```
 
-You can also use Rx.NET extensions and observe the results by using the `Observe()` method. The `Observe()` method returns a `hot` observable that has already started execution.
+You can also use `Rx.NET` extensions and observe the results by using the `Observe()` method. The `Observe()` method returns a `hot` observable that has already started execution.
 
 ```csharp
 var collapser = new FortuneServiceCollapser(...);
@@ -784,7 +776,7 @@ IDisposable subscription = cold.Subscribe((result) => { Console.WriteLine(result
 
 ### Use Metrics
 
-As HystrixCommands run, they generate metrics and status information on outcomes and latency and thread pool usage. This information can be useful in monitoring and managing your applications. The Hystrix Dashboard enables you to extract and view these metrics in real time.
+As `HystrixCommand` instances run, they generate metrics and status information on outcomes and latency and thread pool usage. This information can be useful in monitoring and managing your applications. The Hystrix Dashboard lets you extract and view these metrics in real time.
 
 With Steeltoe, you can currently choose from two dashboards.
 
@@ -792,9 +784,9 @@ The first is the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/
 
 The second is the [Spring Cloud Services Hystrix Dashboard](https://docs.pivotal.io/spring-cloud-services/1-5/common/circuit-breaker/). This dashboard is part of the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/) offering and is made available to applications through the normal service instance binding mechanisms on Cloud Foundry.
 
-You should use the `Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore` package in an ASP.NET Core application when targeting the Netflix Hystrix Dashboard. When added to your app, it exposes a new REST endpoint in your application: `/hystrix/hystrix.stream`. This endpoint is used by the Netflix dashboard in receiving `SSE` metrics and status events from your application.
+You should use the `Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore` package in an ASP.NET Core application when targeting the Netflix Hystrix Dashboard. When added to your application, it exposes a new REST endpoint in your application: `/hystrix/hystrix.stream`. This endpoint is used by the Netflix dashboard in receiving `SSE` metrics and status events from your application.
 
-You should use the `Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore` package in an ASP.NET Core application when targeting the Spring Cloud Services Hystrix Dashboard. When added to your app, it starts up a background thread and uses messaging to push the metrics to the bound dashboard.
+You should use the `Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore` package in an ASP.NET Core application when targeting the Spring Cloud Services Hystrix Dashboard. When added to your application, it starts up a background thread and uses messaging to push the metrics to the bound dashboard.
 
 Regardless of which dashboard or package you choose to use, to enable your application to emit metrics and status information, you must make three changes in your `Startup` class:
 
@@ -802,7 +794,7 @@ Regardless of which dashboard or package you choose to use, to enable your appli
 * Use Hystrix Request context middleware in pipeline
 * Start Hystrix Metrics stream
 
-To add the metrics stream to the service container, you must use the `AddHystrixMetricsStream()` extension method in the `ConfigureService()` method in your `Startup` class, as shown in the following example:
+To add the metrics stream to the service container, you must use the `AddHystrixMetricsStream()` extension method in the `ConfigureService()` method in your `Startup` class, as follows:
 
 ```csharp
 using Steeltoe.CircuitBreaker.Hystrix;
@@ -830,11 +822,12 @@ public class Startup {
         ...
     }
     ...
+}
 ```
 
-Next, you must configure a couple of Hystrix related items in the request processing pipeline. You can do so in the `Configure()` method of the `Startup` class.
+Next, you must configure two Hystrix related items in the request processing pipeline. You can do so in the `Configure()` method of the `Startup` class.
 
-First, metrics requires that Hystrix Request contexts be initialized and available in every request being processed. You can enable this by using the Steeltoe extension method `UseHystrixRequestContext()` shown in the next example.
+First, metrics requires that Hystrix `Request` contexts be initialized and available in every request being processed. You can enable this by using the Steeltoe extension method `UseHystrixRequestContext()` shown in the next example.
 
 Additionally, in order to start the metrics stream service so that it starts to publish metrics and events, you need to call the `UseHystrixMetricsStream()` extension method. See the contents of the `Configure()` method in the following example:
 
@@ -865,6 +858,7 @@ public class Startup {
         app.UseHystrixMetricsStream();
     }
     ...
+}
 ```
 
 #### Netflix Dashboard
@@ -874,7 +868,7 @@ Once you have made the changes described earlier, you can then use the Netflix H
 1. Clone a Hystrix dashboard (<https://github.com/spring-cloud-samples/hystrix-dashboard.git>).
 1. Go to the cloned directory (`hystrix-dashboard`) and start the dashboard with `mvn spring-boot:run`.
 1. Open a browser and connect to the dashboard (for example, <http://localhost:7979>).
-1. In the first field, enter the endpoint in the application that is exposing the hystrix metrics (for example, <http://localhost:5555/hystrix/hystrix.stream>).
+1. In the first field, enter the endpoint in the application that is exposing the Hystrix metrics (for example, <http://localhost:5555/hystrix/hystrix.stream>).
 1. Click the monitor button.
 1. Use your application and see the metrics begin to flow.
 

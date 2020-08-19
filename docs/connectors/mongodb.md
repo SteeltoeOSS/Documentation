@@ -10,25 +10,25 @@ To use this connector:
 
 1. Create a MongoDB service instance and bind it to your application.
 1. Optionally, configure any MongoDB client settings.
-1. Add the Steeltoe Cloud Foundry config provider to you `ConfigurationBuilder`.
+1. Add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
 1. Add MongoDB classes to your DI container.
 
 ### Add NuGet Reference
 
-To use the MongoDB connector, add the official [MongoDB.Driver NuGet package](https://www.nuget.org/packages/MongoDB.Driver/) as you would if you weren't using Steeltoe. Then, add a reference to the appropriate Steeltoe Connector NuGet package.
+To use the MongoDB connector, add the official [MongoDB.Driver NuGet package](https://www.nuget.org/packages/MongoDB.Driver/) as you would if you were not using Steeltoe. Then add a reference to the appropriate Steeltoe Connector NuGet package.
 
 ### Configure Settings
 
-This connector supports several settings for local interaction with MongoDB that will be overridden by service bindings on deployment:
+This connector supports several settings for local interaction with MongoDB that are overridden by service bindings on deployment:
 
 ```json
 {
-  "mongodb": {
-    "client": {
-      "server": "localhost",
-      "port": 27017,
-      "options": {
-        "replicaSet": "rs0"
+  "MongoDb": {
+    "Client": {
+      "Server": "localhost",
+      "Port": 27017,
+      "Options": {
+        "ReplicaSet": "rs0"
       }
     }
   }
@@ -39,16 +39,16 @@ The following table table describes all possible settings for the connector
 
 |Key|Description|Default|
 |---|---|---|
-|server|Hostname or IP Address of the server|localhost|
-|port|Port number of the server|27017|
-|username|Username for authentication|not set|
-|password|Password for authentication|not set|
-|database|Name of the database to use|not set|
-|options|any additional [options](https://mongodb.github.io/mongo-csharp-driver/2.7/apidocs/html/T_MongoDB_Driver_MongoClientSettings.htm), passed through as provided|not set|
-|connectionString|Full connection string|built from settings|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+|`Server`|Hostname or IP Address of the server|`localhost`|
+|`Port`|Port number of the server|27017|
+|`Username`|Username for authentication|not set|
+|`Password`|Password for authentication|not set|
+|`Database`|Name of the database to use|not set|
+|`Options`|Any additional [options](https://mongodb.github.io/mongo-csharp-driver/2.7/apidocs/html/T_MongoDB_Driver_MongoClientSettings.htm), passed through as provided|not set|
+|`ConnectionString`|Full connection string|built from settings|
+|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
->IMPORTANT: All of these settings should be prefixed with `mongodb:client:`.
+>IMPORTANT: All of these settings should be prefixed with `MongoDb:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
@@ -88,19 +88,9 @@ public class Startup
 }
 ```
 
-Or the extension provided for Autofac:
-
-```csharp
-using Steeltoe.ConnectorAutofac;
-...
-  ContainerBuilder container = new ContainerBuilder();
-  var regBuilder = container.RegisterMongoDbConnection(configuration);
-...
-```
-
 ### Use Mongo Client
 
-The following example shows how to inject and use an `IMongoClient` and `MongoUrl` in order to get an `IMongoDatabase` to interact with:
+The following example shows how to inject and use an `IMongoClient` and a `MongoUrl` in order to get an `IMongoDatabase` object:
 
 ```csharp
 public class SomeClass
