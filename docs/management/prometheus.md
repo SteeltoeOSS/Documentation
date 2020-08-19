@@ -1,6 +1,6 @@
 ### Prometheus
 
-The Steeltoe Prometheus endpoint configures application metrics collection by using the open source [OpenCensus](https://opencensus.io/) project. Similar to the [Metrics Endpoint](metrics), it automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics in the prometheus format.
+The Steeltoe prometheus endpoint exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format.  Similar to the [Metrics Endpoint](metrics), it automatically configures built-in instrumentation of various aspects of the application.
 
 The metrics collected are the same as those collected by the [metrics endpoint](metrics).
 
@@ -14,6 +14,8 @@ The following table describes the settings that you can apply to the endpoint:
 |`Enabled`|Whether to enable the metrics management endpoint|`true`|
 
 >NOTE: Each setting must be prefixed with `Management:Endpoints:Prometheus`.
+
+To configure Observers, see [Metric Observers](/metrics-observers)
 
 #### Enable HTTP Access
 

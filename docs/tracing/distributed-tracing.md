@@ -69,12 +69,12 @@ The following table describes the available settings:
 |`Name`|The name of the application|`Spring:Application:Name`, Cloud Foundry name, or `Unknown`|
 |`IngressIgnorePattern`|Regex pattern describing what incoming requests to ignore|See `TracingOptions`|
 |`EgressIgnorePattern`|Regex pattern describing what outgoing requests to ignore|See `TracingOptions`|
-|`MaxNumberOfAttributes`|Max attributes attachable to OpenCensus span|32|
-|`MaxNumberOfAnnotations`|Max annotations attachable to OpenCensus span|32|
-|`MaxNumberOfMessageEvents`|Max events attachable to OpenCensus span|128|
-|`MaxNumberOfLinks`|max links attachable to OpenCensus span|128|
-|`AlwaysSample`|Whether to enable the OpenCensus `AlwaysSampler`|OpenCensus `ProbabilitySampler`|
-|`NeverSample`|Whether to enable the OpenCensus `NeverSampler`|OpenCensus `ProbabilitySampler`|
+|`MaxNumberOfAttributes`|Max attributes attachable to OpenTelemetry span|32|
+|`MaxNumberOfAnnotations`|Max annotations attachable to OpenTelemetry span|32|
+|`MaxNumberOfMessageEvents`|Max events attachable to OpenTelemetry span|128|
+|`MaxNumberOfLinks`|max links attachable to OpenTelemetry span|128|
+|`AlwaysSample`|Whether to enable the OpenTelemetry `AlwaysOnSampler`|OpenTelemetry `Sampler`|
+|`NeverSample`|Whether to enable the OpenTelemetry `AlwaysOffSampler`|OpenTelemetry `Sampler`|
 |`UseShortTraceIds`|Whether to truncate the IDs to 8 bytes instead of 16. Use it for backwards compatibility with Spring Sleuth, PCF Metrics, and others.|`true`|
 
 ### Enabling Log Correlation

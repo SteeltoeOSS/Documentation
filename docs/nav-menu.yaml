@@ -211,10 +211,15 @@
       name: /loggers
     - page: /docs/3/management/mappings
       name: /mappings
-    - page: /docs/3/management/metrics
-      name: /metrics
-    - page: /docs/3/management/prometheus
-      name: /prometheus
+    - page: /docs/3/management/metrics-overview
+      name: Metrics
+      items:
+        - page: /docs/3/management/metrics-observers
+          name: Metric Observers
+        - page: /docs/3/management/metrics
+          name: /metrics
+        - page: /docs/3/management/prometheus
+          name: /prometheus
     - page: /docs/3/management/refresh
       name: /refresh
     - page: /docs/3/management/threaddump
@@ -222,7 +227,7 @@
     - page: /docs/3/management/tracing
       name: /tracing
 - page: /docs/3/messaging
-  name: Messaging 
+  name: Messaging
   items:
     - page: /docs/3/messaging/rabbitmq-intro
       name: RabbitMQ Introduction
@@ -267,7 +272,7 @@
         - page_ref: listener-container-queues
           name: Listener Container Queues
         - page_ref: resilience-recovering-from-errors
-          name: Resilience & Recovery  
+          name: Resilience & Recovery
 - page: /docs/3/fileshares
   name: Network File Sharing
   items:
