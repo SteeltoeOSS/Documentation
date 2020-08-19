@@ -215,7 +215,7 @@
       name: Metrics
       items:
         - page: /docs/3/management/metrics-observers
-          name: Metrics Observers
+          name: Metric Observers
         - page: /docs/3/management/metrics
           name: /metrics
         - page: /docs/3/management/prometheus

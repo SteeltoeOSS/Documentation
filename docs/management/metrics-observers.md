@@ -1,4 +1,4 @@
-### Metrics Observers
+### Metric Observers
 
 Adding either the [metrics](/metrics) or [prometheus](/prometheus) endpoints automatically configures built-in instrumentation of various aspects of the application.
 
