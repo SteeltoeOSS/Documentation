@@ -1,5 +1,7 @@
 # Steeltoe Documentation
 
+## <a href="/docs/welcome/whats-new">What's New in 3.0</a>
+
 Steeltoe includes a number of features:
 
 * <a href="#steeltoe-application-configuration">Application Configuration</a>
