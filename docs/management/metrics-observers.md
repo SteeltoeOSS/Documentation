@@ -1,6 +1,6 @@
 ### Metrics Observers
 
-Adding either the [metrics](/metrics) or [prometheus](/prometheus) endpoints automatically configures built-in instrumentation of various aspects of the application. 
+Adding either the [metrics](/metrics) or [prometheus](/prometheus) endpoints automatically configures built-in instrumentation of various aspects of the application.
 
 The following instrumentation is available:
 
@@ -11,7 +11,7 @@ The following instrumentation is available:
 * HTTP Server Metrics
   * Request timings & counts
 * Event Counter Metrics
-  * CPU, Memory 
+  * CPU, Memory
 * Hystrix Events Metrics
   * Circuit Breaker metrics
 

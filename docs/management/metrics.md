@@ -1,6 +1,6 @@
 ### Metrics
 
-The Steeltoe metrics endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. It automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics via the endpoint.
+The Steeltoe metrics endpoint configures built-in instrumentation of various aspects of the application and exposes them in Spring Boot Metrics format.
 
 The following instrumentation is automatically configured:
 

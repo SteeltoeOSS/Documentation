@@ -1,6 +1,6 @@
 ### Prometheus
 
-The Steeltoe Prometheus endpoint configures application metrics collection using the open source [OpenTelemetry](https://opentelemetry.io/) project. Similar to the [Metrics Endpoint](metrics), it automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics in the prometheus format.
+The Steeltoe prometheus endpoint exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format.  Similar to the [Metrics Endpoint](metrics), it automatically configures built-in instrumentation of various aspects of the application.
 
 The metrics collected are the same as those collected by the [metrics endpoint](metrics).
 
