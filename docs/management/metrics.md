@@ -23,8 +23,6 @@ The following table describes the settings that you can apply to the endpoint:
 |---|---|---|
 |id|The ID of the metrics endpoint|`metrics`|
 |enabled|Whether to enable the metrics management endpoint|true|
-
-The following table 
 |ingressIgnorePattern|Regex pattern describing what incoming requests to ignore|See `MetricsOptions`|
 |egressIgnorePattern|Regex pattern describing what outgoing requests to ignore|See `MetricsOptions`|
 
@@ -70,7 +68,7 @@ PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-m2
 ```
 ##### Cloud Foundry Forwarder
 
- The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is not longer supported. To export metrics to PCF, see [Prometheus](prometheus). 
+ The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is not longer supported. To export metrics to PCF, see [Prometheus](prometheus).
 ##### ASP.NET Core App
 
 To use the Metrics actuator endpoint do the following.

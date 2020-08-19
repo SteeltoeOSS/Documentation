@@ -68,12 +68,12 @@ All settings should be placed under the prefix with the key `management:tracing:
 |name|the name of the application|spring:application:name, Cloud Foundry name, or "Unknown"|
 |ingressIgnorePattern|Regex pattern describing what incoming requests to ignore|See `TracingOptions`|
 |egressIgnorePattern|Regex pattern describing what outgoing requests to ignore|See `TracingOptions`|
-|maxNumberOfAttributes|max attributes attachable to OpenCensus span|32|
-|maxNumberOfAnnotations|max annotations attachable to OpenCensus span|32|
-|maxNumberOfMessageEvents|max events attachable to OpenCensus span|128|
-|maxNumberOfLinks|max links attachable to OpenCensus span|128|
-|alwaysSample|enable the OpenCensus AlwaysSampler|OpenCensus ProbabilitySampler|
-|neverSample|enable the OpenCensus NeverSampler|OpenCensus ProbabilitySampler|
+|maxNumberOfAttributes|max attributes attachable to OpenTelemetry span|32|
+|maxNumberOfAnnotations|max annotations attachable to OpenTelemetry span|32|
+|maxNumberOfMessageEvents|max events attachable to OpenTelemetry span|128|
+|maxNumberOfLinks|max links attachable to OpenTelemetry span|128|
+|alwaysSample|enable the OpenTelemetry AlwaysOnSampler|OpenTelemetry Sampler|
+|neverSample|enable the OpenTelemetry AlwaysOffSampler|OpenTelemetry Sampler|
 |useShortTraceIds|truncate the ids to 8 bytes instead of 16, use for backwards compatibility with Spring Sleuth, PCF Metrics, etc.|true|
 
 ### Enabling Log Correlation
