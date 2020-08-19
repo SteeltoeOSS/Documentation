@@ -404,7 +404,7 @@ These features are explained further in the following sections.
 
 See also `PublisherConfirms` in [Scoped Operations](#scoped-operations).
 
-TIP: For some more background information on publisher confirms and returns, see the blog post by the RabbitMQ team titled [Introducing Publisher Confirms](https://www.rabbitmq.com/blog/2011/02/10/introducing-publisher-confirms/).
+>TIP: For some more background information on publisher confirms and returns, see the blog post by the RabbitMQ team titled [Introducing Publisher Confirms](https://www.rabbitmq.com/blog/2011/02/10/introducing-publisher-confirms/).
 
 ### Connection and Channel Listeners
 
