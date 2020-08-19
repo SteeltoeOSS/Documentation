@@ -26,7 +26,7 @@ The  `RabbitMQ.Client` .NET client library version is 5.1.2.
 
 This section offers the fastest introduction.
 
-First, add the following `using` statements to make the examples later in this section work:
+First, add the following `using` statements:
 
 ```csharp
 using System;
@@ -35,7 +35,7 @@ using Steeltoe.Messaging.RabbitMQ.Connection;
 using Steeltoe.Messaging.RabbitMQ.Core;
 ```
 
-The following example uses plain, console application to send and receive a message:
+The following example uses a simple console application to send and receive a message:
 
 ```csharp
 class Program
@@ -61,7 +61,7 @@ class Program
 Note that there is also a `IConnectionFactory` in the native .NET RabbitMQ client.
 But notice above we use the Steeltoe abstractions with no references to the native client.
 The Steeltoe factory caches channels (and optionally connections) for reuse.
-We rely on the default exchange in the broker (since none is specified in the send operation) and the default binding of all queues to the default exchange by their name (thus, we can use the queue name as a routing key in the send operation).
+Steeltoe relies on the default exchange to the broker (since none is specified in the send operation) and the default binding of all queues to the default exchange by their name (thus, we can use the queue name as a routing key in the send operation).
 Those behaviors are defined in the AMQP specification.
 
 ### Using DI in Console App
@@ -103,10 +103,10 @@ class Program
             b.AddConsole();
         });
 
-        // Add any configuration as needed
+        // Add configuration as needed
         var config = new ConfigurationBuilder().Build();
 
-        // Configure any rabbit options from configuration
+        // Configure rabbit options from the configuration
         var rabbitSection = config.GetSection(RabbitOptions.PREFIX);
         services.Configure<RabbitOptions>(rabbitSection);
         services.AddSingleton<IConfiguration>(config);
@@ -217,7 +217,7 @@ public class MyRabbitSender : IHostedService
 ## Basics
 
 [RabbitMQ](https://www.rabbitmq.com/) is a lightweight, reliable, scalable, and portable message broker based on the AMQP protocol.
-Steeltoe uses the `RabbitMQ` .NET client to communicate through the AMQP protocol.
+Steeltoe uses the `RabbitMQ` .NET client to communicate to a broker over the AMQP protocol.
 
 RabbitMQ configuration is controlled by external configuration properties in `Spring:RabbitMq:*+`.
 For example, you might declare the following section in your `appsettings.json`:
@@ -250,11 +250,11 @@ If the address uses the `amqps` protocol, SSL support is automatically enabled.
 
 See [`RabbitOptions`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Config/RabbitOptions.cs) for more of the supported options.
 
-TIP: See [Understanding AMQP, the protocol used by RabbitMQ](https://www.rabbitmq.com/tutorials/amqp-concepts.html) for more details.
+>TIP: See [Understanding AMQP, the protocol used by RabbitMQ](https://www.rabbitmq.com/tutorials/amqp-concepts.html) for more details.
 
 ### Sending a Message
 
-Steeltoe `RabbitTemplate` and `RabbitAdmin` can be used to send and receive messages to the broker and are auto-configured when you add them to the .NET service container., You can inject them directly into your own services as follows:
+Steeltoe `RabbitTemplate` and `RabbitAdmin` can be used to send and receive messages to a broker and are auto-configured when you add them to the .NET service container. You can inject them directly into your own services as follows:
 
 ```csharp
 using Steeltoe.RabbitMQ.Core.RabbitAdmin;
@@ -295,7 +295,7 @@ To retry operations, you can enable retries on the `RabbitTemplate` (for example
 }
 ```
 
-Note that retries are disabled by default.
+>NOTE: retries are disabled by default.
 
 If you need to create more `RabbitTemplate` instances or if you want to override the defaults, Steeltoe provides extension methods `AddRabbitTemplate(.. , Action<IServiceProvider, RabbitTemplate> configure)` that you can use to configure a `RabbitTemplate` with the settings you desire.
 
@@ -366,5 +366,5 @@ When retries are exhausted, the message is rejected and either dropped or routed
 By default, retries are disabled. -->
 
 >IMPORTANT: By default, if retries are disabled and the listener throws an exception, the delivery is retried indefinitely.
-You can modify this behavior in two ways: Set the `DefaultRequeueRejected` property in the container factory to `false` so that zero re-deliveries are attempted or throw a `RabbitRejectAndDontRequeueException` to signal the message should be rejected.
+You can modify this behavior in one of two ways: Set the `DefaultRequeueRejected` property in the container factory to `false` so that zero re-deliveries are attempted, or throw a `RabbitRejectAndDontRequeueException` to signal the message should be rejected.
 The latter is the mechanism used when retries are enabled and the maximum number of delivery attempts is reached.
