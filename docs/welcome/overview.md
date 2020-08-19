@@ -38,7 +38,7 @@ Steeltoe includes tools that help you more easily code microservices and interac
 ## Distributed Tracing
 
 Steelto allows you to capture trace data for your microservice application using logs, or by sending it to a remote collector service.
-[read more](/docs/tracing)
+[read more](/docs/tracing/distributed-tracing)
 
 
 <a name="steeltoe-dynamic-logging"></a>
