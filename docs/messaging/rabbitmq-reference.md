@@ -115,7 +115,7 @@ For much more information about these and the other Exchange types, see [further
 
 >NOTE: The AMQP specification also requires that any broker provide a "default" direct exchange that has no name.
 All queues that are declared are bound to that default `Exchange` with their names as routing keys.
-You can learn more about the default Exchange's usage within Steeltoe RabbitMQ in [RabbitTemplate](#rabbit-template).
+You can learn more about the default Exchange's usage within Steeltoe RabbitMQ in [RabbitTemplate](#rabbittemplate).
 
 ### IQueue
 
@@ -178,10 +178,10 @@ IBinding b = BindingBuilder.Bind(someQueue).To(someTopicExchange).With("foo.*");
 
 By itself, an instance of the `IBinding` interface holds only the data about a connection between an exchange and queue.
 In other words, it is not an "active" component.
-However, as you will see later in [Configuring the Broker](#broker-configuration), the `RabbitAdmin` class can use `IBinding` instances to actually trigger the binding actions on the broker.
+However, as you will see later in [Configuring the Broker](#configuring-the-broker), the `RabbitAdmin` class can use `IBinding` instances to actually trigger the binding actions on the broker.
 Also, as you will see in that same section, you can define the `IBinding` instances by using Steeltoe `AddRabbitBinding(..)` extension methods.
 
-The `RabbitTemplate` mentioned earlier is one of the main components involved in actual RabbitMQ messaging, and it is discussed in detail in its own section[Rabbit Template](#rabbit-template).
+The `RabbitTemplate` mentioned earlier is one of the main components involved in actual RabbitMQ messaging, and it is discussed in detail in its own section[Rabbit Template](#rabbittemplate).
 
 ## Connection and Resource Management
 
@@ -216,7 +216,7 @@ A property called `ConnectionLimit` is provided to limit the total number of con
 When set, if the limit is reached, the `ChannelCheckoutTimeout` is used to wait for a connection to become idle.
 If the time is exceeded, an `RabbitTimeoutException` is thrown.
 
->When the cache mode is `CONNECTION`, automatic declaration of queues and other AMQP types (See [Automatic Declaration of Exchanges, Queues, and Bindings](#automatic-declaration) is NOT supported.
+>When the cache mode is `CONNECTION`, automatic declaration of queues and other AMQP types (See [Automatic Declaration of Exchanges, Queues, and Bindings](#automatic-declaration-of-exchanges-queues-and-bindings) is NOT supported.
 
 It is important to understand that the cache size is (by default) not a limit but is merely the number of channels that can be cached.
 With a cache size of, say, 10, any number of channels can actually be in use.
@@ -269,7 +269,7 @@ To mitigate the problem, we suggest having one more separate `CachingConnectionF
 A separate `CachingConnectionFactory` is not possible for transactional producers that execute on a consumer thread, since they should reuse the Channel associated with the consumer transactions.
 
 The `RabbitTemplate` has a configuration option to automatically use a second connection factory, unless transactions are being used.
-See [Using a Separate Connection](#steeltoe-messaging-separate-connection) for more information.
+See [Using a Separate Connection](#using-a-separate-connection) for more information.
 
 A `RabbitResourceNotAvailableException` is provided, which is thrown when `SimpleConnection.CreateChannel()` cannot create a `Channel` (for example, because the `RequestedChannelMax` limit is reached and there are no available channels in the cache).
 You can use this exception in your implementation of a retry policy to recover the operation after some back-off.
@@ -411,7 +411,7 @@ TIP: For some more background information on publisher confirms and returns, see
 The connection factory supports registering `IConnectionListener` and `IChannelListener` implementations.
 Doing so, allows you to receive notifications for connection and channel related events.
 (A `IConnectionListener` is used by the `RabbitAdmin` to perform declarations on the broker when the connection is established.
-  See [Automatic Declaration of Exchanges, Queues and Bindings]("#automatic-declaration"></a> for more information).
+  See [Automatic Declaration of Exchanges, Queues and Bindings]("#automatic-declaration-of-exchanges-queues-and-bindings"></a> for more information).
 The following listing shows the `IConnectionListener` interface definition:
 
 ```csharp
@@ -434,7 +434,7 @@ public interface IChannelListener
 }
 ```
 
-See [Publishing is Asynchronous — How to Detect Successes and Failures](#publishing-is-async) for one scenario where you might want to register a `IChannelListener`.
+See [Publishing is Asynchronous — How to Detect Successes and Failures](#publishing-is-asynchronous-how-to-detect-success-and-failure) for one scenario where you might want to register a `IChannelListener`.
 
 ### Logging Channel Close Events
 
@@ -447,8 +447,6 @@ INFO level.
 * All others are logged at ERROR level.
 
 To modify this behavior, you can configure a custom `IConditionalExceptionLogger` into the `CachingConnectionFactory` in its `CloseExceptionLogger` property.
-
-See also [Consumer Events](#consumer-events).
 
 ### Runtime Cache Properties
 
@@ -488,13 +486,13 @@ The `CacheMode` property (`CHANNEL` or `CONNECTION`) is also included.
 ### RabbitMQ Automatic Connection and Topology Recovery
 
 Since the first version of Steeltoe RabbitMQ, the framework has provided its own connection and channel recovery in the event of a broker failure.
-Also, as discussed in [Configuring the Broker](#broker-configuration), `RabbitAdmin` re-declares any infrastructure services (queues and others) when the connection is re-established.
+Also, as discussed in [Configuring the Broker](#configuring-the-broker), `RabbitAdmin` re-declares any infrastructure services (queues and others) when the connection is re-established.
 It therefore, does not rely on the [auto-recovery](https://www.rabbitmq.com/api-guide.html#recovery) features that is provided by the `RabbitMQ.Client` library. We strongly recommend that you allow Steeltoe RabbitMQ to use its own recovery mechanism by disabling it in the client if you configure your own factory.
 
 >IMPORTANT: Only elements (queues, exchanges, bindings) that are defined as services in the container will be re-declared after a connection failure.
 Elements declared by invoking `RabbitAdmin.Declare*()` methods directly from user code are unknown to the framework and therefore cannot be recovered.
 
-If you have a need for a variable number of declarations, consider defining a service, of type `IDeclarable`, as discussed in [Declaring Collections of Exchanges, Queues, and Bindings](#collection-declaration).
+If you have a need for a variable number of declarations, consider defining a service, of type `IDeclarable`, as discussed in [Declaring Collections of Exchanges, Queues, and Bindings](#declaring-collections-of-exchanges-queues-and-bindings).
 
 ## Adding Custom Client Connection Properties
 
@@ -532,16 +530,16 @@ public RabbitTemplate GetRabbitTemplate() {
 In addition to the `RetryTemplate` property, the `RecoveryCallback` property is supported on the `RabbitTemplate`.
 The template uses it as the second argument for the `RetryTemplate.Execute(Func<IRetryContext, T> retryCallback, IRecoveryCallback<T> recoveryCallback)` call that is done by the template when a retry template has been configured. You can provide an implementation of this interface to handle failures after all retries have taken place.
 
-### Publishing is Asynchronous - How to Detect Success and Failure
+### Publishing is Asynchronous How to Detect Success and Failure
 
 Publishing messages is an asynchronous mechanism and, by default, messages that cannot be routed to the proper location are dropped by RabbitMQ.
-For successful publishing, you can receive an asynchronous confirm, as described in [Publisher Confirms and Returns](#template-confirms").
+For successful publishing, you can receive an asynchronous confirm, as described in [Template Publisher Confirms and Returns](#template-publisher-confirms-and-rReturns").
 Consider two failure scenarios:
 
 * Publish to an exchange but there is no matching destination queue.
 * Publish to a non-existent exchange.
 
-The first case is covered by publisher returns, as described in [Publisher Confirms and Returns](#template-confirms").
+The first case is covered by publisher returns, as described in [Template Publisher Confirms and Returns](#template-publisher-confirms-and-rReturns").
 
 For the second case, the message is dropped and no return is generated.
 The underlying channel is closed with an exception.
@@ -570,7 +568,7 @@ You can examine the `ShutdownEventArgs` properties to determine the problem that
 
 The `RabbitTemplate` supports publisher confirms and returns.
 
-For returned messages, the template's `Mandatory` property must be set to `true`. See [Publisher Confirms and Returns](#factory-publisher-confirms-and-returns)
+For returned messages, the template's `Mandatory` property must be set to `true`. See [Factory Publisher Confirms and Returns](#factory-publisher-confirms-and-returns)
 This feature also requires a `CachingConnectionFactory` that has its `PublisherReturns` property set to `true`.
 Returns are sent to the client by it registering a return callback by setting the `RabbitTemplate.ReturnCallback` property.
 The callback must implement the following method:
@@ -644,13 +642,13 @@ There may be times, however, where you want to have more control over the use of
 
 A method called `T Invoke<T>(Func<IRabbitTemplate, T> rabbitOperations)` is provided.
 Any operations performed within the scope of the `rabbitOperations` and on the provided `RabbitTemplate` argument use the same dedicated `Channel`, which will be closed at the end (not returned to a cache).
-If the channel is a `IPublisherCallbackChannel`, it is returned to the cache after all confirms have been received (see [Publisher Confirms and Returns](#template-confirms).
+If the channel is a `IPublisherCallbackChannel`, it is returned to the cache after all confirms have been received (see [Template Publisher Confirms and Returns](#template-publisher-confirms-and-returns).
 
 One example of why you might need to use this is if you wish to use the `WaitForConfirms()` method on the underlying `Channel`.
 Alternatively, the `RabbitTemplate` also provides `WaitForConfirms(int timeout)` and `WaitForConfirmsOrDie(int timeout)`, which delegates to the dedicated channel used within the scope of the `rabbitOperations`.
 The methods cannot be used outside of that scope, for obvious reasons.
 
-Note that a higher-level abstraction that lets you correlate confirms to requests is provided elsewhere (see [Publisher Confirms and Returns](#template-confirms).
+Note that a higher-level abstraction that lets you correlate confirms to requests is provided elsewhere (see [Template Publisher Confirms and Returns](#template-publisher-confirms-and-returns).
 If you want only to wait until the broker has confirmed delivery, you can use the technique shown in the following example:
 
 ```csharp
@@ -820,7 +818,7 @@ public static AbstractMessageBuilder WithPayload(object payload, Type payloadTyp
 ```
 
 With the `RabbitTemplate` each of the `Send()` methods has an overloaded version that takes an additional `CorrelationData` object.
-When publisher confirms are enabled, this object is returned in the callback described in [RabbitTemplate](#rabbit-template).
+When publisher confirms are enabled, this object is returned in the callback described in [RabbitTemplate](#rabbittemplate).
 This lets the sender correlate a confirm (`ack` or `nack`) with the sent message.
 
 Also, a callback interface called `ICorrelationDataPostProcessor` is provided which you can use during correlation processing.
@@ -835,7 +833,7 @@ CorrelationData PostProcess(IMessage message, CorrelationData correlationData);
 
 ### Publisher Returns
 
-When the template's `Mandatory` property is set to `true`, returned messages are provided by the callback described in [RabbitTemplate](#rabbit-template).
+When the template's `Mandatory` property is set to `true`, returned messages are provided by the callback described in [RabbitTemplate](#rabbittemplate).
 
 <!--
 
@@ -883,7 +881,7 @@ This is communicated to the receiving system by setting the `springBatchFormat` 
 >IMPORTANT: Batched messages are automatically de-batched by listener containers by default (by using the `springBatchFormat` message header).
 Rejecting any message from a batch causes the entire batch to be rejected.
 
-However, see [RabbitListener with Batching](#receiving-batch) for more information.
+However, see [RabbitListener with Batching](#rabbitListener-with-batching) for more information.
 
 ## Receiving Messages
 
@@ -930,7 +928,7 @@ T ReceiveAndConvert(string queueName, int timeoutMillis);
 
 There are variants of these methods that take an additional `Type` argument as well.
 The template must be configured with a `ISmartMessageConverter`.
-See [Converting from a Message with RabbitTemplate](#json-complex) for more information.
+See [Message Converters](#message-converters) for more information.
 
 Similar to `SendAndReceive` methods, the `RabbitTemplate` has several convenience `ReceiveAndReply` methods for synchronously receiving, processing and replying to messages.
 The following listing shows some of those method definitions:
@@ -972,7 +970,7 @@ if (received)
 
 >IMPORTANT: Steeltoe RabbitMQ also supports annotated listener endpoints through the use of the `[RabbitListener()]` attribute and provides an open infrastructure to register endpoints programmatically.
 This is by far the most convenient way to setup an asynchronous consumer.
-See [Annotation-driven Listener Endpoints](#async-annotation-driven) for more details.
+See [Attribute driven Listener Endpoints](#attribute-driven-listener-endpoints) for more details.
 
 >IMPORTANT: The default `PrefetchCount` value is 250, which should keep consumers busy in most common scenarios.
 There are, nevertheless, scenarios where the `PrefetchCount` value should be kept low:
@@ -985,7 +983,7 @@ Also, with low-volume messaging and multiple consumers (including concurrency wi
 We also recommend using `PrefetchCount` = 1 with the `MANUAL` `ack` mode.
 The `BasicAck` is an asynchronous operation and, if something wrong happens on the Broker (double `ack` for the same delivery tag, for example), you end up with processed subsequent messages in the batch that are unacknowledged on the Broker, and other consumers may see them.
 
-See [Message Listener Container Configuration](#container-attributes).
+See [Message Listener Container Configuration](#message-listener-container-configuration).
 
 For more background about `PrefetchCount`, see this post about [consumer utilization in RabbitMQ](https://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3)
 and this post about [queuing theory](https://www.rabbitmq.com/blog/2012/05/11/some-queuing-theory-throughput-latency-and-bandwidth/).
@@ -1025,7 +1023,7 @@ If you prefer to maintain a stricter separation between your application logic a
 This is often referred to as "Message-driven POCO" support.
 
 >NOTE: A more flexible mechanism for POCO messaging is using the `[RabbitListener()]` attribute.
-See [Annotation-driven Listener Endpoints](#async-annotation-driven) for more information.
+See [Attribute Driven Listener Endpoints](#attribute-driven-listener-endpoints) for more information.
 
 When using the adapter, you need to provide only a reference to the instance that the adapter itself should invoke.
 The following example shows how to do so:
@@ -1038,7 +1036,7 @@ listener.DefaultListenerMethod = "MyMethod";  // Defaults to "HandleMessage"
 You can subclass the adapter and provide an implementation of `GetListenerMethodName()` to dynamically select different methods based on the message.
 This method has two parameters, `originalMessage` and `extractedMessage`, the latter being the result of any conversion.
 By default, a `SimpleMessageConverter` is configured.
-See [SimpleMessageConverter](#simple-message-converter) for more information and information about other converters available.
+See [SimpleMessageConverter](#simplemessageconverter) for more information and information about other converters available.
 
 The original message has `consumerQueue` and `consumerTag` message headers, which can be used to determine the queue from which a message was received.
 
@@ -1183,7 +1181,7 @@ The `DirectMessageListenerContainer` supports setting consumer arguments, as the
 container.ConsumerArguments.Add("x-priority", 10);
 ```
 
-You can modify the queues on which the container listens at runtime. See [Listener Container Queues](#listener-queues).
+You can modify the queues on which the container listens at runtime. See [Listener Container Queues](#listener-container-queues).
 
 #### Auto Delete Queues
 
@@ -1215,7 +1213,8 @@ When the container is later started, it uses its reference to `containerAdmin` t
 
 Batched messages (created by a producer) are automatically de-batched by listener containers (using the `springBatchFormat` message header).
 Rejecting any message from a batch causes the entire batch to be rejected.
-See [Batching](#template-batching) for more information about batching.
+See [Batching](#batching) for more information about batching.
+
 <!-- TODO: Update this when we add Context events like Spring has.
 Also the Direct container will have to log the events mention below as this is specific to Simple
 
@@ -1266,9 +1265,9 @@ public interface IConsumerTagStrategy : IServiceNameAware
 
 The `queueName` is made available so that it can (optionally) be used in the tag.
 
-See [Message Listener Container Configuration](#steeltoe-messaging-container-attributes) for details on how to set this up.
+See [Message Listener Container Configuration](#message-listener-container-configuration) for details on how to set this up.
 
-### Annotation-driven Listener Endpoints
+### Attribute driven Listener Endpoints
 
 The easiest way to receive a message asynchronously is to use the annotated listener endpoint infrastructure.
 In a nutshell, it lets you expose a method of a service as a Rabbit listener endpoint.
@@ -1297,7 +1296,7 @@ In the preceding example, `myQueue` must already exist and be bound to some exch
 The queue can be declared and bound automatically, as long as a `RabbitAdmin` exists in the service container and the `Queue` has been added as well.
 
 >NOTE: Property placeholders (`${some:property}`) can be specified for the annotation properties (`queues` etc).
-See [Listening to Multiple Queues](#annotation-multiple-queues) for examples.
+See [Listening to Multiple Queues](#listening-to-multiple-queues) for examples.
 
 The following listing shows three examples of how to declare a Rabbit listeners, Queues, Exchanges, etc. using annotations:
 
@@ -1420,7 +1419,7 @@ public void HandleAFoo(Foo foo)
 
 The container factories provide methods for adding `IMessagePostProcessor` instances that are applied after receiving messages (before invoking the listener) and before sending replies.
 
-See [Reply Management](#async-annotation-driven-reply") for information about replies.
+See [Reply Management](#reply-management") for information about replies.
 
 You can add a `RetryTemplate` and `RecoveryCallback` to the listener container factory.
 It is used when sending replies.
@@ -1503,7 +1502,7 @@ method arguments.
 
 >NOTE: This type inference works only for `[RabbitListener()]` used at the method level.
 
-See [JsonMessageConverter](#json-message-converter) for more information.
+See [JsonMessageConverter](#jsonmessageconverter) for more information.
 
 If you wish to customize the method argument converter, you can do so, as follows:
 
@@ -1537,7 +1536,7 @@ public class MyRabbitListenerConfigurer : IRabbitListenerConfigurer
 
 ```
 
->IMPORTANT: For multi-method listeners ( see [Multi-method Listeners](#annotation-method-selection) ), the method selection is based on the payload of the message *after the message conversion*.
+>IMPORTANT: For multi-method listeners ( see [Multiple Method Listeners](#multiple-method-listeners) ), the method selection is based on the payload of the message *after the message conversion*.
 The method argument converter is called only after the method has been selected.
 
 #### Programmatic Endpoint Registration
@@ -1832,7 +1831,7 @@ public String listen(Message in) {
 ```
 -->
 
-#### Multi-method Listeners
+#### Multiple Method Listeners
 
 You can specify the `[RabbitListener()]` attribute at the class level.
 Together with the  `[RabbitHandler()]` attribute, this lets a single listener invoke different methods, based on
@@ -1873,7 +1872,7 @@ public class MultiListenerService
 In this case, the individual `[RabbitHandler()]` methods are invoked if the converted payload is a `Thing2`, a `Cat`, or a `Hat`.
 You should understand that the system must be able to identify a unique method based on the payload type.
 The type is checked for assignability to a single parameter that has no attributes or that is annotated with the `[Payload()]` attribute.
-Notice that the same method signatures apply, as discussed in the method-level `[RabbitListener()` [described earlier](#message-listener-adapter).
+Notice that the same method signatures apply, as discussed in the method-level `[RabbitListener()]` [described earlier](#messagelisteneradapter).
 
 A `[RabbitHandler()]` method can be designated as the default method, which is invoked if there is no match on other methods.
 At most, one method can be so designated.
@@ -1942,10 +1941,10 @@ This provides a mechanism to get a reference to a subset of containers.
 Adding a `Group` property causes a service of type `IMessageListenerContainerCollection` to be registered with the `IApplicationContext` with the group name.
 You can then use the `IApplicationContext` and call `context.GetService<IMessageListenerContainerCollection>(group)` to obtain the containers.
 
-### [RabbitListener()] with Batching
+### RabbitListener with Batching
 
-When receiving a [batch](#template-batch) of messages, the de-batching is normally performed by the container and the listener is invoked with one message at at time.
-You can configure the listener container factory and listener to receive the entire batch in one call, simply set the factory's `batchListener` property, and make the method payload parameter a `List`:
+When receiving a [batch](#batching) of messages, the de-batching is normally performed by the container and the listener is invoked with one message at at time.
+You can configure the listener container factory and listener to receive the entire batch in one call, simply set the factory's `BatchListener` property, and make the method payload parameter a `List`:
 
 ```csharp
 
@@ -1972,7 +1971,7 @@ public void Listen2(List<IMessage<Thing>> input)
 
 Setting the `BatchListener` property to true automatically turns off the `EeBatchingEnabled` container property in containers that the factory creates. Effectively, the de-batching is moved from the container to the listener adapter and the adapter creates the list that is passed to the listener.
 
-A batch-enabled factory cannot be used with a [multi-method listener](#annotation-method-selection).
+A batch-enabled factory cannot be used with a [multi-method listener](#multiple-method-listener).
 
 Also, when receiving batched messages one-at-a-time, the last message contains a boolean header set to `true`.
 This header can be obtained by adding the `[Header(RabbitMessageHeaders.LAST_IN_BATCH)] bool lastMessage` parameter to your listener method.
@@ -1981,7 +1980,7 @@ In addition, `RabbitMessageHeaders.BATCH_SIZE` is populated with the size of the
 
 ### Using Container Factories
 
-Listener container factories are used to support the `[RabbitListener()]` attribute and registering containers with the `IRabbitListenerEndpointRegistry`, as discussed [above](#async-annotation-driven-registration).
+Listener container factories are used to support the `[RabbitListener()]` attribute and registering containers with the `IRabbitListenerEndpointRegistry`, as discussed [above](#programmatic-endpoint-registration).
 
 They can be used to create any listener container - even a container without a listener.
 Of course, a listener must be added before the container is started.
@@ -2072,7 +2071,7 @@ A number of different threads are involved with asynchronous consumers.
 Threads from the underlying `RabbitMQ.Client` are used to invoke the `IMessageListener` when a new message is delivered by the client.
 A separate thread from the ThreadPool is used for the task that monitors the consumers.
 
-## Containers and Broker-Named queues
+## Containers and Broker Named queues
 
 While it is preferable to use `AnonymousQueue` instances as auto-delete queues, you can use broker named queues with listener containers.
 The following example shows how to do so:
@@ -2150,7 +2149,7 @@ T ReceiveAndConvert<T>();
 T ReceiveAndConvert<T>(string queueName);
 ```
 
->NOTE: The `MessageListenerAdapter` mentioned in [Asynchronous Consumer](#async-consumer) also uses a `IMessageConverter`.
+>NOTE: The `MessageListenerAdapter` mentioned in [Asynchronous Consumer](#asynchronous-consumer) also uses a `IMessageConverter`.
 
 ### SimpleMessageConverter
 
@@ -2158,7 +2157,7 @@ The default implementation of the `IMessageConverter` is called `SimpleMessageCo
 This is the converter that is used by an instance of `RabbitTemplate` if you do not explicitly configure an alternative.
 It handles text-based content, serializable .NET objects, and byte arrays.
 
-#### Converting From a IMessage
+#### Converting From a IMessage SimpleMessageConverter
 
 If the content type header of the input `IMessage` begins with "text" (for example,
 "text/plain"), it also checks for the content-encoding header to determine the charset to be used when converting the `IMessage` body byte array to a `string`.
@@ -2173,9 +2172,7 @@ In the next two sections, we explore some alternatives for passing rich domain o
 
 For all other content-types, the `SimpleMessageConverter` returns the `IMessage` body content directly as a byte array.
 
-See [Dotnet Deserialization](#dotnet-deserialization) for important information.
-
-#### Converting To a IMessage
+#### Converting To a IMessage SimpleMessageConverter
 
 When converting to a `IMessage` from an arbitrary .NET Object, the `SimpleMessageConverter` likewise deals with byte arrays, strings, and serializable instances.
 It converts each of these to bytes (in the case of byte arrays, there is nothing to convert), and it sets the content-type property accordingly.
@@ -2186,10 +2183,10 @@ If the `Object` to be converted does not match one of those types, the `IMessage
 This section covers using the `JsonMessageConverter` to convert to and from a `IMessage`.
 It has the following sections:
 
-* [Converting to a IMessage](#JsonMessageConverter-to-message)
-* [Converting from a IMessage](#JsonMessageConverter-from-message)
+* [Converting to IMessage JsonMessageConverter](#converting-to-imessage-jsonMessageConverter)
+* [Converting from IMessage JsonMessageConverter](#converting-from-imessage-jsonMessageConverter)
 
-#### Converting to a IMessage
+#### Converting to IMessage JsonMessageConverter
 
 As mentioned in the previous section, relying on .NET serialization is generally not recommended.
 One rather common alternative that is more flexible and portable across different languages and platforms is JSON (JavaScript Object Notation).
@@ -2235,7 +2232,7 @@ services.AddRabbitTemplate("jsonTemplate", (p, t) =>
 
 Now, if the sending system sets the `__TypeId__` header to `thing1`, the converter creates a `Thing1` object, and so on.
 
-#### Converting from a IMessage
+#### Converting from IMessage JsonMessageConverter
 
 Inbound messages are converted to objects according to the type information added to headers by the sending system.
 
@@ -2342,7 +2339,7 @@ For example, after your POCO has been converted, the `IMessagePostProcessor` let
 
 Additional extension points have been added to the `RabbitTemplate` - `SetBeforePublishPostProcessors()` and `SetAfterReceivePostProcessors()`.
 The first enables a post processor to run immediately before sending to RabbitMQ.
-When using batching (see [Batching](#template-batching), this is invoked after the batch is assembled and before the batch is sent.
+When using batching (see [Batching](#batching), this is invoked after the batch is assembled and before the batch is sent.
 The second is invoked immediately after a message is received.
 
 These extension points are used for such features as compression and, for this purpose, several `IMessagePostProcessor` implementations are provided.
@@ -2371,7 +2368,7 @@ See the [Code of `RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/
 
 Each of the `SendAndReceive` method variants has an overloaded version that takes `CorrelationData`.
 Together with a properly configured connection factory, this enables the receipt of publisher confirms for the send side of the operation.
-See [Publisher Confirms and Returns](#template-confirms) and the [Code of `RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) for more detail.
+See [Template Publisher Confirms and Returns](#template-publisher-confirms-and-returns) and the [Code of `RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) for more detail.
 
 You can configure the `RabbitTemplate` with the `NoLocalReplyConsumer` option to control a `noLocal` flag for the reply RabbitMQ Client `BasicConsume()` operation.
 This is `false` by default.
@@ -2536,15 +2533,15 @@ You can use this functionality programmatically only by invoking the `RabbitAdmi
 When using auto-declaration by the admin when defining a queue declaratively in the application context, you can set the name property to `string.Empty` (the empty string).
 The broker then creates the name.
 Listener containers can use queues of this type.
-See [Containers and Broker-Named Queues](#containers-and-broker-named-queues) for more information.
+See [Containers and Broker Named Queues](#containers-and-broker-named-queues) for more information.
 
 This is in contrast to an `AnonymousQueue` where the framework generates a unique (`Guid`) name and sets `Durable` to `false` and `Exclusive`, `AutoDelete` to `true`.
 
-See [AnonymousQueue](#anonymous-queue) to understand why `AnonymousQueue` is preferred over broker-generated queue names as well as how to control the format of the name.
+See [AnonymousQueue](#anonymousqueue) to understand why `AnonymousQueue` is preferred over broker-generated queue names as well as how to control the format of the name.
 Anonymous queues are declared with argument `x-queue-master-locator` set to `client-local` by default.
 This ensures that the queue is declared on the node to which the application is connected.
 
-See [Automatic Declaration of Exchanges, Queues, and Bindings](#automatic-declaration).
+See [Automatic Declaration of Exchanges Queues and Bindings](#automatic-declaration-of-exchanges-queues-and-bindings).
 
 When the `CachingConnectionFactory` cache mode is `CHANNEL` (the default), the `RabbitAdmin` implementation does automatic lazy declaration of queues, exchanges, and bindings found in the .NET service container.
 These components are declared as soon as a `IConnection` is opened to the broker. There are some extension methods that make this feature very easy:
@@ -2737,7 +2734,7 @@ var alternate = ExchangeBuilder.DirectExchange("ex.with.alternate")
 
 ```
 
-### Declaring Collections of Exchanges, Queues, and Bindings
+### Declaring Collections of Exchanges Queues and Bindings
 
 You can wrap collections of `Declarable` objects (`Queue`, `Exchange`, and `Binding`) in `Declarables` objects.
 The `RabbitAdmin` detects such services (as well as discrete `Declarable` services) in the service container, and declares the contained objects on the broker whenever a connection is established (initially and after a connection failure).
@@ -2827,7 +2824,7 @@ services.AddRabbitBinding("foo.binding", Binding.DestinationType.QUEUE, (p, b) =
 ### A Note On the `ServiceName` and `*Name` Properties
 
 The `*Name` properties on `Queue` and `*Exchange` types reflects the name of the entity in the broker.
-For queues, if the `*Name` is omitted, an anonymous queue is created [AnonymousQueue](#anonymous-queue).
+For queues, if the `*Name` is omitted, an anonymous queue is created [AnonymousQueue](#anonymousqueue).
 
 ### AnonymousQueue
 
@@ -2950,7 +2947,7 @@ Those are defined in the 'Steeltoe.Messaging.RabbitMQ.Exceptions' namespace, and
 When a listener throws an exception, it is wrapped in a `ListenerExecutionFailedException`.
 Normally, the message is rejected and requeued by the broker.
 Setting `DefaultRequeueRejected` to `false` causes messages to be discarded (or routed to a dead letter exchange).
-As discussed in [Message Listeners and the Asynchronous Case](#async-listeners), the listener can throw an `RabbitRejectAndDontRequeueException` (or `ImmediateRequeueException`) to conditionally control this behavior.
+As discussed in [Message Listeners and the Asynchronous Case](#message-listeners-and-the-asynchronous-case), the listener can throw an `RabbitRejectAndDontRequeueException` (or `ImmediateRequeueException`) to conditionally control this behavior.
 
 However, there is a class of errors where the listener cannot control the behavior.
 When a message that cannot be converted is encountered (for example, an invalid `RabbitMessageHeaders.CONTENT_ENCODING` header), some exceptions are thrown before the message reaches user code.
@@ -3080,7 +3077,7 @@ public AbstractMessageListenerContainer container() {
 RabbitMQ transactions apply only to messages and acks sent to the broker.
 Consequently, when there is a rollback of a transaction and a message has been received, Steeltoe RabbitMQ has to not only rollback the transaction but also manually reject the message (sort of a nack, but that is not what the specification calls it).
 The action taken on message rejection is independent of transactions and depends on the `DefaultRequeueRejected` property (default: `true`).
-For more information about rejecting failed messages, see [Message Listeners and the Asynchronous Case](#async-listeners).
+For more information about rejecting failed messages, see[Message Listeners and the Asynchronous Case](#message-listeners-and-the-asynchronous-case).
 
 For more information about RabbitMQ transactions and their limitations, see [RabbitMQ Broker Semantics](https://www.rabbitmq.com/semantics.html).
 
@@ -3110,10 +3107,10 @@ The following table shows the container property names you can use to configure 
 | AlwaysRequeueWithTxManagerRollback (N/A) | Set to `true` to always requeue messages on rollback when a transaction manager is configured. |
 | AutoDeclare| When set to `true` (default), the container uses a `RabbitAdmin` to redeclare all RabbitMQ objects (queues, exchanges, bindings), if it detects that at least one of its queues is missing during startup, perhaps because it is an `IsAutoDelete` or an expired queue, but the re-declaration proceeds if the queue is missing for any reason. To disable this behavior, set this property to `false`. Note that the container fails to start if all of its queues are missing. NOTE: For `AutoDeclare` to work, there must be exactly one `RabbitAdmin` in the container, or a reference to a specific instance must be configured on the container using the `RabbitAdmin` property. |
 |AutoStartup| Flag to indicate that the container should start when the container is started and the `ISmartLifecycle` callbacks are initialized. Defaults to `true`, but you can set it to `false` if your broker might not be available on startup and call `Start()` later manually when you know the broker is ready. |
-|BatchingStrategy| The strategy used when de-batching messages. Default `SimpleDebatchingStrategy`. See [Batching](#template-batching) and [RabbitListener with Batching](#receiving-batch). |
+|BatchingStrategy| The strategy used when de-batching messages. Default `SimpleDebatchingStrategy`. See [Batching](#template-batching) and [RabbitListener with Batching](#rabbitlistener-with-batching). |
 | IsChannelTransacted| Boolean flag to signal that all messages should be acknowledged in a transaction (either manually or automatically). |
 | ConnectionFactory| A reference to the `IConnectionFactory`.|
-| ConsumerTagStrategy| Set an implementation of [ConsumerTagStrategy](#consumer-tags), enabling the creation of a (unique) tag for each consumer. |
+| ConsumerTagStrategy| Set an implementation of [ConsumerTagStrategy](#consumertagstrategy), enabling the creation of a (unique) tag for each consumer. |
 | ConsumersPerQueue| The number of consumers to create for each configured queue. See [Listener Concurrency](#listener-concurrency). |
 | DefaultRequeueRejected| Determines whether messages that are rejected because the listener threw an exception should be requeued or not. Default: `true`. |
 | ErrorHandler| A reference to an `IErrorHandler` strategy for handling any uncaught exceptions that may occur during the execution of the MessageListener. Default: `ConditionalRejectingErrorHandler` |
@@ -3121,7 +3118,7 @@ The following table shows the container property names you can use to configure 
 | ExclusiveConsumerExceptionLogger| An exception logger used when an exclusive consumer cannot gain access to a queue. By default, this is logged at the `WARN` level.|
 | FailedDeclarationRetryInterval | The interval between passive queue declaration retry attempts. Passive queue declaration occurs when the consumer starts or, when consuming from multiple queues, when not all queues were available during initialization. Default: 5000 (five seconds). |
 | ForceCloseChannel| If the consumers do not respond to a shutdown within `ShutdownTimeout`, if this is `true`, the channel will be closed, causing any un-acked messages to be requeued. Defaults to `true` since 2.0. You can set it to `false` to revert to the previous behavior. |
-| IdleEventInterval| See [Detecting Idle Asynchronous Consumers](#idle-containers). |
+| IdleEventInterval| See [Detecting Idle Asynchronous Consumers](#detecting-idle-asynchronous-consumers). |
 | MessagesPerAck| The number of messages to receive between acks. Use this to reduce the number of acks sent to the broker (at the cost of increasing the possibility of redelivered messages). Generally, you should set this property only on high-volume listener containers. If this is set and a message is rejected (exception thrown), pending acks are acknowledged and the failed message is rejected. Not allowed with transacted channels. If the `PrefetchCount` is less than the `MessagesPerAck`, it is increased to match the `MessagesPerAck`. Default: ack every message. See also `AckTimeout` in this table. |
 | MismatchedQueuesFatal| When the container starts, if this property is `true` (default: `false`), the container checks that all queues declared in the context are compatible with queues already on the broker. If mismatched properties (such as `IsAutoDelete`) or arguments (such as `x-message-ttl`) exist, the container (and application context) fails to start with a fatal exception. If the problem is detected during recovery (for example, after a lost connection), the container is stopped. There must be a single `RabbitAdmin` in the application context (or one specifically configured on the container by using the `RabbitAdmin` property). Otherwise, this property must be `false`. <br\><br\>NOTE: If the broker is not available during initial startup, the container starts and the conditions are checked when the connection is established.<br\><br\> IMPORTANT: The check is done against all queues in the context, not just the queues that a particular listener is configured to use. If you wish to limit the checks to just those queues used by a container, you should configure a separate `RabbitAdmin` for the container, and provide a reference to it using the `RabbitAdmin` property. See [Conditional Declaration](#conditional-declaration) for more information|
 | MissingQueuesFatal| When set to `true` (default), if none of the configured queues are available on the broker, it is considered fatal. This causes the application context to fail to initialize during startup. Also, when the queues are deleted while the container is running, by default, the consumers make three retries to connect to the queues (at five second intervals) and stop the container if these attempts fail. This was not configurable in previous versions. When set to `false`, after making the three retries, the container goes into recovery mode, as with other problems, such as the broker being down. The container tries to recover according to the `RecoveryInterval` property. During each recovery attempt, each consumer again tries four times to passively declare the queues at five second intervals. This process continues indefinitely.  This global property is not applied to any containers that have an explicit `MissingQueuesFatal` property set. The default retry properties (three retries at five-second intervals) can be overridden by setting the properties below. |
@@ -3173,7 +3170,7 @@ The primary reconnection features are enabled by the `CachingConnectionFactory` 
 It is also often beneficial to use the `RabbitAdmin` auto-declaration features.
 In addition, if you care about guaranteed delivery, you probably also need to use the `IsChannelTransacted` flag in `RabbitTemplate` and `DirectMessageListenerContainer` and the `AcknowledgeMode.AUTO` (or manual if you do the acks yourself) in the `DirectMessageListenerContainer`.
 
-### Automatic Declaration of Exchanges, Queues, and Bindings
+### Automatic Declaration of Exchanges Queues and Bindings
 
 The `RabbitAdmin` component can declare exchanges, queues, and bindings on startup.
 It does this lazily, through a `IConnectionListener`.
@@ -3206,8 +3203,6 @@ private class Customizer : IDeclarableCustomizer
     }
 }
 ```
-
-See also [RabbitMQ Automatic Connection/Topology recovery](#auto-recovery).
 
 ### Failures in Synchronous Operations and Options for Retry
 

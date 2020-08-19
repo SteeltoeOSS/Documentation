@@ -222,54 +222,54 @@
     - page: /docs/3/management/tracing
       name: /tracing
 - page: /docs/3/messaging
-  name: Messaging
+  name: Messaging 
   items:
     - page: /docs/3/messaging/rabbitmq-intro
       name: RabbitMQ Introduction
       items:
         - page_ref: quick-start
-        - name: Quick Start
+          name: Quick Start
         - page_ref: basics
-        - name: Basics
+          name: Basics
     - page: /docs/3/messaging/rabbitmq-reference
-      name: Reference
+      name: RabbitMQ Reference
       items:
         - page_ref: abstractions
-        - name: Abstractions
+          name: Abstractions
         - page_ref: connection-and-resource-management
-        - name: Connections
+          name: Connections
         - page_ref: rabbittemplate
-        - name: Rabbit Template
+          name: Rabbit Template
         - page_ref: sending-messages
-        - name: Sending Messages
+          name: Sending Messages
         - page_ref: receiving-messages
-        - name: Receiving Messages
+          name: Receiving Messages
         - page_ref: message-converters
-        - name: Message Converters
+          name: Message Converters
         - page_ref: message-converters
-        - name: Message Converters
+          name: Message Converters
         - page_ref: modifying-messages-compression-and-more
-        - name: Modifying Messages
+          name: Modifying Messages
         - page_ref: request/reply-messaging
-        - name: Request/Reply Messaging
+          name: Request/Reply Messaging
         - page_ref: rabbitmq-direct-reply-to
-        - name: Direct Reply-to
+          name: Direct Reply-to
         - page_ref: configuring-the-broker
-        - name: Configuring Broker
+          name: Configuring Broker
         - page_ref: delayed-message-exchange
-        - name: Delayed Exchange
+          name: Delayed Exchange
         - page_ref: exception-handling
-        - name: Exception Handling
+          name: Exception Handling
         - page_ref: transactions
-        - name: Transactions
+          name: Transactions
         - page_ref: listener-concurrency
-        - name: Listener Concurrency
+          name: Listener Concurrency
         - page_ref: exclusive-consumer
-        - name: Exclusive Consumer
+          name: Exclusive Consumer
         - page_ref: listener-container-queues
-        - name: Listener Container Queues
+          name: Listener Container Queues
         - page_ref: resilience-recovering-from-errors
-        - name: Resilience & Recovery
+          name: Resilience & Recovery  
 - page: /docs/3/fileshares
   name: Network File Sharing
   items:
