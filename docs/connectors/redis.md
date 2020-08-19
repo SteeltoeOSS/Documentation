@@ -4,9 +4,8 @@ This connector simplifies using a Microsoft [`RedisCache`](https://docs.microsof
 
 The following Steeltoe sample applications are available to help you understand how to use this connector:
 
-* [AspDotNet4/Redis4](https://github.com/SteeltoeOSS/Samples/tree/dev/Connectors/src/AspDotNet4/Redis4): Same as the next Quick Start but built for ASP.NET 4.x.
 * [DataProtection](https://github.com/SteeltoeOSS/Samples/tree/master/Security/src/RedisDataProtectionKeyStore): A sample application showing how to use the Steeltoe DataProtection Key Storage Provider for Redis.
-* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a micro-services-based application built from the  MusicStore ASP.NET Core reference application provided by Microsoft.
+* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a microservices-based application built from the  MusicStore ASP.NET Core reference application provided by Microsoft.
 
 This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
 
@@ -29,11 +28,8 @@ To use this connector:
 
 ### Add NuGet Reference
 
-To use the Redis connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and a reference to `Microsoft.Extensions.Caching.Redis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
+To use the Redis connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and a reference to `Microsoft.Extensions.Caching.Redis`, `Microsoft.Extensions.Caching.StackExhangeRedis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
 
->NOTE: The requirement to add a direct Redis package reference is new as of version 2.0.0.
-
-<!-- -->
 >NOTE: Because `Microsoft.Extensions.Caching.Redis` depends on `StackExchange.Redis.StrongName`, adding a reference to the Microsoft library also enables access to the StackExchange classes, as seen in the sample application.
 
 ### Configure Settings
@@ -45,10 +41,10 @@ The following example of the connector's configuration in JSON shows how to set 
 ```json
 {
   ...
-  "redis": {
-    "client": {
-      "host": "https://foo.bar",
-      "port": 1111
+  "Redis": {
+    "Client": {
+      "Host": "https://foo.bar",
+      "Port": 1111
     }
   }
   ...
@@ -59,23 +55,23 @@ The following table table describes all possible settings for the connector
 
 |Key|Description|Default|
 |---|---|---|
-|`host`|Hostname or IP Address of the server|`localhost`|
-|`port`|Port number of the server|6379|
-|`endPoints`|Comma-separated list of host:port pairs|not set|
-|`clientName`|Identification for the connection within redis|not set|
-|`connectRetry`|Times to repeat initial connect attempts|3|
-|`connectTimeout`|Timeout (ms) for connect operations|5000|
-|`abortOnConnectFail`|Does not create a connection while no servers are available|`true`|
-|`keepAlive`|Time (seconds) at which to send a message to help keep sockets alive|-1|
-|`resolveDns`|Whether DNS resolution should be explicit and eager, rather than implicit|`false`|
-|`ssl`|Whether SSL encryption should be used|`false`|
-|`sslHost`|Enforces a particular SSL host identity on the server's certificate|not set|
-|`writeBuffer`|Size of the output buffer|4096|
-|`connectionString`|Full connection string|built from settings|
-|`instanceId`|Cache ID. Used only with `IDistributedCache`|not set|
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+|`Host`|Hostname or IP Address of the server|`localhost`|
+|`Port`|Port number of the server|6379|
+|`EndPoints`|Comma-separated list of host:port pairs|not set|
+|`ClientName`|Identification for the connection within redis|not set|
+|`ConnectRetry`|Times to repeat initial connect attempts|3|
+|`ConnectTimeout`|Timeout (ms) for connect operations|5000|
+|`AbortOnConnectFail`|Does not create a connection while no servers are available|`true`|
+|`KeepAlive`|Time (seconds) at which to send a message to help keep sockets alive|-1|
+|`ResolveDns`|Whether DNS resolution should be explicit and eager, rather than implicit|`false`|
+|`Ssl`|Whether SSL encryption should be used|`false`|
+|`SslHost`|Enforces a particular SSL host identity on the server's certificate|not set|
+|`WriteBuffer`|Size of the output buffer|4096|
+|`ConnectionString`|Full connection string|built from settings|
+|`InstanceId`|Cache ID. Used only with `IDistributedCache`|not set|
+|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
->IMPORTANT: All of these settings should be prefixed with `redis:client:`.
+>IMPORTANT: All of these settings should be prefixed with `Redis:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 

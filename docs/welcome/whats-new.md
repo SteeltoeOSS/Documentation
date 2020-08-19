@@ -63,6 +63,8 @@
  | Steeltoe.Extensions.Configuration.ConfigServerAutofac  | N/A |
  | Steeltoe.Extensions.Configuration.ConfigServerBase  | Same |
  | Steeltoe.Extensions.Configuration.ConfigServerCore  | Same |
+ |N/A| Steeltoe.Extensions.Configuration.KubernetesBase|
+ |N/A| Steeltoe.Extensions.Configuration.KubernetesCore|
  | Steeltoe.Extensions.Configuration.PlaceholderBase  | Same |
  | Steeltoe.Extensions.Configuration.PlaceholderCore  | Same |
  | Steeltoe.Extensions.Configuration.RandomValueBase  | Same |
@@ -70,6 +72,9 @@
  | Steeltoe.Extensions.Logging.DynamicLogger | Same |
  | Steeltoe.Extensions.Logging.SerilogDynamicLogger  |Steeltoe.Extensions.Logging.DynamicSerilogBase |
  | Steeltoe.Extensions.Logging.SerilogDynamicLogger | Steeltoe.Extensions.Logging.DynamicSerilogCore |
+ |N/A| Steeltoe.Integration.Abstractions * |
+ |N/A| Steeltoe.Integration.IntegrationBase * |
+ |N/A| Steeltoe.Management.Abstractions |
  | Steeltoe.Management.CloudFoundryCore  | Same |
  | Steeltoe.Management.Diagnostics  | Same |
  | Steeltoe.Management.EndpointBase | Same | 
@@ -79,23 +84,30 @@
  | Steeltoe.Management.EndpointWeb  |N/A|
  | Steeltoe.Management.ExporterBase  |N/A|
  | Steeltoe.Management.ExporterCore  |N/A|
+ |N/A| Steeltoe.Management.KubernetesCore |
  | Steeltoe.Management.OpenCensus  | N/A|
  | Steeltoe.Management.OpenCensus.Abstractions  |N/A|
  | Steeltoe.Management.OpenCensus.ZipkinExporter  |N/A|
  | Steeltoe.Management.OpenCensusBase  |N/A|
+ |N/A| Steeltoe.Management.OpenTelemetryBase |
  | Steeltoe.Management.TaskCore  | Same |
  | Steeltoe.Management.TracingBase  | Same |
  | Steeltoe.Management.TracingCore  | Same |
+ |N/A| Steeltoe.Messaging.Abstractions|
+ |N/A| Steeltoe.Messaging.MessagingBase|
+ |N/A| Steeltoe.Messaging.RabbitMQ|
  | Steeltoe.Security.Authentication.CloudFoundryBase  | Same |
  | Steeltoe.Security.Authentication.CloudFoundryCore  | Same |
  | Steeltoe.Security.Authentication.CloudFoundryOwin  |N/A|
  | Steeltoe.Security.Authentication.CloudFoundryWcf  |N/A|
+ |N/A| Steeltoe.Security.Authentication.MtlsCore |
  | Steeltoe.Security.DataProtection.CredHubBase  | Same |
  | Steeltoe.Security.DataProtection.CredHubCore  | Same |
  | Steeltoe.Security.DataProtection.RedisCore  | Same |
- |N/A| Steeltoe.Stream.Abstractions |
- |N/A| Steeltoe.Stream.StreamBase |
+ |N/A| Steeltoe.Stream.Abstractions * |
+ |N/A| Steeltoe.Stream.StreamBase * |
  
+  \* Experimental packages
  
  ## Release Notes
  Release notes for all releases can be found on the [Steeltoe releases](https://github.com/SteeltoeOSS/Steeltoe/releases) section on GitHub. 

@@ -6,7 +6,7 @@ This connector provides an `IHealthContributor` that you can use in conjunction 
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
+You should know how the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
 
 You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services. Pay particular attention to the usage of the `ConfigureServices()` method.
 
@@ -36,9 +36,9 @@ The following Microsoft SQL Server connector configuration shows how to connect 
 ```json
 {
   ...
-  "sqlserver": {
-    "credentials": {
-        "connectionString": "Server=(localdb)\\mssqllocaldb;database=Steeltoe;Trusted_Connection=True;"
+  "SqlServer": {
+    "Credentials": {
+        "ConnectionString": "Server=(localdb)\\mssqllocaldb;database=Steeltoe;Trusted_Connection=True;"
     }
   }
   ...
@@ -49,16 +49,16 @@ The following table shows the available settings for the connector:
 
 |Key|Description|Steeltoe Default|
 |---|---|---|
-|`server`|Hostname or IP Address of server|`localhost`|
-|`port`|Port number of server|1433|
-|`username`|Username for authentication|not set|
-|`password`|Password for authentication|not set|
-|`database`|Schema to which to connect|not set|
-|`connectionString`|Full connection string|built from settings|
-|`integratedSecurity`|Enable Windows Authentication (For local use only)|not set|
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+|`Server`|Hostname or IP Address of server|`localhost`|
+|`Port`|Port number of server|1433|
+|`Username`|Username for authentication|not set|
+|`Password`|Password for authentication|not set|
+|`Database`|Schema to which to connect|not set|
+|`ConnectionString`|Full connection string|built from settings|
+|`IntegratedSecurity`|Enable Windows Authentication (For local use only)|not set|
+|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
->IMPORTANT: All of the settings shown in the preceding table should be prefixed with `sqlserver:credentials:`.
+>IMPORTANT: All of the settings shown in the preceding table should be prefixed with `SqlServer:Credentials:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 

@@ -20,12 +20,6 @@ You can use the `dotnet` CLI to [build and locally publish](https://docs.microso
 
 >NOTE: Starting with .NET Core 2.0, the `dotnet publish` command automatically restores dependencies for you. Running `dotnet restore` explicitly is not generally required.
 
-### ASP.NET 4.x
-
-1. Open the solution for the sample in Visual Studio.
-1. Right click on the project, select "Publish".
-1. Use the included `FolderProfile` to publish to `bin/Debug/net461/win10-x64/publish`.
-
 <a name="steeltoe-common-steps-cloud-foundry-push-sample"></a>
 ## Cloud Foundry Push Sample
 

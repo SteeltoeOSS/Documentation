@@ -24,7 +24,7 @@ Use the NuGet package manager tools or directly add the appropriate package to y
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.DataProtection.CredHubCore" Version= "2.1.0-rc1"/>
+    <PackageReference Include="Steeltoe.Security.DataProtection.CredHubCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -36,8 +36,8 @@ Settings for this library are expected to have a prefix of `CredHubClient`. The 
 ```json
 {
   ...
-  "credHubClient": {
-    "validateCertificates": "false"
+  "CredHubClient": {
+    "ValidateCertificates": "false"
   }
   ...
 }
@@ -105,7 +105,7 @@ If you wish to use CredHub to interpolate entries in `VCAP_SERVICES`, you can us
 ```csharp
     var host = new WebHostBuilder()
         .UseKestrel()
-        .UseCloudFoundryHosting()
+        .UseCloudHosting()
         .UseContentRoot(Directory.GetCurrentDirectory())
         .UseIISIntegration()
         .UseStartup<Startup>()
@@ -207,7 +207,7 @@ The following example shows a typical request object for the `Interpolate` endpo
         "credhub-ref": "((/config-server/credentials))"
       },
       "label": "p-config-server",
-      "name": "config-server",
+      "Name": "config-server",
       "plan": "standard",
       "provider": null,
       "syslog_drain_url": null,
@@ -236,7 +236,7 @@ The following example shows a typical response object from the `Interpolate` end
         "is_true": true
       },
       "label": "p-config-server",
-      "name": "config-server",
+      "Name": "config-server",
       "plan": "standard",
       "provider": null,
       "syslog_drain_url": null,

@@ -34,13 +34,11 @@
           name: Add Configuration Provider
         - page_ref: access-random-value-data
           name: Access Random Value Data
-    - page: /docs/3/configuration/hosted-extensions
-      name: Hosted Extensions
+    - page: /docs/3/configuration/hosting-extensions
+      name: Hosting Extensions
       items:
         - page_ref: usecloudhosting
           name: UseCloudHosting
-        - page_ref: usecloudfoundryhosting
-          name: UseCloudFoundryHosting
     - page: /docs/3/configuration/cloud-foundry-provider
       name: Cloud Foundry Provider
       items:
@@ -224,30 +222,54 @@
     - page: /docs/3/management/tracing
       name: /tracing
 - page: /docs/3/messaging
-  name: Messaging 
+  name: Messaging
   items:
-    - page: /docs/3/messaging/quick-tour
-      name: Quick Tour
+    - page: /docs/3/messaging/rabbitmq-intro
+      name: RabbitMQ Introduction
       items:
-        - page_ref: quick-tour
-        - name: Quick Tour
-    - page: /docs/3/messaging/amqp
-      name: AMQP
+        - page_ref: quick-start
+        - name: Quick Start
+        - page_ref: basics
+        - name: Basics
+    - page: /docs/3/messaging/rabbitmq-reference
+      name: Reference
       items:
-        - page_ref: using-steeltoe-amqp
-        - name: Using Steeltoe AMQP
-    - page: /docs/3/messaging/messaging
-      name: Messaging
-      items:
-        - page_ref: messaging
-        - name: Messaging
-    - page: /docs/3/messaging/further-reading
-      name: Further Reading
-    - page: /docs/3/messaging/testing
-      name: Testing
-      items:
-        - page_ref: testing-support
-        - name: Testing Support
+        - page_ref: abstractions
+        - name: Abstractions
+        - page_ref: connection-and-resource-management
+        - name: Connections
+        - page_ref: rabbittemplate
+        - name: Rabbit Template
+        - page_ref: sending-messages
+        - name: Sending Messages
+        - page_ref: receiving-messages
+        - name: Receiving Messages
+        - page_ref: message-converters
+        - name: Message Converters
+        - page_ref: message-converters
+        - name: Message Converters
+        - page_ref: modifying-messages-compression-and-more
+        - name: Modifying Messages
+        - page_ref: request/reply-messaging
+        - name: Request/Reply Messaging
+        - page_ref: rabbitmq-direct-reply-to
+        - name: Direct Reply-to
+        - page_ref: configuring-the-broker
+        - name: Configuring Broker
+        - page_ref: delayed-message-exchange
+        - name: Delayed Exchange
+        - page_ref: exception-handling
+        - name: Exception Handling
+        - page_ref: transactions
+        - name: Transactions
+        - page_ref: listener-concurrency
+        - name: Listener Concurrency
+        - page_ref: exclusive-consumer
+        - name: Exclusive Consumer
+        - page_ref: listener-container-queues
+        - name: Listener Container Queues
+        - page_ref: resilience-recovering-from-errors
+        - name: Resilience & Recovery
 - page: /docs/3/fileshares
   name: Network File Sharing
   items:
@@ -263,32 +285,8 @@
 - page: /docs/3/security
   name: Security
   items:
-    - page: /docs/3/security/jwt-authentication-in-asp.NET-core
+    - page: /docs/3/security/jwt-authentication
       name: JWT for ASP.NET Core
-      items:
-        - page_ref: add-nuget-reference
-          name: Add NuGet Reference
-        - page_ref: configure-settings
-          name: Configure Settings
-        - page_ref: cloud-foundry
-          name: Cloud Foundry
-        - page_ref: securing-endpoints
-          name: Securing Endpoints
-    - page: /docs/3/security/jwt-authentication-in-asp.NET-WCF
-      name: JWT for ASP.NET WCF
-      items:
-        - page_ref: add-nuget-reference
-          name: Add NuGet Reference
-        - page_ref: configure-settings
-          name: Configure Settings
-        - page_ref: cloud-foundry
-          name: Cloud Foundry
-        - page_ref: securing-endpoints
-          name: Securing Endpoints
-        - page_ref: updating-client-to-send-jwt
-          name: Updating Client to Send JWT
-    - page: /docs/3/security/jwt-authentication-in-asp.NET-WebAPI
-      name: JWT for ASP.NET WebAPI
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -316,8 +314,6 @@
       items:
         - page_ref: usage-in-asp-net-core
           name: Usage in ASP.NET Core
-        - page_ref: usage-in-asp-net-4
-          name: Usage in ASP.NET 4.x
     - page: /docs/3/security/sso-oauth2
       name: SSO OAuth2
       items:
@@ -475,15 +471,6 @@
           name: Add IConnectionMultiplexer
         - page_ref: use-iconnectionmultiplexer
           name: Use IConnectionMultiplexer
-    - page: /docs/3/connectors/gemfire
-      name: Apache Geode/GemFire
-      items:
-        - page_ref: add-nuget-reference
-          name: Add NuGet Reference
-        - page_ref: configure-settings
-          name: Configure Settings
-        - page_ref: cloud-foundry
-          name: Cloud Foundry
 - page: /docs/3/discovery
   name: Service Discovery
   items:

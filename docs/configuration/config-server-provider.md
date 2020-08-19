@@ -6,26 +6,15 @@ The Spring Cloud Config Server is an application configuration service that give
 
 To gain a better understanding of the Spring Cloud Config Server, you should read the [Spring Cloud](https://projects.spring.io/spring-cloud/) documentation.
 
-The Steeltoe Config Server provider supports the following .NET application types:
-
-* ASP.NET (MVC, WebForm, WebAPI, WCF)
-* ASP.NET Core
-* Console applications (.NET Framework and .NET Core)
-
 In addition to the Quick Start provided later, you can refer to several other Steeltoe sample applications when you need to understand how to use this provider:
 
-* [AspDotNetCore/Simple](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/AspDotNetCore/Simple): ASP.NET Core sample application showing how to use the open source Config Server.
-* [AspDotNet4/Simple](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/AspDotNet4/Simple): Same as AspDotNetCore/Simple but built for ASP.NET 4.x
-* [AspDotNet4/SimpleCloudFoundry](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/AspDotNet4/SimpleCloudFoundry): Same as the Quick Start sample mentioned later but built for ASP.NET 4.x.
-* [AspDotNet4/AutofacCloudFoundry](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/AspDotNet4/AutofacCloudFoundry): Same as AspDotNet4/SimpleCloudFoundry but built using the Autofac IOC container.
+* [AspDotNetCore/Simple](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/Simple): ASP.NET Core sample application showing how to use the open source Config Server.
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
 * [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample application showing inter-operability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and uses Spring Cloud Services.
 
->IMPORTANT: The `Pivotal.Extensions.Configuration.ConfigServer*` packages have been deprecated in Steeltoe 2.2 and are not included in future releases.  All functionality provided in those packages has been pushed into the corresponding `Steeltoe.Extensions.Configuration.ConfigServer*` packages.
-
 ## Usage
 
-You should know how the new .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary.
+You should know how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary.
 
 You should also have a good understanding of the [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/).
 
@@ -43,18 +32,17 @@ You can choose one of two Config Server client NuGets, depending on your needs.
 
 If you plan on only connecting to the open source version of [Spring Cloud Config Server](https://projects.spring.io/spring-cloud/), you should use one of the packages described by the following table, depending on your application type and needs:
 
-|Application Type|Package|Description|
+|.NET Target|Package|Description|
 |---|---|---|
-|Console/ASP.NET 4.x|`Steeltoe.Extensions.Configuration.ConfigServerBase`|Base functionality. No dependency injection.|
-|ASP.NET Core|`Steeltoe.Extensions.Configuration.ConfigServerCore`|Includes base. Adds ASP.NET Core dependency injection.|
-|ASP.NET 4.x with Autofac|`Steeltoe.Extensions.Configuration.ConfigServerAutofac`|Includes base. Adds Autofac dependency injection.|
+|.NET Standard 2.0|`Steeltoe.Extensions.Configuration.ConfigServerBase`|Base functionality. No dependency injection.|
+|ASP.NET Core 3.1|`Steeltoe.Extensions.Configuration.ConfigServerCore`|Includes base. Adds ASP.NET Core dependency injection.|
 
 To add this type of NuGet to your project, add a `PackageReference` that resembles the following:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -63,19 +51,19 @@ To add this type of NuGet to your project, add a `PackageReference` that resembl
 
 The most convenient way to configure settings for the provider is to put them in a file and then use one of the other file-based configuration providers to read them.
 
-The following example shows some provider settings that have been put in a JSON file. Only two settings are really necessary. `spring:application:name` configures the "application name" to be `sample`, and `spring:cloud:config:uri` configures the address of the config server.
+The following example shows some provider settings that have been put in a JSON file. Only two settings are really necessary. `Spring:Application:Name` configures the "application name" to be `sample`, and `Spring:Cloud:Config:Uri` configures the address of the config server.
 
->NOTE: The `spring:application:name` is also used by other Steeltoe libraries in addition to the config server.
+>NOTE: The `Spring:Application:Name` is also used by other Steeltoe libraries in addition to the config server.
 
 ```json
 {
-  "spring": {
-    "application": {
-      "name": "sample"
+  "Spring": {
+    "Application":{
+      "Name": "sample"
     },
-    "cloud": {
-      "config": {
-        "uri": "http://localhost:8888"
+    "Cloud": {
+      "Config": {
+        "Uri": "http://localhost:8888"
       }
     }
   }
@@ -87,33 +75,33 @@ The following table describes all the settings that can be used to configure the
 
 |Key|Description|Default|
 |---|---|---|
-|`name`|Application name for which to request config|`IHostingEnvironment.ApplicationName`|
-|`enabled`|Enable or disable config server client|`true`|
-|`uri`|Comma-separated list of config server endpoints|`http://localhost:8888`|
-|`env`|Environment or profile used in the server request|`IHostingEnvironment.EnvironmentName`|
-|`validateCertificates`|Enable or disable certificate validation|`true`|
-|`label`|Comma-separated list of labels to request|master|
-|`timeout`|Time to wait for response from server, in milliseconds|6000|
-|`username`|Username for basic authentication|none|
-|`password`|Password for basic authentication|none|
-|`failFast`|Enable or disable failure at startup|`false`|
-|`token`|Hashicorp Vault authentication token|none|
-|`tokenTtl`|Hashicorp Vault token renewal TTL. Valid on Cloud Foundry only|300000ms|
-|`tokenRenewRate`|Hashicorp Vault token renewal rate. Valid on Cloud Foundry only|60000ms|
-|`retry:enabled`|Enable or disable retry logic|false|
-|`retry:maxAttempts`|Max retries if retry enabled|6|
-|`retry:initialInterval`|Starting interval|1000ms|
-|`retry:maxInterval`|Maximum retry interval|2000ms|
-|`retry:multiplier`|Retry interval multiplier|1.1|
-|`clientId`|OAuth2 client ID when using OAuth security|none|
-|`clientSecret`|OAuth2 client secret when using OAuth security|none|
-|`accessTokenUri`|URI to use to obtain OAuth access token|none|
-|`discovery:enabled`|Enable or disable discovery first feature|`false`|
-|`discovery:serviceId`|Config Server service ID to use in discovery first feature|`configserver`|
-|`health:enabled`|`Enable or disable config server health check contributor|`true`|
-|`health:timeToLive|Health check contributor cache time to live in ms|60*5ms|
+|`Name`|Application name for which to request config|`IHostingEnvironment.ApplicationName`|
+|`Enabled`|Enable or disable config server client|`true`|
+|`Uri`|Comma-separated list of config server endpoints|`http://localhost:8888`|
+|`Env`|Environment or profile used in the server request|`IHostingEnvironment.EnvironmentName`|
+|`ValidateCertificates`|Enable or disable certificate validation|`true`|
+|`Label`|Comma-separated list of labels to request|master|
+|`Timeout`|Time to wait for response from server, in milliseconds|6000|
+|`Username`|Username for basic authentication|none|
+|`Password`|Password for basic authentication|none|
+|`FailFast`|Enable or disable failure at startup|`false`|
+|`Token`|Hashicorp Vault authentication token|none|
+|`TokenTtl`|Hashicorp Vault token renewal TTL. Valid on Cloud Foundry only|300000ms|
+|`TokenRenewRate`|Hashicorp Vault token renewal rate. Valid on Cloud Foundry only|60000ms|
+|`Retry:Enabled`|Enable or disable retry logic|false|
+|`Retry:MaxAttempts`|Max retries if retry enabled|6|
+|`Retry:InitialInterval`|Starting interval|1000ms|
+|`Retry:MaxInterval`|Maximum retry interval|2000ms|
+|`Retry:Multiplier`|Retry interval multiplier|1.1|
+|`ClientId`|OAuth2 client ID when using OAuth security|none|
+|`ClientSecret`|OAuth2 client secret when using OAuth security|none|
+|`AccessTokenUri`|URI to use to obtain OAuth access token|none|
+|`Discovery:Enabled`|Enable or disable discovery first feature|`false`|
+|`Discovery:ServiceId`|Config Server service ID to use in discovery first feature|`configserver`|
+|`Health:Enabled`|Enable or disable config server health check contributor|`true`|
+|`Health:TimeToLive`|Health check contributor cache time to live in ms|60*5ms|
 
-As mentioned earlier, all settings should start with `spring:cloud:config:`
+As mentioned earlier, all settings should start with `Spring:Cloud:Config:`
 
 >NOTE: If you use self-signed certificates on Cloud Foundry, you might run into certificate validation issues when pushing an application. A quick way to work around this is to disable certificate validation until a proper solution can be put in place.
 
@@ -157,7 +145,7 @@ public class Program
     }
     public static IWebHost BuildWebHost(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
-            .UseCloudFoundryHosting()
+            .UseCloudHosting()
 
             // Use Config Server for configuration data
             .AddConfigServer()
@@ -194,7 +182,7 @@ If there are any merge conflicts, the last provider added to the configuration t
 
 When the `ConfigurationBuilder` builds the configuration, the Config Server client makes the appropriate REST calls to the Config Server and retrieves the configuration values based on the settings that have been provided.
 
-If there are any errors or problems accessing the server, the application continues to initialize, but the values from the server are not retrieved. If this is not the behavior you want, you should set the `spring:cloud:config:failFast` to `true`. Once that is done, the application fails to start if problems occur during the build.
+If there are any errors or problems accessing the server, the application continues to initialize, but the values from the server are not retrieved. If this is not the behavior you want, you should set the `Spring:Cloud:Config:FailFast` to `true`. Once that is done, the application fails to start if problems occur during the build.
 
 After the configuration has been built, you can access the retrieved data directly by using `IConfiguration`. The following example shows how to do so:
 
@@ -293,15 +281,15 @@ using Steeltoe.Extensions.Configuration;
 
 ### Configuring Discovery First
 
-The default behavior for the Steeltoe Config Client is to access the Config Server through the `spring:cloud:config:uri` configuration setting. This of course requires that the application needs a `appsettings.json` or an environment variable with the Config Servers address set in `spring:cloud:config:uri`.  This mode of operation, the default, is called `Config First`.
+The default behavior for the Steeltoe Config Client is to access the Config Server through the `Spring:Cloud:Config:Uri` configuration setting. This of course requires that the application needs a `appsettings.json` or an environment variable with the Config Servers address set in `Spring:Cloud:Config:Uri`.  This mode of operation, the default, is called `Config First`.
 
 Alternatively, you can set up your Config Server to register with a discovery service such as Netflix Eureka. This enables you application to lookup the address of the Config Server by using a discovery Service instead of configuring it in `appsettings.json`. Note that you have to specifically configure your Config Server deployment to register with a discovery service as this does not happen automatically. See the Spring Cloud Config Server documentation for how to do so.
 
 However, with the default `Config First` mode of the Steeltoe client you are not able to take advantage of the Config Server registration unless you change the clients mode of operation to `Discovery First`. To do so:
 
 1. If your application does not use a service discovery service, you need to configure your application to do so. See the Steeltoe Discovery documentation for the details of how to do so. Note that, currently, we support only Netflix Eureka. At a minimum, you need to configure the Eureka Server address.
-1. Change the Steeltoe Config Server client setting `spring:cloud:config:discovery:enabled` to `true` (the default is `false`).
-1. Optionally, if you change the service name registered by the Config Server with Eureka, you can use `spring:cloud:config:discovery:serviceId=YourNewName` to change the name used by the client for lookup.
+1. Change the Steeltoe Config Server client setting `Spring:Cloud:Config:Discovery:Enabled` to `true` (the default is `false`).
+1. Optionally, if you change the service name registered by the Config Server with Eureka, you can use `Spring:Cloud:Config:Discovery:ServiceId=YourNewName` to change the name used by the client for lookup.
 
 Note that the price for using this mode of operation is an extra network round trip on startup to locate the Config Server service registration. The benefit is, as long as the discovery service is at a fixed point, the Config Server can change its address and no changes to applications are needed.
 
@@ -311,29 +299,29 @@ The Config Server package provides a Steeltoe management health contributor that
 
 If you use the `AddConfigServer()` extension method of the `IWebHostBuilder`, the contributor is automatically added to the container and is automatically picked up and used. Otherwise, you can manually add the contributor to the container by using the `AddConfigServerHealthContributor()` extension method.
 
-The contributor is enabled by default but can be disabled by setting `spring:cloud:config:health:enabled=false`.
+The contributor is enabled by default but can be disabled by setting `Spring:Cloud:Config:Health:Enabled=false`.
 
-The response from the Config Server is cached for performance reasons. The default cache time to live is five minutes. To change that value, set the `spring:cloud:config:health:timeToLive=xxxx` setting (in milliseconds).
+The response from the Config Server is cached for performance reasons. The default cache time to live is five minutes. To change that value, set the `Spring:Cloud:Config:Health:TimeToLive=xxxx` setting (in milliseconds).
 
 ### Configuring Fail Fast
 
-In some cases, you may want to fail the startup of your application if it cannot connect to the Config Server. If this is the desired behavior, set the configuration setting `spring:cloud:config:failFast=true` to make the client halt with an `Exception`.
+In some cases, you may want to fail the startup of your application if it cannot connect to the Config Server. If this is the desired behavior, set the configuration setting `Spring:Cloud:Config:FailFast=true` to make the client halt with an `Exception`.
 
 ### Configuring Retry
 
 If you expect that the Config Server may occasionally be unavailable when your application starts, you can make it keep trying after a failure.
 
-First, you need to set `spring:cloud:config:failFast=true`. Then you need to enable retry by setting `spring:cloud:config:retry:enabled=true`.
+First, you need to set `Spring:Cloud:Config:FailFast=true`. Then you need to enable retry by setting `Spring:Cloud:Config:Retry:Enabled=true`.
 
-The default behavior is to retry six times with an initial backoff interval of 1000ms and an exponential multiplier of 1.1 for subsequent backoffs. You can configure these settings (and others) by setting the `spring:cloud:config:retry:*` configuration settings described earlier.
+The default behavior is to retry six times with an initial backoff interval of 1000ms and an exponential multiplier of 1.1 for subsequent backoffs. You can configure these settings (and others) by setting the `Spring:Cloud:Config:Retry:*` configuration settings described earlier.
 
 ### Configuring Multiple URLs
 
-To ensure high availability when you have multiple instances of Config Server deployed and expect one or more instances to be unavailable from time to time, you can either specify multiple URLs as a comma-separated list for `spring:cloud:config:uri` or have all your instances register in a Service Registry such as Eureka (if you use `Discovery First` mode).
+To ensure high availability when you have multiple instances of Config Server deployed and expect one or more instances to be unavailable from time to time, you can either specify multiple URLs as a comma-separated list for `Spring:Cloud:Config:Uri` or have all your instances register in a Service Registry such as Eureka (if you use `Discovery First` mode).
 
 Note that doing so ensures high availability only when the Config Server is not running or responding (for example, when the server has exited or when a connection timeout has occurred). For example, if the Config Server returns a 500 (Internal Server Error) response or the Steeltoe client receives a 401 from the Config Server (due to bad credentials or other causes), the client does not try to fetch properties from other URLs. An error of that kind indicates a user issue rather than an availability problem.
 
-If you use HTTP basic auth security on your Config Server, it is currently possible to support only per-Config Server auth credentials if you embed the credentials in each URL you specify for the `spring:cloud:config:uri` setting. If you use any other kind of security mechanism, you cannot currently support per-Config Server authentication and authorization.
+If you use HTTP basic auth security on your Config Server, it is currently possible to support only per-Config Server auth credentials if you embed the credentials in each URL you specify for the `Spring:Cloud:Config:Uri` setting. If you use any other kind of security mechanism, you cannot currently support per-Config Server authentication and authorization.
 
 ### Configuring Mutual TLS
 

@@ -6,8 +6,8 @@ These providers enable the use of Cloud Foundry security services (such as [UAA 
 
 You can choose from the following providers when adding Cloud Foundry security integration:
 
-* `OAuth2 Single Sign-on with Cloud Foundry Security services`: ASP.NET (MVC, WebAPI), ASP.NET Core
-* `Using JWT tokens issued by Cloud Foundry for securing resources/endpoints`: ASP.NET (MVC, WebAPI, WCF), ASP.NET Core
+* `OAuth2 Single Sign-on with Cloud Foundry Security services`: ASP.NET Core
+* `Using JWT tokens issued by Cloud Foundry for securing resources/endpoints`: ASP.NET Core
 
 In addition to authentication and authorization providers, Steeltoe security offers:
 

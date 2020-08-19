@@ -1,8 +1,8 @@
-## Load Balancing
+# Load Balancing
 
-Any time a client needs to select a service instance to which to send a request, some mechanism is required for selecting the instance to call. In all mechanisms provided for service discovery in Steeltoe versions before 2.2.0, service instances were selected randomly. `Steeltoe.Common` 2.2.0 added a new abstraction named `ILoadBalancer`, which provides configurable load balancing.
+Any time a client needs to select a service instance to which to send a request, some mechanism is required for selecting the instance to call. `Steeltoe.Common` provides an abstraction named `ILoadBalancer`, which provides configurable load balancing.
 
-### ILoadBalancer
+## ILoadBalancer
 
 The `ILoadBalancer` interface defines two methods:
 
@@ -28,7 +28,7 @@ The `ILoadBalancer` interface defines two methods:
   }
 ```
 
-Any implementation of `ILoadBalancer` is expected to know how to interact with some form of service discovery mechanism. The included load balancers expect an `IServiceInstanceProvider` to be available in the DI service container, so they still require configuration of Eureka, Consul, or some other mechanism for providing service instances.
+Any implementation of `ILoadBalancer` is expected to know how to interact with some form of service registry. The included load balancers expect an `IServiceInstanceProvider` to be available in the DI service container, so they still require configuration of some other mechanism for providing service instances.
 
 ### Random Load Balancer
 
@@ -75,7 +75,7 @@ To add a service registry-backed round robin load balancer to an `HttpClient`, y
       .AddRoundRobinLoadBalancer()
 ```
 
-#### Using an HttpClientHandler
+#### Using with HttpClientHandler
 
 You can use the round robin load balancer with the included `HttpClientHandler`, which works with any `ILoadBalancer`:
 
@@ -126,7 +126,7 @@ You can add custom load balancers to the `HttpClient` pipeline with an included 
 
 With this model, a `LoadBalancerDelegatingHandler` expects an `ILoadBalancer` to be provided through dependency injection, so be sure to add yours to the DI container.
 
-#### Using an HttpClientHandler
+#### Using with an HttpClientHandler
 
 Additionally, you can also use your custom load balancer with the included `HttpClientHandler`. To do so, create an instance of your load balancer, pass it to a `LoadBalancerHttpClientHandler`, and create an `HttpClient` that uses that handler:
 

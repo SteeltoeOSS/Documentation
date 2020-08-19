@@ -25,27 +25,3 @@ The extension includes an optional parameter to explicitly set the ports used fo
 ```
 
 >NOTE: If either environment variable `PORT` or `SERVER_PORT` is found, neither of the optional parameters will be used.
-
-## The UseCloudFoundryHosting Method
-
-The `UseCloudFoundryHosting` method is now deprecated but is still available in the `Steeltoe.Extensions.Configuration.CloudFoundryCore` NuGet package. This extension has been superseded by `UseCloudHosting` but is still available in the 2.x line. This extension automatically uses the `PORT` environment variable (when present) to set the address the application is listening on. The following sample illustrates basic usage:
-
-```csharp
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            ...
-            .UseCloudFoundryHosting()
-            ...
-```
-
-The extension includes an optional parameter to explicitly set the HTTP port, which is particularly useful when you are running multiple services (which will later be deployed to a cloud platform) at once on your workstation.
-
-```csharp
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            ...
-            .UseCloudFoundryHosting(5001)
-            ...
-```
-
->NOTE: As this extension is intended for use on Cloud Foundry, if the 'PORT' environment variable is present, it always overrides the parameter.

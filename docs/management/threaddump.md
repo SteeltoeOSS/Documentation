@@ -10,28 +10,16 @@ The following table describes the settings that you can apply to the endpoint:
 
 |Key|Description|Default|
 |---|---|---|
-|`id`|The ID of the thread dump endpoint|`dump`|
-|`enabled`|Whether to enable the thread dump management endpoint|`true`|
-|`sensitive`|Currently not used|`false`|
+|`Id`|The ID of the thread dump endpoint|`dump`|
+|`Enabled`|Whether to enable the thread dump management endpoint|`true`|
+|`Sensitive`|Currently not used|`false`|
 
->NOTE: Each setting must be prefixed with `management:endpoints:dump`.
+>NOTE: Each setting must be prefixed with `Management:Endpoints:Dump`.
 
 #### Enable HTTP Access
 
-The default path to the thread dump endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/dump`.
-
-The coding steps you take to enable HTTP access to the thread dump endpoint differ, depending on the type of .NET application your are developing. The sections that follow describe the steps needed for each of the supported application types.
-
-##### ASP.NET Core App
+The default path to the thread dump endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/dump`.
 
 To add the thread dump actuator to the service container, use the `AddThreadDumpActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
 To add the thread dump actuator middleware to the ASP.NET Core pipeline, use the `UseThreadDumpActuator()` extension method from `EndpointApplicationBuilderExtensions`.
-
-##### ASP.NET 4.x App
-
-To add the thread Dump actuator endpoint, use the `UseThreadDumpActuator()` method from `ActuatorConfigurator`.
-
-##### ASP.NET OWIN App
-
-To add the thread Dump actuator middleware to the ASP.NET OWIN pipeline, use the `UseThreadDumpActuator()` extension method from `ThreadDumpEndpointAppBuilderExtensions`.

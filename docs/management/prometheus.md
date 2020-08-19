@@ -10,16 +10,14 @@ The following table describes the settings that you can apply to the endpoint:
 
 |Key|Description|Default|
 |---|---|---|
-|`id`|The ID of the metrics endpoint|`prometheus`|
-|`enabled`|Whether to enable the metrics management endpoint|`true`|
+|`Id`|The ID of the metrics endpoint|`prometheus`|
+|`Enabled`|Whether to enable the metrics management endpoint|`true`|
 
->NOTE: Each setting must be prefixed with `management:endpoints:prometheus`.
+>NOTE: Each setting must be prefixed with `Management:Endpoints:Prometheus`.
 
 #### Enable HTTP Access
 
-The default path to the Prometheus endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/prometheus`.
-
-##### ASP.NET Core App
+The default path to the Prometheus endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/prometheus`.
 
 To add the Prometheus actuator to the service container, use the `AddPrometheusActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
@@ -36,7 +34,7 @@ To use the Prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.0-m2"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -44,7 +42,7 @@ To use the Prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 Alternatively, you can use PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-m2
+PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0
 ```
 
 ##### Cloud Foundry

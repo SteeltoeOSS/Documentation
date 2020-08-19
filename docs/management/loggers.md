@@ -10,22 +10,16 @@ The following table describes the settings that you can apply to the endpoint:
 
 |Key|Description|Default|
 |---|---|---|
-|`id`|The ID of the loggers endpoint|`loggers`|
-|`enabled`|Enable or disable loggers management endpoint|`true`|
-|`sensitive`|Currently not used|`false`|
-|`requiredPermissions`|User permissions required on Cloud Foundry to access endpoint|`RESTRICTED`|
+|`Id`|The ID of the loggers endpoint|`loggers`|
+|`Enabled`|Enable or disable loggers management endpoint|`true`|
+|`Sensitive`|Currently not used|`false`|
+|`RequiredPermissions`|User permissions required on Cloud Foundry to access endpoint|`RESTRICTED`|
 
->NOTE: Each setting above must be prefixed with `management:endpoints:loggers`.
+>NOTE: Each setting above must be prefixed with `Management:Endpoints:Loggers`.
 
 #### Enable HTTP Access
 
-The default path to the Loggers endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/loggers`.
-
-The coding steps you take to enable HTTP access to the loggers endpoint together with how to use the Steeltoe logging provider, differ depending on the type of .NET application your are developing. The sections that follow describe the steps needed for each of the supported application types.
-
->NOTE: The Steeltoe logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider from Microsoft. This wrapper allows querying defined loggers and modifying the levels dynamically at runtime. 
-
-##### ASP.NET Core App
+The default path to the Loggers endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/loggers`.
 
 To add the Loggers actuator to the service container, use the `AddLoggersActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
@@ -60,80 +54,6 @@ public class Program
             .Build();
 
         host.Run();
-    }
-}
-```
-
-##### ASP.NET 4.x App
-
-To add the Loggers actuator endpoint, use the `UseLoggerActuator()` method from `ActuatorConfigurator`.
-
-The following example shows how to enable the loggers endpoint and how to configure it with the Steeltoe Logging provider:
-
-```csharp
-public class ManagementConfig
-{
-    public static void ConfigureManagementActuators(IConfiguration configuration)
-    {
-        ...
-        ActuatorConfigurator.UseLoggerActuator(configuration, LoggingConfig.LoggerProvider, LoggingConfig.LoggerProvider);
-        ...
-    }
-}
-```
-
-The following example shows how you can create a Steeltoe logging provider in a 4.x application:
-
-```csharp
-public static class LoggingConfig
-{
-    public static ILoggerFactory LoggerFactory { get; set; }
-    public static ILoggerProvider LoggerProvider { get; set; }
-
-    public static void Configure(IConfiguration configuration)
-    {
-        LoggerProvider = new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
-        LoggerFactory = new LoggerFactory();
-        LoggerFactory.AddProvider(LoggerProvider);
-    }
-}
-```
-
-##### ASP.NET OWIN App
-
-To add the loggers actuator middleware to the ASP.NET OWIN pipeline, use the `UseLoggersActuator()` extension method from `LoggersEndpointAppBuilderExtensions`.
-
-The following example shows how to enable the loggers endpoint and how to configure it with the Steeltoe Logging provider:
-
-```csharp
-public class Startup
-{
-    ...
-    public void Configuration(IAppBuilder app)
-    {
-        ...
-        app.UseLoggersActuator(
-            ApplicationConfig.Configuration,
-            LoggingConfig.LoggerProvider,
-            LoggingConfig.LoggerFactory);
-        ...
-    }
-}
-```
-
-The following example shows how you can create a Steeltoe Logging provider in a 4.x application:
-
-```csharp
-public static class LoggingConfig
-{
-    public static ILoggerFactory LoggerFactory { get; set; }
-    public static ILoggerProvider LoggerProvider { get; set; }
-
-    public static void Configure(IConfiguration configuration)
-    {
-        LoggerProvider = new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
-        LoggerFactory = new LoggerFactory();
-        LoggerFactory.AddProvider(LoggerProvider);
     }
 }
 ```

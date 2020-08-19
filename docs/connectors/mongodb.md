@@ -23,12 +23,12 @@ This connector supports several settings for local interaction with MongoDB that
 
 ```json
 {
-  "mongodb": {
-    "client": {
-      "server": "localhost",
-      "port": 27017,
-      "options": {
-        "replicaSet": "rs0"
+  "MongoDb": {
+    "Client": {
+      "Server": "localhost",
+      "Port": 27017,
+      "Options": {
+        "ReplicaSet": "rs0"
       }
     }
   }
@@ -39,16 +39,16 @@ The following table table describes all possible settings for the connector
 
 |Key|Description|Default|
 |---|---|---|
-|`server`|Hostname or IP Address of the server|`localhost`|
-|`port`|Port number of the server|27017|
-|`username`|Username for authentication|not set|
-|`password`|Password for authentication|not set|
-|`database`|Name of the database to use|not set|
-|`options`|Any additional [options](https://mongodb.github.io/mongo-csharp-driver/2.7/apidocs/html/T_MongoDB_Driver_MongoClientSettings.htm), passed through as provided|not set|
-|connectionString|Full connection string|built from settings|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+|`Server`|Hostname or IP Address of the server|`localhost`|
+|`Port`|Port number of the server|27017|
+|`Username`|Username for authentication|not set|
+|`Password`|Password for authentication|not set|
+|`Database`|Name of the database to use|not set|
+|`Options`|Any additional [options](https://mongodb.github.io/mongo-csharp-driver/2.7/apidocs/html/T_MongoDB_Driver_MongoClientSettings.htm), passed through as provided|not set|
+|`ConnectionString`|Full connection string|built from settings|
+|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
->IMPORTANT: All of these settings should be prefixed with `mongodb:client:`.
+>IMPORTANT: All of these settings should be prefixed with `MongoDb:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
@@ -86,16 +86,6 @@ public class Startup
   }
   ...
 }
-```
-
-Alternatively, you can use the extension provided for Autofac:
-
-```csharp
-using Steeltoe.ConnectorAutofac;
-...
-  ContainerBuilder container = new ContainerBuilder();
-  var regBuilder = container.RegisterMongoDbConnection(configuration);
-...
 ```
 
 ### Use Mongo Client

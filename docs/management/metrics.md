@@ -19,25 +19,20 @@ The following table describes the settings that you can apply to the endpoint:
 
 |Key|Description|Default|
 |---|---|---|
-|`id`|The ID of the metrics endpoint|`metrics`|
-|`enabled`|Whether to enable the metrics management endpoint|`true`|
-|`ingressIgnorePattern`|Regex pattern describing what incoming requests to ignore|See `MetricsOptions`|
-|`egressIgnorePattern`|Regex pattern describing what outgoing requests to ignore|See `MetricsOptions`|
+|`Id`|The ID of the metrics endpoint|`metrics`|
+|`Enabled`|Whether to enable the metrics management endpoint|`true`|
+|`IngressIgnorePattern`|Regex pattern describing what incoming requests to ignore|See `MetricsOptions`|
+|`EgressIgnorePattern`|Regex pattern describing what outgoing requests to ignore|See `MetricsOptions`|
 
->NOTE: Each setting above must be prefixed with `management:endpoints:metrics`.
+>NOTE: Each setting above must be prefixed with `Management:Endpoints:Metrics`.
 
 #### Enable HTTP Access
 
-The default path to the metrics endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/metrics`.
-
-The coding steps you take to enable HTTP access to the metrics endpoint differ, depending on the type of .NET application your are developing. The sections that follow describe the steps needed for each of the supported application types.
-
-##### ASP.NET Core App
+The default path to the metrics endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/metrics`.
 
 To add the metrics actuator to the service container, use the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
 To add the metrics actuator middleware to the ASP.NET Core pipeline, use the `UseMetricsActuator()` extension method from `EndpointApplicationBuilderExtensions`.
-
 
 #### Exporting
 
@@ -52,7 +47,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.0-m2"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -60,8 +55,9 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Alternatively, you can add the package through PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-m2
+PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-
 ```
+
 ##### Cloud Foundry Forwarder
 
  The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](prometheus).
