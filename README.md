@@ -16,7 +16,7 @@ The pipeline attached to this repo creates an artifact that holds the created fi
 
 * Running the markdown parser
   * Usage: `> dotnet run --project src/ParseMD <location-of-markdown-files> <output-html-directory>`
-  * Example Usage: `> dotnet run --project src/ParseMD <location-of-markdown-files> <output-html-directory>`
+  * Example Usage: `> dotnet run --project src/ParseMD docs output-dir`
 
 ## Related Repository
 

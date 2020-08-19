@@ -66,7 +66,7 @@ The second set of settings you may need to specify pertain to service registrati
 |healthCheckInterval|How often to perform the health check|10s|
 |healthCheckTimeout|Timeout for health check|10s|
 |healthCheckCriticalTimeout|Timeout to de-register services critical for longer than this value|30m|
-|healthCheckTlsSkipVerify|Health check verifies TLS|true|
+|healthCheckTlsSkipVerify|Skip health check TLS verification|false|
 |instanceZone|Instance zone to use during registration|none|
 |instanceGroup|Instance group to use during registration|none|
 |defaultZoneMetadataName|Metadata tag name of the zone|'zone'|
@@ -76,7 +76,7 @@ The second set of settings you may need to specify pertain to service registrati
 |retry:initialInterval|Starting interval|1000ms|
 |retry:maxInterval|Maximum retry interval|2000ms|
 |retry:multiplier|Retry interval multiplier|1.1|
-|heartbeat:enabled|Enable or disable heartbeat logic|false|
+|heartbeat:enabled|Enable or disable heartbeat logic|true|
 |heartbeat:ttlValue|Time to live heartbeat time|30|
 |heartbeat:ttlUnit|Time to live heartbeat unit|s|
 |heartbeat:intervalRation|The interval ration|2.0/3.0|
