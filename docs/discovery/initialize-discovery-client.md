@@ -2,11 +2,11 @@
 
 This section describes how to configure the Steeltoe discovery client.
 
-### ASP NET Core
+## ASP NET Core
 
 The next step is to add the Steeltoe Discovery client to the service container and use it to cause the client to start communicating with the server.
 
-As of version 2.4.0, you can do both of these two things at once with extension methods that have been added to both `IHostBuilder` and `IWebHostBuilder`. The following example uses `IHostBuilder`, and the usage is the same for `IWebHostBuilder`:
+You can do both of these two things at once with extension methods that have been added to both `IHostBuilder` and `IWebHostBuilder`. The following example uses `IHostBuilder`, and the usage is the same for `IWebHostBuilder`:
 
 ```csharp
 public class Program
@@ -55,8 +55,6 @@ public class Startup {
     ...
 }
 ```
-
-> NOTE: The `Pivotal.Discovery.*` packages have been deprecated, with all functionality rolled into the Steeltoe packages. Update your references and using statements to use the Steeltoe packages.
 
 ### Registering Services
 

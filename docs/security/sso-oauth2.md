@@ -1,6 +1,6 @@
 # Single Sign-on with OAuth2
 
-Single Sign-on with OAuth 2.0 lets you leverage existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on service](https://docs.pivotal.io/p-identity) for authentication and authorization in ASP.NET Core applications. Single sign-on functionality for ASP.NET 4.x applications is available with the OpenID Connect provider.
+Single Sign-on with OAuth 2.0 lets you leverage existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on service](https://docs.pivotal.io/p-identity) for authentication and authorization in ASP.NET Core applications.
 
 In addition to the Quick Start, you can use other Steeltoe sample applications to help you understand how to use this provider, including `FreddysBBQ` (a polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services).
 
@@ -37,7 +37,7 @@ You can add the provider to your project by using the following `PackageReferenc
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -48,10 +48,10 @@ Configuring settings for the provider beyond what is provided in a service bindi
 
 ```json
 {
-  "security": {
-    "oauth2": {
-      "client": {
-        "validateCertificates": false
+  "Security": {
+    "Oauth2": {
+      "Client": {
+        "ValidateCertificates": false
       }
     }
   }

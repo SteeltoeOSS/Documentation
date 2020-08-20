@@ -14,20 +14,19 @@ When you expose the endpoints over HTTP, you can also integrate the endpoints wi
 
 ## Distributed Tracing
 
-Steeltoe distributed tracing implements a solution for .NET applications based on the open source [OpenCensus](https://opencensus.io/) project. For most users, implementing and using distributed tracing should be invisible, and many of the interactions with external systems should be instrumented automatically. You can capture trace data in logs or by sending it to a remote collector service.
-
->NOTE: The OpenCensus implementation used in Steeltoe (for example, `Steeltoe.Management.OpenCensus`) has been contributed to the OpenCensus community. At some point in the near future, the distributed tracing functionality will move to using it instead of the Steeltoe version.
+Steeltoe distributed tracing implements a solution for .NET applications based on the open source [OpenTelemetry](https://opentelemetry.io/) project. For most users implementing and using distributed tracing should be invisible, and many of the interactions with external systems should be instrumented automatically. You can capture trace data in logs, or by sending it to a remote collector service.
 
 A "span" is the basic unit of work. For example, sending an RPC is a new span, as is sending a response to an RPC. Each span is identified by a unique 64-bit ID for the span, and the trace of which the span is a part is identified by another 64-bit ID. Spans also have other data, such as descriptions, key-value annotations, the ID of the span that caused them, and process ID’s (normally an IP address). Spans are started and stopped, and they keep track of their timing information. Once you create a span, you must stop it at some point in the future. A set of spans form a tree-like structure called a "trace". For example, if you are running a distributed big-data store, a trace might be formed by a put request.
 
 Features:
 
 * Adds trace and span ids to the application log messages, so you can extract all the logs from a given trace or span in a log aggregator.
-* Through the  [OpenCensus](https://opencensus.io/) APIs, we provide an abstraction over common distributed tracing data models: traces, spans (forming a DAG), annotations, and key-value annotations.
-* Automatically instruments common ingress and egress points from .NET applications (such as MVC Controllers, Views, and HTTP clients).
-* Optionally generate, collect, and export Zipkin-compatible traces over HTTP.
+* Using the  [OpenTelemetry](https://opentelemetry.io/) APIs we provide an abstraction over common distributed tracing data models: traces, spans (forming a DAG), annotations, key-value annotations.
+* Automatically instruments common ingress and egress points from .NET applications (e.g MVC Controllers, Views, Http clients).
+* Optionally generate, collect and export Zipkin-compatible traces via HTTP.
 
 >NOTE: Currently, distributed tracing is supported only in ASP.NET Core applications.
 
 ## Management Tasks
+
 Steeltoe Management Tasks provide a means of running administrative tasks for ASP.NET Core applications with the same context as the running version of your application. The original use case for this feature is managing database migrations with a bound database service on Cloud Foundry, but the framework is extensible for you to create your own tasks.

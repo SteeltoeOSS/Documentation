@@ -4,7 +4,7 @@ This connector simplifies using Cloud Foundry OAuth2 security services (for exam
 
 ## Usage
 
-You should know how the new .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder.
+You should know how the .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder.
 
 You should also know how the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
 
@@ -29,10 +29,10 @@ Configuring additional settings for the connector is not typically required, but
 ```json
 {
   ...
-  "security": {
-    "oauth2": {
-      "client": {
-        "validateCertificates": false
+  "Security": {
+    "Oauth2": {
+      "Client": {
+        "ValidateCertificates": false
       }
     }
   }
@@ -48,7 +48,7 @@ The samples and most templates are already set up to read from `appsettings.json
 
 There are multiple ways to set up OAuth services on Cloud Foundry.
 
-There is a user-provided service to define a direct binding to the Cloud Foundry UAA server. Alternatively, you can use the [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) product to provision an OAuth service binding. The process to create service binding varies for each of the approaches.
+There is a user-provided service to define a direct binding to the Cloud Foundry UAA server. Alternatively, you can use the [Single Sign-On for VMware Tanzu](https://docs.pivotal.io/p-identity/)) product to provision an OAuth service binding. The process to create service binding varies for each of the approaches.
 
 Regardless of which you choose, once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 

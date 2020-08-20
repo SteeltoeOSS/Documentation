@@ -9,15 +9,14 @@ Currently, the connector supports the following providers:
 
 The following Steeltoe sample applications can help you understand how to use this connector:
 
-* [AspDotNet4/MySql4](https://github.com/SteeltoeOSS/Samples/tree/master/Connectors/src/AspDotNet4/MySql4): Same as the next Quick Start but built for ASP.NET 4.x.
-* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a micro-services based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot (Java and .NET) micro-services-based sample application showing interoperability between Java- and .NET-based micro-services running on Cloud Foundry, secured with OAuth2 Security Services and using Spring Cloud Services.
+* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
+* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot (Java and .NET) microservices-based sample application showing interoperability between Java- and .NET-based microservices running on Cloud Foundry, secured with OAuth2 Security Services and using Spring Cloud Services.
 
 This connector provides a `IHealthContributor` object, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
 
 ## Usage
 
-You should know how the new .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary to configure the connector.
+You should know how the .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary to configure the connector.
 
 You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
 
@@ -41,10 +40,10 @@ The following MySQL connector configuration shows how to connect to a database a
 ```json
 {
   ...
-  "mysql": {
-    "client": {
-      "server": "myserver",
-      "port": 3306
+  "MySql": {
+    "Client": {
+      "Server": "myserver",
+      "Port": 3306
     }
   }
   ...
@@ -55,32 +54,32 @@ The following table describes the available settings for the connector. These se
 
 |Key|Description|Steeltoe Default|
 |---|---|:---:|
-|`server`|Hostname or IP Address of the server|`localhost`|
-|`port`|Port number of server|3306|
-|`username`|Username for authentication|not set|
-|`password`|Password for authentication|not set|
-|`database`|Schema to which to connect|not set|
-|`connectionString`|Full connection string|built from settings|
-|`sslMode`|SSL usage option. One of `None`, `Preferred`, or `Required`|`None`|
-|`allowPublicKeyRetrieval`|Whether RSA public keys should be retrieved from the server|not set|
-|`allowUserVariables`|Whether the provider expects user variables in the SQL|not set|
-|`connectionTimeout`|Seconds to wait for a connection before throwing an error|not set|
-|`connectionLifeTime`|The maximum length of time a connection to the server can be open|not set|
-|`connectionReset`|Whether the connection state is reset when it is retrieved from the pool|not set|
-|`convertZeroDateTime`|Whether to have MySqlDataReader.GetValue() and MySqlDataReader.GetDateTime() return DateTime.MinValue for date or datetime columns that have disallowed values|not set|
+|`Server`|Hostname or IP Address of the server|`localhost`|
+|`Port`|Port number of server|3306|
+|`Username`|Username for authentication|not set|
+|`Password`|Password for authentication|not set|
+|`Database`|Schema to which to connect|not set|
+|`ConnectionString`|Full connection string|built from settings|
+|`SslMode`|SSL usage option. One of `None`, `Preferred`, or `Required`|`None`|
+|`AllowPublicKeyRetrieval`|Whether RSA public keys should be retrieved from the server|not set|
+|`AllowUserVariables`|Whether the provider expects user variables in the SQL|not set|
+|`ConnectionTimeout`|Seconds to wait for a connection before throwing an error|not set|
+|`ConnectionLifeTime`|The maximum length of time a connection to the server can be open|not set|
+|`ConnectionReset`|Whether the connection state is reset when it is retrieved from the pool|not set|
+|`ConvertZeroDateTime`|Whether to have MySqlDataReader.GetValue() and MySqlDataReader.GetDateTime() return DateTime.MinValue for date or datetime columns that have disallowed values|not set|
 |defaultCommandTimeout|Seconds each command can execute before timing out. Use 0 to disable timeouts|not set|
-|`keepalive`|TCP keep-alive idle time|not set|
-|`maximumPoolsize`|Maximum number of connections allowed in the pool|not set|
-|`minimumPoolsize`|Minimum number of connections to leave in the pool if ConnectionIdleTimeout is reached|not set|
-|`oldGuids`|Whether to use a GUID of data type BINARY(16)|not set|
+|`Keepalive`|TCP keep-alive idle time|not set|
+|`MaximumPoolsize`|Maximum number of connections allowed in the pool|not set|
+|`MinimumPoolsize`|Minimum number of connections to leave in the pool if ConnectionIdleTimeout is reached|not set|
+|`OldGuids`|Whether to use a GUID of data type BINARY(16)|not set|
 |persistSecurityInfo|Whether to allow the application to access to security-sensitive information, such as the password. **_(Not recommended)_**|not set|
-|`pooling`|Enables connection pooling|not set|
-|`treatTinyAsBoolean`|Whether to return tinyint(1) as a boolean. Set to `false` to return tinyint(1) as sbyte/byte|not set|
-|`useAffectedRows`|Set to `false` to report found rows instead of changed (affected) rows|not set|
-|`useCompression`|If `true` (and server-supported), packets sent between client and server are compressed|not set|
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+|`Pooling`|Enables connection pooling|not set|
+|`TreatTinyAsBoolean`|Whether to return tinyint(1) as a boolean. Set to `false` to return tinyint(1) as sbyte/byte|not set|
+|`UseAffectedRows`|Set to `false` to report found rows instead of changed (affected) rows|not set|
+|`UseCompression`|If `true` (and server-supported), packets sent between client and server are compressed|not set|
+|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
->IMPORTANT: All of the settings described in the preceding table should be prefixed with `mysql:client:`.
+>IMPORTANT: All of the settings described in the preceding table should be prefixed with `MySql:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
 
@@ -218,6 +217,7 @@ public class TestContext : DbContext
 ```
 
 <a name="steeltoe-connectors-mysql-entity-framework-core"></a>
+
 #### Entity Framework Core
 
 To use the MySQL connector with Entity Framework Core, inject a `DbContext` into your application with the standard `AddDbContext<>()` method, substituting Steeltoe's `UseMySql` method that takes an `IConfiguration` as a parameter in the options configuration for the standard `UseMySql` method. The following example demonstrates the basic usage:

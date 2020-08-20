@@ -1,12 +1,12 @@
-## Usage
+# Usage
 
 Before starting with Steeltoe's Windows Network File Share library, you should already have a plan for interacting with the file system. Steeltoe only manages the connection to the file share.
 
-### Add NuGet References
+## Add NuGet References
 
 Use the NuGet Package Manager or a `PackageReference` to add a reference to `Steeltoe.Common.Net`
 
-### Managing the Connection
+## Managing the Connection
 
 The state of the connection to the file share is managed through the lifecycle of `WindowsNetworkFileShare`. To open the connection, instantiate a `WindowsFileShare`:
 

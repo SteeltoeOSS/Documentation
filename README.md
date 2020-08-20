@@ -18,6 +18,36 @@ The pipeline attached to this repo creates an artifact that holds the created fi
   * Usage: `> dotnet run --project src/ParseMD <location-of-markdown-files> <output-html-directory>`
   * Example Usage: `> dotnet run --project src/ParseMD <location-of-markdown-files> <output-html-directory>`
 
+## Build docs and run on main site, locally
+
+1. Publish the application to create the artifact
+    ```powershell
+    PS> dotnet publish '.\src\ParseMD\ParseMD.csproj' --output '.\publish' --configuration Release
+    ```
+
+1. Note the branch you are working on
+    ```powershell
+    PS> git branch
+
+      2.x
+    * 2.x-staging
+      3.x-staging
+      master
+    ```
+
+1. Run the application to convert the given branch markdown to html
+    ```powershell
+    PS> dotnet '.\publish\ParseMD.dll' '.\docs' '.\output-2xstaging'
+    ```
+
+1. Move the generated html into a local instance of the main site, matching the version to the folder
+    ```powershell
+    PS> cp '.\output\*' '..\MainSite\src\Client\wwwroot\site-data\docs\2\'
+                                                                       ^
+    ```
+
+1. Refer to the [main site readme](https://github.com/SteeltoeOSS/MainSite/blob/dev/README.md) for instructions on running the site locally
+
 ## Related Repository
 
 * [MainSite](https://github.com/SteeltoeOSS/mainsite) - This repository contains the main site builder for steeltoe.io. It pulls in the html from the output of `ParseMD` and adds it to the documentation section of steeltoe.io.

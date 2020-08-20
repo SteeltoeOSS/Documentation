@@ -36,17 +36,17 @@ To use the distributed tracing exporters, you need to add a reference to the app
 
 The following table describes the available packages:
 
-|Application Type|Package|Description|
+|.NET Target|Package|Description|
 |---|---|---|
-|All|`Steeltoe.Management.TracingBase`|Base functionality, no dependency injection|
-|ASP.NET Core|`Steeltoe.Management.TracingCore`|Includes `TracingBase`, adds ASP.NET Core DI|
+|.NET Standard 2.0|`Steeltoe.Management.TracingBase`|Base functionality, no dependency injection|
+|ASP.NET Core 3.1|`Steeltoe.Management.TracingCore`|Includes `TracingBase`, adds ASP.NET Core DI|
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TracingCore" Version= "3.0.0-m2"/>
+    <PackageReference Include="Steeltoe.Management.TracingCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -54,28 +54,28 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Alternative, you can add it with PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.TracingCore -Version 2.1.0
+PM>Install-Package  Steeltoe.Management.TracingCore -Version 3.0.0
 ```
 
 ### Configure Settings
 
 You can configure distributed tracing by using the normal .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration).
 
-All settings should be placed under the prefix with a key of `management:tracing:`.
+All settings should be placed under the prefix with a key of `Management:tracing:`.
 The following table describes the available settings:
 
 |Key|Description|Default|
 |---|---|---|
-|`name`|The name of the application|`spring:application:name`, Cloud Foundry name, or `Unknown`|
-|`ingressIgnorePattern`|Regex pattern describing what incoming requests to ignore|See `TracingOptions`|
-|`egressIgnorePattern`|Regex pattern describing what outgoing requests to ignore|See `TracingOptions`|
-|`maxNumberOfAttributes`|Max attributes attachable to OpenCensus span|32|
-|`maxNumberOfAnnotations`|Max annotations attachable to OpenCensus span|32|
-|`maxNumberOfMessageEvents`|Max events attachable to OpenCensus span|128|
-|`maxNumberOfLinks`|max links attachable to OpenCensus span|128|
-|`alwaysSample`|Whether to enable the OpenCensus `AlwaysSampler`|OpenCensus `ProbabilitySampler`|
-|`neverSample`|Whether to enable the OpenCensus `NeverSampler`|OpenCensus `ProbabilitySampler`|
-|`useShortTraceIds`|Whether to truncate the IDs to 8 bytes instead of 16. Use it for backwards compatibility with Spring Sleuth, PCF Metrics, and others.|`true`|
+|`Name`|The name of the application|`Spring:Application:Name`, Cloud Foundry name, or `Unknown`|
+|`IngressIgnorePattern`|Regex pattern describing what incoming requests to ignore|See `TracingOptions`|
+|`EgressIgnorePattern`|Regex pattern describing what outgoing requests to ignore|See `TracingOptions`|
+|`MaxNumberOfAttributes`|Max attributes attachable to OpenTelemetry span|32|
+|`MaxNumberOfAnnotations`|Max annotations attachable to OpenTelemetry span|32|
+|`MaxNumberOfMessageEvents`|Max events attachable to OpenTelemetry span|128|
+|`MaxNumberOfLinks`|max links attachable to OpenTelemetry span|128|
+|`AlwaysSample`|Whether to enable the OpenTelemetry `AlwaysOnSampler`|OpenTelemetry `Sampler`|
+|`NeverSample`|Whether to enable the OpenTelemetry `AlwaysOffSampler`|OpenTelemetry `Sampler`|
+|`UseShortTraceIds`|Whether to truncate the IDs to 8 bytes instead of 16. Use it for backwards compatibility with Spring Sleuth, PCF Metrics, and others.|`true`|
 
 ### Enabling Log Correlation
 
