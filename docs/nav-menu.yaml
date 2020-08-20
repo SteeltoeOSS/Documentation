@@ -88,7 +88,7 @@
           name: Configuring Multiple Urls
         - page_ref: configuring-mutual-tls
           name: Configuring Mutual TLS
-    - page: /docs/3/configuration/kubernetes-provider
+    - page: /docs/3/configuration/kubernetes-providers
       name: Kubernetes Provider
       items:
         - page_ref: conventions

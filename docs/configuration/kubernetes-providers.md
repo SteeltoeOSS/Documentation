@@ -6,7 +6,7 @@ You can read more about [ConfigMaps](https://kubernetes.io/docs/concepts/configu
 
 ## Conventions
 
-Both of the Kubernetes configuration providers use the same conventions to search for resources. These conventions are designed to feel familiar and provide some working defaults while remaining configuragle.
+Both of the Kubernetes configuration providers use the same conventions to search for resources. These conventions are designed to feel familiar and provide some working defaults while remaining configurable.
 
 ### Namespace
 
@@ -69,7 +69,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         {
             webBuilder.UseStartup<Startup>();
         })
-        .AddKubernetes()
+        .AddKubernetesConfiguration()
 ```
 
 >NOTE: This functionality is included in the `Steeltoe.Extensions.Configuration.KubernetesCore`. Beyond adding the configuration providers, `KubernetesApplicationOptions` is added to the `IServiceCollection` for use by these configuration providers and other Steeltoe components.
@@ -184,7 +184,7 @@ Additional Secrets can be specified in the Sources list using the name and names
 
 All settings above should start with `Spring:Cloud:Kubernetes:Secrets`.
 
-[best practices](https://kubernetes.io/docs/concepts/configuration/secret/#best-practices)
+For more information about risks and best practices when consuming Secrets through the API refer to the [best practices](https://kubernetes.io/docs/concepts/configuration/secret/#best-practices).
 
 ### Reload Settings
 
@@ -201,7 +201,7 @@ All settings above should start with `Spring:Cloud:Kubernetes:Reload`.
 
 >NOTE: `Mode` can also be set to `Event`, which will attempt to maintain an open connection to the API server for real-time reloading of configuration data.
 
-### Enabling Logging
+### Enable Logging
 
 Sometimes, it is desirable to turn on debug logging in the provider.
 
