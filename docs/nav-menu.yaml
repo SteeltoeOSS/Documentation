@@ -88,6 +88,21 @@
           name: Configuring Multiple Urls
         - page_ref: configuring-mutual-tls
           name: Configuring Mutual TLS
+    - page: /docs/3/configuration/kubernetes-provider
+      name: Kubernetes Provider
+      items:
+        - page_ref: conventions
+          name: Conventions
+        - page_ref: add-nuget-reference
+          name: Add NuGet Reference
+        - page_ref: add-configuration-providers-to-hostbuilder
+          name: Add Configuration Providers
+        - page_ref: access-configuration-data
+          name: Access Configuration Data
+        - page_ref: additional-configuration
+          name: Additional Configuration
+        - page_ref: enable-logging
+          name: Enable Logging
 - page: /docs/3/circuitbreaker
   name: Circuit Breakers
   items:
