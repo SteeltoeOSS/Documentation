@@ -188,6 +188,8 @@
           name: Add NuGet Reference
         - page_ref: implement-task
           name: Implement Task
+    - page: /docs/3/management/metric-observers
+      name: Metric Observers
     - page: /docs/3/management/cloud-foundry
       name: /cloudFoundry
     - page: /docs/3/management/env
@@ -211,15 +213,10 @@
       name: /loggers
     - page: /docs/3/management/mappings
       name: /mappings
-    - page: /docs/3/management/metrics-overview
-      name: Metrics
-      items:
-        - page: /docs/3/management/metrics-observers
-          name: Metric Observers
-        - page: /docs/3/management/metrics
-          name: /metrics
-        - page: /docs/3/management/prometheus
-          name: /prometheus
+    - page: /docs/3/management/metrics
+      name: /metrics
+    - page: /docs/3/management/prometheus
+      name: /prometheus
     - page: /docs/3/management/refresh
       name: /refresh
     - page: /docs/3/management/threaddump

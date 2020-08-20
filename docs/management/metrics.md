@@ -26,7 +26,7 @@ The following table describes the settings that you can apply to the endpoint:
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Metrics`.
 
-To configure Observers, see [Metric Observers](/metrics-observers)
+To configure Observers, see [Metric Observers](/doc/management/metric-observers)
 
 #### Enable HTTP Access
 
@@ -38,7 +38,7 @@ To add the metrics actuator middleware to the ASP.NET Core pipeline, use the `Us
 
 #### Exporting
 
-Prior versions of Steeltoe supported exporting metrics to The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/), which is no longer supported. See [Prometheus](prometheus) to export metrics.
+Prior versions of Steeltoe supported exporting metrics to The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/), which is no longer supported. See [Prometheus](/docs/management/prometheus) to export metrics.
 
 ##### Add NuGet References
 
@@ -62,7 +62,7 @@ PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-
 
 ##### Cloud Foundry Forwarder
 
- The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](prometheus).
+ The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](/docs/management/prometheus).
 
 ##### ASP.NET Core App
 
