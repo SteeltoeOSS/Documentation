@@ -7,9 +7,9 @@ This section explores the interfaces and classes that are the essential componen
 
 Steeltoe RabbitMQ consists of two packages (each represented by a nuget in the distribution): `Steeltoe.Messaging.MessagingBase` and `Steeltoe.Messaging.RabbitMQ`.
 The `Steeltoe.Messaging.MessagingBase` package contains the `Steeltoe.Messaging` namespace.
-Within that package, you can find the core classes that represent the core messaging classes that pertain to any messaging system.
+Within that package you can find the classes that represent the core messaging functionality that pertains to any messaging system.
 Our intention is to provide generic abstractions that do not rely on any particular messaging implementation or client library.
-End-user code can be more portable across vendor implementations, as it can be developed against the abstraction layer only.
+End-user code can be more portable across vendor implementations, as much of it can be developed against the abstraction layer only.
 These abstractions are then implemented by messaging-specific packages, such as `Steeltoe.Messaging.RabbitMQ`.
 There is currently only a RabbitMQ implementation at this point, but in the future we anticipate several others.
 
@@ -21,12 +21,12 @@ If not, have a look at the resources listed in [further-reading](docs/messaging/
 ### IMessage
 
 The AMQP specification does not define a `Message` class or interface.
-Instead, when performing an operation such as `BasicPublish()`, the content is passed as a byte-array argument, and additional message properties are passed in as separate arguments.
+Instead, when performing an operation such as `BasicPublish()`, the content is passed as a byte-array, and additional message properties are passed as separate arguments.
 Steeltoe defines a `Message` class and a `IMessage` interface as part of a more general messaging domain model representation.
-The purpose of the `Message` class is to encapsulate the body and properties of a message within a single instance so that interacting with messaging APIs can in turn be simpler.
+The purpose of the `Message` class is to encapsulate the body and properties of a message within a single instance so that interacting with messaging APIs can be simpler.
 The intent is that the `Message` class be generic enough for use with any underlying messaging infrastructure, including RabbitMQ.
 
-The following shows the `Message` class definition as well as the various important interfaces it references:
+The following shows the `Message` class as well as the various important interfaces it references:
 
 ```csharp
 public class Message<P> : AbstractMessage, IMessage<P>
@@ -75,11 +75,11 @@ public interface IMessageHeaders : IDictionary<string, object>
 
 When creating messages you should use one of the static `Create(..)` methods on `Steeltoe.Messaging.Message`. Note that once you create a message its message headers are considered to be immutable.
 
-The `IMessageHeaders` interface defines a few common properties, such as `Id`, `Timestamp`, `ReplyChannel`, etc. used across all Steeltoe supported messaging systems.
-There are also extension methods in `Steeltoe.Messaging.RabbitMQ.Extensions.MessageHeaderExtensions` which can be used to access RabbitMQ specific headers such as AppId, ClusterId, etc.
+The `IMessageHeaders` interface defines a few common properties, such as `Id`, `Timestamp`, `ReplyChannel`, etc. each used across all Steeltoe supported messaging systems.
+There are also extension methods in `Steeltoe.Messaging.RabbitMQ.Extensions.MessageHeaderExtensions` which can be used to access RabbitMQ specific headers such as `AppId`, `ClusterId`, etc.
 
-If you need to update headers in a previously created message you need to obtain a mutable accessor to do so. Each messaging system (e.g. RabbitMQ, Kafka, etc.) has an accessor specific to that messaging system.
-For RabbitMQ you should use the `RabbitHeaderAccessor` and call `GetMutableAccessor(..)` to obtain an appropriate accessor. You can then use it to modify the headers associated with the message. You can also add or remove user-defined 'headers' by calling the `SetHeader(string key, object value)` method as needed.
+If you need to update headers in a previously created message you must obtain a mutable accessor to do so. Each messaging system (e.g. RabbitMQ, Kafka, etc.) has an accessor specific to that messaging system.
+For RabbitMQ you should use the `RabbitHeaderAccessor` and call `GetMutableAccessor(..)` to obtain an appropriate accessor. You can then use it to modify the headers associated with the message. You can also add or remove user-defined 'headers' by calling `SetHeader(string key, object value)` method as needed.
 
 ### IExchange
 
@@ -114,7 +114,7 @@ The `FanoutExchange` publishes to all queues that are bound to it without taking
 For much more information about these and the other Exchange types, see [further-reading](docs/messaging/further-reading).
 
 >NOTE: The AMQP specification also requires that any broker provide a "default" direct exchange that has no name.
-All queues that are declared are bound to that default `Exchange` with their names as routing keys.
+All queues that are declared are bound to that default `IExchange` with their names as routing keys.
 You can learn more about the default Exchange's usage within Steeltoe RabbitMQ in [RabbitTemplate](docs/messaging/rabbitmq-reference.md#rabbittemplate).
 
 ### IQueue
@@ -144,7 +144,7 @@ The following listing shows the `Queue` class which implements `IQueue`:
 Notice that the constructor takes the queue name as a argument.
 Depending on the broker implementation, the admin template may provide methods for generating a uniquely named queue.
 Such queues can be useful as a "reply-to" address or in other *temporary* situations.
-For that reason, the 'exclusive' and 'autoDelete' properties of an auto-generated queue would both be set to 'true'.
+For that reason, the `IsExclusive` and `IsAutoDelete` properties of an auto-generated queue would both be set to `true`.
 
 ### IBinding
 
@@ -186,14 +186,14 @@ The `RabbitTemplate` mentioned earlier is one of the main components involved in
 ## Connection and Resource Management
 
 Whereas the abstractions we described in the previous section is generic and applicable to all AMQP implementations (e.g. RabbitMQ), when we get into the management of resources, the details are specific to the broker implementation.
-Therefore, in this section, we focus on code that is specific to the RabbitMQ instance since, at this point, RabbitMQ is the only supported implementation.
+Therefore, in this section, we focus on code that is specific to the RabbitMQ instance since, at this point, RabbitMQ is the only supported implementation of AMQP.
 
 The central component for managing a connection to the RabbitMQ broker is the `IConnectionFactory` interface.
-The responsibility of a `IConnectionFactory` implementation is to provide an instance of `Steeltoe.Messaging.RabbitMQ.IConnection`, which is a wrapper for `RabbitMQ.Client.IConnection`.
-The only concrete implementation we provide is `CachingConnectionFactory`, which, by default, establishes a single connection proxy that can be shared by the application.
-Sharing of the connection is possible since the "unit of work" for messaging with AMQP is actually a "channel".
+The responsibility of a `IConnectionFactory` implementation is to provide an instance of `Steeltoe.Messaging.RabbitMQ.IConnection`, which is a wrapper for the underlying `RabbitMQ.Client.IConnection`.
+The only concrete implementation we provide is `CachingConnectionFactory`, which by default, establishes a single connection proxy that can be shared by the application.
+Sharing of the connection is possible since the "unit of work" for messaging with AMQP is actually a "Channel".
 
->NOTE: The RabbitMQ .NET client uses an `RabbitMQ.Client.IModel` to represent what we will constantly refer to as a "channel" or `Channel`.
+>NOTE: The RabbitMQ .NET client uses an `RabbitMQ.Client.IModel` to represent what we will constantly refer to as a `Channel`.
 
 The connection instance provides a `CreateChannel` method.
 The `CachingConnectionFactory` implementation supports caching of those channels, and it maintains separate caches for channels based on whether they are transactional or not.
@@ -216,7 +216,7 @@ A property called `ConnectionLimit` is provided to limit the total number of con
 When set, if the limit is reached, the `ChannelCheckoutTimeout` is used to wait for a connection to become idle.
 If the time is exceeded, an `RabbitTimeoutException` is thrown.
 
->When the cache mode is `CONNECTION`, automatic declaration of queues and other AMQP types (See [Automatic Declaration of Exchanges, Queues, and Bindings](docs/messaging/rabbitmq-reference.md#automatic-declaration-of-exchanges-queues-and-bindings) is NOT supported.
+>NOTE: When the cache mode is `CONNECTION`, automatic declaration of queues and other AMQP types (See [Automatic Declaration of Exchanges, Queues, and Bindings](docs/messaging/rabbitmq-reference.md#automatic-declaration-of-exchanges-queues-and-bindings) is NOT supported.
 
 It is important to understand that the cache size is (by default) not a limit but is merely the number of channels that can be cached.
 With a cache size of, say, 10, any number of channels can actually be in use.
@@ -235,10 +235,7 @@ The `CachingConnectionFactory` has a property called `ChannelCheckoutTimeout`.
 When this property is greater than zero, the `ChannelCacheSize` becomes a limit on the number of channels that can be created on a connection.
 If the limit is reached, calling threads will block until a channel is available or this timeout value is reached, in which case a `RabbitTimeoutException` is thrown.
 
-WARNING: Channels used within the framework (for example,
-`RabbitTemplate`) are reliably returned to the cache.
-If you create channels outside of the framework, (for example,
-by accessing the connections directly and invoking `CreateChannel()`), you must return them (by closing) reliably, perhaps in a `finally` block, to avoid running out of channels.
+>WARNING: Channels used within the framework (for example,`RabbitTemplate`) are reliably returned to the cache. If you create channels outside of the framework, (for example, by accessing the connections directly and invoking `CreateChannel()`), you must return them (by closing) reliably, perhaps in a `finally` block, to avoid running out of channels.
 
 The following example shows how to create a new `IConnection`:
 
@@ -280,7 +277,7 @@ The `CachingConnectionFactory` uses an instance of the RabbitMQ client `RabbitMQ
 A number of configuration properties are passed through (e.g. `Host`, `Port`, `Username`, `Password`, `RequestedHeartBeat`, and `ConnectionTimeout` for example) when setting the equivalent property on the `CachingConnectionFactory`or when using the `RabbitOptions` and a `IConfiguration`.
 To set other properties, you can create an instance of the `RabbitMQ.Client.ConnectionFactory` and provide a reference to it by using the appropriate constructor of the `CachingConnectionFactory`.
 
->NOTE: The 4.0.x RabbitMQ client supports automatic recovery feature.
+>NOTE: The 4.0.x+ RabbitMQ client supports automatic recovery feature.
 While compatible with this feature, Steeltoe RabbitMQ has its own recovery mechanisms and the client recovery feature generally is not needed.
 Since the auto-recovering connection recovers on a timer, the connection may be recovered more quickly by using Steeltoe RabbitMQs recovery mechanisms.
 Steeltoe RabbitMQ disables the automatic recovery feature unless you explicitly create your own RabbitMQ connection factory and provide it to the `CachingConnectionFactory`.
@@ -309,10 +306,11 @@ See the [RabbitMQ Documentation](https://www.rabbitmq.com/ssl.html) for informat
 }
 ```
 
-The `certPath` and `certPassphrase` are used to configure the RabbitMQ client `ConnectionFactory` to use a file containing a certificate the client will send to the broker.
+The `CertPath` and `CertPassphrase` are used to configure the RabbitMQ client `ConnectionFactory` to use a file containing a certificate the client will send to the broker.
 
->IMPORTANT: The server certificate is validated by default (i.e. `validateServerCertificate = true`).
-If you wish to skip this validation for some reason, set `validateServerCertificate` to false, and the `RabbitMQ.Client.ConnectionFactory.Ssl.AcceptablePolicyErrors` will be set to `SslPolicyErrors.RemoteCertificateNotAvailable | SslPolicyErrors.RemoteCertificateChainErrors`.
+>IMPORTANT: The server certificate is validated by default (i.e. `ValidateServerCertificate = true`).
+If you wish to skip this validation for some reason, set `ValidateServerCertificate` to false, and the `RabbitMQ.Client.ConnectionFactory.Ssl.AcceptablePolicyErrors` will be set to `SslPolicyErrors.RemoteCertificateNotAvailable | SslPolicyErrors.RemoteCertificateChainErrors`.
+
 >IMPORTANT: The default algorithm is configured to use TLS v1.3 or TLS v1.2. If you need to use v1.1 you will have to explicitly configure it.
 
 ### Connecting to a Cluster
@@ -338,6 +336,7 @@ CachingConnectionFactory ccf = new CachingConnectionFactory()
 ```
 
 >NOTE: You can also set the `Addresses` by configuring a `RabbitOptions` via `IConfiguration`.
+
 <!--
 
 TODO:  With 3.1 release and support for expressions this should have meaning and should be documented
