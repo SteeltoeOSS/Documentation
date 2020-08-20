@@ -429,7 +429,7 @@ The following example shows the `IChannelListener` interface definition:
 public interface IChannelListener
 {
     void OnCreate(IModel channel, bool transactional);
-    void OnShutDown(ShutdownEventArgs ars);
+    void OnShutDown(ShutdownEventArgs args);
 }
 ```
 
@@ -449,7 +449,7 @@ To modify this behavior, you can configure a custom `IConditionalExceptionLogger
 
 ### Runtime Cache Properties
 
-The `CachingConnectionFactory` now provides cache statistics through the `GetCacheProperties()` method.
+The `CachingConnectionFactory` provides cache statistics through the `GetCacheProperties()` method.
 These statistics can be used to tune the cache to optimize it in production.
 For example, the high water marks can be used to determine whether the cache size should be increased.
 If it equals the cache size, you might want to consider increasing further.
@@ -575,7 +575,8 @@ The callback must implement the following method:
 ```csharp
 public interface IReturnCallback
 {
-    void ReturnedMessage(IMessage<byte[]> message, int replyCode, string replyText, string exchange, string routingKey);
+    void ReturnedMessage(
+        IMessage<byte[]> message, int replyCode, string replyText, string exchange, string routingKey);
 }
 ```
 
@@ -673,7 +674,8 @@ Furthermore, the `RabbitTemplate` sets the `PublishSequenceNumber` property in t
 If you wish to check (or log or otherwise use) specific confirms, you can do so with an overloaded `Invoke` method, as the following example shows:
 
 ```csharp
-public virtual T Invoke<T>(Func<IRabbitTemplate, T> rabbitOperations, Action<object, BasicAckEventArgs> acks, Action<object, BasicNackEventArgs> nacks)
+public virtual T Invoke<T>(
+    Func<IRabbitTemplate, T> rabbitOperations, Action<object, BasicAckEventArgs> acks, Action<object, BasicNackEventArgs> nacks)
 ```
 
 >NOTE: These `EventArgs` (for `ack` and `nack` instances) are the RabbitMQ client event args.
@@ -740,7 +742,8 @@ It lets an RabbitMQ exchange name  (along with a routing key) be provided at run
 An example of using this method to send a message might look this this:
 
 ```csharp
-template.Send("marketData.topic", "quotes.nasdaq.FOO", Message.Create(Encoding.UTF8.GetBytes("12.34"), someHeaders));
+template.Send(
+    "marketData.topic", "quotes.nasdaq.FOO", Message.Create(Encoding.UTF8.GetBytes("12.34"), someHeaders));
 ```
 
 You can set the `Exchange` property on the template itself if you plan to use that template instance to send to the same exchange most or all of the time.
@@ -809,11 +812,11 @@ In the cases where a default initial value exists, the method is named `Set*IfAb
 Five static methods are provided to create an initial message builder:
 
 ```csharp
-public static IMessage CreateMessage(object payload, IMessageHeaders messageHeaders, Type payloadType = null);
-public static AbstractMessageBuilder FromMessage<P>(IMessage<P> message);
-public static AbstractMessageBuilder FromMessage(IMessage message, Type payloadType = null);
-public static AbstractMessageBuilder WithPayload<P>(P payload);
-public static AbstractMessageBuilder WithPayload(object payload, Type payloadType = null);
+IMessage CreateMessage(object payload, IMessageHeaders messageHeaders, Type payloadType = null);
+AbstractMessageBuilder FromMessage<P>(IMessage<P> message);
+AbstractMessageBuilder FromMessage(IMessage message, Type payloadType = null);
+AbstractMessageBuilder WithPayload<P>(P payload);
+AbstractMessageBuilder WithPayload(object payload, Type payloadType = null);
 ```
 
 With the `RabbitTemplate` each of the `Send()` methods has an overloaded version that takes an additional `CorrelationData` object.
@@ -933,12 +936,12 @@ Similar to `SendAndReceive` methods, the `RabbitTemplate` has several convenienc
 The following listing shows some of those method definitions:
 
 ```csharp
-public virtual bool ReceiveAndReply<R, S>(Func<R, S> callback);
-public virtual bool ReceiveAndReply<R, S>(string queueName, Func<R, S> callback);
-public virtual bool ReceiveAndReply<R, S>(Func<R, S> callback, string exchange, string routingKey);
-public virtual bool ReceiveAndReply<R, S>(string queueName, Func<R, S> callback, string replyExchange, string replyRoutingKey);
-public virtual bool ReceiveAndReply<R, S>(Func<R, S> callback, Func<IMessage, S, Address> replyToAddressCallback);
-public virtual bool ReceiveAndReply<R, S>(string queueName, Func<R, S> callback, Func<IMessage, S, Address> replyToAddressCallback);
+bool ReceiveAndReply<R, S>(Func<R, S> callback);
+bool ReceiveAndReply<R, S>(string queueName, Func<R, S> callback);
+bool ReceiveAndReply<R, S>(Func<R, S> callback, string exchange, string routingKey);
+bool ReceiveAndReply<R, S>(string queueName, Func<R, S> callback, string replyExchange, string replyRoutingKey);
+bool ReceiveAndReply<R, S>(Func<R, S> callback, Func<IMessage, S, Address> replyToAddressCallback);
+bool ReceiveAndReply<R, S>(string queueName, Func<R, S> callback, Func<IMessage, S, Address> replyToAddressCallback);
 ```
 
 The `RabbitTemplate` implementation takes care of the `receive` and `reply` phases.
@@ -1118,28 +1121,12 @@ class Program
             services.AddRabbitDefaultMessageConverter();
             services.AddRabbitConnectionFactory();
 
-            // TODO:
-            //services.AddRabbitDirecListenerContainer("manualContainer", (p, container) =>
-            //{
-            //    var logFactory = p.GetRequiredService<ILoggerFactory>();
-            //    container.SetQueueNames("myqueue");
-            //    container.MessageListener = new MyMessageListener(logFactory.CreateLogger<MyMessageListener>());
-            //    container.Initialize();
-            //});
-
-            // Add manually configured container, register as ISmartLifecycle so auto started
-            services.AddSingleton<ISmartLifecycle>((p) =>
+            services.AddRabbitDirecListenerContainer("manualContainer", (p, container) =>
             {
-                var context = p.GetRequiredService<IApplicationContext>();
-                var conFactory = p.GetRequiredService<IConnectionFactory>();
                 var logFactory = p.GetRequiredService<ILoggerFactory>();
-                var listener = new MyMessageListener(logFactory.CreateLogger<MyMessageListener>());
-
-                var container = new DirectMessageListenerContainer(context, conFactory, "manualContainer", logFactory);
                 container.SetQueueNames("myqueue");
-                container.MessageListener = listener;
+                container.MessageListener = new MyMessageListener(logFactory.CreateLogger<MyMessageListener>());
                 container.Initialize();
-                return container;
             });
         });
 }
@@ -1322,7 +1309,7 @@ public class MyService
     }
     [DeclareQueue(Name = "${my:queue}", Durable = "True")]
     [RabbitListener("${my:queue}")]
-    public String handleWithSimpleDeclare(string data)
+    public string HandleWithSimpleDeclare(string data)
     {
         ...
     }
@@ -1773,7 +1760,7 @@ public class MyService
 {
     [RabbitListener("test.sendTo.ph")]
     [SendTo("${config:ReplyTo}")]
-    public String CapitalizeWithSendToPlaceholder(string foo)
+    public string CapitalizeWithSendToPlaceholder(string foo)
     {
         return foo.ToUpper();
     }
@@ -2304,9 +2291,11 @@ or the generic methods.
 This allows conversion of complex generic types, as shown in the following example:
 
 ```csharp
-Thing1<Thing2<Cat, Hat>> thing1 = rabbitTemplate.ReceiveAndConvert<Thing1<Thing2<Cat, Hat>>>();
+Thing1<Thing2<Cat, Hat>> thing1 =
+    rabbitTemplate.ReceiveAndConvert<Thing1<Thing2<Cat, Hat>>>();
 
-Thing1<Thing2<Cat, Hat>> thing1 = (Thing1<Thing2<Cat, Hat>>)rabbitTemplate.ReceiveAndConvert(typeof(<Thing1<Thing2<Cat, Hat>>>);
+Thing1<Thing2<Cat, Hat>> thing1 =
+    (Thing1<Thing2<Cat, Hat>>)rabbitTemplate.ReceiveAndConvert(typeof(<Thing1<Thing2<Cat, Hat>>>);
 ```
 
 ### Using ContentTypeDelegatingMessageConverter
@@ -2363,11 +2352,11 @@ Those methods are quite useful for request-reply scenarios, since they handle th
 
 Similar request-reply methods are also available where the `IMessageConverter` is applied to both the request and reply.
 Those methods are named `ConvertSendAndReceive`.
-See the [Code of `RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) for more detail.
+See the [`RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) code for more detail.
 
 Each of the `SendAndReceive` method variants has an overloaded version that takes `CorrelationData`.
 Together with a properly configured connection factory, this enables the receipt of publisher confirms for the send side of the operation.
-See [Template Publisher Confirms and Returns](docs/messaging/rabbitmq-reference.md#template-publisher-confirms-and-returns) and the [Code of `RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) for more detail.
+See [Template Publisher Confirms and Returns](docs/messaging/rabbitmq-reference.md#template-publisher-confirms-and-returns) and the [`RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) code for more detail.
 
 You can configure the `RabbitTemplate` with the `NoLocalReplyConsumer` option to control a `noLocal` flag for the reply RabbitMQ Client `BasicConsume()` operation.
 This is `false` by default.

@@ -6,7 +6,7 @@ This first part of the documentation is a high-level overview of Steeltoe Rabbit
 
 This is the five-minute tour to help you get started with Steeltoe and RabbitMQ.
 
-Prerequisites: Install and run the RabbitMQ broker ([https://www.rabbitmq.com/download.html](https://www.rabbitmq.com/download.html)).
+Prerequisites: [Download RabbitMQ broker](https://www.rabbitmq.com/download.html) and follow the instructions to install and run the broker locally.
 Then grab the `Steeltoe.Messaging.RabbitMQ` nuget and all its dependencies. The easiest way to do so is to declare a dependency in your build tool.
 For example, simply add the following to your `.csproj` file:
 
