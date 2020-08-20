@@ -533,13 +533,13 @@ The template uses it as the second argument for the `RetryTemplate.Execute(Func<
 ### Publishing is Asynchronous How to Detect Success and Failure
 
 Publishing messages is an asynchronous mechanism and, by default, messages that cannot be routed to the proper location are dropped by RabbitMQ.
-For successful publishing, you can receive an asynchronous confirm, as described in [Template Publisher Confirms and Returns](docs/messaging/rabbitmq-reference.md#template-publisher-confirms-and-returns").
+For successful publishing, you can receive an asynchronous confirm, as described in [Template Publisher Confirms and Returns](docs/messaging/rabbitmq-reference.md#template-publisher-confirms-and-returns).
 Consider two failure scenarios:
 
 * Publish to an exchange but there is no matching destination queue.
 * Publish to a non-existent exchange.
 
-The first case is covered by publisher returns, as described in [Template Publisher Confirms and Returns](docs/messaging/rabbitmq-reference.md#template-publisher-confirms-and-returns").
+The first case is covered by publisher returns, as described in [Template Publisher Confirms and Returns](docs/messaging/rabbitmq-reference.md#template-publisher-confirms-and-returns).
 
 For the second case, the message is dropped and no return is generated.
 The underlying channel is closed with an exception.
