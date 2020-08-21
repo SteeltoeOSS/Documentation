@@ -1,10 +1,10 @@
-### Tracing
+# Tracing
 
 The Steeltoe tracing endpoint provides the ability to view the last several requests made of your application.
 
 When you activate the tracing endpoint, an `ITraceRepository` implementation is configured and created to hold `Trace` information that can be retrieved by using the endpoint.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
@@ -26,13 +26,13 @@ The following table describes the settings that you can apply to the endpoint:
 |`AddSessionId`|Add session id|`false`|
 |`AddTimeTaken`|Add time take|`true`|
 
->NOPTE: Each setting must be prefixed with `Management:Endpoints:Trace`.
+>NOTE: Each setting must be prefixed with `Management:Endpoints:Trace`.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the trace endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/trace`.
 
-See the [HTTP Access ASP.NET Core](#http-access-asp-net-core) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the trace actuator to the service container, use the `AddTraceActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
