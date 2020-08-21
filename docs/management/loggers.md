@@ -60,7 +60,7 @@ public class Program
 }
 ```
 
-## Interacting with the Loggers Actuator
+## Modifying Log Levels
 
 To retrieve the loggers that can be configured and the log levels that are allowed, send an HTTP GET request to `/{LoggersActuatorPath}`.
 

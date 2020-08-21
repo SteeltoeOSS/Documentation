@@ -30,45 +30,6 @@ Health information is collected from all `IHealthContributor` implementations pr
 
 By default, the final application health state is computed by the `IHealthAggregator` that is provided to the `HealthEndpoint`. The `IHealthAggregator` is responsible for sorting out all of the returned statuses from each `IHealthContributor` and deriving an overall application health state. The `DefaultHealthAggregator` returns the `worst` status returned from all of the `IHealthContributors`.
 
-## Steeltoe Health Contributors
-
-At present, Steeltoe provides the following `IHealthContributor` implementations that you can choose from:
-
-|Name|Description|
-|---|---|
-|`DiskSpaceContributor`|Checks for low disk space, configure using `DiskSpaceContributorOptions`|
-|`RabbitMQHealthContributor`|Checks RabbitMQ connection health|
-|`RedisHealthContributor`|Checks Redis cache connection health|
-|`RelationalHealthContributor`|Checks relational database connection health (MySql, Postgres, SqlServer)|
-
-Each of these contributors are located in the `Steeltoe.ConnectorBase` package and are made available to your application when you reference the connector package.
-
-If you want to use any one of the `IHealthContributor` instances in an ASP.NET Core application, make use of the corresponding connector as you would normally. By doing so, the contributor is automatically added to the service container for you and is automatically discovered and used by the `health` endpoint.
-
-## Creating a Custom Health Contributor
-
-If you wish to provide custom health information for your application, create a class that implements the `IHealthContributor` interface and then add that to the `HealthEndpoint`.
-
-The following example `IHealthContributor` always returns a `HealthStatus` of `UP`:
-
-```csharp
-public class CustomHealthContributor : IHealthContributor
-{
-    public string Id => "CustomHealthContributor";
-
-    public HealthCheckResult Health()
-    {
-        var result = new HealthCheckResult {
-            // this is used as part of the aggregate, it is not directly part of the middleware response
-            Status = HealthStatus.UP,
-            Description = "This health check does not check anything"
-        };
-        result.Details.Add("status", HealthStatus.UP.ToString());
-        return result;
-    }
-}
-```
-
 ## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint.
@@ -121,6 +82,46 @@ public class Startup
 ```
 
 >NOTE: When you use any of the Steeltoe Connectors in your application, we automatically add the corresponding health contributors to the service container.
+
+
+## Steeltoe Health Contributors
+
+At present, Steeltoe provides the following `IHealthContributor` implementations that you can choose from:
+
+|Name|Description|
+|---|---|
+|`DiskSpaceContributor`|Checks for low disk space, configure using `DiskSpaceContributorOptions`|
+|`RabbitMQHealthContributor`|Checks RabbitMQ connection health|
+|`RedisHealthContributor`|Checks Redis cache connection health|
+|`RelationalHealthContributor`|Checks relational database connection health (MySql, Postgres, SqlServer)|
+
+Each of these contributors are located in the `Steeltoe.ConnectorBase` package and are made available to your application when you reference the connector package.
+
+If you want to use any one of the `IHealthContributor` instances in an ASP.NET Core application, make use of the corresponding connector as you would normally. By doing so, the contributor is automatically added to the service container for you and is automatically discovered and used by the `health` endpoint.
+
+## Creating a Custom Health Contributor
+
+If you wish to provide custom health information for your application, create a class that implements the `IHealthContributor` interface and then add that to the `HealthEndpoint`.
+
+The following example `IHealthContributor` always returns a `HealthStatus` of `UP`:
+
+```csharp
+public class CustomHealthContributor : IHealthContributor
+{
+    public string Id => "CustomHealthContributor";
+
+    public HealthCheckResult Health()
+    {
+        var result = new HealthCheckResult {
+            // this is used as part of the aggregate, it is not directly part of the middleware response
+            Status = HealthStatus.UP,
+            Description = "This health check does not check anything"
+        };
+        result.Details.Add("status", HealthStatus.UP.ToString());
+        return result;
+    }
+}
+```
 
 ## ASP NET Core Health Checks
 
@@ -176,3 +177,4 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 ```
 
 A complete example is available [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/MicrosoftHealthChecks).
+
