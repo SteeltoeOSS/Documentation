@@ -30,7 +30,6 @@ The following table describes the available Steeltoe management endpoints that c
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/health`.
 
->NOTE: When you want to integrate with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`. To do so, add `Management:Endpoints:path=/cloudfoundryapplication` to your configuration.
 
 ## Add NuGet References
 
@@ -70,8 +69,6 @@ The following table describes the settings that you can apply globally:
 |`Enabled`|Whether to enable all management endpoints|`true`|
 |`Path`|The path prefix applied to all endpoints when exposed over HTTP|`/`|
 
-When you want to integrate with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`.
-
 ## Exposing Endpoints
 
 Since endpoints may contain sensitive information, only health and info are exposed by default. To change which endpoints are exposed, use the `include` and `exclude` properties:
@@ -97,8 +94,6 @@ Since endpoints may contain sensitive information, only health and info are expo
 }
 ```
 
->NOTE: The exposure settings do not apply to endpoint routes mapped to the `/cloudfoundryapplication` context. If you add the Cloud Foundry endpoint, it provides a route to access all endpoints without respecting the exposure settings through either the global path specified or its default of `/actuator`. On the contrary, if you do not add either the Cloud Foundry or hypermedia actuators, the default settings still apply. Adding endpoints other than health and info requires you to explicitly set the exposure setting.
-
 The sections that follow show the settings that you can apply to specific endpoints.
 
 ## HTTP Access
@@ -122,14 +117,14 @@ Extensions for both `IHostBuilder` and `IWebHostBuilder` are included to configu
     }
     public static IHost BuildHost(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .AddCloudFoundryActuators()
+            .AddAllActuators()
             .AddRefreshActuator()
             .Build();
 ```
 
->NOTE: `AddCloudFoundryActuators()` and `AddLoggingActuator()` automatically configure the `DynamicConsoleLogger`. To use the dynamic Serilog console logger, be sure to do so before adding actuators.
+>NOTE: `AddAllActuators()` and `AddLoggingActuator()` automatically configure the `DynamicConsoleLogger`. To use the dynamic Serilog console logger, be sure to do so before adding actuators.
 
-If you prefer to configure the actuators in `Startup.cs`, extensions are provided for `IServiceCollection` and `IApplicationBuilder` to configure and activate the actuator middleware implementations. To use all of the Steeltoe endpoints that integrate with the Pivotal Apps Manager, use `AddCloudFoundryActuators()` and `UseCloudFoundryActuators()` to add them all at once instead of including each individually, as follows:
+If you prefer to configure the actuators in `Startup.cs`, extensions are provided for `IServiceCollection` and `IApplicationBuilder` to configure and activate the actuator middleware implementations. To use all of the Steeltoe endpoints, use `AddAllActuators()` and `MapAllActuators` to add them all at once instead of including each individually, as follows:
 
 ```csharp
 public class Startup
@@ -143,19 +138,23 @@ public class Startup
     {
         ...
         // Add management endpoint services like this
-        services.AddCloudFoundryActuators(Configuration);
-        services.AddRefreshActuator(Configuration);
+        services.AddAllActuators(Configuration);
         ...
     }
     public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
     {
         ...
-        // Add management endpoints into pipeline like this
-        app.UseCloudFoundryActuators();
-        app.UseRefreshActuator();
+        app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-        // Add ASP.NET Core MVC middleware to pipeline
-        app.UseMvc();
+                // Add management endpoints into pipeline like this
+                endpoints.MapAllActuators();
+
+                // ... Other mappings
+            });
         ...
     }
 }

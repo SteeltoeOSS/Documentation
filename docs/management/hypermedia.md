@@ -31,5 +31,3 @@ To add the Cloud Foundry actuator and security middleware to the ASP.NET Core pi
 ## Cloud Foundry
 
 When running in Cloud Foundry, the [Cloud Foundry Actuator](/docs/management/cloud-foundry) assumes the role of providing a base context path to requests originating inside cloudfoundry such as from Apps Manager. This path defaults to `/cloudfoundryapplication`. All other requests default to /actuator or the explicitly configured path.
-
-Adding Cloud Foundry and hypermedia endpoints together will allow Apps Manager integration along with the ability to access these endpoints on another route for other applications (by default /actuator). Using Cloud Foundry endpoint without hypermedia endpoint allows Apps Manager integration, however external clients cannot access the endpoints.  When Apps Manager integration is not needed the hypermedia endpoint can be used by itself.
