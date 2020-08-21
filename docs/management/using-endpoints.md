@@ -72,7 +72,7 @@ The following table describes the settings that you can apply globally:
 
 When you want to integrate with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`.
 
-### Exposing Endpoints
+## Exposing Endpoints
 
 Since endpoints may contain sensitive information, only health and info are exposed by default. To change which endpoints are exposed, use the `include` and `exclude` properties:
 
