@@ -11,8 +11,6 @@ Steeltoe distributed tracing:
 * Automatically instruments common ingress and egress points from .NET applications (such as MVC Controllers, Views, HTTP clients).
 * Optionally generates, collects, and exports Zipkin-compatible traces over HTTP.
 
->NOTE: Currently, distributed tracing is only supported in ASP.NET Core applications.
-
 ## Usage
 
 You should understand how the .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints. You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.

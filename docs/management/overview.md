@@ -8,7 +8,7 @@ Steeltoe includes a number of optional features that you can add to your applica
 
 The way the endpoints are exposed and used depends on the type of technology you choose in exposing the functionality of each endpoint. Out of the box, Steeltoe provides several easy ways to expose these endpoints over HTTP in .NET applications. Of course, you can build and use whatever you would like to meet your needs.
 
-When you expose the endpoints over HTTP, you can also integrate the endpoints with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html). You should read the [Using Actuators with Apps Manager section](https://docs.pivotal.io/pivotalcf/2-0/console/using-actuators.html) of the Pivotal Cloud Foundry documentation for more details.
+When you expose the endpoints over HTTP, you can also integrate the endpoints with tools like [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin).
 
 >NOTE: Depending on your hosting environment, service instances you create for the purpose of exploring the Quick Starts on this page may have a cost associated.
 

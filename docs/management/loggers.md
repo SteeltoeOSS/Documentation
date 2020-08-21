@@ -70,4 +70,4 @@ Log levels can be changed at namespace or class levels with an HTTP POST request
 }
 ```
 
-> NOTE: The Pivotal Apps Manager integration involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP Requests.
+> NOTE: Integration with external tools involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP Requests.
