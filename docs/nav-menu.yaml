@@ -178,12 +178,18 @@
     - page: /docs/3/management/using-endpoints
       name: Using Endpoints
       items:
+        - page_ref: reference-materials
+          name: Reference Materials
+        - page_ref: endpoint-listing
+          name: Endpoint Listing
         - page_ref: add-nuget-references
           name: Add NuGet References
         - page_ref: configure-global-settings
           name: Configure Global Settings
         - page_ref: exposing-endpoints
           name: Exposing Endpoints
+        - page_ref: http-access
+          name: HTTP Access
     - page: /docs/3/management/tasks
       name: Tasks
       items:
@@ -193,6 +199,11 @@
           name: Implement Task
     - page: /docs/3/management/metric-observers
       name: Metric Observers
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: hystrix-event-source
+          name: Hystrix Event Source
     - page: /docs/3/management/cloud-foundry
       name: /cloudFoundry
     - page: /docs/3/management/env

@@ -1,4 +1,4 @@
-### Health
+# Health
 
 You can use the Steeltoe `health` management endpoint to check and return the status of your running application. It is often used to monitor software and alert someone if a production system goes down. The information exposed by the `health` endpoint depends on the `Management:Endpoints:Health:ShowDetails` property, which can be configured with one of the following values:
 
@@ -45,7 +45,7 @@ Each of these contributors are located in the `Steeltoe.ConnectorBase` package a
 
 If you want to use any one of the `IHealthContributor` instances in an ASP.NET Core application, make use of the corresponding connector as you would normally. By doing so, the contributor is automatically added to the service container for you and is automatically discovered and used by the `health` endpoint.
 
-### Creating a Custom Health Contributor
+## Creating a Custom Health Contributor
 
 If you wish to provide custom health information for your application, create a class that implements the `IHealthContributor` interface and then add that to the `HealthEndpoint`.
 
@@ -69,7 +69,7 @@ public class CustomHealthContributor : IHealthContributor
 }
 ```
 
-### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint.
 
@@ -82,11 +82,12 @@ The following table describes the settings that you can apply to the endpoint.
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Health`.
 
-### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the `health` endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/health`.
 
-See the [Exposing Endpoints](/docs/management/using-endpoints#exposing-endpoints) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+
 
 To add the health actuator to the service container, use any one of the `AddHealthActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 

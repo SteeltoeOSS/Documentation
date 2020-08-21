@@ -1,10 +1,15 @@
-## Usage
+# Using Endpoints
 
 Steeltoe provides a base set of endpoint functionality, along with several implementations for exposing the endpoints over HTTP. HTTP implementations are provided with ASP.NET Core middleware. To expose the core endpoint functionality over some protocol other than HTTPS, you can provide your own implementation.
 
-Regardless of the endpoint exposure method you select, you should understand how the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints. You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+## Reference Materials
 
-When developing ASP.NET Core applications, you should also understand how the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
+In this section, it is helpful to understand the following:
+
+* How the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works and an understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+* How the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
+
+## Endpoint Listing
 
 The following table describes the available Steeltoe management endpoints that can be used in an application:
 
@@ -26,7 +31,7 @@ The following table describes the available Steeltoe management endpoints that c
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/health`.
 
 
-### Add NuGet References
+## Add NuGet References
 
 To use the management endpoints, you need to add a reference to the appropriate Steeltoe NuGet, based on the type of the application you are building and what dependency injector you have, if any.
 
@@ -49,7 +54,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 </ItemGroup>
 ```
 
-### Configure Global Settings
+## Configure Global Settings
 
 Endpoints can be configured by using the normal .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration). You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.
 
@@ -91,7 +96,7 @@ Since endpoints may contain sensitive information, only health and info are expo
 
 The sections that follow show the settings that you can apply to specific endpoints.
 
-#### HTTP Access ASP.NET Core
+## HTTP Access
 
 To expose any of the management endpoints over HTTP in an ASP.NET Core application:
 
