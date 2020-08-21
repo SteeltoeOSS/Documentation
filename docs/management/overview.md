@@ -8,6 +8,8 @@ Steeltoe includes a number of optional features that you can add to your applica
 
 The way the endpoints are exposed and used depends on the type of technology you choose in exposing the functionality of each endpoint. Out of the box, Steeltoe provides several easy ways to expose these endpoints over HTTP in .NET applications. Of course, you can build and use whatever you would like to meet your needs.
 
+You can integrate with [Spring Boot Admin Server](/springbootadmin) to help monitor and manage your application on any cloud.
+
 ## Distributed Tracing
 
 Steeltoe distributed tracing implements a solution for .NET applications based on the open source [OpenTelemetry](https://opentelemetry.io/) project. For most users implementing and using distributed tracing should be invisible, and many of the interactions with external systems should be instrumented automatically. You can capture trace data in logs, or by sending it to a remote collector service.
