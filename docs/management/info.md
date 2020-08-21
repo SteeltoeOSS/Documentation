@@ -1,10 +1,10 @@
-### Info
+# Info
 
 The Steeltoe `Info` management endpoint exposes various application information collected from all the `IInfoContributor` instances that have been provided to the `InfoEndpoint`.
 
 Steeltoe includes a couple `IInfoContributor` implementations out of the box that you can use. Most importantly, you can also write your own.
 
-#### Info Contributors
+## Info Contributors
 
 The following table describes the `IInfoContributor` implementations provided by Steeltoe:
 
@@ -33,7 +33,7 @@ public class ArbitraryInfoContributor : IInfoContributor
 
 >NOTE: Custom `IInfoContributor` implementations must be retrievable from the DI container by interface in order for Steeltoe to find them.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
@@ -46,11 +46,13 @@ The following table describes the settings that you can apply to the endpoint:
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Info`.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the Info endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting from above. The default path is <[Context-Path](hypermedia#base-context-path)>`/info`.
 
-To add the Info actuator to the service container, use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
+See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+
+To add the Info actuator to the service container, you can use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 
 To add the Info actuator middleware to the ASP.NET Core pipeline, use the `UseInfoActuator()` extension method from `EndpointApplicationBuilderExtensions`.
 

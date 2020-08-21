@@ -178,28 +178,59 @@
     - page: /docs/3/management/using-endpoints
       name: Using Endpoints
       items:
+        - page_ref: reference-materials
+          name: Reference Materials
+        - page_ref: endpoint-listing
+          name: Endpoint Listing
         - page_ref: add-nuget-references
           name: Add NuGet References
         - page_ref: configure-global-settings
           name: Configure Global Settings
         - page_ref: exposing-endpoints
           name: Exposing Endpoints
+        - page_ref: http-access
+          name: HTTP Access
     - page: /docs/3/management/tasks
       name: Tasks
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
-        - page_ref: implement-task
-          name: Implement Task
+        - page_ref: implement-task-interface
+          name: Implement Task Interface
+        - page_ref: add-task-to-servicecollection
+          name: Add Task to ServiceCollection
+        - page_ref: apply-extension-method
+          name: Apply Extension Method
+        - page_ref: invoke-task
+          name: Invoke Task
     - page: /docs/3/management/metric-observers
       name: Metric Observers
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: hystrix-event-source
+          name: Hystrix Event Source
     - page: /docs/3/management/cloud-foundry
-      name: /cloudFoundry
+      name: /cloudfoundry
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
     - page: /docs/3/management/env
       name: /env
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
     - page: /docs/3/management/health
       name: /health
       items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
         - page_ref: steeltoe-health-contributors
           name: Steeltoe Health Contributors
         - page_ref: creating-a-custom-health-contributor
@@ -208,24 +239,98 @@
           name: ASP.NET Core Health Checks
     - page: /docs/3/management/heapdump
       name: /heapdump
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
     - page: /docs/3/management/hypermedia
       name: /hypermedia
+      items:
+        - page_ref: base-context-path
+          name: Base Context Path
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
+        - page_ref: cloud-foundry
+          name: Cloud Foundry
     - page: /docs/3/management/info
       name: /info
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
     - page: /docs/3/management/loggers
       name: /loggers
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
+        - page_ref: modifying-log-levels
+          name: Modifying Log Levels
+        - page_ref: apps-manager
+          name: Apps Manager
     - page: /docs/3/management/mappings
       name: /mappings
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
     - page: /docs/3/management/metrics
       name: /metrics
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
+        - page_ref: exporting
+          name: Exporting
+        - page_ref: add-nuget-references
+          name: Add NuGet References
+        - page_ref: cloud-foundry-forwarder
+          name: Cloud Foundry
+        - page_ref: asp-net-core-example
+          name: ASP .NET Core Example
     - page: /docs/3/management/prometheus
       name: /prometheus
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
+        - page_ref: exporting
+          name: Exporting
+        - page_ref: add-nuget-references
+          name: Add NuGet References
+        - page_ref: cloud-foundry
+          name: Cloud Foundry
+        - page_ref: prometheus-server
+          name: Prometheus Server
     - page: /docs/3/management/refresh
       name: /refresh
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
     - page: /docs/3/management/threaddump
       name: /threaddump
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
     - page: /docs/3/management/tracing
       name: /tracing
+      items:
+        - page_ref: configure-settings
+          name: Configure Settings
+        - page_ref: enable-http-access
+          name: Enable HTTP Access
 - page: /docs/3/messaging
   name: Messaging
   items:

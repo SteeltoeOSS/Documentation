@@ -1,10 +1,15 @@
-## Usage
+# Using Endpoints
 
 Steeltoe provides a base set of endpoint functionality, along with several implementations for exposing the endpoints over HTTP. HTTP implementations are provided with ASP.NET Core middleware. To expose the core endpoint functionality over some protocol other than HTTPS, you can provide your own implementation.
 
-Regardless of the endpoint exposure method you select, you should understand how the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints. You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+## Reference Materials
 
-When developing ASP.NET Core applications, you should also understand how the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
+In this section, it is helpful to understand the following:
+
+* How the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works and an understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+* How the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
+
+## Endpoint Listing
 
 The following table describes the available Steeltoe management endpoints that can be used in an application:
 
@@ -25,9 +30,8 @@ The following table describes the available Steeltoe management endpoints that c
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/health`.
 
->NOTE: When you want to integrate with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`. To do so, add `Management:Endpoints:path=/cloudfoundryapplication` to your configuration.
 
-### Add NuGet References
+## Add NuGet References
 
 To use the management endpoints, you need to add a reference to the appropriate Steeltoe NuGet, based on the type of the application you are building and what dependency injector you have, if any.
 
@@ -50,7 +54,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 </ItemGroup>
 ```
 
-### Configure Global Settings
+## Configure Global Settings
 
 Endpoints can be configured by using the normal .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration). You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.
 
@@ -65,9 +69,7 @@ The following table describes the settings that you can apply globally:
 |`Enabled`|Whether to enable all management endpoints|`true`|
 |`Path`|The path prefix applied to all endpoints when exposed over HTTP|`/`|
 
-When you want to integrate with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`.
-
-### Exposing Endpoints
+## Exposing Endpoints
 
 Since endpoints may contain sensitive information, only health and info are exposed by default. To change which endpoints are exposed, use the `include` and `exclude` properties:
 
@@ -92,11 +94,9 @@ Since endpoints may contain sensitive information, only health and info are expo
 }
 ```
 
->NOTE: The exposure settings do not apply to endpoint routes mapped to the `/cloudfoundryapplication` context. If you add the Cloud Foundry endpoint, it provides a route to access all endpoints without respecting the exposure settings through either the global path specified or its default of `/actuator`. On the contrary, if you do not add either the Cloud Foundry or hypermedia actuators, the default settings still apply. Adding endpoints other than health and info requires you to explicitly set the exposure setting.
-
 The sections that follow show the settings that you can apply to specific endpoints.
 
-#### HTTP Access ASP.NET Core
+## HTTP Access
 
 To expose any of the management endpoints over HTTP in an ASP.NET Core application:
 
@@ -117,14 +117,14 @@ Extensions for both `IHostBuilder` and `IWebHostBuilder` are included to configu
     }
     public static IHost BuildHost(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .AddCloudFoundryActuators()
+            .AddAllActuators()
             .AddRefreshActuator()
             .Build();
 ```
 
->NOTE: `AddCloudFoundryActuators()` and `AddLoggingActuator()` automatically configure the `DynamicConsoleLogger`. To use the dynamic Serilog console logger, be sure to do so before adding actuators.
+>NOTE: `AddAllActuators()` and `AddLoggingActuator()` automatically configure the `DynamicConsoleLogger`. To use the dynamic Serilog console logger, be sure to do so before adding actuators.
 
-If you prefer to configure the actuators in `Startup.cs`, extensions are provided for `IServiceCollection` and `IApplicationBuilder` to configure and activate the actuator middleware implementations. To use all of the Steeltoe endpoints that integrate with the Pivotal Apps Manager, use `AddCloudFoundryActuators()` and `UseCloudFoundryActuators()` to add them all at once instead of including each individually, as follows:
+If you prefer to configure the actuators in `Startup.cs`, extensions are provided for `IServiceCollection` and `IApplicationBuilder` to configure and activate the actuator middleware implementations. To use all of the Steeltoe endpoints, use `AddAllActuators()` and `MapAllActuators` to add them all at once instead of including each individually, as follows:
 
 ```csharp
 public class Startup
@@ -138,19 +138,23 @@ public class Startup
     {
         ...
         // Add management endpoint services like this
-        services.AddCloudFoundryActuators(Configuration);
-        services.AddRefreshActuator(Configuration);
+        services.AddAllActuators(Configuration);
         ...
     }
     public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
     {
         ...
-        // Add management endpoints into pipeline like this
-        app.UseCloudFoundryActuators();
-        app.UseRefreshActuator();
+        app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-        // Add ASP.NET Core MVC middleware to pipeline
-        app.UseMvc();
+                // Add management endpoints into pipeline like this
+                endpoints.MapAllActuators();
+
+                // ... Other mappings
+            });
         ...
     }
 }

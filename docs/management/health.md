@@ -1,4 +1,4 @@
-### Health
+# Health
 
 You can use the Steeltoe `health` management endpoint to check and return the status of your running application. It is often used to monitor software and alert someone if a production system goes down. The information exposed by the `health` endpoint depends on the `Management:Endpoints:Health:ShowDetails` property, which can be configured with one of the following values:
 
@@ -30,46 +30,7 @@ Health information is collected from all `IHealthContributor` implementations pr
 
 By default, the final application health state is computed by the `IHealthAggregator` that is provided to the `HealthEndpoint`. The `IHealthAggregator` is responsible for sorting out all of the returned statuses from each `IHealthContributor` and deriving an overall application health state. The `DefaultHealthAggregator` returns the `worst` status returned from all of the `IHealthContributors`.
 
-## Steeltoe Health Contributors
-
-At present, Steeltoe provides the following `IHealthContributor` implementations that you can choose from:
-
-|Name|Description|
-|---|---|
-|`DiskSpaceContributor`|Checks for low disk space, configure using `DiskSpaceContributorOptions`|
-|`RabbitMQHealthContributor`|Checks RabbitMQ connection health|
-|`RedisHealthContributor`|Checks Redis cache connection health|
-|`RelationalHealthContributor`|Checks relational database connection health (MySql, Postgres, SqlServer)|
-
-Each of these contributors are located in the `Steeltoe.ConnectorBase` package and are made available to your application when you reference the connector package.
-
-If you want to use any one of the `IHealthContributor` instances in an ASP.NET Core application, make use of the corresponding connector as you would normally. By doing so, the contributor is automatically added to the service container for you and is automatically discovered and used by the `health` endpoint.
-
-### Creating a Custom Health Contributor
-
-If you wish to provide custom health information for your application, create a class that implements the `IHealthContributor` interface and then add that to the `HealthEndpoint`.
-
-The following example `IHealthContributor` always returns a `HealthStatus` of `UP`:
-
-```csharp
-public class CustomHealthContributor : IHealthContributor
-{
-    public string Id => "CustomHealthContributor";
-
-    public HealthCheckResult Health()
-    {
-        var result = new HealthCheckResult {
-            // this is used as part of the aggregate, it is not directly part of the middleware response
-            Status = HealthStatus.UP,
-            Description = "This health check does not check anything"
-        };
-        result.Details.Add("status", HealthStatus.UP.ToString());
-        return result;
-    }
-}
-```
-
-### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint.
 
@@ -82,11 +43,12 @@ The following table describes the settings that you can apply to the endpoint.
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Health`.
 
-### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the `health` endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/health`.
 
-See the [Exposing Endpoints](/docs/management/using-endpoints#exposing-endpoints) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+
 
 To add the health actuator to the service container, use any one of the `AddHealthActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 
@@ -120,6 +82,46 @@ public class Startup
 ```
 
 >NOTE: When you use any of the Steeltoe Connectors in your application, we automatically add the corresponding health contributors to the service container.
+
+
+## Steeltoe Health Contributors
+
+At present, Steeltoe provides the following `IHealthContributor` implementations that you can choose from:
+
+|Name|Description|
+|---|---|
+|`DiskSpaceContributor`|Checks for low disk space, configure using `DiskSpaceContributorOptions`|
+|`RabbitMQHealthContributor`|Checks RabbitMQ connection health|
+|`RedisHealthContributor`|Checks Redis cache connection health|
+|`RelationalHealthContributor`|Checks relational database connection health (MySql, Postgres, SqlServer)|
+
+Each of these contributors are located in the `Steeltoe.ConnectorBase` package and are made available to your application when you reference the connector package.
+
+If you want to use any one of the `IHealthContributor` instances in an ASP.NET Core application, make use of the corresponding connector as you would normally. By doing so, the contributor is automatically added to the service container for you and is automatically discovered and used by the `health` endpoint.
+
+## Creating a Custom Health Contributor
+
+If you wish to provide custom health information for your application, create a class that implements the `IHealthContributor` interface and then add that to the `HealthEndpoint`.
+
+The following example `IHealthContributor` always returns a `HealthStatus` of `UP`:
+
+```csharp
+public class CustomHealthContributor : IHealthContributor
+{
+    public string Id => "CustomHealthContributor";
+
+    public HealthCheckResult Health()
+    {
+        var result = new HealthCheckResult {
+            // this is used as part of the aggregate, it is not directly part of the middleware response
+            Status = HealthStatus.UP,
+            Description = "This health check does not check anything"
+        };
+        result.Details.Add("status", HealthStatus.UP.ToString());
+        return result;
+    }
+}
+```
 
 ## ASP NET Core Health Checks
 
@@ -175,3 +177,4 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 ```
 
 A complete example is available [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/MicrosoftHealthChecks).
+

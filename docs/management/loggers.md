@@ -1,10 +1,10 @@
-### Loggers
+# Loggers
 
 The Steeltoe loggers management endpoint includes the ability to view and configure the logging levels of your application at runtime when using the Steeltoe logging provider.
 
 You can view a list of all active loggers in an application and their current configuration. The configuration information is made up of both the explicitly configured logging levels as well as the effective level given to it by the logging framework.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
@@ -17,9 +17,11 @@ The following table describes the settings that you can apply to the endpoint:
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Loggers`.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the Loggers endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/loggers`.
+
+See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the Loggers actuator to the service container, use the `AddLoggersActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
@@ -58,7 +60,7 @@ public class Program
 }
 ```
 
-#### Interacting with the Loggers Actuator
+## Modifying Log Levels
 
 To retrieve the loggers that can be configured and the log levels that are allowed, send an HTTP GET request to `/{LoggersActuatorPath}`.
 
@@ -70,4 +72,6 @@ Log levels can be changed at namespace or class levels with an HTTP POST request
 }
 ```
 
-> NOTE: The Pivotal Apps Manager integration involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP Requests.
+## Apps Manager
+
+Apps Manager integration involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP Requests.

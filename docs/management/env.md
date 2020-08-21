@@ -1,8 +1,8 @@
-### Env
+# Env
 
 The Steeltoe `env` endpoint can be used to query and return the configuration values and keys currently in use in your application. The endpoint returns the keys and values from the application's `IConfiguration`.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
@@ -14,9 +14,11 @@ The following table describes the settings that you can apply to the endpoint:
 
 >NOTE:Each setting above must be prefixed with `Management:Endpoints:Env`.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the `env` endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/env`.
+
+See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the Env actuator to the service container, use the `AddEnvActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
