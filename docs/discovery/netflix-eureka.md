@@ -1,29 +1,13 @@
 # Netflix Eureka
 
-The Eureka client implementation lets applications register services with a Eureka server and discover services registered by other applications. This Steeltoe client is an implementation of the 1.0 version of the Netflix Eureka client.
+The Eureka client implementation lets applications register services with a Eureka server and discover services registered by other applications.
 
 In addition to the Quick Start below, the following Steeltoe sample applications may help you to understand how to use this client:
 
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices-based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
 * [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and uses Spring Cloud Services.
 
-## Usage
-
-You should have some familiarity with the .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) before starting to use the client. You need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the client.
-
-You should also know how the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services and the middleware used in the application. Pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
-
-You should also have a good understanding of the [Spring Cloud Eureka Server](https://projects.spring.io/spring-cloud/).
-
-To use the Steeltoe Discovery client, you need to:
-
-* Add the appropriate NuGet package reference to your project.
-* Configure the settings the discovery client uses to register services in the service registry.
-* Configure the settings the discovery client uses to discover services in the service registry.
-* Add and use the discovery client service in the application.
-* Use an injected `IDiscoveryClient` to lookup services.
-
-### Eureka Settings
+## Eureka Settings
 
 To get the Steeltoe Discovery client to properly communicate with the Eureka server, you need to provide a few configuration settings to the client.
 
@@ -99,60 +83,7 @@ You should register by using the `direct` setting mentioned earlier when you wan
 
 For a complete understanding of the effects of many of these settings, we recommend that you review the documentation on the [Netflix Eureka Wiki](https://github.com/Netflix/eureka/wiki). In most cases, unless you are confident that you understand the effects of changing the values from their defaults, we recommend that you use the defaults.
 
-#### Settings to Fetch Registry
-
-The following example shows the client settings in JSON that are necessary to cause the client to fetch the service registry from the server at an address of `http://localhost:8761/eureka/`:
-
-```json
-{
-  "Spring": {
-    "Application": {
-      "Name": "fortuneUI"
-    }
-  },
-  "Eureka": {
-    "Client": {
-      "ServiceUrl": "http://localhost:8761/eureka/",
-      "ShouldRegisterWithEureka": false
-    }
-  }
-  ...
-}
-```
-
-The `Eureka:Client:ShouldRegisterWithEureka` setting instructs the client to NOT register any services in the registry, as the application does not offer any services (that is, it wants only to discover).
-
->NOTE: If you use self-signed certificates on Cloud Foundry, you might run into SSL certificate validation issues when pushing applications. A quick way to work around this is to disable certificate validation until a proper solution can be put in place.
-
-#### Settings to Register Services
-
-The following example shows the clients settings in JSON that are necessary to cause the client to register a service named `fortuneService` with a Eureka Server at an address of `http://localhost:8761/eureka/`:
-
-```json
-{
- "Spring": {
-    "Application":{
-      "Name":  "fortuneService"
-    }
-  },
-  "Eureka": {
-    "Client": {
-      "ServiceUrl": "http://localhost:8761/eureka/",
-      "ShouldFetchRegistry": false
-    },
-    "Instance": {
-      "Port": 5000
-    }
-  }
-  ...
-}
-```
-
-The `Eureka:Instance:Port` setting is the port on which the service is registered. The hostName portion is determined automatically at runtime. The `Eureka:Client:ShouldFetchRegistry` setting instructs the client NOT to fetch the registry as the app does not need to discover services. It only wants to register a service. The default for the `ShouldFetchRegistry` setting is `true`.
-
-The samples and most templates are already set up to read from `appsettings.json`.
-
-### Bind to Cloud Foundry
+## Bind to Cloud Foundry
 
 When you want to use a Eureka Server on Cloud Foundry and you have installed [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/index.html), you can create and bind an instance of the server to the application by using the Cloud Foundry CLI:
 
@@ -174,23 +105,9 @@ For more information on using the Eureka Server on Cloud Foundry, see the [Sprin
 
 Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`.
 
-### Enable Logging
+>NOTE: As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connector.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
 
-Sometimes, you may want to turn on debug logging in the Eureka client. To do so, add the following to your `appsettings.json`:
-
-```json
-{
-  "Logging": {
-    "IncludeScopes": false,
-    "LogLevel": {
-      "Default": "Information",
-      "Steeltoe":  "Debug"
-    }
-  }
-}
-```
-
-### Configuring Health Contributors
+## Configuring Health Contributors
 
 The Eureka package provides two different Steeltoe Management Health contributors that you can use to monitor Eureka server health.
 
@@ -208,7 +125,7 @@ The second contributor that you can enable is the `EurekaApplicationsHealthContr
 
 You can use the `EurekaApplicationsHealthContributor` to report the health of a configurable list of registered services based on the status of the service in the registry. For each service it is configured to monitor, it looks at all of the instances of that service and, if all of the instances are marked `DOWN`, the service is reported as being in bad health.  You can configure the services that it monitors by using the `Eureka:Client:Health:MonitoredApps` configuration setting.  Typically you would set this to the list of external service names the application depends on and that, were they unavailable, would impact the operation of the app.
 
-### Configuring Health Checks
+## Configuring Health Checks
 
 By default, Eureka uses the client heartbeat to determine if a client is up. Unless specified otherwise, the Eureka client does not propagate the current health status of the application, as calculated by the health contributors configured for the application. Consequently, after successful registration, Eureka always announces that the application is in 'UP' state. You can alter this behavior by enabling Eureka health checks, which results in propagating application status to Eureka. As a consequence, every other application does not send traffic to applications in states other then 'UP'.
 
@@ -222,13 +139,13 @@ You can enable or disable the handler by using the `Eureka:Client:Health:CheckEn
 
 If you require more control over the health check, consider implementing your own `IHealthCheckHandler`.
 
-### Configuring Multiple Service Urls
+## Configuring Multiple Service Urls
 
 You can specify a comma-delimited list of Eureka server URLs that the client uses when registering or fetching the service registry. Those servers should be part of a properly configured Eureka server cluster and should be using peer-to-peer communications to keep in sync.
 
 The Eureka client automatically fails over to the other nodes in the cluster. When a failed Eureka server node comes back up, the Eureka client automatically reconnects back to the server at some point.
 
-### Configuring Metadata
+## Configuring Metadata
 
 It is worth spending a bit of time understanding how the Eureka metadata works so that you can use it in a way that makes sense in your application.
 
@@ -238,7 +155,7 @@ You can add additional metadata to instance registrations by using the configura
 
 In general, additional metadata does not change the behavior of the client, unless the client is made aware of the meaning of the metadata.
 
-### Configuring Mutual TLS
+## Configuring Mutual TLS
 
 In cases where customizations to communications with the Eureka Server are needed (for example: when using mutual TLS authentication), `IHttpClientHandlerProvider` is available. In order to simplify mTLS setup in applications, `Steeltoe.Common.Http.ClientCertificateHttpHandlerProvider` is automatically injected when `IHttpClientHandlerProvider` is not detected and `IOptions<CertificateOptions>` is available.
 

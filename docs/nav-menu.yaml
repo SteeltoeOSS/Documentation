@@ -584,8 +584,6 @@
   items:
     - page_ref: add-nuget-references
       name: Add NuGet References
-    - page_ref: enable-debug-logging
-      name: Enable Debug Logging
     - page: /docs/3/discovery/initialize-discovery-client
       name: Initialize Discovery Client
       items:
@@ -598,17 +596,35 @@
       items:
         - page_ref: discovering-services
           name: Discovering Services
-        - page_ref: discoveryhttpclienthandler
-          name: DiscoveryHttpClientHandler
         - page_ref: using-httpclientfactory
           name: Using HttpClientFactory
+        - page_ref: discoveryhttpclienthandler
+          name: DiscoveryHttpClientHandler
         - page_ref: using-idiscoveryclient
           name: Using IDiscoveryClient
-    - page: /docs/3/discovery/netflix-eureka
-      name: Netflix Eureka
+    - page: /docs/3/discovery/hashicorp-consul
+      name: Hashicorp Consul
+      items:
+        - page_ref: consul-settings
+          name: Consul Settings
+        - page_ref: enable-logging
+          name: Enable Logging
+        - page_ref: health-contributor
+          name: Health Contributor
+        - page_ref: configuring-health-check
+          name: Configuring Health Check
+        - page_ref: configuring-metadata
+          name: Configuring Metadata
+        - page_ref: configuring-instanceid
+          name: Configuring InstanceId
+    - page: /docs/3/discovery/kubernetes
+      name: Kubernetes
       items:
         - page_ref: usage
           name: Usage
+    - page: /docs/3/discovery/netflix-eureka
+      name: Netflix Eureka
+      items:
         - page_ref: eureka-settings
           name: Eureka Settings
         - page_ref: bind-to-cloud-foundry
@@ -625,21 +641,6 @@
           name: Configuring Metadata
         - page_ref: configuring-mutual-tls
           name: Configuring Mutual TLS
-    - page: /docs/3/discovery/hashicorp-consul
-      name: Hashicorp Consul
-      items:
-        - page_ref: consul-settings
-          name: Consul Settings
-        - page_ref: enable-logging
-          name: Enable Logging
-        - page_ref: health-contributor
-          name: Health Contributor
-        - page_ref: configuring-health-check
-          name: Configuring Health Check
-        - page_ref: configuring-metadata
-          name: Configuring Metadata
-        - page_ref: configuring-instanceid
-          name: Configuring InstanceId
     - page: /docs/3/discovery/load-balancing
       name: Load Balancing
       items:
@@ -653,4 +654,6 @@
           name: Round Robin Load Balancer
         - page_ref: custom-iloadbalancer
           name: Custom ILoadBalancer
+    - page_ref: enable-debug-logging
+      name: Enable Debug Logging
 

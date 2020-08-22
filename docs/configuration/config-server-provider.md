@@ -178,6 +178,8 @@ Then, when you push the application, the Steeltoe provider takes the settings fr
 
 If there are any merge conflicts, the last provider added to the configuration takes precedence and overrides all others.
 
+>NOTE: As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connector.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
+
 ### Access Configuration Data
 
 When the `ConfigurationBuilder` builds the configuration, the Config Server client makes the appropriate REST calls to the Config Server and retrieves the configuration values based on the settings that have been provided.
