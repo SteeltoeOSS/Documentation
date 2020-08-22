@@ -1,26 +1,32 @@
-﻿[vs-run-application]: images/vs-run-application.png "Run the project"
-[run-weatherforecast]: images/weatherforecast-endpoint.png "Weatherforecast endpoint"
+﻿---
+uid: labs/spring-one/exercise2
+_disableToc: true
+---
+[vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
+[run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
 
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
-[exercise-5-link]: exercise5.md
 
-## Exploring all actuators
+|[Back to intro](index.md)&nbsp;&nbsp;&nbsp;|
+|---------:|
 
-### Goal
+# Exploring all actuators
+
+## Goal
 
 See all actuators running and learn what options are available.
 
-### Expected Results
+## Expected Results
 
 Enhance the app created in the previous exercise to enable all actuator endpoints.
 
-### Get Started
+## Get Started
 
-Open `Program.cs` and replace the 3 Steltoe "Add" statements with the single "all actuators" statement.
+Open `Program.cs` and replace the 3 Steeltoe "Add" statements with the single "all actuators" statement.
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -33,6 +39,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 		.AddAllActuators()
 		;
 ```
+
 Expose all the actuator endpoints for debugging and demonstration purpose in `appsettings.json`.
 
 ```json
@@ -57,6 +64,8 @@ Expose all the actuator endpoints for debugging and demonstration purpose in `ap
 }
 ```
 
+## Run the application
+
 With all actuators implemented in host builder, start the application by clicking the `Debug > Start Debugging` top menu item.
 
 # [.NET CLI](#tab/dotnet-cli)
@@ -75,6 +84,8 @@ Once started your default browser should open and automatically load the weather
 
 ![run-weatherforecast]
 
+## Discover all the management endpoints
+
 What exactly has happened? In the previous exercise 3 of the endpoints where implemented and we visited each in the browser to see their output. There was no need to expose those select endpoints because by default Steeltoe doesn't secure them (you can [if you want](https://steeltoe.io/docs/3/management/using-endpoints#exposing-endpoints)). With the addition of all endpoints, there are some that are secured by default. Here's a list of each endpoint that is available and it's purpose. While the application is running visit each one to learn more.
 
 - `/actuators`: A json structured list of all actuator endpoints that have been exposed.
@@ -88,7 +99,7 @@ What exactly has happened? In the previous exercise 3 of the endpoints where imp
 - `/actuators/refresh`: Trigger the app’s IConfigurationRoot to automatically refresh all configuration values.
 - `/actuators/tracing`: Details about the last few request traces made by the app.
 
-### Summary
+## Summary
 
 Similar to the previous exercise, there is a minimum expectation of any microserivce running in the cloud. These things are meant to help the developer debug, trace, and observe the application within its container. But these things have the potential to consume the developer's time creating everything, adding the right options, and making it distributable. Steeltoe aims to use the best in .NET to get the developer back to coding business logic and not deal with the boilerplate stuff.
 
