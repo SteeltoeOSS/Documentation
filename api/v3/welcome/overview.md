@@ -1,4 +1,4 @@
-# Steeltoe Documentation
+# Documentation
 
 Steeltoe includes a number of features:
 
