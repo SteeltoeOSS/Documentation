@@ -56,3 +56,29 @@ header .subnav{
 .nav.level2 li {
 	padding: 5px 0 5px 0;
 }
+article h1{
+	color: #0066cc;
+}
+h1 {
+	font-weight: 700;
+	line-height: 1em;
+	font-size: 210%;
+}
+h2 {
+	font-weight: 500;
+	line-height: 1em;
+	font-size: 175%;
+}
+h3 {
+	font-weight: 300;
+	line-height: 1em;
+	font-size: 140%;
+}
+.tabGroup {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+.article {
+  margin-top: 82px;
+  margin-bottom: 66px;
+}

@@ -1,27 +1,27 @@
+---
+uid: examples
+title: Example markdown
+---
 # These are example markdown items
 
-[!NOTE]
-This is a note
+> [!NOTE]
+> This is a note
 
-[!WARNING]
-This is a warning
+> [!WARNING]
+> This is a warning
 
-[!TIP]
-This is a tip
-
-## File inclusion
-
-[!include[An included file]('index.html')]
+> [!TIP]
+> This is a tip
 
 ## Sectioned code
 
-[!div class="tabbedCodeSnippets" data-resources="OutlookServices.Calendar"]
-```cs
-<cs code text>
-```
-```javascript
-<js code text>
-```
+> [!div class="tabbedCodeSnippets" data-resources="OutlookServices.Calendar"]
+> ```cs
+> <cs code text>
+> ```
+> ```javascript
+> <js code text>
+> ```
 
 ## Tabs
 
@@ -38,3 +38,5 @@ cd WebApplication1
 |:--|
 
 ***
+## Embed a video
+> [!Video https://www.youtube.com/embed/qftu_ku8jmM]

@@ -1,5 +1,9 @@
-## Read the blog
-@articles
+---
+_disableToc: true
+_disableAffix: true
+_disableGitFeatures: true
 
-## Read documentation
-@documentation
+title: Documentation & Blog
+uid: home
+---
+[!include[index](index.html)]
