@@ -6,6 +6,8 @@ This is the home of Steeltoe documentation and blog articles. The site uses [doc
 
 If you are using VS Code as your editor, there is a [super sweet plugin for docfx](https://marketplace.visualstudio.com/items?itemName=tintoy.docfx-assistant). All it really does is discover `UID`'s and provide intellisense with the `@` char is typed in markdown.
 
+Also you can use *most* of the features included in Microsoft's [docs authoring pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack).
+
 ## Folders
 
 - /api: holds the project documentation markdown and table of contents
