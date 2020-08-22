@@ -7,18 +7,30 @@ title: Blog
 uid: articles
 ---
 
-## (Latest) Steeltoe 2.2 Gives Your .NET Microservices a Boost
-[july 1, 2020] Learn how Steeltoe 2.2 can help your .NET Microservices with New Service Discovery Options, MongoDB Connector, and Placeholder Values
- [Read more >](xref:releases/steeltoe-2-2-gives-your--microservices-a-boost)
+## Steeltoe basics in 7 minutes
+[June 11, 2020] All the essentials for building .NET microservices.
+ [Read more >](xref:articles/steeltoe-basics-in-7-minutes)
 
-### Steeltoe 2.4 Boosts .NET Microservices Development with a Code Generator, New Getting Started Guides, and More
-[july 1, 2020] Application generation, a new site, and the Steeltoe CLI - Get familiar with Steeltoe 2.4.
+### Steeltoe 2.4 boosts .NET microservices development with a code generator, new getting started guides, and more
+[November 27, 2019] Application generation, a new site, and the Steeltoe CLI - Get familiar with Steeltoe 2.4.
  [Read more >](xref:releases/steeltoe-2-4-boosts-dotnet-microservices-development)
 
-### The Easy Way to Modernize and Transform Your .NET Apps with Steeltoe
-[july 1, 2020] How do you plan to modernize your .NET application estate?
- [Read more >](xref:articles/the-easy-way-to-modernize-and-transform-your-dotnet-apps-with-steeltoet)
+### Steeltoe 2.2 Gives Your .NET Microservices a Boost
+[March 15, 2019] Learn how Steeltoe 2.2 can help your .NET Microservices with New Service Discovery Options, MongoDB Connector, and Placeholder Values
+ [Read more >](xref:releases/steeltoe-2-2-gives-your--microservices-a-boost)
 
-### Steeltoe basics in 7 minutes
-[july 1, 2020] All the essentials for building .NET microservices.
- [Read more >](xref:articles/steeltoe-basics-in-7-minutes)
+### Steeltoe: Modernize .Net Apps for a Microservices Architecture
+[January 9, 2019] How do you plan to modernize your .NET application estate?
+ [Read more >](xref:releases/steeltoe-modernize-net-apps-for-a-microservices-architecture)
+
+### Steeltoe 2.1 Boosts Your .NET Microservices with Actuator Endpoints, Distributed Tracing, and Deeper Support for the Frameworks that Matter
+[August 20, 2018]  With the release of Steeltoe 2.1, Pivotal continues to deliver useful tools to help developers build enterprise-quality, cloud-native .NET apps on Cloud Foundry.
+ [Read more >](xref:releases/steeltoe-2-1-boosts-your-net-microservices-with-actuator-endpoints-distributed-tracing-and-deeper-support-for-the-frameworks-that-matter)
+
+### Steeltoe Turns 2.0, Adds Support for ASP.NET Core 2.0, CredHub, and a SQL Server Connector
+[February 16, 2018]  Steeltoe is a toolkit to help .NET developers build apps for Cloud Foundry using established microservices patterns.
+ [Read more >](xref:releases/steeltoe-turns-2-0-adds-support-for-asp-net-core-2-0-credhub-and-a-sql-server-connector)
+
+### Pivotal Contributes Steeltoe to the .NET Foundation
+[November 15, 2017] With the release of Steeltoe 2.1, Pivotal continues to deliver useful tools to help developers build enterprise-quality, cloud-native .NET apps on Cloud Foundry.
+ [Read more >](xref:releases/pivotal-contributes-steeltoe-to-the-net-foundation)
