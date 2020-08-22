@@ -2,10 +2,35 @@
 
 This section describes how to configure the Steeltoe discovery client.
 
-Fundamentally, two things need to happen to activate the client:
+Fundamentally, three things need to happen to use the clients:
 
+1. Add NuGet References
 1. Services need to be configured and added to the service collection
 1. Services need to be started
+
+## Add NuGet References
+
+The simplest way to get started with Steeltoe Discovery is to add a reference to the package(s) containing the client technology you may wish to use. Any client package also includes all the relevant dependencies.
+
+| App Type | Package | Description |
+| --- | --- | --- |
+| .NET Standard 2.0 | `Steeltoe.Discovery.ClientBase` | Service Discovery base package. |
+| ASP.NET Core | `Steeltoe.Discovery.ClientCore` | Includes base. Adds WebHost compatibility. |
+| Eureka Client | `Steeltoe.Discovery.Eureka` | Eureka Client functionality. Depends on ClientBase. |
+| Consul Client | `Steeltoe.Discovery.Consul` | Consul Client functionality. Depends on ClientBase. |
+| Kubernetes Client | `Steeltoe.Discovery.Kubernetes` | Kubernetes Client functionality. Depends on ClientBase. |
+
+To add this type of NuGet to your project, add an element resembling the following `PackageReference`:
+
+```xml
+<ItemGroup>
+...
+    <PackageReference Include="Steeltoe.Discovery.Consul" Version= "3.0.0"/>
+...
+</ItemGroup>
+```
+
+If you are using `WebHost` to run your application, you will need to also add a reference to `Steeltoe.Discovery.ClientCore`. If you would like the option of switching between clients using configuration, add a reference for each client you may wish to use.
 
 ## HostBuilder Extensions
 
@@ -86,3 +111,22 @@ public class Startup {
 ## Registering Services
 
 If you configured the client settings to register services, the service is automatically registered when the `UseDiscoveryClient()` method is called in the `Configure()` method. You need not do anything else to cause service registration.
+
+## Enable Debug Logging
+
+Sometimes, you may want to turn on debug logging in the discovery client. To do so, you can modify the `appsettings.json` file and turn on Debug level logging for the Steeltoe components:
+
+The following example shows a typical `appsettings.json` file:
+
+```json
+{
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Warning",
+      "Steeltoe": "Debug"
+    }
+  },
+  ...
+}
+```

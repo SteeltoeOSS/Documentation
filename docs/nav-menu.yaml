@@ -582,15 +582,17 @@
 - page: /docs/3/discovery
   name: Service Discovery
   items:
-    - page_ref: add-nuget-references
-      name: Add NuGet References
     - page: /docs/3/discovery/initialize-discovery-client
       name: Initialize Discovery Client
       items:
+        - page_ref: add-nuget-references
+          name: Add NuGet References
         - page_ref: asp-net-core
           name: ASP.NET Core
         - page_ref: registering-services
           name: Registering Services
+        - page_ref: enable-debug-logging
+          name: Enable Debug Logging
     - page: /docs/3/discovery/discovering-services
       name: Discovering Services
       items:
@@ -617,11 +619,6 @@
           name: Configuring Metadata
         - page_ref: configuring-instanceid
           name: Configuring InstanceId
-    - page: /docs/3/discovery/kubernetes
-      name: Kubernetes
-      items:
-        - page_ref: usage
-          name: Usage
     - page: /docs/3/discovery/netflix-eureka
       name: Netflix Eureka
       items:
@@ -654,6 +651,4 @@
           name: Round Robin Load Balancer
         - page_ref: custom-iloadbalancer
           name: Custom ILoadBalancer
-    - page_ref: enable-debug-logging
-      name: Enable Debug Logging
 
