@@ -6,9 +6,56 @@ With Eureka, once the application starts, the client begins to operate in the ba
 
 With Consul, once the app starts, the client registers any services (if required) and (if configured to do so) starts a health thread to keep updating the health of the service registration. The Consul client fetches no service registrations until you ask to look up a service. At that point, a request is made to the Consul server. As a result, you probably want to use the Steeltoe caching load balancer with the Consul service discovery.
 
+## Using HttpClientFactory
+
+The recommended approach for discovering services is to use `HttpClient` supplied through [HttpClientFactory](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests), augmented with the `DiscoveryHttpMessageHandler` (provided by Steeltoe).
+
+`DiscoveryHttpMessageHandler` is a `DelegatingHandler` that you can use, to intercept requests and to evaluate the URL to see if the host portion of the URL can be resolved from the current service registry. The handler does this for any `HttpClient` created by the factory.
+
+After initializing the discovery client, you can configure `HttpClient` to include `DiscoveryHttpMessageHandler` with the extension `AddServiceDiscovery`:
+
+```csharp
+public class Startup
+{
+    ...
+    public void ConfigureServices(IServiceCollection services)
+    {
+      ...
+      // Configure HttpClient
+      services.AddHttpClient("fortunes")
+        .AddServiceDiscovery()
+        .AddTypedClient<IFortuneService, FortuneService>();
+      ...
+    }
+    ...
+}
+```
+
+This `HttpClient` can be injected into `FortuneService` for a nice, clean experience:
+
+```csharp
+public class FortuneService : IFortuneService
+{
+    private const string RANDOM_FORTUNE_URL = "https://fortuneService/api/fortunes/random";
+    private HttpClient _client;
+    public FortuneService(HttpClient client)
+    {
+        _client = client;
+    }
+    public async Task<string> RandomFortuneAsync()
+    {
+        return await _client.GetStringAsync(RANDOM_FORTUNE_URL);
+    }
+}
+```
+
+Check out the Microsoft documentation on [`HttpClientFactory`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests) to see all the various ways you can make use of message handlers.
+
+>NOTE: `DiscoveryHttpMessageHandler` has an optional `ILoadBalancer` parameter. If no `ILoadBalancer` is provided through dependency injection, a `RandomLoadBalancer` is used. To change this behavior, add an `ILoadBalancer` to the DI container or use a load-balancer first configuration, as described within section 1.4 on this page.
+
 ## DiscoveryHttpClientHandler
 
-A simple way to use the registry to look up services is to use the Steeltoe `DiscoveryHttpClientHandler` with `HttpClient`.
+Another way to use the registry to look up services is to use the Steeltoe `DiscoveryHttpClientHandler` with `HttpClient`.
 
 This `FortuneService` class retrieves fortunes from the Fortune microservice, which is registered under a name of `fortuneService`:
 
@@ -47,57 +94,7 @@ If the name cannot be resolved, the handler ignores the request URL and lets the
 
 >NOTE: By default, `DiscoveryHttpClientHandler` performs random load balancing. That is, if there are multiple instances registered under a particular service name, the handler randomly selects one of those instances each time the handler is invoked.
 
-### Using HttpClientFactory
-
-In addition to the `DiscoveryHttpClientHandler` mentioned above, you also have the option to use the [HttpClientFactory](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests) together with the `DiscoveryHttpMessageHandler` (provided by Steeltoe) for service lookup.
-
-`DiscoveryHttpMessageHandler` is a `DelegatingHandler` that you can use, much like the `DiscoveryHttpClientHandler`, to intercept requests and to evaluate the URL to see if the host portion of the URL can be resolved from the current service registry. The handler does this for any `HttpClient` created by the factory.
-
-After initializing the discovery client, you can configure `HttpClient`:
-
-```csharp
-public class Startup
-{
-    ...
-    public void ConfigureServices(IServiceCollection services)
-    {
-      ...
-      // Configure HttpClient
-      services.AddHttpClient("fortunes", c =>
-      {
-        c.BaseAddress = new Uri("https://fortuneService/api/fortunes/");
-      })
-      .AddHttpMessageHandler<DiscoveryHttpMessageHandler>()
-      .AddTypedClient<IFortuneService, FortuneService>();
-      ...
-    }
-    ...
-}
-```
-
-The updated version of `FortuneService` is a bit simpler:
-
-```csharp
-public class FortuneService : IFortuneService
-{
-    private const string RANDOM_FORTUNE_URL = "https://fortuneService/api/fortunes/random";
-    private HttpClient _client;
-    public FortuneService(HttpClient client)
-    {
-        _client = client;
-    }
-    public async Task<string> RandomFortuneAsync()
-    {
-        return await _client.GetStringAsync(RANDOM_FORTUNE_URL);
-    }
-}
-```
-
-Check out the Microsoft documentation on [`HttpClientFactory`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests) to see all the various ways you can make use of message handlers.
-
->NOTE: `DiscoveryHttpMessageHandler` has an optional `ILoadBalancer` parameter. If no `ILoadBalancer` is provided through dependency injection, a `RandomLoadBalancer` is used. To change this behavior, add an `ILoadBalancer` to the DI container or use a load-balancer first configuration, as described within section 1.4 on this page.
-
-### Using IDiscoveryClient
+## Using IDiscoveryClient
 
 In the event the handler options do not serve your needs, you can always make lookup requests directly on the `IDiscoveryClient` interface.
 
