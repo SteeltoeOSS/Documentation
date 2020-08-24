@@ -1,6 +1,7 @@
 ﻿---
 uid: labs/spring-one/exercise4
 _disableToc: true
+_disableFooter: true
 ---
 [vs-add-configserver]: ~/labs/images/vs-add-configserver.png "Add configuration server library"
 

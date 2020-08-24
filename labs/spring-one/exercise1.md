@@ -1,6 +1,7 @@
 ---
 uid: labs/spring-one/exercise1
 _disableToc: true
+_disableFooter: true
 ---
 
 [vs-new-proj]: ~/labs/images/vs-new-proj.png "New visual studio web project"
@@ -38,6 +39,12 @@ Begin building an API that will be enhanced with more components in the next exe
 
 Let's start by creating a brand new .NET Core webapi project. If you're using Visual Studio, choose `File > New > Project`
 
+# [Visual Studio](#tab/visual-studio)
+
+[vs-new-proj] Choose ASP.NET Core Web Application from the default templates.
+[vs-name-proj] The default project name WebApplication1 will be used throughout, but you can rename.
+[vs-create-proj] Choose an application type of API, everything else can keep its default value.|
+
 # [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
@@ -45,24 +52,11 @@ dotnet new webapi -n WebApplication1
 cd WebApplication1
 ```
 
-# [Visual Studio](#tab/visual-studio)
-
-|![vs-new-proj] Choose ASP.NET Core Web Application from the default templates. |![vs-name-proj] The default project name WebApplication1 will be used throughout, but you can rename.|![vs-create-proj] Choose an application type of API, everything else can keep its default value.|
-|:--|
-
 ***
 
 ## Create .NET Core application
 
 Once created, open the new project in your IDE of choice (we will be using Visual Studio throughout this lab). The first action is to bring in the Steeltoe packages to the app. You can do this by right clicking on the project name in the solution explorer and choose `Manage NuGet packages...`. In the package manger window choose `Browse`, search for `Steeltoe.Management.Endpointcore`, and install.
-
-# [.NET CLI](#tab/dotnet-cli)
-
-```powershell
-dotnet add package Steeltoe.Management.Endpointcore
-dotnet add package Steeltoe.Extensions.Logging.DynamicLogger
-dotnet add package Steeltoe.Management.TracingCore
-```
 
 # [Visual Studio](#tab/visual-studio)
 
@@ -75,6 +69,14 @@ Then search for the `Steeltoe.Extensions.Logging.DynamicLogger` package and inst
 Finally the `Steeltoe.Management.TracingCore` package and install.
 
 ![vs-add-tracingcore]
+
+# [.NET CLI](#tab/dotnet-cli)
+
+```powershell
+dotnet add package Steeltoe.Management.Endpointcore
+dotnet add package Steeltoe.Extensions.Logging.DynamicLogger
+dotnet add package Steeltoe.Management.TracingCore
+```
 
 ***
 
@@ -138,15 +140,15 @@ public IEnumerable<WeatherForecast> Get() {
 
 With the packages implemented in host builder, distributed tracing activated, and a sample log message being written to console, we are ready to see everything in action. Start the application by clicking the `Debug > Start Debugging` top menu item.
 
+# [Visual Studio](#tab/visual-studio)
+
+![vs-run-application]
+
 # [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
 dotnet run
 ```
-
-# [Visual Studio](#tab/visual-studio)
-
-![vs-run-application]
 
 ***
 

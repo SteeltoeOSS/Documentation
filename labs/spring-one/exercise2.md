@@ -1,6 +1,7 @@
 ﻿---
 uid: labs/spring-one/exercise2
 _disableToc: true
+_disableFooter: true
 ---
 [vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
 [run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
