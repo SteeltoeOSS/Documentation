@@ -8,7 +8,7 @@ pool:
 steps:
 - powershell: |
     choco install docfx -y
-    docfx
+    docfx build -o ./publish
     if ($lastexitcode -ne 0){
       throw ("Error generating documentation")
     }
@@ -16,7 +16,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: './_site'
+    SourceFolder: './publish/_site'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
