@@ -1,6 +1,6 @@
 # MySQL
 
-This connector simplifies using MySQL ADO.NET providers in an application running on Cloud Foundry.
+This connector simplifies using MySQL ADO.NET providers in an application.
 
 Currently, the connector supports the following providers:
 
@@ -24,7 +24,7 @@ To use this connector:
 
 1. Create a MySQL Service instance and bind it to your application.
 1. Optionally, configure any MySQL client settings (such as `appsettings.json`) you need.
-1. Add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
+1. Optionally, add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
 1. Add `MySqlConnection` or `DbContext` to your `IServiceCollection`.
 
 ### Add NuGet Reference
@@ -77,7 +77,6 @@ The following table describes the available settings for the connector. These se
 |`TreatTinyAsBoolean`|Whether to return tinyint(1) as a boolean. Set to `false` to return tinyint(1) as sbyte/byte|not set|
 |`UseAffectedRows`|Set to `false` to report found rows instead of changed (affected) rows|not set|
 |`UseCompression`|If `true` (and server-supported), packets sent between client and server are compressed|not set|
-|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
 >IMPORTANT: All of the settings described in the preceding table should be prefixed with `MySql:Client:`.
 
@@ -100,9 +99,9 @@ cf bind-service myApp myMySqlService
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use [MySQL for PCF](https://network.pivotal.io/products/p-mysql), provided by Pivotal on Cloud Foundry. If you use a different service, you must adjust the `create-service` command to fit your environment.
+>NOTE: The preceding commands assume you use [MySQL for VMware Tanzu](https://network.pivotal.io/products/pivotal-mysql/), provided by VMware on Tanzu. If you use a different service, you must adjust the `create-service` command to fit your environment.
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `mysql:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
+This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -173,6 +172,7 @@ This section describes how to add a DbContext to
 * Entity Framework Core
 
 <a name="steeltoe-connectors-mysql-entity-framework-6"></a>
+
 #### Entity Framework 6
 
 To use the MySQL connector with Entity Framework 6, inject a `DbContext` into your application by using the `AddDbContext<>()` method (provided by Steeltoe) that takes an `IConfiguration` as a parameter:

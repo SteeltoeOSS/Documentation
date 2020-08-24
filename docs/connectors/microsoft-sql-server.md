@@ -1,6 +1,6 @@
 # Microsoft SQL Server
 
-This connector simplifies using Microsoft SQL Server in an application running on Cloud Foundry. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using the Entity Framework.
+This connector simplifies using Microsoft SQL Server. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using the Entity Framework.
 
 This connector provides an `IHealthContributor` that you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
 
@@ -14,7 +14,7 @@ To use this connector:
 
 1. Create a Microsoft SQL Service instance and bind it to your application.
 1. Optionally, configure any Microsoft SQL Server client settings (such as `appsettings.json`) you need.
-1. Add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
+1. Optionally, add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
 1. Add `SqlConnection` or `DbContext` to your `IServiceCollection`.
 
 ### Add NuGet Reference
@@ -56,7 +56,6 @@ The following table shows the available settings for the connector:
 |`Database`|Schema to which to connect|not set|
 |`ConnectionString`|Full connection string|built from settings|
 |`IntegratedSecurity`|Enable Windows Authentication (For local use only)|not set|
-|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
 >IMPORTANT: All of the settings shown in the preceding table should be prefixed with `SqlServer:Credentials:`.
 
@@ -78,7 +77,7 @@ An alternative to the broker is to use a user-provided service to explicitly pro
 cf cups mySqlServerService -p '{"pw": "|password|","uid": "|user id|","uri": "jdbc:sqlserver://|host|:|port|;databaseName=|database name|"}'
 ```
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `sqlServer:client:urlEncodedCredentials` to `true`, as this broker may provide credentials that have been URL-encoded.
+This connector works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 
 If you are creating a service for an application that has already been deployed, you need to bind the service and restart or restage the application with the following commands:
 
@@ -116,7 +115,6 @@ public class Startup {
         services.AddSqlServerConnection(Configuration);
 
         // Add framework services.
-        services.AddMvc();
         ...
     }
     ...
@@ -138,8 +136,8 @@ public class HomeController : Controller
     {
         dbConnection.Open();
 
-        MySqlCommand cmd = new MySqlCommand("SELECT * FROM TestData;", dbConnection);
-        MySqlDataReader rdr = cmd.ExecuteReader();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM TestData;", dbConnection);
+        SqlDataReader rdr = cmd.ExecuteReader();
 
         while (rdr.Read())
         {

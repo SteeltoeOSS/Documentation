@@ -1,8 +1,6 @@
 # PostgreSQL
 
-This connector simplifies using PostgreSQL in an application running on Cloud Foundry.
-
-Currently, the connector supports the [Npgsql](https://www.npgsql.org/) provider.
+This connector simplifies using PostgreSQL. Currently, the connector supports the [Npgsql](https://www.npgsql.org/) provider.
 
 This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
 
@@ -15,8 +13,8 @@ You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/e
 To use this connector:
 
 1. Create a PostgreSQL Service instance and bind it to your application.
-1. (Optionally) Configure any PostgreSQL client settings (such as `appsettings.json`).
-1. Add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
+1. Optionally, Configure any PostgreSQL client settings (such as `appsettings.json`).
+1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
 1. Add `NpgsqlConnection` or `DbContext` to your `IServiceCollection`.
 
 ### Add NuGet Reference
@@ -54,7 +52,6 @@ The following table describes all of the possible settings for the connector:
 |`Password`|Password for authentication|not set|
 |`Database`|Schema to which to connect|not set|
 |`ConnectionString`|Full connection string|built from settings
-|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
 >IMPORTANT: All of these settings should be prefixed with `Postgres:Client:`.
 
@@ -79,7 +76,7 @@ cf restage myApp
 
 >NOTE: The preceding commands work for the PostgreSQL service provided by EDB on Cloud Foundry. For another service, adjust the `create-service` command to fit your environment.
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `postgres:client:urlEncodedCredentials` to `true`, as this broker may provide credentials that have been URL-encoded.
+This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -99,7 +96,7 @@ public class Startup {
     }
     public void ConfigureServices(IServiceCollection services)
     {
-        // Add NpgsqlConnection configured from Cloud Foundry
+        // Add NpgsqlConnection
         services.AddPostgresConnection(Configuration);
 
         // Add framework services.

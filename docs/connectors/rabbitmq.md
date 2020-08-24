@@ -53,7 +53,6 @@ The following table describes all the possible settings for the connector:
 |`SslEnabled`|Should SSL be enabled|`false`|
 |`SslPort`|SSL Port number of server|5671|
 |`Uri`|Full connection string|built from settings|
-|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
 >IMPORTANT: All of these settings should be prefixed with `RabbitMq:Client:`.
 
@@ -94,7 +93,7 @@ public class Startup {
     }
     public void ConfigureServices(IServiceCollection services)
     {
-        // Add RabbitMQ ConnectionFactory configured from Cloud Foundry
+        // Add RabbitMQ ConnectionFactory
         services.AddRabbitMQConnection(Configuration);
 
         // Add framework services.

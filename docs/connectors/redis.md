@@ -1,6 +1,6 @@
 # Redis
 
-This connector simplifies using a Microsoft [`RedisCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/) in an application running on Cloud Foundry.
+This connector simplifies using a Microsoft [`RedisCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/).
 
 The following Steeltoe sample applications are available to help you understand how to use this connector:
 
@@ -20,8 +20,8 @@ You probably want some understanding of how to use the [`RedisCache`](https://do
 To use this connector:
 
 1. Create a Redis Service instance and bind it to your application.
-1. (Optionally) Configure any Redis client settings (for example, in `appsettings.json`).
-1. Add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
+1. Optionally, configure any Redis client settings (for example, in `appsettings.json`).
+1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
 1. Add `DistributedRedisCache` or `ConnectionMultiplexer` to your `ServiceCollection`.
 
 >NOTE: The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on the Pivotal Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you need to have Lua scripting enabled by a platform operator.
@@ -69,7 +69,6 @@ The following table table describes all possible settings for the connector
 |`WriteBuffer`|Size of the output buffer|4096|
 |`ConnectionString`|Full connection string|built from settings|
 |`InstanceId`|Cache ID. Used only with `IDistributedCache`|not set|
-|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
 
 >IMPORTANT: All of these settings should be prefixed with `Redis:Client:`.
 
@@ -94,7 +93,7 @@ cf restage myApp
 
 >NOTE: The preceding commands assume you use the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command to fit your environment.
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `redis:client:urlEncodedCredentials` to `true`, as this broker may provide credentials that have been URL Encoded.
+This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -111,7 +110,7 @@ public class Startup {
     }
     public void ConfigureServices(IServiceCollection services)
     {
-        // Add Microsoft Redis Cache (IDistributedCache) configured from Cloud Foundry
+        // Add Microsoft Redis Cache (IDistributedCache)
         services.AddDistributedRedisCache(Configuration);
 
         // Add framework services
@@ -166,8 +165,7 @@ public class Startup {
     }
     public void ConfigureServices(IServiceCollection services)
     {
-
-        // Add StackExchange IConnectionMultiplexer configured from Cloud Foundry
+        // Add StackExchange IConnectionMultiplexer
         services.AddRedisConnectionMultiplexer(Configuration);
 
         // Add framework services

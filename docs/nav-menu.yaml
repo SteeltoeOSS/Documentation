@@ -459,6 +459,20 @@
   items:
     - page: /docs/3/connectors/mysql
       name: MySQL
+    - page_ref: usage
+      name: Usage
+    - page_ref: add-nuget-references
+      name: Add NuGet References
+    - page_ref: servicecollection-extensions
+      name: ServiceCollection Extensions
+    - page_ref: connectionstring-configuration-provider
+      name: ConnectionString Configuration Provider
+    - page_ref: connectionmanager
+      name: ConnectionManager
+    - page_ref: cloudfoundry
+      name: Cloud Foundry
+    - page_ref: kubernetes
+      name: Kubernetes
       items:
         - page_ref: add-nuget-reference
           name: Add NuGet Reference
@@ -587,8 +601,10 @@
       items:
         - page_ref: add-nuget-references
           name: Add NuGet References
-        - page_ref: asp-net-core
-          name: ASP.NET Core
+        - page_ref: hostbuilder-extensions
+          name: HostBuilder Extensions
+        - page_ref: other-extensions
+          name: Other Extensions
         - page_ref: registering-services
           name: Registering Services
         - page_ref: enable-debug-logging
@@ -619,6 +635,11 @@
           name: Configuring Metadata
         - page_ref: configuring-instanceid
           name: Configuring InstanceId
+    - page: /docs/3/discovery/kubernetes
+      name: Kubernetes
+      items:
+        - page_ref: usage
+          name: Usage
     - page: /docs/3/discovery/netflix-eureka
       name: Netflix Eureka
       items:
@@ -626,8 +647,6 @@
           name: Eureka Settings
         - page_ref: bind-to-cloud-foundry
           name: Bind to Cloud Foundry
-        - page_ref: enable-logging
-          name: Enable Logging
         - page_ref: configuring-health-contributors
           name: Configuring Health Contributors
         - page_ref: configuring-health-checks
