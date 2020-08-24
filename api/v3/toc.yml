@@ -1,0 +1,146 @@
+- name: Welcome - v3
+  topicHref: welcome/overview.md
+  items:
+    - topicHref: welcome/whats-new.md
+      name: What's New in Steeltoe 3.0
+    - topicHref: welcome/prerequisites.md
+      name: Prerequisites
+    - topicHref: welcome/common-steps.md
+      name: Common Steps
+- name: Application Configuration
+  topicHref: configuration/overview.md
+  items:
+    - topicHref: configuration/random-value-provider.md
+      name: Random Value Provider
+    - topicHref: configuration/hosted-extensions.md
+      name: Hosted Extensions
+    - topicHref: configuration/cloud-foundry-provider.md
+      name: Cloud Foundry Provider
+    - topicHref: configuration/placeholder-provider.md
+      name: Placeholder Provider
+    - topicHref: configuration/config-server-provider.md
+      name: Config Server Provider
+- name: Circuit Breakers
+  topicHref: circuitbreaker/overview.md
+  items:
+    - topicHref: circuitbreaker/hystrix.md
+      name: Hystrix
+- name: Developer Tools
+  topicHref: developer-tools/overview.md
+  items:
+    - topicHref: developer-tools/cli.md
+      name: CLI
+- name: Distributed Tracing
+  topicHref: tracing/distributed-tracing.md
+  items:
+    - topicHref: tracing/distributed-tracing-exporting.md
+      name: Using Zipkin Trace Exporter
+- name: Dynamic Logging
+  topicHref: logging/overview.md
+  items:
+    - topicHref: logging/dynamic-logging-provider.md
+      name: Dynamic Provider
+    - topicHref: logging/serilog-logger.md
+      name: Serilog Dynamic Provider
+- name: Management
+  topicHref: management/overview.md
+  items:
+    - topicHref: management/using-endpoints 
+      name: Using Endpoints
+    - topicHref: management/tasks  
+      name: Tasks
+    - topicHref: management/cloud-foundry.md
+      name: /cloudFoundry
+    - topicHref: management/env.md
+      name: /env
+    - topicHref: management/health.md
+      name: /health
+    - topicHref: management/heapdump.md
+      name: /heapdump
+    - topicHref: management/hypermedia.md
+      name: /hypermedia
+    - topicHref: management/info.md
+      name: /info
+    - topicHref: management/loggers.md
+      name: /loggers
+    - topicHref: management/mappings.md
+      name: /mappings
+    - topicHref: management/metrics.md
+      name: /metrics
+    - topicHref: management/prometheus.md
+      name: /prometheus
+    - topicHref: management/refresh.md
+      name: /refresh
+    - topicHref: management/threaddump.md
+      name: /threaddump
+    - topicHref: management/tracing.md
+      name: /tracing
+- name: Messaging 
+  topicHref: messaging/overview.md
+  items:
+    - topicHref: messaging/quick-tour.md
+      name: Quick Tour
+    - topicHref: messaging/amqp.md
+      name: AMQP
+    - topicHref: messaging/messaging.md
+      name: Messaging
+    - topicHref: messaging/further-reading.md
+      name: Further Reading
+    - topicHref: messaging/testing.md
+      name: Testing
+- name: Network File Sharing
+  topicHref: fileshares/overview.md
+  items:
+    - topicHref: fileshares/usage.md
+      name: Usage
+- name: Security
+  topicHref: security/overview.md
+  items:
+    - topicHref: security/jwt-authentication-in-asp.NET-core.md
+      name: JWT for ASP.NET Core
+    - topicHref: security/jwt-authentication-in-asp.NET-WCF.md
+      name: JWT for ASP.NET WCF
+    - topicHref: security/jwt-authentication-in-asp.NET-WebAPI.md
+      name: JWT for ASP.NET WebAPI
+    - topicHref: security/redis-key-storage-provider.md
+      name: Redis Key Storage Provider
+    - topicHref: security/sso-open-id.md
+      name: SSO OpenId
+    - topicHref: security/sso-oauth2.md
+      name: SSO OAuth2
+    - topicHref: security/credhub-api-client.md
+      name: CredHub Api Client
+- name: Service Connectors
+  topicHref: connectors/overview.md
+  items:
+    - topicHref: connectors/mysql.md
+      name: MySQL
+    - topicHref: connectors/microsoft-sql-server.md
+      name: Microsoft SQL Server
+    - topicHref: connectors/postgresql.md
+      name: PostgreSQL
+    - topicHref: connectors/rabbitmq.md
+      name: RabbitMQ
+    - topicHref: connectors/oauth  
+      name: OAuth
+    - topicHref: connectors/mongodb.md
+      name: MongoDB
+    - topicHref: connectors/cosmosdb.md
+      name: CosmosDB
+    - topicHref: connectors/redis.md
+      name: Redis
+    - topicHref: connectors/gemfire.md
+      name: Apache Geode/GemFire
+- name: Service Discovery
+  topicHref: discovery/overview.md
+  items: 
+    - topicHref: discovery/initialize-discovery-client.md
+      name: Initialize Discovery Client
+    - topicHref: discovery/discovering-services.md
+      name: Discovering Services
+    - topicHref: discovery/netflix-eureka.md
+      name: Netflix Eureka
+    - topicHref: discovery/hashicorp-consul.md
+      name: Hashicorp Consul
+    - topicHref: discovery/load-balancing.md
+      name: Load Balancing
