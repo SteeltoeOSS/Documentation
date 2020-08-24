@@ -3,19 +3,29 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 pool:
-  vmImage: 'xxxxx'
+  vmImage: 'windows-latest'
 
 steps:
-- script: wget https://github.com/dotnet/docfx/releases/download/v2.56.2/docfx.zip
-
-- script: docfx build -o "./output"
+- powershell: |
+    choco install docfx -y
+    docfx
+    if ($lastexitcode -ne 0){
+      throw ("Error generating documentation")
+    }
+  displayName: "Docfx Build"
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: './output'
+    SourceFolder: './_site'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
+
+- powershell: cp "CI/manifest-staging.yml" "$(Build.ArtifactStagingDirectory)/manifest-staging.yml"
+  displayName: "Copy staging manifest"
+
+- powershell: cp "CI/manifest-prod.yml" "$(Build.ArtifactStagingDirectory)/manifest-prod.yml"
+  displayName: "Copy prod manifest"
 
 - task: PublishBuildArtifacts@1
   inputs:
