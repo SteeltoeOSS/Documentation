@@ -105,6 +105,21 @@
 
   \* Experimental packages
 
+## HostBuilder Extensions
+
+In 3.0, more of Steeltoe can be added in single-line statements with `HostBuilder` extensions than ever before so you can be on your way even faster:
+
+```csharp
+HostBuilder.CreateDefaultBuilder()
+  .AddCloudHosting()
+  .AddConfigServer()
+  .AddDynamicSerilog()
+  .AddServiceDiscovery()
+  .AddAllActuators()
+```
+
+These extensions generally depend on the same underlying code, so if you'd rather do this work in `startup.cs` you absolutely still can, these are convenience methods. These extensions are also typically availabile for `WebHostBuilder` as well. Look for more information on these extensions in the relevant component area.
+
 ## Release Notes
 
 Release notes for all releases can be found on the [Steeltoe releases](https://github.com/SteeltoeOSS/Steeltoe/releases) section on GitHub.

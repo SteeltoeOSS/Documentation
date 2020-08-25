@@ -8,6 +8,10 @@
           name: New Features and Changes
         - page_ref: package-name-changes
           name: Package Name Changes
+        - page_ref: hostbuilder-extensions
+          name: HostBuilder Extensions
+        - page_ref: release-notes
+          name: Release Notes
     - page: /docs/3/welcome/prerequisites
       name: Prerequisites
       items:
