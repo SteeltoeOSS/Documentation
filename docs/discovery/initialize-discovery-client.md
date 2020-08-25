@@ -16,10 +16,10 @@ The simplest way to get started with Steeltoe Discovery is to add a reference to
 | --- | --- | --- |
 | `Steeltoe.Discovery.Abstractions` | Interfaces and objects used for extensibility. | .NET Standard 2.0
 | `Steeltoe.Discovery.ClientBase` |  Service Discovery base package. |.NET Standard 2.0 |
-| `Steeltoe.Discovery.ClientCore` | Includes base. Adds WebHost compatibility. | ASP.NET Core |
-| `Steeltoe.Discovery.Eureka` | Eureka Client functionality. Depends on ClientBase. | .NET Core |
-| `Steeltoe.Discovery.Consul` | Consul Client functionality. Depends on ClientBase. | .NET Core |
-| `Steeltoe.Discovery.Kubernetes` | Kubernetes Client functionality. Depends on ClientBase. | .NET Core |
+| `Steeltoe.Discovery.ClientCore` | Includes base. Adds WebHost compatibility. | ASP.NET Core 3.1+ |
+| `Steeltoe.Discovery.Eureka` | Eureka Client functionality. Depends on ClientBase. | .NET Core 3.1+ |
+| `Steeltoe.Discovery.Consul` | Consul Client functionality. Depends on ClientBase. | .NET Core 3.1+ |
+| `Steeltoe.Discovery.Kubernetes` | Kubernetes Client functionality. Depends on ClientBase. | .NET Core 3.1+ |
 
 To add this type of NuGet to your project, add an element resembling the following `PackageReference`:
 

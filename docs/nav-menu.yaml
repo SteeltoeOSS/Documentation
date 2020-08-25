@@ -457,20 +457,21 @@
 - page: /docs/3/connectors
   name: Service Connectors
   items:
-    - page_ref: usage
+    - page: usage
       name: Usage
-    - page_ref: add-nuget-references
-      name: Add NuGet References
-    - page_ref: servicecollection-extensions
-      name: ServiceCollection Extensions
-    - page_ref: connectionstring-configuration-provider
-      name: Configuration Provider
-    - page_ref: connectionmanager
-      name: ConnectionManager
-    - page_ref: cloudfoundry
-      name: Cloud Foundry
-    - page_ref: kubernetes
-      name: Kubernetes
+      items:
+      - page_ref: add-nuget-references
+        name: Add NuGet References
+      - page_ref: servicecollection-extensions
+        name: ServiceCollection Extensions
+      - page_ref: connectionstring-configuration-provider
+        name: Configuration Provider
+      - page_ref: connectionmanager
+        name: ConnectionManager
+      - page_ref: cloudfoundry
+        name: Cloud Foundry
+      - page_ref: kubernetes
+        name: Kubernetes
     - page: /docs/3/connectors/mysql
       name: MySQL
       items:

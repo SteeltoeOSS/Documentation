@@ -36,10 +36,10 @@ The steps to use both Steeltoe Kubernetes configuration providers are the same:
 
 You can choose one of two Kubernetes Configuration NuGet packages, depending on your needs. Both configuration providers are included in the base package.
 
-|.NET Target|Package|Description|
-|---|---|---|
-|.NET Standard 2.0|`Steeltoe.Extensions.Configuration.KubernetesBase`|Base functionality. No dependency injection.|
-|ASP.NET Core 3.1|`Steeltoe.Extensions.Configuration.KubernetesCore`|Includes base. Adds ASP.NET Core dependency injection.|
+| Package | Description | .NET Target |
+| --- | --- | --- |
+| `Steeltoe.Extensions.Configuration.KubernetesBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
+| `Steeltoe.Extensions.Configuration.KubernetesCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
 
 To add this type of NuGet to your project, add a `PackageReference` that resembles the following:
 
