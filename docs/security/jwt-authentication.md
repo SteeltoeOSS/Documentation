@@ -56,9 +56,9 @@ Configuring additional settings for the provider is not typically required. Howe
 
 The JWT provider uses Microsoft's JWT implementation, and settings are based on `Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`, with these additional properties:
 
-|Name|Description|Default|
-|---|---|---|
-|`ValidateCertificates`|Validate Auth server certificate|`true`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `ValidateCertificates` | Validate Auth server certificate. | `true` |
 
 >NOTE: Each setting above must be prefixed with `Security:Oauth2:Client`.
 

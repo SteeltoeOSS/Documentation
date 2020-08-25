@@ -34,10 +34,10 @@ To use the distributed tracing exporters, you need to add a reference to the app
 
 The following table describes the available packages:
 
-|.NET Target|Package|Description|
-|---|---|---|
-|.NET Standard 2.0|`Steeltoe.Management.TracingBase`|Base functionality, no dependency injection|
-|ASP.NET Core 3.1|`Steeltoe.Management.TracingCore`|Includes `TracingBase`, adds ASP.NET Core DI|
+| Package | Description | .NET Target |
+| --- | --- | --- |
+| `Steeltoe.Management.TracingBase` | Base functionality, no dependency injection. | .NET Standard 2.0 |
+| `Steeltoe.Management.TracingCore` | Includes `TracingBase`, adds ASP.NET Core DI. | ASP.NET Core 3.1+ |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
@@ -62,18 +62,18 @@ You can configure distributed tracing by using the normal .NET [Configuration se
 All settings should be placed under the prefix with a key of `Management:tracing:`.
 The following table describes the available settings:
 
-|Key|Description|Default|
-|---|---|---|
-|`Name`|The name of the application|`Spring:Application:Name`, Cloud Foundry name, or `Unknown`|
-|`IngressIgnorePattern`|Regex pattern describing what incoming requests to ignore|See `TracingOptions`|
-|`EgressIgnorePattern`|Regex pattern describing what outgoing requests to ignore|See `TracingOptions`|
-|`MaxNumberOfAttributes`|Max attributes attachable to OpenTelemetry span|32|
-|`MaxNumberOfAnnotations`|Max annotations attachable to OpenTelemetry span|32|
-|`MaxNumberOfMessageEvents`|Max events attachable to OpenTelemetry span|128|
-|`MaxNumberOfLinks`|max links attachable to OpenTelemetry span|128|
-|`AlwaysSample`|Whether to enable the OpenTelemetry `AlwaysOnSampler`|OpenTelemetry `Sampler`|
-|`NeverSample`|Whether to enable the OpenTelemetry `AlwaysOffSampler`|OpenTelemetry `Sampler`|
-|`UseShortTraceIds`|Whether to truncate the IDs to 8 bytes instead of 16. Use it for backwards compatibility with Spring Sleuth, PCF Metrics, and others.|`true`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Name` | The name of the application. | `Spring:Application:Name`, Cloud Foundry name, or `Unknown` |
+| `IngressIgnorePattern` |Regex pattern describing what incoming requests to ignore. | See `TracingOptions` |
+| `EgressIgnorePattern` |Regex pattern describing what outgoing requests to ignore. | See `TracingOptions` |
+| `MaxNumberOfAttributes` |Max attributes attachable to OpenTelemetry span. | 32 |
+| `MaxNumberOfAnnotations` |Max annotations attachable to OpenTelemetry span. | 32 |
+| `MaxNumberOfMessageEvents` |Max events attachable to OpenTelemetry span. | 128 |
+| `MaxNumberOfLinks` |max links attachable to OpenTelemetry span. | 128 |
+| `AlwaysSample` | Whether to enable the OpenTelemetry `AlwaysOnSampler`. | OpenTelemetry `Sampler` |
+| `NeverSample` | Whether to enable the OpenTelemetry `AlwaysOffSampler`. | OpenTelemetry `Sampler` |
+| `UseShortTraceIds` | Whether to truncate the IDs to 8 bytes instead of 16. Use it for backwards compatibility with Spring Sleuth, PCF Metrics, and others. | `true` |
 
 ### Enabling Log Correlation
 

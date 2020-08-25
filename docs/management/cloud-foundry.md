@@ -15,13 +15,13 @@ When adding this management endpoint to your application, the Cloud Foundry secu
 
 Typically, you need not do any additional configuration. However, the following table describes the additional settings that you could apply to the Cloud Foundry endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|`Id`|The ID of the Cloud Foundry endpoint|""|
-|`Enabled`|Whether to enable Cloud Foundry management endpoint|`true`|
-|`ValidateCertificates`|Whether to validate server certificates|`true`|
-|`ApplicationId`|The ID of the application used in permissions check|VCAP settings|
-|`CloudFoundryApi`|The URL of the Cloud Foundry API|VCAP settings|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the Cloud Foundry endpoint. | "" |
+| `Enabled` | Whether to enable Cloud Foundry management endpoint. | `true` |
+| `ValidateCertificates` | Whether to validate server certificates. | `true` |
+| `ApplicationId` | The ID of the application used in permissions check. | VCAP settings |
+| `CloudFoundryApi` | The URL of the Cloud Foundry API. | VCAP settings |
 
 >NOTE: Each setting in the preceding table must be prefixed with `Management:Endpoints:cloudfoundry`.
 
@@ -29,7 +29,7 @@ Typically, you need not do any additional configuration. However, the following 
 
 The default path to the Cloud Foundry endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/cloudfoundryapplication`.
 
-See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the Cloud Foundry actuator to the service container, you can use the `AddCloudFoundryActuator()` extension method from `EndpointServiceCollectionExtensions`.
 

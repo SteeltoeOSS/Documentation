@@ -17,22 +17,22 @@ All of these metrics are tagged with values specific to the requests being proce
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|`Id`|The ID of the metrics endpoint|`metrics`|
-|`Enabled`|Whether to enable the metrics management endpoint|`true`|
-|`IngressIgnorePattern`|Regex pattern describing what incoming requests to ignore|See `MetricsOptions`|
-|`EgressIgnorePattern`|Regex pattern describing what outgoing requests to ignore|See `MetricsOptions`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the metrics endpoint. | `metrics` |
+| `Enabled` | Whether to enable the metrics management endpoint. | `true` |
+| `IngressIgnorePattern` | Regex pattern describing what incoming requests to ignore. | See `MetricsOptions` |
+| `EgressIgnorePattern` | Regex pattern describing what outgoing requests to ignore. | See `MetricsOptions` |
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Metrics`.
 
-To configure Observers, see [Metric Observers](/docs/management/metric-observers)
+To configure Observers, see [Metric Observers](/docs/3/management/metric-observers)
 
 ## Enable HTTP Access
 
-The default path to the metrics endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/metrics`.
+The default path to the metrics endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](./hypermedia#base-context-path)>`/metrics`.
 
-See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the metrics actuator to the service container, use the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
@@ -40,7 +40,7 @@ To add the metrics actuator middleware to the ASP.NET Core pipeline, use the `Us
 
 ## Exporting
 
-See [Prometheus](/docs/management/prometheus) to export metrics.
+See [Prometheus](/docs/3/management/prometheus) to export metrics.
 
 ## Add NuGet References
 
@@ -64,7 +64,7 @@ PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-
 
 ## Cloud Foundry Forwarder
 
- The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](/docs/management/prometheus).
+ The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](/docs/3/management/prometheus).
 
 ## ASP NET Core Example
 

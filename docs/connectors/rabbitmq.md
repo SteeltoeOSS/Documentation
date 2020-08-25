@@ -2,7 +2,7 @@
 
 This connector simplifies using the [RabbitMQ Client](https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html) in an application running on Cloud Foundry. We recommend following that tutorial, because you need to know how to use it before proceeding to use the connector.
 
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
 
 ## Usage
 
@@ -43,16 +43,16 @@ The following example of the connectors configuration in JSON shows how to setup
 
 The following table describes all the possible settings for the connector:
 
-|Key|Description|Default|
-|---|---|---|
-|`Server`|Hostname or IP Address of the server|127.0.0.1|
-|`Port`|Port number of the server|5672|
-|`Username`|Username for authentication|not set|
-|`Password`|Password for authentication|not set|
-|`VirtualHost`|Virtual host to which to connect|not set|
-|`SslEnabled`|Should SSL be enabled|`false`|
-|`SslPort`|SSL Port number of server|5671|
-|`Uri`|Full connection string|built from settings|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Server` | Hostname or IP Address of the server. | 127.0.0.1 |
+| `Port` | Port number of the server. | 5672 |
+| `Username` | Username for authentication. | not set |
+| `Password` | Password for authentication. | not set |
+| `VirtualHost` | Virtual host to which to connect. | not set |
+| `SslEnabled` | Should SSL be enabled. | `false` |
+| `SslPort` | SSL Port number of server. | 5671 |
+| `Uri` | Full connection string. | Built from settings |
 
 >IMPORTANT: All of these settings should be prefixed with `RabbitMq:Client:`.
 

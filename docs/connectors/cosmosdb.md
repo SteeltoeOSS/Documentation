@@ -31,14 +31,14 @@ This connector supports several settings for local interaction with CosmosDB tha
 
 The following table table describes all possible settings for the connector
 
-|Key|Description|Default|
-|---|---|---|
-|`Host`|Protocol, hostname or IP Address and port of the server|not set|
-|`MasterKey`|Authentication for read/write access|not set|
-|`ReadOnlyKey`|Authentication for read-only access|not set|
-|`DatabaseId`|Name of the database to use|not set|
-|`UseReadOnlyCredentials`|Designate that the read-only key should be used|`false`|
-|`ConnectionString`|Full connection string|built from settings|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Host` | Protocol, hostname or IP Address and port of the server. | not set |
+| `MasterKey` | Authentication for read/write access. | not set |
+| `ReadOnlyKey` | Authentication for read-only access. | not set |
+| `DatabaseId` | Name of the database to use. | not set |
+| `UseReadOnlyCredentials` | Designate that the read-only key should be used. | `false` |
+| `ConnectionString` | Full connection string. | Built from settings |
 
 >IMPORTANT: All of these settings should be prefixed with `CosmosDb:Client:`.
 

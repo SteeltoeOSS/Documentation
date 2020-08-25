@@ -7,7 +7,7 @@ The following Steeltoe sample applications are available to help you understand 
 * [DataProtection](https://github.com/SteeltoeOSS/Samples/tree/master/Security/src/RedisDataProtectionKeyStore): A sample application showing how to use the Steeltoe DataProtection Key Storage Provider for Redis.
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a microservices-based application built from the  MusicStore ASP.NET Core reference application provided by Microsoft.
 
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
 
 ## Usage
 
@@ -53,22 +53,22 @@ The following example of the connector's configuration in JSON shows how to set 
 
 The following table table describes all possible settings for the connector
 
-|Key|Description|Default|
-|---|---|---|
-|`Host`|Hostname or IP Address of the server|`localhost`|
-|`Port`|Port number of the server|6379|
-|`EndPoints`|Comma-separated list of host:port pairs|not set|
-|`ClientName`|Identification for the connection within redis|not set|
-|`ConnectRetry`|Times to repeat initial connect attempts|3|
-|`ConnectTimeout`|Timeout (ms) for connect operations|5000|
-|`AbortOnConnectFail`|Does not create a connection while no servers are available|`true`|
-|`KeepAlive`|Time (seconds) at which to send a message to help keep sockets alive|-1|
-|`ResolveDns`|Whether DNS resolution should be explicit and eager, rather than implicit|`false`|
-|`Ssl`|Whether SSL encryption should be used|`false`|
-|`SslHost`|Enforces a particular SSL host identity on the server's certificate|not set|
-|`WriteBuffer`|Size of the output buffer|4096|
-|`ConnectionString`|Full connection string|built from settings|
-|`InstanceId`|Cache ID. Used only with `IDistributedCache`|not set|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Host` | Hostname or IP Address of the server. | `localhost` |
+| `Port` | Port number of the server. |6379|
+| `EndPoints` |Comma-separated list of host:port pairs. | not set |
+| `ClientName` | Identification for the connection within Redis. | not set |
+| `ConnectRetry` | Times to repeat initial connect attempts. | 3 |
+| `ConnectTimeout` | Timeout (ms) for connect operations. | 5000 |
+| `AbortOnConnectFail` | Does not create a connection while no servers are available. | `true` |
+| `KeepAlive` | Time (seconds) at which to send a message to help keep sockets alive. | -1 |
+| `ResolveDns` | Whether DNS resolution should be explicit and eager, rather than implicit. | `false` |
+| `Ssl` | Whether SSL encryption should be used. | `false` |
+| `SslHost` | Enforces a particular SSL host identity on the server's certificate. | not set |
+| `WriteBuffer` | Size of the output buffer. | 4096 |
+| `ConnectionString` | Full connection string. | Built from settings |
+| `InstanceId` | Cache ID. Used only with `IDistributedCache`. | not set |
 
 >IMPORTANT: All of these settings should be prefixed with `Redis:Client:`.
 

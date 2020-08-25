@@ -2,7 +2,7 @@
 
 This connector simplifies using Microsoft SQL Server. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using the Entity Framework.
 
-This connector provides an `IHealthContributor` that you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides an `IHealthContributor` that you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
 
 ## Usage
 
@@ -47,15 +47,15 @@ The following Microsoft SQL Server connector configuration shows how to connect 
 
 The following table shows the available settings for the connector:
 
-|Key|Description|Steeltoe Default|
-|---|---|---|
-|`Server`|Hostname or IP Address of server|`localhost`|
-|`Port`|Port number of server|1433|
-|`Username`|Username for authentication|not set|
-|`Password`|Password for authentication|not set|
-|`Database`|Schema to which to connect|not set|
-|`ConnectionString`|Full connection string|built from settings|
-|`IntegratedSecurity`|Enable Windows Authentication (For local use only)|not set|
+|Key|Description |Steeltoe Default|
+| --- | --- | --- |
+| `Server` | Hostname or IP Address of server. | `localhost` |
+| `Port` | Port number of server. | 1433 |
+| `Username` | Username for authentication. | not set |
+| `Password` | Password for authentication. | not set |
+| `Database` | Schema to which to connect. | not set |
+| `ConnectionString` | Full connection string. | Built from settings |
+| `IntegratedSecurity` | Enable Windows Authentication (For local use only). | not set |
 
 >IMPORTANT: All of the settings shown in the preceding table should be prefixed with `SqlServer:Credentials:`.
 

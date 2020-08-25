@@ -2,7 +2,7 @@
 
 This connector simplifies using PostgreSQL. Currently, the connector supports the [Npgsql](https://www.npgsql.org/) provider.
 
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
 
 ## Usage
 
@@ -44,14 +44,14 @@ The following example shows a PostgreSQL connector configuration (in JSON) to se
 
 The following table describes all of the possible settings for the connector:
 
-|Key|Description|Default
-|---|---|---|
-|`Server`|Hostname or IP Address of server|`localhost`|
-|`Port`|Port number of server|5432|
-|`Username`|Username for authentication|not set|
-|`Password`|Password for authentication|not set|
-|`Database`|Schema to which to connect|not set|
-|`ConnectionString`|Full connection string|built from settings
+|Key|Description |Default
+| --- | --- | --- |
+| `Server` | Hostname or IP Address of server. | `localhost` |
+| `Port` | Port number of server. | 5432 |
+| `Username` | Username for authentication. | not set |
+| `Password` | Password for authentication. | not set |
+| `Database` | Schema to which to connect. | not set |
+| `ConnectionString` | Full connection string. | Built from settings |
 
 >IMPORTANT: All of these settings should be prefixed with `Postgres:Client:`.
 

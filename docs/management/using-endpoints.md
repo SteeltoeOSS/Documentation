@@ -13,23 +13,22 @@ In this section, it is helpful to understand the following:
 
 The following table describes the available Steeltoe management endpoints that can be used in an application:
 
-|ID|Description|
-|---|---|
-|`hypermedia`|Provides the hypermedia endpoint for discovery of all available endpoints|
-|`cloudfoundry`|Enables the management endpoint integration with Cloud Foundry|
-|`health`|Customizable endpoint that gathers application health information|
-|`info`|Customizable endpoint that gathers arbitrary application information (such as Git Build info)|
-|`loggers`|Gathers existing loggers and allows modification of logging levels|
-|`trace`|Gathers a configurable set of trace information (such as the last 100 HTTP requests)|
-|`refresh`|Triggers the application configuration to be reloaded|
-|`env`|Reports the keys and values from the application's configuration|
-|`mappings`|Reports the configured ASP.NET routes and route templates|
-|`metrics`|Reports the collected metrics for the application|
-|`dump`|Generates and reports a snapshot of the application's threads (Windows only)|
-|`heapdump`|Generates and downloads a mini-dump of the application (Windows only)|
+| ID|Description |
+| --- | --- |
+| `hypermedia` | Provides the hypermedia endpoint for discovery of all available endpoints. |
+| `cloudfoundry` | Enables the management endpoint integration with Cloud Foundry. |
+| `health` | Customizable endpoint that gathers application health information. |
+| `info` | Customizable endpoint that gathers arbitrary application information (such as Git Build info). |
+| `loggers` | Gathers existing loggers and allows modification of logging levels. |
+| `trace` | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
+| `refresh` | Triggers the application configuration to be reloaded. |
+| `env` | Reports the keys and values from the application's configuration. |
+| `mappings` | Reports the configured ASP.NET routes and route templates. |
+| `metrics` | Reports the collected metrics for the application. |
+| `dump` | Generates and reports a snapshot of the application's threads (Windows only). |
+| `heapdump` | Generates and downloads a mini-dump of the application. |
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/health`.
-
 
 ## Add NuGet References
 
@@ -37,12 +36,13 @@ To use the management endpoints, you need to add a reference to the appropriate 
 
 The following table describes the available packages:
 
-|.NET Target|Package|Description|
-|---|---|---|
-|.NET Standard 2.0|`Steeltoe.Management.EndpointBase`|Base functionality, no dependency injection, and no HTTP middleware.|
-|ASP.NET Core 3.1|`Steeltoe.Management.EndpointCore`|Includes `EndpointBase`, adds ASP.NET Core DI, and includes HTTP middleware. |
-|ASP.NET Core 3.1|`Steeltoe.Management.CloudFoundryCore`|Includes `EndpointCore` and Cloud Foundry related functionality. |
-|ASP.NET Core 3.1|`Steeltoe.Management.KubernetesCore`|Includes `EndpointCore` and Kubernetes related functionality. |
+| Package | Description | .NET Target |
+| --- | --- | --- |
+| `Steeltoe.Management.Abstractions` | Interfaces and objects used for extensibility. | .NET Standard 2.0 |
+| `Steeltoe.Management.EndpointBase` | Base functionality, no dependency injection, and no HTTP middleware. | .NET Standard 2.0 |
+| `Steeltoe.Management.EndpointCore` | Includes `EndpointBase`, adds ASP.NET Core DI, and includes HTTP middleware. | ASP.NET Core 3.1+ |
+| `Steeltoe.Management.CloudFoundryCore` | Includes `EndpointCore` and Cloud Foundry related functionality. | ASP.NET Core 3.1+ |
+| `Steeltoe.Management.KubernetesCore` | Includes `EndpointCore` and Kubernetes related functionality. | ASP.NET Core 3.1+ |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
@@ -64,19 +64,19 @@ Settings that you want to apply to specific endpoints should be placed under the
 
 The following table describes the settings that you can apply globally:
 
-|Key|Description|Default|
-|---|---|---|
-|`Enabled`|Whether to enable all management endpoints|`true`|
-|`Path`|The path prefix applied to all endpoints when exposed over HTTP|`/`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Enabled` | Whether to enable all management endpoints. | `true` |
+| `Path` | The path prefix applied to all endpoints when exposed over HTTP. | `/` |
 
 ## Exposing Endpoints
 
 Since endpoints may contain sensitive information, only health and info are exposed by default. To change which endpoints are exposed, use the `include` and `exclude` properties:
 
-|Property|Default|
-|---|---|
-|`Exposure:Include`|[`info`, `health`]|
-|`Exposure:Exclude`| |
+| Property | Default |
+| --- | --- |
+| `Exposure:Include` | [`info`, `health`] |
+| `Exposure:Exclude` | |
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:actuator`. To select all endpoints,
 `*`  can be used. For example, to expose everything except `env` and `refresh`, use the following property:
@@ -160,4 +160,4 @@ public class Startup
 }
 ```
 
->NOTE: The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-2.1&tabs=aspnetcore2x) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
+>NOTE: The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
