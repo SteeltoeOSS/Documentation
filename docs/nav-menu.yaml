@@ -424,8 +424,8 @@
     - page: /docs/3/security/sso-open-id
       name: SSO OpenId
       items:
-        - page_ref: usage-in-asp-net-core
-          name: Usage in ASP.NET Core
+        - page_ref: usage
+          name: Usage
     - page: /docs/3/security/sso-oauth2
       name: SSO OAuth2
       items:
@@ -461,7 +461,7 @@
 - page: /docs/3/connectors
   name: Service Connectors
   items:
-    - page: usage
+    - page: /docs/3/connectors/usage
       name: Usage
       items:
       - page_ref: add-nuget-references
