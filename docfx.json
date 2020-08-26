@@ -23,7 +23,8 @@
           "images/**",
           "articles/**/images/**",
           "api/**/images/**",
-          "labs/**/images/**"
+          "labs/**/images/**",
+          "**.html"
         ]
       }
     ],

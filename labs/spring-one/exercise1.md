@@ -41,9 +41,9 @@ Let's start by creating a brand new .NET Core webapi project. If you're using Vi
 
 # [Visual Studio](#tab/visual-studio)
 
-[vs-new-proj] Choose ASP.NET Core Web Application from the default templates.
-[vs-name-proj] The default project name WebApplication1 will be used throughout, but you can rename.
-[vs-create-proj] Choose an application type of API, everything else can keep its default value.|
+![vs-new-proj] Choose ASP.NET Core Web Application from the default templates.
+![vs-name-proj] The default project name WebApplication1 will be used throughout, but you can rename.
+![vs-create-proj] Choose an application type of API, everything else can keep its default value.|
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -166,7 +166,7 @@ As we discussed above, the page loaded with a status of 200 and output informati
 
 ## Discover the info endpoint
 
-Now navigate to the info endpint by replacing `health` with `info` in the address bar.
+Now navigate to the info endpoint by replacing `health` with `info` in the address bar.
 
 ![info-endpoint]
 

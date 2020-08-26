@@ -103,12 +103,15 @@ Configuration the client to use the correct instance address and name in `appset
 ```json
   "spring": {
     "application": {
-      "name": "my-values"
+      "name": "myapplication"
     },
     "cloud": {
       "config": {
-        "uri": "http://localhost:8888",
-        "validateCertificates": false
+        "validateCertificates": false,
+        "uri": %%SPRING_CONFIG_URI%%,
+        "Username": %%SPRING_CONFIG_USERNAME%%,
+        "Password": %%SPRING_CONFIG_PASSWORD%%,
+        "FailFast": %%SPRING_CONFIG_FAILFAST%%
       }
     }
   }

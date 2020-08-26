@@ -24,6 +24,28 @@ $(function () {
     breakText();
     renderTabs();
 
+    //GLOBAL REPLACE ALL VALUES FROM LOCALSTORAGE
+    for (var i = 0; i < localStorage.length; i++){
+      var val = localStorage.getItem(localStorage.key(i));
+      
+      switch(val){
+        case("null"):
+        case("true"):
+        case("false"):
+          break;
+        default:
+          val = "\""+val+"\"";
+          break;
+      };
+      
+      var a=$("article").html().replace('%%'+localStorage.key(i)+'%%',val);
+      $("article").html(a);
+    }
+
+    a=$("article").html().replace(/%%/g,'');
+    $("article").html(a);
+    a=null;
+
     var options = {
       contentSelector: "#wrapper",
       loadDelay: 10,

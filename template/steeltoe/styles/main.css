@@ -82,3 +82,21 @@ h3 {
   margin-top: 82px;
   margin-bottom: 66px;
 }
+ /*@media (min-width: 1200px){
+	.container {
+			max-width: 1200px;
+	}
+}
+@media (min-width: 992px){
+	.container {
+			max-width: 95%;
+	}
+}
+@media (min-width: 768px){
+.container {
+    max-width: 720px;
+}}
+@media (min-width: 576px){
+.container {
+    max-width: 540px;
+}} */

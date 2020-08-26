@@ -197,18 +197,19 @@ Using Visual Studio's built in SQL: If your Visual Studio installation has the "
 [Running SQL locally](https://www.sqlservertutorial.net/install-sql-server/): Mostly likely the instance is running on `localhost` through port `1433`. If so then continue on, thats the default.
 [Running in docker (desktop)](https://hub.docker.com/_/microsoft-mssql-server): If it's available on 'localhost' port '1433' then continue on. Otherwise you'll need to uncomment the `server` and `port` parameters in appsettings and provide valid values.
 
+An example docker command you could run locally to get everything going is:
+
+```powershell
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+```
+
 # [Other](#tab/other-sql)
 
 Running outside your local desktop: If SQL is running somewhere else you'll need its URI and port number. Uncomment the `server` and `port` parameters in appsettings and provide valid values.
 
 ***
 
-
-As for the `username` and `password` values in `appsettings.json` if you are using Visual Studio's built in SQL leave them commented out. Otherwise replace the placeholder with valid values. The account will need enough permission to create a new database and add tables within. An example docker command you could run locally to get everything going is:
-
-```powershell
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
-```
+As for the `username` and `password` values in `appsettings.json` if you are using Visual Studio's built in SQL leave them commented out. Otherwise replace the placeholder with valid values. The account will need enough permission to create a new database and add tables within. 
 
 Overwrite default values in `appsettings.json` so that Steeltoe can connect to the database instance.
 
@@ -224,10 +225,10 @@ Overwrite default values in `appsettings.json` so that Steeltoe can connect to t
   "AllowedHosts": "*",
   "sqlserver": {
     "credentials": {
-      //"server": null,
-      //"port": null,
-      //"username": "<PROVIDE_VALUE>",
-      //"password": "<PROVIDE_VALUE>"
+      "server": %%SQL_SERVER_ADDRESS%%,
+      "port": %%SQL_SERVER_PORT%%,
+      "username": %%SQL_SERVER_USERNAME%%,
+      "password": %%SQL_SERVER_PASSWORD%%
     }
   },
   "management": {
