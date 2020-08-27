@@ -49,11 +49,22 @@ The default path to the `health` endpoint is computed by combining the global `P
 
 See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the health actuator to the service container, use any one of the `AddHealthActuator()` extension methods from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, you can use any of the the `AddHealthActuator` extension methods  from `ManagementHostBuilderExtensions`.
 
-To add the health actuator middleware to the ASP.NET Core pipeline, use the `UseHealthActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the health actuator to the service container, using any one of the `AddHealthActuator()` extension methods from `EndpointServiceCollectionExtensions`.
+
+Then, add the health actuator middleware to the ASP.NET Core pipeline, using the `Map<HealthEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 The following example shows how to enable the `health` endpoint and add a custom `IHealthContributor` to the service container by adding `CustomHealthContributor` as a singleton. Once that is done, the `health` endpoint discovers and uses it during health checks.
+
+```csharp
+ public static IHost BuildHost(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .AddHealthActuator()
+            .Build();
+```
+
+Or,
 
 ```csharp
 public class Startup
@@ -74,8 +85,13 @@ public class Startup
     {
         app.UseStaticFiles();
 
-        // Add management endpoint into pipeline
-        app.UseHealthActuator();
+        app.UseEndpoints(endpoints =>
+            {
+                // Add management endpoints into pipeline like this
+                endpoints.Map<HealthEndpoint>();
+
+                // ... Other mappings
+            });
     }
 }
 ```
@@ -167,9 +183,6 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
   // Optionally use health checks ui at /healthchecks-ui
   app.UseHealthChecksUI();
 
-  // Add management endpoints into pipeline
-  // Steeltoe health check shows up at /cloudfoundryapplication/health
-  app.UseCloudFoundryActuators();
   ...
 }
 ```

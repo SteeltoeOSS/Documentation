@@ -20,6 +20,9 @@ The default path to the thread dump endpoint is computed by combining the global
 
 See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the thread dump actuator to the service container, use the `AddThreadDumpActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
-To add the thread dump actuator middleware to the ASP.NET Core pipeline, use the `UseThreadDumpActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+To add the actuator to the service container and map its route, use the `hostBuilder.AddThreadDumpActuator` extension method from `ManagementHostBuilderExtensions`.
+
+Alternatively, first,add the thread dump actuator to the service container, using the `AddThreadDumpActuator()` extension method from `EndpointServiceCollectionExtensions`.
+
+Then add the thread dump actuator middleware to the ASP.NET Core pipeline, using the `Map<ThreadDumpEndpoint_v2>()` extension method from `ActuatorRouteBuilderExtensions`.
