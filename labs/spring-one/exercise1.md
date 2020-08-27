@@ -102,10 +102,10 @@ Steeltoe features are broken up into packages, giving you the option to only bri
 Open "Program.cs" in the IDE and add the using statement
 
 ```csharp
-using Steeltoe.Management.Endpoint
+using Steeltoe.Management.Endpoint;
 ```
 
-Then append the 'adding' statements to the host builder
+Then append the 'adding' statements to the host builder and save the changes
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -132,7 +132,7 @@ We've implemented 3 features within the application by adding these actuators
 Now open "Startup.cs" in the IDE and add the using statement
 
 ```csharp
-using Steeltoe.Management.Tracing
+using Steeltoe.Management.Tracing;
 ```
 
 Then add the distributed tracing feature to the services container
@@ -171,7 +171,7 @@ With the packages implemented in host builder, distributed tracing activated, an
 
 # [Visual Studio](#tab/visual-studio)
 
-Clicking the `Debug > Start Debugging` top menu item. Once started your default browser should open and automatically load the weather forecast endpoint.
+Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
 
 ![vs-run-application]
 
@@ -191,7 +191,7 @@ With the application running and the weather forecast endpoint loaded your brows
 
 ## Discover the health endpoint
 
-Let's look at the health endpoint. Replace `WeatherForecast` with `actuators/health` in the browser address bar. The health page will load with json formatted info.
+Let's look at the health endpoint. Replace `WeatherForecast` with `actuator/health` in the browser address bar. The health page will load with json formatted info.
 
 ![health-endpoint]
 
@@ -207,15 +207,11 @@ We have loaded the bare minimum application info for this example. You could bui
 
 ## Observe trace and spans appended to logs
 
-Finally lets look at the log message that was written. Notice the additional information propended to the message.
-
-- The first item is the application's name
-- Second is the OpenTelemetry generated span id
-- Third is the OpenTelemetry generated trace id
+Finally lets look at the log message that was written.
 
 # [Visual Studio](#tab/visual-studio)
 
-Go back to Visual Studio (keep the app running) and locate the Output window. Choose `Webapplication1 - ASP.NET Core Web Server` in the "from" dropdown and scroll to the bottom of the log.
+Go back to Visual Studio (keep the app running) and locate the Output tab (it should be in one of the bottom frames). Choose `Webapplication1 - ASP.NET Core Web Server` in the "from" dropdown and scroll to the bottom of the log.
 
 ![trace-log]
 
@@ -226,6 +222,24 @@ Go back to the terminal window where the application was started. The logs shoul
 ```plaintext
 [WebApplicaion1, 917e146c942117d2, 917e146c942117d2, true] Hi there
 ```
+
+***
+
+Notice the additional information prepended to the message. This will be automatically written to logs, so whatever platform or cloud you might be using the message will give you quite a bit of context.
+
+- The first item is the application's name
+- Second is the OpenTelemetry generated span id
+- Third is the OpenTelemetry generated trace id
+
+## Stop the application
+
+# [Visual Studio](#tab/visual-studio)
+
+Either close the browser window or click the red stop button in the top menu.
+
+# [.NET CLI](#tab/dotnet-cli)
+
+Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
 
 ***
 
