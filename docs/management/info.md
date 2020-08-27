@@ -8,11 +8,11 @@ Steeltoe includes a couple `IInfoContributor` implementations out of the box tha
 
 The following table describes the `IInfoContributor` implementations provided by Steeltoe:
 
-|Name|Description|
-|---|---|
-| `AppSettingsInfoContributor`|Exposes any values under the `info` key (for example, `info:cat:hat=cathat`) that is in your apps configuration (for example, `appsettings.json`)|
-| `BuildInfoContributor`|Exposes file/version info for both the included version of Steeltoe and the application|
-| `GitInfoContributor`|Exposes git information (if a `git.properties` file is available)|
+| Name | Description |
+| --- | --- |
+| `AppSettingsInfoContributor` | Exposes any values under the `info` key (for example, `info:cat:hat=cathat`) that is in your apps configuration (for example, `appsettings.json`). |
+| `BuildInfoContributor` | Exposes file/version info for both the included version of Steeltoe and the application. |
+| `GitInfoContributor` | Exposes git information (if a `git.properties` file is available). |
 
 For an example of how to use the above `GitInfoContributor` within MSBuild using [GitInfo](https://github.com/kzu/GitInfo), see the [Steeltoe management sample](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/CloudFoundry) and the [CloudFoundry.csproj](https://github.com/SteeltoeOSS/Samples/blob/master/Management/src/AspDotNetCore/CloudFoundry/CloudFoundry.csproj) file.
 
@@ -37,26 +37,29 @@ public class ArbitraryInfoContributor : IInfoContributor
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|`Id`|The ID of the info endpoint|`info`|
-|`Enabled`|Whether to enable info management endpoint|`true`|
-|`Sensitive`|Currently not used|`false`|
-|`RequiredPermissions`|User permissions required on Cloud Foundry to access endpoint|`RESTRICTED`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the info endpoint. | `info` |
+| `Enabled` | Whether to enable info management endpoint. | `true` |
+| `Sensitive` | Currently not used. | `false` |
+| `RequiredPermissions` | User permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Info`.
 
 ## Enable HTTP Access
 
-The default path to the Info endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting from above. The default path is <[Context-Path](hypermedia#base-context-path)>`/info`.
+The default path to the Info endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting from above. The default path is <[Context-Path](./hypermedia#base-context-path)>`/info`.
 
-See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the Info actuator to the service container, you can use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use any of the `AddInfoActuator` extension methods from `ManagementHostBuilderExtensions`.
 
-To add the Info actuator middleware to the ASP.NET Core pipeline, use the `UseInfoActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the Info actuator to the service container, use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
+
+Then add the Info actuator middleware to the ASP.NET Core pipeline, use the `Map<InfoEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 The following example shows how to enable the info endpoint and how to add a custom `IInfoContributor` to the service container by adding `ArbitraryInfoContributor` as a singleton. Once that is done, the info endpoint discovers and uses it during info requests.
+
 
 ```csharp
 public class Startup
@@ -77,8 +80,13 @@ public class Startup
     {
         app.UseStaticFiles();
 
-        // Add management endpoint into pipeline
-        app.UseInfoActuator();
+       app.UseEndpoints(endpoints =>
+            {
+                // Add management endpoints into pipeline like this
+                endpoints.Map<InfoEndpoint>();
+
+                // ... Other mappings
+            });
     }
 }
 ```

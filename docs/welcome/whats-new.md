@@ -2,16 +2,16 @@
 
 ## New Features and Changes
 
-* We made the Steeltoe libraries more platform agnostic to allow for better extensibility into other platforms. So, we took the initial step of creating abstractions for our core components.  This will allow future extensibility for our libraries and grow the community into other areas.
+* We made the Steeltoe libraries more platform agnostic to allow for better extensibility into other platforms, starting by separating the abstractions for our core components into separate packages. This will allow future extensibility for our libraries and grow the community into other areas.
 * We added and renamed many of the packages to support our new features and to provide a consistent package naming.
-* We redirected our focus to support only .NET Core.  This decision was based on the direction the Microsoft .NET team is taking the project and to support our users moving forward. We will still be supporting .NET Framework in our 2.x release line.
+* We redirected our focus to support only .NET Core. This decision was based on the direction the Microsoft .NET team is taking the project and to support our users moving forward. We will still be supporting .NET Framework in our 2.x release line.
 * We have added some great new features and here are some of the highlights:
   * Automatic wiring and configuration of Messaging APIs with RabbitMQ
   * Kubernetes support for configuration (ConfigMap and Secrets) and service discovery using Kubernetes .NET Client.
   * Added Health Groups for `readiness` and `liveness` endpoints which are grouped under the `/health` endpoint
   * Metrics now uses `EventSource` and `EventCounter`, along with a new prometheus exporter that now uses OpenTelemetry metrics packages
   * Distributed tracing library now has new exporters and updated internal libraries from OpenCensus to OpenTelemetry
-  * Pluggable architecture for Service Discovery (Consul, Eureka, and Kubernetes
+  * Pluggable architecture for Service Discovery (Consul, Eureka, and Kubernetes)
   * New Connector for CosmosDB
   * The `/heapdump` actuator endpoint now supports heap dumps on Linux
   * Circuit Breaker using Hystrix now using the Prometheus endpoint for easier consumption of events on Prometheus supported services
@@ -104,6 +104,21 @@
  | N/A | Steeltoe.Stream.StreamBase * |
 
   \* Experimental packages
+
+## HostBuilder Extensions
+
+In 3.0, more of Steeltoe can be added in single-line statements with `HostBuilder` extensions than ever before so you can be on your way even faster:
+
+```csharp
+HostBuilder.CreateDefaultBuilder()
+  .AddCloudHosting()
+  .AddConfigServer()
+  .AddDynamicSerilog()
+  .AddServiceDiscovery()
+  .AddAllActuators()
+```
+
+These extensions generally depend on the same underlying code, so if you'd rather do this work in `startup.cs` you absolutely still can, these are convenience methods. These extensions are also typically availabile for `WebHostBuilder` as well. Look for more information on these extensions in the relevant component area.
 
 ## Release Notes
 

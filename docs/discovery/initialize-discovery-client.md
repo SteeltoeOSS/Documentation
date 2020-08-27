@@ -12,20 +12,21 @@ Fundamentally, three things need to happen to use the clients:
 
 The simplest way to get started with Steeltoe Discovery is to add a reference to the package(s) containing the client technology you may wish to use. Any client package also includes all the relevant dependencies.
 
-| App Type | Package | Description |
+| Package | Description | .NET Target |
 | --- | --- | --- |
-| .NET Standard 2.0 | `Steeltoe.Discovery.ClientBase` | Service Discovery base package. |
-| ASP.NET Core | `Steeltoe.Discovery.ClientCore` | Includes base. Adds WebHost compatibility. |
-| Eureka Client | `Steeltoe.Discovery.Eureka` | Eureka Client functionality. Depends on ClientBase. |
-| Consul Client | `Steeltoe.Discovery.Consul` | Consul Client functionality. Depends on ClientBase. |
-| Kubernetes Client | `Steeltoe.Discovery.Kubernetes` | Kubernetes Client functionality. Depends on ClientBase. |
+| `Steeltoe.Discovery.Abstractions` | Interfaces and objects used for extensibility. | .NET Standard 2.0 |
+| `Steeltoe.Discovery.ClientBase` |  Service Discovery base package. | .NET Standard 2.0 |
+| `Steeltoe.Discovery.ClientCore` | Includes base. Adds WebHost compatibility. | ASP.NET Core 3.1+ |
+| `Steeltoe.Discovery.Eureka` | Eureka Client functionality. Depends on ClientBase. | .NET Core 3.1+ |
+| `Steeltoe.Discovery.Consul` | Consul Client functionality. Depends on ClientBase. | .NET Core 3.1+ |
+| `Steeltoe.Discovery.Kubernetes` | Kubernetes Client functionality. Depends on ClientBase. | .NET Core 3.1+ |
 
 To add this type of NuGet to your project, add an element resembling the following `PackageReference`:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Discovery.Consul" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Discovery.Consul" Version= "3.0.0" />
 ...
 </ItemGroup>
 ```

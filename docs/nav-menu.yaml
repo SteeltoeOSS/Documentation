@@ -8,6 +8,10 @@
           name: New Features and Changes
         - page_ref: package-name-changes
           name: Package Name Changes
+        - page_ref: hostbuilder-extensions
+          name: HostBuilder Extensions
+        - page_ref: release-notes
+          name: Release Notes
     - page: /docs/3/welcome/prerequisites
       name: Prerequisites
       items:
@@ -420,8 +424,8 @@
     - page: /docs/3/security/sso-open-id
       name: SSO OpenId
       items:
-        - page_ref: usage-in-asp-net-core
-          name: Usage in ASP.NET Core
+        - page_ref: usage
+          name: Usage
     - page: /docs/3/security/sso-oauth2
       name: SSO OAuth2
       items:
@@ -457,6 +461,21 @@
 - page: /docs/3/connectors
   name: Service Connectors
   items:
+    - page: /docs/3/connectors/usage
+      name: Usage
+      items:
+      - page_ref: add-nuget-references
+        name: Add NuGet References
+      - page_ref: servicecollection-extensions
+        name: ServiceCollection Extensions
+      - page_ref: connectionstring-configuration-provider
+        name: Configuration Provider
+      - page_ref: connectionmanager
+        name: ConnectionManager
+      - page_ref: cloudfoundry
+        name: Cloud Foundry
+      - page_ref: kubernetes
+        name: Kubernetes
     - page: /docs/3/connectors/mysql
       name: MySQL
       items:
@@ -587,8 +606,10 @@
       items:
         - page_ref: add-nuget-references
           name: Add NuGet References
-        - page_ref: asp-net-core
-          name: ASP.NET Core
+        - page_ref: hostbuilder-extensions
+          name: HostBuilder Extensions
+        - page_ref: other-extensions
+          name: Other Extensions
         - page_ref: registering-services
           name: Registering Services
         - page_ref: enable-debug-logging
@@ -619,6 +640,11 @@
           name: Configuring Metadata
         - page_ref: configuring-instanceid
           name: Configuring InstanceId
+    - page: /docs/3/discovery/kubernetes
+      name: Kubernetes
+      items:
+        - page_ref: usage
+          name: Usage
     - page: /docs/3/discovery/netflix-eureka
       name: Netflix Eureka
       items:
@@ -626,14 +652,12 @@
           name: Eureka Settings
         - page_ref: bind-to-cloud-foundry
           name: Bind to Cloud Foundry
-        - page_ref: enable-logging
-          name: Enable Logging
         - page_ref: configuring-health-contributors
           name: Configuring Health Contributors
         - page_ref: configuring-health-checks
           name: Configuring Health Checks
-        - page_ref: configuring-multiple-serviceurls
-          name: Configuring Multiple ServiceUrls
+        - page_ref: configuring-multiple-service-urls
+          name: Configuring Multiple Service Urls
         - page_ref: configuring-metadata
           name: Configuring Metadata
         - page_ref: configuring-mutual-tls

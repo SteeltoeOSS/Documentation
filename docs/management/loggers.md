@@ -8,24 +8,26 @@ You can view a list of all active loggers in an application and their current co
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|`Id`|The ID of the loggers endpoint|`loggers`|
-|`Enabled`|Enable or disable loggers management endpoint|`true`|
-|`Sensitive`|Currently not used|`false`|
-|`RequiredPermissions`|User permissions required on Cloud Foundry to access endpoint|`RESTRICTED`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the loggers endpoint. | `loggers` |
+| `Enabled` | Enable or disable loggers management endpoint. | `true` |
+| `Sensitive` | Currently not used. | `false` |
+| `RequiredPermissions` | User permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Loggers`.
 
 ## Enable HTTP Access
 
-The default path to the Loggers endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/loggers`.
+The default path to the Loggers endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](./hypermedia#base-context-path)>`/loggers`.
 
-See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the Loggers actuator to the service container, use the `AddLoggersActuator()` extension method from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use the `AddLoggersActuator` extension methods from `ManagementHostBuilderExtensions`.
 
-To add the Loggers actuator middleware to the ASP.NET Core pipeline, use the `UseLoggersActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the Loggers actuator to the service container, using the `AddLoggersActuator()` extension method from `EndpointServiceCollectionExtensions`.
+
+Then, add the Loggers actuator middleware to the ASP.NET Core pipeline, using the `Map<LoggersEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 To add the Steeltoe Logging provider to the `ILoggerFactory`, use the `AddDynamicConsole()` extension method and update the `Program.cs` class, as follows:
 

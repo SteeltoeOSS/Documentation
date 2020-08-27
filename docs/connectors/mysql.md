@@ -1,6 +1,6 @@
 # MySQL
 
-This connector simplifies using MySQL ADO.NET providers in an application running on Cloud Foundry.
+This connector simplifies using MySQL ADO.NET providers in an application.
 
 Currently, the connector supports the following providers:
 
@@ -12,7 +12,7 @@ The following Steeltoe sample applications can help you understand how to use th
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
 * [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot (Java and .NET) microservices-based sample application showing interoperability between Java- and .NET-based microservices running on Cloud Foundry, secured with OAuth2 Security Services and using Spring Cloud Services.
 
-This connector provides a `IHealthContributor` object, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides a `IHealthContributor` object, which you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
 
 ## Usage
 
@@ -24,7 +24,7 @@ To use this connector:
 
 1. Create a MySQL Service instance and bind it to your application.
 1. Optionally, configure any MySQL client settings (such as `appsettings.json`) you need.
-1. Add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
+1. Optionally, add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
 1. Add `MySqlConnection` or `DbContext` to your `IServiceCollection`.
 
 ### Add NuGet Reference
@@ -52,32 +52,31 @@ The following MySQL connector configuration shows how to connect to a database a
 
 The following table describes the available settings for the connector. These settings are not specific to Steeltoe. They are passed through to the underlying data provider. See the [Oracle MySQL Connection String docs](https://dev.mysql.com/doc/connector-net/en/connector-net-connection-options.html) or [open source MySQL Connection String docs](https://mysql-net.github.io/MySqlConnector/connection-options/).
 
-|Key|Description|Steeltoe Default|
-|---|---|:---:|
-|`Server`|Hostname or IP Address of the server|`localhost`|
-|`Port`|Port number of server|3306|
-|`Username`|Username for authentication|not set|
-|`Password`|Password for authentication|not set|
-|`Database`|Schema to which to connect|not set|
-|`ConnectionString`|Full connection string|built from settings|
-|`SslMode`|SSL usage option. One of `None`, `Preferred`, or `Required`|`None`|
-|`AllowPublicKeyRetrieval`|Whether RSA public keys should be retrieved from the server|not set|
-|`AllowUserVariables`|Whether the provider expects user variables in the SQL|not set|
-|`ConnectionTimeout`|Seconds to wait for a connection before throwing an error|not set|
-|`ConnectionLifeTime`|The maximum length of time a connection to the server can be open|not set|
-|`ConnectionReset`|Whether the connection state is reset when it is retrieved from the pool|not set|
-|`ConvertZeroDateTime`|Whether to have MySqlDataReader.GetValue() and MySqlDataReader.GetDateTime() return DateTime.MinValue for date or datetime columns that have disallowed values|not set|
-|defaultCommandTimeout|Seconds each command can execute before timing out. Use 0 to disable timeouts|not set|
-|`Keepalive`|TCP keep-alive idle time|not set|
-|`MaximumPoolsize`|Maximum number of connections allowed in the pool|not set|
-|`MinimumPoolsize`|Minimum number of connections to leave in the pool if ConnectionIdleTimeout is reached|not set|
-|`OldGuids`|Whether to use a GUID of data type BINARY(16)|not set|
-|persistSecurityInfo|Whether to allow the application to access to security-sensitive information, such as the password. **_(Not recommended)_**|not set|
-|`Pooling`|Enables connection pooling|not set|
-|`TreatTinyAsBoolean`|Whether to return tinyint(1) as a boolean. Set to `false` to return tinyint(1) as sbyte/byte|not set|
-|`UseAffectedRows`|Set to `false` to report found rows instead of changed (affected) rows|not set|
-|`UseCompression`|If `true` (and server-supported), packets sent between client and server are compressed|not set|
-|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+|Key|Description |Steeltoe Default|
+| --- | --- |:---:|
+| `Server` | Hostname or IP Address of the server. | `localhost` |
+| `Port` | Port number of server. | 3306 |
+| `Username` | Username for authentication. | not set |
+| `Password` | Password for authentication. | not set |
+| `Database` | Schema to which to connect. | not set |
+| `ConnectionString` | Full connection string. | Built from settings |
+| `SslMode` | SSL usage option. One of `None`, `Preferred`, or `Required`. | `None` |
+| `AllowPublicKeyRetrieval` | Whether RSA public keys should be retrieved from the server. | not set |
+| `AllowUserVariables` | Whether the provider expects user variables in the SQL. | not set |
+| `ConnectionTimeout` |Seconds to wait for a connection before throwing an error. | not set |
+| `ConnectionLifeTime` | The maximum length of time a connection to the server can be open. | not set |
+| `ConnectionReset` | Whether the connection state is reset when it is retrieved from the pool. | not set |
+| `ConvertZeroDateTime` | Whether to have MySqlDataReader.GetValue() and MySqlDataReader.GetDateTime() return DateTime.MinValue for date or datetime columns that have disallowed values. | not set |
+| `DefaultCommandTimeout` | Seconds each command can execute before timing out. Use 0 to disable timeouts. | not set |
+| `Keepalive` | TCP keep-alive idle time. | not set |
+| `MaximumPoolsize` | Maximum number of connections allowed in the pool. | not set |
+| `MinimumPoolsize` | Minimum number of connections to leave in the pool if ConnectionIdleTimeout is reached. | not set |
+| `OldGuids` | Whether to use a GUID of data type BINARY(16)| not set |
+| `PersistSecurityInfo` | Whether to allow the application to access to security-sensitive information, such as the password. **_(Not recommended)_**. | not set |
+| `Pooling` | Enables connection pooling. | not set |
+| `TreatTinyAsBoolean` | Whether to return tinyint(1) as a boolean. Set to `false` to return tinyint(1) as sbyte/byte. | not set |
+| `UseAffectedRows` | Set to `false` to report found rows instead of changed (affected) rows. | not set |
+| `UseCompression` | If `true` (and server-supported), packets sent between client and server are compressed. | not set |
 
 >IMPORTANT: All of the settings described in the preceding table should be prefixed with `MySql:Client:`.
 
@@ -100,9 +99,9 @@ cf bind-service myApp myMySqlService
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use [MySQL for PCF](https://network.pivotal.io/products/p-mysql), provided by Pivotal on Cloud Foundry. If you use a different service, you must adjust the `create-service` command to fit your environment.
+>NOTE: The preceding commands assume you use [MySQL for VMware Tanzu](https://network.pivotal.io/products/pivotal-mysql/), provided by VMware on Tanzu. If you use a different service, you must adjust the `create-service` command to fit your environment.
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `mysql:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
+This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -173,6 +172,7 @@ This section describes how to add a DbContext to
 * Entity Framework Core
 
 <a name="steeltoe-connectors-mysql-entity-framework-6"></a>
+
 #### Entity Framework 6
 
 To use the MySQL connector with Entity Framework 6, inject a `DbContext` into your application by using the `AddDbContext<>()` method (provided by Steeltoe) that takes an `IConfiguration` as a parameter:

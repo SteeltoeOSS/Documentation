@@ -2,11 +2,11 @@
 
 You can use the Steeltoe `health` management endpoint to check and return the status of your running application. It is often used to monitor software and alert someone if a production system goes down. The information exposed by the `health` endpoint depends on the `Management:Endpoints:Health:ShowDetails` property, which can be configured with one of the following values:
 
-|Name|Description|
-|---|---|
-|`Never`|Details are never shown.|
-|`Whenauthorized`|Details are shown only to authorized users. |
-|`Always`|Details are always shown.|
+| Name | Description |
+| --- | --- |
+| `Never` | Details are never shown. |
+| `Whenauthorized` | Details are shown only to authorized users. |
+| `Always` | Details are always shown. |
 
 The default value is `always`. Authorized roles can be configured by using `Management:Endpoints:Health:Claim` or `Management:Endpoints:Health:Role`. A user is considered to be authorized when they are in the given role or have the specified claim. The following example uses `Management:Endpoints:Health:Claim`:
 
@@ -34,12 +34,12 @@ By default, the final application health state is computed by the `IHealthAggreg
 
 The following table describes the settings that you can apply to the endpoint.
 
-|Key|Description|Default|
-|---|---|---|
-|`Id`|The ID of the `health` endpoint|`health`|
-|`Enabled`|Whether to enable the health management endpoint|`true`|
-|`Sensitive`|Currently not used|`false`|
-|`RequiredPermissions`|The user permissions required on Cloud Foundry to access endpoint|`RESTRICTED`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the `health` endpoint. | `health` |
+| `Enabled` | Whether to enable the health management endpoint. | `true` |
+| `Sensitive` | Currently not used. | `false` |
+| `RequiredPermissions` | The user permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Health`.
 
@@ -47,14 +47,24 @@ The following table describes the settings that you can apply to the endpoint.
 
 The default path to the `health` endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/health`.
 
-See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
+To add the actuator to the service container and map its route, you can use any of the the `AddHealthActuator` extension methods  from `ManagementHostBuilderExtensions`.
 
-To add the health actuator to the service container, use any one of the `AddHealthActuator()` extension methods from `EndpointServiceCollectionExtensions`.
+Alternatively, first, add the health actuator to the service container, using any one of the `AddHealthActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 
-To add the health actuator middleware to the ASP.NET Core pipeline, use the `UseHealthActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Then, add the health actuator middleware to the ASP.NET Core pipeline, using the `Map<HealthEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 The following example shows how to enable the `health` endpoint and add a custom `IHealthContributor` to the service container by adding `CustomHealthContributor` as a singleton. Once that is done, the `health` endpoint discovers and uses it during health checks.
+
+```csharp
+ public static IHost BuildHost(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .AddHealthActuator()
+            .Build();
+```
+
+Or,
 
 ```csharp
 public class Startup
@@ -75,25 +85,29 @@ public class Startup
     {
         app.UseStaticFiles();
 
-        // Add management endpoint into pipeline
-        app.UseHealthActuator();
+        app.UseEndpoints(endpoints =>
+            {
+                // Add management endpoints into pipeline like this
+                endpoints.Map<HealthEndpoint>();
+
+                // ... Other mappings
+            });
     }
 }
 ```
 
 >NOTE: When you use any of the Steeltoe Connectors in your application, we automatically add the corresponding health contributors to the service container.
 
-
 ## Steeltoe Health Contributors
 
 At present, Steeltoe provides the following `IHealthContributor` implementations that you can choose from:
 
-|Name|Description|
-|---|---|
-|`DiskSpaceContributor`|Checks for low disk space, configure using `DiskSpaceContributorOptions`|
-|`RabbitMQHealthContributor`|Checks RabbitMQ connection health|
-|`RedisHealthContributor`|Checks Redis cache connection health|
-|`RelationalHealthContributor`|Checks relational database connection health (MySql, Postgres, SqlServer)|
+| Name | Description |
+| --- | --- |
+| `DiskSpaceContributor` | Checks for low disk space, configure using `DiskSpaceContributorOptions`. |
+| `RabbitMQHealthContributor` | Checks RabbitMQ connection health. |
+| `RedisHealthContributor` | Checks Redis cache connection health. |
+| `RelationalHealthContributor` | Checks relational database connection health (MySql, Postgres, SqlServer). |
 
 Each of these contributors are located in the `Steeltoe.ConnectorBase` package and are made available to your application when you reference the connector package.
 
@@ -169,12 +183,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
   // Optionally use health checks ui at /healthchecks-ui
   app.UseHealthChecksUI();
 
-  // Add management endpoints into pipeline
-  // Steeltoe health check shows up at /cloudfoundryapplication/health
-  app.UseCloudFoundryActuators();
   ...
 }
 ```
 
 A complete example is available [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/MicrosoftHealthChecks).
-

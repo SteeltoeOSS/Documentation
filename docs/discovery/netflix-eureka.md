@@ -19,63 +19,63 @@ The following table describes the settings that control the overall behavior of 
 
 All of these settings should start with `Eureka:Client:`
 
-|Key|Description|Default|
-|---|---|---|
-|`ShouldRegisterWithEureka`|Enable or disable registering as a service|`true`|
-|`ShouldFetchRegistry`|Enable or disable discovering services|`true`|
-|`ShouldGZipContent`|Enable or disable GZip usage between the client and the Eureka server|`true`|
-|`ServiceUrl`|Comma-delimited list of Eureka server endpoints|`http://localhost:8761/eureka`|
-|`ValidateCertificates`|Enable certificate validation|`true`|
-|`RegistryFetchIntervalSeconds`|Service fetch interval|30s|
-|`ShouldFilterOnlyUpInstances`|Whether to fetch only UP instances|`true`|
-|`InstanceInfoReplicationIntervalSeconds`|How often to replicate instance changes|40s |
-|`ShouldDisableDelta`|Whether to disable fetching of delta and, instead, get the full registry|`false` |
-|`RegistryRefreshSingleVipAddress`|Whether to be interested in only the registry information for a single VIP|none |
-|`ShouldOnDemandUpdateStatusChange`|Whether status updates are trigger on-demand register/update|`true`|
-|`AccessTokenUri`|URI to use to obtain OAuth2 access token|none|
-|`ClientSecret`|Secret to use to obtain OAuth2 access token|none|
-|`ClientId`|Client ID to use to obtain OAuth2 access token|none|
-|`EurekaServer:ProxyHost`|Proxy host to Eureka Server|none|
-|`EurekaServer:ProxyPort`|Proxy port to Eureka Server|none|
-|`EurekaServer:ProxyUserName`|Proxy user name to Eureka Server|none|
-|`EurekaServer:ProxyPassword`| Proxy password to Eureka Server|none
-|`EurekaServer:ShouldGZipContent`|Whether to compress content|`true`|
-|`EurekaServer:ConnectTimeoutSeconds`|Connection timeout|5s|
-|`EurekaServer:RetryCount`|Number of times to retry Eureka Server requests|3|
-|`Health:Enabled`|Enable or disable management health contributor|`true`|
-|`Health:CheckEnabled`|Enable or disable Eureka health check handler|`true`|
-|`Health:MonitoredApps`|List of applications the management health contributor monitors|All apps in registry|
+| Key | Description | Default |
+| --- | --- | --- |
+| `ShouldRegisterWithEureka` | Enable or disable registering as a service. | `true` |
+| `ShouldFetchRegistry` | Enable or disable discovering services. | `true` |
+| `ShouldGZipContent` | Enable or disable GZip usage between the client and the Eureka server. | `true` |
+| `ServiceUrl` | Comma-delimited list of Eureka server endpoints. | `http://localhost:8761/eureka` |
+| `ValidateCertificates` | Enable certificate validation. | `true` |
+| `RegistryFetchIntervalSeconds` | Service fetch interval. | 30s |
+| `ShouldFilterOnlyUpInstances` | Whether to fetch only UP instances. | `true` |
+| `InstanceInfoReplicationIntervalSeconds` | How often to replicate instance changes. | 40s |
+| `ShouldDisableDelta` | Whether to disable fetching of delta and, instead, get the full registry. | `false` |
+| `RegistryRefreshSingleVipAddress` | Whether to be interested in only the registry information for a single VIP. | none |
+| `ShouldOnDemandUpdateStatusChange` | Whether status updates are trigger on-demand register/update. | `true` |
+| `AccessTokenUri` | URI to use to obtain OAuth2 access token. | none |
+| `ClientSecret` | Secret to use to obtain OAuth2 access token. | none |
+| `ClientId` | Client ID to use to obtain OAuth2 access token. | none |
+| `EurekaServer:ProxyHost` | Proxy host to Eureka Server. | none |
+| `EurekaServer:ProxyPort` | Proxy port to Eureka Server. | none |
+| `EurekaServer:ProxyUserName` | Proxy user name to Eureka Server. | none |
+| `EurekaServer:ProxyPassword` | Proxy password to Eureka Server. | none |
+| `EurekaServer:ShouldGZipContent` | Whether to compress content. | `true` |
+| `EurekaServer:ConnectTimeoutSeconds` | Connection timeout. | 5s |
+| `EurekaServer:RetryCount` | Number of times to retry Eureka Server requests. | 3 |
+| `Health:Enabled` | Enable or disable management health contributor. | `true` |
+| `Health:CheckEnabled` | Enable or disable Eureka health check handler. | `true` |
+| `Health:MonitoredApps` | List of applications the management health contributor monitors. | All apps in registry |
 
 **NOTE**: **Some settings affect registering as a service as well.**
 
 The following table describes the settings you can use to configure the behavior of the client as it relates to registering services:
 
-|Key|Description|Default|
-|---|---|---|
-|`AppName`|Name of the application to be registered with Eureka|`Spring:Application:Name` or `unknown`|
-|`Port`|Port on which the instance is registered|80|
-|`HostName`|Address on which the instance is registered|computed|
-|`InstanceId`|Unique ID (within the scope of the `AppName`) of the instance registered with Eureka|computed|
-|`AppGroupName`|Name of the application group to be registered with Eureka|none|
-|`InstanceEnabledOnInit`|Whether the instance should take traffic as soon as it is registered|`false`|
-|`SecurePort`|Secure port on which the instance should receive traffic|443|
-|`NonSecurePortEnabled`|Non-secure port enabled|`true`|
-|`SecurePortEnabled`|Secure port enabled|false|
-|`LeaseRenewalIntervalInSeconds`|How often client needs to send heartbeats|30s|
-|`LeaseExpirationDurationInSeconds`|Time the Eureka server waits before removing instance|90s|
-|`VipAddress`|Virtual host name|hostName + port|
-|`SecureVipAddress`|Secure virtual host name|hostName + securePort||
-|`MetadataMap`|Name/value pairs associated with the instance|none|
-|`StatusPageUrlPath`|Relative status page path for this instance|`/Status`|
-|`StatusPageUrl`|Absolute status page for this instance|computed|
-|`HomePageUrlPath`||`/`|
-|`HomePageUrl`|Absolute home page for this instance|computed|
-|`HealthCheckUrlPath`||`/healthcheck`|
-|`HealthCheckUrl`|Absolute health check page for this instance|computed|
-|`SecureHealthCheckUrl`|Secured absolute health check page for this instance|computed|
-|`IpAddress`|IP address to register|computed|
-|`PreferIpAddress`|Whether to register by using IpAddress instead of hostname|`false`|
-|`RegistrationMethod`|How to register service on Cloud Foundry. Can be `route`, `direct`, or `hostname`.|`route`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `AppName` | Name of the application to be registered with Eureka. | `Spring:Application:Name` or `unknown` |
+| `Port` | Port on which the instance is registered. | 80 |
+| `HostName` | Address on which the instance is registered. | computed |
+| `InstanceId` | Unique ID (within the scope of the `AppName`) of the instance registered with Eureka. | computed |
+| `AppGroupName` | Name of the application group to be registered with Eureka. | none |
+| `InstanceEnabledOnInit` | Whether the instance should take traffic as soon as it is registered. | `false` |
+| `SecurePort` | Secure port on which the instance should receive traffic. | 443 |
+| `NonSecurePortEnabled` | Non-secure port enabled. | `true` |
+| `SecurePortEnabled` | Secure port enabled. | false |
+| `LeaseRenewalIntervalInSeconds` | How often client needs to send heartbeats. | 30s |
+| `LeaseExpirationDurationInSeconds` | Time the Eureka server waits before removing instance. | 90s |
+| `VipAddress` | Virtual host name. | `{HostName}:{Port}` |
+| `SecureVipAddress` | Secure virtual host name. | `{HostName}:{SecurePort}`|
+| `MetadataMap` | Name/value pairs associated with the instance. | none |
+| `StatusPageUrlPath` | Relative status page path for this instance. | `/Status` |
+| `StatusPageUrl` | Absolute status page for this instance. | computed |
+| `HomePageUrlPath` | | `/` |
+| `HomePageUrl` | Absolute home page for this instance. | computed |
+| `HealthCheckUrlPath` | | `/healthcheck` |
+| `HealthCheckUrl` | Absolute health check page for this instance. | computed |
+| `SecureHealthCheckUrl` | Secured absolute health check page for this instance. | computed |
+| `IpAddress` | IP address to register. | computed |
+| `PreferIpAddress` | Whether to register by using IpAddress instead of hostname. | `false` |
+| `RegistrationMethod` | How to register service on Cloud Foundry. Can be `route`, `direct`, or `hostname`. | `route` |
 
 All of the settings in the preceding table should start with `Eureka:Instance:`.
 

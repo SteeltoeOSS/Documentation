@@ -1,31 +1,33 @@
 # Prometheus
 
-The Steeltoe prometheus endpoint exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format.  Similar to the [Metrics Endpoint](/docs/management/metrics), it automatically configures built-in instrumentation of various aspects of the application.
+The Steeltoe prometheus endpoint exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format.  Similar to the [Metrics Endpoint](/docs/3/management/metrics), it automatically configures built-in instrumentation of various aspects of the application.
 
-The metrics collected are the same as those collected by the [metrics endpoint](/docs/management/metrics).
+The metrics collected are the same as those collected by the [metrics endpoint](/docs/3/management/metrics).
 
 ## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|`Id`|The ID of the metrics endpoint|`prometheus`|
-|`Enabled`|Whether to enable the metrics management endpoint|`true`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the metrics endpoint. | `prometheus` |
+| `Enabled` | Whether to enable the metrics management endpoint. | `true` |
 
 >NOTE: Each setting must be prefixed with `Management:Endpoints:Prometheus`.
 
-To configure Observers, see [Metric Observers](/docs/management/metric-observers)
+To configure Observers, see [Metric Observers](/docs/3/management/metric-observers)
 
 ## Enable HTTP Access
 
-The default path to the Prometheus endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/prometheus`.
+The default path to the Prometheus endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](./hypermedia#base-context-path)>`/prometheus`.
 
-See the [HTTP Access](/docs/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the Prometheus actuator to the service container, use the `AddPrometheusActuator()` extension method from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use the `AddPrometheusActuator` extension method from `ManagementHostBuilderExtensions`.
 
-To add the Prometheus actuator middleware to the ASP.NET Core pipeline, use the `UsePrometheusActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first,add the Prometheus actuator to the service container, using the `AddPrometheusActuator()` extension method from `EndpointServiceCollectionExtensions`.
+
+Then, add the Prometheus actuator middleware to the ASP.NET Core pipeline, use the `Map<PrometheusEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 ## Exporting
 

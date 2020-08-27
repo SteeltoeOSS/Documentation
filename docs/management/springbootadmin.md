@@ -4,7 +4,6 @@ Steeltoe spring boot admin client provides a way to integrate with [Spring Boot 
 
 ## Add NuGet Reference
 
-
 Add the following PackageReference to your .csproj file.
 
 ```xml
@@ -40,11 +39,11 @@ This extension method hooks into the application lifecycle to register and un-re
 
 The following table describes the settings that you can apply to the client:
 
-|Key|Description|Default|
-|---|---|---|
-|`Url`|The Url of the spring boot admin server|`null`|
-|`ApplicationName`|The name of the Steeltoe app being registered|`IApplicationInstanceInfo.ApplicationName`|
-|`BasePath`|BasePath to find endpoints for integration|`IApplicationInstanceInfo.Uris`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Url` | The Url of the spring boot admin server. | `null` |
+| `ApplicationName` | The name of the Steeltoe app being registered. | `IApplicationInstanceInfo.ApplicationName` |
+| `BasePath` | BasePath to find endpoints for integration. | `IApplicationInstanceInfo.Uris` |
 
 Here is an example settings file.
 
@@ -69,6 +68,6 @@ Here is an example settings file.
 
 For testing you can use a local version of spring boot admin server running locally.
 
-```
+```bash
 docker run -d -p 8080:8080 steeltoeoss/spring-boot-admin
 ```

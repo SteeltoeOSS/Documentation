@@ -1,8 +1,6 @@
 # MongoDB
 
-This connector simplifies using MongoDB in an application running on Cloud Foundry with the [.NET MongoDB Driver](https://docs.mongodb.com/ecosystem/drivers/csharp/).
-
->NOTE: There are currently no dedicated samples for the MongoDB connector. You can see it in action in the Steeltoe fork of [eShopOnContainers](https://github.com/SteeltoeOSS/eShopOnContainers), in the Locations API and the Marketing API.
+This connector simplifies using MongoDB with the [.NET MongoDB Driver](https://docs.mongodb.com/ecosystem/drivers/csharp/).
 
 ## Usage
 
@@ -10,7 +8,7 @@ To use this connector:
 
 1. Create a MongoDB service instance and bind it to your application.
 1. Optionally, configure any MongoDB client settings.
-1. Add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
+1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
 1. Add MongoDB classes to your DI container.
 
 ### Add NuGet Reference
@@ -37,16 +35,15 @@ This connector supports several settings for local interaction with MongoDB that
 
 The following table table describes all possible settings for the connector
 
-|Key|Description|Default|
-|---|---|---|
-|`Server`|Hostname or IP Address of the server|`localhost`|
-|`Port`|Port number of the server|27017|
-|`Username`|Username for authentication|not set|
-|`Password`|Password for authentication|not set|
-|`Database`|Name of the database to use|not set|
-|`Options`|Any additional [options](https://mongodb.github.io/mongo-csharp-driver/2.7/apidocs/html/T_MongoDB_Driver_MongoClientSettings.htm), passed through as provided|not set|
-|`ConnectionString`|Full connection string|built from settings|
-|`UrlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Server` | Hostname or IP Address of the server. | `localhost` |
+| `Port` | Port number of the server. | 27017 |
+| `Username` | Username for authentication. | not set |
+| `Password` | Password for authentication. | not set |
+| `Database` | Name of the database to use. | not set |
+| `Options` | Any additional [options](https://mongodb.github.io/mongo-csharp-driver/2.7/apidocs/html/T_MongoDB_Driver_MongoClientSettings.htm), passed through as provided. | not set |
+| `ConnectionString` | Full connection string. | Built from settings |
 
 >IMPORTANT: All of these settings should be prefixed with `MongoDb:Client:`.
 
