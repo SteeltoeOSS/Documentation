@@ -19,6 +19,8 @@ The default path to the refresh endpoint is computed by combining the global `Pa
 
 See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the refresh actuator to the service container, use the `AddRefreshActuator()` extension method from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use the `AddRefreshActuator` extension method from `ManagementHostBuilderExtensions`.
 
-To add the refresh actuator middleware to the ASP.NET Core pipeline, use the `UseRefreshActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the refresh actuator to the service container, using the `AddRefreshActuator()` extension method from `EndpointServiceCollectionExtensions`.
+
+Then, add the refresh actuator middleware to the ASP.NET Core pipeline, use the `Map<RefreshEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.

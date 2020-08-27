@@ -118,7 +118,6 @@ Extensions for both `IHostBuilder` and `IWebHostBuilder` are included to configu
     public static IHost BuildHost(string[] args) =>
         Host.CreateDefaultBuilder(args)
             .AddAllActuators()
-            .AddRefreshActuator()
             .Build();
 ```
 

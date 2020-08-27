@@ -19,6 +19,8 @@ The default path to the mappings endpoint is computed by combining the global `P
 
 See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the mappings actuator to the service container, use the `AddMappingsActuator()` extension method from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use the `hostBuilder.AddMappingsActuator` extension method from `ManagementHostBuilderExtensions`.
 
-To add the mappings actuator middleware to the ASP.NET Core pipeline, use the `UseMappingsActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the mappings actuator to the service container, use the `AddMappingsActuator()` extension method from `EndpointServiceCollectionExtensions`.
+
+Then add the mappings actuator middleware to the ASP.NET Core pipeline, using the `Map<MappingsEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.

@@ -34,6 +34,8 @@ The default path to the trace endpoint is computed by combining the global `Path
 
 See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the trace actuator to the service container, use the `AddTraceActuator()` extension method from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use the `AddTraceActuator` extension method from `ManagementHostBuilderExtensions`.
 
-To add the trace actuator middleware to the ASP.NET Core pipeline, use the `UseTraceActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the trace actuator to the service container, using the `AddTraceActuator()` extension method from `EndpointServiceCollectionExtensions`.
+
+Then, add the trace actuator middleware to the ASP.NET Core pipeline, using the `Map<TraceEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.

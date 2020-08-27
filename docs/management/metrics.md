@@ -34,9 +34,11 @@ The default path to the metrics endpoint is computed by combining the global `Pa
 
 See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the metrics actuator to the service container, use the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use the `hostBuilder.AddMetricsActuator` extension method from `ManagementHostBuilderExtensions`.
 
-To add the metrics actuator middleware to the ASP.NET Core pipeline, use the `UseMetricsActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the metrics actuator to the service container, using the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
+
+Then add the metrics actuator middleware to the ASP.NET Core pipeline, using the `Map<MetricsEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 ## Exporting
 
@@ -71,6 +73,15 @@ PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-
 The following example shows how to use the metrics actuator endpoint:
 
 ```csharp
+ public static IHost BuildHost(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .AddHealthActuator()
+            .Build();
+```
+
+Or,
+
+```csharp
 public class Startup
 {
     public Startup(IConfiguration configuration)
@@ -86,12 +97,13 @@ public class Startup
     }
     public void Configure(IApplicationBuilder app)
     {
-        app.UseStaticFiles();
+         app.UseEndpoints(endpoints =>
+            {
+                // Add management endpoints into pipeline like this
+                endpoints.Map<MetricsEndpoint>();
 
-        // Expose Metrics endpoint
-        app.UseMetricsActuator();
-
-        app.UseMvc();
+                // ... Other mappings
+            });
 
     }
 }

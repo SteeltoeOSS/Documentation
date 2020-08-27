@@ -52,11 +52,14 @@ The default path to the Info endpoint is computed by combining the global `Path`
 
 See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the Info actuator to the service container, you can use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use any of the `AddInfoActuator` extension methods from `ManagementHostBuilderExtensions`.
 
-To add the Info actuator middleware to the ASP.NET Core pipeline, use the `UseInfoActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the Info actuator to the service container, use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
+
+Then add the Info actuator middleware to the ASP.NET Core pipeline, use the `Map<InfoEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 The following example shows how to enable the info endpoint and how to add a custom `IInfoContributor` to the service container by adding `ArbitraryInfoContributor` as a singleton. Once that is done, the info endpoint discovers and uses it during info requests.
+
 
 ```csharp
 public class Startup
@@ -77,8 +80,13 @@ public class Startup
     {
         app.UseStaticFiles();
 
-        // Add management endpoint into pipeline
-        app.UseInfoActuator();
+       app.UseEndpoints(endpoints =>
+            {
+                // Add management endpoints into pipeline like this
+                endpoints.Map<InfoEndpoint>();
+
+                // ... Other mappings
+            });
     }
 }
 ```

@@ -31,6 +31,8 @@ The default path to the Cloud Foundry endpoint is computed by combining the glob
 
 See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the Cloud Foundry actuator to the service container, you can use the `AddCloudFoundryActuator()` extension method from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, you can use the `AddCloudFoundryActuator` extension method from `ManagementHostBuilderExtensions`.
 
-To add the Cloud Foundry actuator and security middleware to the ASP.NET Core pipeline, use the `UseCloudFoundryActuator()` and `UseCloudFoundrySecurity()` extension methods from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the Cloud Foundry actuator to the service container, using the `AddCloudFoundryActuator()` extension method from `EndpointServiceCollectionExtensions`.
+
+Then, add the Cloud Foundry actuator and security middleware to the ASP.NET Core pipeline, using the `UseCloudFoundrySecurity()` extension methods from `EndpointApplicationBuilderExtensions` and `Map<CloudFoundryEndpoint>()` from `ActuatorRouteBuilderExtensions`
