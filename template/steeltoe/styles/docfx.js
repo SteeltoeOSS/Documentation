@@ -37,14 +37,17 @@ $(function () {
           val = "\""+val+"\"";
           break;
       };
-      
-      var a=$("article").html().replace('%%'+localStorage.key(i)+'%%',val);
-      $("article").html(a);
-    }
 
-    a=$("article").html().replace(/%%/g,'');
-    $("article").html(a);
-    a=null;
+      $("pre").each(function(idx){
+        var a=$(this);
+        a.html(a.html().replace('%%'+localStorage.key(i)+'%%',val));
+      });
+    }
+    
+    $("pre").each(function(idx){
+      var a=$(this);
+      a.html(a.html().replace(/%%/g,'#'));
+    });
 
     var options = {
       contentSelector: "#wrapper",
