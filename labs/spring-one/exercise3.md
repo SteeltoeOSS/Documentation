@@ -1,6 +1,9 @@
 ﻿---
 uid: labs/spring-one/exercise3
+_disableContribution: true
 _disableToc: true
+_disableFooter: true
+_homePath: "./"
 ---
 [vs-add-efcore]: ~/labs/images/vs-add-efcore.png "SqlServer EFCore nuget dependency"
 [single-todoitem]: ~/labs/images/single-todoitem.png "ToDo item retrieved from the database"
@@ -249,21 +252,23 @@ Before we see everything in action lets review what has been done. With the Stee
 
 ## Run the application
 
+With the data context in place, we are ready to see everything in action. Run the application.
+
+# [Visual Studio](#tab/visual-studio)
+
+Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
+
+![vs-run-application]
+
 # [.NET CLI](#tab/dotnet-cli)
+
+Executing the below command will start the application. You will see a log message written telling how to navigate to the application. It should be [http://localhost:5000/weatherforecast](http://localhost:5000/weatherforecast).
 
 ```powershell
 dotnet run
 ```
 
-# [Visual Studio](#tab/visual-studio)
-
-![vs-run-application]
-
 ***
-
-Once started your default browser should open and automatically load the weather forecast endpoint.
-
-![run-weatherforecast]
 
 ## Work with saved ToDo items
 

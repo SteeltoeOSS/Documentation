@@ -1,7 +1,9 @@
 ---
 uid: labs/spring-one/exercise1
+_disableContribution: true
 _disableToc: true
 _disableFooter: true
+_homePath: "./"
 ---
 
 [vs-get-started]: ~/labs/images/vs-get-started.png "Visual Studio get started"

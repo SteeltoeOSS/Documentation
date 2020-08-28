@@ -1,7 +1,9 @@
 ﻿---
 uid: labs/spring-one/exercise2
+_disableContribution: true
 _disableToc: true
 _disableFooter: true
+_homePath: "./"
 ---
 [vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
 [run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
@@ -27,7 +29,7 @@ Enhance the app created in the previous exercise to enable all actuator endpoint
 
 ## Get Started
 
-Open `Program.cs` and replace the 3 Steeltoe "Add" statements with the single "all actuators" statement.
+Open "Program.cs" and replace the 3 Steeltoe 'Add' statements with the single 'all actuators' statement.
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -41,7 +43,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 		;
 ```
 
-Expose all the actuator endpoints for debugging and demonstration purpose in `appsettings.json`.
+Expose all the actuator endpoints for debugging and demonstration purposes in "appsettings.json".
 
 ```json
 {
@@ -67,38 +69,56 @@ Expose all the actuator endpoints for debugging and demonstration purpose in `ap
 
 ## Run the application
 
-With all actuators implemented in host builder, start the application by clicking the `Debug > Start Debugging` top menu item.
+With all actuators implemented in host builder, we are ready to see everything in action. Run the application.
+
+# [Visual Studio](#tab/visual-studio)
+
+Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
+
+![vs-run-application]
 
 # [.NET CLI](#tab/dotnet-cli)
+
+Executing the below command will start the application. You will see a log message written telling how to navigate to the application. It should be [http://localhost:5000/weatherforecast](http://localhost:5000/weatherforecast).
 
 ```powershell
 dotnet run
 ```
 
-# [Visual Studio](#tab/visual-studio)
-
-![vs-run-application]
-
 ***
 
-Once started your default browser should open and automatically load the weather forecast endpoint.
+With the application running and the weather forecast endpoint loaded your browser should show the following
 
 ![run-weatherforecast]
 
 ## Discover all the management endpoints
 
-What exactly has happened? In the previous exercise 3 of the endpoints where implemented and we visited each in the browser to see their output. There was no need to expose those select endpoints because by default Steeltoe doesn't secure them (you can [if you want](https://steeltoe.io/docs/3/management/using-endpoints#exposing-endpoints)). With the addition of all endpoints, there are some that are secured by default. Here's a list of each endpoint that is available and it's purpose. While the application is running visit each one to learn more.
+Load the base actuator endpoint by replacing `WeatherForecast` with `actuator` in the browser address bar.
 
-- `/actuators`: A json structured list of all actuator endpoints that have been exposed.
-- `/actuators/env`: A listing of all environment variables that are available to the app.
-- `/actuators/health`: The current health status of the app as reported in IHealthContributor, customized for different platforms.
-- `/actuators/info`: Various app information collected from the IInfoContributor.
-- `/actuators/loggers`: View and configure the logging levels of your application at runtime. This endpoints supports POST requests to adjust logging levels.
+What exactly has happened? In the previous exercise only select endpoints where implemented and we visited each in the browser to see their output. There was no need to expose those endpoints because Steeltoe doesn't secure them (you can [if you want](https://steeltoe.io/docs/3/management/using-endpoints#exposing-endpoints)). With the addition of all endpoints, most are secured by default. You pick & choose which should be exposed and with what roles. Here's a list of each endpoint that is available and it's purpose. While the application is running visit each one to learn more.
+
+- `/actuator`: A json structured list of all actuator endpoints that have been exposed.
+- `/actuator/env`: A listing of all environment variables that are available to the app.
+- `/actuator/health`: The current health status of the app as reported in IHealthContributor, customized for different platforms.
+- `/actuator/info`: Various app information collected from the IInfoContributor.
+- `/actuator/loggers`: View and configure the logging levels of your application at runtime. This endpoints supports POST requests to adjust logging levels.
 - `/actuator/mappings`: Details about automatically discovered MVC and WebAPI project routes and route templates.
-- `/actuators/metrics`: App CLR and HTTP metrics collected using OpenTelemetry library.
-- `/actuators/prometheus`: A copy of the metrics endpoint, in a Prometheus friendly format.
-- `/actuators/refresh`: Trigger the app’s IConfigurationRoot to automatically refresh all configuration values.
-- `/actuators/tracing`: Details about the last few request traces made by the app.
+- `/actuator/metrics`: App CLR and HTTP metrics collected using OpenTelemetry library.
+- `/actuator/prometheus`: A copy of the metrics endpoint, in a Prometheus friendly format.
+- `/actuator/refresh`: Trigger the app’s IConfigurationRoot to automatically refresh all configuration values.
+- `/actuator/tracing`: Details about the last few request traces made by the app.
+
+## Stop the application
+
+# [Visual Studio](#tab/visual-studio)
+
+Either close the browser window or click the red stop button in the top menu.
+
+# [.NET CLI](#tab/dotnet-cli)
+
+Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
+
+***
 
 ## Summary
 

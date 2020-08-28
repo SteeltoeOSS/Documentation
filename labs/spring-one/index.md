@@ -2,6 +2,7 @@
 _disableContribution: true
 _disableToc: true
 _disableFooter: true
+_homePath: "./"
 
 uid: labs/spring-one
 ---
