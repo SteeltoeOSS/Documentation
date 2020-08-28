@@ -249,7 +249,7 @@ public class TodoItemsController : ControllerBase
 
 ## Update appsettings.json with database connection
 
-To get a running instance of SQL, you could go a few different paths. Depending on how the instance is made available you'll want to adjust the values in `appsettings.json`.
+<!-- To get a running instance of SQL, you could go a few different paths. Depending on how the instance is made available you'll want to adjust the values in `appsettings.json`.
 
 # [Visual Studio LocalDB](#tab/Visual-Studio-LocalDB)
 
@@ -269,8 +269,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d m
 
 If your SQL instance is running somewhere else you'll need its URI port number and credentials. Use the provided parameters to configure the connection correctly.
 
-***
-
+*** -->
 Overwrite default values in `appsettings.json` so that Steeltoe can connect to the database instance.
 
 ```json
