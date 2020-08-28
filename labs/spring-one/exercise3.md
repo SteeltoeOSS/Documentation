@@ -34,7 +34,7 @@ App initializes the database and serves new endpoint for interacting with Todo l
 
 ## Get Started
 
-We're going to add a database connection and context using entity framework, to the previously created application. To get started add the Steeltoe package `Steeltoe.Connector.EFCore`.
+We're going to add a database connection and context using entity framework to the previously created application. To get started add the Steeltoe package `Steeltoe.Connector.EFCore`.
 
 # [Visual Studio](#tab/visual-studio)
 
@@ -184,7 +184,7 @@ dotnet new classlib -n "TodoItemsController.cs"
 
 ***
 
-Open the newly created class file in your IDE and replace and 'using' statements in the file with hte below.
+Open the newly created class file in your IDE and replace and 'using' statements in the file with the below.
 
 ```csharp
 using System;
@@ -279,7 +279,8 @@ Overwrite default values in `appsettings.json` so that Steeltoe can connect to t
   "Logging": {
     "LogLevel": {
       "Default": "Information",
-      "Microsoft": "Warning"
+      "Microsoft": "Warning",
+      "Steeltoe": "Information"
     }
   },
   "AllowedHosts": "*",
@@ -327,6 +328,10 @@ dotnet run
 ```
 
 ***
+
+With the application running and the weather forecast endpoint loaded your browser should show the following
+
+![run-weatherforecast]
 
 ## Work with saved ToDo items
 
