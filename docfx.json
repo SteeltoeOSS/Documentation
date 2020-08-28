@@ -21,6 +21,7 @@
       {
         "files": [
           "images/**",
+          "fonts/**",
           "articles/**/images/**",
           "api/**/images/**",
           "labs/**/images/**",
