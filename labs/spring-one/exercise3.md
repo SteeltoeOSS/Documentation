@@ -4,6 +4,7 @@ _disableContribution: true
 _disableToc: true
 _disableFooter: true
 _homePath: "./"
+_disableNav: true
 ---
 [vs-add-efcore]: ~/labs/images/vs-add-efcore.png "SqlServer EFCore nuget dependency"
 [single-todoitem]: ~/labs/images/single-todoitem.png "ToDo item retrieved from the database"
@@ -16,9 +17,8 @@ _homePath: "./"
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-|  |
-|---------:|
-|[Back to intro](index.md)&nbsp;&nbsp;&nbsp;|
+|[<< Previous Exercise][exercise-2-link]|[Next Exercise >>][exercise-4-link]|
+|:--|--:|
 
 # Adding a cloud connector with SQL
 

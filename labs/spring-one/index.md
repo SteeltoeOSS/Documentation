@@ -3,11 +3,10 @@ _disableContribution: true
 _disableToc: true
 _disableFooter: true
 _homePath: "./"
-
+_disableNav: true
 uid: labs/spring-one
 ---
 
-[home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
 [exercise-3-link]: exercise3.md

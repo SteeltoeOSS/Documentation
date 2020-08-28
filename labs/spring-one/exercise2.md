@@ -4,6 +4,7 @@ _disableContribution: true
 _disableToc: true
 _disableFooter: true
 _homePath: "./"
+_disableNav: true
 ---
 [vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
 [run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
@@ -14,8 +15,8 @@ _homePath: "./"
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-|[Back to intro](index.md)&nbsp;&nbsp;&nbsp;|
-|---------:|
+|[<< Previous Exercise][exercise-1-link]|[Next Exercise >>][exercise-3-link]|
+|:--|--:|
 
 # Exploring all actuators
 

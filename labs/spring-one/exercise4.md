@@ -4,6 +4,7 @@ _disableContribution: true
 _disableToc: true
 _disableFooter: true
 _homePath: "./"
+_disableNav: true
 ---
 [vs-add-configserver]: ~/labs/images/vs-add-configserver.png "Add configuration server library"
 
@@ -13,8 +14,8 @@ _homePath: "./"
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-|[Back to intro][home-page-link]&nbsp;&nbsp;&nbsp;|
-|---------:|
+|[<< Previous Exercise][exercise-3-link]||
+|:--|--:|
 
 # Using an external configuration provider
 
@@ -156,5 +157,5 @@ To execute the values endpoint, replace `WeatherForecast` with `values` in the b
 
 With an existing Spring Config server running that was configured to retrieve values from a yaml file in a git repository, we added a Spring Config client to our application and output two values. With this architecture in place you can now do things like updating the yaml file in the git repository and visit the `/actuators/refresh` management endpoint in the application. This will automatically refresh values within the application without and down time (or restart). You could store a server's connection name in the yaml, and have the application retrieve the value. As the application moves through different environments (dev, test, staging, prod) the connection value can change, but the original tested application stays unchanged.
 
-|[<< Previous Exercise][exercise-3-link]|[Back to intro][home-page-link]|
+|[<< Previous Exercise][exercise-3-link]||
 |:--|--:|

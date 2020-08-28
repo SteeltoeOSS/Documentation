@@ -4,6 +4,7 @@ _disableContribution: true
 _disableToc: true
 _disableFooter: true
 _homePath: "./"
+_disableNav: true
 ---
 
 [vs-get-started]: ~/labs/images/vs-get-started.png "Visual Studio get started"
@@ -19,14 +20,13 @@ _homePath: "./"
 [info-endpoint]: ~/labs/images/info-endpoint.png "Info endpoint"
 [trace-log]: ~/labs/images/trace-log.png "Trace logs"
 
-[home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-|[Back to intro](index.md)&nbsp;&nbsp;&nbsp;|
-|---------:|
+||[Next Exercise >>][exercise-2-link]|
+|:--|--:|
 
 # Getting to know Steeltoe
 
@@ -249,5 +249,5 @@ Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
 
 These are the basics of any cloud ready microservice. Logging and debugging are significantly different than a traditional IIS environment. But! A developer shouldn't be spending tons of time coding these boilerplate-type things. Heeelllo Steeltoe!
 
-|[<< Back to Introduction][home-page-link]|[Next Exercise >>][exercise-2-link]|
+||[Next Exercise >>][exercise-2-link]|
 |:--|--:|

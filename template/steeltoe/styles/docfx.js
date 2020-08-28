@@ -382,6 +382,11 @@ $(function () {
   
     // Update href in navbar
     function renderNavbar() {
+      var showNav = $("meta[property='docfx:shownav']").attr("content")
+      if(typeof (showNav) !== 'undefined' && showNav === 'false'){
+        return;
+      }
+
       var navbar = $('#navbar ul')[0];
       if (typeof (navbar) === 'undefined') {
         loadNavbar();
