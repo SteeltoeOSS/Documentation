@@ -10,6 +10,8 @@ _disableNav: true
 [single-todoitem]: ~/labs/images/single-todoitem.png "ToDo item retrieved from the database"
 [run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
 [vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
+[vs-new-folder]: ~/labs/images/vs-new-folder.png "Create a new project folder"
+[vs-new-class]: ~/labs/images/vs-new-class.png "Create a new project class"
 
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
@@ -32,59 +34,117 @@ App initializes the database and serves new endpoint for interacting with Todo l
 
 ## Get Started
 
-We're going to add a database connection and context using entity framework code to the previously created application. To get started add the Steeltoe package `Steeltoe.Connector.SqlServer.EFCore`.
-
-# [.NET CLI](#tab/dotnet-cli)
-
-```powershell
-dotnet add package Steeltoe.Connector.SqlServer.EFCore
-```
+We're going to add a database connection and context using entity framework, to the previously created application. To get started add the Steeltoe package `Steeltoe.Connector.EFCore`.
 
 # [Visual Studio](#tab/visual-studio)
 
 ![vs-add-efcore]
 
+# [.NET CLI](#tab/dotnet-cli)
+
+```powershell
+dotnet add package Steeltoe.Connector.EFCore
+```
+
 ***
 
 ## Add database context and model
 
-Now create a new folder named `Models`. Within create a new class named `TodoContext.cs`. This class will serve as our context for interacting with the database. Paste the following in the class.
+Now create a new folder in the project named 'Models'.
+
+# [Visual Studio](#tab/visual-studio)
+
+Right click on the project name in the solution explorer and choose "Add" > "New Folder" and name it `Models`.
+
+![vs-new-folder]
+
+# [.NET CLI](#tab/dotnet-cli)
+
+```powershell
+mkdir "Models"
+cd "Models"
+```
+
+***
+
+Within that folder create a new class named 'TodoContext.cs'. This class will serve as our context for interacting with the database.
+
+# [Visual Studio](#tab/visual-studio)
+
+Right click on the 'Models' folder and choose "Add" > "Class..." and name it `TodoContext.cs`.
+
+![vs-new-class]
+
+# [.NET CLI](#tab/dotnet-cli)
+
+```powershell
+dotnet new classlib -n "TodoContext.cs"
+```
+
+***
+
+Open the newly created class file in your IDE and include the 'EntityFrameworkCore' package.
 
 ```csharp
 using Microsoft.EntityFrameworkCore;
-
-namespace WebApplication1.Models {
-  public class TodoContext : DbContext { 
-    public TodoContext(): base(){ }  
-    public TodoContext(DbContextOptions<TodoContext> options)
-        : base(options) {
-    }
-
-    public DbSet<TodoItem> TodoItems { get; set; }
-  }
-}
 ```
 
-Also in the `Models` folder, create a class named `TodoItem.cs` and paste the following within. This will serve as a definition of the things that make up a ToDo list item.
+Also replace the class statement with this. Don't change the 'namespace' part, just the class within the namespace.
 
 ```csharp
-using System;
-
-namespace WebApplication1.Models {
-  public class TodoItem {
-    public long Id { get; set; }
-    public string Name { get; set; }
-    public bool IsComplete { get; set; }
+public class TodoContext : DbContext { 
+  public TodoContext(): base(){ }  
+  public TodoContext(DbContextOptions<TodoContext> options)
+      : base(options) {
   }
+
+  public DbSet<TodoItem> TodoItems { get; set; }
 }
 ```
+
+Also in the 'Models' folder, create a class named 'TodoItem.cs'. This will serve as a definition of the things that make up a ToDo list item.
+
+# [Visual Studio](#tab/visual-studio)
+
+Right click on the 'Models' folder and choose "Add" > "Class..." and name it `TodoItem.cs`.
+
+![vs-new-class]
+
+# [.NET CLI](#tab/dotnet-cli)
+
+```powershell
+dotnet new classlib -n "TodoItem.cs"
+```
+
+***
+
+Open the newly created class file in your IDE and replace th class statement with this. Don't change the 'namespace' part, just the class within the namespace.
+
+```csharp
+public class TodoItem {
+  public long Id { get; set; }
+  public string Name { get; set; }
+  public bool IsComplete { get; set; }
+}
+```
+
+> [!TIP]
+> The 'TodoItem' class is whats known as a POCO. Plain Old Csharp Object. No fancy stuff... not even a 'using' statement.
 
 ## Implement the database context and ensure its creation
 
-Now head over to `Startup.cs` and add the 'DBContext'. Visual Studio should prompt you to add `using Steeltoe.Connector.SqlServer.EFCore` package.
+Now that we have created the 'TodoContext' we need to add it to the services container.
 
 [NOTE!]
-There is not need to add any other packages like a SqlClient. The Steeltoe package takes care of everything.
+If prompted, there is not need to add any other packages like a SqlClient. The Steeltoe package takes care of everything.
+
+Open "Startup.cs" in your IDE and add the using statement
+
+```csharp
+using Steeltoe.Connector.SqlServer.EFCore;
+```
+
+Then append the 'add db' statement to the 'ConfigureServices' method and save the changes
 
 ```csharp
 public void ConfigureServices(IServiceCollection services) {
@@ -94,7 +154,7 @@ public void ConfigureServices(IServiceCollection services) {
 }
 ```
 
-Because we are going to be interacting with a brand new database instance we'll need to make sure the database has been initialized before the application can fully start up. In `Startup.cs` adjust the input parameters of the `Configure` function to include the TodoContext and add the `EnsureCreated` command as the last line in the function.
+Because we are going to be interacting with a brand new database instance we'll need to make sure the database has been initialized before the application can fully start up. In "Startup.cs" adjust the input parameters of the 'Configure' function to include the TodoContext and add the 'EnsureCreated' command as the last line in the function.
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TodoContext context) {
@@ -107,7 +167,24 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TodoCont
 
 ## Create a Todo controller
 
-Create a new class in the `Controllers` folder named `TodoItemsController.cs` and paste the following within.
+Create a new class in the 'Controllers' folder named `TodoItemsController.cs`.
+
+# [Visual Studio](#tab/visual-studio)
+
+Right click on the 'Controllers' folder and choose "Add" > "Class..." and name it `TodoItemsController.cs`.
+
+![vs-new-class]
+
+# [.NET CLI](#tab/dotnet-cli)
+
+```powershell
+cd ../Controllers
+dotnet new classlib -n "TodoItemsController.cs"
+```
+
+***
+
+Open the newly created class file in your IDE and replace and 'using' statements in the file with hte below.
 
 ```csharp
 using System;
@@ -117,90 +194,72 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+```
 
-namespace WebApplication1.Controllers
+Replace the class statement with this. Don't change the 'namespace' part, just the class within the namespace.
+
+```csharp
+[Route("api/[controller]")]
+[ApiController]
+public class TodoItemsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TodoItemsController : ControllerBase
-    {
-        private readonly TodoContext _context;
-        private readonly ILogger<TodoItemsController> _logger;
+  private readonly TodoContext _context;
+  private readonly ILogger<TodoItemsController> _logger;
 
-        public TodoItemsController(TodoContext context, ILogger<TodoItemsController> logger)
-        {
-            _context = context;
-            _logger = logger;
-        }
+  public TodoItemsController(TodoContext context, ILogger<TodoItemsController> logger)
+  {
+    _context = context;
+    _logger = logger;
+  }
 
-        // GET: api/TodoItems1
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
-        {
-            return await _context.TodoItems.ToListAsync();
-        }
+  // GET: api/TodoItems1
+  [HttpGet]
+  public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+  {
+    return await _context.TodoItems.ToListAsync();
+  }
 
-        // GET: api/TodoItems1/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
-        {
-            if (id == 0) {
-              var newItem = new TodoItem() {
-                IsComplete = false,
-                Name = "A new auto-generated todo item"
-              };
+  // GET: api/TodoItems/5
+  [HttpGet("{id}")]
+  public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
+  {
+    if (id == 0) {
+      var newItem = new TodoItem() {
+        IsComplete = false,
+        Name = "A new auto-generated todo item"
+      };
 
-              _context.TodoItems.Add(newItem);
-              await _context.SaveChangesAsync();
+      _context.TodoItems.Add(newItem);
+      await _context.SaveChangesAsync();
 
-              _logger.LogInformation("Super secret id==0 was provided, so a new item was auto-added.");
-            }
-
-            var todoItem = await _context.TodoItems.FindAsync(id);
-
-            if (todoItem == null)
-            {
-                return NotFound();
-            }
-
-            return todoItem;
-        }
-
-        // POST: api/TodoItems1
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
-        {
-            _context.TodoItems.Add(todoItem);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-        }
-
-        private bool TodoItemExists(long id)
-        {
-            return _context.TodoItems.Any(e => e.Id == id);
-        }
+      _logger.LogInformation("Super secret id==0 was provided, so a new item was auto-added.");
     }
-}
 
+    var todoItem = await _context.TodoItems.FindAsync(id);
+
+    if (todoItem == null)
+    {
+        return NotFound();
+    }
+
+    return todoItem;
+  }
+}
 ```
 
 ## Update appsettings.json with database connection
 
-To get a running instance of SQL, you could go a few different paths. Depending on how the instance is made available, you'll want to adjust the values in `appsettings.json`.
+To get a running instance of SQL, you could go a few different paths. Depending on how the instance is made available you'll want to adjust the values in `appsettings.json`.
 
 # [Visual Studio LocalDB](#tab/Visual-Studio-LocalDB)
 
-Using Visual Studio's built in SQL: If your Visual Studio installation has the ".NET Desktop Development" feature enabled and within the "SQL Server Express LocalBD" option is selected, then you have a ready to go SQL instance. Uncomment the `server` option and provide a value of `(localdb)\MSSQLLocalDB`. The port will default to 1433. If you would like to confirm the database server is running, open powershell and run `sqllocaldb i MSSQLLocalDB`.
+If your Visual Studio installation has this feature enabled (there's a very good chance), then you have a ready to go SQL instance. Uncomment the `ConnectionString` option and remove all other parameters (server, port, etc). If you would like to confirm the database server is running, open powershell and run `sqllocaldb i MSSQLLocalDB`.
 
 # [Local & Docker SQL](#tab/Local-SQL)
 
-[Running SQL locally](https://www.sqlservertutorial.net/install-sql-server/): Mostly likely the instance is running on `localhost` through port `1433`. If so then continue on, thats the default.
-[Running in docker (desktop)](https://hub.docker.com/_/microsoft-mssql-server): If it's available on 'localhost' port '1433' then continue on. Otherwise you'll need to uncomment the `server` and `port` parameters in appsettings and provide valid values.
+Mostly likely the instance is running on `localhost` through port `1433`. If so then remove all parameters (server, port, etc) and let Steeltoe use buitin defaults. Otherwise use the provided parameters to configure the connection correctly.
 
-An example docker command you could run locally to get everything going is:
+An example docker command you could run an instance locally is:
 
 ```powershell
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
@@ -208,11 +267,9 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d m
 
 # [Other](#tab/other-sql)
 
-Running outside your local desktop: If SQL is running somewhere else you'll need its URI and port number. Uncomment the `server` and `port` parameters in appsettings and provide valid values.
+If your SQL instance is running somewhere else you'll need its URI port number and credentials. Use the provided parameters to configure the connection correctly.
 
 ***
-
-As for the `username` and `password` values in `appsettings.json` if you are using Visual Studio's built in SQL leave them commented out. Otherwise replace the placeholder with valid values. The account will need enough permission to create a new database and add tables within. 
 
 Overwrite default values in `appsettings.json` so that Steeltoe can connect to the database instance.
 
@@ -228,6 +285,7 @@ Overwrite default values in `appsettings.json` so that Steeltoe can connect to t
   "AllowedHosts": "*",
   "sqlserver": {
     "credentials": {
+      //"ConnectionString": "Server=(localdb)\\mssqllocaldb;database=Todo;Trusted_Connection=True;",
       "server": %%SQL_SERVER_ADDRESS%%,
       "port": %%SQL_SERVER_PORT%%,
       "username": %%SQL_SERVER_USERNAME%%,
@@ -272,9 +330,23 @@ dotnet run
 
 ## Work with saved ToDo items
 
-To test the database connection, navigate to the "GET" endpoint where all saved ToDo list items will be retrieved. Oh wait! It's a new database there aren't any items saved yet. Let add a new ToDo list item. If you noticed in the `GetTodoItem` method of the `TodoItemsController`, there is a super secret value you can provide to add new list items. Replace `WeatherForecast` with `api/TodoItems/0` in the browser address bar. This page should load successfully but not provide much feedback. Behind the scenes you've just added a new list item. To confirm, lets retrieve the saved list of items by removing the `\0` in the address and loading the page. Wow! Now there is 1 list item retrieved from the database. Awesome!
+To test the database connection, navigate to the "GET" endpoint where all saved ToDo list items will be retrieved. **Oh wait!** It's a new database there aren't any items saved yet. Let add a new ToDo list item.
+
+You may have noticed in the 'GetTodoItem' method of the 'TodoItemsController', there is a super secret value you can provide to add new list items. Replace `WeatherForecast` with `api/TodoItems/0` in the browser address bar. This page should load successfully but not provide much feedback. Behind the scenes you've just added a new list item. To confirm, lets retrieve the saved list of items by removing the "\0" in the address and loading the page. Wow! Now there is 1 list item retrieved from the database. Awesome!
 
 ![single-todoitem]
+
+## Stop the application
+
+# [Visual Studio](#tab/visual-studio)
+
+Either close the browser window or click the red stop button in the top menu.
+
+# [.NET CLI](#tab/dotnet-cli)
+
+Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
+
+***
 
 ## Summary
 
