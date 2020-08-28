@@ -133,10 +133,10 @@ In 'appsettings.json' append the following json. This should be preloaded with t
   "cloud": {
     "config": {
       "validateCertificates": false,
+      "FailFast": %%SPRING_CONFIG_FAILFAST%%,
       "uri": %%SPRING_CONFIG_URI%%,
-      "Username": %%SPRING_CONFIG_USERNAME%%,
-      "Password": %%SPRING_CONFIG_PASSWORD%%,
-      "FailFast": %%SPRING_CONFIG_FAILFAST%%
+      //"Username": %%SPRING_CONFIG_USERNAME%%,
+      //"Password": %%SPRING_CONFIG_PASSWORD%%
     }
   }
 }
