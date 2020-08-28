@@ -28,7 +28,7 @@ Setup an external git repo holding configuration values and using Spring Config 
 With a running instance of Spring Config server, navigate to an endpoint in a .NET Core application and see the values output.
 
 > [!NOTE]
-> For this exercise a Spring Config server have already been initialized.
+> For this exercise a Spring Config server have already been initialized. The settings have been preloaded below.
 
 ## Get Started
 

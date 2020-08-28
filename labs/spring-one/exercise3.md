@@ -32,6 +32,9 @@ Add a ToDo list data context and item model to the app to see how Steeltoe manag
 
 App initializes the database and serves new endpoint for interacting with Todo list items.
 
+> [!NOTE]
+> For this exercise an MS SQL database have already been initialized. The settings have been preloaded below.
+
 ## Get Started
 
 We're going to add a database connection and context using entity framework to the previously created application. To get started add the Steeltoe package `Steeltoe.Connector.EFCore`.
@@ -270,36 +273,16 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d m
 If your SQL instance is running somewhere else you'll need its URI port number and credentials. Use the provided parameters to configure the connection correctly.
 
 *** -->
-Overwrite default values in `appsettings.json` so that Steeltoe can connect to the database instance.
+Add the below json to 'appsettings.json'. This will give Steeltoe connection information for the database instance.
 
 ```json
-{
-  "$schema": "https://steeltoe.io/schema/latest/schema.json",
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft": "Warning",
-      "Steeltoe": "Information"
-    }
-  },
-  "AllowedHosts": "*",
-  "sqlserver": {
-    "credentials": {
-      //"ConnectionString": "Server=(localdb)\\mssqllocaldb;database=Todo;Trusted_Connection=True;",
-      "server": %%SQL_SERVER_ADDRESS%%,
-      "port": %%SQL_SERVER_PORT%%,
-      "username": %%SQL_SERVER_USERNAME%%,
-      "password": %%SQL_SERVER_PASSWORD%%
-    }
-  },
-  "management": {
-    "endpoints": {
-      "actuator": {
-        "exposure": {
-          "include": [ "*" ]
-        }
-      }
-    }
+"sqlserver": {
+  "credentials": {
+    //"ConnectionString": "Server=(localdb)\\mssqllocaldb;database=Todo;Trusted_Connection=True;",
+    "server": %%SQL_SERVER_ADDRESS%%,
+    "port": %%SQL_SERVER_PORT%%,
+    "username": %%SQL_SERVER_USERNAME%%,
+    "password": %%SQL_SERVER_PASSWORD%%
   }
 }
 ```
