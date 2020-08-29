@@ -75,7 +75,7 @@ The following example shows how to use the metrics actuator endpoint:
 ```csharp
  public static IHost BuildHost(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .AddHealthActuator()
+            .AddMetricsActuator()
             .Build();
 ```
 
