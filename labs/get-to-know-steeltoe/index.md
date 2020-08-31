@@ -4,7 +4,7 @@ _disableToc: true
 _disableFooter: true
 _homePath: "./"
 _disableNav: true
-uid: labs/spring-one
+uid: labs/get-to-know-steeltoe
 ---
 
 [strigo-desktop-vs]: ~/labs/images/strigo-desktop-vs.png "Strigo windows placement with Visual Studio"

@@ -1,5 +1,5 @@
 ﻿---
-uid: labs/spring-one/exercise3
+uid: labs/get-to-know-steeltoe/exercise3
 _disableContribution: true
 _disableToc: true
 _disableFooter: true

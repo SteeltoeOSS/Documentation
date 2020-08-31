@@ -1,5 +1,5 @@
 ---
-uid: labs/spring-one/summary
+uid: labs/get-to-know-steeltoe/summary
 _disableContribution: true
 _disableToc: true
 _disableFooter: true
