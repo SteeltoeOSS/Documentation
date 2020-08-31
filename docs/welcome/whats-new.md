@@ -118,7 +118,7 @@ HostBuilder.CreateDefaultBuilder()
   .AddAllActuators()
 ```
 
-These extensions generally depend on the same underlying code, so if you'd rather do this work in `startup.cs` you absolutely still can, these are convenience methods. These extensions are also typically availabile for `WebHostBuilder` as well. Look for more information on these extensions in the relevant component area.
+These extensions generally depend on the same underlying code, so if you'd rather do this work in `Startup.cs` you absolutely still can, these are convenience methods. These extensions are also typically available for `WebHostBuilder` as well. Look for more information on these extensions in the relevant component area.
 
 ## Release Notes
 
