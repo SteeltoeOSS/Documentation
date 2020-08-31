@@ -116,17 +116,20 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 			webBuilder.UseStartup<Startup>();
 		})
 
-		//Steeltoe actuator packages
+		//Steeltoe actuators
 		.AddHealthActuator()
 		.AddInfoActuator()
 		.AddLoggersActuator()
+
+    //Steeltoe dynamic logging
+    .AddDynamicLogging()
 		;
 ```
 
 We've implemented 3 features within the application by adding these actuators
 
-- The health actuator will add a new endpoint at `/actuators/health`. Internally this function uses .NET's IHealthContributor to "decide" if everything is reporting good health and responds with HTTP 200 status. Also within the response body there is a json formatted message to accommodate a deeper check that specific platforms like Cloud Foundry and Kubernetes do.
-- The info actuator adds a new endpoint at `/actuators/info`. This function gathers all kinds of information like versioning information, select package information, and DLL info. Everything is formatted as json and included in the response.
+- The health actuator will add a new endpoint at `/actuator/health`. Internally this function uses .NET's IHealthContributor to "decide" if everything is reporting good health and responds with HTTP 200 status. Also within the response body there is a json formatted message to accommodate a deeper check that specific platforms like Cloud Foundry and Kubernetes do.
+- The info actuator adds a new endpoint at `/actuator/info`. This function gathers all kinds of information like versioning information, select package information, and DLL info. Everything is formatted as json and included in the response.
 - The loggers actuator enables enhanced log message details via ILogger.
 
 ## Enable distributed tracing

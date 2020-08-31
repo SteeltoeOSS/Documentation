@@ -41,27 +41,20 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 		//Steeltoe actuators
 		.AddAllActuators()
+
+    //Steeltoe dynamic logging
+    .AddDynamicLogging()
 		;
 ```
 
-Expose all the actuator endpoints for debugging and demonstration purposes in "appsettings.json".
+Expose all the actuator endpoints for debugging and demonstration purposes in "appsettings.json". Append the below json just after the "AllowedHosts" line (should be around line 10). And save the file.
 
 ```json
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft": "Warning",
-      "Steeltoe": "Information"
-    }
-  },
-  "AllowedHosts": "*",
-  "management": {
-    "endpoints": {
-      "actuator": {
-        "exposure": {
-          "include": [ "*" ]
-        }
+,"management": {
+  "endpoints": {
+    "actuator": {
+      "exposure": {
+        "include": [ "*" ]
       }
     }
   }

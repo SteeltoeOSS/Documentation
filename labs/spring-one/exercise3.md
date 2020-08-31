@@ -6,12 +6,13 @@ _disableFooter: true
 _homePath: "./"
 _disableNav: true
 ---
-[vs-add-efcore]: ~/labs/images/vs-add-efcore.png "SqlServer EFCore nuget dependency"
+[vs-add-efcore]: ~/labs/images/vs-add-efcore.png "Steeltoe EFCore nuget dependency"
 [single-todoitem]: ~/labs/images/single-todoitem.png "ToDo item retrieved from the database"
 [run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
 [vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
 [vs-new-folder]: ~/labs/images/vs-new-folder.png "Create a new project folder"
 [vs-new-class]: ~/labs/images/vs-new-class.png "Create a new project class"
+[vs-add-efsqlserver]: ~/labs/images/vs-add-efsqlserver.png "Microsoft SqlServer EFCore nuget dependency"
 
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
@@ -37,16 +38,21 @@ App initializes the database and serves new endpoint for interacting with Todo l
 
 ## Get Started
 
-We're going to add a database connection and context using entity framework to the previously created application. To get started add the Steeltoe package `Steeltoe.Connector.EFCore`.
+We're going to add a database connection and context using entity framework to the previously created application.
 
 # [Visual Studio](#tab/visual-studio)
 
+Right click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manger window choose "Browse", then search for `Steeltoe.Connector.EFCore`, and install.
 ![vs-add-efcore]
+
+Then search for the `Microsoft.EntityFrameworkCore.SqlServer` package and install.
+![vs-add-efsqlserver]
 
 # [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
 dotnet add package Steeltoe.Connector.EFCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 ***
@@ -132,14 +138,14 @@ public class TodoItem {
 ```
 
 > [!TIP]
-> The 'TodoItem' class is whats known as a POCO. Plain Old Csharp Object. No fancy stuff... not even a 'using' statement.
+> The 'TodoItem' class is whats known as a POCO. Plain Old Csharp Object. No fancy stuff... don't even need the preloaded 'using' statements if you'd like to remove them.
 
 ## Implement the database context and ensure its creation
 
 Now that we have created the 'TodoContext' we need to add it to the services container.
 
-[NOTE!]
-If prompted, there is not need to add any other packages like a SqlClient. The Steeltoe package takes care of everything.
+> [NOTE!]
+> If prompted, there is not need to add any other packages like a SqlClient. The Steeltoe package takes care of everything.
 
 Open "Startup.cs" in your IDE and add the using statement
 
@@ -151,7 +157,7 @@ Then append the 'add db' statement to the 'ConfigureServices' method and save th
 
 ```csharp
 public void ConfigureServices(IServiceCollection services) {
-  services.AddDbContext<TodoContext>(options => options.UseSqlServer(Configuration));
+  services.AddDbContext<Models.TodoContext>(options => options.UseSqlServer(Configuration));
 
   //...
 }
@@ -160,7 +166,7 @@ public void ConfigureServices(IServiceCollection services) {
 Because we are going to be interacting with a brand new database instance we'll need to make sure the database has been initialized before the application can fully start up. In "Startup.cs" adjust the input parameters of the 'Configure' function to include the TodoContext and add the 'EnsureCreated' command as the last line in the function.
 
 ```csharp
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TodoContext context) {
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Models.TodoContext context) {
   
   //...
 
@@ -187,16 +193,14 @@ dotnet new classlib -n "TodoItemsController.cs"
 
 ***
 
-Open the newly created class file in your IDE and replace and 'using' statements in the file with the below.
+Open the newly created class file in your IDE and replace the 'using' statements in the file with the below.
 
 ```csharp
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
+using Microsoft.Extensions.Logging;
 ```
 
 Replace the class statement with this. Don't change the 'namespace' part, just the class within the namespace.
@@ -206,10 +210,10 @@ Replace the class statement with this. Don't change the 'namespace' part, just t
 [ApiController]
 public class TodoItemsController : ControllerBase
 {
-  private readonly TodoContext _context;
+  private readonly Models.TodoContext _context;
   private readonly ILogger<TodoItemsController> _logger;
 
-  public TodoItemsController(TodoContext context, ILogger<TodoItemsController> logger)
+  public TodoItemsController(Models.TodoContext context, ILogger<TodoItemsController> logger)
   {
     _context = context;
     _logger = logger;
@@ -217,17 +221,17 @@ public class TodoItemsController : ControllerBase
 
   // GET: api/TodoItems1
   [HttpGet]
-  public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+  public async Task<ActionResult<IEnumerable<Models.TodoItem>>> GetTodoItems()
   {
     return await _context.TodoItems.ToListAsync();
   }
 
   // GET: api/TodoItems/5
   [HttpGet("{id}")]
-  public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
+  public async Task<ActionResult<Models.TodoItem>> GetTodoItem(long id)
   {
     if (id == 0) {
-      var newItem = new TodoItem() {
+      var newItem = new Models.TodoItem() {
         IsComplete = false,
         Name = "A new auto-generated todo item"
       };
@@ -273,10 +277,10 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d m
 If your SQL instance is running somewhere else you'll need its URI port number and credentials. Use the provided parameters to configure the connection correctly.
 
 *** -->
-Add the below json to 'appsettings.json'. This will give Steeltoe connection information for the database instance.
+Add the below json to 'appsettings.json', just after the 'management' section. This will give Steeltoe connection information for the database instance as well as name the new database.
 
 ```json
-"sqlserver": {
+,"sqlserver": {
   "credentials": {
     //"ConnectionString": "Server=(localdb)\\mssqllocaldb;database=Todo;Trusted_Connection=True;",
     "server": %%SQL_SERVER_ADDRESS%%,
@@ -289,7 +293,7 @@ Add the below json to 'appsettings.json'. This will give Steeltoe connection inf
 
 ## Review what was done
 
-Before we see everything in action lets review what has been done. With the Steeltoe EFCore package added we create a definition of a database context and list item. Then we used them in startup to be a part of dependency injection. Instead of bringing in the typical SqlClient packages to help define things, we used `Steeltoe.Connector.SqlServer.EFCore`. This package not only has all needed sub-packages included but also introduces easily configurable settings. To learn more about what values can be customised, [have a look at the docs](https://steeltoe.io/docs/3/connectors/microsoft-sql-server). In our example we're using the default port of '1433' and a server name of 'localhost'. If you wanted the app to connect to a SQL database hosted elsewhere you could provide different values. Also we've provided the required credentials and server name in `appsettings.json`. The database name will be derived from our ToDo context. They key is to give the Steeltoe connector a valid healthy connection to a SQL instance, it will do the rest.
+Before we see everything in action lets review what has been done. With the Steeltoe EFCore package added we create a definition of a database context and list item. Then we used them in startup to be a part of dependency injection. Instead of bringing in the typical SqlClient packages to help define things, we used `Steeltoe.Connector.SqlServer.EFCore`. This package not only has all needed sub-packages included but also introduces easily configurable settings. To learn more about what values can be customized, [have a look at the docs](https://steeltoe.io/docs/3/connectors/microsoft-sql-server). In our example we're using the default port of '1433' and a server name of 'localhost'. If you wanted the app to connect to a SQL database hosted elsewhere you could provide different values. Also we've provided the required credentials and server name in `appsettings.json`. The database name will be derived from our ToDo context. They key is to give the Steeltoe connector a valid healthy connection to a SQL instance, it will do the rest.
 
 ## Run the application
 
@@ -319,7 +323,7 @@ With the application running and the weather forecast endpoint loaded your brows
 
 To test the database connection, navigate to the "GET" endpoint where all saved ToDo list items will be retrieved. **Oh wait!** It's a new database there aren't any items saved yet. Let add a new ToDo list item.
 
-You may have noticed in the 'GetTodoItem' method of the 'TodoItemsController', there is a super secret value you can provide to add new list items. Replace `WeatherForecast` with `api/TodoItems/0` in the browser address bar. This page should load successfully but not provide much feedback. Behind the scenes you've just added a new list item. To confirm, lets retrieve the saved list of items by removing the "\0" in the address and loading the page. Wow! Now there is 1 list item retrieved from the database. Awesome!
+You may have noticed in the 'TodoItemsController.GetTodoItem' method, there is a super secret value you can provide to add new list items. Replace `WeatherForecast` with `api/TodoItems/0` in the browser address bar. This page should load successfully but not provide much feedback. Behind the scenes you've just added a new list item. To confirm lets retrieve the saved list of items. Remove the `/0` in the address and loading the page. Wow! Now there is 1 list item retrieved from the database. Awesome!
 
 ![single-todoitem]
 
@@ -337,7 +341,7 @@ Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
 
 ## Summary
 
-We've done quite a bit in this exercise but notice it was mostly focused on working with the ToDo list. Thats the purpose of this service. Working on business logic and spending less time with the boiler plate stuff is one of Steeltoe's super powers.
+We've done quite a bit in this exercise but notice it was mostly focused on working with the ToDo list. You never had to open a SQL editor, create a database, test the database, etc etc. Thats the purpose of this Steeltoe Connectors. They take care of all the messy behind-the-scenes work and let you focus on the business logic. Yeah we know, it's pretty awesome. Being awesome is one of Steeltoe's super powers.
 
 |[<< Previous Exercise][exercise-2-link]|[Next Exercise >>][exercise-4-link]|
 |:--|--:|
