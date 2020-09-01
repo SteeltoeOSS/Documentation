@@ -8,7 +8,6 @@ uid: labs/modernize-dotnet
 ---
 
 [strigo-desktop-vs]: ~/labs/images/strigo-desktop-vs.png "Strigo windows placement with Visual Studio"
-[strigo-desktop-vscode]: ~/labs/images/strigo-desktop-vscode.png "Strigo windows placement with VS Code"
 
 [exercise-1-link]: exercise1.md
 [buildpacks-link]: buildpacks.md
@@ -39,6 +38,11 @@ Our goals are
 1. Ensure the application is scalable  
 
 1. Use solutions that are minimally invasive to the code base
+
+Lab Details:
+------------
+* $HOME\src contains the solution. 
+* Your CF CLI is already authenticated
 
 |[Get started][exercise-1-link]|
 |:--:|
