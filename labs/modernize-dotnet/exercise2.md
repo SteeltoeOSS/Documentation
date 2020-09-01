@@ -11,7 +11,7 @@ _disableNav: true
 [buildpacks-link]: buildpacks.md
 [exercise-2-link]: exercise2.md
 
-||[<< Prev][buildpacks-link]|
+|[<< Prev][buildpacks-link]||
 |:--|--:|
 
 # Exercise 2
@@ -74,5 +74,5 @@ Now visit the "ViewCounter" in a browser again. Again, the first few requests mi
 
 SSSSSSSSSS
 
-||[<< Prev][buildpacks-link]|
+|[<< Prev][buildpacks-link]||
 |:--|--:|
