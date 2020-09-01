@@ -8,9 +8,10 @@ _disableNav: true
 ---
 
 [exercise-1-link]: exercise1.md
+[buildpacks-link]: buildpacks.md
 [exercise-2-link]: exercise2.md
 
-||[Next Exercise >>][exercise-2-link]|
+||[Next >>][buildpacks-link]|
 |:--|--:|
 
 # Exercise 1
@@ -86,5 +87,5 @@ cf scale -i 2 <app-name>
 
 SSSSSSSSSS
 
-||[Next Exercise >>][exercise-2-link]|
+||[Next >>][buildpacks-link]|
 |:--|--:|

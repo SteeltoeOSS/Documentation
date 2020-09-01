@@ -8,12 +8,13 @@ _disableNav: true
 ---
 
 [exercise-1-link]: exercise1.md
+[buildpacks-link]: buildpacks.md
 [exercise-2-link]: exercise2.md
 
-||[Prev Exercise >>][exercise-1-link]|
+||[<< Prev][buildpacks-link]|
 |:--|--:|
 
-# Exercise 1
+# Exercise 2
 
 ## Goal
 
@@ -73,5 +74,5 @@ Now visit the "ViewCounter" in a browser again. Again, the first few requests mi
 
 SSSSSSSSSS
 
-||[Prev Exercise >>][exercise-1-link]|
+||[<< Prev][buildpacks-link]|
 |:--|--:|
