@@ -12,30 +12,32 @@ uid: labs/modernize-dotnet
 
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
-[exercise-3-link]: exercise3.md
-[exercise-4-link]: exercise4.md
 
-## Spring One Workshops - GModernizing .NET Applications with VMware Tanzu Application Service
+## Spring One Workshops - Modernizing .NET Applications with VMware Tanzu Application Service
 
-In this session we will take an existing .NET Framework application that is working perfectly fine in IIS, as an api serving up restful endpoints, and we will publish to Tanzu Application Services for Windows. Along the way we will use Steeltoe to modernize things a bit, as well create a cf manifest for deployment.
+In this workshop we’re going to perform a lightweight modernization of a fictitious full framework ASP.NET MVC application who's front-end consumes a WebAPI backend. The application is presumed to run on IIS today using standard virtual or physical infrastructure and our task is to migrate the application to Cloud Foundry. Our modernization efforts will involve building the necessary artifacts to get the application to run at all in the cloud and to allow the application to scale once it gets there.  
 
-This lab has YYYYYY exercises zzzzzzz:
+All the while we’ll try to use a lightweight approach and make as few changes to application code as possible.  
 
-|||
-|:--:|:--|
-|1.|XXXXXX|
-|2.|XXXXXX|
+Current State 
+----------------
 
-<br/>
+Our sample application for this working is a single solution containing two projects. The first project is a WebAPI project exposing a single endpoint. The second project is an ASP.NET MVC front-end that consumes the WebAPI endpoint from JavaScript. 
 
->[!TIP]
-> As you make your way through the labs the idea is to place your IDE and the lab steps side-by-side. Before continuing with the workshop go ahead and open your preferred IDE by clicking either the purple Visual Studio icon or the blue VS Code icon in the task bar.
+The application is designed with an IIS topology in mind with both applications sharing a common hostname, the frontend responding to the root, and the backend living in a virtual directory located at the path “/api”. 
 
-With Visual Studio as your IDE
-![strigo-desktop-vs]
+The frontend exposes an endpoint that tracks session-level view counts and is configured to use “InProc” session state. 
 
-With VS COde as your IDE
-![strigo-desktop-vscode]
+Desired State: 
+----------------
+
+Our goals are  
+
+1. Get this application operational on Cloud Foundry  
+
+1. Ensure the application is scalable  
+
+1. Use solutions that are minimally invasive to the code base
 
 |[Get started][exercise-1-link]|
 |:--:|
