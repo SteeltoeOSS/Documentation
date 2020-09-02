@@ -240,6 +240,7 @@ public class TodoItemsController : ControllerBase
       await _context.SaveChangesAsync();
 
       _logger.LogInformation("Super secret id==0 was provided, so a new item was auto-added.");
+      return null;
     }
 
     var todoItem = await _context.TodoItems.FindAsync(id);

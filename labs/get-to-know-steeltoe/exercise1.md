@@ -105,6 +105,7 @@ Open "Program.cs" in the IDE and add the using statement
 
 ```csharp
 using Steeltoe.Management.Endpoint;
+using Steeltoe.Extensions.Logging;
 ```
 
 Then append the 'adding' statements to the host builder and save the changes
