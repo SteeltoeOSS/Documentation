@@ -7,6 +7,9 @@ _homePath: "./"
 _disableNav: true
 ---
 
+[exercise-1-link]: exercise1.md
+[exercise-2-link]: exercise2.md
+
 [modernize-frontend-newmanifest]: ~/labs/images/modernize-frontend-newmanifest.png "Create a new manifest for the frontend"
 [modernize-frontend-publish]: ~/labs/images/modernize-frontend-publish.png "Publish the frontend"
 [modernize-frontend-publish2]: ~/labs/images/modernize-frontend-publish2.png "Publish the frontend"
@@ -15,12 +18,7 @@ _disableNav: true
 [modernize-service-result]: ~/labs/images/modernize-service-result.png "Results of the service"
 [modernize-frontend-result]: ~/labs/images/modernize-frontend-result.png "Results of the service as consumed by the frontend"
 
-
-
-[exercise-1-link]: exercise1.md
-[exercise-2-link]: exercise2.md
-
-||[Next >>][exercise2-link]|
+||[Next Exercise >>][exercise-2-link]|
 |:--|--:|
 
 # Exercise 1
@@ -39,6 +37,12 @@ Simulate an IIS Virtual Directory structure with routes in TAS
 ### Deploy the frontend application
 Using VS Code, create a manifest file for the web frontend named `manifest.yml` in the `WorkshopFrontEnd` directory. In this case every field can remain the same as the example.
 
+<br><br><br>
+![modernize-frontend-newmanifest]
+<br><br><br>
+
+With the following content
+
 ```
 ---
 applications:
@@ -48,10 +52,6 @@ applications:
   buildpacks: 
     - hwc_buildpack
 ```
-
-<br><br><br>
-![modernize-frontend-newmanifest]
-<br><br><br>
 
 In Visual Studio publish the application to the Folder profile by right-clicking the `WorkshopFrontEnd` project, selecting `Publish`, and clicking the `Publish` button on the right.
 
@@ -77,7 +77,7 @@ cf app <front-end-app-name>
 ![modernize-frontend-cfapp]
 <br><br><br>
 
-Select "ViewCounter" from the top menu of the web application. See the counter increments with every refresh. Do this 10 times or so to verify.
+Select `ViewCounter` from the top menu of the web application. See the counter increments with every refresh. Do this 10 times or so to verify.
 
 ### Deploy the API
 
@@ -121,5 +121,5 @@ Now validate that the frontend is consuming the API by visiting `https://chrisum
 
 Note that in practice you can mix and match technologies behind context routes. For instance your `/api` could be a Java/Spring application and your front end at the root could be dotnet core, ASP.NET, or whatever you like. 
 
-||[Next >>][exercise2-link]|
+||[Next Exercise >>][exercise-2-link]|
 |:--|--:|
