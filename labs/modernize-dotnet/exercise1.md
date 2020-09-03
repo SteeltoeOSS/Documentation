@@ -67,7 +67,7 @@ In Powershell change directory to `WorkshopFrontEnd` (the directory containing `
 cf push <front-end-app-name> -s windows
 ```
 
-Find the url for your application by visitng it's route in a web browser. You can retreive the route with 
+Find the url for your application by visitng it's route in a web browser. You can retrieve the route with 
 
 ```powershell
 cf app <front-end-app-name>
@@ -79,7 +79,7 @@ cf app <front-end-app-name>
 
 Select `ViewCounter` from the top menu of the web application. See the counter increments with every refresh. Do this 10 times or so to verify.
 
-### Deploy the API
+### Deploy the API (optional)
 
 Using VS Code, create a manifest file named `manifest.yml` for the backend in the `WorkshopService` directory. In the begining of the route place the URL used by the frontend application without the protocol i.e. `john-q-smith-1990.cfapps.io`. Ensure the route has `/api` after the domain name. This instructs cloud foundry to send all requests to the `/api` context path to the backend service while all other requests are routed to the front.
 
