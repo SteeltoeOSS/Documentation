@@ -10,7 +10,6 @@ uid: labs/modernize-dotnet
 [strigo-desktop-vs]: ~/labs/images/strigo-desktop-vs.png "Strigo windows placement with Visual Studio"
 
 [exercise-1-link]: exercise1.md
-[buildpacks-link]: buildpacks.md
 [exercise-2-link]: exercise2.md
 
 ## Spring One Workshops - Modernizing .NET Applications with VMware Tanzu Application Service
