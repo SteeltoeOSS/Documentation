@@ -61,7 +61,7 @@ In Visual Studio publish the application to the Folder profile by right-clicking
 ![modernize-frontend-publish2]
 <br><br><br>
 
-In Powershell change directory to `WorkshopFrontEnd` (the directory containing `WorkshopFrontEnd.csproj`). Then Push the web app to cloud foundry. Supply your own value for <front-end-app-name> that would likely be unique amoungst your classmates, like `john-q-smith-1990`. Ensure the Windows stack is targetting by setting the `-s` parameter to `windows`.
+In Powershell change directory to `WorkshopFrontEnd` (the directory containing `WorkshopFrontEnd.csproj`). Then Push the web app to cloud foundry. Supply your own value for &lt;front-end-app-name&gt; that would likely be unique amoungst your classmates, like `john-q-smith-1990`. Ensure the Windows stack is targetting by setting the `-s` parameter to `windows`.
 
 ```powershell
 cf push <front-end-app-name> -s windows
