@@ -64,6 +64,7 @@ In Visual Studio publish the application to the Folder profile by right-clicking
 In Powershell change directory to `WorkshopFrontEnd` (the directory containing `WorkshopFrontEnd.csproj`). Then Push the web app to cloud foundry. Supply your own value for &lt;front-end-app-name&gt; that would likely be unique amoungst your classmates, like `john-q-smith-1990`. Ensure the Windows stack is targetting by setting the `-s` parameter to `windows`.
 
 ```powershell
+cd c:\Users\WorkshopStudent\src\Workshop\WorkshopFrontEnd
 cf push <front-end-app-name> -s windows
 ```
 
@@ -79,7 +80,7 @@ cf app <front-end-app-name>
 
 Select `ViewCounter` from the top menu of the web application. See the counter increments with every refresh. Do this 10 times or so to verify.
 
-### Deploy the API (optional)
+### Deploy the API (optional, for more advanced CF users)
 
 Using VS Code, create a manifest file named `manifest.yml` for the backend in the `WorkshopService` directory. In the begining of the route place the URL used by the frontend application without the protocol i.e. `john-q-smith-1990.cfapps.io`. Ensure the route has `/api` after the domain name. This instructs cloud foundry to send all requests to the `/api` context path to the backend service while all other requests are routed to the front.
 
@@ -110,6 +111,7 @@ Publish the application to the Folder profile by right-clicking the `WorkshopSer
 In powershell change directory to `WorkshopService` (the directory containing `WorkshopService.csproj`) then push the service to cloud foundry. Since you're sharing a space with your classmates you'll need to ensure the name is unique. Also, ensure the app name is DIFFERENT than front end. Note that outside of the classroom each deployment of the application would likely have a different space. 
 
 ```powershell
+cd c:\Users\WorkshopStudent\src\Workshop\WorkshopService
 cf push <api-app-name> -s windows
 ```
 
@@ -119,7 +121,7 @@ Verify the service is working by visiting `https://<host-name.domain-name>/api/v
 ![modernize-service-result]
 <br><br><br>
 
-Now validate that the frontend is consuming the API by visiting `https://chrisumbelsapp.cfapps.io/Home/ApiClient` in your web browser. If you see `one two three` in the results then everythign is working. You've recreated an IIS virtual directory structure using Cloud Foundry routes!
+Now validate that the frontend is consuming the API by visiting `https://<host-name.domain-name>/Home/ApiClient` in your web browser. If you see `one two three` in the results then everythign is working. You've recreated an IIS virtual directory structure using Cloud Foundry routes!
 
 <br><br><br>
 ![modernize-frontend-result]
