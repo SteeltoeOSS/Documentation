@@ -67,6 +67,7 @@ cf push APP-NAME -b FIRST-BUILDPACK -b SECOND-BUILDPACK -b FINAL-BUILDPACK
 ```
 
 #### Redis Buildpack
+
 If you've ever pushed an app to Cloud Foundry that started successfully, you've already made use of a `final buildpack`.  In our sample web app, we've chosen to use the HWC_BUILDPACK as our `final buildpack` because the app we're pushing is a full framework .NET app.  And, while the HWC_BUILDPACK has solved our problem of getting our app to run on TAS, it has revealed a new problem regarding our app's design: its use of in-proc session.  Thankfully, there's a `supply buildpack` for that, and it's called the Redis for Session Buildpack.
 
 The Redis for Session Buildpack does a very simple trick: when its `supply` hook is invoked, the buildpack transforms your app's web.config and replaces use of in-proc session with use of a Redis backed session.  For the buildpack to be effective, we must do three things to our app:
@@ -79,6 +80,8 @@ When the app is pushed with the buildpack, the Redis buildpack will lookup the d
 Assuming Redis is bound to the app, the buildpack will then transform the app's web.config, replacing the in-proc session configuration with a complete and credentialed configuration for using Redis intsead.  For this to work, the buildpack must find the RedisSessionStateProvider in your app's bin directory; if the provider is not found, the web.config will not be modified.
 
 If we've followed the happy path (installed the nuget and added a redis service to our manifest), the next time we push our app, horizontal scale wont' be a concern even with our reliance on session.
+
+[https://github.com/cloudfoundry-community/redis-session-aspnet-buildpack](https://github.com/cloudfoundry-community/redis-session-aspnet-buildpack)
 
 ##### Some caveats
 The .NET framework requires that objects stored in session state must be serializable; the one exception to this rule is if session is maintained in process.  If your app was not designed with externalization of session in mind, you may encounter exceptions for any objects stored in session that cannot be serialized.
