@@ -9,6 +9,7 @@ _disableNav: true
 
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
+[buildpacks-link]: buildpacks.md
 
 [modernize-redis-servicelist]: ~/labs/images/modernize-redis-servicelist.png "Get a list of services running in your space"
 [modernize-frontend-addnuget]: ~/labs/images/modernize-frontend-addnuget.png "Add a nuget reference "
@@ -17,7 +18,7 @@ _disableNav: true
 [modernize-frontend-publish]: ~/labs/images/modernize-frontend-publish.png "Publish the frontend"
 [modernize-frontend-publish2]: ~/labs/images/modernize-frontend-publish2.png "Publish the frontend"
 
-|[<< Previous Exercise][exercise-1-link]||
+|[<< Previous Exercise][exercise-1-link]|[Next Buildpacks >>][buildpacks-link]|
 |:--|--:|
 
 # Exercise 2
@@ -141,5 +142,14 @@ cf push <web-app-name> -s windows
 
 Now visit the `ViewCounter` in a browser again. Again, the first few requests might be slow while your application is waking up. See that the view counts are incerementing correctly now?
 
-|[<< Previous Exercise][exercise-1-link]||
+### Clean up
+
+Please delete your instances when you're done. Note the `-r` switch. That cleans up your routes.
+
+```powershell
+cf delete -r <front-end-app-name>
+cf delete -r <api-app-name> 
+```
+
+|[<< Previous Exercise][exercise-1-link]|[Next Buildpacks >>][buildpacks-link]|
 |:--|--:|
