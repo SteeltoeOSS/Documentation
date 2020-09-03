@@ -35,7 +35,7 @@ View counter increments with every request, regardless of how many instances are
 ### Scale the frontend 
 Let's return our attention to the frontend. In powershell scale the application from a single instance to two. 
 
-```
+```powershell
 cf scale -i 2 <front-end-app-name> 
 ```
 
@@ -50,7 +50,7 @@ Now we'll fix the application by externalizing the session to Redis. We'll use a
 Under normal conditions you'd have to create an instance of the `rediscloud` service from the Cloud Foundry marketplace. This lab provides you with an instance, however.
 You can verify its existance with:
 
-```
+```powershell
 cf services 
 ```
 
@@ -102,7 +102,7 @@ Ensure the `Folder` profile is selected and click `Install`.
 
 Bind the application to redis by adding a `services` entry to your frontend's manifest that matches the name of the redis service we observed earlier. For this lab we named it "session". 
 
-```
+```yaml
 ---
 applications:
 - instances: 2
@@ -116,7 +116,7 @@ applications:
 
 Add the redis session buildpack by putting the link `https://github.com/cloudfoundry-community/redis-session-aspnet-buildpack/releases/download/v1.0.5/Pivotal.Redis.Aspnet.Session.Buildpack-win-x64-1.0.5.zip` in a list entry of the `buildpacks` element.
 
-```
+```yaml
 ---
 applications:
 - memory: 384M 
@@ -133,7 +133,7 @@ applications:
 
 Push the web app to cloud foundry targetting the Windows stack
 
-```
+```powershell
 cf push <web-app-name> -s windows
 ```
 
