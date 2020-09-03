@@ -81,7 +81,13 @@ Select `ViewCounter` from the top menu of the web application. See the counter i
 
 ### Deploy the API
 
-Using VS Code, create a manifest file named `manifest.yml` for the backend in the `WorkshopService` directory. In the begining of the route place the URL used by the frontend application without the protocol i.e. `john-q-smith-1990.run.pivotal.io`. Ensure the route has `/api` after the domain name. This instructs cloud foundry to send all requests to the `/api` context path to the backend service while all other requests are routed to the front end.
+Using VS Code, create a manifest file named `manifest.yml` for the backend in the `WorkshopService` directory. In the begining of the route place the URL used by the frontend application without the protocol i.e. `john-q-smith-1990.cfapps.io`. Ensure the route has `/api` after the domain name. This instructs cloud foundry to send all requests to the `/api` context path to the backend service while all other requests are routed to the front end.
+
+Notes:
+* Your frontend app and api must be named differently
+* The frontend's route was set automatically
+* We'll set the route for the backend manually
+* The api's route should be set to the same as the frontend's with `/api` at the end.
 
 <br><br><br>
 ![modernize-service-newmanifest]
