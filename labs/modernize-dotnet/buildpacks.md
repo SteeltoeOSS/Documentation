@@ -11,7 +11,7 @@ _disableNav: true
 [buildpacks-link]: buildpacks.md
 [exercise-2-link]: exercise2.md
 
-|[<< Prev][exercise-1-link]||[Next >>][exercise-2-link]|
+|[<< Prev][exercise-2-link]||
 |:--|--:|
 
 # Extra Context: Buildpacks in-depth
@@ -86,5 +86,5 @@ If we've followed the happy path (installed the nuget and added a redis service 
 ##### Some caveats
 The .NET framework requires that objects stored in session state must be serializable; the one exception to this rule is if session is maintained in process.  If your app was not designed with externalization of session in mind, you may encounter exceptions for any objects stored in session that cannot be serialized.
 
-|[<< Prev>][exercise-1-link]||[Next >>][exercise-2-link]|
+|[<< Prev>][exercise-2-link]||
 |:--|--:|

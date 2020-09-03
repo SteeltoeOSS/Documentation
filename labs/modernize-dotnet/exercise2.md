@@ -135,6 +135,7 @@ applications:
 Push the web app to cloud foundry targetting the Windows stack
 
 ```powershell
+cd c:\Users\WorkshopStudent\src\Workshop\WorkshopFrontEnd
 cf push <web-app-name> -s windows
 ```
 
