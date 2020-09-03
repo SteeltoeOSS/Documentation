@@ -61,7 +61,7 @@ In Visual Studio publish the application to the Folder profile by right-clicking
 ![modernize-frontend-publish2]
 <br><br><br>
 
-In Powershell change directory to `WorkshopFrontEnd`. Then Push the web app to cloud foundry. Supply your own value for <front-end-app-name> that would likely be unique amoungst your classmates, like `john-q-smith-1990`. Ensure the Windows stack is targetting by setting the `-s` parameter to `windows`.
+In Powershell change directory to `WorkshopFrontEnd` (the directory containing `WorkshopFrontEnd.csproj`). Then Push the web app to cloud foundry. Supply your own value for <front-end-app-name> that would likely be unique amoungst your classmates, like `john-q-smith-1990`. Ensure the Windows stack is targetting by setting the `-s` parameter to `windows`.
 
 ```powershell
 cf push <front-end-app-name> -s windows
@@ -101,7 +101,7 @@ applications:
 
 Publish the application to the Folder profile by right-clicking the `WorkshopService` project, selecting `Publish`, and clicking the `Publish` button on the right.
 
-In powershell change directory to `WorkshopService` then push the service to cloud foundry. Since you're sharing a space with your classmates you'll need to ensure the name is unique. Also, ensure the app name is DIFFERENT than front end. Note that outside of the classroom each deployment of the application would likely have a different space. 
+In powershell change directory to `WorkshopService` (the directory containing `WorkshopService.csproj`) then push the service to cloud foundry. Since you're sharing a space with your classmates you'll need to ensure the name is unique. Also, ensure the app name is DIFFERENT than front end. Note that outside of the classroom each deployment of the application would likely have a different space. 
 
 ```powershell
 cf push <api-app-name> -s windows
