@@ -96,6 +96,7 @@ Since endpoints may contain sensitive information, only health and info are expo
 
 The sections that follow show the settings that you can apply to specific endpoints.
 
+
 ## HTTP Access
 
 To expose any of the management endpoints over HTTP in an ASP.NET Core application:
@@ -160,3 +161,25 @@ public class Startup
 ```
 
 >NOTE: The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
+
+## Securing Endpoints 
+
+Endpoints now support customizing them with `IEndpointConventionBuilder` from `Microsoft.AspNetCore.Builder`. This allows calling `RequireAuthorization()` to run Authorization Middleware on them. 
+
+For the `IEndpointRouteBuilder` extensions, it can be added as shown:
+
+```csharp   
+    app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapAllActuators().RequireAuthorization();
+            ...
+```
+When using the `IHostBuilder` extensions, it can be added as shown:
+ ```csharp   
+        Host.CreateDefaultBuilder(args)
+            .AddAllActuators(builder => builder.RequireAuthorization())
+            ...
+```
+When called without arguments, the default profile is used. Other overloads allow passing a profile or a profile name.
+
+A complete example is available here [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/SecureEndpoints).
