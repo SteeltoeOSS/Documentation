@@ -22,6 +22,8 @@ Depending on what functionality you wish to use, you may need one or more packag
 | `Steeltoe.Connector.EF6Core` | Includes base. Adds compatibility with Entity Framework 6 | .NET Core 3.1+ |
 | `Steeltoe.Connector.CloudFoundry` | Includes base. Adds Cloud Foundry compatibility | .NET Standard 2.0 |
 
+>As of Steeltoe 3.0, an extra NuGet reference such as `Steeltoe.Connector.CloudFoundry` may be required for platform-specific support
+
 ## ServiceCollection Extensions
 
 `ServiceCollection` extensions are provided in `Steeltoe.Connector.ConnectorCore`, `Steeltoe.Connector.EFCore` and `Steeltoe.Connector.EF6Core`. These extensions will add all of the requirements for retrieving clients for the various supported technologies from a service container later on in your application. Additionally, they will typically add an `IHealthContributor` that will automatically include health checks for the connected service instance when used in conjuction with Steeltoe Managment Actuators. These extensions are generally built on top of functionality provided by the underlying drivers for a given backing service and typically built the connection string for the underlying provider. As such, their usage will typically be quite similar to usage of the backing service without Steeltoe. For example, here's a comparison between adding an Entity Framework `IDbContext` with and without Steeltoe:
@@ -90,7 +92,7 @@ return Host.CreateDefaultBuilder(args)
 
 `VCAP_SERVICES` is a Cloud Foundry standard that is used to hold connection and identification information for all service instances that have been bound to Cloud Foundry applications. For more information on `VCAP_SERVICES`, see the Cloud Foundry [documentation](https://docs.cloudfoundry.org/services/overview.html).
 
->NOTE: Depending on your hosting environment, service instances you create for the purpose of exploring the Quick Starts on these pages may have a cost associated.
+>Depending on your hosting environment, service instances you create for the purpose of exploring the Quick Starts on these pages may have a cost associated.
 
 ## Kubernetes
 

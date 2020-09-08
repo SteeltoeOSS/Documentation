@@ -472,10 +472,17 @@
         name: Configuration Provider
       - page_ref: connectionmanager
         name: ConnectionManager
-      - page_ref: cloudfoundry
+      - page_ref: cloud-foundry
         name: Cloud Foundry
       - page_ref: kubernetes
         name: Kubernetes
+    - page: /docs/3/connectors/extensibility
+      name: Extensibility
+      items:
+      - page_ref: serviceinfofactory
+        name: ServiceInfoFactory
+      - page_ref: serviceinfocreator
+        name: ServiceInfoCreator
     - page: /docs/3/connectors/mysql
       name: MySQL
       items:
@@ -579,7 +586,7 @@
           name: Configure Settings
         - page_ref: cloud-foundry
           name: Cloud Foundry
-        - page_ref: use-CosmosClient
+        - page_ref: use-cosmosclient
           name: Use Cosmos Client
     - page: /docs/3/connectors/redis
       name: Redis
@@ -675,4 +682,8 @@
           name: Round Robin Load Balancer
         - page_ref: custom-iloadbalancer
           name: Custom ILoadBalancer
+        - page_ref: usage-with-httpclientfactory
+          name: Use with HttpClientFactory
+        - page_ref: usage-with-httpclienthandler
+          name: Use with HttpClientHandler
 
