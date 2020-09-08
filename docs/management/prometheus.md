@@ -13,7 +13,7 @@ The following table describes the settings that you can apply to the endpoint:
 | `Id` | The ID of the metrics endpoint. | `prometheus` |
 | `Enabled` | Whether to enable the metrics management endpoint. | `true` |
 
->NOTE: Each setting must be prefixed with `Management:Endpoints:Prometheus`.
+>Each setting must be prefixed with `Management:Endpoints:Prometheus`.
 
 To configure Observers, see [Metric Observers](/docs/3/management/metric-observers)
 

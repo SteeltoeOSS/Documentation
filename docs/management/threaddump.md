@@ -12,7 +12,7 @@ The following table describes the settings that you can apply to the endpoint:
 | `Enabled` | Whether to enable the thread dump management endpoint. | `true` |
 | `Sensitive` | Currently not used. | `false` |
 
->NOTE: Each setting must be prefixed with `Management:Endpoints:Dump`.
+>Each setting must be prefixed with `Management:Endpoints:Dump`.
 
 ## Enable HTTP Access
 

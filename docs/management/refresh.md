@@ -11,7 +11,7 @@ The following table describes the settings that you can apply to the endpoint:
 | `Id` | The ID of the refresh endpoint. | `refresh` |
 | `Enabled` | Whether to enable the refresh management endpoint. | `true` |
 
->NOTE: Each setting must be prefixed with `Management:Endpoints:Refresh`.
+>Each setting must be prefixed with `Management:Endpoints:Refresh`.
 
 ## Enable HTTP Access
 

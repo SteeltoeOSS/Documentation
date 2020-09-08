@@ -21,7 +21,7 @@ To use this connector:
 
 To use the PostgreSQL connector, add your choice of PostgreSQL package between [Npgsql](https://www.nuget.org/packages/Npgsql/) and [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/) as you would if you were not using Steeltoe. Then add a reference to the appropriate Steeltoe connector NuGet package.
 
->NOTE: Steeltoe does not currently include direct support for PostgreSQL with Entity Framework 6.
+>Steeltoe does not currently include direct support for PostgreSQL with Entity Framework 6.
 
 ### Configure Settings
 
@@ -57,7 +57,7 @@ The following table describes all of the possible settings for the connector:
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
+>If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
@@ -74,7 +74,7 @@ cf bind-service myApp myPostgres
 cf restage myApp
 ```
 
->NOTE: The preceding commands work for the PostgreSQL service provided by EDB on Cloud Foundry. For another service, adjust the `create-service` command to fit your environment.
+>The preceding commands work for the PostgreSQL service provided by EDB on Cloud Foundry. For another service, adjust the `create-service` command to fit your environment.
 
 This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 

@@ -73,7 +73,7 @@ cf bind-service myApp myRabbitMQService
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use the RabbitMQ service provided by Pivotal on Cloud Foundry. If you use a different service, adjust the `create-service` command to fit your environment.
+>The preceding commands assume you use the RabbitMQ service provided by Pivotal on Cloud Foundry. If you use a different service, adjust the `create-service` command to fit your environment.
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 

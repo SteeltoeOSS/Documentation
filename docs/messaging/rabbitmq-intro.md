@@ -245,7 +245,7 @@ Alternatively, you could configure the same connection settings using the `Addre
 }
 ```
 
->NOTE: When specifying addresses as shown above, the `host` and `port` properties are ignored.
+>When specifying addresses as shown above, the `host` and `port` properties are ignored.
 If the address uses the `amqps` protocol, SSL support is automatically enabled.
 
 See [`RabbitOptions`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Config/RabbitOptions.cs) for more of the supported options.
@@ -295,7 +295,7 @@ To retry operations, you can enable retries on the `RabbitTemplate` (for example
 }
 ```
 
->NOTE: retries are disabled by default.
+>retries are disabled by default.
 
 If you need to create more `RabbitTemplate` instances or if you want to override the defaults, Steeltoe provides extension methods `AddRabbitTemplate(.. , Action<IServiceProvider, RabbitTemplate> configure)` that you can use to configure a `RabbitTemplate` with the settings you desire.
 

@@ -49,7 +49,7 @@ The following table table describes all possible settings for the connector
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
+>If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
 
 ### Cloud Foundry
 
@@ -66,7 +66,7 @@ cf bind-service myApp myMongoDb
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use the MongoDB Enterprise Service for PCF. If you use a different service, you may have to adjust the `create-service` command to fit your environment.
+>The preceding commands assume you use the MongoDB Enterprise Service for PCF. If you use a different service, you may have to adjust the `create-service` command to fit your environment.
 
 ### Add Mongo Client
 

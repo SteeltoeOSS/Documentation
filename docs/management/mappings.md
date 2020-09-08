@@ -11,7 +11,7 @@ The following table describes the settings that you can apply to the endpoint:
 | `Id` | The ID of the mappings endpoint. | `mappings` |
 | `Enabled` | Whether to enable the mappings management endpoint. | `true` |
 
->NOTE: Each setting above must be prefixed with `Management:Endpoints:Mappings`.
+>Each setting above must be prefixed with `Management:Endpoints:Mappings`.
 
 ## Enable HTTP Access
 

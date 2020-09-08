@@ -31,7 +31,7 @@ public class ArbitraryInfoContributor : IInfoContributor
 }
 ```
 
->NOTE: Custom `IInfoContributor` implementations must be retrievable from the DI container by interface in order for Steeltoe to find them.
+>Custom `IInfoContributor` implementations must be retrievable from the DI container by interface in order for Steeltoe to find them.
 
 ## Configure Settings
 
@@ -44,7 +44,7 @@ The following table describes the settings that you can apply to the endpoint:
 | `Sensitive` | Currently not used. | `false` |
 | `RequiredPermissions` | User permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
 
->NOTE: Each setting above must be prefixed with `Management:Endpoints:Info`.
+>Each setting above must be prefixed with `Management:Endpoints:Info`.
 
 ## Enable HTTP Access
 
@@ -59,7 +59,6 @@ Alternatively, first, add the Info actuator to the service container, use any of
 Then add the Info actuator middleware to the ASP.NET Core pipeline, use the `Map<InfoEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 The following example shows how to enable the info endpoint and how to add a custom `IInfoContributor` to the service container by adding `ArbitraryInfoContributor` as a singleton. Once that is done, the info endpoint discovers and uses it during info requests.
-
 
 ```csharp
 public class Startup

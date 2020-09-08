@@ -60,7 +60,7 @@ The JWT provider uses Microsoft's JWT implementation, and settings are based on 
 | --- | --- | --- |
 | `ValidateCertificates` | Validate Auth server certificate. | `true` |
 
->NOTE: Each setting above must be prefixed with `Security:Oauth2:Client`.
+>Each setting above must be prefixed with `Security:Oauth2:Client`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 

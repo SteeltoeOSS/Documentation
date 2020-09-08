@@ -82,7 +82,7 @@ The following table describes the available settings for the connector. These se
 
 The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
 
->NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
+>If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
 
 ### Cloud Foundry
 
@@ -99,7 +99,7 @@ cf bind-service myApp myMySqlService
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use [MySQL for VMware Tanzu](https://network.pivotal.io/products/pivotal-mysql/), provided by VMware on Tanzu. If you use a different service, you must adjust the `create-service` command to fit your environment.
+>The preceding commands assume you use [MySQL for VMware Tanzu](https://network.pivotal.io/products/pivotal-mysql/), provided by VMware on Tanzu. If you use a different service, you must adjust the `create-service` command to fit your environment.
 
 This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 

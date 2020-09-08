@@ -30,7 +30,7 @@ The following example shows a NuGet.config file that you can edit and use when d
 </configuration>
 ```
 
->NOTE: If you want to use only release or pre-release (RC) versions of Steeltoe, you need not make any changes to your NuGet.config file, as those are served from `nuget.org`.
+>If you want to use only release or pre-release (RC) versions of Steeltoe, you need not make any changes to your NuGet.config file, as those are served from `nuget.org`.
 
 ## Quick Starts
 

@@ -53,7 +53,7 @@ The most convenient way to configure settings for the provider is to put them in
 
 The following example shows some provider settings that have been put in a JSON file. Only two settings are really necessary. `Spring:Application:Name` configures the "application name" to be `sample`, and `Spring:Cloud:Config:Uri` configures the address of the config server.
 
->NOTE: The `Spring:Application:Name` is also used by other Steeltoe libraries in addition to the config server.
+>The `Spring:Application:Name` is also used by other Steeltoe libraries in addition to the config server.
 
 ```json
 {
@@ -103,7 +103,7 @@ The following table describes all the settings that can be used to configure the
 
 As mentioned earlier, all settings should start with `Spring:Cloud:Config:`
 
->NOTE: If you use self-signed certificates on Cloud Foundry, you might run into certificate validation issues when pushing an application. A quick way to work around this is to disable certificate validation until a proper solution can be put in place.
+>If you use self-signed certificates on Cloud Foundry, you might run into certificate validation issues when pushing an application. A quick way to work around this is to disable certificate validation until a proper solution can be put in place.
 
 ### Add Configuration Provider
 
@@ -178,7 +178,7 @@ Then, when you push the application, the Steeltoe provider takes the settings fr
 
 If there are any merge conflicts, the last provider added to the configuration takes precedence and overrides all others.
 
->NOTE: As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connector.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
+>As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connector.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
 
 ### Access Configuration Data
 
@@ -346,4 +346,4 @@ var configurationBuilder = new ConfigurationBuilder()
         .AddConfigServer(settings);
 ```
 
->NOTE: A single `ICertificateSource` can be used for both Config Server and [Eureka mTLS connections](../discovery/netflix-eureka#configuring-mutual-tls).
+>A single `ICertificateSource` can be used for both Config Server and [Eureka mTLS connections](../discovery/netflix-eureka#configuring-mutual-tls).

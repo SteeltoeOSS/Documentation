@@ -24,4 +24,4 @@ The extension includes an optional parameter to explicitly set the ports used fo
             ...
 ```
 
->NOTE: If either environment variable `PORT` or `SERVER_PORT` is found, neither of the optional parameters will be used.
+>If either environment variable `PORT` or `SERVER_PORT` is found, neither of the optional parameters will be used.

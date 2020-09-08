@@ -15,7 +15,7 @@ The following table describes the settings that you can apply to the endpoint:
 | `Sensitive` | Currently not used. | `false` |
 | `RequiredPermissions` | User permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
 
->NOTE: Each setting above must be prefixed with `Management:Endpoints:Loggers`.
+>Each setting above must be prefixed with `Management:Endpoints:Loggers`.
 
 ## Enable HTTP Access
 

@@ -72,7 +72,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         .AddKubernetesConfiguration()
 ```
 
->NOTE: This functionality is included in the `Steeltoe.Extensions.Configuration.KubernetesCore`. Beyond adding the configuration providers, `KubernetesApplicationOptions` is added to the `IServiceCollection` for use by these configuration providers and other Steeltoe components.
+>This functionality is included in the `Steeltoe.Extensions.Configuration.KubernetesCore`. Beyond adding the configuration providers, `KubernetesApplicationOptions` is added to the `IServiceCollection` for use by these configuration providers and other Steeltoe components.
 
 #### Add Configuration Providers to ILoggingBuilder
 
@@ -199,7 +199,7 @@ Reload settings are shared by both ConfigMaps and Secrets. These can be configur
 
 All settings above should start with `Spring:Cloud:Kubernetes:Reload`.
 
->NOTE: `Mode` can also be set to `Event`, which will attempt to maintain an open connection to the API server for real-time reloading of configuration data.
+>`Mode` can also be set to `Event`, which will attempt to maintain an open connection to the API server for real-time reloading of configuration data.
 
 ### Enable Logging
 

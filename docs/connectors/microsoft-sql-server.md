@@ -61,7 +61,7 @@ The following table shows the available settings for the connector:
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
+>If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
@@ -91,7 +91,7 @@ cf restage myApp
 
 If you have not already deployed the application, a reference in the `manifest.yml` file can take care of the binding for you.
 
->NOTE: The commands shown in the preceding example may not exactly match the service or plan names available in your environment. You may have to adjust the `create-service` command to fit your environment. Use `cf marketplace` to see what is available.
+>The commands shown in the preceding example may not exactly match the service or plan names available in your environment. You may have to adjust the `create-service` command to fit your environment. Use `cf marketplace` to see what is available.
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -152,7 +152,7 @@ public class HomeController : Controller
 }
 ```
 
->NOTE: The preceding code does not create a database or a table or insert data. As written, it fails unless you create the database, table, and data ahead of time.
+>The preceding code does not create a database or a table or insert data. As written, it fails unless you create the database, table, and data ahead of time.
 
 ### Add DbContext
 

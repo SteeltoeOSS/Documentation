@@ -26,7 +26,7 @@ The following table describes the settings that you can apply to the endpoint:
 | `AddSessionId` | Add session id. | `false` |
 | `AddTimeTaken` | Add time take. | `true` |
 
->NOTE: Each setting must be prefixed with `Management:Endpoints:Trace`.
+>Each setting must be prefixed with `Management:Endpoints:Trace`.
 
 ## Enable HTTP Access
 

@@ -13,6 +13,6 @@ Usage of Steeltoe's OpenID Connect provider is effectively identical to that of 
 | `additionalScopes` | Scopes to request for tokens in addition to `openid` | `string.Empty` |
 | `validateCertificates` | Validate Auth server certificate | `true` |
 
->NOTE: Each setting above must be prefixed with `Security:Oauth2:Client`.
+>Each setting above must be prefixed with `Security:Oauth2:Client`.
 
 Aside from the different base class for options, the only usage change is to call `.AddCloudFoundryOpenId` instead of `.AddCloudFoundryOAuth`.

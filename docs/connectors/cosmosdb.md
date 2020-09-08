@@ -44,7 +44,7 @@ The following table table describes all possible settings for the connector
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
+>If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
@@ -61,7 +61,7 @@ cf bind-service myApp myCosmosDb
 cf restage myApp
 ```
 
->NOTE: The connector is built to work with Azure Cosmos DB service instances that have been provisioned with the [Microsoft Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html).
+>The connector is built to work with Azure Cosmos DB service instances that have been provisioned with the [Microsoft Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html).
 
 ### Use CosmosClient
 

@@ -41,7 +41,7 @@ The following table describes the settings that you can apply to the endpoint.
 | `Sensitive` | Currently not used. | `false` |
 | `RequiredPermissions` | The user permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
 
->NOTE: Each setting above must be prefixed with `Management:Endpoints:Health`.
+>Each setting above must be prefixed with `Management:Endpoints:Health`.
 
 ## Enable HTTP Access
 
@@ -96,7 +96,7 @@ public class Startup
 }
 ```
 
->NOTE: When you use any of the Steeltoe Connectors in your application, we automatically add the corresponding health contributors to the service container.
+>When you use any of the Steeltoe Connectors in your application, we automatically add the corresponding health contributors to the service container.
 
 ## Steeltoe Health Contributors
 
@@ -166,7 +166,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
->NOTE: `AddMySqlConnection` defaults to the ASP.NET Core health check if found in the service container. You can toggle off this behavior by passing `AddMySqlConnection(Configuration, addSteeltoeHealthChecks: true)`, which adds both health checks. Be warned that this makes the Health check endpoint slower by calling multiple health checks for the same service.
+>`AddMySqlConnection` defaults to the ASP.NET Core health check if found in the service container. You can toggle off this behavior by passing `AddMySqlConnection(Configuration, addSteeltoeHealthChecks: true)`, which adds both health checks. Be warned that this makes the Health check endpoint slower by calling multiple health checks for the same service.
 
   ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

@@ -75,7 +75,7 @@ Configuration = builder.Build();
 
 ```
 
->NOTE: If you wish to generate random values as part of using placeholders, you need to add the `RandomValue` provider to the builder before you add the placeholder resolver.
+>If you wish to generate random values as part of using placeholders, you need to add the `RandomValue` provider to the builder before you add the placeholder resolver.
 
 ### Access Random Value Data
 

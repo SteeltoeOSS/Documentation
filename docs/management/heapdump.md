@@ -12,7 +12,7 @@ The following table describes the settings that you can apply to the endpoint:
 | `Enabled` | Whether to enable the heap dump management endpoint. | `true` |
 | `Sensitive` | Currently not used. | `false` |
 
->NOTE: Each setting above must be prefixed with `Management:Endpoints:Heapdump`.
+>Each setting above must be prefixed with `Management:Endpoints:Heapdump`.
 
 ## Enable HTTP Access
 

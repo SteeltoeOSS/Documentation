@@ -9,4 +9,4 @@ In order to use any Steeltoe Discovery client, you need to:
 * Configure the settings the discovery client uses to discover services in the service registry.
 * Use the discovery client service in the application.
 
->NOTE: The Steeltoe discovery implementation (for example: the decision between Eureka and Consul) is automatically set up within the application, based on the application configuration provided.
+>The Steeltoe discovery implementation (for example: the decision between Eureka and Consul) is automatically set up within the application, based on the application configuration provided.

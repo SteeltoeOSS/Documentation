@@ -24,7 +24,7 @@ The following table describes the settings that you can apply to the endpoint:
 | `IngressIgnorePattern` | Regex pattern describing what incoming requests to ignore. | See `MetricsOptions` |
 | `EgressIgnorePattern` | Regex pattern describing what outgoing requests to ignore. | See `MetricsOptions` |
 
->NOTE: Each setting above must be prefixed with `Management:Endpoints:Metrics`.
+>Each setting above must be prefixed with `Management:Endpoints:Metrics`.
 
 To configure Observers, see [Metric Observers](/docs/3/management/metric-observers)
 

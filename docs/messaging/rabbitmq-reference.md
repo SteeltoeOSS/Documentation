@@ -113,7 +113,7 @@ A `TopicExchange` supports bindings with routing patterns that may include the '
 The `FanoutExchange` publishes to all queues that are bound to it without taking any routing key into consideration.
 For much more information about these and the other Exchange types, see [further-reading](docs/messaging/further-reading).
 
->NOTE: The AMQP specification also requires that any broker provide a "default" direct exchange that has no name.
+>The AMQP specification also requires that any broker provide a "default" direct exchange that has no name.
 All queues that are declared are bound to that default `IExchange` with their names as routing keys.
 You can learn more about the default Exchange's usage within Steeltoe RabbitMQ in [RabbitTemplate](docs/messaging/rabbitmq-reference.md#rabbittemplate).
 
@@ -193,7 +193,7 @@ The responsibility of a `IConnectionFactory` implementation is to provide an ins
 The only concrete implementation we provide is `CachingConnectionFactory`, which by default, establishes a single connection proxy that can be shared by the application.
 Sharing of the connection is possible since the "unit of work" for messaging with AMQP is actually a "Channel".
 
->NOTE: The RabbitMQ .NET client uses an `RabbitMQ.Client.IModel` to represent what we will constantly refer to as a `Channel`.
+>The RabbitMQ .NET client uses an `RabbitMQ.Client.IModel` to represent what we will constantly refer to as a `Channel`.
 
 The connection instance provides a `CreateChannel` method.
 The `CachingConnectionFactory` implementation supports caching of those channels, and it maintains separate caches for channels based on whether they are transactional or not.
@@ -209,14 +209,14 @@ The use of separate connections might be useful in some environments, such as co
 conjunction with a load balancer, to connect to different cluster members, and others.
 To cache connections, set the `CacheMode` property to `CachingMode.CONNECTION`.
 
->NOTE: This does not limit the number of connections.
+>This does not limit the number of connections.
 Rather, it specifies how many idle open connections are allowed.
 
 A property called `ConnectionLimit` is provided to limit the total number of connections allowed.
 When set, if the limit is reached, the `ChannelCheckoutTimeout` is used to wait for a connection to become idle.
 If the time is exceeded, an `RabbitTimeoutException` is thrown.
 
->NOTE: When the cache mode is `CONNECTION`, automatic declaration of queues and other AMQP types (See [Automatic Declaration of Exchanges, Queues, and Bindings](docs/messaging/rabbitmq-reference.md#automatic-declaration-of-exchanges-queues-and-bindings) is NOT supported.
+>When the cache mode is `CONNECTION`, automatic declaration of queues and other AMQP types (See [Automatic Declaration of Exchanges, Queues, and Bindings](docs/messaging/rabbitmq-reference.md#automatic-declaration-of-exchanges-queues-and-bindings) is NOT supported.
 
 It is important to understand that the cache size is (by default) not a limit but is merely the number of channels that can be cached.
 With a cache size of, say, 10, any number of channels can actually be in use.
@@ -250,7 +250,7 @@ CachingConnectionFactory connectionFactory = new CachingConnectionFactory()
 IConnection connection = connectionFactory.CreateConnection();
 ```
 
->NOTE: There is also a `SingleConnectionFactory` implementation that is available only in the unit test code.
+>There is also a `SingleConnectionFactory` implementation that is available only in the unit test code.
 It is simpler than `CachingConnectionFactory`, since it does not cache channels, but it is not intended for practical usage outside of simple tests due to its lack of performance and resilience.
 If you need to implement your own `ConnectionFactory` for some reason, the `AbstractConnectionFactory` base class may provide a nice starting point.
 
@@ -277,7 +277,7 @@ The `CachingConnectionFactory` uses an instance of the RabbitMQ client `RabbitMQ
 A number of configuration properties are passed through (e.g. `Host`, `Port`, `Username`, `Password`, `RequestedHeartBeat`, and `ConnectionTimeout` for example) when setting the equivalent property on the `CachingConnectionFactory`or when using the `RabbitOptions` and a `IConfiguration`.
 To set other properties, you can create an instance of the `RabbitMQ.Client.ConnectionFactory` and provide a reference to it by using the appropriate constructor of the `CachingConnectionFactory`.
 
->NOTE: The 4.0.x+ RabbitMQ client supports automatic recovery feature.
+>The 4.0.x+ RabbitMQ client supports automatic recovery feature.
 While compatible with this feature, Steeltoe RabbitMQ has its own recovery mechanisms and the client recovery feature generally is not needed.
 Since the auto-recovering connection recovers on a timer, the connection may be recovered more quickly by using Steeltoe RabbitMQs recovery mechanisms.
 Steeltoe RabbitMQ disables the automatic recovery feature unless you explicitly create your own RabbitMQ connection factory and provide it to the `CachingConnectionFactory`.
@@ -335,7 +335,7 @@ CachingConnectionFactory ccf = new CachingConnectionFactory()
 }
 ```
 
->NOTE: You can also set the `Addresses` by configuring a `RabbitOptions` via `IConfiguration`.
+>You can also set the `Addresses` by configuring a `RabbitOptions` via `IConfiguration`.
 
 <!--
 
@@ -602,7 +602,7 @@ The reason for the closure is included in the `Reason`.
 
 Only one `ConfirmCallback` is supported by a `RabbitTemplate`.
 
->NOTE: When a rabbit template send operation completes, the channel is closed.
+>When a rabbit template send operation completes, the channel is closed.
 This precludes the reception of confirms or returns when the connection factory cache is full (when there is space in the cache, the channel is not physically closed and the returns and confirms proceed normally).
 When the cache is full, the framework defers the close for up to five seconds, in order to allow time for the confirms and returns to be received.
 When using confirms, the channel is closed when the last confirm is received.
@@ -662,7 +662,7 @@ var result = template.Invoke(t => {
 
 If you need `RabbitAdmin` operations to be invoked on the same channel within the scope of the `rabbitOperations`, the admin must have been constructed by using the same `RabbitTemplate` that was used for the `Invoke` operation.
 
->NOTE: The preceding discussion is moot if the template operations are already performed within the scope of an existing transaction - for example, when running on a transacted listener container thread and performing operations on a transacted template.
+>The preceding discussion is moot if the template operations are already performed within the scope of an existing transaction - for example, when running on a transacted listener container thread and performing operations on a transacted template.
 In that case, the operations are performed on that channel and committed when the thread returns to the container.
 It is not necessary to use `Invoke` in that scenario.
 
@@ -678,7 +678,7 @@ public virtual T Invoke<T>(
     Func<IRabbitTemplate, T> rabbitOperations, Action<object, BasicAckEventArgs> acks, Action<object, BasicNackEventArgs> nacks)
 ```
 
->NOTE: These `EventArgs` (for `ack` and `nack` instances) are the RabbitMQ client event args.
+>These `EventArgs` (for `ack` and `nack` instances) are the RabbitMQ client event args.
 
 The following example logs `ack` and `nack` instances:
 
@@ -1024,7 +1024,7 @@ public interface IChannelAwareMessageListener : IMessageListener
 If you prefer to maintain a stricter separation between your application logic and the messaging API, you can rely upon an adapter implementation that is provided by the framework.
 This is often referred to as "Message-driven POCO" support.
 
->NOTE: A more flexible mechanism for POCO messaging is using the `[RabbitListener()]` attribute.
+>A more flexible mechanism for POCO messaging is using the `[RabbitListener()]` attribute.
 See [Attribute Driven Listener Endpoints](docs/messaging/rabbitmq-reference.md#attribute-driven-listener-endpoints) for more information.
 
 When using the adapter, you need to provide only a reference to the instance that the adapter itself should invoke.
@@ -1217,7 +1217,7 @@ The event `ListenerContainerConsumerFailedEvent` has the following properties:
 
 These events can be consumed by implementing `ApplicationListener<ListenerContainerConsumerFailedEvent>`.
 
->NOTE: System-wide events (such as connection failures) are published by all consumers when `concurrentConsumers` is greater than 1.
+>System-wide events (such as connection failures) are published by all consumers when `concurrentConsumers` is greater than 1.
 
 If a consumer fails because one if its queues is being used exclusively, by default, a `WARN` log is issued.
 To change this logging behavior, provide a custom `IConditionalExceptionLogger` in the `DirectMessageListenerContainer` instance's using the `ExclusiveConsumerExceptionLogger` property.
@@ -1281,7 +1281,7 @@ You must ensure `MyService` has been added to the service container (i.e. `servi
 In the preceding example, `myQueue` must already exist and be bound to some exchange.
 The queue can be declared and bound automatically, as long as a `RabbitAdmin` exists in the service container and the `Queue` has been added as well.
 
->NOTE: Property placeholders (`${some:property}`) can be specified for the annotation properties (`queues` etc).
+>Property placeholders (`${some:property}`) can be specified for the annotation properties (`queues` etc).
 See [Listening to Multiple Queues](docs/messaging/rabbitmq-reference.md#listening-to-multiple-queues) for examples.
 
 The following listing shows three examples of how to declare a Rabbit listeners, Queues, Exchanges, etc. using annotations:
@@ -1486,7 +1486,7 @@ a custom `ConversionService`.
 If there are no type information headers, the type can be inferred from the target
 method arguments.
 
->NOTE: This type inference works only for `[RabbitListener()]` used at the method level.
+>This type inference works only for `[RabbitListener()]` used at the method level.
 
 See [JsonMessageConverter](docs/messaging/rabbitmq-reference.md#jsonmessageconverter) for more information.
 
@@ -2086,7 +2086,7 @@ When the `RabbitAdmin` declares queues, it updates the `Queue.ActualName` proper
 You must use `SetQueues()` when you configure the container for this to work, so that the container can access the declared name at runtime.
 Just setting the names is insufficient.
 
->NOTE: You cannot add broker-named queues to the containers while they are running.
+>You cannot add broker-named queues to the containers while they are running.
 
 >IMPORTANT: When a connection is reset and a new one is established, the new queue gets a new name.
 Since there is a race condition between the container restarting and the queue being re-declared, it is important to set the container's `MissingQueuesFatal` property to `false`, since the container is likely to initially try to reconnect to the old queue.
@@ -2135,7 +2135,7 @@ T ReceiveAndConvert<T>();
 T ReceiveAndConvert<T>(string queueName);
 ```
 
->NOTE: The `MessageListenerAdapter` mentioned in [Asynchronous Consumer](docs/messaging/rabbitmq-reference.md#asynchronous-consumer) also uses a `IMessageConverter`.
+>The `MessageListenerAdapter` mentioned in [Asynchronous Consumer](docs/messaging/rabbitmq-reference.md#asynchronous-consumer) also uses a `IMessageConverter`.
 
 ### SimpleMessageConverter
 
@@ -2244,7 +2244,7 @@ of the default `TypePrecedence.INFERRED`.
 for convenience.)
 If you set a custom type mapper, you should set the property on the mapper instead.
 
->NOTE: When converting from the `IMessage`, an incoming `headers.ContentType()` must be JSON-compliant (`headers.ContentType().Contains("json")` is used to check).
+>When converting from the `IMessage`, an incoming `headers.ContentType()` must be JSON-compliant (`headers.ContentType().Contains("json")` is used to check).
 `application/json` is assumed if there is no `ContentType()` header, or it has the default value `application/octet-stream`.
 To revert to the previous behavior (return an unconverted `byte[]`), set the converter's `AssumeSupportedContentType` property to `false`.
 If the content type is not supported, a `WARN` log message `Could not convert incoming message with content-type [...]`, is emitted and `message.Payload` is returned as is - as a `byte[]`.
@@ -2278,7 +2278,7 @@ With the sixth example, the Json defaults apply due to the generic type being an
 You can, however, create a custom converter and use the `RabbitMessageHeaders.TARGET_METHOD` message header to decide which type to convert
 the JSON to.
 
->NOTE: This type inference can be achieved only when the `[RabbitListener()]` attribute is declared at the method level.
+>This type inference can be achieved only when the `[RabbitListener()]` attribute is declared at the method level.
 With class-level `[RabbitListener()]`, the converted type is used to select which `[RabbitHandler()]` method to invoke.
 For this reason, the infrastructure provides the `RabbitMessageHeaders.TARGET` message header, which you can use in a custom
 converter to determine the type.
@@ -2333,7 +2333,7 @@ The second is invoked immediately after a message is received.
 These extension points are used for such features as compression and, for this purpose, several `IMessagePostProcessor` implementations are provided.
 `GZipPostProcessor`, `ZipPostProcessor` and `DeflaterPostProcessor` compress messages before sending, and `GUnzipPostProcessor`, `UnzipPostProcessor` and `InflaterPostProcessor` decompress received messages.
 
->NOTE: The `GZipPostProcessor` can be configured with the `CopyHeaders = true` option to make a copy of the original message headers.
+>The `GZipPostProcessor` can be configured with the `CopyHeaders = true` option to make a copy of the original message headers.
 By default, these headers are reused for performance reasons, and modified with compression content encoding and the optional `RabbitMessageHeaders.SPRING_AUTO_DECOMPRESS` header.
 If you retain a reference to the original outbound message, its values will change as well.
 So, if your application retains a copy of an outbound message with these message post processors, consider turning the `CopyHeaders` option on.
@@ -2368,7 +2368,7 @@ You can modify this behavior by setting the `ReplyTimeout` property.
 If you set the `Mandatory` property to `true` and the message cannot be delivered to a queue, an `RabbitMessageReturnedException` is thrown.
 This exception has `ReturnedMessage`, `ReplyCode`, and `ReplyText` properties, as well as the `Exchange` and `RoutingKey` used for the send.
 
->NOTE: This feature uses publisher returns.
+>This feature uses publisher returns.
 You can enable it by setting `PublisherReturns` to `true` on the `CachingConnectionFactory` (see [Factory Publisher Confirms and Returns](docs/messaging/rabbitmq-reference.md#factory-publisher-confirms-and-returns).
 Also, you must not have registered your own `ReturnCallback` with the `RabbitTemplate`.
 
@@ -2424,12 +2424,12 @@ RabbitMQ has no ability to select messages from a queue, so, if they all use the
 While the container and template share a connection factory, they do not share a channel.
 Therefore, requests and replies are not performed within the same transaction (if transactional).
 
->NOTE: You can specify the `ReplyAddress` property.
+>You can specify the `ReplyAddress` property.
 The `ReplyAddress` can contain an address with the form `<exchange>/<routingKey>` and the reply is routed to the specified exchange and routed to a queue bound with the routing key.
 
 With this configuration, a `DirectListenerContainer` is used to receive the replies, with the `RabbitTemplate` being the `IMessageListener`.
 
->NOTE: When the template does not use a fixed `ReplyAddress` (or is using [Direct Reply-To](docs/messaging/rabbitmq-reference.md#direct-reply-to), a listener container is not needed and a internal temp container is created.
+>When the template does not use a fixed `ReplyAddress` (or is using [Direct Reply-To](docs/messaging/rabbitmq-reference.md#direct-reply-to), a listener container is not needed and a internal temp container is created.
 Direct Reply-To is the preferred mechanism when using RabbitMQ 3.4.0 or later.
 
 When using a fixed reply queue, you need to define and wire up the reply listener container yourself.
@@ -2768,13 +2768,13 @@ By default, all queues, exchanges, and bindings are declared by all `RabbitAdmin
 
 The `RabbitAdmin` has a property `ExplicitDeclarationsOnly` (which is `false` by default); when this is set to `true`, the admin declares only entities that are explicitly configured to be declared by that admin.
 
->NOTE: You can conditionally declare these elements.
+>You can conditionally declare these elements.
 This is particularly useful when an application connects to multiple brokers and needs to specify with which brokers a particular element should be declared.
 
 The classes representing these elements implement `IDeclarable`, which has two properties: `ShouldDeclare` and `DeclaringAdmins`.
 The `RabbitAdmin` uses these methods to determine whether a particular instance should actually process the declarations on its `IConnection`.
 
->NOTE: By default, the `ShouldDeclare` property is `true` and, if the `DeclaringAdmins` is not supplied (or is empty), then all `RabbitAdmin` instances declare the object (as long as the admin `AutoStartup` property is `true`, the default, and the admin `ExplicitDeclarationsOnly` property is false).
+>By default, the `ShouldDeclare` property is `true` and, if the `DeclaringAdmins` is not supplied (or is empty), then all `RabbitAdmin` instances declare the object (as long as the admin `AutoStartup` property is `true`, the default, and the admin `ExplicitDeclarationsOnly` property is false).
 
 In the following example, the components are declared by `admin1` but not by`admin2`:
 
@@ -2886,7 +2886,7 @@ public void listener(BrokerEvent event) {
 
 You can read more about the Delayed Message Exchange Plugin [here](https://www.rabbitmq.com/blog/2015/04/16/scheduling-messages-with-rabbitmq/).
 
->NOTE: The plugin is currently marked as experimental but has been available for over a year (at the time of writing).
+>The plugin is currently marked as experimental but has been available for over a year (at the time of writing).
 If changes to the plugin make it necessary, we plan to add support for such changes as soon as practical.
 For that reason, this support in Steeltoe RabbitMQ should be considered experimental, too.
 
@@ -2978,7 +2978,7 @@ Another signal is to provide an external transaction with a `IPlatformTransactio
 If there is already a transaction in progress when the framework is sending or receiving a message, and the `IsChannelTransacted` flag is `true`, the `Commit` or `Rollback` of the messaging transaction is deferred until the end of the external current transaction.
 If the `IsChannelTransacted` flag is `false`, no transaction semantics apply to the messaging operation (it is auto-acked).
 
->NOTE: Currently the only supported `IPlatformTransactionManager` is the `RabbitTransactionManger`. See the following section on the limitations associated this transaction manager.
+>Currently the only supported `IPlatformTransactionManager` is the `RabbitTransactionManger`. See the following section on the limitations associated this transaction manager.
 
 The `IsChannelTransacted` flag is a configuration time setting.
 It is declared and processed once when the RabbitMQ components are created, usually at container or template startup.
@@ -3069,7 +3069,7 @@ For more information about rejecting failed messages, see [Message Listeners and
 
 For more information about RabbitMQ transactions and their limitations, see [RabbitMQ Broker Semantics](https://www.rabbitmq.com/semantics.html).
 
->NOTE: Prior to RabbitMQ 2.7.0, such messages (and any that are un-acked when a channel is closed or aborts) went to the back of the queue on a Rabbit broker.
+>Prior to RabbitMQ 2.7.0, such messages (and any that are un-acked when a channel is closed or aborts) went to the back of the queue on a Rabbit broker.
 Since 2.7.0, rejected messages go to the front of the queue, in a similar manner to JMS rolled back messages.
 
 ### Using RabbitTransactionManager
@@ -3165,7 +3165,7 @@ Consequently, if the broker is not present on startup, it does not matter.
 The first time a `IConnection` is used (for example, by sending a message) the listener fires and the admin features is applied.
 A further benefit of doing the auto declarations in a listener is that, if the connection is dropped for any reason (for example, broker death, network glitch, and others), they are applied again when the connection is re-established.
 
->NOTE: Queues declared this way must have fixed names - either explicitly declared or generated by the framework for `AnonymousQueue` instances.
+>Queues declared this way must have fixed names - either explicitly declared or generated by the framework for `AnonymousQueue` instances.
 Anonymous queues are non-durable, exclusive, and auto-deleting.
 
 >IMPORTANT: Automatic declaration is performed only when the `CachingConnectionFactory` cache mode is `CHANNEL` (the default).
@@ -3233,7 +3233,7 @@ A new `RepublishMessageRecoverer` is provided, to allow publishing of failed mes
 
 When a recoverer consumes the final exception, the message is acked and is not sent to the dead letter exchange, if any.
 
->NOTE: When `RepublishMessageRecoverer` is used on the consumer side, the received message has `deliveryMode` in the `receivedDeliveryMode` message property.
+>When `RepublishMessageRecoverer` is used on the consumer side, the received message has `deliveryMode` in the `receivedDeliveryMode` message property.
 In this case the `deliveryMode` is `null`.
 That means a `NON_PERSISTENT` delivery mode on the broker.
 You can configure the `RepublishMessageRecoverer` for the `deliveryMode` to set into the message to republish if it is `null`.

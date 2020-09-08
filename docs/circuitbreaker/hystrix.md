@@ -156,7 +156,7 @@ All configured command-specific settings, as described earlier in #4, should be 
 
 The following set of tables specifies all of the possible settings by category.
 
->NOTE: The settings described in the next section follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix command operations.
+>The settings described in the next section follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix command operations.
 
 #### Execution
 
@@ -284,7 +284,7 @@ All configured pool-specific settings, as described in #4 above, should be place
 
 The tables in the following sections specify all of the possible settings.
 
->NOTE: The settings provided below follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix thread pool operations.
+>The settings provided below follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix thread pool operations.
 
 #### Sizing
 
@@ -337,7 +337,7 @@ If you wish to configure the settings for a collapser in code, you must use the 
 
 All configured collapser specific settings, as described in #4 above, should be placed under a  prefix of `Hystrix:Collapser:HYSTRIX_COLLAPSER_KEY:`, where `HYSTRIX_COLLAPSER_KEY` is the "name" of the collapser.
 
->NOTE: The default name of the collapser, if not specified, is the type name of the collapser.
+>The default name of the collapser, if not specified, is the type name of the collapser.
 
 The following example configures the number of milliseconds after which a batch of requests that have been created by the collapser with a name of `sample` triggers and runs all of the requests:
 
@@ -345,7 +345,7 @@ The following example configures the number of milliseconds after which a batch 
 
 The tables in the sections that follow specify all of the possible settings.
 
->NOTE: The settings provided in the tables follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix collapser operations.
+>The settings provided in the tables follow the Netflix Hystrix implementation closely. Consequently, you should read the [Configuration section](https://github.com/Netflix/Hystrix/wiki/Configuration) on the Netflix Hystrix wiki for more detail on each setting and how it affects Hystrix collapser operations.
 
 #### Collapser Sizing
 
@@ -416,7 +416,7 @@ The samples and most templates are already set up to read from `appsettings.json
 
 Once you have read in your configuration data, you are ready to add the Hystrix commands to the dependency injection container, thereby making them available for injection in your application. There are several Steeltoe extension methods available to help.
 
->NOTE: Adding your commands to the container is not required. You can create them at any point in your application.
+>Adding your commands to the container is not required. You can create them at any point in your application.
 
 To make your Hystrix commands injectable, use the `AddHystrixCommand()` extension methods provided by Steeltoe in the `ConfigureServices()` method of the `Startup` class, as shown in the following example:
 
@@ -590,7 +590,7 @@ There are two styles of request-collapsing supported by Hystrix: `request-scoped
 
 As with Hystrix commands, you can also add Hystrix collapsers to the service container, making them available for injection in your application. You can use several Steeltoe extension methods to help you accomplish this.
 
->NOTE: Adding collapsers to the container is not required. You can create them in your application at any point.
+>Adding collapsers to the container is not required. You can create them in your application at any point.
 
 If you do want to have them injected, you can use the `AddHystrixCollapser()` extension methods provided by the Steeltoe package in the `ConfigureServices()` method of the `Startup` class, as follows:
 

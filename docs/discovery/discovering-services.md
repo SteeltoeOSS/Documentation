@@ -51,7 +51,7 @@ public class FortuneService : IFortuneService
 
 Check out the Microsoft documentation on [`HttpClientFactory`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests) to see all the various ways you can make use of message handlers.
 
->NOTE: `DiscoveryHttpMessageHandler` has an optional `ILoadBalancer` parameter. If no `ILoadBalancer` is provided through dependency injection, a `RandomLoadBalancer` is used. To change this behavior, add an `ILoadBalancer` to the DI container or use a load-balancer first configuration, as described within section 1.4 on this page.
+>`DiscoveryHttpMessageHandler` has an optional `ILoadBalancer` parameter. If no `ILoadBalancer` is provided through dependency injection, a `RandomLoadBalancer` is used. To change this behavior, add an `ILoadBalancer` to the DI container or use a load-balancer first configuration, as described within section 1.4 on this page.
 
 ## DiscoveryHttpClientHandler
 
@@ -92,7 +92,7 @@ Next, notice that when the `RandomFortuneAsync()` method is called, the `HttpCli
 
 If the name cannot be resolved, the handler ignores the request URL and lets the request continue unchanged.
 
->NOTE: By default, `DiscoveryHttpClientHandler` performs random load balancing. That is, if there are multiple instances registered under a particular service name, the handler randomly selects one of those instances each time the handler is invoked.
+>By default, `DiscoveryHttpClientHandler` performs random load balancing. That is, if there are multiple instances registered under a particular service name, the handler randomly selects one of those instances each time the handler is invoked.
 
 ## Using IDiscoveryClient
 

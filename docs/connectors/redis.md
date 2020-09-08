@@ -24,13 +24,13 @@ To use this connector:
 1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
 1. Add `DistributedRedisCache` or `ConnectionMultiplexer` to your `ServiceCollection`.
 
->NOTE: The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on the Pivotal Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you need to have Lua scripting enabled by a platform operator.
+>The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on the Pivotal Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you need to have Lua scripting enabled by a platform operator.
 
 ### Add NuGet Reference
 
 To use the Redis connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and a reference to `Microsoft.Extensions.Caching.Redis`, `Microsoft.Extensions.Caching.StackExhangeRedis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
 
->NOTE: Because `Microsoft.Extensions.Caching.Redis` depends on `StackExchange.Redis.StrongName`, adding a reference to the Microsoft library also enables access to the StackExchange classes, as seen in the sample application.
+>Because `Microsoft.Extensions.Caching.Redis` depends on `StackExchange.Redis.StrongName`, adding a reference to the Microsoft library also enables access to the StackExchange classes, as seen in the sample application.
 
 ### Configure Settings
 
@@ -74,7 +74,7 @@ The following table table describes all possible settings for the connector
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
+>If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
@@ -91,7 +91,7 @@ cf bind-service myApp myRedisCache
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command to fit your environment.
+>The preceding commands assume you use the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command to fit your environment.
 
 This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 
@@ -178,7 +178,7 @@ public class Startup {
 
 The `AddRedisConnectionMultiplexer(Configuration)` method call configures the `IConnectionMultiplexer` by using the configuration built by the application and adds the connection to the service container.
 
->NOTE: If necessary, you can use both `IDistributedCache` and `IConnectionMultiplexer` in your application.
+>If necessary, you can use both `IDistributedCache` and `IConnectionMultiplexer` in your application.
 
 ### Use IConnectionMultiplexer
 

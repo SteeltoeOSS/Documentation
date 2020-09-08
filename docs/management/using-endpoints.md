@@ -78,7 +78,7 @@ Since endpoints may contain sensitive information, only health and info are expo
 | `Exposure:Include` | [`info`, `health`] |
 | `Exposure:Exclude` | |
 
->NOTE: Each setting above must be prefixed with `Management:Endpoints:actuator`. To select all endpoints,
+>Each setting above must be prefixed with `Management:Endpoints:actuator`. To select all endpoints,
 `*`  can be used. For example, to expose everything except `env` and `refresh`, use the following property:
 
 ```json
@@ -107,7 +107,7 @@ To expose any of the management endpoints over HTTP in an ASP.NET Core applicati
 1. `Add` the actuator endpoint to the service container (for example, `AddHealthActuator()`).
 1. `Use` the actuator middleware to provide HTTP access (for example, `UseInfoActuator()`).
 
->NOTE: Each endpoint uses the same host and port as the application. The default path to each endpoint is specified in its section on this page, along with specific `Add` and `Use` method names.
+>Each endpoint uses the same host and port as the application. The default path to each endpoint is specified in its section on this page, along with specific `Add` and `Use` method names.
 
 Extensions for both `IHostBuilder` and `IWebHostBuilder` are included to configure actuators with a single line of code in `program.cs`:
 
@@ -122,7 +122,7 @@ Extensions for both `IHostBuilder` and `IWebHostBuilder` are included to configu
             .Build();
 ```
 
->NOTE: `AddAllActuators()` and `AddLoggingActuator()` automatically configure the `DynamicConsoleLogger`. To use the dynamic Serilog console logger, be sure to do so before adding actuators.
+>`AddAllActuators()` and `AddLoggingActuator()` automatically configure the `DynamicConsoleLogger`. To use the dynamic Serilog console logger, be sure to do so before adding actuators.
 
 If you prefer to configure the actuators in `Startup.cs`, extensions are provided for `IServiceCollection` and `IApplicationBuilder` to configure and activate the actuator middleware implementations. To use all of the Steeltoe endpoints, use `AddAllActuators()` and `MapAllActuators` to add them all at once instead of including each individually, as follows:
 
@@ -160,22 +160,22 @@ public class Startup
 }
 ```
 
->NOTE: The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
+>The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
 
-## Securing Endpoints 
+## Securing Endpoints
 
-Endpoints now support customizing them with `IEndpointConventionBuilder` from `Microsoft.AspNetCore.Builder`. This allows calling `RequireAuthorization()` to run Authorization Middleware on them. 
+Endpoints now support customizing them with `IEndpointConventionBuilder` from `Microsoft.AspNetCore.Builder`. This allows calling `RequireAuthorization()` to run Authorization Middleware on them.
 
 For the `IEndpointRouteBuilder` extensions, it can be added as shown:
 
-```csharp   
+```csharp
     app.UseEndpoints(endpoints =>
         {
             endpoints.MapAllActuators().RequireAuthorization();
             ...
 ```
 When using the `IHostBuilder` extensions, it can be added as shown:
- ```csharp   
+ ```csharp
         Host.CreateDefaultBuilder(args)
             .AddAllActuators(builder => builder.RequireAuthorization())
             ...

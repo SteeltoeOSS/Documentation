@@ -17,7 +17,7 @@ You can use the `dotnet` CLI to [build and locally publish](https://docs.microso
 * Linux with .NET Core: `dotnet publish -f netcoreapp3.1 -r ubuntu.14.04-x64`
 * Windows with .NET Core: `dotnet publish -f netcoreapp3.1 -r win10-x64`
 
->NOTE: Starting with .NET Core 2.0, the `dotnet publish` command automatically restores dependencies for you. Running `dotnet restore` explicitly is not generally required.
+>Starting with .NET Core 2.0, the `dotnet publish` command automatically restores dependencies for you. Running `dotnet restore` explicitly is not generally required.
 
 <a name="steeltoe-common-steps-cloud-foundry-push-sample"></a>
 ## Cloud Foundry Push Sample
@@ -32,7 +32,7 @@ cf push -f manifest.yml -p bin/Debug/netcoreapp3.1/ubuntu.14.04-x64/publish
 cf push -f manifest-windows.yml -p bin/Debug/netcoreapp3.1/win10-x64/publish
 ```
 
->NOTE: All sample manifests have been defined to bind their application to the services as created earlier.
+>All sample manifests have been defined to bind their application to the services as created earlier.
 
 ### Observe the Logs
 
@@ -90,4 +90,4 @@ If there are merge conflicts, the last provider added to the configuration takes
 
 To manage application settings centrally instead of with individual files, you can use [Steeltoe Configuration](/docs/configuration) and a tool such as [Spring Cloud Config Server](https://github.com/spring-cloud/spring-cloud-config)
 
->NOTE: If you use the Spring Cloud Config Server, `AddConfigServer()` automatically calls `AddCloudFoundry()` for you.
+>If you use the Spring Cloud Config Server, `AddConfigServer()` automatically calls `AddCloudFoundry()` for you.

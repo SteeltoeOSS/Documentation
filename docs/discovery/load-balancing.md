@@ -34,7 +34,7 @@ Any implementation of `ILoadBalancer` is expected to know how to interact with s
 
 The `RandomLoadBalancer`, as the name implies, randomly selects a service instance from all instances that are resolved from a given service name. The `ILoadBalancer` implementation adds the (optional) ability to cache service instance data, which is useful for `IServiceInstanceProvider` or `IDiscoveryClient` implementations that do not provide their own caching (such as the Consul provider). Service instance data caching happens automatically if an `IDistributedCache` instance is provided through constructor injection.
 
->NOTE: `RandomLoadBalancer` does not track stats or exceptions. `UpdateStatsAsync` returns `Task.CompletedTask`
+>`RandomLoadBalancer` does not track stats or exceptions. `UpdateStatsAsync` returns `Task.CompletedTask`
 
 #### Using HttpClientFactory
 
@@ -63,7 +63,7 @@ You can use the random load balancer with the included `HttpClientHandler`, whic
 
 The provided round robin load balancer sends traffic to service instances in sequential order, as they are provided by the `IServiceInstanceProvider`. Like the `RandomLoadBalancer`, the `RoundRobinLoadBalancer` also includes the (optional) ability to cache service instances if an `IDistributedCache` instance is provided through constructor injection. Additionally, when a provided `IDistributedCache` instance is shared among clients (for example, by using a shared Redis cache for multiple front-end application instances) the round robin sequence tracking is shared across clients, ensuring an even load distribution.
 
->NOTE: `RoundRobinLoadBalancer` does not track stats or exceptions. `UpdateStatsAsync` returns `Task.CompletedTask`
+>`RoundRobinLoadBalancer` does not track stats or exceptions. `UpdateStatsAsync` returns `Task.CompletedTask`
 
 #### Using with HttpClientFactory
 

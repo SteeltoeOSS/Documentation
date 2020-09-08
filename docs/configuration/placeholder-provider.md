@@ -83,7 +83,7 @@ public class Program
 }
 ```
 
->NOTE: It is important to understand that the Placeholder resolver works by wrapping and replacing the existing configuration providers already added to the `ConfigurationBuilder`. As a result you typically will want to add it as the last provider.
+>It is important to understand that the Placeholder resolver works by wrapping and replacing the existing configuration providers already added to the `ConfigurationBuilder`. As a result you typically will want to add it as the last provider.
 
 ### Access Configuration Data
 

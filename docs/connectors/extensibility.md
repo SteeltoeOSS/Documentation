@@ -33,4 +33,4 @@ using Steeltoe.Connector.CloudFoundry;
 [assembly: ServiceInfoCreatorAssembly(typeof(CloudFoundryServiceInfoCreator))]
 ```
 
->NOTE: A customized `ServiceInfoCreator` should not be required to add Service Infos or Service Info Factories
+>A customized `ServiceInfoCreator` should not be required to add Service Infos or Service Info Factories

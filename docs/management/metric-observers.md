@@ -18,7 +18,7 @@ All of the above metrics are tagged with values specific to the requests being p
 
 The following table describes the settings that you can apply to the observers:
 
->NOTE: Each setting below must be prefixed with `Management:Metrics:Observer`.
+>Each setting below must be prefixed with `Management:Metrics:Observer`.
 
 | Key | Description | Default |
 | --- | --- | --- |

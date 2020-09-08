@@ -67,7 +67,7 @@ The Steeltoe OAuth2 security provider options are based on [`Microsoft.AspNetCor
 | `additionalScopes` |Scopes to request for tokens in addition to `openid` | `string.Empty` |
 | `validateCertificates` |Validate Auth server certificate| `true` |
 
->NOTE: Each setting above must be prefixed with `security:oauth2:client`.
+>Each setting above must be prefixed with `security:oauth2:client`.
 
 ### Cloud Foundry
 
@@ -127,7 +127,7 @@ public class Startup {
 
 The `AddCloudFoundryOAuth(Configuration)` method call configures and adds the Cloud Foundry OAuth authentication service to the service container. Once in place, it can be used by the authentication middleware during request processing.
 
->NOTE: When running behind a reverse-proxy (such as Gorouter or HAProxy) that handles TLS termination for your application, use `app.UseForwardedHeaders` to generate the correct redirect URI so that the user is not sent back over HTTP instead of HTTPS after authenticating.
+>When running behind a reverse-proxy (such as Gorouter or HAProxy) that handles TLS termination for your application, use `app.UseForwardedHeaders` to generate the correct redirect URI so that the user is not sent back over HTTP instead of HTTPS after authenticating.
 
 ### Securing Endpoints
 
