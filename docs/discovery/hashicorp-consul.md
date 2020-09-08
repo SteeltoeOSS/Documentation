@@ -101,9 +101,7 @@ The health check for a Consul service instance defaults to `/actuator/health`, w
 
 ### Configuring Metadata
 
-Consul does not yet support including metadata with service instance registrations, but the Steeltoe `IServiceInstance` has an `IDictionary<string, string> Metadata` property that is used to obtain metadata settings for an instance.
-
-The Steeltoe Consul client uses the Consul tags feature to approximate metadata registration until Consul officially supports associating metadata with instances.
+Steeltoe `IServiceInstance` has an `IDictionary<string, string> Metadata` property that is used to obtain metadata settings for an instance. Consul previously did not support including metadata with service instance registrations. The Steeltoe Consul client currently uses the Consul tags feature to approximate metadata registration.
 
 Tags with the form of `key=value` are split and used as `IDictionary` keys and values, respectively. Tags without the equal sign are used as both the key and the value. You can add metadata with the `consul:discovery:tags` string array:
 

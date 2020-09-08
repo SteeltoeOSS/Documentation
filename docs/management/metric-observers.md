@@ -18,7 +18,7 @@ All of the above metrics are tagged with values specific to the requests being p
 
 The following table describes the settings that you can apply to the observers:
 
-The following table describes the settings that you can apply to the observes.
+>NOTE: Each setting below must be prefixed with `Management:Metrics:Observer`.
 
 | Key | Description | Default |
 | --- | --- | --- |
@@ -30,9 +30,7 @@ The following table describes the settings that you can apply to the observes.
 | `EventCounterEvents` | Enable Event Counter Metrics. | `false` |
 | `HttpClientCore` | Enable Http Client Metrics. | `false` |
 | `HttpClientDesktop` | Enable Http Client Desktop Metrics. | `false` |
-| `HystrixEvents` | Enable Circuit Breaker Metrics. | `true` |
-
->NOTE: Each setting above must be prefixed with `Management:Metrics:Observer`.
+| `HystrixEvents` | Enable Circuit Breaker Metrics. | `false` |
 
 ## Hystrix Event Source
 

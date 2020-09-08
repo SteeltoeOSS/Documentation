@@ -181,16 +181,17 @@ As an alternative to using `CloudFoundryServicesOptions` to access Cloud Foundry
 
 These methods let you define an `Options` class that represents a particular type of Cloud Foundry service binding and then use either method to select that data from `VCAP_SERVICES` and bind the data to it.
 
-To do this, you first need to create an `Options` class that derives from `AbstractServiceOptions`. That class must match the data provided in `VCAP_SERVICES`.
+To do this, you first need to create an `Options` class that derives from `CloudFoundryServicesOptions`. That class must match the data provided in `VCAP_SERVICES`.
 
 The following example shows how to do this for a MySql service binding on PCF:
 
 ```csharp
 using Steeltoe.Extensions.Configuration.CloudFoundry;
 
-public class MySqlServiceOption : AbstractServiceOptions
+public class MySqlServiceOption : CloudFoundryServicesOptions
 {
     public MySqlServiceOption() { }
+    public MySqlServiceOption(IConfiguration config) : base(config) { }
     public MySqlCredentials Credentials { get; set; }
 }
 

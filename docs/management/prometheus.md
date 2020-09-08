@@ -25,9 +25,19 @@ See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to
 
 To add the actuator to the service container and map its route, use the `AddPrometheusActuator` extension method from `ManagementHostBuilderExtensions`.
 
+The following example shows how to use the metrics actuator endpoint:
+
+```csharp
+ public static IHost BuildHost(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .AddPrometheusActuator()
+            .Build();
+```
+
 Alternatively, first,add the Prometheus actuator to the service container, using the `AddPrometheusActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
 Then, add the Prometheus actuator middleware to the ASP.NET Core pipeline, use the `Map<PrometheusEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
+
 
 ## Exporting
 
