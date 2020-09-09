@@ -235,6 +235,16 @@
           name: Configure Settings
         - page_ref: enable-http-access
           name: Enable HTTP Access
+        - page_ref: health-groups
+          name: Health Groups
+        - page_ref: kubernetes-health-groups
+          name: Kubernetes Health Groups
+        - page_ref: liveness
+          name: Liveness
+        - page_ref: readiness
+          name: Readiness
+        - page_ref: managing-application-availability-state
+          name: Manageing Application Availability State
         - page_ref: steeltoe-health-contributors
           name: Steeltoe Health Contributors
         - page_ref: creating-a-custom-health-contributor

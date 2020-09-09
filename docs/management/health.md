@@ -40,6 +40,7 @@ The following table describes the settings that you can apply to the endpoint.
 | `Enabled` | Whether to enable the health management endpoint. | `true` |
 | `Sensitive` | Currently not used. | `false` |
 | `RequiredPermissions` | The user permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
+| `Groups` | Specify logical groupings of health contributors | N/A |
 
 >Each setting above must be prefixed with `Management:Endpoints:Health`.
 
@@ -97,6 +98,99 @@ public class Startup
 ```
 
 >When you use any of the Steeltoe Connectors in your application, we automatically add the corresponding health contributors to the service container.
+
+## Health Groups
+
+Should you need to check application health based on a subset of health contributors, you may specify the name of the grouping and a comma separated list of contributors to include like this:
+
+```json
+{
+    "Management": {
+        "Endpoints": {
+            "Health": {
+                "my-custom-group": {
+                    "Include": "diskspace,RabbitMQ"
+                }
+            }
+        }
+    }
+}
+```
+
+This mechanism is case-insensitive and will only include health contributors with an `Id` that matches the values found in `Include`.
+
+For any group that has been defined, you may access health information from the group by appending the group name to the HTTP request to the Health Actuator. For example: `/health/my-custom-group`.
+
+### Kubernetes Health Groups
+
+Applications deployed on Kubernetes can provide information about their internal state with [Container Probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes). Depending on your [Kubernetes configuration](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), the kubelet will call those probes and react to the result.
+
+Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Common/src/Common/Availability/ApplicationAvailability.cs) class for managing various types of application state. Out of the box support is provided for Liveness and Readiness, where each are exposed in a corresponding `IHealthContributor` and Health Group.
+
+In order to change the health contributors that are included in either of the two default groups, use the same style of configuration seen above. Please note that this will _replace_ the default groupings, so if you would like to _add_ an `IHealthContributor` you will need to include the original entry. These entries demonstrate including disk space in both groups:
+
+```json
+{
+    "Management": {
+        "Endpoints": {
+            "Health": {
+                "Liveness": {
+                    "Include": "diskspace,liveness"
+                },
+                "Readiness": {
+                    "Include": "diskspace,readiness"
+                }
+            }
+        }
+    }
+}
+```
+
+#### Liveness
+
+The "Liveness" state of an application tells whether its internal state allows it to work correctly, or recover by itself if it's currently failing. A broken "Liveness" state means that the application is in a state that it cannot recover from, and the infrastructure should restart the application.
+
+Out of the box, any of Steeltoe's extensions that set up the Health actuator will initialize the Liveness state `LivenessState.Correct`. The only other defined state for "Liveness" is `LivenessState.Broken`, though Steeltoe code does not currently cover any conditions that set this state.
+
+>In general, the "Liveness" state should not depend on external system checks such as a database, queue or cache server. Including checks on external systems could trigger massive restarts and cascading failures across the platform.
+
+#### Readiness
+
+The "Readiness" state  of an instance of an application describes whether the application is ready to handle traffic. A failing "Readiness" state tells the platform that it should not route traffic to the application instance.
+
+Out of the box, any of Steeltoe's extensions that set up the Health actuator will also register a callback on [`ApplicationStarted`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstarted) to initialize the Readiness state to `AcceptingTraffic` when the application has started, and register a callback on [`ApplicationStopping`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstopping) to change the state to `RefusingTraffic` when the application begins to shut down. These are the only defined states for this availability type.
+
+#### Managing Application Availability State
+
+Application components can retrieve the current availability state at any time, by requesting `ApplicationAvailability` from the dependency injection container and calling methods on it. Additionally, it is possible to add an `EventHandler` for each of the defined availability types in order to listen to state changes.
+
+This example demonstrates constructor injection of `ApplicationAvailability`, setting state and monitoring state:
+
+```csharp
+public class MyAvailabilityStateInteractor
+{
+    private ApplicationAvailability _availability;
+    private int readinessChanges = 0;
+    private ReadinessState lastReadinessState;
+
+    public MyAvailabilityStateInteractor(ApplicationAvailability availability)
+    {
+        availability.ReadinessChanged += Availability_ReadinessChanged;
+        _availability = availability;
+    }
+
+    public void BreakLiveness()
+    {
+        _availability.SetAvailabilityState(availability.LivenessKey, LivenessState.Broken, "MyAvailabilityStateInteractor");
+    }
+
+    private void Availability_ReadinessChanged(object sender, EventArgs e)
+    {
+        readinessChanges++;
+        lastReadinessState = (ReadinessState)(e as AvailabilityEventArgs).NewState;
+    }
+}
+```
 
 ## Steeltoe Health Contributors
 
