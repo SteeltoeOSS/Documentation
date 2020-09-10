@@ -53,7 +53,7 @@
         - page_ref: access-configuration-data
           name: Access Configuration Data
         - page_ref: access-configuration-data-as-options
-          name: Access Configuration Data as Options
+          name: Configuration Data as Options
     - page: /docs/3/configuration/placeholder-provider
       name: Placeholder Provider
       items:
@@ -64,7 +64,7 @@
         - page_ref: access-configuration-data
           name: Access Configuration Data
         - page_ref: access-configuration-data-as-options
-          name: Access Configuration Data as Options
+          name: Configuration Data as Options
     - page: /docs/3/configuration/config-server-provider
       name: Config Server Provider
       items:
@@ -244,11 +244,11 @@
         - page_ref: readiness
           name: Readiness
         - page_ref: managing-application-availability-state
-          name: Manageing Application Availability State
+          name: Managing Availability State
         - page_ref: steeltoe-health-contributors
           name: Steeltoe Health Contributors
         - page_ref: creating-a-custom-health-contributor
-          name: Creating a Custom Health Contributor
+          name: Custom Health Contributors
         - page_ref: asp-net-core-health-checks
           name: ASP.NET Core Health Checks
     - page: /docs/3/management/heapdump
