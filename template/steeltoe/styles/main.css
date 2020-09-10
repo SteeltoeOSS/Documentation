@@ -11,48 +11,6 @@ html, body {
 }
 
 /* =====================DOCFX OVERRIDE===================== */
-header .navbar{
-  background-color: white;
-  padding: 5px 0 5px 0;
-  border: 0;
-  height: 82px;
-}
-header .subnav{
-	height: 50px;
-}
-.navbar-brand {
-    height: 82px;
-}
-.navbar-nav:hover{
-	color: #00376e;
-}
-.navbar-inverse .navbar-nav>.active>a,
-.navbar-inverse .navbar-nav>.active>a:focus,
-.navbar-inverse .navbar-nav>.active>a:hover,
-.navbar-inverse .navbar-nav>li>a,
-.navbar-inverse .navbar-text,
-.navbar-inverse .navbar-nav>a:focus,
-.navbar-inverse .navbar-nav>a:hover {
-	padding-top: 5px;
-	color: #00376e;
-	text-decoration: none;
-	background-color: transparent;
-}
-.nav.navbar-nav{padding: 8px 0 0 0;}
-.navbar>.container, .navbar>.container-fluid {
-    display: inherit;
-    flex-wrap: unset;
-}
-.nav{
-	display: inherit;
-}
-.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
-    color: inherit;
-    background-color: transparent;
-}
-#autocollapse .navbar-header {
-    margin-right: 71px;
-}
 .nav.level2 li {
 	padding: 5px 0 5px 0;
 }
@@ -82,21 +40,37 @@ h3 {
   margin-top: 82px;
   margin-bottom: 66px;
 }
- /*@media (min-width: 1200px){
-	.container {
-			max-width: 1200px;
+pre {
+	padding: 0;
+}
+.sideaffix {
+	font-size: 90%
+}
+
+ /* NAV BAR */
+.navbar{
+	padding: 0;
+	margin-bottom: 0;
+	border: 0;
+	border-radius: 0;
+}
+.navbar-brand{
+	float: unset;
+	height: unset;
+	padding: unset;
+}
+.nav-item{
+	min-width: unset;
+}
+
+@media only screen and (max-width: 768px){
+	.sideaffix {
+			display: unset;
 	}
 }
-@media (min-width: 992px){
-	.container {
-			max-width: 95%;
-	}
+.nav {
+	display: unset;
 }
-@media (min-width: 768px){
-.container {
-    max-width: 720px;
-}}
-@media (min-width: 576px){
-.container {
-    max-width: 540px;
-}} */
+.dropdown-item{
+	color: #0066cc;
+}

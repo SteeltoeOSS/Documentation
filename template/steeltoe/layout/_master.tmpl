@@ -22,23 +22,25 @@
       <div role="main" class="container body-content hide-when-search">
       {{^_disableToc}}
         {{>partials/toc}}
-        <div class="article row grid-right">
+        <div class="article row grid-right mr-3">
       {{/_disableToc}}
       {{#_disableToc}}
         <div class="article row grid">
         {{/_disableToc}}
           {{#_disableAffix}}
-          <div class="col-md-12">
+            <div class="col-10">
           {{/_disableAffix}}
           {{^_disableAffix}}
-          <div class="col-md-10">
+            <div class="col-md-10 col-sm-12">
           {{/_disableAffix}}
-            <article class="content wrap" id="_content" data-uid="{{uid}}">
-                {{!body}}
-            </article>
-          </div>
+              <article class="content wrap" id="_content" data-uid="{{uid}}">
+                  {{!body}}
+              </article>
+            </div>
           {{^_disableAffix}}
-          {{>partials/affix}}
+            <div class="d-none d-md-block col-2" role="complementary">
+              {{>partials/affix}}
+            </div>
           {{/_disableAffix}}
         </div>
       </div>

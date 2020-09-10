@@ -24,45 +24,6 @@ $(function () {
     breakText();
     renderTabs();
 
-    //GLOBAL REPLACE ALL VALUES FROM LOCALSTORAGE
-    for (var i = 0; i < localStorage.length; i++){
-      var val = localStorage.getItem(localStorage.key(i));
-      
-      switch(val){
-        case("null"):
-        case("true"):
-        case("false"):
-          break;
-        default:
-          val = "\""+val+"\"";
-          break;
-      };
-
-      $("pre").each(function(idx){
-        var a=$(this);
-        a.html(a.html().replace('%%'+localStorage.key(i)+'%%',val));
-      });
-    }
-    
-    $("pre").each(function(idx){
-      var a=$(this);
-      a.html(a.html().replace(/%%/g,'#'));
-    });
-
-    var options = {
-      contentSelector: "#wrapper",
-      loadDelay: 10,
-      // CSS class(es) used to render the copy icon.
-      copyIconClass: "oi oi-document",
-      // CSS class(es) used to render the done icon.
-      checkIconClass: "oi oi-check text-success",
-      // hook to allow modifying the text before it's pasted
-      onBeforeTextCopied: function (text, codeElement) {
-        return text;   //  you can fix up the text here
-      }
-    };
-    window.highlightJsBadge(options);
-
     window.refresh = function (article) {
       // Update markup result
       if (typeof article == 'undefined' || typeof article.content == 'undefined')
@@ -387,14 +348,14 @@ $(function () {
         return;
       }
 
-      var navbar = $('#navbar ul')[0];
-      if (typeof (navbar) === 'undefined') {
-        loadNavbar();
-      } else {
-        $('#navbar ul a.active').parents('li').addClass(active);
+      //var navbar = $('#navbar ul')[0];
+      //if (typeof (navbar) === 'undefined') {
+      //  loadNavbar();
+      //} else {
+        //$('#navbar ul li.active').parents('li').addClass(active);
         renderBreadcrumb();
         showSearch();
-      }
+      //}
       
       function showSearch() {
         if ($('#search-results').length !== 0) {
@@ -657,7 +618,7 @@ $(function () {
   
       function getHierarchy() {
         // supported headers are h1, h2, h3, and h4
-        var $headers = $($.map(['h2', 'h3', 'h4'], function (h) { return ".article article " + h; }).join(", ")); //'h1', 
+        var $headers = $($.map(['h1', 'h2', 'h3', 'h4'], function (h) { return ".article article " + h; }).join(", "));
   
         // a stack of hierarchy items that are currently being built
         var stack = [];
