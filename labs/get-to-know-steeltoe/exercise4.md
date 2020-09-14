@@ -3,7 +3,7 @@ uid: labs/get-to-know-steeltoe/exercise4
 _disableContribution: true
 _disableToc: true
 _disableFooter: true
-_homePath: "./"
+_homePath: "./index.html"
 _disableNav: true
 ---
 [vs-add-configserver]: ~/labs/images/vs-add-configserver.png "Add configuration server library"

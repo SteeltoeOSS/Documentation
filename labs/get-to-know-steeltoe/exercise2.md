@@ -3,7 +3,7 @@ uid: labs/get-to-know-steeltoe/exercise2
 _disableContribution: true
 _disableToc: true
 _disableFooter: true
-_homePath: "./"
+_homePath: "./index.html"
 _disableNav: true
 ---
 [vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"

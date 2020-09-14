@@ -3,7 +3,7 @@ uid: labs/get-to-know-steeltoe/exercise3
 _disableContribution: true
 _disableToc: true
 _disableFooter: true
-_homePath: "./"
+_homePath: "./index.html"
 _disableNav: true
 ---
 [vs-add-efcore]: ~/labs/images/vs-add-efcore.png "Steeltoe EFCore nuget dependency"

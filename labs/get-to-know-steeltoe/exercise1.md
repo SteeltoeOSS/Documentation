@@ -3,7 +3,7 @@ uid: labs/get-to-know-steeltoe/exercise1
 _disableContribution: true
 _disableToc: true
 _disableFooter: true
-_homePath: "./"
+_homePath: "./index.html"
 _disableNav: true
 ---
 
