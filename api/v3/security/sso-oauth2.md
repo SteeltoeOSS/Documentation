@@ -1,6 +1,6 @@
 # Single Sign-on with OAuth2
 
-Single Sign-on with OAuth 2.0 lets you leverage existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on service](https://docs.pivotal.io/p-identity) for authentication and authorization in ASP.NET Core applications. Single sign-on functionality for ASP.NET 4.x applications is available with the OpenID Connect provider.
+Single Sign-on with OAuth 2.0 lets you leverage existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on service](https://docs.pivotal.io/p-identity) for authentication and authorization in ASP.NET Core applications.
 
 In addition to the Quick Start, you can use other Steeltoe sample applications to help you understand how to use this provider, including `FreddysBBQ` (a polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services).
 
@@ -37,7 +37,7 @@ You can add the provider to your project by using the following `PackageReferenc
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -48,10 +48,10 @@ Configuring settings for the provider beyond what is provided in a service bindi
 
 ```json
 {
-  "security": {
-    "oauth2": {
-      "client": {
-        "validateCertificates": false
+  "Security": {
+    "Oauth2": {
+      "Client": {
+        "ValidateCertificates": false
       }
     }
   }
@@ -62,12 +62,12 @@ The samples and most templates are already set up to read from `appsettings.json
 
 The Steeltoe OAuth2 security provider options are based on [`Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.authentication.oauth.oauthoptions), with these additional properties:
 
-|Name|Description|Default|
-|---|---|---|
-|`additionalScopes`|Scopes to request for tokens in addition to `openid`|`string.Empty`|
-|`validateCertificates`|Validate Auth server certificate|`true`|
+|Name|Description |Default|
+| --- | --- | --- |
+| `additionalScopes` |Scopes to request for tokens in addition to `openid` | `string.Empty` |
+| `validateCertificates` |Validate Auth server certificate| `true` |
 
->NOTE: Each setting above must be prefixed with `security:oauth2:client`.
+>Each setting above must be prefixed with `security:oauth2:client`.
 
 ### Cloud Foundry
 
@@ -127,7 +127,7 @@ public class Startup {
 
 The `AddCloudFoundryOAuth(Configuration)` method call configures and adds the Cloud Foundry OAuth authentication service to the service container. Once in place, it can be used by the authentication middleware during request processing.
 
->NOTE: When running behind a reverse-proxy (such as Gorouter or HAProxy) that handles TLS termination for your application, use `app.UseForwardedHeaders` to generate the correct redirect URI so that the user is not sent back over HTTP instead of HTTPS after authenticating.
+>When running behind a reverse-proxy (such as Gorouter or HAProxy) that handles TLS termination for your application, use `app.UseForwardedHeaders` to generate the correct redirect URI so that the user is not sent back over HTTP instead of HTTPS after authenticating.
 
 ### Securing Endpoints
 

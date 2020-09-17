@@ -1,37 +1,28 @@
-### Thread Dump
+# Thread Dump
 
 The Steeltoe thread dump endpoint can be used to generate a snapshot of information about all the threads in your application. That snapshot includes several bits of information for each thread, including the thread's state, a stack trace, any monitor locks held by the thread, any monitor locks the thread is waiting on, and other details.
 
->NOTE: At this time, thread dumps are possible only on the Windows operating system. When integrating with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you do not have the ability to obtain thread dumps from applications running on Linux cells.
-
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|`id`|The ID of the thread dump endpoint|`dump`|
-|`enabled`|Whether to enable the thread dump management endpoint|`true`|
-|`sensitive`|Currently not used|`false`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the thread dump endpoint. | `dump` |
+| `Enabled` | Whether to enable the thread dump management endpoint. | `true` |
+| `Sensitive` | Currently not used. | `false` |
 
->NOTE: Each setting must be prefixed with `management:endpoints:dump`.
+>Each setting must be prefixed with `Management:Endpoints:Dump`.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
-The default path to the thread dump endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/dump`.
+The default path to the thread dump endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](./hypermedia#base-context-path)>`/dump`.
 
-The coding steps you take to enable HTTP access to the thread dump endpoint differ, depending on the type of .NET application your are developing. The sections that follow describe the steps needed for each of the supported application types.
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-##### ASP.NET Core App
 
-To add the thread dump actuator to the service container, use the `AddThreadDumpActuator()` extension method from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use the `hostBuilder.AddThreadDumpActuator` extension method from `ManagementHostBuilderExtensions`.
 
-To add the thread dump actuator middleware to the ASP.NET Core pipeline, use the `UseThreadDumpActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first,add the thread dump actuator to the service container, using the `AddThreadDumpActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
-##### ASP.NET 4.x App
-
-To add the thread Dump actuator endpoint, use the `UseThreadDumpActuator()` method from `ActuatorConfigurator`.
-
-##### ASP.NET OWIN App
-
-To add the thread Dump actuator middleware to the ASP.NET OWIN pipeline, use the `UseThreadDumpActuator()` extension method from `ThreadDumpEndpointAppBuilderExtensions`.
+Then add the thread dump actuator middleware to the ASP.NET Core pipeline, using the `Map<ThreadDumpEndpoint_v2>()` extension method from `ActuatorRouteBuilderExtensions`.

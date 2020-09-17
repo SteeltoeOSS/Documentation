@@ -10,13 +10,15 @@ Zipkin is a popular distributed tracing system that has been around for several 
 
 The following table describes the settings that you can apply to the exporter:
 
-|Key|Description|Default|
-|---|---|---|
-|`endpoint`|The URI used to POST traces.|`http://localhost:9411/api/v2/spans`|
-|`validateCertificates`|Whether to validate SSL certificates received from exporter service.|`true`|
-|`timeoutSeconds`|The timeout used in seconds for each POST request.|3|
-|`serviceName`|The application name used in log messages.|`null`|
-|`useShortTraceIds`|Whether to truncate the IDs to 8 bytes instead of 16. Use it for backwards compatibility with Spring Sleuth, PCF Metrics, and others.|`true`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Endpoint` | The URI used to POST traces. | `http://localhost:9411/api/v2/spans` |
+| `ValidateCertificates` | Whether to validate SSL certificates received from exporter service. | `true` |
+| `TimeoutSeconds` | The timeout used in seconds for each POST request. |3|
+| `ServiceName` | The application name used in log messages. | `null` |
+| `UseShortTraceIds` | Whether to truncate the IDs to 8 bytes instead of 16. Use it for backwards compatibility with Spring Sleuth, PCF Metrics, and others. | `true` |
+
+**Note**: **Each setting above must be prefixed with `management:tracing:exporter:zipkin`**
 
 ### Use Zipkin Exporter
 

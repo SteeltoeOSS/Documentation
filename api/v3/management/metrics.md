@@ -1,6 +1,6 @@
-### Metrics
+# Metrics
 
-The Steeltoe metrics endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. It automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics via the endpoint.
+The Steeltoe metrics endpoint configures built-in instrumentation of various aspects of the application and exposes them in Spring Boot Metrics format.
 
 The following instrumentation is automatically configured:
 
@@ -13,37 +13,38 @@ The following instrumentation is automatically configured:
 
 All of these metrics are tagged with values specific to the requests being processed, thereby giving multi-dimensional views of the collected metrics.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|`id`|The ID of the metrics endpoint|`metrics`|
-|`enabled`|Whether to enable the metrics management endpoint|`true`|
-|`ingressIgnorePattern`|Regex pattern describing what incoming requests to ignore|See `MetricsOptions`|
-|`egressIgnorePattern`|Regex pattern describing what outgoing requests to ignore|See `MetricsOptions`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the metrics endpoint. | `metrics` |
+| `Enabled` | Whether to enable the metrics management endpoint. | `true` |
+| `IngressIgnorePattern` | Regex pattern describing what incoming requests to ignore. | See `MetricsOptions` |
+| `EgressIgnorePattern` | Regex pattern describing what outgoing requests to ignore. | See `MetricsOptions` |
 
->NOTE: Each setting above must be prefixed with `management:endpoints:metrics`.
+>Each setting above must be prefixed with `Management:Endpoints:Metrics`.
 
-#### Enable HTTP Access
+To configure Observers, see [Metric Observers](/docs/3/management/metric-observers)
 
-The default path to the metrics endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/metrics`.
+## Enable HTTP Access
 
-The coding steps you take to enable HTTP access to the metrics endpoint differ, depending on the type of .NET application your are developing. The sections that follow describe the steps needed for each of the supported application types.
+The default path to the metrics endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](./hypermedia#base-context-path)>`/metrics`.
 
-##### ASP.NET Core App
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the metrics actuator to the service container, use the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
+To add the actuator to the service container and map its route, use the `hostBuilder.AddMetricsActuator` extension method from `ManagementHostBuilderExtensions`.
 
-To add the metrics actuator middleware to the ASP.NET Core pipeline, use the `UseMetricsActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Alternatively, first, add the metrics actuator to the service container, using the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
+Then add the metrics actuator middleware to the ASP.NET Core pipeline, using the `Map<MetricsEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
-#### Exporting
+## Exporting
 
-Prior versions of Steeltoe supported exporting metrics to The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/), which is no longer supported. See [Prometheus](prometheus) to export metrics.
+See [Prometheus](/docs/3/management/prometheus) to export metrics.
 
-##### Add NuGet References
+## Add NuGet References
 
 To use the metrics actuator, you need to add a reference to the `Steeltoe.Management.EndpointCore` NuGet package.
 
@@ -52,7 +53,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.0-m2"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -60,15 +61,25 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Alternatively, you can add the package through PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-m2
+PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-
 ```
-##### Cloud Foundry Forwarder
 
- The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](prometheus).
+## Cloud Foundry Forwarder
 
-##### ASP.NET Core App
+ The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](/docs/3/management/prometheus).
+
+## ASP NET Core Example
 
 The following example shows how to use the metrics actuator endpoint:
+
+```csharp
+ public static IHost BuildHost(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .AddMetricsActuator()
+            .Build();
+```
+
+Or,
 
 ```csharp
 public class Startup
@@ -86,12 +97,13 @@ public class Startup
     }
     public void Configure(IApplicationBuilder app)
     {
-        app.UseStaticFiles();
+         app.UseEndpoints(endpoints =>
+            {
+                // Add management endpoints into pipeline like this
+                endpoints.Map<MetricsEndpoint>();
 
-        // Expose Metrics endpoint
-        app.UseMetricsActuator();
-
-        app.UseMvc();
+                // ... Other mappings
+            });
 
     }
 }

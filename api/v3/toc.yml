@@ -25,11 +25,6 @@
   items:
     - topicHref: circuitbreaker/hystrix.md
       name: Hystrix
-- name: Developer Tools
-  topicHref: developer-tools/overview.md
-  items:
-    - topicHref: developer-tools/cli.md
-      name: CLI
 - name: Distributed Tracing
   topicHref: tracing/distributed-tracing.md
   items:
@@ -49,6 +44,8 @@
       name: Using Endpoints
     - topicHref: management/tasks  
       name: Tasks
+    - topicHref: management/metric-observers.md
+      name: Metric Observers
     - topicHref: management/cloud-foundry.md
       name: /cloudFoundry
     - topicHref: management/env.md
@@ -78,16 +75,10 @@
 - name: Messaging 
   topicHref: messaging/overview.md
   items:
-    - topicHref: messaging/quick-tour.md
-      name: Quick Tour
-    - topicHref: messaging/amqp.md
-      name: AMQP
-    - topicHref: messaging/messaging.md
-      name: Messaging
-    - topicHref: messaging/further-reading.md
-      name: Further Reading
-    - topicHref: messaging/testing.md
-      name: Testing
+    - topicHref: messaging/rabbitmq-intro.md
+      name: RabbitMQ Introduction
+    - topicHref: messaging/rabbitmq-reference.md
+      name: RabbitMQ Reference
 - name: Network File Sharing
   topicHref: fileshares/overview.md
   items:
@@ -96,12 +87,8 @@
 - name: Security
   topicHref: security/overview.md
   items:
-    - topicHref: security/jwt-authentication-in-asp.NET-core.md
+    - topicHref: security/jwt-authentication.md
       name: JWT for ASP.NET Core
-    - topicHref: security/jwt-authentication-in-asp.NET-WCF.md
-      name: JWT for ASP.NET WCF
-    - topicHref: security/jwt-authentication-in-asp.NET-WebAPI.md
-      name: JWT for ASP.NET WebAPI
     - topicHref: security/redis-key-storage-provider.md
       name: Redis Key Storage Provider
     - topicHref: security/sso-open-id.md
@@ -113,6 +100,10 @@
 - name: Service Connectors
   topicHref: connectors/overview.md
   items:
+    - topicHref: connectors/usage.md
+      name: Usage
+    - topicHref: connectors/extensibility.md
+      name: Extensibility
     - topicHref: connectors/mysql.md
       name: MySQL
     - topicHref: connectors/microsoft-sql-server.md
@@ -129,8 +120,6 @@
       name: CosmosDB
     - topicHref: connectors/redis.md
       name: Redis
-    - topicHref: connectors/gemfire.md
-      name: Apache Geode/GemFire
 - name: Service Discovery
   topicHref: discovery/overview.md
   items: 

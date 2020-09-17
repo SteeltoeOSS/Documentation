@@ -1,17 +1,18 @@
-### Info
+# Info
 
 The Steeltoe `Info` management endpoint exposes various application information collected from all the `IInfoContributor` instances that have been provided to the `InfoEndpoint`.
 
 Steeltoe includes a couple `IInfoContributor` implementations out of the box that you can use. Most importantly, you can also write your own.
 
-#### Info Contributors
+## Info Contributors
 
 The following table describes the `IInfoContributor` implementations provided by Steeltoe:
 
-|Name|Description|
-|---|---|
-| `AppSettingsInfoContributor`|Exposes any values under the `info` key (for example, `info:cat:hat=cathat`) that is in your apps configuration (for example, `appsettings.json`)|
-| `GitInfoContributor`|Exposes git information (if a `git.properties` file is available)|
+| Name | Description |
+| --- | --- |
+| `AppSettingsInfoContributor` | Exposes any values under the `info` key (for example, `info:cat:hat=cathat`) that is in your apps configuration (for example, `appsettings.json`). |
+| `BuildInfoContributor` | Exposes file/version info for both the included version of Steeltoe and the application. |
+| `GitInfoContributor` | Exposes git information (if a `git.properties` file is available). |
 
 For an example of how to use the above `GitInfoContributor` within MSBuild using [GitInfo](https://github.com/kzu/GitInfo), see the [Steeltoe management sample](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/CloudFoundry) and the [CloudFoundry.csproj](https://github.com/SteeltoeOSS/Samples/blob/master/Management/src/AspDotNetCore/CloudFoundry/CloudFoundry.csproj) file.
 
@@ -30,34 +31,32 @@ public class ArbitraryInfoContributor : IInfoContributor
 }
 ```
 
->NOTE: Custom `IInfoContributor` implementations must be retrievable from the DI container by interface in order for Steeltoe to find them.
+>Custom `IInfoContributor` implementations must be retrievable from the DI container by interface in order for Steeltoe to find them.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|`id`|The ID of the info endpoint|`info`|
-|`enabled`|Whether to enable info management endpoint|`true`|
-|`sensitive`|Currently not used|`false`|
-|`requiredPermissions`|User permissions required on Cloud Foundry to access endpoint|`RESTRICTED`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the info endpoint. | `info` |
+| `Enabled` | Whether to enable info management endpoint. | `true` |
+| `Sensitive` | Currently not used. | `false` |
+| `RequiredPermissions` | User permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
 
->NOTE: Each setting above must be prefixed with `management:endpoints:info`.
+>Each setting above must be prefixed with `Management:Endpoints:Info`.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
-The default path to the Info endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is <[Context-Path](hypermedia#base-context-path)>`/info`.
+The default path to the Info endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting from above. The default path is <[Context-Path](./hypermedia#base-context-path)>`/info`.
 
-The coding steps you take to enable HTTP access to the Info endpoint together with how to use custom Info contributors differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
->NOTE: If you are using dependency injection, all `IInfoContributor` implementations that are retrievable from the DI container by interface will be returned in the Info response.
+To add the actuator to the service container and map its route, use any of the `AddInfoActuator` extension methods from `ManagementHostBuilderExtensions`.
 
-##### ASP.NET Core Application
+Alternatively, first, add the Info actuator to the service container, use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 
-To add the Info actuator to the service container, you can use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
-
-To add the Info actuator middleware to the ASP.NET Core pipeline, use the `UseInfoActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Then add the Info actuator middleware to the ASP.NET Core pipeline, use the `Map<InfoEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 The following example shows how to enable the info endpoint and how to add a custom `IInfoContributor` to the service container by adding `ArbitraryInfoContributor` as a singleton. Once that is done, the info endpoint discovers and uses it during info requests.
 
@@ -80,58 +79,13 @@ public class Startup
     {
         app.UseStaticFiles();
 
-        // Add management endpoint into pipeline
-        app.UseInfoActuator();
-    }
-}
-```
+       app.UseEndpoints(endpoints =>
+            {
+                // Add management endpoints into pipeline like this
+                endpoints.Map<InfoEndpoint>();
 
-##### ASP.NET 4.x App
-
-To add the info actuator endpoint, use the `UseInfoActuator()` method from `ActuatorConfigurator`. Optionally you can provide a list of `IInfoContributor` instances to customize the actuator endpoint.  If none are provided, defaults are provided.
-
-The following example shows how to enable the Info endpoint and how to use the `GitInfoContributor` and `AppSettingsInfoContributor` as `IInfoContributor` instances:
-
-```csharp
-public class ManagementConfig
-{
-    public static void ConfigureManagementActuators(IConfiguration configuration, ILoggerFactory loggerFactory)
-    {
-        ...
-        ActuatorConfigurator.UseInfoActuator(configuration, GetInfoContributors(configuration), loggerFactory);
-        ...
-    }
-    private static IEnumerable<IInfoContributor> GetInfoContributors(IConfiguration configuration)
-    {
-        var contributors = new List<IInfoContributor>() { new GitInfoContributor(), new AppSettingsInfoContributor(configuration) }
-        return contributors;
-    }
-}
-```
-
-##### ASP.NET OWIN App
-
-To add the info actuator middleware to the ASP.NET OWIN pipeline, use the `UseInfoActuator()` extension method from `InfoEndpointAppBuilderExtensions`.
-
-The following example shows how to enable the info endpoint and how to use the `GitInfoContributor` and `AppSettingsInfoContributor` as `IInfoContributor` instances:
-
-```csharp
-public class Startup
-{
-    ...
-    public void Configuration(IAppBuilder app)
-    {
-        ...
-        app.UseInfoActuator(
-            ApplicationConfig.Configuration,
-            GetInfoContributors(ApplicationConfig.Configuration),
-            LoggingConfig.LoggerFactory);
-        ...
-    }
-    private static IEnumerable<IInfoContributor> GetInfoContributors(IConfiguration configuration)
-    {
-        var contributors = new List<IInfoContributor>() { new GitInfoContributor(), new AppSettingsInfoContributor(configuration) }
-        return contributors;
+                // ... Other mappings
+            });
     }
 }
 ```

@@ -22,7 +22,7 @@ You can add the provider to your project by using the following `PackageReferenc
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.DataProtection.RedisCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Security.DataProtection.RedisCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -34,7 +34,7 @@ You can use the NuGet package manager tools or directly add the following packag
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.ConnectorCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.ConnectorCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -54,7 +54,7 @@ cf bind-service myApp myRedisCache
 cf restage myApp
 ```
 
->NOTE: The preceding commands are for the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command.
+>The preceding commands are for the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command.
 
 Once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 

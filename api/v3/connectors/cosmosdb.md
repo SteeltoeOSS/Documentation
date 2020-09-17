@@ -1,6 +1,6 @@
 # CosmosDB
 
-This connector simplifies using Azure Cosmos DB in an application running on Cloud Foundry. The connector is built to work with Azure Cosmos DB service instances that have been provisioned with the [Microsoft Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html), from either `Microsoft.Azure.Cosmos` or the newer package `Azure.Cosmos`.
+This connector simplifies using Azure Cosmos DB. The connector is built to work with Azure Cosmos DB from either `Microsoft.Azure.Cosmos` or the newer package `Azure.Cosmos`.
 
 ## Usage
 
@@ -8,7 +8,7 @@ To use this connector:
 
 1. Create a Cosmos DB Service instance and bind it to your application.
 1. Optionally, configure any CosmosDB client settings.
-1. Add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
+1. Optionally, add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
 
 ### Add NuGet References
 
@@ -20,10 +20,10 @@ This connector supports several settings for local interaction with CosmosDB tha
 
 ```json
 {
-  "cosmosdb": {
-    "client": {
-      "host": "https://localhost:8081",
-      "masterKey": "<yourMasterKeyHere>"
+  "Cosmosdb": {
+    "Client": {
+      "Host": "https://localhost:8081",
+      "MasterKey": "<yourMasterKeyHere>"
     }
   }
 }
@@ -31,21 +31,20 @@ This connector supports several settings for local interaction with CosmosDB tha
 
 The following table table describes all possible settings for the connector
 
-|Key|Description|Default|
-|---|---|---|
-|`host`|Protocol, hostname or IP Address and port of the server|not set|
-|`masterKey`|Authentication for read/write access|not set|
-|`readOnlyKey`|Authentication for read-only access|not set|
-|`databaseId`|Name of the database to use|not set|
-|`useReadOnlyCredentials`|Designate that the read-only key should be used|`false`|
-|`connectionString`|Full connection string|built from settings|
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Host` | Protocol, hostname or IP Address and port of the server. | not set |
+| `MasterKey` | Authentication for read/write access. | not set |
+| `ReadOnlyKey` | Authentication for read-only access. | not set |
+| `DatabaseId` | Name of the database to use. | not set |
+| `UseReadOnlyCredentials` | Designate that the read-only key should be used. | `false` |
+| `ConnectionString` | Full connection string. | Built from settings |
 
->IMPORTANT: All of these settings should be prefixed with `cosmosdb:client:`.
+>IMPORTANT: All of these settings should be prefixed with `CosmosDb:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
+>If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
@@ -61,6 +60,8 @@ cf bind-service myApp myCosmosDb
 # Restage the app to pick up change
 cf restage myApp
 ```
+
+>The connector is built to work with Azure Cosmos DB service instances that have been provisioned with the [Microsoft Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html).
 
 ### Use CosmosClient
 

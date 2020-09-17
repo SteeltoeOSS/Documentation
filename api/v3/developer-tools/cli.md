@@ -129,7 +129,7 @@ The `run` command runs the project in your local Docker environment.
 
 The command generates a [Docker Compose](https://docs.docker.com/compose/) file that you can use to run the project in Docker.
 
->NOTE: The current version of the CLI regenerates the file each time the command is run.  An upcoming version will regenerate the file only upon request.
+>The current version of the CLI regenerates the file each time the command is run.  An upcoming version will regenerate the file only upon request.
 
 A Docker container is created to mount the project directory. Any changes made to the application while the container is running are evident in the running app.
 

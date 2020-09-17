@@ -6,12 +6,6 @@ A placeholder takes the form of `${key:subkey1:subkey2?default_value}`, where `k
 
 Note that placeholder defaults (for example, `default_value`) can be defined to be placeholders as well and those are resolved as well.
 
-The Placeholder resolver provider supports the following .NET application types:
-
-* ASP.NET (MVC, WebForms, WebAPI, WCF)
-* ASP.NET Core
-* Console applications (.NET Framework and .NET Core)
-
 ## Usage
 
 You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider.
@@ -23,30 +17,28 @@ To use the Steeltoe Placeholder resolver provider, you need to:
 1. Optionally, configure Options classes by binding configuration data to the classes.
 1. Inject and use the Options classes or access configuration data directly.
 
->NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a console-based application, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration) for example code you can use.
-
 ### Add NuGet Reference
 
 To use the provider, you need to add a reference to the appropriate Steeltoe NuGet based on the type of the application you are building and what dependency injector you have chosen, if any. The following table describes the available packages:
 
-|Application Type|Package|Description|
-|---|---|---|
-|Console/ASP.NET 4.x|`Steeltoe.Extensions.Configuration.PlaceholderBase`|Base functionality. No dependency injection.|
-|ASP.NET Core|`Steeltoe.Extensions.Configuration.PlaceholderCore`|Includes base. Adds ASP.NET Core dependency injection.|
+| Package | Description | .NET Target |
+| --- | --- | --- |
+| `Steeltoe.Extensions.Configuration.PlaceholderBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
+| `Steeltoe.Extensions.Configuration.PlaceholderCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version= "2.2.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
 
 ### Add Configuration Provider
 
-In order to have placeholders resolved when accessing your configuration data, you need to add the placeholder resolver provider to the `ConfigurationBuilder`.  
+In order to have placeholders resolved when accessing your configuration data, you need to add the placeholder resolver provider to the `ConfigurationBuilder`.
 
 There are four different ways to do so:
 
@@ -84,14 +76,14 @@ public class Program
     }
     public static IWebHost BuildWebHost(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
-            .UseCloudFoundryHosting()
+            .UseCloudHosting()
             .AddPlaceholderResolver()
             .UseStartup<Startup>()
             .Build();
 }
 ```
 
->NOTE: It is important to understand that the Placeholder resolver works by wrapping and replacing the existing configuration providers already added to the `ConfigurationBuilder`. As a result you typically will want to add it as the last provider.
+>It is important to understand that the Placeholder resolver works by wrapping and replacing the existing configuration providers already added to the `ConfigurationBuilder`. As a result you typically will want to add it as the last provider.
 
 ### Access Configuration Data
 
@@ -101,16 +93,16 @@ Consider the following `appsettings.json` file:
 
 ```json
 {
-    "spring": {
-        "bar": {
-            "name": "myName"
+  "Spring": {
+    "Application": {
+      "Name": "myName"
     },
-      "cloud": {
-        "config": {
-            "name" : "${spring:bar:name?no_name}",
-        }
+    "Cloud": {
+      "Config": {
+        "Name" : "${Spring:Application:Name?no_name}",
       }
     }
+  }
   ...
 }
 ```
@@ -120,7 +112,7 @@ When using the normal `IConfiguration` indexer to access the configuration, you 
 ```csharp
 var config = builder.Build();
 
-Assert.Equal("myName", config["spring:cloud:config:name"]);
+Assert.Equal("myName", config["Spring:Cloud:Config:Name"]);
 ...
 ```
 
@@ -163,7 +155,7 @@ Next, add the placeholder resolver to the `IWebHostBuilder` in `Program.cs` (or 
 ```csharp
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Steeltoe.Extensions.Configuration.PlaceholderCore;
+using Steeltoe.Extensions.Configuration.Placeholder;
 public class Program
 {
     public static void Main(string[] args)

@@ -2,7 +2,7 @@
 
 This logging provider extends the dynamic logging provider with [Serilog](https://serilog.net/). This allows logger levels configured via Serilog to be queried and modified at runtime via the loggers endpoint.
 
-The source code for the Serilog Dynamic Logger can be found [here](https://github.com/SteeltoeOSS/steeltoe/tree/master/src/Logging/src/SerilogDynamicLoggerCore).
+The source code for the Serilog Dynamic Logger can be found [here](https://github.com/SteeltoeOSS/steeltoe/tree/master/src/Logging/src/DynamicSerilogCore).
 
 A sample working project can be found [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/CloudFoundry).
 
@@ -18,14 +18,14 @@ In order to use the Serilog Dynamic Logger, you need to do the following:
 
 To use the logging provider, you need to add a reference to the Steeltoe Dynamic Logging NuGet.
 
-The provider is found in the `Steeltoe.Extensions.Logging.SerilogDynamicLogger` package.
+The provider is found in the `Steeltoe.Extensions.Logging.DynamicSerilogBase` package.
 
 You can add the provider to your project by using the following `PackageReference`:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Logging.SerilogDynamicLogger" Version= "2.3.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicSerilogBase" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -41,7 +41,6 @@ As mentioned earlier, the Serilog Dynamic Logger provider extends Serilog. Conse
     "MinimumLevel": {
         "Default": "Warning",
         "Override": {
-            "Pivotal": "Information",
             "Microsoft": "Warning",
             "Steeltoe": "Information",
             "CloudFoundry.Controllers": "Verbose"
@@ -57,9 +56,10 @@ As mentioned earlier, the Serilog Dynamic Logger provider extends Serilog. Conse
 },
 ...
 ```
+
 ### Add Serilog Dynamic Logger
 
-In order to use the provider, you need to add it to the logging builder by using the `AddSerilogDynamicConsole()` extension method, as shown in the following example: 
+In order to use the provider, you need to add it to the logging builder by using the `AddSerilogDynamicConsole()` extension method, as shown in the following example:
 
 ```csharp
 using Steeltoe.Extensions.Logging;
@@ -69,7 +69,7 @@ public class Program
     {
         var host = new WebHostBuilder()
             .UseKestrel()
-            .UseCloudFoundryHosting()
+            .UseCloudHosting()
             .UseContentRoot(Directory.GetCurrentDirectory())
             .UseIISIntegration()
             .UseStartup<Startup>()
@@ -86,7 +86,7 @@ public class Program
             {
                 loggingBuilder.AddConfiguration(builderContext.Configuration.GetSection("Logging"));
 
-                // Add Serilog Dynamic Logger 
+                // Add Serilog Dynamic Logger
                 loggingBuilder.AddSerilogDynamicConsole();
             })
             .Build();

@@ -1,35 +1,33 @@
-### Loggers
+# Loggers
 
 The Steeltoe loggers management endpoint includes the ability to view and configure the logging levels of your application at runtime when using the Steeltoe logging provider.
 
 You can view a list of all active loggers in an application and their current configuration. The configuration information is made up of both the explicitly configured logging levels as well as the effective level given to it by the logging framework.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|`id`|The ID of the loggers endpoint|`loggers`|
-|`enabled`|Enable or disable loggers management endpoint|`true`|
-|`sensitive`|Currently not used|`false`|
-|`requiredPermissions`|User permissions required on Cloud Foundry to access endpoint|`RESTRICTED`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the loggers endpoint. | `loggers` |
+| `Enabled` | Enable or disable loggers management endpoint. | `true` |
+| `Sensitive` | Currently not used. | `false` |
+| `RequiredPermissions` | User permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
 
->NOTE: Each setting above must be prefixed with `management:endpoints:loggers`.
+>Each setting above must be prefixed with `Management:Endpoints:Loggers`.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
-The default path to the Loggers endpoint is computed by combining the global `path` prefix setting together with the `id` setting described in the preceding section. The default path is <[Context-Path](hypermedia#base-context-path)>`/loggers`.
+The default path to the Loggers endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](./hypermedia#base-context-path)>`/loggers`.
 
-The coding steps you take to enable HTTP access to the loggers endpoint together with how to use the Steeltoe logging provider, differ depending on the type of .NET application your are developing. The sections that follow describe the steps needed for each of the supported application types.
+See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
->NOTE: The Steeltoe logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider from Microsoft. This wrapper allows querying defined loggers and modifying the levels dynamically at runtime. 
+To add the actuator to the service container and map its route, use the `AddLoggersActuator` extension methods from `ManagementHostBuilderExtensions`.
 
-##### ASP.NET Core App
+Alternatively, first, add the Loggers actuator to the service container, using the `AddLoggersActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
-To add the Loggers actuator to the service container, use the `AddLoggersActuator()` extension method from `EndpointServiceCollectionExtensions`.
-
-To add the Loggers actuator middleware to the ASP.NET Core pipeline, use the `UseLoggersActuator()` extension method from `EndpointApplicationBuilderExtensions`.
+Then, add the Loggers actuator middleware to the ASP.NET Core pipeline, using the `Map<LoggersEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 To add the Steeltoe Logging provider to the `ILoggerFactory`, use the `AddDynamicConsole()` extension method and update the `Program.cs` class, as follows:
 
@@ -64,81 +62,7 @@ public class Program
 }
 ```
 
-##### ASP.NET 4.x App
-
-To add the Loggers actuator endpoint, use the `UseLoggerActuator()` method from `ActuatorConfigurator`.
-
-The following example shows how to enable the loggers endpoint and how to configure it with the Steeltoe Logging provider:
-
-```csharp
-public class ManagementConfig
-{
-    public static void ConfigureManagementActuators(IConfiguration configuration)
-    {
-        ...
-        ActuatorConfigurator.UseLoggerActuator(configuration, LoggingConfig.LoggerProvider, LoggingConfig.LoggerProvider);
-        ...
-    }
-}
-```
-
-The following example shows how you can create a Steeltoe logging provider in a 4.x application:
-
-```csharp
-public static class LoggingConfig
-{
-    public static ILoggerFactory LoggerFactory { get; set; }
-    public static ILoggerProvider LoggerProvider { get; set; }
-
-    public static void Configure(IConfiguration configuration)
-    {
-        LoggerProvider = new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
-        LoggerFactory = new LoggerFactory();
-        LoggerFactory.AddProvider(LoggerProvider);
-    }
-}
-```
-
-##### ASP.NET OWIN App
-
-To add the loggers actuator middleware to the ASP.NET OWIN pipeline, use the `UseLoggersActuator()` extension method from `LoggersEndpointAppBuilderExtensions`.
-
-The following example shows how to enable the loggers endpoint and how to configure it with the Steeltoe Logging provider:
-
-```csharp
-public class Startup
-{
-    ...
-    public void Configuration(IAppBuilder app)
-    {
-        ...
-        app.UseLoggersActuator(
-            ApplicationConfig.Configuration,
-            LoggingConfig.LoggerProvider,
-            LoggingConfig.LoggerFactory);
-        ...
-    }
-}
-```
-
-The following example shows how you can create a Steeltoe Logging provider in a 4.x application:
-
-```csharp
-public static class LoggingConfig
-{
-    public static ILoggerFactory LoggerFactory { get; set; }
-    public static ILoggerProvider LoggerProvider { get; set; }
-
-    public static void Configure(IConfiguration configuration)
-    {
-        LoggerProvider = new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
-        LoggerFactory = new LoggerFactory();
-        LoggerFactory.AddProvider(LoggerProvider);
-    }
-}
-```
-
-#### Interacting with the Loggers Actuator
+## Modifying Log Levels
 
 To retrieve the loggers that can be configured and the log levels that are allowed, send an HTTP GET request to `/{LoggersActuatorPath}`.
 
@@ -150,4 +74,6 @@ Log levels can be changed at namespace or class levels with an HTTP POST request
 }
 ```
 
-> NOTE: The Pivotal Apps Manager integration involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP Requests.
+## Apps Manager
+
+Apps Manager integration involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP Requests.

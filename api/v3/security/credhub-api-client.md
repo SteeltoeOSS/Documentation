@@ -2,7 +2,7 @@
 
 [CredHub](https://github.com/cloudfoundry-incubator/credhub) manages credentials, such as  passwords, certificates, certificate authorities, ssh keys, RSA keys, and other arbitrary values. Steeltoe provides the `CredHubBase` library for interacting with the [CredHub API](https://credhub-api.cfapps.io/) and provides the `CredHubCore` library for making that client library simpler to use in ASP.NET Core applications. Cloud Foundry is not required for the CredHub server or client but is used in this documentation as the hosting environment. You may wish to review the documentation for [CredHub on PCF](https://docs.pivotal.io/pivotalcf/2-0/credhub/). If you do not already have a UAA user to use for this test, you need to use the UAA command-line tool to establish some security credentials for the sample application. Choose one of the provided `credhub-setup` scripts in the folder `samples/Security/scripts` to target your Cloud Foundry environment and create a UAA client with permissions to read and write in CredHub.
 
->NOTE: If you choose to change the values for `UAA_CLIENT_ID` or `UAA_CLIENT_SECRET`, be sure to update the credentials in `appsettings.json`.
+>If you choose to change the values for `UAA_CLIENT_ID` or `UAA_CLIENT_SECRET`, be sure to update the credentials in `appsettings.json`.
 
 <!--  -->
 >WARNING: As of this writing, CredHub is not approved for general use in all applications. We encourage you to check whether your use case is currently supported by CredHub before getting too involved.
@@ -24,7 +24,7 @@ Use the NuGet package manager tools or directly add the appropriate package to y
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.DataProtection.CredHubCore" Version= "2.1.0-rc1"/>
+    <PackageReference Include="Steeltoe.Security.DataProtection.CredHubCore" Version= "3.0.0"/>
 ...
 </ItemGroup>
 ```
@@ -36,8 +36,8 @@ Settings for this library are expected to have a prefix of `CredHubClient`. The 
 ```json
 {
   ...
-  "credHubClient": {
-    "validateCertificates": "false"
+  "CredHubClient": {
+    "ValidateCertificates": "false"
   }
   ...
 }
@@ -45,12 +45,12 @@ Settings for this library are expected to have a prefix of `CredHubClient`. The 
 
 The `CredHubClient` supports four settings:
 
-|Setting Name|Description|Default|
-|---|---|---|
-|`CredHubUrl`|The address of the CredHub API|`https://credhub.service.cf.internal:8844/api`|
-|`CredHubUser`|The username for UAA auth|`null`|
-|`CredHubPassword`|The password for UAA auth|`null`|
-|`ValidateCertificates`|Whether to validate certificates for UAA and/or CredHub servers|`true`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `CredHubUrl` | The address of the CredHub API. | `https://credhub.service.cf.internal:8844/api` |
+| `CredHubUser` | The username for UAA auth. | `null` |
+| `CredHubPassword` | The password for UAA auth. | `null` |
+| `ValidateCertificates` | Whether to validate certificates for UAA and/or CredHub servers. | `true` |
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
@@ -96,7 +96,7 @@ You can use `CredHubClient.CreateUAAClientAsync()` to directly create a CredHub 
 var credHubClient = await CredHubClient.CreateUAAClientAsync(new CredHubOptions());
 ```
 
->NOTE: If you need to override the UAA server address, use the `UAA_Server_Override` environment variable, making sure to include the path to the token endpoint.
+>If you need to override the UAA server address, use the `UAA_Server_Override` environment variable, making sure to include the path to the token endpoint.
 
 #### Interpolation-Only
 
@@ -105,7 +105,7 @@ If you wish to use CredHub to interpolate entries in `VCAP_SERVICES`, you can us
 ```csharp
     var host = new WebHostBuilder()
         .UseKestrel()
-        .UseCloudFoundryHosting()
+        .UseCloudHosting()
         .UseContentRoot(Directory.GetCurrentDirectory())
         .UseIISIntegration()
         .UseStartup<Startup>()
@@ -150,12 +150,12 @@ You can use any JSON object for a `JsonCredential`. CredHub allows get, set, del
 
 A `CertificateCredential` represents a security certificate. CredHub allows get, set, delete, find, generate, regenerate, and bulk regenerate operations with `CertificateCredential`. The following table describes specific properties:
 
-|Property|Description|
-|---|---|
-|`CertificateAuthority`|The certificate of the Certificate Authority|
-|`CertificateAuthorityName`|The name of the CA credential in CredHub that has signed this certificate|
-|`Certificate`|The string representation of the certificate|
-|`PrivateKey`|The private key for the certificate|
+| Key | Description |
+| --- | --- |
+| `CertificateAuthority` | The certificate of the Certificate Authority. |
+| `CertificateAuthorityName` | The name of the CA credential in CredHub that has signed this certificate. |
+| `Certificate` | The string representation of the certificate. |
+| `PrivateKey` | The private key for the certificate. |
 
 #### RsaCredential
 
@@ -207,7 +207,7 @@ The following example shows a typical request object for the `Interpolate` endpo
         "credhub-ref": "((/config-server/credentials))"
       },
       "label": "p-config-server",
-      "name": "config-server",
+      "Name": "config-server",
       "plan": "standard",
       "provider": null,
       "syslog_drain_url": null,
@@ -236,7 +236,7 @@ The following example shows a typical response object from the `Interpolate` end
         "is_true": true
       },
       "label": "p-config-server",
-      "name": "config-server",
+      "Name": "config-server",
       "plan": "standard",
       "provider": null,
       "syslog_drain_url": null,
@@ -250,7 +250,7 @@ The following example shows a typical response object from the `Interpolate` end
 }
 ```
 
->NOTE: At this time, only credential references at `credentials.credhub-ref` are interpolated. The `credhub-ref` key is removed, and the referenced credential object is set as the value of the credentials.
+>At this time, only credential references at `credentials.credhub-ref` are interpolated. The `credhub-ref` key is removed, and the referenced credential object is set as the value of the credentials.
 
 ### CredHub Change Operations
 
@@ -270,7 +270,7 @@ setValueRequest.Overwrite = true;
 var setValue2 = await _credHub.WriteAsync<ValueCredential>(setValueRequest);
 ```
 
->NOTE: The default behavior on `Write` requests is to leave existing values alone. If you wish to overwrite a credential, be sure to pass either `OverwriteMode.converge` or `OverwriteMode.overwrite` for the `overwriteMode` parameter on your request object. See [Overwriting Credential Values](https://credhub-api.cfapps.io/#overwriting-credential-values).
+>The default behavior on `Write` requests is to leave existing values alone. If you wish to overwrite a credential, be sure to pass either `OverwriteMode.converge` or `OverwriteMode.overwrite` for the `overwriteMode` parameter on your request object. See [Overwriting Credential Values](https://credhub-api.cfapps.io/#overwriting-credential-values).
 
 Write requests allow the setting of permissions on a credential during generation, as follows:
 
@@ -311,13 +311,13 @@ var genRequest = new PasswordGenerationRequest("generatedPW", genParams, new Lis
 CredHubCredential<PasswordCredential> genPassword = await _credHub.GenerateAsync<PasswordCredential>(genRequest);
 ```
 
->NOTE: The default behavior on `Generate` requests is to leave existing values alone. If you wish to overwrite a credential, be sure to pass either `OverwriteMode.converge` or `OverwriteMode.overwrite` for the `overwriteMode` parameter on your request object. See [Overwriting Credential Values](https://credhub-api.cfapps.io/#overwriting-credential-values).
+>The default behavior on `Generate` requests is to leave existing values alone. If you wish to overwrite a credential, be sure to pass either `OverwriteMode.converge` or `OverwriteMode.overwrite` for the `overwriteMode` parameter on your request object. See [Overwriting Credential Values](https://credhub-api.cfapps.io/#overwriting-credential-values).
 
 #### Regenerate
 
 You can regenerate a credential in CredHub. CredHub can generate values for the following types: `CertificateCredential`, `PasswordCredential`, `RsaCredential`, `SshCredential`, and `UserCredential`.
 
->NOTE: Only credentials that were previously generated by CredHub can be regenerated.
+>Only credentials that were previously generated by CredHub can be regenerated.
 
 The following example shows one way to regenerate a credential:
 

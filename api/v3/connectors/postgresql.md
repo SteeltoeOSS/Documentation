@@ -1,29 +1,27 @@
 # PostgreSQL
 
-This connector simplifies using PostgreSQL in an application running on Cloud Foundry.
+This connector simplifies using PostgreSQL. Currently, the connector supports the [Npgsql](https://www.npgsql.org/) provider.
 
-Currently, the connector supports the [Npgsql](https://www.npgsql.org/) provider.
-
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
+You should know how the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
 
 You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used to configure the application services for the app. Pay particular attention to the `ConfigureServices()` method.
 
 To use this connector:
 
 1. Create a PostgreSQL Service instance and bind it to your application.
-1. (Optionally) Configure any PostgreSQL client settings (such as `appsettings.json`).
-1. Add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
+1. Optionally, Configure any PostgreSQL client settings (such as `appsettings.json`).
+1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
 1. Add `NpgsqlConnection` or `DbContext` to your `IServiceCollection`.
 
 ### Add NuGet Reference
 
 To use the PostgreSQL connector, add your choice of PostgreSQL package between [Npgsql](https://www.nuget.org/packages/Npgsql/) and [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/) as you would if you were not using Steeltoe. Then add a reference to the appropriate Steeltoe connector NuGet package.
 
->NOTE: Steeltoe does not currently include direct support for PostgreSQL with Entity Framework 6.
+>Steeltoe does not currently include direct support for PostgreSQL with Entity Framework 6.
 
 ### Configure Settings
 
@@ -34,10 +32,10 @@ The following example shows a PostgreSQL connector configuration (in JSON) to se
 ```json
 {
   ...
-  "postgres": {
-    "client": {
-      "host": "myserver",
-      "port": 5432
+  "Postgres": {
+    "Client": {
+      "Host": "myserver",
+      "Port": 5432
     }
   }
   ...
@@ -46,21 +44,20 @@ The following example shows a PostgreSQL connector configuration (in JSON) to se
 
 The following table describes all of the possible settings for the connector:
 
-|Key|Description|Default
-|---|---|---|
-|`server`|Hostname or IP Address of server|`localhost`|
-|`port`|Port number of server|5432|
-|`username`|Username for authentication|not set|
-|`password`|Password for authentication|not set|
-|`database`|Schema to which to connect|not set|
-|`connectionString`|Full connection string|built from settings
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+|Key|Description |Default
+| --- | --- | --- |
+| `Server` | Hostname or IP Address of server. | `localhost` |
+| `Port` | Port number of server. | 5432 |
+| `Username` | Username for authentication. | not set |
+| `Password` | Password for authentication. | not set |
+| `Database` | Schema to which to connect. | not set |
+| `ConnectionString` | Full connection string. | Built from settings |
 
->IMPORTANT: All of these settings should be prefixed with `postgres:client:`.
+>IMPORTANT: All of these settings should be prefixed with `Postgres:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
+>If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
@@ -77,9 +74,9 @@ cf bind-service myApp myPostgres
 cf restage myApp
 ```
 
->NOTE: The preceding commands work for the PostgreSQL service provided by EDB on Cloud Foundry. For another service, adjust the `create-service` command to fit your environment.
+>The preceding commands work for the PostgreSQL service provided by EDB on Cloud Foundry. For another service, adjust the `create-service` command to fit your environment.
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `postgres:client:urlEncodedCredentials` to `true`, as this broker may provide credentials that have been URL-encoded.
+This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -99,7 +96,7 @@ public class Startup {
     }
     public void ConfigureServices(IServiceCollection services)
     {
-        // Add NpgsqlConnection configured from Cloud Foundry
+        // Add NpgsqlConnection
         services.AddPostgresConnection(Configuration);
 
         // Add framework services.

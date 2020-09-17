@@ -1,12 +1,12 @@
 # Microsoft SQL Server
 
-This connector simplifies using Microsoft SQL Server in an application running on Cloud Foundry. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using the Entity Framework.
+This connector simplifies using Microsoft SQL Server. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using the Entity Framework.
 
-This connector provides an `IHealthContributor` that you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides an `IHealthContributor` that you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
+You should know how the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
 
 You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services. Pay particular attention to the usage of the `ConfigureServices()` method.
 
@@ -14,7 +14,7 @@ To use this connector:
 
 1. Create a Microsoft SQL Service instance and bind it to your application.
 1. Optionally, configure any Microsoft SQL Server client settings (such as `appsettings.json`) you need.
-1. Add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
+1. Optionally, add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
 1. Add `SqlConnection` or `DbContext` to your `IServiceCollection`.
 
 ### Add NuGet Reference
@@ -36,9 +36,9 @@ The following Microsoft SQL Server connector configuration shows how to connect 
 ```json
 {
   ...
-  "sqlserver": {
-    "credentials": {
-        "connectionString": "Server=(localdb)\\mssqllocaldb;database=Steeltoe;Trusted_Connection=True;"
+  "SqlServer": {
+    "Credentials": {
+        "ConnectionString": "Server=(localdb)\\mssqllocaldb;database=Steeltoe;Trusted_Connection=True;"
     }
   }
   ...
@@ -47,22 +47,21 @@ The following Microsoft SQL Server connector configuration shows how to connect 
 
 The following table shows the available settings for the connector:
 
-|Key|Description|Steeltoe Default|
-|---|---|---|
-|`server`|Hostname or IP Address of server|`localhost`|
-|`port`|Port number of server|1433|
-|`username`|Username for authentication|not set|
-|`password`|Password for authentication|not set|
-|`database`|Schema to which to connect|not set|
-|`connectionString`|Full connection string|built from settings|
-|`integratedSecurity`|Enable Windows Authentication (For local use only)|not set|
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+|Key|Description |Steeltoe Default|
+| --- | --- | --- |
+| `Server` | Hostname or IP Address of server. | `localhost` |
+| `Port` | Port number of server. | 1433 |
+| `Username` | Username for authentication. | not set |
+| `Password` | Password for authentication. | not set |
+| `Database` | Schema to which to connect. | not set |
+| `ConnectionString` | Full connection string. | Built from settings |
+| `IntegratedSecurity` | Enable Windows Authentication (For local use only). | not set |
 
->IMPORTANT: All of the settings shown in the preceding table should be prefixed with `sqlserver:credentials:`.
+>IMPORTANT: All of the settings shown in the preceding table should be prefixed with `SqlServer:Credentials:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
+>If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
@@ -78,7 +77,7 @@ An alternative to the broker is to use a user-provided service to explicitly pro
 cf cups mySqlServerService -p '{"pw": "|password|","uid": "|user id|","uri": "jdbc:sqlserver://|host|:|port|;databaseName=|database name|"}'
 ```
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `sqlServer:client:urlEncodedCredentials` to `true`, as this broker may provide credentials that have been URL-encoded.
+This connector works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 
 If you are creating a service for an application that has already been deployed, you need to bind the service and restart or restage the application with the following commands:
 
@@ -92,7 +91,7 @@ cf restage myApp
 
 If you have not already deployed the application, a reference in the `manifest.yml` file can take care of the binding for you.
 
->NOTE: The commands shown in the preceding example may not exactly match the service or plan names available in your environment. You may have to adjust the `create-service` command to fit your environment. Use `cf marketplace` to see what is available.
+>The commands shown in the preceding example may not exactly match the service or plan names available in your environment. You may have to adjust the `create-service` command to fit your environment. Use `cf marketplace` to see what is available.
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -116,7 +115,6 @@ public class Startup {
         services.AddSqlServerConnection(Configuration);
 
         // Add framework services.
-        services.AddMvc();
         ...
     }
     ...
@@ -138,8 +136,8 @@ public class HomeController : Controller
     {
         dbConnection.Open();
 
-        MySqlCommand cmd = new MySqlCommand("SELECT * FROM TestData;", dbConnection);
-        MySqlDataReader rdr = cmd.ExecuteReader();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM TestData;", dbConnection);
+        SqlDataReader rdr = cmd.ExecuteReader();
 
         while (rdr.Read())
         {
@@ -154,7 +152,7 @@ public class HomeController : Controller
 }
 ```
 
->NOTE: The preceding code does not create a database or a table or insert data. As written, it fails unless you create the database, table, and data ahead of time.
+>The preceding code does not create a database or a table or insert data. As written, it fails unless you create the database, table, and data ahead of time.
 
 ### Add DbContext
 

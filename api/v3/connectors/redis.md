@@ -1,14 +1,13 @@
 # Redis
 
-This connector simplifies using a Microsoft [`RedisCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/) in an application running on Cloud Foundry.
+This connector simplifies using a Microsoft [`RedisCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/).
 
 The following Steeltoe sample applications are available to help you understand how to use this connector:
 
-* [AspDotNet4/Redis4](https://github.com/SteeltoeOSS/Samples/tree/dev/Connectors/src/AspDotNet4/Redis4): Same as the next Quick Start but built for ASP.NET 4.x.
 * [DataProtection](https://github.com/SteeltoeOSS/Samples/tree/master/Security/src/RedisDataProtectionKeyStore): A sample application showing how to use the Steeltoe DataProtection Key Storage Provider for Redis.
-* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a micro-services-based application built from the  MusicStore ASP.NET Core reference application provided by Microsoft.
+* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a microservices-based application built from the  MusicStore ASP.NET Core reference application provided by Microsoft.
 
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
 
 ## Usage
 
@@ -21,20 +20,17 @@ You probably want some understanding of how to use the [`RedisCache`](https://do
 To use this connector:
 
 1. Create a Redis Service instance and bind it to your application.
-1. (Optionally) Configure any Redis client settings (for example, in `appsettings.json`).
-1. Add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
+1. Optionally, configure any Redis client settings (for example, in `appsettings.json`).
+1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
 1. Add `DistributedRedisCache` or `ConnectionMultiplexer` to your `ServiceCollection`.
 
->NOTE: The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on the Pivotal Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you need to have Lua scripting enabled by a platform operator.
+>The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on the Pivotal Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you need to have Lua scripting enabled by a platform operator.
 
 ### Add NuGet Reference
 
-To use the Redis connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and a reference to `Microsoft.Extensions.Caching.Redis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
+To use the Redis connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and a reference to `Microsoft.Extensions.Caching.Redis`, `Microsoft.Extensions.Caching.StackExhangeRedis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
 
->NOTE: The requirement to add a direct Redis package reference is new as of version 2.0.0.
-
-<!-- -->
->NOTE: Because `Microsoft.Extensions.Caching.Redis` depends on `StackExchange.Redis.StrongName`, adding a reference to the Microsoft library also enables access to the StackExchange classes, as seen in the sample application.
+>Because `Microsoft.Extensions.Caching.Redis` depends on `StackExchange.Redis.StrongName`, adding a reference to the Microsoft library also enables access to the StackExchange classes, as seen in the sample application.
 
 ### Configure Settings
 
@@ -45,10 +41,10 @@ The following example of the connector's configuration in JSON shows how to set 
 ```json
 {
   ...
-  "redis": {
-    "client": {
-      "host": "https://foo.bar",
-      "port": 1111
+  "Redis": {
+    "Client": {
+      "Host": "https://foo.bar",
+      "Port": 1111
     }
   }
   ...
@@ -57,29 +53,28 @@ The following example of the connector's configuration in JSON shows how to set 
 
 The following table table describes all possible settings for the connector
 
-|Key|Description|Default|
-|---|---|---|
-|`host`|Hostname or IP Address of the server|`localhost`|
-|`port`|Port number of the server|6379|
-|`endPoints`|Comma-separated list of host:port pairs|not set|
-|`clientName`|Identification for the connection within redis|not set|
-|`connectRetry`|Times to repeat initial connect attempts|3|
-|`connectTimeout`|Timeout (ms) for connect operations|5000|
-|`abortOnConnectFail`|Does not create a connection while no servers are available|`true`|
-|`keepAlive`|Time (seconds) at which to send a message to help keep sockets alive|-1|
-|`resolveDns`|Whether DNS resolution should be explicit and eager, rather than implicit|`false`|
-|`ssl`|Whether SSL encryption should be used|`false`|
-|`sslHost`|Enforces a particular SSL host identity on the server's certificate|not set|
-|`writeBuffer`|Size of the output buffer|4096|
-|`connectionString`|Full connection string|built from settings|
-|`instanceId`|Cache ID. Used only with `IDistributedCache`|not set|
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Host` | Hostname or IP Address of the server. | `localhost` |
+| `Port` | Port number of the server. |6379|
+| `EndPoints` |Comma-separated list of host:port pairs. | not set |
+| `ClientName` | Identification for the connection within Redis. | not set |
+| `ConnectRetry` | Times to repeat initial connect attempts. | 3 |
+| `ConnectTimeout` | Timeout (ms) for connect operations. | 5000 |
+| `AbortOnConnectFail` | Does not create a connection while no servers are available. | `true` |
+| `KeepAlive` | Time (seconds) at which to send a message to help keep sockets alive. | -1 |
+| `ResolveDns` | Whether DNS resolution should be explicit and eager, rather than implicit. | `false` |
+| `Ssl` | Whether SSL encryption should be used. | `false` |
+| `SslHost` | Enforces a particular SSL host identity on the server's certificate. | not set |
+| `WriteBuffer` | Size of the output buffer. | 4096 |
+| `ConnectionString` | Full connection string. | Built from settings |
+| `InstanceId` | Cache ID. Used only with `IDistributedCache`. | not set |
 
->IMPORTANT: All of these settings should be prefixed with `redis:client:`.
+>IMPORTANT: All of these settings should be prefixed with `Redis:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
->NOTE: If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
+>If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
 
 ### Cloud Foundry
 
@@ -96,9 +91,9 @@ cf bind-service myApp myRedisCache
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command to fit your environment.
+>The preceding commands assume you use the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command to fit your environment.
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `redis:client:urlEncodedCredentials` to `true`, as this broker may provide credentials that have been URL Encoded.
+This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -115,7 +110,7 @@ public class Startup {
     }
     public void ConfigureServices(IServiceCollection services)
     {
-        // Add Microsoft Redis Cache (IDistributedCache) configured from Cloud Foundry
+        // Add Microsoft Redis Cache (IDistributedCache)
         services.AddDistributedRedisCache(Configuration);
 
         // Add framework services
@@ -170,8 +165,7 @@ public class Startup {
     }
     public void ConfigureServices(IServiceCollection services)
     {
-
-        // Add StackExchange IConnectionMultiplexer configured from Cloud Foundry
+        // Add StackExchange IConnectionMultiplexer
         services.AddRedisConnectionMultiplexer(Configuration);
 
         // Add framework services
@@ -184,7 +178,7 @@ public class Startup {
 
 The `AddRedisConnectionMultiplexer(Configuration)` method call configures the `IConnectionMultiplexer` by using the configuration built by the application and adds the connection to the service container.
 
->NOTE: If necessary, you can use both `IDistributedCache` and `IConnectionMultiplexer` in your application.
+>If necessary, you can use both `IDistributedCache` and `IConnectionMultiplexer` in your application.
 
 ### Use IConnectionMultiplexer
 

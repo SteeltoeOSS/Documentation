@@ -1,8 +1,8 @@
-## Load Balancing
+# Load Balancing
 
-Any time a client needs to select a service instance to which to send a request, some mechanism is required for selecting the instance to call. In all mechanisms provided for service discovery in Steeltoe versions before 2.2.0, service instances were selected randomly. `Steeltoe.Common` 2.2.0 added a new abstraction named `ILoadBalancer`, which provides configurable load balancing.
+Any time a client needs to select a service instance to which to send a request, some mechanism is required for selecting the instance to call. `Steeltoe.Common` provides an abstraction named `ILoadBalancer`, which provides configurable load balancing.
 
-### ILoadBalancer
+## ILoadBalancer
 
 The `ILoadBalancer` interface defines two methods:
 
@@ -28,13 +28,13 @@ The `ILoadBalancer` interface defines two methods:
   }
 ```
 
-Any implementation of `ILoadBalancer` is expected to know how to interact with some form of service discovery mechanism. The included load balancers expect an `IServiceInstanceProvider` to be available in the DI service container, so they still require configuration of Eureka, Consul, or some other mechanism for providing service instances.
+Any implementation of `ILoadBalancer` is expected to know how to interact with some form of service registry. The included load balancers expect an `IServiceInstanceProvider` to be available in the DI service container, so they still require configuration of some other mechanism for providing service instances.
 
 ### Random Load Balancer
 
 The `RandomLoadBalancer`, as the name implies, randomly selects a service instance from all instances that are resolved from a given service name. The `ILoadBalancer` implementation adds the (optional) ability to cache service instance data, which is useful for `IServiceInstanceProvider` or `IDiscoveryClient` implementations that do not provide their own caching (such as the Consul provider). Service instance data caching happens automatically if an `IDistributedCache` instance is provided through constructor injection.
 
->NOTE: `RandomLoadBalancer` does not track stats or exceptions. `UpdateStatsAsync` returns `Task.CompletedTask`
+>`RandomLoadBalancer` does not track stats or exceptions. `UpdateStatsAsync` returns `Task.CompletedTask`
 
 #### Using HttpClientFactory
 
@@ -63,7 +63,7 @@ You can use the random load balancer with the included `HttpClientHandler`, whic
 
 The provided round robin load balancer sends traffic to service instances in sequential order, as they are provided by the `IServiceInstanceProvider`. Like the `RandomLoadBalancer`, the `RoundRobinLoadBalancer` also includes the (optional) ability to cache service instances if an `IDistributedCache` instance is provided through constructor injection. Additionally, when a provided `IDistributedCache` instance is shared among clients (for example, by using a shared Redis cache for multiple front-end application instances) the round robin sequence tracking is shared across clients, ensuring an even load distribution.
 
->NOTE: `RoundRobinLoadBalancer` does not track stats or exceptions. `UpdateStatsAsync` returns `Task.CompletedTask`
+>`RoundRobinLoadBalancer` does not track stats or exceptions. `UpdateStatsAsync` returns `Task.CompletedTask`
 
 #### Using with HttpClientFactory
 
@@ -75,7 +75,7 @@ To add a service registry-backed round robin load balancer to an `HttpClient`, y
       .AddRoundRobinLoadBalancer()
 ```
 
-#### Using an HttpClientHandler
+#### Using with HttpClientHandler
 
 You can use the round robin load balancer with the included `HttpClientHandler`, which works with any `ILoadBalancer`:
 
@@ -126,7 +126,7 @@ You can add custom load balancers to the `HttpClient` pipeline with an included 
 
 With this model, a `LoadBalancerDelegatingHandler` expects an `ILoadBalancer` to be provided through dependency injection, so be sure to add yours to the DI container.
 
-#### Using an HttpClientHandler
+#### Using with an HttpClientHandler
 
 Additionally, you can also use your custom load balancer with the included `HttpClientHandler`. To do so, create an instance of your load balancer, pass it to a `LoadBalancerHttpClientHandler`, and create an `HttpClient` that uses that handler:
 

@@ -2,11 +2,11 @@
 
 This connector simplifies using the [RabbitMQ Client](https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html) in an application running on Cloud Foundry. We recommend following that tutorial, because you need to know how to use it before proceeding to use the connector.
 
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
 
 ## Usage
 
-You should know how the new .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder.
+You should know how the .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder.
 
 You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
 
@@ -32,9 +32,9 @@ The following example of the connectors configuration in JSON shows how to setup
 ```json
 {
   ...
-  "rabbitmq": {
-    "client": {
-      "uri": "amqp://guest:guest@127.0.0.1/"
+  "RabbitMq": {
+    "Client": {
+      "Uri": "amqp://guest:guest@127.0.0.1/"
     }
   }
   ...
@@ -43,19 +43,18 @@ The following example of the connectors configuration in JSON shows how to setup
 
 The following table describes all the possible settings for the connector:
 
-|Key|Description|Default|
-|---|---|---|
-|`server`|Hostname or IP Address of the server|127.0.0.1|
-|`port`|Port number of the server|5672|
-|`username`|Username for authentication|not set|
-|`password`|Password for authentication|not set|
-|`virtualHost`|Virtual host to which to connect|not set|
-|`sslEnabled`|Should SSL be enabled|`false`|
-|`sslPort`|SSL Port number of server|5671|
-|`uri`|Full connection string|built from settings|
-|`urlEncodedCredentials`|Set to `true` if your service broker provides URL-encoded credentials|`false`|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Server` | Hostname or IP Address of the server. | 127.0.0.1 |
+| `Port` | Port number of the server. | 5672 |
+| `Username` | Username for authentication. | not set |
+| `Password` | Password for authentication. | not set |
+| `VirtualHost` | Virtual host to which to connect. | not set |
+| `SslEnabled` | Should SSL be enabled. | `false` |
+| `SslPort` | SSL Port number of server. | 5671 |
+| `Uri` | Full connection string. | Built from settings |
 
->IMPORTANT: All of these settings should be prefixed with `rabbitmq:client:`.
+>IMPORTANT: All of these settings should be prefixed with `RabbitMq:Client:`.
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
@@ -74,7 +73,7 @@ cf bind-service myApp myRabbitMQService
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use the RabbitMQ service provided by Pivotal on Cloud Foundry. If you use a different service, adjust the `create-service` command to fit your environment.
+>The preceding commands assume you use the RabbitMQ service provided by Pivotal on Cloud Foundry. If you use a different service, adjust the `create-service` command to fit your environment.
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -94,7 +93,7 @@ public class Startup {
     }
     public void ConfigureServices(IServiceCollection services)
     {
-        // Add RabbitMQ ConnectionFactory configured from Cloud Foundry
+        // Add RabbitMQ ConnectionFactory
         services.AddRabbitMQConnection(Configuration);
 
         // Add framework services.
