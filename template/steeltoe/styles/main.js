@@ -8,7 +8,6 @@ function getMainSiteHost(){
 
 	return "https://steeltoe.io";
 }
-
 if(document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('dev.steeltoe.io') > -1){
 	$("a[href^='https://steeltoe.io']").attr('href', function() { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
 };

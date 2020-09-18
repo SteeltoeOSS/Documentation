@@ -1,4 +1,3 @@
-
 <nav class="bg-white navbar navbar-expand-xl container py-xl-2">
 	{{>partials/logo}}
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
