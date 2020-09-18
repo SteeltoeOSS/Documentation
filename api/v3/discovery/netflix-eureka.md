@@ -35,6 +35,7 @@ All of these settings should start with `Eureka:Client:`
 | `AccessTokenUri` | URI to use to obtain OAuth2 access token. | none |
 | `ClientSecret` | Secret to use to obtain OAuth2 access token. | none |
 | `ClientId` | Client ID to use to obtain OAuth2 access token. | none |
+| `CacheTTL` | Time in seconds local cache entries are valid | 15 |
 | `EurekaServer:ProxyHost` | Proxy host to Eureka Server. | none |
 | `EurekaServer:ProxyPort` | Proxy port to Eureka Server. | none |
 | `EurekaServer:ProxyUserName` | Proxy user name to Eureka Server. | none |

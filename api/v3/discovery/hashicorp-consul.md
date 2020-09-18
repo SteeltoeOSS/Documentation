@@ -41,6 +41,7 @@ The second set of settings you may need to specify pertain to service registrati
 | --- | --- | --- |
 | `Enabled` | Enable to disable the Consul client. | `true` |
 | `Register` | Whether to register as a service. | `true` |
+| `CacheTTL` | Time in seconds local cache entries are valid | 15 |
 | `Deregister` | Whether to de-register on shutdown. | `true` |
 | `ServiceName` | The service name to register. | computed |
 | `Scheme` | Scheme to register for service. | `http` |

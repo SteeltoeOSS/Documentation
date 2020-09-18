@@ -89,6 +89,17 @@ The round robin load balancer can be used with the included `HttpClientHandler` 
   }
 ```
 
+### Setting Cache Configuration
+
+For both Random and Round Robin load balancers, there are two ways to configure cache entries. The simplest is to use the `CacheTTL` property in the client configuration for your discovery client. The other option is to inject your own `DistributedCacheEntryOptions` into the service container before the call to configure service discovery.
+
+This example sets cache expiration to 30 seconds after an entry is recorded:
+
+```csharp
+  services.AddSingleton(cacheOptions => new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30) });
+  services.AddDiscoveryClient(config);
+```
+
 ### Custom ILoadBalancer
 
 If the provided load balancer implementations don't suit your needs, you are free to create your own implementation of `ILoadBalancer`.

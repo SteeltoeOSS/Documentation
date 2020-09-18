@@ -61,6 +61,7 @@ All of these settings should start with `eureka:client:`
 |accessTokenUri|URI to use to obtain OAuth2 access token|none|
 |clientSecret|Secret to use to obtain OAuth2 access token|none|
 |clientId|Client ID to use to obtain OAuth2 access token|none|
+|cacheTTL|Time in seconds local cache entries are valid|15|
 |eurekaServer:proxyHost|Proxy host to Eureka Server|none|
 |eurekaServer:proxyPort|Proxy port to Eureka Server|none|
 |eurekaServer:proxyUserName|Proxy user name to Eureka Server|none|
