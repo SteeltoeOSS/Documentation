@@ -1,28 +1,17 @@
-function hov(a) {
-	var s = document.getElementById("scope");
-	var v = document.getElementById(a + '-items');
+function getMainSiteHost(){
+	var host = document.location.hostname;
+	if(document.location.hostname.indexOf('localhost') > -1){
+		return "http://localhost:8080";
+	}else if(host.indexOf('dev.steeltoe.io') > -1){//covering docs-dev.steeltoe.io
+		return "https://dev.steeltoe.io";
+	}
 
-	unhov('why');
-	unhov('learn');
-	unhov('project');
-	unhov('community');
+	return "https://steeltoe.io";
+}
 
-	s.classList.add(a +'-scope');
-	v.classList.add("active");
-}
-function unhovAll() {
-	unhov('why');
-	unhov('learn');
-	unhov('project');
-	unhov('community');
-}
-function unhov(a) {
-	var s = document.getElementById("scope");
-	var v = document.getElementById(a + '-items');
-
-	if (s) { s.classList.remove(a + '-scope'); }
-	if (v) { v.classList.remove("active"); }
-}
+if(document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('dev.steeltoe.io') > -1){
+	$("a[href^='https://steeltoe.io']").attr('href', function() { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
+};
 
 //GLOBAL REPLACE ALL VALUES FROM LOCALSTORAGE
 for (var i = 0; i < localStorage.length; i++){
