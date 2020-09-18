@@ -201,9 +201,9 @@ At present, Steeltoe provides the following `IHealthContributor` implementations
 | `DiskSpaceContributor` | Checks for low disk space, configure using `DiskSpaceContributorOptions`. |
 | `RabbitMQHealthContributor` | Checks RabbitMQ connection health. |
 | `RedisHealthContributor` | Checks Redis cache connection health. |
-| `RelationalHealthContributor` | Checks relational database connection health (MySql, Postgres, SqlServer). |
+| `RelationalDbHealthContributor` | Checks relational database connection health (MySql, Postgres, SqlServer). |
 
-Each of these contributors are located in the `Steeltoe.ConnectorBase` package and are made available to your application when you reference the connector package.
+Each of these contributors are located in the `Steeltoe.Connector.ConnectorBase` package and are made available to your application when you reference the connector package.
 
 If you want to use any one of the `IHealthContributor` instances in an ASP.NET Core application, make use of the corresponding connector as you would normally. By doing so, the contributor is automatically added to the service container for you and is automatically discovered and used by the `health` endpoint.
 
