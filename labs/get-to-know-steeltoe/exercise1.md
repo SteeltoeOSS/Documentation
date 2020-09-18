@@ -152,7 +152,7 @@ public void ConfigureServices(IServiceCollection services) {
 }
 ```
 
-With the addition of distributed tracing option, under the covers Steeltoe uses the OpenTelemetry specification to generate spans and traces throughout the application, as requests are received. No additional configuration is needed but if you wanted to manipulate how traces and spans are created you could provide settings in "appsettings.json", [read the docs](https://steeltoe.io/docs/3/tracing/distributed-tracing) for more information.
+With the addition of distributed tracing option, under the covers Steeltoe uses the OpenTelemetry specification to generate spans and traces throughout the application, as requests are received. No additional configuration is needed but if you wanted to manipulate how traces and spans are created you could provide settings in "appsettings.json", [read the docs](/api/v3/tracing/distributed-tracing.html) for more information.
 
 > [!TIP]
 > Having the combination of the logging actuator and distributed tracing implemented, Steeltoe will automatically append the application name, span Id, and trace Id on log messages when possible. This can be very handy when debugging a specific happening or error in production.
@@ -201,7 +201,7 @@ Let's look at the health endpoint. Replace `WeatherForecast` with `actuator/heal
 
 ![health-endpoint]
 
-As we discussed above, the fact that the page loaded (status of 200) is the first communication to the application's platform that it is healthy. Secondarily the application has output information to help  certain platforms gain a deeper knowledge of app health. Learn more about the health endpoint [here](https://steeltoe.io/docs/3/management/health).
+As we discussed above, the fact that the page loaded (status of 200) is the first communication to the application's platform that it is healthy. Secondarily the application has output information to help  certain platforms gain a deeper knowledge of app health. Learn more about the health endpoint [here](/api/v3/management/health.html).
 
 ## Discover the info endpoint
 
@@ -209,7 +209,7 @@ Now navigate to the info endpoint by replacing `health` with `info` in the addre
 
 ![info-endpoint]
 
-We have loaded the bare minimum application info for this example. You could build your own 'IInfoContributor' and add all kinds of meta data and connection information. Learn more [here](https://steeltoe.io/docs/3/management/info).
+We have loaded the bare minimum application info for this example. You could build your own 'IInfoContributor' and add all kinds of meta data and connection information. Learn more [here](/api/v3/management/info.html).
 
 ## Observe trace and spans appended to logs
 

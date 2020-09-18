@@ -90,7 +90,7 @@ The coding steps you take to enable HTTP access to the Health endpoint together 
 
 #### ASP.NET Core App
 
-Refer to the [Exposing Endpoints](/docs/management/using-endpoints#exposing-endpoints) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+Refer to the [Exposing Endpoints](../management/using-endpoints#exposing-endpoints.html) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the Health actuator to the service container, use any one of the `AddHealthActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 

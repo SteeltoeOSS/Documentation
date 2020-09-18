@@ -1,6 +1,6 @@
 # Metric Observers
 
-Adding either the [metrics](/docs/3/management/metrics) or [prometheus](/docs/3/management/prometheus) endpoints automatically configures built-in instrumentation of various aspects of the application.
+Adding either the [metrics](./metrics.html) or [prometheus](./prometheus.html) endpoints automatically configures built-in instrumentation of various aspects of the application.
 
 The following instrumentation is available:
 

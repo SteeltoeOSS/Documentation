@@ -10,4 +10,4 @@ The way the endpoints are exposed and used depends on the type of technology you
 
 ## Management Tasks
 
-[Steeltoe Management Tasks](/docs/3/management/tasks) provide a means of running administrative tasks for ASP.NET Core applications with the same context as the running version of your application. The original use case for this feature is managing database migrations with a bound database service on Cloud Foundry, but the framework is extensible for you to create your own tasks.
+[Steeltoe Management Tasks](./tasks.html) provide a means of running administrative tasks for ASP.NET Core applications with the same context as the running version of your application. The original use case for this feature is managing database migrations with a bound database service on Cloud Foundry, but the framework is extensible for you to create your own tasks.

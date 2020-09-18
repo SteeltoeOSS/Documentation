@@ -10,6 +10,8 @@
           name: Package Name Changes
         - page_ref: hostbuilder-extensions
           name: HostBuilder Extensions
+        - page_ref: breaking-changes
+          name: Breaking Changes
         - page_ref: release-notes
           name: Release Notes
     - page: /docs/3/welcome/prerequisites

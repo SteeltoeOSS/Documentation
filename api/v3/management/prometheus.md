@@ -1,8 +1,8 @@
 # Prometheus
 
-The Steeltoe prometheus endpoint exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format.  Similar to the [Metrics Endpoint](/docs/3/management/metrics), it automatically configures built-in instrumentation of various aspects of the application.
+The Steeltoe prometheus endpoint exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format.  Similar to the [Metrics Endpoint](./metrics.html), it automatically configures built-in instrumentation of various aspects of the application.
 
-The metrics collected are the same as those collected by the [metrics endpoint](/docs/3/management/metrics).
+The metrics collected are the same as those collected by the [metrics endpoint](./metrics.html).
 
 ## Configure Settings
 
@@ -15,13 +15,13 @@ The following table describes the settings that you can apply to the endpoint:
 
 >Each setting must be prefixed with `Management:Endpoints:Prometheus`.
 
-To configure Observers, see [Metric Observers](/docs/3/management/metric-observers)
+To configure Observers, see [Metric Observers](./metric-observers.html)
 
 ## Enable HTTP Access
 
 The default path to the Prometheus endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](./hypermedia#base-context-path)>`/prometheus`.
 
-See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, use the `AddPrometheusActuator` extension method from `ManagementHostBuilderExtensions`.
 

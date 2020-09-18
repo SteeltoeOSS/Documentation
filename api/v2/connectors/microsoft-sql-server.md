@@ -2,7 +2,7 @@
 
 This connector simplifies using Microsoft SQL Server in an application running on Cloud Foundry. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using Entity Framework.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint.
+This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](../management/health.html) check endpoint.
 
 ## Usage
 

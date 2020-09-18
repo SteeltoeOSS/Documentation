@@ -88,6 +88,6 @@ When pushing the application to Cloud Foundry, the settings from service binding
 
 If there are merge conflicts, the last provider added to the Configuration takes precedence and overrides all others.
 
-To manage application settings centrally instead of with individual files, use [Steeltoe Configuration](/docs/configuration) and a tool such as [Spring Cloud Config Server](https://github.com/spring-cloud/spring-cloud-config)
+To manage application settings centrally instead of with individual files, use [Steeltoe Configuration](../configuration/overview.html) and a tool such as [Spring Cloud Config Server](https://github.com/spring-cloud/spring-cloud-config)
 
 >NOTE: If you use the Spring Cloud Config Server, `AddConfigServer()` automatically calls `AddCloudFoundry()` for you.
