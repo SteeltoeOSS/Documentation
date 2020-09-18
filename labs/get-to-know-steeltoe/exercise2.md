@@ -89,7 +89,7 @@ With the application running and the weather forecast endpoint loaded your brows
 
 Load the base actuator endpoint by replacing `WeatherForecast` with `actuator` in the browser address bar.
 
-What exactly has happened? In the previous exercise only select endpoints where implemented and we visited each in the browser to see their output. There was no need to expose those endpoints because Steeltoe doesn't secure them (you can [if you want](https://steeltoe.io/docs/3/management/using-endpoints#exposing-endpoints)). With the addition of all endpoints, most are secured by default. You pick & choose which should be exposed and with what roles. Here's a list of each endpoint that is available and it's purpose. While the application is running visit each one to learn more.
+What exactly has happened? In the previous exercise only select endpoints where implemented and we visited each in the browser to see their output. There was no need to expose those endpoints because Steeltoe doesn't secure them (you can [if you want](/api/v3/management/using-endpoints.html#exposing-endpoints)). With the addition of all endpoints, most are secured by default. You pick & choose which should be exposed and with what roles. Here's a list of each endpoint that is available and it's purpose. While the application is running visit each one to learn more.
 
 - `/actuator`: A json structured list of all actuator endpoints that have been exposed.
 - `/actuator/env`: A listing of all environment variables that are available to the app.

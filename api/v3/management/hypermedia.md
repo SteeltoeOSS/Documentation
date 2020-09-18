@@ -22,7 +22,7 @@ The following table describes the additional settings that you could apply to th
 
 The default path to the Hypermedia endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is `/actuator`.
 
-See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, you can use the `AddHypermediaActuator` extension method from `ManagementHostBuilderExtensions`.
 
@@ -32,4 +32,4 @@ Then, add the actuator to the ASP.NET Core pipeline, use the `Map<ActuatorEndpoi
 
 ## Cloud Foundry
 
-When running in Cloud Foundry, the [Cloud Foundry Actuator](/docs/3/management/cloud-foundry) assumes the role of providing a base context path to requests originating inside cloudfoundry such as from Apps Manager. This path defaults to `/cloudfoundryapplication`. All other requests default to /actuator or the explicitly configured path.
+When running in Cloud Foundry, the [Cloud Foundry Actuator](./cloud-foundry.html) assumes the role of providing a base context path to requests originating inside cloudfoundry such as from Apps Manager. This path defaults to `/cloudfoundryapplication`. All other requests default to /actuator or the explicitly configured path.

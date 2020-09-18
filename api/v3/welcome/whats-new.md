@@ -12,6 +12,7 @@
   * Metrics now uses `EventSource` and `EventCounter`, along with a new prometheus exporter that now uses OpenTelemetry metrics packages
   * Distributed tracing library now has new exporters and updated internal libraries from OpenCensus to OpenTelemetry
   * Pluggable architecture for Service Discovery (Consul, Eureka, and Kubernetes)
+  * Pluggable architecture for Connectors
   * New Connector for CosmosDB
   * The `/heapdump` actuator endpoint now supports heap dumps on Linux
   * Circuit Breaker using Hystrix now using the Prometheus endpoint for easier consumption of events on Prometheus supported services
@@ -105,6 +106,8 @@
 
   \* Experimental packages
 
+>Packages that existed exclusively for supporting .NET Framework applications are not included in Steeltoe 3.0. Any package listed above with `N/A` for the name in 3.0 will continue to exist, but only in the 2.x line of Steeltoe. Interoperability between Steeltoe 2.x and 3.x is not supported.
+
 ## HostBuilder Extensions
 
 In 3.0, more of Steeltoe can be added in single-line statements with `HostBuilder` extensions than ever before so you can be on your way even faster:
@@ -119,6 +122,46 @@ HostBuilder.CreateDefaultBuilder()
 ```
 
 These extensions generally depend on the same underlying code, so if you'd rather do this work in `Startup.cs` you absolutely still can, these are convenience methods. These extensions are also typically available for `WebHostBuilder` as well. Look for more information on these extensions in the relevant component area.
+
+## Breaking Changes
+
+In addition to the package name changes, there have also been changes to package architectures, public APIs and namespaces in Steeltoe that may necessitate changes in your applications.
+
+### Name Changes
+
+Minor namespace changes have been made throughout Steeltoe for a more streamlined experience. While the suffixes of `Base` and `Core` continue to be useful in package naming, they have been removed from the code so that it's easier to work between related areas within Steeltoe.
+
+More specific examples of name changes include:
+
+* Serilog-related namespaces have been adjusted to match the new package name
+* `(Web)HostBuilder.AddCloudFoundry()` is now `(Web)HostBuilder.AddCloudFoundryConfiguration()`
+
+### Service Connectors
+
+In the migration to the new pluggable architecture of Connectors, functionality specific to Cloud Foundry has moved to the new package `Steeltoe.Connector.CloudFoundry`. No code changes are required, but you will need to add this new package reference if you are deploying your application to a platform based on Cloud Foundry.
+
+As a result of this change, a dependency on the Cloud Foundry Configuration package is only required when using the Cloud Foundry Connector package.
+
+### Service Discovery
+
+In previous versions of Steeltoe, all discovery clients needed to be either used directly or via `Steeltoe.Discovery.ClientAutofac` or `Steeltoe.Discovery.ClientCore` packages, where those packages managed connecting the pieces of the discovery client implementations to the Steeltoe abstractions.
+This created a situation where any discovery client needed to be directly referenced by a centralized package, such as `Steeltoe.Discovery.ClientCore`, which limited extensibility options.
+
+Steeltoe Service Discovery has been rearchitected so that the core library no longer needs a direct reference to any discovery client implementation.
+The base of Steeltoe service discovery is now available in the appropriately named package `Steeltoe.Discovery.ClientBase`, and discovery client implementations are configured as extensions to this package.
+It is also still possible to directly reference the discovery client implementations
+
+>A direct reference to any/all discovery client implentations your application may use is now required. Read more in the [Service Discovery documentation](../discovery/initialize-discovery-client.html)
+
+### Cloud Foundry
+
+For applications running on Cloud Foundry, please be aware of the changes to Connectors and Discovery outlined above.
+
+Addtionally, please note that `UseCloudFoundryHosting` has been removed, in favor of the new `UseCloudHosting`, which is found in the package `Steeltoe.Common.Hosting`.
+
+### Management
+
+Since [OpenCensus](https://opencensus.io/) has merged with [OpenTracing](https://opentracing.io/) to form [OpenTelemetry](https://opentelemetry.io/), Steeltoe is no longer shipping any OpenCensus-related code in 3.0 and has migrated to OpenTelemetry.
 
 ## Release Notes
 

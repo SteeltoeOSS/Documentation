@@ -2,7 +2,7 @@
 
 This connector simplifies using PostgreSQL. Currently, the connector supports the [Npgsql](https://www.npgsql.org/) provider.
 
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](/docs/3/management/health) check endpoint.
+This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](../management/health.html) check endpoint.
 
 ## Usage
 

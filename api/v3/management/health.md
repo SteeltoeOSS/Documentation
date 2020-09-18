@@ -48,7 +48,7 @@ The following table describes the settings that you can apply to the endpoint.
 
 The default path to the `health` endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/health`.
 
-See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, you can use any of the the `AddHealthActuator` extension methods  from `ManagementHostBuilderExtensions`.
 
@@ -201,9 +201,9 @@ At present, Steeltoe provides the following `IHealthContributor` implementations
 | `DiskSpaceContributor` | Checks for low disk space, configure using `DiskSpaceContributorOptions`. |
 | `RabbitMQHealthContributor` | Checks RabbitMQ connection health. |
 | `RedisHealthContributor` | Checks Redis cache connection health. |
-| `RelationalHealthContributor` | Checks relational database connection health (MySql, Postgres, SqlServer). |
+| `RelationalDbHealthContributor` | Checks relational database connection health (MySql, Postgres, SqlServer). |
 
-Each of these contributors are located in the `Steeltoe.ConnectorBase` package and are made available to your application when you reference the connector package.
+Each of these contributors are located in the `Steeltoe.Connector.ConnectorBase` package and are made available to your application when you reference the connector package.
 
 If you want to use any one of the `IHealthContributor` instances in an ASP.NET Core application, make use of the corresponding connector as you would normally. By doing so, the contributor is automatically added to the service container for you and is automatically discovered and used by the `health` endpoint.
 

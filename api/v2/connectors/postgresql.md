@@ -4,7 +4,7 @@ This connector simplifies using PostgreSQL in an application running on Cloud Fo
 
 Currently, the connector supports the [Npgsql](https://www.npgsql.org/) provider.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/docs/management/health) check endpoint. 
+This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/../management/health.html) check endpoint. 
 
 ## Usage
 
