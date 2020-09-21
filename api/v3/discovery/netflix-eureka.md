@@ -164,13 +164,25 @@ In cases where customizations to communications with the Eureka Server are neede
 // Add an ICertificateSource to your configuration builder
 var configurationBuilder = new ConfigurationBuilder()
         .AddPemFiles("instance.crt", "instance.key");
-         /* OR */
+        /* OR */
         .AddCertificateFile("instance.p12");
+        /* OR */
+        config.Add(<YourCustomICertificateSourceHere>)
 
 var services = new ServiceCollection();
 // Add Options and configure CertificateOptions
 services.AddOptions();
+
+// generally configure CertificateOptions with certificate path information
 services.Configure<CertificateOptions>(config);
+
+// actually load the certificate into CertificateOptions
+services.AddSingleton<IConfigureOptions<CertificateOptions>, ConfigureCertificateOptions>();
+// or
+services.AddSingleton<IConfigureOptions<CertificateOptions>, PemConfigureCertificateOptions>();
+// or
+services.AddSingleton<IConfigureOptions<CertificateOptions>, {ConfigureYourCertificateOptions}>();
+
 services.AddDiscoveryClient(config);
 ```
 

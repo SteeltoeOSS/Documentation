@@ -161,7 +161,7 @@ The following example shows the clients settings in JSON that are necessary to c
 
 The `eureka:instance:port` setting is the port on which the service is registered. The hostName portion is determined automatically at runtime. The `eureka:client:shouldFetchRegistry` setting instructs the client NOT to fetch the registry as the app does not need to discover services. It only wants to register a service. The default for the `shouldFetchRegistry` setting is true.
 
-The samples and most templates are already set up to read from `appsettings.json`. 
+The samples and most templates are already set up to read from `appsettings.json`.
 
 ### Bind to Cloud Foundry
 
@@ -183,7 +183,7 @@ cf restage myApp
 
 For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/index.html) documentation.
 
-Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`. 
+Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`.
 
 ### Enable Logging
 
@@ -248,4 +248,3 @@ There is standard metadata information such as hostname, IP address, port number
 Additional metadata can be added to instance registrations using the configuration setting `eureka:instance:metadataMap`. The metadata you supply using this configuration is added to the service registration and becomes accessible in remote clients.
 
 In general, additional metadata does not change the behavior of the client, unless the client is made aware of the meaning of the metadata.
-
