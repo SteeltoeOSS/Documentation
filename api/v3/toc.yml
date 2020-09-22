@@ -20,6 +20,8 @@
       name: Placeholder Provider
     - topicHref: configuration/config-server-provider.md
       name: Config Server Provider
+    - topicHref: configuration/kubernetes-providers.md
+      name: Kubernetes Provider
 - name: Circuit Breakers
   topicHref: circuitbreaker/overview.md
   items:
