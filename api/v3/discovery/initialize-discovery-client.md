@@ -33,6 +33,8 @@ To add this type of NuGet to your project, add an element resembling the followi
 
 If you are using `WebHost` to run your application, you will need to also add a reference to `Steeltoe.Discovery.ClientCore`. If you would like the option of switching between clients using configuration, add a reference for each client you may wish to use.
 
+>As of version 3.0, a direct reference to any applicable discovery client is required. If you find log messages saying `No discovery client has been configured...`, this is why.
+
 ## HostBuilder Extensions
 
 After installing the NuGet package(s), the next step is to add the Steeltoe Discovery client to the service container and use it to cause the client to start communicating with the server.
@@ -55,6 +57,8 @@ public class Program
 
 The `AddDiscoveryClient` extension shown above uses reflection to find assemblies containing a discovery client. Specifically, assemblies are located by the presence of the attribute `DiscoveryClientAssembly`, which contains a reference to an `IDiscoveryClientExtension` that does the work in configuring options and injecting the required service for the `IDiscoveryClient` to operate.
 
+>If discovery client package is found, a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/ClientBase/SimpleClients/NoOpDiscoveryClient.cs) will be used.
+
 Should you wish to avoide this reflection operation, you also have the option of declaratively configuring the client you plan to use, like this:
 
 ```csharp
@@ -70,6 +74,8 @@ public class Program
             .Build();
 }
 ```
+
+>If no extension is supplied for `AddServiceDiscovery`, a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/ClientBase/SimpleClients/NoOpDiscoveryClient.cs) will be used.
 
 ## Other Extensions
 

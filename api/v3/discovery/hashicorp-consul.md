@@ -2,23 +2,9 @@
 
 The Consul client implementation lets applications register services with a Consul server and discover services registered by other applications. This Steeltoe client uses a Consul .NET package provided by either the (now archived) [Playfab](https://github.com/PlayFab/consuldotnet) or [G-Research](https://github.com/g-research/consuldotnet) `consuldotnet` open source project.
 
-## Usage
+This project is based on the [Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul) project.
 
-You should know how the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the client. You need basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the client.
-
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services and how the middleware used in the application. Pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
-
-It might help to have an understanding of the [Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul) project, as we have based our work on this project.
-
-To use the Steeltoe discovery client, you need to:
-
-* Add the appropriate NuGet package reference to your project.
-* Configure the settings the discovery client uses to register services in the service registry.
-* Configure the settings the discovery client uses to discover services in the service registry.
-* Add and use the discovery client service in the application.
-* Use an injected `IDiscoveryClient` to lookup services.
-
-### Consul Settings
+## Consul Settings
 
 To get the Steeltoe discovery client to properly communicate with the Consul server, you need to provide a few configuration settings to the client. There are two sections you may need to configure.
 
@@ -74,7 +60,7 @@ The second set of settings you may need to specify pertain to service registrati
 | `Heartbeat:TtlUnit` | Time to live heartbeat unit. | s |
 | `Heartbeat:IntervalRation` | The interval ration. | 2.0/3.0 |
 
-### Enable Logging
+## Enable Logging
 
 Sometimes, you many want to turn on debug logging. To do so, add the following to your `appsettings.json`:
 
@@ -90,17 +76,17 @@ Sometimes, you many want to turn on debug logging. To do so, add the following t
 }
 ```
 
-### Health Contributor
+## Health Contributor
 
 The Consul package provides a Steeltoe Management Health contributor (`ConsulHealthContributor`) that you can use monitor Consul server health.
 
 If you use the `AddDiscoveryClient()` extension method and you have configured Consul as your service discovery choice, this contributor is automatically added to the container and is automatically used.
 
-### Configuring Health Check
+## Configuring Health Check
 
 The health check for a Consul service instance defaults to `/actuator/health`, which is a good default when you have enabled the Steeltoe management features in your application. You can change this path and provide your own implementation by using the `Consul:Discovery:HealthCheckPath` setting. You can also configure the interval that Consul uses to check the health endpoint. You can change this setting by using the `Consul:Discovery:HealthCheckInterval`. You should use settings such as "10s" and "1m" to represent 10 seconds and 1 minute, respectively.
 
-### Configuring Metadata
+## Configuring Metadata
 
 Steeltoe `IServiceInstance` has an `IDictionary<string, string> Metadata` property that is used to obtain metadata settings for an instance. Consul previously did not support including metadata with service instance registrations. The Steeltoe Consul client currently uses the Consul tags feature to approximate metadata registration.
 
@@ -128,7 +114,7 @@ The preceding tag list results in metadata that looks like this:
 }
 ```
 
-### Configuring InstanceId
+## Configuring InstanceId
 
 By default, if no other values are configured, a Consul service instance is registered with an ID that is equal to the application name concatenated with a random value.
 
