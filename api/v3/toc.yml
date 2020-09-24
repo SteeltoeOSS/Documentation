@@ -10,18 +10,18 @@
 - name: Application Configuration
   topicHref: configuration/overview.md
   items:
-    - topicHref: configuration/random-value-provider.md
-      name: Random Value Provider
-    - topicHref: configuration/hosted-extensions.md
-      name: Hosted Extensions
-    - topicHref: configuration/cloud-foundry-provider.md
-      name: Cloud Foundry Provider
-    - topicHref: configuration/placeholder-provider.md
-      name: Placeholder Provider
     - topicHref: configuration/config-server-provider.md
       name: Config Server Provider
+    - topicHref: configuration/random-value-provider.md
+      name: Random Value Provider
+    - topicHref: configuration/placeholder-provider.md
+      name: Placeholder Provider
+    - topicHref: configuration/cloud-foundry-provider.md
+      name: Cloud Foundry Provider
     - topicHref: configuration/kubernetes-providers.md
-      name: Kubernetes Provider
+      name: Kubernetes Providers
+    - topicHref: configuration/hosting-extensions.md
+      name: Hosting Extensions
 - name: Circuit Breakers
   topicHref: circuitbreaker/overview.md
   items:
@@ -133,6 +133,8 @@
       name: Netflix Eureka
     - topicHref: discovery/hashicorp-consul.md
       name: Hashicorp Consul
+    - topicHref: discovery/kubernetes.md
+      name: Kubernetes
     - topicHref: discovery/load-balancing.md
       name: Load Balancing
 - name: Version 2 Documentation
