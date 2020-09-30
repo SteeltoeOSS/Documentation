@@ -97,6 +97,8 @@
       name: SSO OpenId
     - topicHref: security/sso-oauth2.md
       name: SSO OAuth2
+    - topicHref: security/mtls.md
+      name: Mutual TLS
     - topicHref: security/credhub-api-client.md
       name: CredHub Api Client
 - name: Service Connectors

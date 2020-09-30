@@ -20,6 +20,7 @@ With regard to Cloud Foundry, you should have a good understanding of Cloud Foun
 
 To use the JWT Security provider:
 
+1. Add NuGet package reference
 1. Create and bind an instance of a Cloud Foundry OAuth2 service to your application.
 1. (Optional) Configure any additional settings the security provider needs.
 1. Add the Cloud Foundry configuration provider to the `ConfigurationBuilder`.
@@ -111,7 +112,7 @@ The `AddCloudFoundryJwtBearer(Configuration)` method call configures and adds th
 
 ### Securing Endpoints
 
-Once you have the work done in your `Startup` class, you can then you can start to secure endpoints by using the standard ASP.NET Core `Authorize` attribute.
+Once you have the work done in your `Startup` class, you can then start to secure endpoints by using the standard ASP.NET Core `Authorize` attribute.
 
 See the Microsoft documentation on [ASP.NET Core Security](https://docs.asp.net/en/latest/security/) for a better understanding of how to use these attributes.
 
