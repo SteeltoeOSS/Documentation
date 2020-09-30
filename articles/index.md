@@ -11,7 +11,7 @@ uid: articles
 
 ---
 
-### [August 2020] [Steeltoe 3.0 packs a mighty punch with many new features](xref:articles/steeltoe-3-0-packs-a-mighty-punch-with-many-new-features)
+### [August 2020] [Steeltoe 3.0 packs a mighty punch with many new features](xref:releases/steeltoe-3-0-packs-a-mighty-punch-with-many-new-features)
 
 ### [June 2020] [Steeltoe basics in 7 minutes](xref:articles/steeltoe-basics-in-7-minutes)
 
