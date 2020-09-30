@@ -12,10 +12,10 @@
   <link rel="shortcut icon" href="{{{_appFaviconPath}}}{{^_appFaviconPath}}favicon.ico{{/_appFaviconPath}}">
   <link rel="stylesheet" href="{{_rel}}styles/docfx.vendor.css">
 
-	<link rel="stylesheet" href="//steeltoe.io/css/bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}//steeltoe.io{{/_rootHost}}/css/bootstrap/bootstrap.min.css" />
   <link rel="stylesheet" href="{{_rel}}styles/docfx.css">
-	<link href="//steeltoe.io/css/site.css" rel="stylesheet" />
-	<link href="//steeltoe.io/css/nav.css" rel="stylesheet" />
+	<link href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}//steeltoe.io{{/_rootHost}}/css/site.css" rel="stylesheet" />
+	<link href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}//steeltoe.io{{/_rootHost}}/css/nav.css" rel="stylesheet" />
   <link rel="stylesheet" href="{{_rel}}styles/main.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/a11y-dark.min.css">
   
