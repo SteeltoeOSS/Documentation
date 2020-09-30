@@ -8,7 +8,7 @@ pool:
 steps:
 - powershell: |
     choco install docfx -y
-    docfx build -o ./publish
+    docfx build -o ./publish --globalMetadataFiles "dev.json"
     if ($lastexitcode -ne 0){
       throw ("Error generating documentation")
     }
