@@ -74,3 +74,32 @@ pre {
 .dropdown-item{
 	color: #0066cc;
 }
+
+@media (min-width: 1200px) {
+	.container {
+			max-width: 1250px;
+	}
+}
+@media (max-width: 1199px) {
+	.container {
+			max-width: 100%;
+	}
+}
+ @media (max-width: 768px) {
+	.container {
+			max-width: 100%;
+	}
+}
+@media (max-width: 576px) {
+	.container {
+			max-width: 100%;
+	}
+}
+@media (min-width: 768px){
+	.navbar-collapse.collapse {
+			display: unset;
+	}
+}
+.collapse:not(.show) {
+	display: none;
+}
