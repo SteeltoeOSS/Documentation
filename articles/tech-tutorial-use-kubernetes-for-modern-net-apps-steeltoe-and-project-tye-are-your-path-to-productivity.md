@@ -45,7 +45,7 @@ Further, configuration values come from different sources in different environme
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>     Host.CreateDefaultBuilder(args)
     .ConfigureWebHostDefaults(webBuilder => {
-        webBuilder.UseStartup&lt;Startup>();
+        webBuilder.UseStartup<Startup>();
       })
       .AddKubernetesConfiguration()
 ```
@@ -78,7 +78,7 @@ using Steeltoe.Discovery.Client;
 //--
 public static IHostBuilder CreateHostBuilder(string[] args) =>     Host.CreateDefaultBuilder(args)
     .ConfigureWebHostDefaults(webBuilder => {
-        webBuilder.UseStartup&lt;Startup>();
+        webBuilder.UseStartup<Startup>();
       })
       .AddDiscoveryClient()
 ```
@@ -97,7 +97,7 @@ public void ConfigureServices(IServiceCollection services) {
         c.BaseAddress = new Uri("http://fortuneService/api/fortunes/");
     })
     .AddServiceDiscovery()
-    .AddTypedClient&lt;IFortuneService, FortuneService>();
+    .AddTypedClient<IFortuneService, FortuneService>();
 }
 ```
 
@@ -108,7 +108,7 @@ private readonly HttpClient _httpClient;
 
 public FortuneService(HttpClient httpClient, ILoggerFactory logFactory){
     _httpClient = httpClient;
-    //Fortune[] fortunes = await _httpClient.GetJsonAsync&lt;Fortune>(“random-fortunes”);
+    //Fortune[] fortunes = await _httpClient.GetJsonAsync<Fortune>(“random-fortunes”);
 }
 ```
 
@@ -118,7 +118,7 @@ public FortuneService(HttpClient httpClient, ILoggerFactory logFactory){
 
 Any proper platform running containers is going to have a concept of health reporting. An application reports its heartbeat (usually as an HTTP endpoint) and is checked on some interval by its platform. If there are complications then the platform acts accordingly.
 
-In Kubernetes there are 2 deeper probes offered, named readiness and liveness. Readiness is about ensuring the application is ready to start receiving traffic. While liveness is about making sure the application is still healthy over time.
+In Kubernetes, there are two deeper probes offered named `readiness` and `liveness`. Readiness is about ensuring the application is ready to start receiving traffic. While liveness is about making sure the application is still healthy over time.
 
 Fortunately, Steeltoe is here to help set up both of these probes. Using new IHealthContributors and support for grouping, Steeltoe’s [health actuator endpoint](https://steeltoe.io/docs/3/management/health) builds several different views of the app’s dependencies.
 
@@ -143,3 +143,9 @@ The local development needs are:
 Say hello to [Project Tye](https://github.com/dotnet/tye). With Tye the environment is software defined as a manifest. Port assignment and container networking are done for you. You can run the application and all it’s services in individual containers. Or you could run the application from its IDE and just have Tye run the backing services. Most notably you can have Tye target Kubernetes as the intended platform. In fact you could switch between a local cluster and a hosted cluster with no change to the application!
 
 Project Tye solves a cloud-native developer’s biggest challenge, environment parity. It’s super friendly to all your existing .NET habits and doesn’t have much bias about an IDE. All you need is the [tool installed in the dotnet cli](https://github.com/dotnet/tye/blob/master/docs/getting_started.md) and Docker running… and maybe a little yaml skill.
+
+## Learn more and get started today
+
+To get started with any Steeltoe projects, head over to the [getting started guides](https://steeltoe.io/get-started). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples), and you’ll have .NET microservices up and running before you know it!
+
+Want to get deeper into creating cloud-native .NET apps? Attend the VMware Pivotal Labs’s [4 -day .NET developer course](https://pivotal.io/platform-acceleration-lab/pal-for-developers-net). You’ll get hands-on cloud-native .NET training learn best practices when creating microservices and become a Steeltoe ninja!
