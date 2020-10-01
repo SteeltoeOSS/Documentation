@@ -74,8 +74,11 @@ The following table describes the settings that you can apply globally:
 
 |Key|Description|Default|
 |---|---|---|
-|enabled|Whether to enable all management endpoints|true|
+|enabled|Whether to enable all management endpoints|`true`|
 |path|The path prefix applied to all endpoints when exposed over HTTP|`/`|
+|useStatusCodeFromResponse|Whether or not to use accurate status codes in some responses.|`true`|
+
+>When running an application in IIS or with the HWC buildpack, response body content is automatically filtered out when the HTTP response code is 503. Some actuator responses intentionally return a code of 503 in failure scenarios. Setting `useStatusCodeFromResponse` to `false` will allow the response body to be returned by using a status code of 200 instead. This switch will not affect the status code of responses outside of Steeltoe.
 
 When you want to integrate with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`.
 

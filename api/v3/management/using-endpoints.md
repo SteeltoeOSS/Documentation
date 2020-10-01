@@ -68,6 +68,9 @@ The following table describes the settings that you can apply globally:
 | --- | --- | --- |
 | `Enabled` | Whether to enable all management endpoints. | `true` |
 | `Path` | The path prefix applied to all endpoints when exposed over HTTP. | `/` |
+| `UseStatusCodeFromResponse` | Whether or not to use accurate status codes in some responses.  | `true` |
+
+>When running an application in IIS or with the HWC buildpack, response body content is automatically filtered out when the HTTP response code is 503. Some actuator responses intentionally return a code of 503 in failure scenarios. Setting `UseStatusCodeFromResponse` to `false` will allow the response body to be returned by using a status code of 200 instead. This switch will not affect the status code of responses outside of Steeltoe.
 
 ## Exposing Endpoints
 
@@ -95,7 +98,6 @@ Since endpoints may contain sensitive information, only health and info are expo
 ```
 
 The sections that follow show the settings that you can apply to specific endpoints.
-
 
 ## HTTP Access
 
@@ -174,12 +176,15 @@ For the `IEndpointRouteBuilder` extensions, it can be added as shown:
             endpoints.MapAllActuators().RequireAuthorization();
             ...
 ```
+
 When using the `IHostBuilder` extensions, it can be added as shown:
+
  ```csharp
         Host.CreateDefaultBuilder(args)
             .AddAllActuators(builder => builder.RequireAuthorization())
             ...
 ```
+
 When called without arguments, the default profile is used. Other overloads allow passing a profile or a profile name.
 
 A complete example is available here [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/SecureEndpoints).

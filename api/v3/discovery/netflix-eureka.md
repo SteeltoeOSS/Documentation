@@ -61,7 +61,7 @@ The following table describes the settings you can use to configure the behavior
 | `InstanceEnabledOnInit` | Whether the instance should take traffic as soon as it is registered. | `false` |
 | `SecurePort` | Secure port on which the instance should receive traffic. | 443 |
 | `NonSecurePortEnabled` | Non-secure port enabled. | `true` |
-| `SecurePortEnabled` | Secure port enabled. | false |
+| `SecurePortEnabled` | Secure port enabled. | `false` |
 | `LeaseRenewalIntervalInSeconds` | How often client needs to send heartbeats. | 30s |
 | `LeaseExpirationDurationInSeconds` | Time the Eureka server waits before removing instance. | 90s |
 | `VipAddress` | Virtual host name. | `{HostName}:{Port}` |
