@@ -35,6 +35,7 @@ The second set of settings you may need to specify pertain to service registrati
 | `IpAddress` | IP address to register. | computed |
 | `Port` | Port number to register. | none |
 | `PreferIpAddress` | Register IP address instead of hostname. | `false` |
+| `UseAspNetCoreUrls` | Register with the address ASP.NET Core is listening on | `true` |
 | `InstanceId` | The instance id registered for service. | computed |
 | `Tags` | The list of tags used when registering a service. | none |
 | `DefaultQueryTag` | Tag to query for in service list if one is not listed in serverListQueryTags. | none |
@@ -52,7 +53,7 @@ The second set of settings you may need to specify pertain to service registrati
 | `FailFast` | Throw exception if registration fails. | `true` |
 | `Retry:Enabled` | Enable or disable retry logic. | `false` |
 | `Retry:InitialInterval` | Starting interval. | 1000ms |
-| `Retry:MaxAttempts` | Max retries if retry enabled. |6|
+| `Retry:MaxAttempts` | Max retries if retry enabled. | 6 |
 | `Retry:MaxInterval` | Maximum retry interval. | 2000ms |
 | `Retry:Multiplier` | Retry interval multiplier. | 1.1 |
 | `Heartbeat:Enabled` | Enable or disable heartbeat logic. | `true` |

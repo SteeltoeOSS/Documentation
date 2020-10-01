@@ -1,6 +1,6 @@
 # Kubernetes
 
-Kubernetes itself is capable of (server side) service discovery (see: [the docs](https://kubernetes.io/docs/concepts/services-networking/service/#discovering-services). This built-in functionality removes the need for any service registration, and it is still possible to use the discovery client interface to avoid lock-in and/or customize the load balancing experience. Steeltoe provides two separate clients, depending on whether you want your application to interact with the management API (and customize load balancing or talk more directly to app instances) or use the built-in option.
+Kubernetes itself is natively capable of service discovery (see [the docs](https://kubernetes.io/docs/concepts/services-networking/service/#discovering-services)). This built-in functionality removes the need for any service registration, and it is still possible to use the discovery client interface to avoid lock-in and/or [customize the load balancing](./load-balancing.html) experience. Steeltoe provides two separate clients, depending on whether you want your application to interact with the management API (and customize load balancing or talk more directly to app instances) or use the built-in option.
 
 ## Api-based
 
@@ -12,7 +12,8 @@ Additional settings are available to customize the service discovery behavior wi
 
 | Key | Description | Default |
 | --- | --- | --- |
-| `ServiceName` | The name of the application | `spring:application:name` or executable name |
+| `Enabled` | Whether or not to enable API interactions | `true` |
+| `ServiceName` | The name of the application | `Spring:Application:Name` or executable name |
 | `Namespace` | The namespace the application is deployed to | `default` |
 | `AllNamespaces` | Whether to discover in all namespaces | `false` |
 | `KnownSecurePorts` | List of port numbers that are considered secure and use HTTPS | 443, 8443 |

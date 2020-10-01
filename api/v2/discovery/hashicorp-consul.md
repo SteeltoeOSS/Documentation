@@ -57,6 +57,7 @@ The second set of settings you may need to specify pertain to service registrati
 |ipAddress|IP address to register|computed|
 |port|Port number to register|none|
 |preferIpAddress|Register IP address instead of hostname|false|
+|useAspNetCoreUrls|Register with the address ASP.NET Core is listening on|true|
 |instanceId|The instance id registered for service|computed|
 |tags|The list of tags used when registering a service|none|
 |defaultQueryTag|Tag to query for in service list if one is not listed in serverListQueryTags|none|
