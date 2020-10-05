@@ -8,33 +8,48 @@ function getMainSiteHost(){
 
 	return "https://steeltoe.io";
 }
-if(document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('dev.steeltoe.io') > -1){
-	$("a[href^='https://steeltoe.io']").attr('href', function() { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
-};
-
-//GLOBAL REPLACE ALL VALUES FROM LOCALSTORAGE
-for (var i = 0; i < localStorage.length; i++){
-	var val = localStorage.getItem(localStorage.key(i));
-	
-	switch(val){
-		case("null"):
-		case("true"):
-		case("false"):
-			break;
-		default:
-			val = "\""+val+"\"";
-			break;
+$(document).ready(function() {
+	if(document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('dev.steeltoe.io') > -1){
+		$("a[href^='https://steeltoe.io']").attr('href', function() { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
 	};
 
+	//GLOBAL REPLACE ALL VALUES FROM LOCALSTORAGE
+	for (var i = 0; i < localStorage.length; i++){
+		var val = localStorage.getItem(localStorage.key(i));
+		
+		switch(val){
+			case("null"):
+			case("true"):
+			case("false"):
+				break;
+			default:
+				val = "\""+val+"\"";
+				break;
+		};
+
+		$("pre").each(function(idx){
+			var a=$(this);
+			a.html(a.html().replace('%%'+localStorage.key(i)+'%%',val));
+		});
+	}
+
+	//Clean up missed placeholders
 	$("pre").each(function(idx){
 		var a=$(this);
-		a.html(a.html().replace('%%'+localStorage.key(i)+'%%',val));
+		a.html(a.html().replace(/%%/g,'#'));
 	});
-}
 
-$("pre").each(function(idx){
-	var a=$(this);
-	a.html(a.html().replace(/%%/g,'#'));
+	localStorage.clear();
+
+	var urlParams = new URLSearchParams(window.location.search);
+	//console.log(urlParams);
+
+	urlParams.forEach(function(value,key){localStorage[key] = value;});
+
+	//toggle the docs version radio
+	if (window.location.href.indexOf("v2") > -1) {
+    $('.versionLabel').toggleClass('active');
+  }
 });
 
 var options = {

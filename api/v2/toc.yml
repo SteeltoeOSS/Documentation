@@ -122,5 +122,3 @@
       name: Hashicorp Consul
     - topicHref: discovery/load-balancing.md
       name: Load Balancing
-- name: Version 3 Documentation
-  topicHref: ../v3/welcome/overview.md

@@ -103,3 +103,26 @@ pre {
 .collapse:not(.show) {
 	display: none;
 }
+.sideVersion{
+	position: fixed;
+	top: 103px;
+	width: 260px;
+	z-index: 1;
+}
+.sidefilter {
+	top: 138px;
+	width: 260px;
+}
+.sidetoc {
+	top: 203px;
+	width: 260px;
+}
+.btn.active, .btn:active {
+	outline: 0;
+	-webkit-box-shadow: unset;
+	box-shadow: unset;
+}
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle{
+	background-color: #0066cc;
+	border: 0;
+}
