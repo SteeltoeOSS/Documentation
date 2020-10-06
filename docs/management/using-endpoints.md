@@ -67,7 +67,7 @@ The following table describes the settings that you can apply globally:
 | Key | Description | Default |
 | --- | --- | --- |
 | `Enabled` | Whether to enable all management endpoints. | `true` |
-| `Path` | The path prefix applied to all endpoints when exposed over HTTP. | `/` |
+| `Path` | The path prefix applied to all endpoints when exposed over HTTP. | `/actuator` |
 
 ## Exposing Endpoints
 
