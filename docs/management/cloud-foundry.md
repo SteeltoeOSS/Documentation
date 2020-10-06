@@ -27,7 +27,7 @@ Typically, you need not do any additional configuration. However, the following 
 
 ## Enable HTTP Access
 
-The default path to the Cloud Foundry endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/cloudfoundryapplication` for apps manager integration. When running in Cloudfoundry, it is possible to access the endpoints via the (hypermedia)[./hypermedia] context path which defaults to `/actuator`. In other words you can access all your endpoints off this global path for example: /actuator/info and so on.
+The default path to the Cloud Foundry endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/cloudfoundryapplication` for Apps Manager integration. When running in Cloud Foundry, it is possible to access the endpoints via the [hypermedia](./hypermedia) context path which defaults to `/actuator`. In other words you can access all your endpoints off this global path for example: `/actuator/info` and so on.
 
 See the [HTTP Access](/docs/3/management/using-endpoints#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
