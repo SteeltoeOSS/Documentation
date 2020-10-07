@@ -1,6 +1,6 @@
 # Cloud Foundry Integration
 
-Integration with apps manager is accomplished by adding the Cloud Foundry Management Endpoint to your application. When used, this endpoint enables the following additional functionality on Cloud Foundry:
+Integration with Apps Manager is accomplished by adding the Cloud Foundry Management Endpoint to your application. When used, this endpoint enables the following additional functionality on Cloud Foundry:
 
 * Provides an alternate, secured route to the endpoints expected by Apps Manager and configured in your application.
 * Exposes an endpoint that can be queried to return the IDs of and links to the enabled management endpoints in the application.
