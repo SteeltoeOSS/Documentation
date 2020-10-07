@@ -1,6 +1,6 @@
 # Cloud Foundry Integration
 
-Integration with Apps Manager is accomplished by adding the Cloud Foundry Management Endpoint to your application. When used, this endpoint enables the following additional functionality on Cloud Foundry:
+Integration with Apps Manager is accomplished by adding the Cloud Foundry management endpoint to your application. When used, this endpoint enables the following additional functionality on Cloud Foundry:
 
 * Provides an alternate, secured route to the endpoints expected by Apps Manager and configured in your application.
 * Exposes an endpoint that can be queried to return the IDs of and links to the enabled management endpoints in the application.
@@ -45,7 +45,7 @@ Alternatively, first, add the Cloud Foundry actuator to the service container, u
 
 Then, add the Cloud Foundry actuator and security middleware to the ASP.NET Core pipeline, using the `UseCloudFoundrySecurity()` extension methods from `EndpointApplicationBuilderExtensions` and `Map<CloudFoundryEndpoint>()` from `ActuatorRouteBuilderExtensions`
 
-Extensions for both `IHostBuilder` and `IWebHostBuilder` are included to configure all actuators including CloudFoundry, Hypermedia and others, with a single line of code in `program.cs`:
+Extensions for both `IHostBuilder` and `IWebHostBuilder` are included to configure all actuators including CloudFoundry, Hypermedia and others, with a single line of code in `Program.cs`:
 
 ```csharp
     public static void Main(string[] args)
