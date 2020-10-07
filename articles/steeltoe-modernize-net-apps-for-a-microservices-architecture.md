@@ -1,4 +1,8 @@
 ---
+_disableContribution: true
+_disableAffix: true
+_showBackToBlogs: true
+
 title: "Steeltoe: Modernize .Net Apps for a Microservices Architecture"
 description: How do you plan to modernize your .NET application estate?
 type: markdown

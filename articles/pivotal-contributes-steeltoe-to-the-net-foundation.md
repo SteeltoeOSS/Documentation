@@ -1,4 +1,8 @@
 ---
+_disableContribution: true
+_disableAffix: true
+_showBackToBlogs: true
+
 title: Pivotal Contributes Steeltoe to the .NET Foundation
 description: With the release of Steeltoe 2.1, Pivotal continues to deliver useful tools to help developers build enterprise-quality, cloud-native .NET apps on Cloud Foundry.
 type: markdown

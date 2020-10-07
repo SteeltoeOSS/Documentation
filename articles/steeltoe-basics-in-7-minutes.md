@@ -1,5 +1,7 @@
 ---
 _disableContribution: true
+_disableAffix: true
+_showBackToBlogs: true
 
 title: Steeltoe basics in 7 minutes
 _description: All the essentials for building .NET microservices.

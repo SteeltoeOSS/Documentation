@@ -1,11 +1,14 @@
 ---
+_disableContribution: true
+_showBackToBlogs: true
+
 title: Steeltoe 3.0 packs a mighty punch with many new features
 description: All about Steeltoe 3.0
 monikerRange: '== steeltoe-3.0'
 type: markdown
 date: 08/25/2020
 uid: releases/steeltoe-3-0-packs-a-mighty-punch-with-many-new-features
-tags: [new-release]
+tags: ["new-release"]
 author.name: David Dieruf
 author.github: ddieruf
 author.twitter: dierufdavid

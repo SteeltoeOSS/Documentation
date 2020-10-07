@@ -1,4 +1,7 @@
 ---
+_disableContribution: true
+_showBackToBlogs: true
+
 title: "Tech Tutorial: Use Kubernetes for Modern .NET Apps? Steeltoe and Project Tye are Your Path to Productivity"
 description: Use new Steeltoe 3.0 features for Kubernetes and Project Tye to get modern in a hurry
 type: markdown

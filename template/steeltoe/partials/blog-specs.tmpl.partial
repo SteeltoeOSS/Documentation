@@ -1,0 +1,7 @@
+<div id="blog-specs" class="row no-gutters align-middle">
+  {{#date}}<div class="col-3 align-middle" id="date">{{date}}</div>{{/date}}
+  {{#author.name}}<div class="col-9 text-right align-middle" id="name">{{author.name}}
+  {{#author.github}}<span id="github"><a href="https://github.com/{{author.github}}" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" /></a></span>{{/author.github}}
+  {{#author.twitter}}<span id="twitter"><a href="https://twitter.com/{{author.twitter}}" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" /></a></span>{{/author.twitter}}
+  </div>{{/author.name}}
+</div>

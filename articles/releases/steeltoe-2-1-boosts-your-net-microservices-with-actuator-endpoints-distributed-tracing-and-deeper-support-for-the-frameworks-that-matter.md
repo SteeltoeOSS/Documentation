@@ -1,4 +1,8 @@
 ---
+_disableContribution: true
+_disableAffix: true
+_showBackToBlogs: true
+
 title: Steeltoe 2.1 Boosts Your .NET Microservices with Actuator Endpoints, Distributed Tracing, and Deeper Support for the Frameworks that Matter
 description: With the release of Steeltoe 2.1, Pivotal continues to deliver useful tools to help developers build enterprise-quality, cloud-native .NET apps on Cloud Foundry.
 monikerRange: '== steeltoe-2.1'
