@@ -215,7 +215,7 @@
         - page_ref: hystrix-event-source
           name: Hystrix Event Source
     - page: /docs/3/management/cloud-foundry
-      name: /cloudfoundry
+      name: Cloud Foundry Integrationn
       items:
         - page_ref: configure-settings
           name: Configure Settings
