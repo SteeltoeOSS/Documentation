@@ -20,6 +20,7 @@ p {
 article h1{
 	color: #0066cc;
 }
+article.content.wrap{margin-bottom: 7%;}
 h1 {
 	font-weight: 700;
 	line-height: 1em;
