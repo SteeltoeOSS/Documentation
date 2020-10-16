@@ -84,7 +84,7 @@ Corresponding entry in api/v2/toc.yml:
 Use docfx's [user manual](https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html), to build and run the site in a few different ways. The simplest way is to `cd` into the root folder of this project and run the following command. The site will build in a temp folder named `_site` and be served at http://localhost:8080.
 
 ```powershell
-docfx build --serve --port 8081
+docfx build --serve --port 8082
 ```
 
 You can also specify where the build output should land
@@ -100,11 +100,11 @@ By default the navigation links will use the live site (https://steeltoe.io) as 
 If running the MainSite locally on port 8080, then use the localServer metadata file.
 
 ```powershell
-docfx build --serve --port 8081 --globalMetadataFiles "localServer.json"
+docfx build --serve --port 8082 --globalMetadataFiles "localServer.json"
 ```
 
 If running the MainSite locally on the dev site, then use the dev metadata file.
 
 ```powershell
-docfx build --serve --port 8081 --globalMetadataFiles "dev.json"
+docfx build --serve --port 8082 --globalMetadataFiles "dev.json"
 ```
