@@ -1,5 +1,5 @@
 - name: Welcome - v3
-  topicHref: welcome/overview.md
+  topicHref: welcome/
   items:
     - topicHref: welcome/whats-new.md
       name: What's New in Steeltoe 3.0
@@ -8,7 +8,7 @@
     - topicHref: welcome/common-steps.md
       name: Common Steps
 - name: Application Configuration
-  topicHref: configuration/overview.md
+  topicHref: configuration/
   items:
     - topicHref: configuration/config-server-provider.md
       name: Config Server Provider
@@ -23,24 +23,24 @@
     - topicHref: configuration/hosting-extensions.md
       name: Hosting Extensions
 - name: Circuit Breakers
-  topicHref: circuitbreaker/overview.md
+  topicHref: circuitbreaker/
   items:
     - topicHref: circuitbreaker/hystrix.md
       name: Hystrix
 - name: Distributed Tracing
-  topicHref: tracing/distributed-tracing.md
+  topicHref: tracing/
   items:
     - topicHref: tracing/distributed-tracing-exporting.md
       name: Using Zipkin Trace Exporter
 - name: Dynamic Logging
-  topicHref: logging/overview.md
+  topicHref: logging/
   items:
     - topicHref: logging/dynamic-logging-provider.md
       name: Dynamic Provider
     - topicHref: logging/serilog-logger.md
       name: Serilog Dynamic Provider
 - name: Management
-  topicHref: management/overview.md
+  topicHref: management/
   items:
     - topicHref: management/using-endpoints.md
       name: Using Endpoints
@@ -75,19 +75,19 @@
     - topicHref: management/tracing.md
       name: /tracing
 - name: Messaging 
-  topicHref: messaging/overview.md
+  topicHref: messaging/
   items:
     - topicHref: messaging/rabbitmq-intro.md
       name: RabbitMQ Introduction
     - topicHref: messaging/rabbitmq-reference.md
       name: RabbitMQ Reference
 - name: Network File Sharing
-  topicHref: fileshares/overview.md
+  topicHref: fileshares/
   items:
     - topicHref: fileshares/usage.md
       name: Usage
 - name: Security
-  topicHref: security/overview.md
+  topicHref: security/
   items:
     - topicHref: security/jwt-authentication.md
       name: JWT for ASP.NET Core
@@ -102,7 +102,7 @@
     - topicHref: security/credhub-api-client.md
       name: CredHub Api Client
 - name: Service Connectors
-  topicHref: connectors/overview.md
+  topicHref: connectors/
   items:
     - topicHref: connectors/usage.md
       name: Usage
@@ -125,7 +125,7 @@
     - topicHref: connectors/redis.md
       name: Redis
 - name: Service Discovery
-  topicHref: discovery/overview.md
+  topicHref: discovery/
   items: 
     - topicHref: discovery/initialize-discovery-client.md
       name: Initialize Discovery Client

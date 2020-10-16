@@ -1,12 +1,12 @@
 - name: Welcome - v2
-  topicHref: welcome/overview.md
+  topicHref: welcome/
   items:
     - topicHref: welcome/prerequisites.md
       name: Prerequisites
     - topicHref: welcome/common-steps.md
       name: Common Steps
 - name: Application Configuration
-  topicHref: configuration/overview.md
+  topicHref: configuration/
   items:
     - topicHref: configuration/random-value-provider.md
       name: Random Value Provider
@@ -19,22 +19,22 @@
     - topicHref: configuration/config-server-provider.md
       name: Config Server Provider
 - name: Circuit Breakers
-  topicHref: circuitbreaker/overview.md
+  topicHref: circuitbreaker/
   items:
     - topicHref: circuitbreaker/hystrix.md
       name: Hystrix
 - name: Distributed Tracing
-  topicHref: tracing/overview.md
+  topicHref: tracing/
   items:
     - topicHref: tracing/distributed-tracing-exporting.md
       name: Using Zipkin Trace Exporter
 - name: Dynamic Logging
-  topicHref: logging/overview.md
+  topicHref: logging/
   items:
     - topicHref: logging/dynamic-logging-provider.md
       name: Dynamic Provider
 - name: Management
-  topicHref: management/overview.md
+  topicHref: management/
   items:
     - topicHref: management/using-endpoints 
       name: Using Endpoints
@@ -67,12 +67,12 @@
     - topicHref: management/tracing.md
       name: /tracing
 - name: Network File Sharing
-  topicHref: fileshares/overview.md
+  topicHref: fileshares/
   items:
     - topicHref: fileshares/usage.md
       name: Usage
 - name: Security
-  topicHref: security/overview.md
+  topicHref: security/
   items:
     - topicHref: security/jwt-authentication-in-asp.NET-core.md
       name: JWT for ASP.NET Core
@@ -89,7 +89,7 @@
     - topicHref: security/credhub-api-client.md
       name: CredHub Api Client
 - name: Service Connectors
-  topicHref: connectors/overview.md
+  topicHref: connectors/
   items:
     - topicHref: connectors/mysql.md
       name: MySQL
@@ -110,7 +110,7 @@
     - topicHref: connectors/gemfire.md
       name: Apache Geode/GemFire
 - name: Service Discovery
-  topicHref: discovery/overview.md
+  topicHref: discovery/
   items: 
     - topicHref: discovery/initialize-discovery-client.md
       name: Initialize Discovery Client
