@@ -3,10 +3,10 @@
   <div class="sidetoggle collapse" id="sidetoggle">
     <div class="sideVersion">
       <div class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
-        <label class="btn btn-secondary versionLabel" onclick="location.href='/api/v2/welcome/overview.html'">
+        <label class="btn btn-secondary versionLabel" onclick="location.href='/api/v2/welcome'">
           <input type="radio" name="options" id="v2" autocomplete="off"> Version 2
         </label>
-        <label class="btn btn-secondary active versionLabel" onclick="location.href='/api/v3/welcome/overview.html'">
+        <label class="btn btn-secondary active versionLabel" onclick="location.href='/api/v3/welcome'">
           <input type="radio" name="options" id="v3" autocomplete="off" checked> Version 3
         </label>
       </div>
