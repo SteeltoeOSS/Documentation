@@ -760,7 +760,7 @@ Notice that the count property in the `x-death` header is a `Long`.
 ## <a name="rabbit-error-channels"></a>Error Channels
 
 Starting with version 1.3, the binder unconditionally sends exceptions to an error channel for each consumer destination and can also be configured to send async producer send failures to an error channel.
-See [Error Handling](./overview.html#spring-cloud-stream-overview-error-handling) for more information.
+See [Error Handling](./index.html#spring-cloud-stream-overview-error-handling) for more information.
 
 RabbitMQ has two types of send failures:
 
@@ -770,7 +770,7 @@ RabbitMQ has two types of send failures:
 The latter is rare.
 According to the RabbitMQ documentation "[A nack] will only be delivered if an internal error occurs in the Erlang process responsible for a queue.".
 
-As well as enabling producer error channels (as described in [Error Handling](./overview.html#spring-cloud-stream-overview-error-handling)), the RabbitMQ binder only sends messages to the channels if the connection factory is appropriately configured, as follows:
+As well as enabling producer error channels (as described in [Error Handling](./index.html#spring-cloud-stream-overview-error-handling)), the RabbitMQ binder only sends messages to the channels if the connection factory is appropriately configured, as follows:
 
 * `ccf.setPublisherConfirms(true);`
 * `ccf.setPublisherReturns(true);`
