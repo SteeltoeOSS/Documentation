@@ -1,0 +1,28 @@
+<html>
+  <head>
+ 
+  </head>
+  <body>
+  <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    
+  <script>
+  //session.html?sql_ip=1234&one=1&two=2&3=three&redirect=/labs/get-to-know-steeltoe
+  $(document).ready(function() {
+    localStorage.clear();
+
+    var urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams);
+
+    urlParams.forEach(function(value,key){
+      if(key == 'redirect')
+        return;
+
+      localStorage[key] = value;
+    });
+    
+    if(urlParams.get('redirect'))
+      window.location.href = urlParams.get('redirect');
+  });
+  </script>
+  </body>
+</html>

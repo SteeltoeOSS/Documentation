@@ -1,0 +1,13 @@
+---
+applications:
+- name: docsteeltoe-prod
+  memory: 512M
+  instances: 1
+  buildpacks:
+    - staticfile_buildpack
+  routes:
+  - route: "docs.steeltoe.io"
+  - route: "steeltoe-docs-prod.cfapps.io"
+  - route: "docsteeltoe-prod.cfapps.io"
+  services:
+    - "autoscale-steeltoe.io"

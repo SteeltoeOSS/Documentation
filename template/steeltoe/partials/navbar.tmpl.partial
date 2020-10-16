@@ -1,0 +1,74 @@
+<nav class="bg-white navbar navbar-expand-xl container py-xl-2 navbar-light">
+	{{>partials/logo}}
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbar">
+		<ul class=" navbar-nav text-center">
+			<li class="nav-item dropdown ml-xl-5 mr-xl-2">
+				<a class="nav-link dropdown-toggle" href="#" id="why" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Why Steeltoe
+				</a>
+				<div class="dropdown-menu" aria-labelledby="why">
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/why-steeltoe" onClick="$(this).removeAttr('target')">Overview</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/microservices" onClick="$(this).removeAttr('target')">Microservices</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/cloud" onClick="$(this).removeAttr('target')">Cloud</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/web-application" onClick="$(this).removeAttr('target')">Web Applications</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/event-driven" onClick="$(this).removeAttr('target')">Event Driven</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown mx-xl-2">
+				<a class="nav-link dropdown-toggle" href="#" id="learn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Learn
+				</a>
+				<div class="dropdown-menu" aria-labelledby="learn">
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/get-started" onClick="$(this).removeAttr('target')">Get Started</a>
+					<a class="dropdown-item active" id="docsNavLink" href="~/api/v3/welcome/" onClick="$(this).removeAttr('target')">Documentation</a>
+					<a class="dropdown-item" id="blogNavLink" href="~/articles/" onClick="$(this).removeAttr('target')">Blog</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown mx-xl-2">
+				<a class="nav-link dropdown-toggle" href="#" id="projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Projects
+				</a>
+				<div class="dropdown-menu" aria-labelledby="projects">
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/app-configuration" onClick="$(this).removeAttr('target')">Steeltoe Application Configuration</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/circuit-breakers" onClick="$(this).removeAttr('target')">Steeltoe Circuit Breakers</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/cloud-management" onClick="$(this).removeAttr('target')">Steeltoe Distributed Tracing</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/docs/logging" onClick="$(this).removeAttr('target')">Steeltoe Dynamic Logging</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/cloud-management" onClick="$(this).removeAttr('target')">Steeltoe Management</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/file-sharing" onClick="$(this).removeAttr('target')">Steeltoe Network File Sharing</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/security-providers" onClick="$(this).removeAttr('target')">Steeltoe Security</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/service-connectors" onClick="$(this).removeAttr('target')">Steeltoe Service Connectors</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/service-discovery" onClick="$(this).removeAttr('target')">Steeltoe Service Discovery</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/messaging" onClick="$(this).removeAttr('target')">Steeltoe Messaging</a>
+					<div class="small pl-4 pt-3">Developer Tools</div>
+					<a class="dropdown-item pl-5" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/initializr" onClick="$(this).removeAttr('target')">Steeltoe Initializr</a>
+				</div>
+			</li>
+			<li class="nav-item mx-xl-2">
+				<a class="nav-link" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/training" onClick="$(this).removeAttr('target')">Training</a>
+			</li>
+			<li class="nav-item mx-xl-2">
+				<a class="nav-link" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/support" onClick="$(this).removeAttr('target')">Support</a>
+			</li>
+			<li class="nav-item mx-xl-2">
+				<a class="nav-link" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/community" onClick="$(this).removeAttr('target')">Community</a>
+			</li>
+			{{#_enableSearch}}
+				<li class="nav-item ml-xl-2" onClick="$('.search-open').toggle();$('#search').toggle();">
+					<span class="oi oi-magnifying-glass search-open"></span>
+					<span class="oi oi-circle-x search-open" style="display: none;"></span>
+				</li>
+			{{/_enableSearch}}
+		</ul>
+	</div>
+	<div class="search-open" style="display: none;">
+		<form class="navbar-form navbar-right" role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+			</div>
+		</form>
+	</div>
+</nav>
+			

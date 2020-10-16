@@ -1,0 +1,61 @@
+{{!include(/^styles/.*/)}}
+{{!include(search-stopwords.json)}}
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  {{>partials/head}}
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header class="bg-white">
+        {{^_disableNavbar}}
+        {{>partials/navbar}}
+        {{/_disableNavbar}}
+        {{^_disableBreadcrumb}}
+        {{>partials/breadcrumb}}
+        {{/_disableBreadcrumb}}
+      </header>
+      {{#_enableSearch}}
+      <div class="container body-content">
+        {{>partials/searchResults}}
+      </div>
+      {{/_enableSearch}}
+      <div role="main" class="container body-content hide-when-search">
+      {{^_disableToc}}
+        {{>partials/toc}}
+        <div class="article row grid-right mr-3">
+      {{/_disableToc}}
+      {{#_disableToc}}
+        <div class="article row grid">
+        {{/_disableToc}}
+          {{#_disableAffix}}
+            {{^_disableToc}}
+              <div class="col-10">
+            {{/_disableToc}}
+            {{#_disableToc}}
+              <div class="col">
+            {{/_disableToc}}
+          {{/_disableAffix}}
+          {{^_disableAffix}}
+            <div class="col-md-10 col-sm-12">
+          {{/_disableAffix}}
+              <article class="content wrap" id="_content" data-uid="{{uid}}">
+                {{>partials/blog-specs}}
+                {{#_showBackToBlogs}}<div class="row col"><a href="../../articles/index.html">&lt;&lt; Back to blogs</a></div>{{/_showBackToBlogs}}
+                {{!body}}
+                {{#_showBackToBlogs}}<div class="row col pt-2"><a href="../../articles/index.html">&lt;&lt; Back to blogs</a></div>{{/_showBackToBlogs}}
+              </article>
+            </div>
+          {{^_disableAffix}}
+            <div class="d-none d-md-block col-2" role="complementary">
+              {{>partials/affix}}
+            </div>
+          {{/_disableAffix}}
+        </div>
+      </div>
+      {{^_disableFooter}}
+      {{>partials/footer}}
+      {{/_disableFooter}}
+    </div>
+    {{>partials/scripts}}
+  </body>
+</html>
