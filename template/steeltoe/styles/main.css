@@ -11,6 +11,9 @@ html, body {
 }
 
 /* =====================DOCFX OVERRIDE===================== */
+p {
+	font-size: larger;
+}
 .nav.level2 li {
 	padding: 5px 0 5px 0;
 }
@@ -131,7 +134,13 @@ pre {
 
 /************ BLOG ************/
 .blog-entry{
-	padding: 1%;
+	padding: 2%;
+}
+
+@media (min-width: 950px){
+	.blog-entry{
+		max-width: 75%;
+	}
 }
 .blog-entry p{margin:0}
 .blog-entry p span {
@@ -142,12 +151,12 @@ pre {
 }
 .blog-entry p a{
 	color: #00376e;
-	font-size: 144%;
+	font-size: 115%;
 }
 .blog-entry.latest{
 	background-color: #00376e;
 	color: #ffffff;
-	padding: 2%;
+	padding: 3%;
 }
 .blog-entry.latest p span {
 	color: #ffd700;
