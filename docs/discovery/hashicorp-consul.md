@@ -71,7 +71,7 @@ The second set of settings you may need to specify pertain to service registrati
 | `Heartbeat:Enabled` | Enable or disable heartbeat logic. | `true` |
 | `Heartbeat:TtlValue` | Time to live heartbeat time. | 30 |
 | `Heartbeat:TtlUnit` | Time to live heartbeat unit. | s |
-| `Heartbeat:IntervalRation` | The interval ration. | 2.0/3.0 |
+| `Heartbeat:IntervalRatio` | The interval ratio. | 2.0/3.0 |
 
 ### Enable Logging
 
