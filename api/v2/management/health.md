@@ -84,7 +84,7 @@ The following table describes the settings that you can apply to the endpoint.
 
 ### Enable HTTP Access
 
-The default path to the Health endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is The default path is <[Context-Path](hypermedia#base-context-path)>`/health`.
+The default path to the Health endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is The default path is `/actuator/health`.
 
 The coding steps you take to enable HTTP access to the Health endpoint together with how to use custom Health contributors differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.
 
