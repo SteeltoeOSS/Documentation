@@ -36,9 +36,9 @@
 - name: Management
   topicHref: management/
   items:
-    - topicHref: management/using-endpoints 
+    - topicHref: management/using-endpoints.md
       name: Using Endpoints
-    - topicHref: management/tasks  
+    - topicHref: management/tasks.md
       name: Tasks
     - topicHref: management/cloud-foundry.md
       name: /cloudFoundry

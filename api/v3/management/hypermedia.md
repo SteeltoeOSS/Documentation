@@ -32,4 +32,4 @@ Then, add the actuator to the ASP.NET Core pipeline, use the `Map<ActuatorEndpoi
 
 ## Cloud Foundry
 
-When running in Cloud Foundry, the [Cloud Foundry Actuator](./cloud-foundry.html) assumes the role of providing a base context path to requests originating inside cloudfoundry such as from Apps Manager. This path defaults to `/cloudfoundryapplication`. All other requests default to /actuator or the explicitly configured path.
+When running in Cloud Foundry, the [Cloud Foundry Actuator](./cloud-foundry.html) assumes the role of providing a base context path to requests originating inside cloudfoundry such as from Apps Manager. This path defaults to `/cloudfoundryapplication`. All other requests default to `/actuator` or the explicitly configured path.
