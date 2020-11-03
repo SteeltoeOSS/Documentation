@@ -58,6 +58,8 @@
       name: /heapdump
     - topicHref: management/hypermedia.md
       name: /hypermedia
+    - topicHref: management/httptrace.md
+      name: /httptrace
     - topicHref: management/info.md
       name: /info
     - topicHref: management/loggers.md
@@ -72,8 +74,6 @@
       name: /refresh
     - topicHref: management/threaddump.md
       name: /threaddump
-    - topicHref: management/httptrace.md
-      name: /httptrace
 - name: Messaging 
   topicHref: messaging/
   items:
