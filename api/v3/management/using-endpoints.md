@@ -15,18 +15,19 @@ The following table describes the available Steeltoe management endpoints that c
 
 | ID|Description |
 | --- | --- |
-| `hypermedia` | Provides the hypermedia endpoint for discovery of all available endpoints. |
 | `cloudfoundry` | Enables the management endpoint integration with Cloud Foundry. |
+| `dump` or `threaddump`  | Generates and reports a snapshot of the application's threads (Windows only). |
+| `env` | Reports the keys and values from the application's configuration. |
 | `health` | Customizable endpoint that gathers application health information. |
+| `heapdump` | Generates and downloads a mini-dump of the application. |
+| `httptrace` | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
+| `hypermedia` | Provides the hypermedia endpoint for discovery of all available endpoints. |
 | `info` | Customizable endpoint that gathers arbitrary application information (such as Git Build info). |
 | `loggers` | Gathers existing loggers and allows modification of logging levels. |
-| `trace` | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
-| `refresh` | Triggers the application configuration to be reloaded. |
-| `env` | Reports the keys and values from the application's configuration. |
 | `mappings` | Reports the configured ASP.NET routes and route templates. |
 | `metrics` | Reports the collected metrics for the application. |
-| `dump` | Generates and reports a snapshot of the application's threads (Windows only). |
-| `heapdump` | Generates and downloads a mini-dump of the application. |
+| `prometheus` | Exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format. |
+| `refresh` | Triggers the application configuration to be reloaded. |
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/health`.
 
@@ -67,7 +68,7 @@ The following table describes the settings that you can apply globally:
 | Key | Description | Default |
 | --- | --- | --- |
 | `Enabled` | Whether to enable all management endpoints. | `true` |
-| `Path` | The path prefix applied to all endpoints when exposed over HTTP. | `/` |
+| `Path` | The path prefix applied to all endpoints when exposed over HTTP. | `/actuator` |
 | `UseStatusCodeFromResponse` | Whether or not to use accurate status codes in some responses.  | `true` |
 
 >When running an application in IIS or with the HWC buildpack, response body content is automatically filtered out when the HTTP response code is 503. Some actuator responses intentionally return a code of 503 in failure scenarios. Setting `UseStatusCodeFromResponse` to `false` will allow the response body to be returned by using a status code of 200 instead. This switch will not affect the status code of responses outside of Steeltoe.

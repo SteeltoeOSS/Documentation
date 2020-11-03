@@ -1,4 +1,4 @@
-﻿---
+---
 uid: labs/get-to-know-steeltoe/exercise2
 _disableContribution: true
 _disableToc: true
@@ -100,7 +100,7 @@ What exactly has happened? In the previous exercise only select endpoints where 
 - `/actuator/metrics`: App CLR and HTTP metrics collected using OpenTelemetry library.
 - `/actuator/prometheus`: A copy of the metrics endpoint, in a Prometheus friendly format.
 - `/actuator/refresh`: Trigger the app’s IConfigurationRoot to automatically refresh all configuration values.
-- `/actuator/tracing`: Details about the last few request traces made by the app.
+- `/actuator/httptrace`: Details about the last few request traces made by the app.
 
 ## Stop the application
 

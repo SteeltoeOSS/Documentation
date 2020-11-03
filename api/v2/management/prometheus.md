@@ -17,7 +17,7 @@ The following table describes the settings that you can apply to the endpoint:
 
 #### Enable HTTP Access
 
-The default path to the Prometheus endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is <[Context-Path](hypermedia#base-context-path)>`/prometheus`.
+The default path to the Prometheus endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is  `/actuator/prometheus`.
 
 ##### ASP.NET Core App
 

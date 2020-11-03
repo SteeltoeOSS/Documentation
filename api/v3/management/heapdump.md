@@ -12,11 +12,11 @@ The following table describes the settings that you can apply to the endpoint:
 | `Enabled` | Whether to enable the heap dump management endpoint. | `true` |
 | `Sensitive` | Currently not used. | `false` |
 
->Each setting above must be prefixed with `Management:Endpoints:Heapdump`.
+>NOTE: Each setting above must be prefixed with `Management:Endpoints:Heapdump`.
 
 ## Enable HTTP Access
 
-The default path to the heap dump endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/heapdump`.
+The default path to the heap dump endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/actuator/heapdump`.
 
 See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 

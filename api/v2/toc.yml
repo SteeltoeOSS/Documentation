@@ -36,9 +36,9 @@
 - name: Management
   topicHref: management/
   items:
-    - topicHref: management/using-endpoints 
+    - topicHref: management/using-endpoints.md
       name: Using Endpoints
-    - topicHref: management/tasks  
+    - topicHref: management/tasks.md
       name: Tasks
     - topicHref: management/cloud-foundry.md
       name: /cloudFoundry
@@ -64,8 +64,8 @@
       name: /refresh
     - topicHref: management/threaddump.md
       name: /threaddump
-    - topicHref: management/tracing.md
-      name: /tracing
+    - topicHref: management/trace.md
+      name: /trace
 - name: Network File Sharing
   topicHref: fileshares/
   items:
