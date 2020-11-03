@@ -72,8 +72,8 @@
       name: /refresh
     - topicHref: management/threaddump.md
       name: /threaddump
-    - topicHref: management/tracing.md
-      name: /tracing
+    - topicHref: management/httptrace.md
+      name: /httptrace
 - name: Messaging 
   topicHref: messaging/
   items:

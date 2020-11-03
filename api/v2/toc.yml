@@ -64,8 +64,8 @@
       name: /refresh
     - topicHref: management/threaddump.md
       name: /threaddump
-    - topicHref: management/tracing.md
-      name: /tracing
+    - topicHref: management/trace.md
+      name: /trace
 - name: Network File Sharing
   topicHref: fileshares/
   items:
