@@ -19,7 +19,7 @@ The following table describes the settings that you can apply to the endpoint:
 
 ## Enable HTTP Access
 
-The default path to the Loggers endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is <[Context-Path](./hypermedia#base-context-path)>`/loggers`.
+The default path to the Loggers endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is `/actuator/loggers`.
 
 See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 

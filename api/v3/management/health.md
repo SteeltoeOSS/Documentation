@@ -42,11 +42,11 @@ The following table describes the settings that you can apply to the endpoint.
 | `RequiredPermissions` | The user permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
 | `Groups` | Specify logical groupings of health contributors | N/A |
 
->Each setting above must be prefixed with `Management:Endpoints:Health`.
+>NOTE: Each setting above must be prefixed with `Management:Endpoints:Health`.
 
 ## Enable HTTP Access
 
-The default path to the `health` endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/health`.
+The default path to the `health` endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/actuator/health`.
 
 See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 

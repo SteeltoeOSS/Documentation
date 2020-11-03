@@ -1,47 +1,56 @@
-### Cloud Foundry
+# Cloud Foundry Integration
 
-The primary purpose of this endpoint is to enable integration with the Pivotal Apps Manager. This endpoint is similar to Hypermedia Actuator but is preconfigured for Apps Manager integration. When used, the Steeltoe Cloud Foundry management endpoint enables the following additional functionality on Cloud Foundry:
+Integration with Apps Manager is accomplished by adding the Cloud Foundry management endpoint to your application. When used, this endpoint enables the following additional functionality on Cloud Foundry:
 
-* Provides an alternate, secured route to the endpoints expected by Apps Manager and configured in your application
+* Provides an alternate, secured route to the endpoints expected by Apps Manager and configured in your application.
 * Exposes an endpoint that can be queried to return the IDs of and links to the enabled management endpoints in the application.
 * Adds Cloud Foundry security middleware to the request pipeline, to secure access to the management endpoints by using security tokens acquired from the UAA.
 * Adds extension methods that simplify adding the Steeltoe management endpoints necessary for Apps Manager integration with HTTP access to the application.
 
-When adding this management endpoint to your application, the Cloud Foundry security middleware is added to the request processing pipeline of your application to enforce that when a request is made of any of the management endpoints, a valid UAA access token is provided as part of that request. Additionally, the security middleware uses the token to determine whether the authenticated user has permissions to access the management endpoint.
+## Security
+
+When adding this management endpoint to your application, the Cloud Foundry security middleware is added to the request processing pipeline of your application to enforce that, when a request is made of any of the management endpoints, a valid UAA access token is provided as part of that request. Additionally, the security middleware uses the token to determine whether the authenticated user has permission to access the management endpoint.
 
 >NOTE: The Cloud Foundry security middleware is automatically disabled when your application is not running on Cloud Foundry (for example, running locally on your desktop).
 
-#### Configure Settings
+## External access
+
+When running in Cloud Foundry, it is possible to access the endpoints via the [hypermedia](./hypermedia.html) context path which defaults to `/actuator`. In other words you can also access all your endpoints from this global path. For example the [Info](./info.html) endpoint would be accessible at `/actuator/info`.
+
+While the endpoints provided on the `/cloudfoundryapplication` path are secured as described above, the endpoints provided on the `/actuator` path are not. For this reason, only health and info are exposed by default and others would have to be exposed explicitly. In addition the endpoints may be secured by whatever security mechanism the application itself uses. For more details see [Securing Actuators](./using-endpoints.html#securing-endpoints)
+
+
+## Configure Settings
 
 Typically, you need not do any additional configuration. However, the following table describes the additional settings that you could apply to the Cloud Foundry endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the Cloud Foundry endpoint|""|
-|enabled|Whether to enable Cloud Foundry management endpoint|true|
-|validateCertificates|Whether to validate server certificates|true|
-|applicationId|The ID of the application used in permissions check|VCAP settings|
-|cloudFoundryApi|The URL of the Cloud Foundry API|VCAP settings|
+| Key | Description | Default |
+| --- | --- | --- |
+| `Id` | The ID of the Cloud Foundry endpoint. | "" |
+| `Enabled` | Whether to enable Cloud Foundry management endpoint. | `true` |
+| `ValidateCertificates` | Whether to validate server certificates. | `true` |
+| `ApplicationId` | The ID of the application used in permissions check. | VCAP settings |
+| `CloudFoundryApi` | The URL of the Cloud Foundry API. | VCAP settings |
 
-**Note**: **Each setting above must be prefixed with `management:endpoints:cloudfoundry`**.
+>Each setting in the preceding table must be prefixed with `management:endpoints:cloudfoundry`.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
-The default path to the Cloud Foundry endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is `/cloudfoundryapplication`.
+The default path to the Cloud Foundry endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the table above. The global path is always set to `/cloudfoundryapplication`. Apps Manager expects this endpoint to be available at `/cloudfoundryapplication`. 
 
 The coding steps you take to enable HTTP access to the endpoint differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.
 
-##### ASP.NET Core App
+### ASP.NET Core App
 
 To add the Cloud Foundry actuator to the service container, you can use the `AddCloudFoundryActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
 To add the Cloud Foundry actuator and security middleware to the ASP.NET Core pipeline, use the `UseCloudFoundryActuator()` and `UseCloudFoundrySecurity()` extension methods from `EndpointApplicationBuilderExtensions`.
 
-##### ASP.NET 4.x App
+### ASP.NET 4.x App
 
 To add the Cloud Foundry actuator endpoint, use the `UseCloudFoundrySecurity()` and `UseCloudFoundryActuator()` methods from `ActuatorConfigurator`.
 
-##### ASP.NET OWIN App
+### ASP.NET OWIN App
 
 To add the Cloud Foundry actuator and security middleware to the ASP.NET OWIN pipeline, use the `UseCloudFoundryActuator()` from `CloudFoundryEndpointAppBuilderExtensions`.
 and `UseCloudFoundrySecurityMiddleware()` from `CloudFoundrySecurityAppBuilderExtensions`.
