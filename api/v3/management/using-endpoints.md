@@ -18,7 +18,7 @@ The following table describes the available Steeltoe management endpoints that c
 | `cloudfoundry` | Enables the management endpoint integration with Cloud Foundry. |
 | `env` | Reports the keys and values from the application's configuration. |
 | `health` | Customizable endpoint that gathers application health information. |
-| `heapdump` | Generates and downloads a mini-dump of the application. |
+| `heapdump` | Generates and downloads a mini-dump of the application (Windows and Linux only). |
 | `httptrace` | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
 | `hypermedia` | Provides the hypermedia endpoint for discovery of all available endpoints. |
 | `info` | Customizable endpoint that gathers arbitrary application information (such as Git Build info). |
