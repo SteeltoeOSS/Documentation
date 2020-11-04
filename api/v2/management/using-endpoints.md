@@ -14,18 +14,18 @@ The following table describes the available Steeltoe management endpoints that c
 
 |ID|Description|
 |---|---|
-|**hypermedia**|Provides hypermedia endpoint for discovery of all available endpoints|
 |**cloudfoundry**|Enables management endpoint integration with Cloud Foundry|
+|**dump**|Generates and reports a snapshot of the application's threads (Windows only)|
+|**env**|Reports the keys and values from the applications configuration|
 |**health**|Customizable endpoint that gathers application health information|
+|**heapdump**|Generates and downloads a mini-dump of the application (Windows only)|
+|**hypermedia**|Provides hypermedia endpoint for discovery of all available endpoints|
 |**info**|Customizable endpoint that gathers arbitrary application information (such as Git Build info)|
 |**loggers**|Gathers existing loggers and allows modification of logging levels|
-|**trace**|Gathers a configurable set of trace information (such as the last 100 HTTP requests)|
-|**refresh**|Triggers the application configuration to be reloaded|
-|**env**|Reports the keys and values from the applications configuration|
 |**mappings**|Reports the configured ASP.NET routes and route templates|
 |**metrics**|Reports the collected metrics for the application|
-|**dump**|Generates and reports a snapshot of the application's threads (Windows only)|
-|**heapdump**|Generates and downloads a mini-dump of the application (Windows only)|
+|**refresh**|Triggers the application configuration to be reloaded|
+|**trace**|Gathers a configurable set of trace information (such as the last 100 HTTP requests)|
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint below is mapped to `/health`.
 

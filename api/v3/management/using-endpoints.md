@@ -16,7 +16,6 @@ The following table describes the available Steeltoe management endpoints that c
 | ID|Description |
 | --- | --- |
 | `cloudfoundry` | Enables the management endpoint integration with Cloud Foundry. |
-| `dump` or `threaddump`  | Generates and reports a snapshot of the application's threads (Windows only). |
 | `env` | Reports the keys and values from the application's configuration. |
 | `health` | Customizable endpoint that gathers application health information. |
 | `heapdump` | Generates and downloads a mini-dump of the application. |
@@ -28,6 +27,7 @@ The following table describes the available Steeltoe management endpoints that c
 | `metrics` | Reports the collected metrics for the application. |
 | `prometheus` | Exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format. |
 | `refresh` | Triggers the application configuration to be reloaded. |
+| `threaddump`  | Generates and reports a snapshot of the application's threads (Windows only). |
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/health`.
 
