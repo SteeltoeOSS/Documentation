@@ -1,6 +1,6 @@
-### Metrics
+# Metrics
 
-The Steeltoe Metrics endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. It automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics via the endpoint.
+The Steeltoe metrics endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. It automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics via the endpoint.
 
 The following instrumentation is automatically configured:
 
@@ -13,7 +13,7 @@ The following instrumentation is automatically configured:
 
 All of the above metrics are tagged with values specific to the requests being processed; thereby giving multi-dimensional views of the collected metrics.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
@@ -26,33 +26,33 @@ The following table describes the settings that you can apply to the endpoint:
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:metrics`**.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the Metrics endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is  `/actuator/metrics`.
 
 The coding steps you take to enable HTTP access to the Metrics endpoint differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.
 
-##### ASP.NET Core App
+### ASP.NET Core App
 
 To add the Metrics actuator to the service container, use the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
 To add the Metrics actuator middleware to the ASP.NET Core pipeline, use the `UseMetricsActuator()` extension method from `EndpointApplicationBuilderExtensions`.
 
-##### ASP.NET 4.x App
+### ASP.NET 4.x App
 
 To add the Metrics actuator endpoint, use the `UseMetricsActuator()` method from `ActuatorConfigurator`.
 
-##### ASP.NET OWIN App
+### ASP.NET OWIN App
 
 To add the Metrics actuator middleware to the ASP.NET OWIN pipeline, use the `UseMetricsActuator()` extension method from `MetricsEndpointAppBuilderExtensions`.
 
-#### Exporting
+## Exporting
 
 By default when you enable metrics collection in your application you do *NOT* automatically enable exporting of those metrics to a backend system.
 
 The coding steps you take to enable metrics exporting differs depending on what backend system you are targeting and the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the backend systems and supported application types.
 
-##### Add NuGet References
+## Add NuGet References
 
 To use the metrics exporters, you need to add a reference to the appropriate Steeltoe NuGet based on the type of the application you are building and what Dependency Injector you have chosen, if any.
 
@@ -79,7 +79,7 @@ or
 PM>Install-Package  Steeltoe.Management.ExporterCore -Version 2.1.0
 ```
 
-##### Cloud Foundry Forwarder
+## Cloud Foundry Forwarder
 
 The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is a service that allows apps to emit metrics to the [Loggregator](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html) system and consume those metrics from the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html#firehose).
 
@@ -92,7 +92,7 @@ You can interact with the service through the Cloud Foundry Command Line Interfa
 
 There are many third-party products you can choose from, including [PCF Metrics](https://docs.pivotal.io/pcf-metrics/1-4/).
 
-##### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the exporter:
 
@@ -110,7 +110,7 @@ The following table describes the settings that you can apply to the exporter:
 
 **Note**: **The `endpoint`, `accessToken`,`applicationId`, `instanceId` and `instanceIndex` settings above will be automatically picked up from the Metrics Forwarder service binding found for your application.**
 
-##### ASP.NET Core App
+### ASP.NET Core App
 
 There are three steps needed to use the Metrics Forwarder for Pivotal Cloud Foundry (PCF) service:
 
@@ -149,7 +149,7 @@ public class Startup
 }
 ```
 
-##### ASP.NET 4.x App
+### ASP.NET 4.x App
 
 There are two steps needed to use the Metrics Forwarder for Pivotal Cloud Foundry (PCF) service:
 

@@ -48,8 +48,10 @@
       name: Tasks
     - topicHref: management/metric-observers.md
       name: Metric Observers
+    - topicHref: management/springbootadmin.md
+      name: Spring Boot Admin Client
     - topicHref: management/cloud-foundry.md
-      name: /cloudFoundry
+      name: Cloud Foundry Integration
     - topicHref: management/env.md
       name: /env
     - topicHref: management/health.md

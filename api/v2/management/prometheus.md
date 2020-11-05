@@ -1,10 +1,10 @@
-### Prometheus
+# Prometheus
 
 The Steeltoe Prometheus endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. Similar to the [Metrics Endpoint](metrics), it automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics in the prometheus format.
 
 The metrics collected are the same as those collected by the [Metrics Endpoint](metrics).
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
 
@@ -15,21 +15,21 @@ The following table describes the settings that you can apply to the endpoint:
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:prometheus`**.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the Prometheus endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is  `/actuator/prometheus`.
 
-##### ASP.NET Core App
+### ASP.NET Core App
 
 To add the Prometheus actuator to the service container, use the `AddPrometheusActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
 To add the Prometheus actuator middleware to the ASP.NET Core pipeline, use the `UsePrometheusActuator()` extension method from `EndpointApplicationBuilderExtensions`.
 
-#### Exporting
+## Exporting
 
 Prometheus metrics are typically configured to be scraped by registering the Prometheus with prometheus server. At this time the push model is not supported.
 
-##### Add NuGet References
+## Add NuGet References
 
 To use the prometheus endpoint, you need to add a reference to `Steetoe.Management.EndpointCore`. To add this NuGet to your project, add a `PackageReference` resembling the following:
 
@@ -47,7 +47,7 @@ or
 PM>Install-Package  Steeltoe.Management.EndpointCore -Version 2.4.2
 ```
 
-##### Cloud Foundry
+## Cloud Foundry Forwarder
 
 The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported on Pivotal Application Service (PAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/platform/application-service/2-8/metric-registrar/index.html).
 
@@ -57,7 +57,7 @@ To register your endpoint for metrics collection install the metrics-registrar p
 
 `cf register-metrics-endpoint your-dotnet-app /actuator/prometheus`
 
-##### Prometheus Server
+## Prometheus Server
 
 [Prometheus Server](https://prometheus.io/) can be set up to scrape this endpoint by registering your application in the server's configuration. For example, this prometheus.yml expects a Steeltoe-enabled app running on port 8000 with the actuator management path at the default of /actuator:
 

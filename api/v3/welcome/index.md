@@ -14,7 +14,7 @@ Steeltoe lets you use the Netflix Hystrix .NET implementation, a proven circuit 
 
 ## Distributed Tracing
 
-Steelto allows you to capture trace data for your microservice application using logs, or by sending it to a remote collector service.
+Steeltoe allows you to capture trace data for your microservice application using logs, or by sending it to a remote collector service.
 [read more](../tracing/)
 
 ## Dynamic Logging
@@ -24,12 +24,12 @@ Steeltoe adds a Logging provider to the set of available logging packages, to su
 
 ## Management
 
-Steeltoe lets you monitor and manage your application while it runs in production with Steeltoe Cloud Management.
+Steeltoe lets you monitor and manage your application while it runs in production with Steeltoe management.
 [read more](../management/)
 
 ## Messaging
 
-Steeltoe allows you to automatically wire up and configure messaging in our application.
+Steeltoe allows you to automatically wire up and configure messaging in your application. Steelto messaging simplifies your configuration and significantly reduces boiler-plate code.
 [read more](../messaging/)
 
 ## Network File Sharing
@@ -44,7 +44,7 @@ Steeltoe lets you integrate ASP.NET authentication and authorization features in
 
 ## Service Connectors
 
-Automatically configure and manage connections to common cloud services like databases, caches, and more.
+Steeltoe lets you automatically configure and manage connections to common cloud services like databases, caches, and more.
 [read more](../connectors/)
 
 ## Service Discovery

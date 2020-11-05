@@ -1,10 +1,10 @@
-### Info
+# Info
 
-The Steeltoe `Info` management endpoint exposes various application information collected from all `IInfoContributor` provided to the `InfoEndpoint`.
+The Steeltoe info management endpoint exposes various application information collected from all `IInfoContributor` provided to the `InfoEndpoint`.
 
 Steeltoe includes a couple `IInfoContributor`s out of the box that you can use, but most importantly you can also write your own.
 
-#### Info Contributors
+## Info Contributors
 
 The following table describes the `IInfoContributor` implementations provided by Steeltoe:
 
@@ -32,7 +32,7 @@ public class ArbitraryInfoContributor : IInfoContributor
 
 >NOTE: Custom `IInfoContributor` implementations must be retrievable from the DI container by interface in order for Steeltoe to find them.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint.
 
@@ -45,7 +45,7 @@ The following table describes the settings that you can apply to the endpoint.
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:info`**.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the Info endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is  `/actuator/info`.
 
@@ -53,7 +53,7 @@ The coding steps you take to enable HTTP access to the Info endpoint together wi
 
 >NOTE: If you are using dependency injection, all `IInfoContributor` implementations that are retrievable from the DI container by interface will be returned in the Info response.
 
-##### ASP.NET Core App
+### ASP.NET Core App
 
 To add the Info actuator to the service container, you can use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 
@@ -86,7 +86,7 @@ public class Startup
 }
 ```
 
-##### ASP.NET 4.x App
+### ASP.NET 4.x App
 
 To add the Info actuator endpoint, use the `UseInfoActuator()` method from `ActuatorConfigurator`. Optionally you can provide a list of `IInfoContributor`s should you want to customize the actuator endpoint.  If none are provided, defaults will be provided.
 
@@ -108,7 +108,7 @@ public class ManagementConfig
     }
 ```
 
-##### ASP.NET OWIN App
+### ASP.NET OWIN App
 
 To add the Info actuator middleware to the ASP.NET OWIN pipeline, use the `UseInfoActuator()` extension method from `InfoEndpointAppBuilderExtensions`.
 
