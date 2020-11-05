@@ -14,7 +14,7 @@
         "apiSpecFolder": "docs-ref-overwrite"
     },
     "_enableSearch": true,
-    "_noindex": true,
+    "_noindex": false,
 
     "_disableContribution": false,
 
