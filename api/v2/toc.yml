@@ -42,6 +42,8 @@
       name: Tasks
     - topicHref: management/cloud-foundry.md
       name: /cloudFoundry
+    - topicHref: management/dump.md
+      name: /dump
     - topicHref: management/env.md
       name: /env
     - topicHref: management/health.md
@@ -62,8 +64,6 @@
       name: /prometheus
     - topicHref: management/refresh.md
       name: /refresh
-    - topicHref: management/threaddump.md
-      name: /threaddump
     - topicHref: management/trace.md
       name: /trace
 - name: Network File Sharing

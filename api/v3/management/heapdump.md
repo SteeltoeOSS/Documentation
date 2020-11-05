@@ -2,6 +2,8 @@
 
 You can use the Steeltoe heap dump endpoint to generate and download a mini-dump of your application. The mini-dump can then be read into Visual Studio for analysis.
 
+>NOTE: At this time, dumps are only possible on the Windows and Linux operating systems.
+
 ## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint:
