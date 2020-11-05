@@ -41,7 +41,7 @@
     - topicHref: management/tasks.md
       name: Tasks
     - topicHref: management/cloud-foundry.md
-      name: /cloudfoundry
+      name: Cloud Foundry Integration
     - topicHref: management/dump.md
       name: /dump
     - topicHref: management/env.md

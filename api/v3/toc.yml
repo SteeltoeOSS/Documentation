@@ -51,7 +51,7 @@
     - topicHref: management/springbootadmin.md
       name: Spring Boot Admin Client
     - topicHref: management/cloud-foundry.md
-      name: /cloudfoundry
+      name: Cloud Foundry Integration
     - topicHref: management/env.md
       name: /env
     - topicHref: management/health.md

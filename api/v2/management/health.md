@@ -1,6 +1,6 @@
-### Health
+# Health
 
-The Steeltoe Health management endpoint can be used to check and return the status of your running application. It can often be used by monitoring software to alert someone if a production system goes down. The information exposed by the `health` endpoint depends on the `management:endpoints:health:showdetails` property which can be configured with one of the following values:
+The Steeltoe health management endpoint can be used to check and return the status of your running application. It can often be used by monitoring software to alert someone if a production system goes down. The information exposed by the `health` endpoint depends on the `management:endpoints:health:showdetails` property which can be configured with one of the following values:
 
 |Name|Description|
 |---|---|
@@ -45,7 +45,7 @@ If you want to use any one of the `IHealthContributor`s above in an ASP.NET Core
 
 If you want to make use of any of the contributors in an ASP.NET 4.x application, where no service container exists, you must construct an instance of it using a factory method contained in the contributor and then provide it to the Health endpoint.
 
-### Creating a Custom Health Contributor
+## Creating a Custom Health Contributor
 
 If you wish to provide custom health information for your application, create a class that implements the `IHealthContributor` interface and then add that to the `HealthEndpoint`. Details on how to add a contributor to the endpoint is provided below.
 
@@ -69,7 +69,7 @@ public class CustomHealthContributor : IHealthContributor
 }
 ```
 
-### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint.
 
@@ -82,13 +82,13 @@ The following table describes the settings that you can apply to the endpoint.
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:health`**.
 
-### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the Health endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is The default path is `/actuator/health`.
 
 The coding steps you take to enable HTTP access to the Health endpoint together with how to use custom Health contributors differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.
 
-#### ASP.NET Core App
+### ASP.NET Core App
 
 Refer to the [Exposing Endpoints](../management/using-endpoints#exposing-endpoints.html) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
@@ -125,7 +125,7 @@ public class Startup
 
 >NOTE: When you use any of the Steeltoe Connectors in your application we automatically add the corresponding health contributors to the service container.
 
-#### ASP.NET 4.x App
+### ASP.NET 4.x App
 
 To add the Health actuator endpoint, use the `UseHealthActuator()` method from `ActuatorConfigurator`. Optionally you can provide a custom `IHealthAggregator` and a list of `IHealthContributor`s should you want to customize the actuator endpoint.  If none are provided, defaults will be provided.
 
@@ -155,7 +155,7 @@ public class ManagementConfig
     }
 ```
 
-#### ASP.NET OWIN App
+### ASP.NET OWIN App
 
 To add the Health actuator middleware to the ASP.NET OWIN pipeline, use the `UseHealthActuator()` extension method from `HealthEndpointAppBuilderExtensions`.
 

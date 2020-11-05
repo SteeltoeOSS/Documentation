@@ -1,6 +1,6 @@
-# Tracing
+# HTTP Trace
 
-The Steeltoe tracing endpoint provides the ability to view the last several requests made of your application.
+The Steeltoe HTTP trace endpoint provides the ability to view the last several requests made of your application.
 
 When you activate the tracing endpoint, an `ITraceRepository` implementation is configured and created to hold `Trace` information that can be retrieved by using the endpoint.
 

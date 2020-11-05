@@ -1,14 +1,19 @@
-## Usage
+# Using Endpoints
 
 Steeltoe provides a base set of endpoint functionality, along with several implementations for exposing the endpoints over HTTP. HTTP implementations are provided with ASP.NET Core middleware, OWIN middleware and HTTP Modules. Should you wish to expose the core endpoint functionality over some protocol other than HTTPS, you are free to provide your own implementation.
 
-Regardless of the endpoint exposure method you select, you should understand how the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints. You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+## Reference Materials
 
-When developing ASP.NET Core applications, you should also understand how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
+In this section, it is helpful to understand the following:
+
+* How the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works and an understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+* How the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
 
 When adding Steeltoe Management endpoints to your ASP.NET 4.x applications, you can choose between using HTTP modules and OWIN middleware. If you select HTTP modules, you should be familiar with `Global.asax.cs` and how it is used in initializing and configuring your application. If you select the OWIN middleware approach, you should be familiar with how the Startup class is used in configuring application middleware. The rest of this document will refer to the HTTP Module implementation simply as ASP.NET 4.x, and the OWIN implementation as ASP.NET OWIN.
 
 >NOTE: You may wish to select the OWIN implementation for your ASP.NET 4.x application when you don't want to depend on `System.Web` or you also plan to use Steeltoe security providers for authentication/authorization on Cloud Foundry.
+
+## Endpoint Listing
 
 The following table describes the available Steeltoe management endpoints that can be used in an application:
 
@@ -31,7 +36,7 @@ Each endpoint has an associated ID. When you want to expose that endpoint over H
 
 >NOTE: When you want to integrate with the [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`. To do so, add `management:endpoints:path=/cloudfoundryapplication` to your configuration.
 
-### Add NuGet References
+## Add NuGet References
 
 To use the management endpoints, you need to add a reference to the appropriate Steeltoe NuGet based on the type of the application you are building and what Dependency Injector you have chosen, if any.
 
@@ -62,7 +67,7 @@ or
 PM>Install-Package  Steeltoe.Management.EndpointWeb -Version 2.2.0
 ```
 
-### Configure Global Settings
+## Configure Global Settings
 
 Endpoints can be configured by using the normal .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration). You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.
 
@@ -111,7 +116,7 @@ Since endpoints may contain sensitive information, only Health and Info are expo
 
 The upcoming sections show the settings that you can apply to specific endpoints.
 
-#### HTTP Access ASP.NET Core
+### HTTP Access ASP.NET Core
 
 To expose any of the management endpoints over HTTP in an ASP.NET Core application:
 
@@ -173,7 +178,7 @@ public class Startup
 
 >NOTE: The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-2.1&tabs=aspnetcore2x) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
 
-#### HTTP Access ASP.NET 4.x
+### HTTP Access ASP.NET 4.x
 
 To expose any of the management endpoints over HTTP in an ASP.NET 4.x application:
 
@@ -238,7 +243,7 @@ public class ManagementConfig
 
 The above static methods should be called in `Global.asax.cs`.  In the `Application_Start()` method call `ConfigureActuators()`and `Start()` and in `Application_Stop()` call `Stop()`.  See the [Steeltoe Samples repository](https://github.com/SteeltoeOSS/Samples/tree/dev/Management/src/AspDotNet4) for more details.
 
-#### HTTP Access ASP.NET OWIN
+### HTTP Access ASP.NET OWIN
 
 To expose any of the management endpoints over HTTP in an ASP.NET 4.x application:
 

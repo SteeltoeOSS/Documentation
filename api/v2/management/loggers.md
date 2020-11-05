@@ -1,10 +1,10 @@
-### Loggers
+# Loggers
 
-The Steeltoe Loggers management endpoint includes the ability to view and configure the logging levels of your application at runtime when using the Steeltoe Logging provider.
+The Steeltoe loggers management endpoint includes the ability to view and configure the logging levels of your application at runtime when using the Steeltoe Logging provider.
 
 You can view a list of all active loggers in an application and their current configuration. The configuration information is made up of both the explicitly configured logging levels as well as the effective level given to it by the logging framework.
 
-#### Configure Settings
+## Configure Settings
 
 The following table describes the settings that you can apply to the endpoint.
 
@@ -17,7 +17,7 @@ The following table describes the settings that you can apply to the endpoint.
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:loggers`**.
 
-#### Enable HTTP Access
+## Enable HTTP Access
 
 The default path to the Loggers endpoint is computed by combining the global `path` prefix setting together with the `id` setting from above. The default path is  `/actuator/loggers`.
 
@@ -25,7 +25,7 @@ The coding steps you take to enable HTTP access to the Loggers endpoint together
 
 >NOTE: The Steeltoe logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider from Microsoft. This wrapper allows querying defined loggers and modifying the levels dynamically at runtime. 
 
-##### ASP.NET Core App
+### ASP.NET Core App
 
 To add the Loggers actuator to the service container, use the `AddLoggersActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
@@ -64,7 +64,7 @@ public class Program
 }
 ```
 
-##### ASP.NET 4.x App
+### ASP.NET 4.x App
 
 To add the Loggers actuator endpoint, use the `UseLoggerActuator()` method from `ActuatorConfigurator`.
 
@@ -98,7 +98,7 @@ public static class LoggingConfig
 }
 ```
 
-##### ASP.NET OWIN App
+### ASP.NET OWIN App
 
 To add the Loggers actuator middleware to the ASP.NET OWIN pipeline, use the `UseLoggersActuator()` extension method from `LoggersEndpointAppBuilderExtensions`.
 
@@ -137,7 +137,7 @@ public static class LoggingConfig
 }
 ```
 
-#### Interacting with the Loggers Actuator
+## Interacting with the Loggers Actuator
 
 To retrieve the loggers that can be configured and the log levels that are allowed, send an HTTP GET request to `/{LoggersActuatorPath}`.
 
