@@ -3,7 +3,7 @@ _disableToc: true
 _disableAffix: true
 _disableGitFeatures: true
 
-title: Documentation & Blog
+title: Steeltoe Documentation
 uid: home
 ---
 [!include[index](index.html)]
