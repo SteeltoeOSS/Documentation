@@ -14,18 +14,18 @@ The following table describes the available Steeltoe management endpoints that c
 
 |ID|Description|
 |---|---|
-|**cloudfoundry**|Enables management endpoint integration with Cloud Foundry|
-|**dump**|Generates and reports a snapshot of the application's threads (Windows only)|
-|**env**|Reports the keys and values from the applications configuration|
-|**health**|Customizable endpoint that gathers application health information|
-|**heapdump**|Generates and downloads a mini-dump of the application (Windows only)|
-|**hypermedia**|Provides hypermedia endpoint for discovery of all available endpoints|
-|**info**|Customizable endpoint that gathers arbitrary application information (such as Git Build info)|
-|**loggers**|Gathers existing loggers and allows modification of logging levels|
-|**mappings**|Reports the configured ASP.NET routes and route templates|
-|**metrics**|Reports the collected metrics for the application|
-|**refresh**|Triggers the application configuration to be reloaded|
-|**trace**|Gathers a configurable set of trace information (such as the last 100 HTTP requests)|
+| [cloudfoundry](./cloud-foundry.html) | Enables the management endpoint integration with Cloud Foundry. |
+| [dump](./dump.html)  | Generates and reports a snapshot of the application's threads (Windows only). |
+| [env](./env.html) | Reports the keys and values from the application's configuration. |
+| [health](./health.html) | Customizable endpoint that gathers application health information. |
+| [heapdump](./heapdump.html) | Generates and downloads a mini-dump of the application (Windows and Linux only). |
+| [hypermedia](./hypermedia.html) | Provides the hypermedia endpoint for discovery of all available endpoints. |
+| [info](./info.html) | Customizable endpoint that gathers arbitrary application information (such as Git Build info). |
+| [loggers](./loggers.html) | Gathers existing loggers and allows modification of logging levels. |
+| [mappings](./mappings.html) | Reports the configured ASP.NET routes and route templates. |
+| [metrics](./metrics.html) | Reports the collected metrics for the application. |
+| [refresh](./refresh.html) | Triggers the application configuration to be reloaded. |
+| [trace](./trace.html) | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint below is mapped to `/health`.
 

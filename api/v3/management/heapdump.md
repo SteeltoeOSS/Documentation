@@ -2,7 +2,7 @@
 
 You can use the Steeltoe heap dump endpoint to generate and download a mini-dump of your application. The mini-dump can then be read into Visual Studio for analysis.
 
->NOTE: At this time, dumps are only possible on the Windows and Linux operating systems. Also, the heap dump filename used by the Pivotal Apps Manager ends with the `.hprof` extension instead of the usual `.dmp` extension. This may cause problems when opening the dump with Visual Studio or some other diagnostic tool. As a workaround, you can rename the file to use the `.dmp` extension.
+>NOTE: At this time, dumps are only possible on the Windows and Linux operating systems.
 
 ## Configure Settings
 
