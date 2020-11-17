@@ -17,4 +17,4 @@ author.name: Dave Tillman
 
 Join Steeltoe founder Dave Tillman in learning about the all new messaging component in Steeltoe v3.
 
-> [!Video https://youtu.be/Lk2TrvE5w8s]
+> [!Video https://www.youtube.com/embed/Lk2TrvE5w8s]
