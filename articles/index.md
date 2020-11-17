@@ -7,7 +7,10 @@ title: Blog
 uid: articles
 ---
 > [!div class="blog-entry latest container"]
-><span class="">Latest</span> [Tech Tutorial: Use Kubernetes for Modern .NET Apps? Steeltoe and Project Tye are Your Path to Productivity](xref:articles/tech-tutorial-use-kubernetes-for-modern-net-apps-steeltoe-and-project-tye-are-your-path-to-productivity)
+> <span class="">Latest</span> [Writing Event Based Microservices using Steeltoe](xref:articles/writing-event-based-microservices-using-steeltoe)
+
+> [!div class="blog-entry container"]
+> <span>September <span style="font-size:larger;">2020</span></span> [Tech Tutorial: Use Kubernetes for Modern .NET Apps? Steeltoe and Project Tye are Your Path to Productivity](xref:articles/tech-tutorial-use-kubernetes-for-modern-net-apps-steeltoe-and-project-tye-are-your-path-to-productivity)
 
 > [!div class="blog-entry container"]
 > <span>September <span style="font-size:larger;">2020</span></span> [Steeltoe Application Configuration with Spring Cloud Config](xref:articles/steeltoe-application-configuration-with-spring-cloud-config)
