@@ -7,13 +7,13 @@ title: Blog
 uid: articles
 ---
 > [!div class="blog-entry latest container"]
-> <span class="">Latest</span> [Writing Event Based Microservices using Steeltoe](xref:articles/writing-event-based-microservices-using-steeltoe)
+> <span>October <span class="font-size:larger;">2020</span></span> [Writing Event Based Microservices using Steeltoe](xref:articles/writing-event-based-microservices-using-steeltoe)
 
 > [!div class="blog-entry container"]
-> <span>October <span style="font-size:larger;">2020</span></span> [Tech Tutorial: Use Kubernetes for Modern .NET Apps? Steeltoe and Project Tye are Your Path to Productivity](xref:articles/tech-tutorial-use-kubernetes-for-modern-net-apps-steeltoe-and-project-tye-are-your-path-to-productivity)
+> <span>October <span class="font-size:larger;">2020</span></span> [Tech Tutorial: Use Kubernetes for Modern .NET Apps? Steeltoe and Project Tye are Your Path to Productivity](xref:articles/tech-tutorial-use-kubernetes-for-modern-net-apps-steeltoe-and-project-tye-are-your-path-to-productivity)
 
 > [!div class="blog-entry container"]
-> <span>September <span style="font-size:larger;">2020</span></span> [Steeltoe Application Configuration with Spring Cloud Config](xref:articles/steeltoe-application-configuration-with-spring-cloud-config)
+> <span>September <span class="font-size:larger;">2020</span></span> [Steeltoe Application Configuration with Spring Cloud Config](xref:articles/steeltoe-application-configuration-with-spring-cloud-config)
 
 > [!div class="blog-entry container"]
 > <span>August <span class="font-size:larger;">2020</span></span> [Steeltoe 3.0 packs a mighty punch with many new features](xref:releases/steeltoe-3-0-packs-a-mighty-punch-with-many-new-features)
