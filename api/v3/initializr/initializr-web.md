@@ -1,7 +1,7 @@
 # InitializrWeb
 
-The _InitializrWeb_ is a web front end for an Initializr deployment.
-It uses _InitializrApi_ provided project metadata to populate its interface for easy perusal and selection by an end user.
+The _InitializrWeb_ is a web frontend for an Initializr deployment.
+It uses _InitializrApi_-provided project metadata to populate its interface for easy perusal and selection by an end user.
 After selecting desired project parameters, an end user uses _InitializrWeb_ to submit project generation requests to the _InitializrApi_.
 
 ## Overview
@@ -18,7 +18,8 @@ The remainder of this document focuses on the project configuration and action a
 
 ## Configuration
 
-The "project configuration" area exposes 5 project properties to the end user:
+The configuration area exposes 5 project properties to the end user:
+
 * name
 * C# namespace
 * application name
@@ -29,6 +30,12 @@ The "project configuration" area exposes 5 project properties to the end user:
 * dependencies
 
 ## Actions
+
+The actions area provides 3 project actions to the end user:
+
+* generate
+* explore
+* share
 
 ### Generate
 

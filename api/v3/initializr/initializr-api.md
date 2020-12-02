@@ -54,12 +54,12 @@ Sub-endpoints are available allowing more targeted responses.
 
 The following endpoints can be used by CLI users to browse project configuration options:
 
-`api/config/archiveTypes`
-`api/config/dependencies`
-`api/config/dotNetFrameworks`
-`api/config/dotNetTemplates`
-`api/config/languages`
-`api/config/steeltoeVersions`
+* `api/config/archiveTypes`
+* `api/config/dependencies`
+* `api/config/dotNetFrameworks`
+* `api/config/dotNetTemplates`
+* `api/config/languages`
+* `api/config/steeltoeVersions`
 
 ```sh
 # sample: list available Steeltoe versions
@@ -112,6 +112,6 @@ The parameter `dependencies` is a little different than other parameters in that
 _Note: to get a list of parameters and dependencies, send a `GET` request to `api/`._
 
 ```sh
-# sample: generate a .NET Core App 3.1 project with a actuator endpoints and a Redis backend:
+# sample: generate a .NET Core App 3.1 project with actuator endpoints and a Redis backend:
 $ http https://start.steeltoe.io/api/project dotNetFramework=netcoreapp3.1 dependencies==actuators,redis -d
 ```
