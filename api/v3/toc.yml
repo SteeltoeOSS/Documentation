@@ -141,3 +141,10 @@
       name: Kubernetes
     - topicHref: discovery/load-balancing.md
       name: Load Balancing
+- name: Initializr
+  topicHref: initializr/
+  items:
+    - topicHref: initializr/initializr-api.md
+      name: InitializrApi
+    - topicHref: initializr/initializr-web.md
+      name: InitializrWeb
