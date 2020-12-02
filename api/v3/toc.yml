@@ -76,7 +76,7 @@
       name: /refresh
     - topicHref: management/threaddump.md
       name: /threaddump
-- name: Messaging 
+- name: Messaging
   topicHref: messaging/
   items:
     - topicHref: messaging/rabbitmq-intro.md
@@ -128,7 +128,7 @@
       name: Redis
 - name: Service Discovery
   topicHref: discovery/
-  items: 
+  items:
     - topicHref: discovery/initialize-discovery-client.md
       name: Initialize Discovery Client
     - topicHref: discovery/discovering-services.md
