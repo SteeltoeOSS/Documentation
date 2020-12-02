@@ -47,9 +47,6 @@
 				</div>
 			</li>
 			<li class="nav-item mx-xl-2">
-				<a class="nav-link" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/training" onClick="$(this).removeAttr('target')">Training</a>
-			</li>
-			<li class="nav-item mx-xl-2">
 				<a class="nav-link" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/support" onClick="$(this).removeAttr('target')">Support</a>
 			</li>
 			<li class="nav-item mx-xl-2">
