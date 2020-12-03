@@ -17,11 +17,11 @@ author.twitter: dierufdavid
 
 Microservices are well… micro. They travel in packs. Very rarely will you find a single microservice in production representing an entire application's capabilities. Normally you have many services that make up the application. Each service is different in what controllers it offers. A user service offers endpoints for looking up a user's account information and validating a user's credentials. A customer service would have ways to interact with customer information. Outside of a microservice's controller, though, they look very similar. Each needs a web server. Each needs to emit logs. Etc.
 
-Then there's shared services. Something like an authentication service is usually backing most of the application's microservices. But something like a cache is only selectively used in certain microservices that have the need. If user information doesn't change that often but is constantly being looked up, it makes sense to do side lookups in a cache. Alternatively customer information could be constantly changing but requests aren't that high frequency, so the overhead of a cache doesn't make sense.
+Then there's shared services. Something like an authentication service is usually backing most of the application's microservices. But something like a cache is only selectively used in certain microservices that have the need. If user information doesn't change that often but is constantly being looked up, it makes sense to do side lookups in a cache. Alternatively, customer information could be constantly changing but requests aren't that high frequency, so the overhead of a cache doesn't make sense.
 
-When you are creating each of these microservices it turns into a rinse and repeat exercise. You are tempted to create a template or at least a script to do all the `dotnet new webapi` commands, taking into account namespaces and nuances.
+When you are creating each of these microservices it turns into a rinse-and-repeat exercise. You are tempted to create a template or at least a script to do all the `dotnet new webapi` commands, taking into account namespaces and nuances.
 
-As it turns out this is such a common task, tools have been created to help you through this. One notable tool is the dotnet templating engine. It gives a team the ability to crank out the beginnings of microservices in a flash. The challenge is, the nature of the tool is limiting once you look past a single developer team - to the entire organisation. The need for a more distributable model arises quickly. One where different folks with different roles can all collaborate together to keep best practices and the latest patches in all new development.
+As it turns out, this is such a common task that tools have been created to help you through this. One notable tool is the dotnet templating engine. It gives a team the ability to crank out the beginnings of microservices in a flash. The challenge is, the nature of the tool is limiting once you look past a single developer team - to the entire organization. The need for a more distributable model arises quickly. One where different folks with different roles can all collaborate together to keep best practices and the latest patches in all new development.
 
 Also, because development doesn't happen in a vacuum, there is a constant flow of new services rolling out to make microservices better/faster/stronger. So when that new microservice is getting underway you want to do what's right (and use that new service) but you don't want to spend hours learning how to implement it.
 
@@ -35,9 +35,9 @@ We want to create a .NET Core microservice (aka webapi project) that hands us he
 
 # [Powershell](#tab/powershell)
 ```powershell
-$body = @{Name:"MyApp",Dependencies:"Actuator,Dynamic-Logger,SQLServer"}
+$body = @{Name:"MyProject",Dependencies:"Actuator,Dynamic-Logger,SQLServer"}
 
-Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile 'MyNewProject.zip'
+Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile 'MyProject.zip'
 
 #To unzip
 Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body | Expand-Archive -DestinationPath .
@@ -45,17 +45,17 @@ Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -B
 
 # [Bash](#tab/bash)
 ```bash
-http 'https://start.steeltoe.io/api/project' name=='MyProject' dependencies==actuator,dynamic-logger,sqlserver -d
+$ http https://start.steeltoe.io/api/project name==MyProject dependencies==actuator,dynamic-logger,sqlserver -d
 ```
 ***
 
-The result will be a zip of the newly minted csproj. Within are all the best ways to implement Steeltoe actuators and Steeltoe SQL cloud connector.
+The result will be a zip of the newly minted csproj. Within are all the best ways to implement Steeltoe actuators, Steeltoe logging, and Steeltoe SQL Server cloud connector.
 
 ## Using the Endpoints
 
-Initializr's API offers a few very helpful endpoints. It's how the web UI is able to create such a great experience and how the community could extend its capabilities into Visual Studio or other developer related tools.
+Initializr's API offers a few, very helpful endpoints. It's how the web UI is able to create such a great experience and how the community could extend its capabilities into Visual Studio or other developer related tools.
 
-Below is a brief explanation of Initializr's top level endpoints. But the conversation doesn't stop there. Each of these endpoints offer all kinds of deeper sub-url's that drill down to specifics of Initializr's config. Read more about [them here](https://docs.steeltoe.io/api/v3/initializr).
+Below is a brief explanation of Initializr's top level endpoints. But the conversation doesn't stop there. Each of these endpoints offer all kinds of deeper sub-url's that drill down to specifics of Initializr's config. Read more about [them here](/api/v3/initializr/initializr-api.html).
 
 
 ### Endpoint Home [[view](https://start.steeltoe.io/api/)]
@@ -75,7 +75,7 @@ You can create quite a rich set of tooling with the config endpoint. In true clo
 
 ## About dependencies & templating
 
-Initializr's special sauce is the collection of dependencies. It's the reason the tool is so powerful. It's also worthy of an entire discussion - there's quite a few moving parts. We're not going to get too deep in Initializr's inner workings except to show how the pieces fit together. If you would like to get deeper, the [project's documentation](https://docs.steeltoe.io/api/v3/initializr) is waiting just for you.
+Initializr's special sauce is the collection of dependencies. It's the reason the tool is so powerful. It's also worthy of an entire discussion - there's quite a few moving parts. We're not going to get too deep in Initializr's inner workings except to show how the pieces fit together. If you would like to get deeper, the [project's documentation](/api/v3/initializr) is waiting just for you.
 
 To create a new dependency for Initializr you're first going to choose a [parent project](https://github.com/SteeltoeOSS/InitializrConfig/tree/dev/src). This is the combination of .NET runtime version and Steeltoe version. Within that combination's project you'll find all the normal .NET Core workings - startup, program, etc. Double click on those files and you will see some surprising syntax. Initializr uses the [mustache templating engine](https://mustache.github.io/). Rules are declared within each .cs implementing a given dependencies best practice.
 
@@ -136,8 +136,8 @@ The website includes options like naming the project and namespace, picking your
 
 ![Initializr Explore](images/initializr-explore.png "https://start.steeltoe.io")
 
-If interacting with web services are more of your foray, then Initializr's rest endpoints are the place to be. You won't be missing out on any options the UI offers, as it uses the endpoints internally. On a Windows desktop powershell's Invoke-RestMethod will interact perfectly. Just provide the endpoint address, method, and outfile. If you're generating a new project all it's metadata can be included in the body.
+If interacting with web services are more of your fancy, then Initializr's REST endpoints are the place to be. You won't be missing out on any options the UI offers, as the UI uses the endpoints internally. On a Windows desktop, powershell's Invoke-RestMethod will interact perfectly. Just provide the endpoint address, method, and outfile. If you're generating a new project all it's metadata can be included in the body.
 
-If you're on Linux or Apple desktop a terminal session using curl or http is also very simple. Similar to powershell provide the appropriate options and metadata to receive the generated zip.
+If you're on Linux or Apple desktop a terminal session using `curl` or `http` is also very simple. Similarly to powershell, these commands provide the appropriate options and metadata to receive the generated zip.
 
-Through either the web UI or the rest endpoints Initializr will get your microservices going fast. Which means you'll be checking in a production ready service in no time!
+Through either the web UI or the REST endpoints, Initializr will get your microservices going fast. Which means you'll be checking in a production ready service in no time!
