@@ -5,6 +5,9 @@
 pool:
   vmImage: 'windows-latest'
 
+trigger:
+  - move-to-aks
+
 steps:
 - powershell: |
     choco install docfx -y
@@ -18,15 +21,18 @@ steps:
   inputs:
     SourceFolder: './publish/_site'
     Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/_site'
     CleanTargetFolder: true
 
-- powershell: cp "CI/manifest-staging.yml" "$(Build.ArtifactStagingDirectory)/manifest-staging.yml"
-  displayName: "Copy staging manifest"
+- powershell: cp "Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
+  displayName: "Copy Dockerfile"
 
-- powershell: cp "CI/manifest-prod.yml" "$(Build.ArtifactStagingDirectory)/manifest-prod.yml"
-  displayName: "Copy prod manifest"
-
+- powershell: cp "deploy/docker/documentation.conf" "$(Build.ArtifactStagingDirectory)/documentation.conf"
+  displayName: "Copy nginx conf"
+  
+- powershell: cp "deploy/kubernetes/deployment.yaml" "$(Build.ArtifactStagingDirectory)/deployment.yaml"
+  displayName: "Copy kubernetes manifest"
+  
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
