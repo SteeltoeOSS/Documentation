@@ -5,6 +5,10 @@
 pool:
   vmImage: 'windows-latest'
 
+trigger:
+  - master
+  - dev
+
 steps:
 - powershell: |
     choco install docfx -y
