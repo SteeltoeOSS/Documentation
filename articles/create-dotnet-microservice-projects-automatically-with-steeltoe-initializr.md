@@ -75,26 +75,26 @@ You can create quite a rich set of tooling with the config endpoint. In true clo
 
 Initializr's special sauce is the collection of dependencies. It's the reason the tool is so powerful. It's also worthy of an entire discussion - there's quite a few moving parts. We're not going to get too deep in Initializr's inner workings except to show how the pieces fit together. If you would like to get deeper, the [project's documentation](/api/v3/initializr) is waiting just for you.
 
-Initializr uses the [mustache templating engine](https://mustache.github.io/). Rules are declared within each .cs implementing a given dependencies best practice. Let's say you wanted to create a new .NET Core webapi microservice that uses Spring Cloud Config server and management actuators for reporting health. You could start with `dotnet new webapi` and then add each package with `dotnet add package Steeltoe.<package extension>`. The result would be a good starting place but you would still need to implement each feature with its corresponding `.Use<package>` statement. And you might not notice that 2 decisions were made "behind the scenes". The version of .NET sdk installed will be the version of .NET for the project and the latest release of Steeltoe packages will be used within.
+Initializr uses the [mustache templating engine](https://mustache.github.io/). Rules are declared within each .cs implementing a given dependencies best practice. Let's say you wanted to create a new .NET Core webapi microservice that uses Spring Cloud Config server and management actuators for reporting health. You could start with `dotnet new webapi` and then add each package with `dotnet add package Steeltoe.<package extension>`. The result would be a good starting place but you would still need to implement each feature with its corresponding `.Use<package>` statement. And you might not notice that two decisions were made "behind the scenes". The version of .NET sdk installed will be the version of .NET for the project and the latest release of Steeltoe packages will be used within.
 
-Instead you could use Initializr and get a ready to go project with guaranteed version compatibility.
+Say we want to create a new .NET Core webapi microservice that has health checking built in and is going to connect with a Microsoft SQL database. In the UI you could choose the "Actuators" and "Microsoft SQL Server" dependency. Then "Generate" the project and you're on the way to cloud-native nirvana. Or you could run the following command.
 
 # [Powershell](#tab/powershell)
 
 ```powershell
-$body = @{Name:"AConfigClientApp",Dependencies:"config-server,actuators"}
+$body = @{Name:”MyProject”,Dependencies:”actuator,sqlserver”}
 
-Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile 'MyNewProject.zip'
+Invoke-RestMethod -Method ‘Post’ -Uri ‘https://start.steeltoe.io/api/project’ -Body $body -OutFile MyProject.zip
 ```
 
 # [Bash](#tab/bash)
 
 ```bash
 #Using cURL
-curl 'https://start.steeltoe.io/api/project' -o 'MyProject' -d dependencies=config-server,actuators
+curl 'https://start.steeltoe.io/api/project' -o 'MyProject' -d dependencies=actuator,sqlserver
 
 #Using HTTPPie
-http 'https://start.steeltoe.io/api/project' name=='MyProject' dependencies==config-server,actuators -d
+http https://start.steeltoe.io/api/project name==MyProject dependencies==actuator,sqlserver -d
 ```
 ***
 
@@ -106,9 +106,11 @@ Initializr has two ways to interact. If you're more familiar with point and clic
 
 ![Initializr Home](images/initializr-home.png "https://start.steeltoe.io")
 
-The website includes options like naming the project and namespace, picking your project's runtime version, Steeltoe version, and adding in all your needed dependencies. With those options checked you can then download the project (as zip), explore the source code (right in the browser!), or share this exact configuration with your co-workers and friends.
+The website includes options like naming the project and namespace, picking your project’s runtime version, choosing between supported Steeltoe versions, and adding in all your needed dependencies. With those options checked you can "Generate" the project (as zip) and get going in your favorite IDE. Or you "Explore" the source code in the browser. This is a great way to see exactly what the templating engine will create without the fuss of a zip. If you have an existing microservice that is in need of new Steeltoe features, using the explore function is a great way to see exactly what is needed.
 
 ![Initializr Explore](images/initializr-explore.png "https://start.steeltoe.io")
+
+There is also an option to "Share" the newly created project with your co-workers and friends. This makes things very convenient when you don’t have a shared screen or public repo handy.
 
 If interacting with web services are more of your fancy, then Initializr's REST endpoints are the place to be. You won't be missing out on any options the UI offers, as the UI uses the endpoints internally. On a Windows desktop, powershell's Invoke-RestMethod will interact perfectly. Just provide the endpoint address, method, and outfile. If you're generating a new project all it's metadata can be included in the body.
 
