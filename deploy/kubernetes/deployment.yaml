@@ -16,17 +16,25 @@ spec:
       nodeSelector:
         "beta.kubernetes.io/os": linux
       containers:
-      - name: documentation
-        image: steeltoe.azurecr.io/documentation
-        ports:
-        - containerPort: 80
+        - name: documentation
+          image: steeltoe.azurecr.io/documentation
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: documentation
+  name: documentation-service
+  namespace: documentation
 spec:
+  type: ClusterIP
   ports:
-  - port: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 80
   selector:
     app: documentation
