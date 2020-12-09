@@ -37,15 +37,15 @@ We want to create a .NET Core microservice (aka webapi project) that hands us he
 ```powershell
 $body = @{Name:"MyProject",Dependencies:"Actuator,Dynamic-Logger,SQLServer"}
 
-Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile 'MyProject.zip'
+Invoke-RestMethod -Method "Post" -Uri "https://start.steeltoe.io/api/project" -Body $body -OutFile "MyProject.zip"
 
 #To unzip
-Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body | Expand-Archive -DestinationPath .
+Invoke-RestMethod -Method "Post" -Uri "https://start.steeltoe.io/api/project" -Body $body | Expand-Archive -DestinationPath .
 ```
 
 # [Bash](#tab/bash)
 ```bash
-$ http https://start.steeltoe.io/api/project name==MyProject dependencies==actuator,dynamic-logger,sqlserver -d
+$ http https://start.steeltoe.io/api/project -o MyProject -d dependencies=actuator,dynamic-logger,sqlserver
 ```
 ***
 
@@ -82,19 +82,16 @@ Say we want to create a new .NET Core webapi microservice that has health checki
 # [Powershell](#tab/powershell)
 
 ```powershell
-$body = @{Name:”MyProject”,Dependencies:”actuator,sqlserver”}
+$body = @{Name:"MyProject",Dependencies:"actuator,sqlserver"}
 
-Invoke-RestMethod -Method ‘Post’ -Uri ‘https://start.steeltoe.io/api/project’ -Body $body -OutFile MyProject.zip
+Invoke-RestMethod -Method "Post" -Uri "https://start.steeltoe.io/api/project" -Body $body -OutFile "MyProject.zip"
 ```
 
 # [Bash](#tab/bash)
 
 ```bash
 #Using cURL
-curl 'https://start.steeltoe.io/api/project' -o 'MyProject' -d dependencies=actuator,sqlserver
-
-#Using HTTPPie
-http https://start.steeltoe.io/api/project name==MyProject dependencies==actuator,sqlserver -d
+curl https://start.steeltoe.io/api/project -o MyProject -d dependencies=actuator,sqlserver
 ```
 ***
 
