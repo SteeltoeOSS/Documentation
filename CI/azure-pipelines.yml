@@ -6,7 +6,8 @@ pool:
   vmImage: 'windows-latest'
 
 trigger:
-  - move-to-aks
+  - master
+  - dev
 
 steps:
 - powershell: |
