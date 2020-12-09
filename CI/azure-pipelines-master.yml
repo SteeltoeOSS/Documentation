@@ -5,10 +5,13 @@
 pool:
   vmImage: 'windows-latest'
 
+trigger:
+  - master
+
 steps:
 - powershell: |
     choco install docfx -y
-    docfx build -o ./publish
+    docfx build -o ./publish --globalMetadataFiles "dev.json"
     if ($lastexitcode -ne 0){
       throw ("Error generating documentation")
     }
@@ -18,15 +21,15 @@ steps:
   inputs:
     SourceFolder: './publish/_site'
     Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/_site'
     CleanTargetFolder: true
 
-- powershell: cp "CI/manifest-staging.yml" "$(Build.ArtifactStagingDirectory)/manifest-staging.yml"
-  displayName: "Copy staging manifest"
-
-- powershell: cp "CI/manifest-prod.yml" "$(Build.ArtifactStagingDirectory)/manifest-prod.yml"
-  displayName: "Copy prod manifest"
-
+- powershell: cp "CI/Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
+  displayName: "Copy Dockerfile"
+  
+- powershell: cp "CI/deployment-master.yaml" "$(Build.ArtifactStagingDirectory)/deployment.yaml"
+  displayName: "Copy kubernetes manifest"
+  
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'

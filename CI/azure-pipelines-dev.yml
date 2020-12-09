@@ -1,0 +1,37 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+pool:
+  vmImage: 'windows-latest'
+
+trigger:
+  - dev
+
+steps:
+- powershell: |
+    choco install docfx -y
+    docfx build -o ./publish
+    if ($lastexitcode -ne 0){
+      throw ("Error generating documentation")
+    }
+  displayName: "Docfx Build"
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: './publish/_site'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/_site'
+    CleanTargetFolder: true
+
+- powershell: cp "CI/Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
+  displayName: "Copy Dockerfile"
+  
+- powershell: cp "CI/deployment-dev.yaml" "$(Build.ArtifactStagingDirectory)/deployment.yaml"
+  displayName: "Copy kubernetes manifest"
+  
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
