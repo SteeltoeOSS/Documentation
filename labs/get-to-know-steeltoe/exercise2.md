@@ -1,4 +1,4 @@
-﻿---
+---
 uid: labs/get-to-know-steeltoe/exercise2
 _disableContribution: true
 _disableToc: true
