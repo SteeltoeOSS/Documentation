@@ -5,7 +5,7 @@ _showBackToBlogs: true
 title: "Create .NET Microservice Projects Automatically with Steeltoe Initializr"
 description: Initializr aims to get you (the developer) going faster, while making the right way the easy way.
 type: markdown
-date: 11/24/2020
+date: 12/10/2020
 uid: articles/create-dotnet-microservice-projects-automatically-with-steeltoe-initializr
 tags: ["initializr"]
 author.name: David Dieruf
@@ -51,23 +51,38 @@ $ http https://start.steeltoe.io/api/project -o MyProject -d dependencies=actuat
 
 The result will be a zip of the newly minted csproj. Within are all the best ways to implement Steeltoe actuators, Steeltoe logging, and Steeltoe SQL Server cloud connector.
 
-## Using the Endpoints
+## Getting started with Initializr
+
+Initializr has two ways to interact. If you're more familiar with point and click then you'll be right at home with the web UI - [https://start.steeltoe.io](https://start.steeltoe.io/).
+
+![Initializr Home](images/initializr-home.png "https://start.steeltoe.io")
+
+The website includes options like naming the project and namespace, picking your project’s runtime version, choosing between supported Steeltoe versions, and adding in all your needed dependencies. With those options checked you can "Generate" the project (as zip) and get going in your favorite IDE. Or you "Explore" the source code in the browser. This is a great way to see exactly what the templating engine will create without the fuss of a zip. If you have an existing microservice that is in need of new Steeltoe features, using the explore function is a great way to see exactly what is needed.
+
+![Initializr Explore](images/initializr-explore.png "https://start.steeltoe.io")
+
+There is also an option to "Share" the newly created project with your co-workers and friends. This makes things very convenient when you don’t have a shared screen or public repo handy.
+
+If interacting with web services are more of your fancy, then Initializr's REST endpoints are the place to be. You won't be missing out on any options the UI offers, as the UI uses the endpoints internally. On a Windows desktop, powershell's Invoke-RestMethod will interact perfectly. Just provide the endpoint address, method, and outfile. If you're generating a new project all it's metadata can be included in the body.
+
+If you're on Linux or Apple desktop a terminal session using `curl` or `http` is also very simple. Similarly to powershell, these commands provide the appropriate options and metadata to receive the generated zip.
+
+Through either the web UI or the REST endpoints, Initializr will get your microservices going fast. Which means you'll be checking in a production ready service in no time!
+
+## Using the API Endpoints
 
 Initializr's API offers a few, very helpful endpoints. It's how the web UI is able to create such a great experience and how the community could extend its capabilities into Visual Studio or other developer related tools.
 
 Below is a brief explanation of Initializr's top level endpoints. But the conversation doesn't stop there. Each of these endpoints offer all kinds of deeper sub-url's that drill down to specifics of Initializr's config. Read more about [them here](/api/v3/initializr/initializr-api.html).
 
-#### Endpoint Home
+  *Endpoint Home*
+  Sending a GET request to this endpoint (https://start.steeltoe.io/api) will respond with essentials of the service. Things like what parameters can be provided when generating a project and what dependencies are available for use.
 
-Sending a GET request to this endpoint (https://start.steeltoe.io/api) will respond with essentials of the service. Things like what parameters can be provided when generating a project and what dependencies are available for use.
+  *Generate Project*
+  This endpoint supports both the GET and POST methods. This is where all the Initializr magic happens. As a GET request include parameters in the querystring. As a POST request, provide your project metadata as JSON in the body. Either way the response will be a zip of the generated project.
 
-#### Generate Project
-
-This endpoint supports both the GET and POST methods. This is where all the Initializr magic happens. As a GET request include parameters in the querystring. As a POST request, provide your project metadata as JSON in the body. Either way the response will be a zip of the generated project.
-
-#### Service Configuration
-
-The config endpoint provides a way to GET Initializr specifics. This endpoint has quite a few sub-endpoints that let you drill deeper into config values. Say you wanted to know what .NET runtimes are supported as well what the default version is. You could send a request to [https://start.steeltoe.io/api/config/dotNetFrameworks](https://start.steeltoe.io/api/config/dotNetFrameworks) and receive a JSON formatted answer.
+  *Service Configuration*
+  The config endpoint provides a way to GET Initializr specifics. This endpoint has quite a few sub-endpoints that let you drill deeper into config values. Say you wanted to know what .NET runtimes are supported as well what the default version is. You could send a request to [https://start.steeltoe.io/api/config/dotNetFrameworks](https://start.steeltoe.io/api/config/dotNetFrameworks) and receive a JSON formatted answer.
 
 You can create quite a rich set of tooling with the config endpoint. In true cloud-native design, you can run instances of Initializr in different environments while the tooling keeps a consistent experience.
 
@@ -96,21 +111,3 @@ curl https://start.steeltoe.io/api/project -o MyProject -d dependencies=actuator
 ***
 
 Repeatability and consistency are the name of the game when it comes to creating new ASP.NET microservices. The faster you can get the right project going, the faster your services can get to production!
-
-## Getting started with Initializr
-
-Initializr has two ways to interact. If you're more familiar with point and click then you'll be right at home with the web UI - [https://start.steeltoe.io](https://start.steeltoe.io/).
-
-![Initializr Home](images/initializr-home.png "https://start.steeltoe.io")
-
-The website includes options like naming the project and namespace, picking your project’s runtime version, choosing between supported Steeltoe versions, and adding in all your needed dependencies. With those options checked you can "Generate" the project (as zip) and get going in your favorite IDE. Or you "Explore" the source code in the browser. This is a great way to see exactly what the templating engine will create without the fuss of a zip. If you have an existing microservice that is in need of new Steeltoe features, using the explore function is a great way to see exactly what is needed.
-
-![Initializr Explore](images/initializr-explore.png "https://start.steeltoe.io")
-
-There is also an option to "Share" the newly created project with your co-workers and friends. This makes things very convenient when you don’t have a shared screen or public repo handy.
-
-If interacting with web services are more of your fancy, then Initializr's REST endpoints are the place to be. You won't be missing out on any options the UI offers, as the UI uses the endpoints internally. On a Windows desktop, powershell's Invoke-RestMethod will interact perfectly. Just provide the endpoint address, method, and outfile. If you're generating a new project all it's metadata can be included in the body.
-
-If you're on Linux or Apple desktop a terminal session using `curl` or `http` is also very simple. Similarly to powershell, these commands provide the appropriate options and metadata to receive the generated zip.
-
-Through either the web UI or the REST endpoints, Initializr will get your microservices going fast. Which means you'll be checking in a production ready service in no time!
