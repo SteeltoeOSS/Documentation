@@ -15,19 +15,19 @@ The following table describes the available Steeltoe management endpoints that c
 
 | ID|Description |
 | --- | --- |
-| [cloudfoundry](./cloud-foundry.html) | Enables the management endpoint integration with Cloud Foundry. |
-| [env](./env.html) | Reports the keys and values from the application's configuration. |
-| [health](./health.html) | Customizable endpoint that gathers application health information. |
-| [heapdump](./heapdump.html) | Generates and downloads a mini-dump of the application (Windows and Linux only). |
-| [httptrace](./httptrace.html) | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
-| [hypermedia](./hypermedia.html) | Provides the hypermedia endpoint for discovery of all available endpoints. |
-| [info](./info.html) | Customizable endpoint that gathers arbitrary application information (such as Git Build info). |
-| [loggers](./loggers.html) | Gathers existing loggers and allows modification of logging levels. |
-| [mappings](./mappings.html) | Reports the configured ASP.NET routes and route templates. |
-| [metrics](./metrics.html) | Reports the collected metrics for the application. |
-| [prometheus](./prometheus.html) | Exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format. |
-| [refresh](./refresh.html) | Triggers the application configuration to be reloaded. |
-| [threaddump](./threaddump.html)  | Generates and reports a snapshot of the application's threads (Windows only). |
+| [cloudfoundry](./cloud-foundry.md) | Enables the management endpoint integration with Cloud Foundry. |
+| [env](./env.md) | Reports the keys and values from the application's configuration. |
+| [health](./health.md) | Customizable endpoint that gathers application health information. |
+| [heapdump](./heapdump.md) | Generates and downloads a mini-dump of the application (Windows and Linux only). |
+| [httptrace](./httptrace.md) | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
+| [hypermedia](./hypermedia.md) | Provides the hypermedia endpoint for discovery of all available endpoints. |
+| [info](./info.md) | Customizable endpoint that gathers arbitrary application information (such as Git Build info). |
+| [loggers](./loggers.md) | Gathers existing loggers and allows modification of logging levels. |
+| [mappings](./mappings.md) | Reports the configured ASP.NET routes and route templates. |
+| [metrics](./metrics.md) | Reports the collected metrics for the application. |
+| [prometheus](./prometheus.md) | Exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format. |
+| [refresh](./refresh.md) | Triggers the application configuration to be reloaded. |
+| [threaddump](./threaddump.md)  | Generates and reports a snapshot of the application's threads (Windows only). |
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/health`.
 
@@ -50,7 +50,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.1"/>
 ...
 </ItemGroup>
 ```

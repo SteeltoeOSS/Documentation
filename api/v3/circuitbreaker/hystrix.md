@@ -48,7 +48,7 @@ To add this type of NuGet to your project, add something like the following `Pac
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.HystrixCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.HystrixCore" Version= "3.0.1"/>
 ...
 </ItemGroup>
 ```
@@ -60,7 +60,7 @@ To do so, include the following `PackageReference` in your application:
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore" Version= "3.0.1"/>
 ...
 </ItemGroup>
 ```
@@ -78,7 +78,7 @@ To add this type of NuGet to your project, add something like the following:
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore" Version= "3.0.1"/>
     <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
 ...
 </ItemGroup>
@@ -410,7 +410,7 @@ The following example shows some Hystrix settings in JSON that configure the `Fo
 }
 ```
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values) for more information on reading configuration values.
+The samples and most templates are already set up to read from `appsettings.json`.
 
 ### Add Commands
 

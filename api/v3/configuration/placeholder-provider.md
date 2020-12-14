@@ -31,7 +31,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version= "3.0.1"/>
 ...
 </ItemGroup>
 ```

@@ -26,13 +26,13 @@ The following table describes the settings that you can apply to the endpoint:
 
 >Each setting above must be prefixed with `Management:Endpoints:Metrics`.
 
-To configure Observers, see [Metric Observers](./metric-observers.html)
+To configure Observers, see [Metric Observers](./metric-observers.md)
 
 ## Enable HTTP Access
 
 The default path to the metrics endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is `/actuator/metrics`.
 
-See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, use the `hostBuilder.AddMetricsActuator` extension method from `ManagementHostBuilderExtensions`.
 
@@ -42,7 +42,7 @@ Then add the metrics actuator middleware to the ASP.NET Core pipeline, using the
 
 ## Exporting
 
-See [Prometheus](./prometheus.html) to export metrics.
+See [Prometheus](./prometheus.md) to export metrics.
 
 ## Add NuGet References
 
@@ -53,7 +53,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.1"/>
 ...
 </ItemGroup>
 ```
@@ -61,12 +61,12 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Alternatively, you can add the package through PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0-
+PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.1-
 ```
 
 ## Cloud Foundry Forwarder
 
- The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](./prometheus.html).
+ The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](./prometheus.md).
 
 ## ASP NET Core Example
 

@@ -419,7 +419,7 @@ The following example shows some Hystrix settings in JSON that configure the `Fo
 }
 ```
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values) for more information on reading configuration values.
+The samples and most templates are already set up to read from `appsettings.json`.
 
 ### Add Commands
 

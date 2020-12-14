@@ -82,7 +82,7 @@ The following table describes the available settings for the connector. These se
 
 >IMPORTANT: All of the settings described in the preceding table should be prefixed with `mysql:client:`.
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
+The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](../welcome/common-steps.md#reading-configuration-values).
 
 >NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
 

@@ -6,7 +6,7 @@
 
 Use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish) the application for the framework and runtime you will deploy the application to:
 
-* Linux with .NET Core: `dotnet publish -f netcoreapp2.1 -r ubuntu.14.04-x64`
+* Linux with .NET Core: `dotnet publish -f netcoreapp2.1 -r linux-x64`
 * Windows with .NET Core: `dotnet publish -f netcoreapp2.1 -r win10-x64`
 * Windows with .NET Platform: `dotnet publish -f net461 -r win10-x64`
 
@@ -24,7 +24,7 @@ Use the Cloud Foundry CLI to push the published application to Cloud Foundry usi
 
 ```bash
 # Push to Linux cell
-cf push -f manifest.yml -p bin/Debug/netcoreapp2.1/ubuntu.14.04-x64/publish
+cf push -f manifest.yml -p bin/Debug/netcoreapp2.1/linux-x64/publish
 
 # Push to Windows cell, .NET Core
 cf push -f manifest-windows.yml -p bin/Debug/netcoreapp2.1/win10-x64/publish
@@ -88,6 +88,6 @@ When pushing the application to Cloud Foundry, the settings from service binding
 
 If there are merge conflicts, the last provider added to the Configuration takes precedence and overrides all others.
 
-To manage application settings centrally instead of with individual files, use [Steeltoe Configuration](../configuration/) and a tool such as [Spring Cloud Config Server](https://github.com/spring-cloud/spring-cloud-config)
+To manage application settings centrally instead of with individual files, use [Steeltoe Configuration](../configuration/index.md) and a tool such as [Spring Cloud Config Server](https://github.com/spring-cloud/spring-cloud-config)
 
 >NOTE: If you use the Spring Cloud Config Server, `AddConfigServer()` automatically calls `AddCloudFoundry()` for you.

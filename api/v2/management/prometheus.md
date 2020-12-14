@@ -1,8 +1,8 @@
 # Prometheus
 
-The Steeltoe Prometheus endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. Similar to the [Metrics Endpoint](metrics), it automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics in the prometheus format.
+The Steeltoe Prometheus endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. Similar to the [Metrics Endpoint](./metrics.md), it automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics in the prometheus format.
 
-The metrics collected are the same as those collected by the [Metrics Endpoint](metrics).
+The metrics collected are the same as those collected by the [Metrics Endpoint](./metrics.md).
 
 ## Configure Settings
 

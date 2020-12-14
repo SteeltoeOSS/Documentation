@@ -44,7 +44,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TracingCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Management.TracingCore" Version= "3.0.1"/>
 ...
 </ItemGroup>
 ```
@@ -52,7 +52,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Alternative, you can add it with PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.TracingCore -Version 3.0.0
+PM>Install-Package  Steeltoe.Management.TracingCore -Version 3.0.1
 ```
 
 ### Configure Settings

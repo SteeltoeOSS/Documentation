@@ -42,7 +42,7 @@ To add this type of NuGet to your project, add a `PackageReference` that resembl
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version= "3.0.1"/>
 ...
 </ItemGroup>
 ```
@@ -346,4 +346,4 @@ var configurationBuilder = new ConfigurationBuilder()
         .AddConfigServer(settings);
 ```
 
->A single `ICertificateSource` can be used for both Config Server and [Eureka mTLS connections](../discovery/netflix-eureka#configuring-mutual-tls).
+>A single `ICertificateSource` can be used for both Config Server and [Eureka mTLS connections](../discovery/netflix-eureka.md#configuring-mutual-tls).

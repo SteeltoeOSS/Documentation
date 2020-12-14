@@ -106,7 +106,7 @@ For more information on using the Eureka Server on Cloud Foundry, see the [Sprin
 
 Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`.
 
->As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connector.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
+>As of Steeltoe 3.0.1, an additional NuGet reference for `Steeltoe.Connector.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
 
 ## Configuring Health Contributors
 
@@ -193,4 +193,4 @@ services.AddSingleton<IHttpClientHandlerProvider>(new MyCustomHttpClientHandlerP
 services.AddDiscoveryClient(config);
 ```
 
->You can use a single `ICertificateSource` for both Eureka and [Config Server mTLS connections](../configuration/config-server-provider#configuring-mutual-tls).
+>You can use a single `ICertificateSource` for both Eureka and [Config Server mTLS connections](../configuration/config-server-provider.md#configuring-mutual-tls).

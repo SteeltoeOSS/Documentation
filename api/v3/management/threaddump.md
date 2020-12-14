@@ -22,7 +22,7 @@ The default path to the thread dump endpoint is computed by combining the global
 
 >NOTE: The extension methods take an optional `MediaTypeVersion` argument which defaults to `MediaTypeVersion.V2`. If you chose `MediaTypeVersion.V1` in your extension method, the path defaults to `/actuator/dump`
 
-See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 
 To add the actuator to the service container and map its route, use the `hostBuilder.AddThreadDumpActuator` extension method from `ManagementHostBuilderExtensions`.
