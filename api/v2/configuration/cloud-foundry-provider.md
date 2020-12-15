@@ -12,7 +12,6 @@ The Steeltoe Cloud Foundry provider supports the following .NET application type
 * ASP.NET Core
 * Console apps (.NET Framework and .NET Core)
 
-
 ## Usage
 
 You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider.

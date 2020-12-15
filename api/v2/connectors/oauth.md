@@ -42,7 +42,7 @@ Configuring additional settings for the connector is not typically required, but
 
 >CAUTION: Self-signed certificates are inherently insecure. Never use them for a production environment.
 
-The samples and most templates are already set up to read from `appsettings.json`. 
+The samples and most templates are already set up to read from `appsettings.json`.
 
 ### Cloud Foundry
 
@@ -50,7 +50,7 @@ There are multiple ways to set up OAuth services on Cloud Foundry.
 
 There is a user-provided service to define a direct binding to the Cloud Foundry UAA server. Alternatively, you can use the [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) product to provision an OAuth service binding. The process to create service binding varies for each of the approaches.
 
-Regardless of which you choose, once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`. 
+Regardless of which you choose, once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
 ### Add OAuthServiceOptions
 

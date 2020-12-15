@@ -168,4 +168,3 @@ The preceding example code establishes the following security rules:
 * If an authenticated user attempts to access the `Contact` action but does not meet the restrictions established by the policy `testgroup1`, the user is denied access.
 
 >TIP: See the Microsoft documentation on [ASP.NET Core Authorization](https://docs.microsoft.com/aspnet/core/security/authorization/introduction).
-
