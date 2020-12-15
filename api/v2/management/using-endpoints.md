@@ -56,7 +56,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "2.2.0"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
@@ -64,7 +64,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 or
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointWeb -Version 2.2.0
+PM>Install-Package  Steeltoe.Management.EndpointWeb -Version 2.5.2
 ```
 
 ## Configure Global Settings

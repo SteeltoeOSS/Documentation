@@ -68,7 +68,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.ExporterCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Management.ExporterCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
@@ -76,7 +76,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 or
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.ExporterCore -Version 2.1.0
+PM>Install-Package  Steeltoe.Management.ExporterCore -Version 2.5.2
 ```
 
 ## Cloud Foundry Forwarder

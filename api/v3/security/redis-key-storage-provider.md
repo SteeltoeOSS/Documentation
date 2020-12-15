@@ -22,7 +22,7 @@ You can add the provider to your project by using the following `PackageReferenc
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.DataProtection.RedisCore" Version= "3.0.1"/>
+    <PackageReference Include="Steeltoe.Security.DataProtection.RedisCore" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```
@@ -34,7 +34,7 @@ You can use the NuGet package manager tools or directly add the following packag
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.ConnectorCore" Version= "3.0.1"/>
+    <PackageReference Include="Steeltoe.ConnectorCore" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```

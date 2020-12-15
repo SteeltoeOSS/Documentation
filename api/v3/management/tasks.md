@@ -11,7 +11,7 @@ Add the following PackageReference to your .csproj file.
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TaskCore" Version= "3.0.1"/>
+    <PackageReference Include="Steeltoe.Management.TaskCore" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```
@@ -19,7 +19,7 @@ Add the following PackageReference to your .csproj file.
 Alternatively, you can use PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.TaskCore -Version 3.0.1
+PM>Install-Package  Steeltoe.Management.TaskCore -Version 3.0.2
 ```
 
 ## Implement Task Interface

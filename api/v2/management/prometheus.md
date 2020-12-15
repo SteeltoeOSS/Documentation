@@ -36,7 +36,7 @@ To use the prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "2.4.2"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
@@ -44,7 +44,7 @@ To use the prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 or
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 2.4.2
+PM>Install-Package  Steeltoe.Management.EndpointCore -Version 2.5.2
 ```
 
 ## Cloud Foundry Forwarder

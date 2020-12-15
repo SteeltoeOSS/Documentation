@@ -56,7 +56,7 @@ To add this type of NuGet to your project add something like the following `Pack
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.HystrixCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.HystrixCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
@@ -68,7 +68,7 @@ To do this include the following `PackageReference` in your application:
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
@@ -87,7 +87,7 @@ To add this type of NuGet to your project add something like the following:
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore" Version="2.5.2" />
     <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
 ...
 </ItemGroup>
