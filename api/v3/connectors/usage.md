@@ -76,7 +76,9 @@ var mysqlInfo = connStringManager.Get<MySqlConnectionInfo>();
 
 ## Cloud Foundry
 
-Steeltoe Connectors were originally created to provide out-of-the-box support for discovering common services on Cloud Foundry, and as such they've historically had a pretty direct connection to each other. As of version 3.0, in preparation of support for other platforms, the Cloud Foundry specific pieces have been extracted to a separate NuGet package. No new code is required to activate Cloud Foundry portion of Connectors (assuming the `CloudFoundryConfigurationProvider` has already been added), only the addition of a NuGet reference for `Steeltoe.Connector.CloudFoundry`.
+Steeltoe Connectors were originally created to provide out-of-the-box support for discovering common services on Cloud Foundry, and as such they've historically had a pretty direct connection to each other. As of version 3.0, in preparation of support for other platforms, the Cloud Foundry specific pieces have been extracted to a separate NuGet package. No new code is required** to activate Cloud Foundry portion of Connectors (assuming the `CloudFoundryConfigurationProvider` has already been added), only the addition of a NuGet reference for `Steeltoe.Connector.CloudFoundry`.
+
+>** If you [publish your application as a single file](https://docs.microsoft.com/dotnet/core/deploying/single-file) prior to deployment, this assembly will not be included in the output unless there is a reference to it. Package version 3.0.2 adds the no-op method `CloudFoundryConnector.EnsureAssemblyIsLoaded()`, which can be called from anywhere in your application, to support this scenario.
 
 With the addition of this package, all connectors can use configuration information from Cloud Foundry's `VCAP_SERVICES` environment variable to detect and configure the available services. This example shows how to make connection strings built from Cloud Foundry service bindings available for `.GetConnectionString("connectionType")` later on:
 
