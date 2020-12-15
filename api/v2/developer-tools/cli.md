@@ -11,7 +11,7 @@ There are 3 basic steps when using Steeltoe Tooling:
 
 ### Install Steeltoe Tooling
 
-Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
+Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
 
 ```sh
 $ dotnet tool install --global --version 0.5.0 Steeltoe.Cli

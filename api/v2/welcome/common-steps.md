@@ -4,7 +4,7 @@
 
 ### ASP.NET Core
 
-Use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish) the application for the framework and runtime you will deploy the application to:
+Use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/dotnet/core/tools/dotnet-publish) the application for the framework and runtime you will deploy the application to:
 
 * Linux with .NET Core: `dotnet publish -f netcoreapp2.1 -r linux-x64`
 * Windows with .NET Core: `dotnet publish -f netcoreapp2.1 -r win10-x64`

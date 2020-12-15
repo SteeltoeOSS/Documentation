@@ -14,7 +14,7 @@ The state of the connection to the file share is managed through the lifecycle o
 var fileShare = new WindowsNetworkFileShare(@"\\server\path", new System.Net.NetworkCredential("username", "password"));
 ```
 
-The constructor opens the connection with the equivalent of the `net use` command by calling [WNetAddConnection2](https://docs.microsoft.com/en-us/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection2a) with the information provided in the constructor.
+The constructor opens the connection with the equivalent of the `net use` command by calling [WNetAddConnection2](https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection2a) with the information provided in the constructor.
 
 In order to close the connection, call dispose on the `WindowsNetworkFileShare`.
 

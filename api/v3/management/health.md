@@ -158,7 +158,7 @@ Out of the box, any of Steeltoe's extensions that set up the Health actuator wil
 
 The "Readiness" state  of an instance of an application describes whether the application is ready to handle traffic. A failing "Readiness" state tells the platform that it should not route traffic to the application instance.
 
-Out of the box, any of Steeltoe's extensions that set up the Health actuator will also register a callback on [`ApplicationStarted`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstarted) to initialize the Readiness state to `AcceptingTraffic` when the application has started, and register a callback on [`ApplicationStopping`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstopping) to change the state to `RefusingTraffic` when the application begins to shut down. These are the only defined states for this availability type.
+Out of the box, any of Steeltoe's extensions that set up the Health actuator will also register a callback on [`ApplicationStarted`](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstarted) to initialize the Readiness state to `AcceptingTraffic` when the application has started, and register a callback on [`ApplicationStopping`](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstopping) to change the state to `RefusingTraffic` when the application begins to shut down. These are the only defined states for this availability type.
 
 #### Managing Application Availability State
 
@@ -233,7 +233,7 @@ public class CustomHealthContributor : IHealthContributor
 
 ## ASP NET Core Health Checks
 
-ASP.NET Core also offers [middleware and libraries](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks) and abstractions for reporting health. There is wide community support for these abstractions from libraries such as [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). You can now use these community-provided health checks and make them available over this management health endpoint (for integration with PCF or any other infrastructure that depends on this format). In addition, Steeltoe connectors now expose functionality to get connection information, which is needed to setup these community health checks.
+ASP.NET Core also offers [middleware and libraries](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks) and abstractions for reporting health. There is wide community support for these abstractions from libraries such as [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). You can now use these community-provided health checks and make them available over this management health endpoint (for integration with PCF or any other infrastructure that depends on this format). In addition, Steeltoe connectors now expose functionality to get connection information, which is needed to setup these community health checks.
 
 For example, to use the Steeltoe MySql connector but instead use ASP.NET Core community health checks, make the following changes to Startup.cs:
 

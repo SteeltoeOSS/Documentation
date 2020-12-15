@@ -8,7 +8,7 @@ Note that placeholder defaults (for example, `default_value`) can be defined to 
 
 ## Usage
 
-You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider.
+You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider.
 
 To use the Steeltoe Placeholder resolver provider, you need to:
 
@@ -118,7 +118,7 @@ Assert.Equal("myName", config["Spring:Cloud:Config:Name"]);
 
 ### Access Configuration Data as Options
 
-Alternatively, instead of accessing the configuration data directly from the configuration, you can also use the .NET [Options](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) framework together with placeholders.
+Alternatively, instead of accessing the configuration data directly from the configuration, you can also use the .NET [Options](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) framework together with placeholders.
 
 First, consider the following `appsettings.json` and `appsettings.Development.json` files:
 

@@ -15,7 +15,7 @@ The Steeltoe Cloud Foundry provider supports the following .NET application type
 
 ## Usage
 
-You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider.
+You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider.
 
 In order to use the Steeltoe Cloud Foundry provider you need to do the following:
 
@@ -120,7 +120,7 @@ A list of all `VCAP_SERVICES` keys is available in the [VCAP_SERVICES](https://d
 
 #### ConfigureCloudFoundryOptions()
 
-Alternatively, instead of accessing the Cloud Foundry configuration data directly from the configuration, you can use the .NET [Options](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) framework together with [Dependency Injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection).
+Alternatively, instead of accessing the Cloud Foundry configuration data directly from the configuration, you can use the .NET [Options](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) framework together with [Dependency Injection](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection).
 
 The Cloud Foundry provider includes two additional classes, `CloudFoundryApplicationOptions` and `CloudFoundryServicesOptions`. Both can be configured through the Options framework to hold the parsed `VCAP_*` data by using the Options `Configure()` feature.
 

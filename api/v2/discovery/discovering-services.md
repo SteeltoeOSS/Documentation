@@ -49,7 +49,7 @@ If the name cannot be resolved, the handler ignores the request URL and lets the
 
 ### Using HttpClientFactory
 
-In addition to the `DiscoveryHttpClientHandler` mentioned above, you also have the option to use the new [HttpClientFactory](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests) together with the Steeltoe provided `DiscoveryHttpMessageHandler` for service lookup.
+In addition to the `DiscoveryHttpClientHandler` mentioned above, you also have the option to use the new [HttpClientFactory](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests) together with the Steeltoe provided `DiscoveryHttpMessageHandler` for service lookup.
 
 `DiscoveryHttpMessageHandler` is a `DelegatingHandler` that can be used, much like the `DiscoveryHttpClientHandler`, to intercept requests and to evaluate the URL to see if the host portion of the URL can be resolved from the current service registry.  The handler will do this for any `HttpClient` created by the factory.
 
@@ -96,7 +96,7 @@ public class FortuneService : IFortuneService
 }
 ```
 
-Check out the Microsoft documentation on [HttpClientFactory](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests) to see all the various ways you can make use of message handlers.
+Check out the Microsoft documentation on [HttpClientFactory](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests) to see all the various ways you can make use of message handlers.
 
 >NOTE: `DiscoveryHttpMessageHandler` has an optional `ILoadBalancer` parameter. If no `ILoadBalancer` is provided via dependency injection, a `RandomLoadBalancer` is used. To change this behavior, add an `ILoadBalancer` to the DI container or use a load-balancer first configuration as described within section 1.4 on this page.
 
