@@ -1,6 +1,6 @@
 # Distributed Tracing with Zipkin
 
-Steeltoe now uses the Zipkin Exporter provided by the [OpenTelemetry](opentelemetry.io) project. Previous versions required additional packages. The `Steeltoe.Management.ExporterBase` and  `Steeltoe.Management.ExporterCore` packages are no longer required.
+Steeltoe now uses the Zipkin Exporter provided by the [OpenTelemetry](https://opentelemetry.io) project. Previous versions required additional packages. The `Steeltoe.Management.ExporterBase` and  `Steeltoe.Management.ExporterCore` packages are no longer required.
 
 ## Zipkin Server
 
@@ -34,7 +34,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         // Add Distributed tracing
-        services.AddDistributedTracing(Configuration, builder => builer.UseZipkinWithTraceOptions(services));
+        services.AddDistributedTracing(Configuration, builder => builder.UseZipkinWithTraceOptions(services));
 
         ...
     }

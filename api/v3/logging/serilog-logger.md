@@ -25,7 +25,7 @@ You can add the provider to your project by using the following `PackageReferenc
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicSerilogBase" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicSerilogBase" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```

@@ -193,4 +193,4 @@ services.AddSingleton<IHttpClientHandlerProvider>(new MyCustomHttpClientHandlerP
 services.AddDiscoveryClient(config);
 ```
 
->You can use a single `ICertificateSource` for both Eureka and [Config Server mTLS connections](../configuration/config-server-provider#configuring-mutual-tls).
+>You can use a single `ICertificateSource` for both Eureka and [Config Server mTLS connections](../configuration/config-server-provider.md#configuring-mutual-tls).

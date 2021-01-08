@@ -18,7 +18,7 @@ The following table describes the settings that you can apply to the endpoint:
 
 The default path to the `env` endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the previous section. The default path is `/actuator/env`.
 
-See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, you can use the `AddEnvActuator` extension method from `ManagementHostBuilderExtensions`.
 

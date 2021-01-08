@@ -6,7 +6,7 @@ Single Sign-on with OpenID Connect lets you use existing credentials configured 
 
 Steeltoe builds on top of `Microsoft.AspNetCore.Authentication.OpenIdConnect`. You may benefit from reading more about using [OpenID Connect in ASP.NET Core](https://andrewlock.net/an-introduction-to-openid-connect-in-asp-net-core/).
 
-Usage of Steeltoe's OpenID Connect provider is effectively identical to that of the OAuth2 provider, although the behind-the-scenes story is a little different. The OpenID Connect provider uses Microsoft's OpenId Connect implementation, and settings are based on [`Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.authentication.openidconnect.openidconnectoptions), with these additional properties:
+Usage of Steeltoe's OpenID Connect provider is effectively identical to that of the OAuth2 provider, although the behind-the-scenes story is a little different. The OpenID Connect provider uses Microsoft's OpenId Connect implementation, and settings are based on [`Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions`](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.openidconnect.openidconnectoptions), with these additional properties:
 
 | Name | Description | Default |
 | --- | --- | --- |

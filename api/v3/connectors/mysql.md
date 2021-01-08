@@ -12,13 +12,13 @@ The following Steeltoe sample applications can help you understand how to use th
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
 * [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot (Java and .NET) microservices-based sample application showing interoperability between Java- and .NET-based microservices running on Cloud Foundry, secured with OAuth2 Security Services and using Spring Cloud Services.
 
-This connector provides a `IHealthContributor` object, which you can use in conjunction with the [Steeltoe Management Health](../management/health.html) check endpoint.
+This connector provides a `IHealthContributor` object, which you can use in conjunction with the [Steeltoe Management Health](../management/health.md) check endpoint.
 
 ## Usage
 
-You should know how the .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary to configure the connector.
+You should know how the .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary to configure the connector.
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
+You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
 
 To use this connector:
 
@@ -80,7 +80,7 @@ The following table describes the available settings for the connector. These se
 
 >IMPORTANT: All of the settings described in the preceding table should be prefixed with `MySql:Client:`.
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
+The samples and most templates are already set up to read from `appsettings.json`.
 
 >If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
 
@@ -165,13 +165,7 @@ public class HomeController : Controller
 
 ### Add DbContext
 
-This section describes how to add a DbContext to
-
-* <a href="#steeltoe-connectors-mysql-entity-framework-6">Entity Framework 6</a>
-* <a href="#steeltoe-connectors-mysql-entity-framework-core">Entity Framework Core</a>
-* Entity Framework Core
-
-<a name="steeltoe-connectors-mysql-entity-framework-6"></a>
+This section describes how to add a DbContext with both Entity Framework 6 and Entity Framework Core
 
 #### Entity Framework 6
 
@@ -215,8 +209,6 @@ public class TestContext : DbContext
     public DbSet<TestData> TestData { get; set; }
 }
 ```
-
-<a name="steeltoe-connectors-mysql-entity-framework-core"></a>
 
 #### Entity Framework Core
 
@@ -264,7 +256,7 @@ If you need to set additional properties for the `DbContext` like `MigrationsAss
 Action<MySqlDbContextOptionsBuilder> mySqlOptionsAction = (o) =>
 {
   o.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-  // Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
+  // Configuring Connection Resiliency: https://docs.microsoft.com/ef/core/miscellaneous/connection-resiliency
   o.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
 };
 ```

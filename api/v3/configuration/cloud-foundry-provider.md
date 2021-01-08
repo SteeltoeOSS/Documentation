@@ -8,7 +8,7 @@ You can read more information on the Cloud Foundry environment variables at the 
 
 ## Usage
 
-You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider.
+You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider.
 
 In order to use the Steeltoe Cloud Foundry provider, you need to do the following:
 
@@ -31,7 +31,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.0.0" />
+    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.0.2" />
 ...
 </ItemGroup>
 ```
@@ -108,16 +108,9 @@ A list of all `VCAP_SERVICES` keys is available in the [VCAP_SERVICES](https://d
 
 ### Access Configuration Data as Options
 
-This section describes how to use two methods to configure configuration data:
-
-* <a href="#steeltoe-cloud-foundry-provider-using-the-configurecloudfoundryoptions-method">Using the ConfigureCloudFoundryOptions() Method</a>
-* <a href="#steeltoe-cloud-foundry-provider-using-the-configurecloudfoundryservice-method">Using the ConfigureCloudFoundryService() Method</a>
-
-<a name="">steeltoe-cloud-foundry-provider-using-the-configurecloudfoundryoptions-method</a>
-
 #### Using the ConfigureCloudFoundryOptions() Method
 
-Alternatively, instead of accessing the Cloud Foundry configuration data directly from the configuration, you can use the .NET [Options](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) framework together with [Dependency Injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection).
+Alternatively, instead of accessing the Cloud Foundry configuration data directly from the configuration, you can use the .NET [Options](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) framework together with [Dependency Injection](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection).
 
 The Cloud Foundry provider includes two additional classes, `CloudFoundryApplicationOptions` and `CloudFoundryServicesOptions`. You can configured both through the options framework to hold the parsed `VCAP_*` data by using the options `Configure()` feature.
 
@@ -172,8 +165,6 @@ public class HomeController : Controller
     }
 }
 ```
-
-<a name="steeltoe-cloud-foundry-provider-using-the-configurecloudfoundryservice-method"></a>
 
 #### ConfigureCloudFoundryService()
 

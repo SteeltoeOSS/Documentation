@@ -1,8 +1,8 @@
 # Prometheus
 
-The Steeltoe prometheus endpoint exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format.  Similar to the [Metrics Endpoint](./metrics.html), it automatically configures built-in instrumentation of various aspects of the application.
+The Steeltoe prometheus endpoint exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format.  Similar to the [Metrics Endpoint](./metrics.md), it automatically configures built-in instrumentation of various aspects of the application.
 
-The metrics collected are the same as those collected by the [metrics endpoint](./metrics.html).
+The metrics collected are the same as those collected by the [metrics endpoint](./metrics.md).
 
 ## Configure Settings
 
@@ -15,13 +15,13 @@ The following table describes the settings that you can apply to the endpoint:
 
 >Each setting must be prefixed with `Management:Endpoints:Prometheus`.
 
-To configure Observers, see [Metric Observers](./metric-observers.html)
+To configure Observers, see [Metric Observers](./metric-observers.md)
 
 ## Enable HTTP Access
 
 The default path to the Prometheus endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is `/actuator/prometheus`.
 
-See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, use the `AddPrometheusActuator` extension method from `ManagementHostBuilderExtensions`.
 
@@ -50,7 +50,7 @@ To use the Prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```
@@ -58,7 +58,7 @@ To use the Prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 Alternatively, you can use PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0
+PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.2
 ```
 
 ## Cloud Foundry
