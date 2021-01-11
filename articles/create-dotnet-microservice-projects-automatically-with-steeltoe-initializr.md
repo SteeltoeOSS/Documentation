@@ -63,8 +63,10 @@ Invoke-RestMethod -Method 'Post' -Uri '[https://start.steeltoe.io/api/project](h
 # [Bash](#tab/bash)
 
 ```bash
-$ curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,dynamic-logger,sqlserver 
+curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,dynamic-logger,sqlserver 
 ```
+
+***
 
 The result will be a zip of the newly minted csproj. Within are all the best ways to implement Steeltoe actuators and Steeltoe SQL cloud connector.
 
@@ -115,7 +117,7 @@ Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -B
 # [Bash](#tab/bash)
 
 ```bash
-$ curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,sqlserver 
+curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,sqlserver 
 ```
 
 ***
