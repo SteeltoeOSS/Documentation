@@ -21,12 +21,11 @@ Then there's shared services. Something like an authentication service is usuall
 
 When you are creating each of these microservices it turns into a rinse and repeat exercise. You are tempted to create a template or at least a script to do all the `dotnet new webapi` commands, taking into account namespaces and nuances.
 
-As it turns out this is such a common task, tools have been created to help you through this. One notable tool is the dotnet templating engine. It gives a team the ability to crank out the beginnings of microservices in a flash. The challenge is, the nature of the tool is limiting once you look past a single developer team - to the entire organization. The need for a more distributable model arises quickly. One where different folks with different roles can all collaborate together to keep best practices and the latest patches in all new development.
+As it turns out this is such a common task, tools have been created to help you through this. One notable tool is the dotnet templating engine. It gives a team the ability to crank out the beginnings of microservices in a flash. The challenge is once you look past a single developer to the entire organization the need for a more distributable model arises quickly. One where different folks with different roles can collaborate to keep best practices a priority and the latest patches a reality, in all new development.
 
 Also, because development doesn't happen in a vacuum, there is a constant flow of new services rolling out to make microservices better/faster/stronger. So when that new microservice is getting underway you want to do what's right (and use that new service) but you don't want to spend hours learning how to implement it.
 
 All of this is why the Steeltoe Initializr project was created. Initializr aims to get you (the developer) going faster, while making the right way the easy way. It does this with extensible APIs that generate production ready .NET projects (csproj). Initializr options are expressed in a metadata model so the tool can grow with the community, as target frameworks change, Steeltoe versions advance, and individual dependencies offer new releases.
-
 
 ## Getting started with Initializr
 
@@ -72,9 +71,9 @@ The result will be a zip of the newly minted csproj. Within are all the best way
 
 If interacting with web services are more of your foray, then Initializr's rest endpoints are the place to be. You won't be missing out on any options the UI offers, as it uses the endpoints internally. On a Windows desktop powershell's Invoke-RestMethod will interact perfectly. Just provide the endpoint address, method, and outfile. If you're generating a new project all it's metadata can be included in the body.
 
-If you're on Linux or Macintosh, a terminal session using curl or httpie is also very simple. Similar to Powershell, provide the appropriate options and metadata to receive the generated zip.
+If you're on Linux or Macintosh, a terminal session using `curl` or HTTPie it is also very simple. Similar to Powershell, provide the appropriate options and metadata to receive the generated zip.
 
-Through either the web UI or the rest endpoints Initializr will get your microservices going fast. Which means you'll be checking in a production ready service in no time!
+Through either the web UI or the rest endpoints, Initializr will get your microservices going fast. Which means you'll be checking in a production ready service in no time!
 
 ## Using the API Endpoints
 
@@ -98,11 +97,11 @@ Below is a brief explanation of Initializr's top level endpoints. But the conver
 
 ## About dependencies
 
-Initializr's special sauce is the collection of dependencies. It's the reason the tool is so powerful. It's also worthy of an entire discussion - there's quite a few moving parts. We're not going to get too deep in Initializr's inner workings at this time. So, if you would like to get deeper the [project's documentation](https://docs.steeltoe.io/api/v3/initializr) is waiting just for you. 
+Initializr's special sauce is the collection of dependencies. It's the reason the tool is so powerful. It's also worthy of an entire discussion - there's quite a few moving parts. We're not going to get too deep in Initializr's inner workings at this time. So, if you would like to get deeper the [project's documentation](https://docs.steeltoe.io/api/v3/initializr) is waiting just for you.
 
-When Initializr generates a new project that has added dependencies, the templating is used to “fill in the blanks". Let see an example of this in action.
+When Initializr generates a new project that has added dependencies, the templating is used to “fill in the blanks”. Let see an example of this in action.
 
-Say we want to create a new .NET Core webapi microservice that has health checking built in and is going to connect with a Microsoft SQL database. On [start.steeltoe.io](https://start.steeltoe.io) you could choose the “Actuators" dependency and the “Microsoft SQL Server" dependency. Then “Generate" the project and you're on the way to cloud-native nirvana.
+Say we want to create a new .NET Core webapi microservice that has health checking built in and is going to connect with a Microsoft SQL database. On [start.steeltoe.io](https://start.steeltoe.io) you could choose the “Actuators” dependency and the “Microsoft SQL Server” dependency. Then “Generate” the project and you're on the way to cloud-native nirvana.
 
 Alternatively you could also run the following command:
 
