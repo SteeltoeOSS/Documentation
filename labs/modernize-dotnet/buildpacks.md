@@ -1,5 +1,5 @@
 ---
-uid: labs/modernize-dotnet/exercise1
+uid: labs/modernize-dotnet/buildpacks
 _disableContribution: true
 _disableToc: true
 _disableFooter: true

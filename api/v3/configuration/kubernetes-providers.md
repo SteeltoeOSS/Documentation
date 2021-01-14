@@ -22,7 +22,7 @@ These configuration providers will search for resources named `<ApplicationName>
 
 ## Usage
 
-These providers integrate with [.NET Configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration), you may wish to read more of that documentation if you're not familiar with it.
+These providers integrate with [.NET Configuration](https://docs.microsoft.com/aspnet/core/fundamentals/configuration), you may wish to read more of that documentation if you're not familiar with it.
 
 The steps to use both Steeltoe Kubernetes configuration providers are the same:
 
@@ -46,7 +46,7 @@ To add this type of NuGet to your project, add a `PackageReference` that resembl
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.KubernetesCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.KubernetesCore" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```

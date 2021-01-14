@@ -36,7 +36,7 @@ The coding steps you take to enable HTTP access to the Trace endpoint differs de
 
 ### ASP.NET Core App
 
-Refer to the [HTTP Access ASP.NET Core](#http-access-asp-net-core) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+Refer to the [HTTP Access ASP.NET Core](./using-endpoints.md#http-access-aspnet-core) section below to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the Trace actuator to the service container, use the `AddTraceActuator()` extension method from `EndpointServiceCollectionExtensions`.
 

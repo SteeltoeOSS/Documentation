@@ -6,8 +6,8 @@ Steeltoe provides a base set of endpoint functionality, along with several imple
 
 In this section, it is helpful to understand the following:
 
-* How the .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works and an understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
-* How the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
+* How the .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works and an understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+* How the ASP.NET Core [`Startup`](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
 
 When adding Steeltoe Management endpoints to your ASP.NET 4.x applications, you can choose between using HTTP modules and OWIN middleware. If you select HTTP modules, you should be familiar with `Global.asax.cs` and how it is used in initializing and configuring your application. If you select the OWIN middleware approach, you should be familiar with how the Startup class is used in configuring application middleware. The rest of this document will refer to the HTTP Module implementation simply as ASP.NET 4.x, and the OWIN implementation as ASP.NET OWIN.
 
@@ -19,18 +19,18 @@ The following table describes the available Steeltoe management endpoints that c
 
 |ID|Description|
 |---|---|
-| [cloudfoundry](./cloud-foundry.html) | Enables the management endpoint integration with Cloud Foundry. |
-| [dump](./dump.html)  | Generates and reports a snapshot of the application's threads (Windows only). |
-| [env](./env.html) | Reports the keys and values from the application's configuration. |
-| [health](./health.html) | Customizable endpoint that gathers application health information. |
-| [heapdump](./heapdump.html) | Generates and downloads a mini-dump of the application (Windows and Linux only). |
-| [hypermedia](./hypermedia.html) | Provides the hypermedia endpoint for discovery of all available endpoints. |
-| [info](./info.html) | Customizable endpoint that gathers arbitrary application information (such as Git Build info). |
-| [loggers](./loggers.html) | Gathers existing loggers and allows modification of logging levels. |
-| [mappings](./mappings.html) | Reports the configured ASP.NET routes and route templates. |
-| [metrics](./metrics.html) | Reports the collected metrics for the application. |
-| [refresh](./refresh.html) | Triggers the application configuration to be reloaded. |
-| [trace](./trace.html) | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
+| [cloudfoundry](./cloud-foundry.md) | Enables the management endpoint integration with Cloud Foundry. |
+| [dump](./dump.md)  | Generates and reports a snapshot of the application's threads (Windows only). |
+| [env](./env.md) | Reports the keys and values from the application's configuration. |
+| [health](./health.md) | Customizable endpoint that gathers application health information. |
+| [heapdump](./heapdump.md) | Generates and downloads a mini-dump of the application (Windows and Linux only). |
+| [hypermedia](./hypermedia.md) | Provides the hypermedia endpoint for discovery of all available endpoints. |
+| [info](./info.md) | Customizable endpoint that gathers arbitrary application information (such as Git Build info). |
+| [loggers](./loggers.md) | Gathers existing loggers and allows modification of logging levels. |
+| [mappings](./mappings.md) | Reports the configured ASP.NET routes and route templates. |
+| [metrics](./metrics.md) | Reports the collected metrics for the application. |
+| [refresh](./refresh.md) | Triggers the application configuration to be reloaded. |
+| [trace](./tracing.md) | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint below is mapped to `/health`.
 
@@ -56,7 +56,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "2.2.0"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
@@ -64,12 +64,12 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 or
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointWeb -Version 2.2.0
+PM>Install-Package  Steeltoe.Management.EndpointWeb -Version 2.5.2
 ```
 
 ## Configure Global Settings
 
-Endpoints can be configured by using the normal .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration). You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.
+Endpoints can be configured by using the normal .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration). You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.
 
 All management endpoint settings should be placed under the prefix with the key `management:endpoints`. Any settings found under this prefix apply to all endpoints globally.
 
@@ -112,7 +112,7 @@ Since endpoints may contain sensitive information, only Health and Info are expo
 }
 ```
 
->NOTE: The exposure settings do not apply to endpoint routes mapped to the /cloudfoundryapplication context. If you add the Cloud Foundry endpoint, it will provide a route to access all endpoints without respecting the exposure settings through either the global path specified or its default of "/actuator". On the contrary, if you do not add either the Cloud Foundry or Hypermedia actuators, the default settings still apply. Adding endpoints other than health and info will require you to explicitly set the exposure setting. 
+>NOTE: The exposure settings do not apply to endpoint routes mapped to the /cloudfoundryapplication context. If you add the Cloud Foundry endpoint, it will provide a route to access all endpoints without respecting the exposure settings through either the global path specified or its default of "/actuator". On the contrary, if you do not add either the Cloud Foundry or Hypermedia actuators, the default settings still apply. Adding endpoints other than health and info will require you to explicitly set the exposure setting.
 
 The upcoming sections show the settings that you can apply to specific endpoints.
 
@@ -176,7 +176,7 @@ public class Startup
 }
 ```
 
->NOTE: The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-2.1&tabs=aspnetcore2x) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
+>NOTE: The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/?view=aspnetcore-2.1&tabs=aspnetcore2x) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
 
 ### HTTP Access ASP.NET 4.x
 
@@ -312,4 +312,3 @@ public class Startup
     }
 }
 ```
-

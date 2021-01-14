@@ -14,7 +14,7 @@ The Placeholder resolver provider supports the following .NET application types:
 
 ## Usage
 
-You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider.
+You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider.
 
 In order to use the Steeltoe Placeholder resolver provider you need to do the following:
 
@@ -39,7 +39,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version= "2.2.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
@@ -126,7 +126,7 @@ Assert.Equal("myName", config["spring:cloud:config:name"]);
 
 ### Access Configuration Data as Options
 
-Alternatively, instead of accessing the configuration data directly from the configuration, you can also use the .NET [Options](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) framework together with placeholders.
+Alternatively, instead of accessing the configuration data directly from the configuration, you can also use the .NET [Options](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) framework together with placeholders.
 
 First, consider the following `appsettings.json` and `appsettings.Development.json` files:
 
@@ -210,4 +210,3 @@ public class Startup
     ....
 }
 ```
-

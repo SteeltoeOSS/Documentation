@@ -11,7 +11,7 @@ Each value contained in the configuration is tied to a string-typed key or name.
 * Environment variables
 * Custom providers
 
-To better understand .NET configuration services, you should read the [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) documentation. Note that, while the documentation link suggests this service is tied to ASP.NET Core, it is not. It can be used in many different application types, including Console, ASP.NET 4.x., UWP, and others.
+To better understand .NET configuration services, you should read the [ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) documentation. Note that, while the documentation link suggests this service is tied to ASP.NET Core, it is not. It can be used in many different application types, including Console, ASP.NET 4.x., UWP, and others.
 
 Steeltoe adds additional configuration providers to the preceding list:
 

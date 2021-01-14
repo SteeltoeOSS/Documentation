@@ -8,7 +8,7 @@ For more information on how to use [Pivotal Apps Manager](https://docs.pivotal.i
 
 ## Usage
 
-Before starting to use Steeltoe provider, you should have a good understanding of how the .NET [Logging service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x) works, as it is nothing more than a wrapper around the existing Microsoft Console logger.
+Before starting to use Steeltoe provider, you should have a good understanding of how the .NET [Logging service](https://docs.microsoft.com/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x) works, as it is nothing more than a wrapper around the existing Microsoft Console logger.
 
 In order to use the Steeltoe logging provider, you need to do the following:
 
@@ -27,14 +27,14 @@ You can add the provider to your project by using the following `PackageReferenc
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicLogger" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicLogger" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
 
 ### Configure Settings
 
-As mentioned earlier, the Steeltoe Logging provider is a wrapper around the Microsoft Console logging provider. Consequently, you can configure it the same way you would the Microsoft provider. For more details on how this is done, see the section on [Log Filtering](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x#log-filtering).
+As mentioned earlier, the Steeltoe Logging provider is a wrapper around the Microsoft Console logging provider. Consequently, you can configure it the same way you would the Microsoft provider. For more details on how this is done, see the section on [Log Filtering](https://docs.microsoft.com/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x#log-filtering).
 
 ### Add Logging Provider
 

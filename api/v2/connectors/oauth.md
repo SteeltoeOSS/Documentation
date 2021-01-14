@@ -1,12 +1,12 @@
 # OAuth
 
-This connector simplifies using Cloud Foundry OAuth2 security services (for example, [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) by exposing the Cloud Foundry OAuth service configuration data as injectable `IOption<OAuthServiceOptions>`. It is used by the [Cloud Foundry External Security Providers](../security/) but can be used separately.
+This connector simplifies using Cloud Foundry OAuth2 security services (for example, [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) by exposing the Cloud Foundry OAuth service configuration data as injectable `IOption<OAuthServiceOptions>`. It is used by the [Cloud Foundry External Security Providers](../security/index.md) but can be used separately.
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder.
+You should know how the new .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder.
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
+You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
 
 You probably want some understanding of Cloud Foundry OAuth2 security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) before starting to use this connector.
 
@@ -42,7 +42,7 @@ Configuring additional settings for the connector is not typically required, but
 
 >CAUTION: Self-signed certificates are inherently insecure. Never use them for a production environment.
 
-The samples and most templates are already set up to read from `appsettings.json`. 
+The samples and most templates are already set up to read from `appsettings.json`.
 
 ### Cloud Foundry
 
@@ -50,7 +50,7 @@ There are multiple ways to set up OAuth services on Cloud Foundry.
 
 There is a user-provided service to define a direct binding to the Cloud Foundry UAA server. Alternatively, you can use the [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) product to provision an OAuth service binding. The process to create service binding varies for each of the approaches.
 
-Regardless of which you choose, once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`. 
+Regardless of which you choose, once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
 ### Add OAuthServiceOptions
 
