@@ -6,7 +6,12 @@ pool:
   vmImage: 'windows-latest'
 
 trigger:
-  - dev
+  branches:
+    include:
+      - dev
+  paths:
+    exclude:
+    - CI/*
 
 steps:
 - powershell: |
