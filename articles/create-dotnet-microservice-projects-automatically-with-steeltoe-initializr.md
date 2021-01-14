@@ -75,9 +75,9 @@ If you're on Linux or Macintosh, a terminal session using `curl` or HTTPie it is
 
 Through either the web UI or the rest endpoints, Initializr will get your microservices going fast. Which means you'll be checking in a production ready service in no time!
 
-## Using the API Endpoints
+If you're on Linux or Macintosh, a terminal session using `curl` or HTTPie it is also very simple. Similar to Powershell, provide the appropriate options and metadata to receive the generated zip.
 
-Initializr's API offers a few very helpful endpoints. It's how the web UI is able to create such a great experience and how the community could extend its capabilities into Visual Studio or other developer related tools.
+Through either the web UI or the rest endpoints, Initializr will get your microservices going fast. Which means you'll be checking in a production ready service in no time!
 
 Below is a brief explanation of Initializr's top level endpoints. But the conversation doesn't stop there. Each of these endpoints offer all kinds of deeper sub-url's that drill down to specifics of Initializr's config. Read more about [them here](https://docs.steeltoe.io/api/v3/initializr).
 
@@ -89,13 +89,11 @@ Below is a brief explanation of Initializr's top level endpoints. But the conver
 
   The endpoint `https://start.steeltoe.io/api/project` supports both the GET and POST methods. This is where all the Initializr magic happens. Send a GET request and include parameters in the querystring. Send a POST request and provide your project metadata as JSON in the body. Either way the response will be a zip of the generated project.
 
-  **Service Configuration**
+Initializr's special sauce is the collection of dependencies. It's the reason the tool is so powerful. It's also worthy of an entire discussion - there's quite a few moving parts. We're not going to get too deep in Initializr's inner workings at this time. So, if you would like to get deeper the [project's documentation](https://docs.steeltoe.io/api/v3/initializr) is waiting just for you.
 
-  The config endpoint ([https://start.steeltoe.io/api/config/](https://start.steeltoe.io/api/config/)) provides a way to get how Initializr has been configured. This endpoint has quite a few sub-endpoints that let you drill deeper into specific config values. Say you wanted to know what .NET runtimes are supported as well what the default version is. You could send a request to [https://start.steeltoe.io/api/config/dotNetFrameworks](https://start.steeltoe.io/api/config/dotNetFrameworks) and receive a JSON formatted answer.
+When Initializr generates a new project that has added dependencies, the templating is used to “fill in the blanks”. Let see an example of this in action.
 
-  You can create quite a rich set of tooling with the config endpoint. In true cloud-native design, you can run instances of Initializr in different environments while the tooling keeps a consistent experience.
-
-## About dependencies
+Say we want to create a new .NET Core webapi microservice that has health checking built in and is going to connect with a Microsoft SQL database. On [start.steeltoe.io](https://start.steeltoe.io) you could choose the “Actuators” dependency and the “Microsoft SQL Server” dependency. Then “Generate” the project and you're on the way to cloud-native nirvana.
 
 Initializr's special sauce is the collection of dependencies. It's the reason the tool is so powerful. It's also worthy of an entire discussion - there's quite a few moving parts. We're not going to get too deep in Initializr's inner workings at this time. So, if you would like to get deeper the [project's documentation](https://docs.steeltoe.io/api/v3/initializr) is waiting just for you.
 
