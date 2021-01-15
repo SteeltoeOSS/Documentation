@@ -1,10 +1,12 @@
 ---
-_disableContribution: true
-_disableToc: true
+#_disableContribution: true
+#_disableToc: true
 _disableFooter: true
-_homePath: "./index.html"
-_disableNav: true
+#_homePath: "./index.html"
+#_disableNav: true
 uid: labs/get-to-know-steeltoe
+title: Get To Know Steeltoe
+tags: ["get-started"]
 ---
 
 [strigo-desktop-vs]: ~/labs/images/strigo-desktop-vs.png "Strigo windows placement with Visual Studio"
@@ -15,7 +17,7 @@ uid: labs/get-to-know-steeltoe
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-## Spring One Workshops - Getting started with .NET microserivces and Steeltoe
+## Getting started with .NET microserivces and Steeltoe
 
 Are you creating new .NET microservices for the cloud? Modernizing existing applications? Or are you just plain moving apps to containers? In all cases, Steeltoe is here to make your life much easier. In this workshop we’ll take a basic ASP.NET Core webapi project, and make it a cloud rock star with [surprisingly] little code. Along the way the app will use:
 

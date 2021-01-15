@@ -22,7 +22,7 @@
 					Learn
 				</a>
 				<div class="dropdown-menu" aria-labelledby="learn">
-					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/get-started" onClick="$(this).removeAttr('target')">Get Started</a>
+					<a class="dropdown-item" id="labsNavLink" href="~/labs/" onClick="$(this).removeAttr('target')">Get Started</a>
 					<a class="dropdown-item active" id="docsNavLink" href="~/api/v3/welcome/" onClick="$(this).removeAttr('target')">Documentation</a>
 					<a class="dropdown-item" id="blogNavLink" href="~/articles/" onClick="$(this).removeAttr('target')">Blog</a>
 				</div>

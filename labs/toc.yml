@@ -1,0 +1,19 @@
+- topicUid: labs/get-to-know-steeltoe
+- name: Application Configuration
+  items:
+    - topicUid: labs/application-configuration/spring-config
+    - topicUid: labs/application-configuration/cloud-foundry
+    - topicUid: labs/application-configuration/placeholder
+    - topicUid: labs/application-configuration/random-value
+- name: Circuit Breakers
+  items:
+    - topicUid: labs/circuit-breakers/circuit-breaker
+- name: Cloud Management
+  items:
+    - topicUid: labs/cloud-management/distributed-tracing
+    - topicUid: labs/cloud-management/endpoints-framework
+    - topicUid: labs/cloud-management/endpoints-netcore
+    - topicUid: labs/cloud-management/logging
+- name: Messaging
+  items:
+    - topicUid: labs/messaging/rabbitmq
