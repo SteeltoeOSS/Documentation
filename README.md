@@ -100,11 +100,11 @@ By default the navigation links will use the live site (https://steeltoe.io) as 
 If running the MainSite locally on port 8080, then use the localServer metadata file.
 
 ```powershell
-docfx build --serve --port 8082 --globalMetadataFiles "localServer.json"
+docfx build --serve --port 8082 --globalMetadataFiles "localServer.json" --logLevel Warning
 ```
 
-If running the MainSite locally on the dev site, then use the dev metadata file.
+If running the MainSite locally with the dev site, then use the dev metadata file.
 
 ```powershell
-docfx build --serve --port 8082 --globalMetadataFiles "dev.json"
+docfx build --serve --port 8082 --globalMetadataFiles "dev.json" --logLevel Warning
 ```
