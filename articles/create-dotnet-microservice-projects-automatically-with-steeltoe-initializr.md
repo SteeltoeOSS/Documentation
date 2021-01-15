@@ -62,7 +62,7 @@ Invoke-RestMethod -Method 'Post' -Uri '[https://start.steeltoe.io/api/project](h
 # [Bash](#tab/bash)
 
 ```bash
-curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,dynamic-logger,sqlserver 
+curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,dynamic-logger,sqlserver
 ```
 
 ***
