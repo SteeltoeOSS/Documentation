@@ -13,6 +13,7 @@ trigger:
   paths:
     exclude:
     - CI/*
+    - README.md
 
 steps:
 - powershell: |
