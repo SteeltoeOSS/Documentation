@@ -83,15 +83,15 @@ Below is a brief explanation of Initializr's top level endpoints. But the conver
 
   **Endpoint Home**
   
-  Sending a GET request to this endpoint ([https://start.steeltoe.io/api](https://start.steeltoe.io/api/config)/) will respond with essentials of the service. Things like what parameters can be provided when generating a project and what dependencies are available for use.
+  Sending a GET request to this endpoint ([https://start.steeltoe.io/api/](https://start.steeltoe.io/api/)) will respond with essentials of the service. Things like what parameters can be provided when generating a project and what dependencies are available for use.
   
   **Generate Project**
   
-  This endpoint supports both the GET and POST methods. This is where all the Initializr magic happens. As a GET request include parameters in the querystring. As a POST request, provide your project metadata as JSON in the body. Either way the response will be a zip of the generated project.
+  The endpoint `https://start.steeltoe.io/api/project` supports both the GET and POST methods. This is where all the Initializr magic happens. Send a GET request and include parameters in the querystring. Send a POST request and provide your project metadata as JSON in the body. Either way the response will be a zip of the generated project.
   
   **Service Configuration**
   
-  The config endpoint ([https://start.steeltoe.io/api/config](https://start.steeltoe.io/api/config)/) provides a way to get how Initializr has been configured. This endpoint has quite a few sub-endpoints that let you drill deeper into specific config values. Say you wanted to know what .NET runtimes are supported as well what the default version is. You could send a request to [https://start.steeltoe.io/api/config/dotNetFrameworks](http://52.179.217.184/api/project) and receive a JSON formatted answer.
+  The config endpoint ([https://start.steeltoe.io/api/config/](https://start.steeltoe.io/api/config/)) provides a way to get how Initializr has been configured. This endpoint has quite a few sub-endpoints that let you drill deeper into specific config values. Say you wanted to know what .NET runtimes are supported as well what the default version is. You could send a request to [https://start.steeltoe.io/api/config/dotNetFrameworks](https://start.steeltoe.io/api/config/dotNetFrameworks) and receive a JSON formatted answer.
   
   You can create quite a rich set of tooling with the config endpoint. In true cloud-native design, you can run instances of Initializr in different environments while the tooling keeps a consistent experience.
 
