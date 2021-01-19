@@ -5,6 +5,7 @@ tags: []
 _disableFooter: true
 ---
 ## App Configuration with Cloud Foundry
+
 This tutorial takes you through setting up a .NET Core application that retrieves environment variable values from Cloud Foundry.
 
 First, **create a .NET Core WebAPI** that retrieves (configuration) environment variables from Cloud Foundry.
