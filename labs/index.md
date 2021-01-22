@@ -1,7 +1,17 @@
+---
+_hideTocVersionToggle: true
+uid: labs/index
+title: Steeltoe Get Started
+tags: []
+_disableFooter: true
+---
+
 # Get Started with Steeltoe
 
-## @labs/get-to-know-steeltoe
- 
+## The Basics
+
+- @labs/get-to-know-steeltoe
+
 ## Application Configuration
 
 - @labs/application-configuration/spring-config
@@ -32,12 +42,12 @@
 
 ## Security
 
-- @labs/security/credhub
-- @labs/security/jwt
-- @labs/security/redisstore
-- @labs/security/sso-oauth
-- @labs/security/sso-openid-framework
-- @labs/security/sso-openid-netcore
+- @labs/security-providers/credhub
+- @labs/security-providers/jwt
+- @labs/security-providers/redisstore
+- @labs/security-providers/sso-oauth
+- @labs/security-providers/sso-openid-framework
+- @labs/security-providers/sso-openid-netcore
 
 ## Service Connectors
 
