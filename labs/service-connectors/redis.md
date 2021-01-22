@@ -1,28 +1,26 @@
 ---
-uid: labs/service-connectors/mongo
-title: Mongo Database
+uid: labs/service-connectors/redis
+title: Redis Cache
 tags: []
 _disableFooter: true
 ---
 
-## Using Service Connectors with Mongo DB
+## Using Service Connectors with Redis Cache
 
-This tutorial takes you through setting up a .NET Core application with the Mongo DB service connector.
+This tutorial takes you through setting up a .NET Core application with the Redis service connector.
 
-First, **start a Mongo DB instance**. Depending on your hosting platform this is done in several ways.
+First, **start a Redis instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Redis.
 
-1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Mongo. 
+ ```powershell
+ docker run --publish 6379:6379 steeltoeoss/redis
+ ```
 
-    ```powershell
-    docker run --env MONGO_INITDB_ROOT_USERNAME=steeltoe --env MONGO_INITDB_ROOT_PASSWORD=Steeltoe234 --publish 27017:27017 mongo
-     ```
-
-Next, **create a .NET Core WebAPI** that interacts with Mongo DB
+Next, **create a .NET Core WebAPI** that interacts with Redis
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-    ![Steeltoe Initialzr](~/labs/images/initializr/mongo-connector.png)
-1. Name the project "Mongo_Connector"
-1. Add the "MongoDB" dependency
+    ![Steeltoe Initialzr](~/labs/images/initializr/redis.png)
+1. Name the project "Redis_Connector"
+1. Add the "Redis" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
 1. Set the instance address in **appsettings.json**
@@ -32,9 +30,7 @@ Next, **create a .NET Core WebAPI** that interacts with Mongo DB
       "mongodb": {
         "client": {
           "server": "127.0.0.1",
-          "port": "27017",
-          "username": "steeltoe",
-          "password": "Steeltoe234"
+          "port": "6379"
         }
       }
     }
@@ -48,7 +44,7 @@ Next, **create a .NET Core WebAPI** that interacts with Mongo DB
   # [.NET cli](#tab/cli)
 
   ```powershell
-  dotnet run <PATH_TO>\Mongo_Connector.csproj
+  dotnet run <PATH_TO>\Redis_Connector.csproj
   ```
 
   Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
@@ -60,5 +56,5 @@ Next, **create a .NET Core WebAPI** that interacts with Mongo DB
   
   ***
 
-Once the app loads in the browser you will see a list of the default databases installed with Mongo.
-"["admin","config","local"]"
+Once the app loads in the browser you will see the 2 values that were written and retrieved from Redis.
+"[123,456]"

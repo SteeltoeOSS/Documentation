@@ -1,40 +1,38 @@
 ---
-uid: labs/service-connectors/mongo
-title: Mongo Database
+uid: labs/service-connectors/postgresql
+title: PostgreSQL Database
 tags: []
 _disableFooter: true
 ---
 
-## Using Service Connectors with Mongo DB
+## Using Service Connectors with PostgreSQL Database
 
-This tutorial takes you through setting up a .NET Core application with the Mongo DB service connector.
+This tutorial takes you through setting up a .NET Core application with the PostgreSQL service connector.
 
-First, **start a Mongo DB instance**. Depending on your hosting platform this is done in several ways.
+First, **start a PostgreSQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of PostgreSQL.
 
-1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Mongo. 
+ ```powershell
+ docker run --env POSTGRES_PASSWORD=Steeltoe789 --publish 5432:5432 steeltoeoss/postgresql
+ ```
 
-    ```powershell
-    docker run --env MONGO_INITDB_ROOT_USERNAME=steeltoe --env MONGO_INITDB_ROOT_PASSWORD=Steeltoe234 --publish 27017:27017 mongo
-     ```
-
-Next, **create a .NET Core WebAPI** that interacts with Mongo DB
+Next, **create a .NET Core WebAPI** that interacts with PostgreSQL
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
     ![Steeltoe Initialzr](~/labs/images/initializr/mongo-connector.png)
-1. Name the project "Mongo_Connector"
-1. Add the "MongoDB" dependency
+1. Name the project "Postgre_Connector"
+1. Add the "PostgreSQL" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
 1. Set the instance address in **appsettings.json**
 
     ```json
     {
-      "mongodb": {
+      "postgres": {
         "client": {
           "server": "127.0.0.1",
-          "port": "27017",
-          "username": "steeltoe",
-          "password": "Steeltoe234"
+          "port": "5432",
+          "username": "postgres",
+          "password": "Steeltoe789"
         }
       }
     }
@@ -60,5 +58,5 @@ Next, **create a .NET Core WebAPI** that interacts with Mongo DB
   
   ***
 
-Once the app loads in the browser you will see a list of the default databases installed with Mongo.
-"["admin","config","local"]"
+Once the app loads in the browser you will see a list of the default database schemas installed with PostgreSQL.
+"["UTF8","UTF8","UTF8"]"

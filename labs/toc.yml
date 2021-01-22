@@ -17,3 +17,29 @@
 - name: Messaging
   items:
     - topicUid: labs/messaging/rabbitmq
+- name: Observability
+  items:
+    - topicUid: labs/observability/grafana
+    - topicUid: labs/observability/tanzu
+    - topicUid: labs/observability/wavefront
+- name: Security
+  items:
+    - topicUid: labs/security/credhub
+    - topicUid: labs/security/jwt
+    - topicUid: labs/security/redisstore
+    - topicUid: labs/security/sso-oauth
+    - topicUid: labs/security/sso-openid-framework
+    - topicUid: labs/security/sso-openid-netcore
+- name: Service Connectors
+  items:
+    - topicUid: labs/service-connectors/gemfire
+    - topicUid: labs/service-connectors/mongo
+    - topicUid: labs/service-connectors/mssql
+    - topicUid: labs/service-connectors/mysql
+    - topicUid: labs/service-connectors/oauth
+    - topicUid: labs/service-connectors/postgresql
+    - topicUid: labs/service-connectors/rabbitmq
+    - topicUid: labs/service-connectors/redis
+- name: Service Discovery
+  items:
+    - topicUid: labs/service-discovery/eureka

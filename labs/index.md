@@ -24,34 +24,32 @@
 
 - @labs/messaging/rabbitmq
 
-## Network File Sharing
-
-- Get Started
-
 ## Observability
 
-- Get Started
+- @labs/observability/grafana
+- @labs/observability/tanzu
+- @labs/observability/wavefront
 
 ## Security
 
-- Store key ring in Redis
-- Resource Protection using JSON Web Tokens (JWT)
-- CredHub Client
-- Cloud Foundry SSO with OAuth2 provider
-- Cloud Foundry SSO with OpenID Connect provider
+- @labs/security/credhub
+- @labs/security/jwt
+- @labs/security/redisstore
+- @labs/security/sso-oauth
+- @labs/security/sso-openid-framework
+- @labs/security/sso-openid-netcore
 
 ## Service Connectors
 
-- MySQL Database
-- Microsoft SQL Database
-- PostgreSQL Database
-- Mongo Database
-- Redis Cache
-- Apache Geode/GemFire Cache
-- RabbitMQ Messaging
-- OAuth2 Client
+- @labs/service-connectors/gemfire
+- @labs/service-connectors/mongo
+- @labs/service-connectors/mssql
+- @labs/service-connectors/mysql
+- @labs/service-connectors/oauth
+- @labs/service-connectors/postgresql
+- @labs/service-connectors/rabbitmq
+- @labs/service-connectors/redis
 
 ## Service Discovery
 
-- Hashicorp Consul Registry
-- Eureka Registry
+- @labs/service-discovery/eureka
