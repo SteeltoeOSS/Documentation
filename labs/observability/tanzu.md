@@ -3,6 +3,7 @@ uid: labs/observability/tanzu
 title: Tanzu App Manager
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Tanzu App Manager for app container metrics, distributed tracing, and observability

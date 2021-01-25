@@ -3,6 +3,7 @@ uid: labs/circuit-breakers/circuit-breaker
 title: Circuit Breakers
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 ## Implementing Circuit Breakers
 

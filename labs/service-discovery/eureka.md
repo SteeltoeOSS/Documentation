@@ -3,6 +3,7 @@ uid: labs/service-discovery/eureka
 title: Eureka Service Discovery
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Service Discovery with Eureka Server

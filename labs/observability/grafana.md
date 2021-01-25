@@ -3,6 +3,7 @@ uid: labs/observability/grafana
 title: Grafana
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Grafana for app container metrics, distributed tracing, and observability

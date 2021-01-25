@@ -3,6 +3,7 @@ uid: labs/application-configuration/random-value
 title: Random Value Provider
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Application Configuration Random Values

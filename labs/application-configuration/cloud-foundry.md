@@ -3,6 +3,7 @@ uid: labs/application-configuration/cloud-foundry
 title: Cloud Foundry Provider
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 ## App Configuration with Cloud Foundry
 

@@ -3,6 +3,7 @@ uid: labs/cloud-management/logging
 title: Dynamic Logging
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Dynamic Logging

@@ -3,6 +3,7 @@ uid: labs/application-configuration/placeholder
 title: Placeholder Provider
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 ## Application Configuration Placeholders
 This tutorial takes you through setting up a .NET Core application that uses placeholders for config values.

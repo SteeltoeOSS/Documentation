@@ -3,6 +3,7 @@ uid: labs/service-discovery/consul
 title: Console Service Discovery
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Service Discovery with Hashicorp Consul server

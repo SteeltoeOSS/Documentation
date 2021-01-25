@@ -3,6 +3,7 @@ uid: labs/messaging/rabbitmq
 title: Messaging with RabbitMQ 
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## RabbitMQ Messaging

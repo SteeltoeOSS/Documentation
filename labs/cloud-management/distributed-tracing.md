@@ -3,6 +3,7 @@ uid: labs/cloud-management/distributed-tracing
 title: Distributed Tracing
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Distributed Tracing for debugging with Zipkin

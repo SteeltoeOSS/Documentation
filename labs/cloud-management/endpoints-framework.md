@@ -3,6 +3,7 @@ uid: labs/cloud-management/endpoints-framework
 title: Management Endpoints (.NET Framework)
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 > [!TIP]

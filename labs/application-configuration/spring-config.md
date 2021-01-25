@@ -3,6 +3,7 @@ uid: labs/application-configuration/spring-config
 title: Spring Config Provider
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 ## App Configuration with a Spring Config Server
 

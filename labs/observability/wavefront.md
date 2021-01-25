@@ -3,6 +3,7 @@ uid: labs/observability/wavefront
 title: Wavefront
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Wavefront for app container metrics, distributed tracing, and observability

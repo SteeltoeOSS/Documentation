@@ -3,6 +3,7 @@ uid: labs/cloud-management/endpoints-netcore
 title: Management Endpoints (.NET Core)
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 > [!TIP]
