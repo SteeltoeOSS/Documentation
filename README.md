@@ -79,6 +79,23 @@ Corresponding entry in api/v2/toc.yml:
       name: Hystrix
 ```
 
+## Page display options
+
+In the yaml header of a page's markdown, you have options to turn page elements on or off. Below are those options.
+
+|Yaml label  |Default value  |Description   |
+|---------|---------|---------|
+|_disableToc     |false|Turn off the left had table of contents         |
+|_disableAffix     |false|Turn off the right hand page navigation links         |
+|_disableContribution     |false|Turn off right hand link to "edit this page"         |
+|_disableFooter     |false|Don't show footer when guest scrolls to page bottom         |
+|_enableSearch     |true|Show the search icon         |
+|_enableNewTab     |true|All links on the page open in a new browser tab         |
+|_disableNav     |false|Do not show top navigation links         |
+|_hideTocVersionToggle|false     |Hide the version toggler in the table of contents         |
+|_noindex     |false|Do not let search engines index the page         |
+|_disableNavbar|false     |Do not show top bar of page         |
+
 ## Building the site
 
 Use docfx's [user manual](https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html), to build and run the site in a few different ways. The simplest way is to `cd` into the root folder of this project and run the following command. The site will build in a temp folder named `_site` and be served at http://localhost:8080.

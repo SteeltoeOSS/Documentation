@@ -25,7 +25,7 @@ _disableNav: true
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-||[Next Exercise >>][exercise-2-link]|
+|[<< Home](index.md)|[Next Exercise >>][exercise-2-link]|
 |:--|--:|
 
 # Getting to know Steeltoe
