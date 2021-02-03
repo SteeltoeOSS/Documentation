@@ -4,8 +4,8 @@
       {
         "files": [
           "api/**.md",
-          "api/**/toc.yml",
-          "api/browser/**.yml",
+          "api/v2/**/toc.yml",
+          "api/v3/**/toc.yml",
 
           "articles/**.md",
           "articles/**/toc.yml",
@@ -20,6 +20,18 @@
           "**/amqp.md",
           "**/rabbitmq-binder.md"
         ]
+      },
+      {
+        "files": [
+          "api/browser/v2/**.yml"
+        ],
+        "version": "2.x"
+      },
+      {
+        "files": [
+          "api/browser/v3/**.yml"
+        ],
+        "version": "3.x"
       }
     ],
     "resource": [
