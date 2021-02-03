@@ -46,6 +46,33 @@ $(document).ready(function() {
 
 	urlParams.forEach(function(value,key){localStorage[key] = value;});
 
+	// Toggle api browser vs docs
+	if (window.location.href.indexOf("/api/browser/") > -1) {
+		// Change current page highlight nav
+		$('#docsNavLink').removeClass('active');
+		$('#apiBrowserNavLink').addClass('active');
+
+		// Change active version labels for correct linkage
+		$('#version-button-api-v2').removeClass('hide');
+		$('#version-button-api-v3').removeClass('hide');
+		$('#version-button-doc-v2').addClass('hide');
+		$('#version-button-doc-v3').addClass('hide');
+
+		// Select correct version radio button
+		$("#api-v3").prop("checked", true);
+
+		// Set TOC font for api references
+		$("[role=main]").addClass("api-browser");
+
+		// Enable top-level namspeace nav
+		if (window.location.href.indexOf("/api/browser/v3/") > -1) {
+			$('#api-nav-section-v3').removeClass('hide');
+		}
+		else {
+			$('#api-nav-section-v2').removeClass('hide');
+		}
+	}
+
 	//toggle the docs version radio
 	if (window.location.href.indexOf("v2") > -1) {
     $('.versionLabel').toggleClass('active');

@@ -10,3 +10,5 @@ _site
 .vscode
 .vs
 publish
+api/browser/**/.manifest
+api/browser/**/*.yml

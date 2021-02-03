@@ -5,6 +5,7 @@
         "files": [
           "api/**.md",
           "api/**/toc.yml",
+          "api/browser/**.yml",
 
           "articles/**.md",
           "articles/**/toc.yml",

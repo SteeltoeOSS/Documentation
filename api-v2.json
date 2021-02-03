@@ -1,0 +1,191 @@
+{
+  "metadata": [
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/CircuitBreaker"
+      }
+    ],
+    "dest": "api/browser/v2/circuitbreaker",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Common"
+      }
+    ],
+    "dest": "api/browser/v2/common",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Configuration"
+      }
+    ],
+    "dest": "api/browser/v2/configuration",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Connectors"
+      }
+    ],
+    "dest": "api/browser/v2/connectors",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Discovery"
+      }
+    ],
+    "dest": "api/browser/v2/discovery",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Integration"
+      }
+    ],
+    "dest": "api/browser/v2/integration",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Logging"
+      }
+    ],
+    "dest": "api/browser/v2/logging",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Management"
+      }
+    ],
+    "dest": "api/browser/v2/management",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Messaging"
+      }
+    ],
+    "dest": "api/browser/v2/messaging",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Security"
+      }
+    ],
+    "dest": "api/browser/v2/security",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**" ],
+        "src": "../Steeltoe2x/src/Stream"
+      }
+    ],
+    "dest": "api/browser/v2/stream",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "properties": {
+      "TargetFramework": "net5.0"
+    }
+  }
+]
+}

@@ -4,11 +4,17 @@
     <div class="sideVersion">
       {{^_hideTocVersionToggle}}
       <div class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
-        <label class="btn btn-secondary versionLabel" onclick="location.href='/api/v2/welcome'">
+        <label id="version-button-doc-v2" class="btn btn-secondary versionLabel" onclick="location.href='/api/v2/welcome'">
           <input type="radio" name="options" id="v2" autocomplete="off"> Version 2
         </label>
-        <label class="btn btn-secondary active versionLabel" onclick="location.href='/api/v3/welcome'">
+        <label id="version-button-doc-v3" class="btn btn-secondary active versionLabel" onclick="location.href='/api/v3/welcome'">
           <input type="radio" name="options" id="v3" autocomplete="off" checked> Version 3
+        </label>
+        <label id="version-button-api-v2" class="btn btn-secondary versionLabel hide" onclick="location.href='/api/browser/v2/discovery/Steeltoe.Discovery.html'">
+          <input type="radio" name="options" id="api-v2" autocomplete="off"> Version 2
+        </label>
+        <label id="version-button-api-v3" class="btn btn-secondary active versionLabel hide" onclick="location.href='/api/browser/v3/discovery/Steeltoe.Discovery.html'">
+          <input type="radio" name="options" id="api-v3" autocomplete="off"> Version 3
         </label>
       </div>
       {{/_hideTocVersionToggle}}

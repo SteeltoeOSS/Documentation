@@ -189,3 +189,22 @@ pre {
 }
 #blog-specs img{height:30px;width:30px;}
 #blog-specs img{height:30px;width:30px;}
+
+/************ API Browser ************/
+
+.hide {
+	display: none;
+}
+
+ul.api-nav-menu {
+	margin-top: 0.8em;
+}
+
+ul.api-nav-menu li {
+	display: inline;
+	margin-right: 0.5em;
+}
+
+.api-browser .toc .nav > li > a {
+	font-size: 14px;
+}

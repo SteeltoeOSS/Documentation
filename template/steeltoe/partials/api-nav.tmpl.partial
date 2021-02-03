@@ -1,0 +1,23 @@
+<div id="api-nav-section-v3" class="hide">
+    <ul class="api-nav-menu">
+        <li><a href="/api/browser/v3/circuitbreaker/Steeltoe.CircuitBreaker.Hystrix.html">Circuit Breaker</a></li>
+        <li><a href="/api/browser/v3/configuration/Steeltoe.Extensions.Configuration.html">Configuration</a></li>
+        <li><a href="/api/browser/v3/connectors/Steeltoe.CloudFoundry.Connector.html">Connectors</a></li>
+        <li><a href="/api/browser/v3/discovery/Steeltoe.Discovery.html">Discovery</a></li>
+        <li><a href="/api/browser/v3/logging/Steeltoe.Extensions.Logging.html">Logging</a></li>
+        <li><a href="/api/browser/v3/management/Steeltoe.Management.Tracing.html">Management</a></li>
+        <li><a href="/api/browser/v3/security/Steeltoe.Security.Authentication.CloudFoundry.html">Security</a></li>
+    </ul>
+</div>
+
+<div id="api-nav-section-v2" class="hide">
+    <ul class="api-nav-menu">
+        <li><a href="/api/browser/v2/circuitbreaker/Steeltoe.CircuitBreaker.Hystrix.html">Circuit Breaker</a></li>
+        <li><a href="/api/browser/v2/configuration/Steeltoe.Extensions.Configuration.html">Configuration</a></li>
+        <li><a href="/api/browser/v2/connectors/Steeltoe.CloudFoundry.Connector.html">Connectors</a></li>
+        <li><a href="/api/browser/v2/discovery/Steeltoe.Discovery.html">Discovery</a></li>
+        <li><a href="/api/browser/v2/logging/Steeltoe.Extensions.Logging.html">Logging</a></li>
+        <li><a href="/api/browser/v2/management/Steeltoe.Management.Tracing.html">Management</a></li>
+        <li><a href="/api/browser/v2/security/Steeltoe.Security.Authentication.CloudFoundry.html">Security</a></li>
+    </ul>
+</div>
