@@ -37,11 +37,11 @@
           {{/_disableAffix}}
           {{^_disableAffix}}
             <div class="col-md-10 col-sm-12">
-              {{>partials/api-nav}}
           {{/_disableAffix}}
               <article class="content wrap" id="_content" data-uid="{{uid}}">
                 {{>partials/blog-specs}}
                 {{#_showBackToBlogs}}<div class="row col"><a href="../../articles/index.html">&lt;&lt; Back to blogs</a></div>{{/_showBackToBlogs}}
+                {{>partials/api-nav}}
                 {{!body}}
                 {{#_showBackToBlogs}}<div class="row col pt-2"><a href="../../articles/index.html">&lt;&lt; Back to blogs</a></div>{{/_showBackToBlogs}}
               </article>

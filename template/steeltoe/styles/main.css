@@ -196,15 +196,21 @@ pre {
 	display: none;
 }
 
-ul.api-nav-menu {
-	margin-top: 0.8em;
-}
-
-ul.api-nav-menu li {
-	display: inline;
-	margin-right: 0.5em;
-}
-
 .api-browser .toc .nav > li > a {
 	font-size: 14px;
+}
+
+#api-navigation {
+	background-color: #F1F1F1;
+    width: fit-content;
+    padding: 15px;
+}
+
+.namespace-nav-title {
+	color:#0066cc;
+	font-weight: bold;
+}
+
+select.api-namespace {
+    padding: 5px;
 }
