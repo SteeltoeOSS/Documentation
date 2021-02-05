@@ -16,7 +16,21 @@ trigger:
 
 steps:
 - powershell: |
-    choco install docfx -y
+    cd ..
+    git clone -b 3.0.2 https://github.com/SteeltoeOSS/Steeltoe.git
+    git clone -b 2.5.2 https://github.com/SteeltoeOSS/Steeltoe.git Steeltoe2x
+  displayName: "Clone Steeltoe 3.x & 2.x"
+
+- powershell: choco install docfx -y
+  displayName: "Install Docfx"
+
+- powershell: |
+    docfx metadata api-v2.json
+    docfx metadata api-v3.json
+    docfx metadata api-all.json
+  displayName: "Docfx Metadata"
+  
+- powershell: |
     docfx build -o ./publish --globalMetadataFiles "dev.json"
     if ($lastexitcode -ne 0){
       throw ("Error generating documentation")

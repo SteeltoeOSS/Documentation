@@ -116,11 +116,11 @@ pre {
 	z-index: 1;
 }
 .sidefilter {
-	top: 138px;
+	top: 184px;
 	width: 260px;
 }
 .sidetoc {
-	top: 203px;
+	top: 235px;
 	width: 260px;
 }
 .btn.active, .btn:active {
@@ -189,3 +189,38 @@ pre {
 }
 #blog-specs img{height:30px;width:30px;}
 #blog-specs img{height:30px;width:30px;}
+
+/************ API Browser ************/
+
+.hide {
+	display: none;
+}
+
+.api-browser .toc .nav > li > a {
+	font-size: 14px;
+}
+
+#api-navigation {
+	background-color: #F1F1F1;
+	border-left: 1px solid #e7e7e7;
+    border-right: 1px solid #e7e7e7;
+    padding: 15px;
+}
+
+.api-browser .sidetoc {
+    z-index: 25;
+}
+
+.api-browser .sidefilter {
+    top: 195px;
+    z-index: 50;
+}
+
+select.api-namespace {
+    font-size: 0.83em;
+    padding: 4px 0px;
+}
+
+select.api-namespace option {
+    font-size: 15px;
+}

@@ -4,7 +4,8 @@
       {
         "files": [
           "api/**.md",
-          "api/**/toc.yml",
+          "api/v2/**/toc.yml",
+          "api/v3/**/toc.yml",
 
           "articles/**.md",
           "articles/**/toc.yml",
@@ -19,6 +20,36 @@
           "**/amqp.md",
           "**/rabbitmq-binder.md"
         ]
+      },
+      {
+        "files": [
+          "api/browser/v2/**.yml"
+        ],
+        "exclude": [
+          "api/browser/v2/all/**.yml"
+        ],
+        "version": "2.x"
+      },
+      {
+        "files": [
+          "api/browser/v3/**.yml"
+        ],
+        "exclude": [
+          "api/browser/v3/all/**.yml"
+        ],
+        "version": "3.x"
+      },
+      {
+        "files": [
+          "api/browser/v2/all/**.yml"
+        ],
+        "version": "2.all"
+      },
+      {
+        "files": [
+          "api/browser/v3/all/**.yml"
+        ],
+        "version": "3.all"
       }
     ],
     "resource": [
