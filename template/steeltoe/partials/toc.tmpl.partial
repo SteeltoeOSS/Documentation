@@ -17,6 +17,28 @@
           <input type="radio" name="optionsApi" id="api-v3" autocomplete="off" checked> Version 3
         </label>
       </div>
+      <div id="api-navigation" class="hide">
+        <div id="api-selection">
+            <select id="api-namespace-v3" class="form-control api-namespace">
+              <option value="/api/browser/v3/circuitbreaker/Steeltoe.CircuitBreaker.Hystrix.html">Steeltoe.CircuitBreaker</option>
+              <option value="/api/browser/v3/configuration/Steeltoe.Extensions.Configuration.html">Steeltoe.Extensions.Configuration</option>
+              <option value="/api/browser/v3/connectors/Steeltoe.Connector.html">Steeltoe.Connector</option>
+              <option value="/api/browser/v3/discovery/Steeltoe.Discovery.html">Steeltoe.Discovery</option>
+              <option value="/api/browser/v3/logging/Steeltoe.Extensions.Logging.html">Steeltoe.Extensions.Logging</option>
+              <option value="/api/browser/v3/management/Steeltoe.Management.Tracing.html">Steeltoe.Management</option>
+              <option value="/api/browser/v3/security/Steeltoe.Security.Authentication.CloudFoundry.html">Steeltoe.Security</option>
+            </select>
+            <select id="api-namespace-v2" class="form-control api-namespace hide">
+              <option value="/api/browser/v2/circuitbreaker/Steeltoe.CircuitBreaker.Hystrix.html">Steeltoe.CircuitBreaker</option>
+              <option value="/api/browser/v2/configuration/Steeltoe.Extensions.Configuration.html">Steeltoe.Extensions.Configuration</option>
+              <option value="/api/browser/v2/connectors/Steeltoe.Connector.html">Steeltoe.Connector</option>
+              <option value="/api/browser/v2/discovery/Steeltoe.Discovery.html">Steeltoe.Discovery</option>
+              <option value="/api/browser/v2/logging/Steeltoe.Extensions.Logging.html">Steeltoe.Extensions.Logging</option>
+              <option value="/api/browser/v2/management/Steeltoe.Management.Tracing.html">Steeltoe.Management</option>
+              <option value="/api/browser/v2/security/Steeltoe.Security.Authentication.CloudFoundry.html">Steeltoe.Security</option>
+            </select>
+          </div>
+      </div>
       {{/_hideTocVersionToggle}}
     </div>
     <div id="sidetoc"></div>

@@ -116,11 +116,11 @@ pre {
 	z-index: 1;
 }
 .sidefilter {
-	top: 138px;
+	top: 184px;
 	width: 260px;
 }
 .sidetoc {
-	top: 203px;
+	top: 235px;
 	width: 260px;
 }
 .btn.active, .btn:active {
@@ -202,15 +202,25 @@ pre {
 
 #api-navigation {
 	background-color: #F1F1F1;
-    width: fit-content;
+	border-left: 1px solid #e7e7e7;
+    border-right: 1px solid #e7e7e7;
     padding: 15px;
 }
 
-.namespace-nav-title {
-	color:#0066cc;
-	font-weight: bold;
+.api-browser .sidetoc {
+    z-index: 25;
+}
+
+.api-browser .sidefilter {
+    top: 195px;
+    z-index: 50;
 }
 
 select.api-namespace {
-    padding: 5px;
+    font-size: 0.83em;
+    padding: 4px 0px;
+}
+
+select.api-namespace option {
+    font-size: 15px;
 }
