@@ -28,6 +28,7 @@ steps:
 - powershell: |
     docfx metadata api-v2.json
     docfx metadata api-v3.json
+    docfx metadata api-all.json
   displayName: "Docfx Metadata"
 
 - powershell: |

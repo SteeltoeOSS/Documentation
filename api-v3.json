@@ -4,15 +4,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/CircuitBreaker"
+        "src": "../Steeltoe/src/CircuitBreaker/src"
       }
     ],
     "dest": "api/browser/v3/circuitbreaker",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -22,15 +23,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Common"
+        "src": "../Steeltoe/src/Common/src"
       }
     ],
     "dest": "api/browser/v3/common",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -40,15 +42,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Configuration"
+        "src": "../Steeltoe/src/Configuration/src"
       }
     ],
     "dest": "api/browser/v3/configuration",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -58,15 +61,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Connectors"
+        "src": "../Steeltoe/src/Connectors/src"
       }
     ],
     "dest": "api/browser/v3/connectors",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -76,15 +80,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Discovery"
+        "src": "../Steeltoe/src/Discovery/src"
       }
     ],
     "dest": "api/browser/v3/discovery",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -94,15 +99,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Integration"
+        "src": "../Steeltoe/src/Integration/src"
       }
     ],
     "dest": "api/browser/v3/integration",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -112,15 +118,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Logging"
+        "src": "../Steeltoe/src/Logging/src"
       }
     ],
     "dest": "api/browser/v3/logging",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -130,15 +137,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Management"
+        "src": "../Steeltoe/src/Management/src"
       }
     ],
     "dest": "api/browser/v3/management",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -148,15 +156,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Messaging"
+        "src": "../Steeltoe/src/Messaging/src"
       }
     ],
     "dest": "api/browser/v3/messaging",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -166,15 +175,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Security"
+        "src": "../Steeltoe/src/Security/src"
       }
     ],
     "dest": "api/browser/v3/security",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
@@ -184,15 +194,16 @@
     "src": [
       {
         "files": [
-          "src/**/*.csproj"
+          "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Stream"
+        "src": "../Steeltoe/src/Stream/src"
       }
     ],
     "dest": "api/browser/v3/stream",
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
     "properties": {
       "TargetFramework": "net5.0"
     },
