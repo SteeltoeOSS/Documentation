@@ -116,11 +116,11 @@ pre {
 	z-index: 1;
 }
 .sidefilter {
-	top: 184px;
+	top: 138px;
 	width: 260px;
 }
 .sidetoc {
-	top: 235px;
+	top: 203px;
 	width: 260px;
 }
 .btn.active, .btn:active {
@@ -207,13 +207,14 @@ pre {
     padding: 15px;
 }
 
-.api-browser .sidetoc {
-    z-index: 25;
-}
-
 .api-browser .sidefilter {
     top: 195px;
     z-index: 50;
+}
+
+.api-browser .sidetoc {
+	top: 235px;
+    z-index: 25;
 }
 
 select.api-namespace {
