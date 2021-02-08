@@ -60,6 +60,10 @@ function showApiBrowserElements() {
 	// Show api navigation above article
 	$('#api-navigation').removeClass('hide');
 
+	// Hide/Disable Contribution elements (view/edit source)
+	$('.sideaffix .contribution').addClass('hide');
+	$('.sideaffix .contribution .nav li a').attr('href','#');
+
 	if(!isApiVersion3()) {
 		// Select correct version radio button
 		$("#api-v2").prop("checked", true);
