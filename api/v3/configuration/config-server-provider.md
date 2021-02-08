@@ -14,7 +14,7 @@ In addition to the Quick Start provided later, you can refer to several other St
 
 ## Usage
 
-You should know how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary.
+You should know how the .NET [Configuration services](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary.
 
 You should also have a good understanding of the [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/).
 
@@ -42,7 +42,7 @@ To add this type of NuGet to your project, add a `PackageReference` that resembl
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```
@@ -196,7 +196,7 @@ var property2 = config["myconfiguration:property2"];
 ...
 ```
 
-Alternatively, you can create a class to hold your configuration data and then use the [Options](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) framework together with [Dependency Injection](https://docs.asp.net/en/latest/fundamentals/dependency-injection.html) to inject an instance of the class into your controllers and view.
+Alternatively, you can create a class to hold your configuration data and then use the [Options](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) framework together with [Dependency Injection](https://docs.asp.net/en/latest/fundamentals/dependency-injection.html) to inject an instance of the class into your controllers and view.
 
 To do so, first create a class representing the configuration data you expect to retrieve from the server, as follows:
 
@@ -346,4 +346,4 @@ var configurationBuilder = new ConfigurationBuilder()
         .AddConfigServer(settings);
 ```
 
->A single `ICertificateSource` can be used for both Config Server and [Eureka mTLS connections](../discovery/netflix-eureka#configuring-mutual-tls).
+>A single `ICertificateSource` can be used for both Config Server and [Eureka mTLS connections](../discovery/netflix-eureka.md#configuring-mutual-tls).

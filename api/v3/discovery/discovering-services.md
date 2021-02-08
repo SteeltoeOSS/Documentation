@@ -8,7 +8,7 @@ With Consul, once the app starts, the client registers any services (if required
 
 ## Using HttpClientFactory
 
-The recommended approach for discovering services is to use `HttpClient` supplied through [HttpClientFactory](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests), augmented with the `DiscoveryHttpMessageHandler` (provided by Steeltoe).
+The recommended approach for discovering services is to use `HttpClient` supplied through [HttpClientFactory](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests), augmented with the `DiscoveryHttpMessageHandler` (provided by Steeltoe).
 
 `DiscoveryHttpMessageHandler` is a `DelegatingHandler` that you can use, to intercept requests and to evaluate the URL to see if the host portion of the URL can be resolved from the current service registry. The handler does this for any `HttpClient` created by the factory.
 
@@ -49,7 +49,7 @@ public class FortuneService : IFortuneService
 }
 ```
 
-Check out the Microsoft documentation on [`HttpClientFactory`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests) to see all the various ways you can make use of message handlers.
+Check out the Microsoft documentation on [`HttpClientFactory`](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests) to see all the various ways you can make use of message handlers.
 
 >`DiscoveryHttpMessageHandler` has an optional `ILoadBalancer` parameter. If no `ILoadBalancer` is provided through dependency injection, a `RandomLoadBalancer` is used. To change this behavior, add an `ILoadBalancer` to the DI container or use a load-balancer first configuration, as described within section 1.4 on this page.
 

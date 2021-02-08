@@ -1,0 +1,10 @@
+apiRules:
+- exclude:
+    uidRegex: ^OpenCensus\.*
+    type: Namespace
+- exclude:
+    uidRegex: ^Microsoft\.Diagnostics\.Runtime\.Interop$
+    type: Namespace
+- exclude:
+    uidRegex: ^Microsoft\.Extensions\.DependencyInjection$
+    type: Namespace

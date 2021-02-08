@@ -13,9 +13,9 @@ Steeltoe distributed tracing:
 
 ## Usage
 
-You should understand how the .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints. You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+You should understand how the .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints. You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
 
-When developing ASP.NET Core applications, you should also understand how the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
+When developing ASP.NET Core applications, you should also understand how the ASP.NET Core [`Startup`](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
 
 Steeltoe distributed tracing automatically applies instrumentation at key ingress and egress points in your ASP.NET Core application so that you are able to get meaningful traces without having to do any instrumentation yourself. These points include:
 
@@ -44,7 +44,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TracingCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Management.TracingCore" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```
@@ -52,12 +52,12 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Alternative, you can add it with PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.TracingCore -Version 3.0.0
+PM>Install-Package  Steeltoe.Management.TracingCore -Version 3.0.2
 ```
 
 ### Configure Settings
 
-You can configure distributed tracing by using the normal .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration).
+You can configure distributed tracing by using the normal .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration).
 
 All settings should be placed under the prefix with a key of `Management:tracing:`.
 The following table describes the available settings:

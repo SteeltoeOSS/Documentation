@@ -1,0 +1,42 @@
+{
+  "metadata": [
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**", "**/test/**" ],
+        "src": "../Steeltoe2x"
+      }
+    ],
+    "dest": "api/browser/v2/all",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
+    "properties": {
+      "TargetFramework": "net46"
+    },
+    "version": "2.all"
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**", "**/test/**" ],
+        "src": "../Steeltoe"
+      }
+    ],
+    "dest": "api/browser/v3/all",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
+    "properties": {
+      "TargetFramework": "net5.0"
+    },
+    "version": "3.all"
+  }
+]
+}

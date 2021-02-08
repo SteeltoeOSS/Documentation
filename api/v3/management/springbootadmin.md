@@ -10,7 +10,7 @@ Add the following PackageReference to your .csproj file.
 <ItemGroup>
 ...
 
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="$(SteeltoeVersion)" />
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.0.2" />
 ...
 </ItemGroup>
 ```
@@ -18,7 +18,7 @@ Add the following PackageReference to your .csproj file.
 Alternatively, you can use PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.0
+PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.0.2
 ```
 
 ## Register

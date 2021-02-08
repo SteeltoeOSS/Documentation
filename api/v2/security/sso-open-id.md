@@ -25,7 +25,7 @@ This package is built on OpenID Connect and OWIN Middleware. You should take som
 
 Resources are available elsewhere for understanding OpenID Connect. For example, see [Understanding OAuth 2.0 and OpenID Connect](https://blog.runscope.com/posts/understanding-oauth-2-and-openid-connect).
 
-To learn more about OWIN, start with the [Overview of Project Katana](https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana).
+To learn more about OWIN, start with the [Overview of Project Katana](https://docs.microsoft.com/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana).
 
 Additionally, you should know how the .NET [Configuration service](https://docs.asp.net/en/latest/fundamentals/configuration.html) and the `ConfigurationBuilder` work and how to add providers to the builder.
 
@@ -85,7 +85,7 @@ Regardless of which provider you choose, once the service is bound to your appli
 
 #### Configure OWIN Startup
 
-In order to configure the Cloud Foundry OWIN OAuth provider in your application, you will need an [OWIN Startup class](https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/owin-startup-class-detection) if you do not already have one.
+In order to configure the Cloud Foundry OWIN OAuth provider in your application, you will need an [OWIN Startup class](https://docs.microsoft.com/aspnet/aspnet/overview/owin-and-katana/owin-startup-class-detection) if you do not already have one.
 
 ```csharp
 using Steeltoe.Security.Authentication.CloudFoundry.Owin;

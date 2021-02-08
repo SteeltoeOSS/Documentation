@@ -17,9 +17,9 @@ This connector provides a `IHealthContributor` which you can use in conjunction 
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the connector.
+You should know how the new .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the connector.
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
+You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
 
 To use this connector:
 
@@ -82,7 +82,7 @@ The following table describes the available settings for the connector. These se
 
 >IMPORTANT: All of the settings described in the preceding table should be prefixed with `mysql:client:`.
 
-The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](#reading-configuration-values).
+The samples and most templates are already set up to read from `appsettings.json`. See [Reading Configuration Values](../welcome/common-steps.md#reading-configuration-values).
 
 >NOTE: If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
 
@@ -254,7 +254,7 @@ If you need to set additional properties for the `DbContext` like `MigrationsAss
 Action<MySqlDbContextOptionsBuilder> mySqlOptionsAction = (o) =>
 {
   o.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-  // Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
+  // Configuring Connection Resiliency: https://docs.microsoft.com/ef/core/miscellaneous/connection-resiliency
   o.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
 };
 ```

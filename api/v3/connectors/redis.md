@@ -1,21 +1,21 @@
 # Redis
 
-This connector simplifies using a Microsoft [`RedisCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/).
+This connector simplifies using a Microsoft [`RedisCache`](https://docs.microsoft.com/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/).
 
 The following Steeltoe sample applications are available to help you understand how to use this connector:
 
 * [DataProtection](https://github.com/SteeltoeOSS/Samples/tree/master/Security/src/RedisDataProtectionKeyStore): A sample application showing how to use the Steeltoe DataProtection Key Storage Provider for Redis.
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a microservices-based application built from the  MusicStore ASP.NET Core reference application provided by Microsoft.
 
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](../management/health.html) check endpoint.
+This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](../management/health.md) check endpoint.
 
 ## Usage
 
-You should know how the .NET [configuration service](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder.
+You should know how the .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder.
 
-You should also know how the ASP.NET Core [`Startup`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
+You should also know how the ASP.NET Core [`Startup`](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
 
-You probably want some understanding of how to use the [`RedisCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/) before starting to use this connector.
+You probably want some understanding of how to use the [`RedisCache`](https://docs.microsoft.com/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/) before starting to use this connector.
 
 To use this connector:
 

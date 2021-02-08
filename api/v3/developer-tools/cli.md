@@ -20,7 +20,7 @@ See [docker-compose](https://docs.docker.com/compose/)
 <a name="steeltoe-dev-tools-install-cli"></a>
 ### Install the CLI
 
-Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
+Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
 
 ```sh
 $ dotnet tool install -g Steeltoe.Cli --version 0.7.1-2785 --add-source https://www.myget.org/F/steeltoedev/api/v3/index.json

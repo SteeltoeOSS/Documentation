@@ -2,7 +2,7 @@
 
 This provider lets you control access to REST resources by using JWT tokens issued by Cloud Foundry Security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity)) in ASP.NET Core, ASP.NET WebAPI and WCF.
 
-In addition to the [Quick Start](#2-1-quick-start), other Steeltoe sample applications can help you understand how to use this tool, including:
+Other Steeltoe sample applications can help you understand how to use this tool, including:
 
 * `FreddysBBQ`: A polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
 
@@ -12,7 +12,7 @@ This package is an extension of the Microsoft OWIN JWT bearer token middleware. 
 
 Many resources are available for understanding JWT (for example, see [JWT IO](https://jwt.io/) or [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)).
 
-To learn more about OWIN, start with the [Overview of Project Katana](https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana).
+To learn more about OWIN, start with the [Overview of Project Katana](https://docs.microsoft.com/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana).
 
 Additionally, you should know how the .NET [Configuration services](https://docs.asp.net/en/latest/fundamentals/configuration.html) the `ConfigurationBuilder` work and how to add providers to the builder.
 
@@ -67,7 +67,7 @@ Regardless of which provider you choose, once the service is bound to your appli
 
 #### Add Cloud Foundry JwtAuthentication
 
-In order to configure the Cloud Foundry OWIN JWT provider in your application, you will need an [OWIN Startup class](https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/owin-startup-class-detection) if you do not already have one, along with an `IConfigurationRoot` that includes a service binding for UAA or Pivotal SSO.
+In order to configure the Cloud Foundry OWIN JWT provider in your application, you will need an [OWIN Startup class](https://docs.microsoft.com/aspnet/aspnet/overview/owin-and-katana/owin-startup-class-detection) if you do not already have one, along with an `IConfigurationRoot` that includes a service binding for UAA or Pivotal SSO.
 
 ```csharp
 using Owin;
