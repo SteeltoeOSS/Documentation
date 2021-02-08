@@ -7,7 +7,6 @@ trigger:
       - dev
   paths:
     exclude:
-    - CI/*
     - README.md
 
 steps:
@@ -40,11 +39,11 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)/_site'
     CleanTargetFolder: true
 
-- powershell: cp "CI/Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
+- powershell: cp "Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
   displayName: "Copy Dockerfile"
 
-- powershell: cp "CI/deployment-dev.yaml" "$(Build.ArtifactStagingDirectory)/deployment.yaml"
-  displayName: "Copy kubernetes manifest"
+- powershell: cp "deploy/kubernetes" "$(Build.ArtifactStagingDirectory)/kubernetes" -recurse
+  displayName: "Copy kubernetes manifests"
 
 - task: PublishBuildArtifacts@1
   inputs:
