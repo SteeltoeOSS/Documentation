@@ -26,7 +26,7 @@ To add this type of NuGet to your project, add an element resembling the followi
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Discovery.Consul" Version= "3.0.0" />
+    <PackageReference Include="Steeltoe.Discovery.Consul" Version="3.0.2" />
 ...
 </ItemGroup>
 ```
@@ -57,9 +57,9 @@ public class Program
 
 The `AddDiscoveryClient` extension shown above uses reflection to find assemblies containing a discovery client. Specifically, assemblies are located by the presence of the attribute `DiscoveryClientAssembly`, which contains a reference to an `IDiscoveryClientExtension` that does the work in configuring options and injecting the required service for the `IDiscoveryClient` to operate.
 
->If discovery client package is found, a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/ClientBase/SimpleClients/NoOpDiscoveryClient.cs) will be used.
+>If no discovery client package is found a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/ClientBase/SimpleClients/NoOpDiscoveryClient.cs) will be used. This will happen when no client has been added or if you publish your application with [`/p:PublishSingleFile=true`](https://docs.microsoft.com/dotnet/core/deploying/single-file))
 
-Should you wish to avoide this reflection operation, you also have the option of declaratively configuring the client you plan to use, like this:
+To avoid this reflection-based approach, use declarative configuration of the client(s) you plan to use, like this:
 
 ```csharp
 public class Program
@@ -74,6 +74,8 @@ public class Program
             .Build();
 }
 ```
+
+As of version 3.0.2, you may add multiple `Usexxx()` statements to this options builder, so long as only one is configured at runtime.
 
 >If no extension is supplied for `AddServiceDiscovery`, a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/ClientBase/SimpleClients/NoOpDiscoveryClient.cs) will be used.
 

@@ -29,7 +29,7 @@ To add this type of NuGet to your project, add an element resembling the followi
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Discovery.ClientCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Discovery.ClientCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```

@@ -15,10 +15,9 @@ When adding this management endpoint to your application, the Cloud Foundry secu
 
 ## External access
 
-When running in Cloud Foundry, it is possible to access the endpoints via the [hypermedia](./hypermedia.html) context path which defaults to `/actuator`. In other words you can also access all your endpoints from this global path. For example the [Info](./info.html) endpoint would be accessible at `/actuator/info`.
+When running in Cloud Foundry, it is possible to access the endpoints via the [hypermedia](./hypermedia.md) context path which defaults to `/actuator`. In other words you can also access all your endpoints from this global path. For example the [Info](./info.md) endpoint would be accessible at `/actuator/info`.
 
-While the endpoints provided on the `/cloudfoundryapplication` path are secured as described above, the endpoints provided on the `/actuator` path are not. For this reason, only health and info are exposed by default and others would have to be exposed explicitly. In addition the endpoints may be secured by whatever security mechanism the application itself uses. For more details see [Securing Actuators](./using-endpoints.html#securing-endpoints)
-
+While the endpoints provided on the `/cloudfoundryapplication` path are secured as described above, the endpoints provided on the `/actuator` path are not. For this reason, only health and info are exposed by default and others would have to be exposed explicitly. In addition the endpoints may be secured by whatever security mechanism the application itself uses. For more details see [Securing Actuators](./using-endpoints.md#securing-endpoints)
 
 ## Configure Settings
 
@@ -36,9 +35,9 @@ Typically, you need not do any additional configuration. However, the following 
 
 ## Enable HTTP Access
 
-The default path to the Cloud Foundry endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the table above. The global path is always set to `/cloudfoundryapplication`. Apps Manager expects this endpoint to be available at `/cloudfoundryapplication`. 
+The default path to the Cloud Foundry endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the table above. The global path is always set to `/cloudfoundryapplication`. Apps Manager expects this endpoint to be available at `/cloudfoundryapplication`.
 
-See the [HTTP Access](./using-endpoints.html#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, you can use the `AddCloudFoundryActuator` extension method from `ManagementHostBuilderExtensions`.
 

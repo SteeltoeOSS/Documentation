@@ -39,7 +39,7 @@ The RandomValue provider supports the following .NET application types:
 
 ## Usage
 
-You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration) work before starting to use this provider.
+You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider.
 
 In order to use the Steeltoe RandomValue provider you need to do the following:
 
@@ -58,7 +58,7 @@ To do this add a `PackageReference` resembling the following:
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.RandomValueBase" Version= "2.2.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.RandomValueBase" Version="2.5.2" />
 ...
 </ItemGroup>
 ```

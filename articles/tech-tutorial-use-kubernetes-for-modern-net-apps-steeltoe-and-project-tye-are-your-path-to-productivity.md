@@ -41,7 +41,7 @@ As a microservice moves through its environments (local, staging, production) co
 
 Further, configuration values come from different sources in different environments. A microservice should be smart enough to check every possible source and decide what value should be used.
 
-.NET Core introduced [configuration providers](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-3.1#configuration-providers) and a hierarchy to them. So it's natural that a Kubernetes configmap (which is just another key/value store) should be a config source in a .NET microservice.
+.NET Core introduced [configuration providers](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/?view=aspnetcore-3.1#configuration-providers) and a hierarchy to them. So it's natural that a Kubernetes configmap (which is just another key/value store) should be a config source in a .NET microservice.
 
 [Steeltoe offers a Kubernetes provider](https://steeltoe.io/docs/3/configuration/kubernetes-providers) to do just this! To add the client all you need to do is let the HostBuilder know about it.
 

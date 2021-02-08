@@ -1,6 +1,6 @@
 # Kubernetes
 
-Kubernetes itself is natively capable of service discovery (see [the docs](https://kubernetes.io/docs/concepts/services-networking/service/#discovering-services)). This built-in functionality removes the need for any service registration, and it is still possible to use the discovery client interface to avoid lock-in and/or [customize the load balancing](./load-balancing.html) experience. Steeltoe provides two separate clients, depending on whether you want your application to interact with the management API (and customize load balancing or talk more directly to app instances) or use the built-in option.
+Kubernetes itself is natively capable of service discovery (see [the docs](https://kubernetes.io/docs/concepts/services-networking/service/#discovering-services)). This built-in functionality removes the need for any service registration, and it is still possible to use the discovery client interface to avoid lock-in and/or [customize the load balancing](./load-balancing.md) experience. Steeltoe provides two separate clients, depending on whether you want your application to interact with the management API (and customize load balancing or talk more directly to app instances) or use the built-in option.
 
 ## Api-based
 
@@ -18,9 +18,9 @@ Additional settings are available to customize the service discovery behavior wi
 | `AllNamespaces` | Whether to discover in all namespaces | `false` |
 | `KnownSecurePorts` | List of port numbers that are considered secure and use HTTPS | 443, 8443 |
 | `Metadata:AddLabels` | Whether Kubernetes labels of the services will be included | `true` |
-| `Metadata:LabelsPrefix` | Prefix for the keys in Metadata hashtable | not set |
+| `Metadata:LabelsPrefix` | Prefix for the keys in Metadata hash table | not set |
 | `Metadata:AddAnnotations` | Whether the Kubernetes annotations of the services will be included | `true` |
-| `Metadata:AnnotationsPrefix` | Prefix to the key names in the metadata hashtable | not set |
+| `Metadata:AnnotationsPrefix` | Prefix to the key names in the metadata hash table | not set |
 | `Metadata:AddPorts` | Whether named Kubernetes service ports will be included | `true` |
 | `Metadata:PortsPrefix` | Prefix to the keys on metadata entries for ports | `port.` |
 | `CacheTTL` | Time in seconds local cache entries are valid | 15 |

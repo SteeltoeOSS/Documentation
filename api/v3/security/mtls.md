@@ -1,6 +1,6 @@
 # Resource Protection using Mutual TLS in ASP.NET Core
 
-This component builds on top of [ASP.Net Core's Certificate Authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/certauth), with the addition of automatic configuration for [Cloud Foundry Instance Identity certificates](https://docs.cloudfoundry.org/devguide/deploy-apps/instance-identity.html) and authorization policies based on certificate data. Additionally, resources are included for automatically generating certificates for local development that resemble what is found on the platform.
+This component builds on top of [ASP.Net Core's Certificate Authentication](https://docs.microsoft.com/aspnet/core/security/authentication/certauth), with the addition of automatic configuration for [Cloud Foundry Instance Identity certificates](https://docs.cloudfoundry.org/devguide/deploy-apps/instance-identity.html) and authorization policies based on certificate data. Additionally, resources are included for automatically generating certificates for local development that resemble what is found on the platform.
 
 ## Usage
 
@@ -20,7 +20,7 @@ To use the provider, add a reference to the Steeltoe Cloud Foundry Security NuGe
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```

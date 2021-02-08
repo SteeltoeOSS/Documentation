@@ -12,7 +12,7 @@ This package is built on the OAuth 2 authentication flow and the services provid
 
 Many resources are available for understanding OAuth 2. For example, see [Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2) or [Understanding OAuth 2](https://www.bubblecode.net/en/2016/01/22/understanding-oauth2/).
 
-To get a good understanding of ASP.NET Core Security, review the [documentation](https://docs.microsoft.com/en-us/aspnet/core/security) provided by Microsoft. If you are upgrading an application from ASP.NET Core 1.x, you may also want to review [Migrating Auth and Identity to ASP.NET Core 2.0](https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x).
+To get a good understanding of ASP.NET Core Security, review the [documentation](https://docs.microsoft.com/aspnet/core/security) provided by Microsoft. If you are upgrading an application from ASP.NET Core 1.x, you may also want to review [Migrating Auth and Identity to ASP.NET Core 2.0](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/identity-2x).
 
 Additionally, you should know how the [.NET Configuration service](https://docs.asp.net/en/latest/fundamentals/configuration.html) and the `ConfigurationBuilder` work and how to add providers to the builder.
 
@@ -39,7 +39,7 @@ You can add the provider to your project by using the following `PackageReferenc
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
@@ -62,7 +62,7 @@ Configuring settings for the provider beyond what is provided in a service bindi
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
-The Steeltoe OAuth2 security provider options are based on [`Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.authentication.oauth.oauthoptions), with these additional properties:
+The Steeltoe OAuth2 security provider options are based on [`Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions`](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.oauth.oauthoptions), with these additional properties:
 
 |Name|Description|Default|
 |---|---|---|
@@ -167,5 +167,4 @@ The preceding example code establishes the following security rules:
 * If a user attempts to access the `About` action and the user is not authenticated, then the user is redirected to the OAuth2 server (such as a UAA Server) to login.
 * If an authenticated user attempts to access the `Contact` action but does not meet the restrictions established by the policy `testgroup1`, the user is denied access.
 
->TIP: See the Microsoft documentation on [ASP.NET Core Authorization](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/introduction).
-
+>TIP: See the Microsoft documentation on [ASP.NET Core Authorization](https://docs.microsoft.com/aspnet/core/security/authorization/introduction).

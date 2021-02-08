@@ -90,7 +90,7 @@ The coding steps you take to enable HTTP access to the Health endpoint together 
 
 ### ASP.NET Core App
 
-Refer to the [Exposing Endpoints](../management/using-endpoints#exposing-endpoints.html) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+Refer to the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the Health actuator to the service container, use any one of the `AddHealthActuator()` extension methods from `EndpointServiceCollectionExtensions`.
 
@@ -189,7 +189,7 @@ public class Startup
 
 ## ASP NET Core Health Checks
 
-ASP.NET Core also offers [Middleware and libraries](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-2.
+ASP.NET Core also offers [Middleware and libraries](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-2.
 ) and abstractions for reporting health. There is wide community support for these abstractions from libraries such as [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). It is now possible to use these community provided health checks and make them available via this management health endpoint (for integration with PCF or any other infrastructure that depends on this format). In addition, Steeltoe connectors now exposes functionality to easily get connection information which is needed to setup these community health checks.
 
 For example, to use the Steeltoe MySql connector but instead use ASP.NET Core community health checks, make these changes to Startup.cs:
@@ -241,4 +241,3 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 ```
 
 A complete example is available [here](https://github.com/SteeltoeOSS/Samples/tree/2.x/Management/src/AspDotNetCore/MicrosoftHealthChecks).
-

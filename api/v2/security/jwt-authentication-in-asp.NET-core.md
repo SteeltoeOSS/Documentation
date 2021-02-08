@@ -2,7 +2,7 @@
 
 This provider lets you control access to REST resources by using JWT tokens issued by Cloud Foundry Security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity)) in ASP.NET Core, ASP.NET WebAPI and WCF.
 
-In addition to the [Quick Start](#2-1-quick-start), other Steeltoe sample applications can help you understand how to use this tool, including:
+Other Steeltoe sample applications can help you understand how to use this tool, including:
 
 * `FreddysBBQ`: A polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
 
@@ -12,7 +12,7 @@ This package uses JSON Web Tokens (JWT) and builds on JWT Security services prov
 
 Many resources are available for understanding JWT (for example, see [JWT IO](https://jwt.io/) or [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)).
 
-To get a good understanding of ASP.NET Core Security, review the [documentation](https://docs.microsoft.com/en-us/aspnet/core/) provided by Microsoft.
+To get a good understanding of ASP.NET Core Security, review the [documentation](https://docs.microsoft.com/aspnet/core/) provided by Microsoft.
 
 Additionally, you should know how the .NET [Configuration services](https://docs.asp.net/en/latest/fundamentals/configuration.html) the `ConfigurationBuilder` work and how to add providers to the builder.
 
@@ -35,7 +35,7 @@ To use the provider, add a reference to the Steeltoe Cloud Foundry Security NuGe
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version= "2.1.0"/>
+    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```

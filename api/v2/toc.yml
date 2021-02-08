@@ -64,7 +64,7 @@
       name: /prometheus
     - topicHref: management/refresh.md
       name: /refresh
-    - topicHref: management/trace.md
+    - topicHref: management/tracing.md
       name: /trace
 - name: Network File Sharing
   topicHref: fileshares/
@@ -99,7 +99,7 @@
       name: PostgreSQL
     - topicHref: connectors/rabbitmq.md
       name: RabbitMQ
-    - topicHref: connectors/oauth  
+    - topicHref: connectors/oauth.md
       name: OAuth
     - topicHref: connectors/mongodb.md
       name: MongoDB

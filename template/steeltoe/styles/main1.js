@@ -8,6 +8,71 @@ function getMainSiteHost(){
 
 	return "https://steeltoe.io";
 }
+
+function isApiBrowserPage() {
+	return window.location.href.indexOf("/api/browser/") > -1;
+}
+
+function isApiVersion3() {
+	return window.location.href.indexOf("/api/browser/v3/") > -1;
+}
+
+function getNamespaceFolder(url) {
+	var urlSegments = url.split('/');
+	return urlSegments[urlSegments.length - 2];
+}
+
+function setActiveNamespace(version) {
+	var urlNamespace = getNamespaceFolder(window.location.href);
+	
+	$(`#api-namespace-${version} option`).each((index, option) => {
+		var optionNamespace = getNamespaceFolder(option.value);
+
+		if (urlNamespace.toLowerCase() === optionNamespace.toLowerCase()) {
+			$(option).prop('selected', true);
+		}
+	});
+}
+
+function bindNavigationChangeEvent(version) {
+	$(`#api-namespace-${version}`).change((event) => {
+		var url = event.target.value;
+
+		if (url) {
+			window.location = url;
+		}
+
+		return false;
+	});
+}
+
+function showApiBrowserElements() {
+	// Change current page highlight nav
+	$('#docsNavLink').removeClass('active');
+	$('#apiBrowserNavLink').addClass('active');
+
+	// Change active version labels for correct linkage
+	$('.versionLabel').toggleClass('hide');
+
+	// Set TOC font for api references
+	$("[role=main]").addClass("api-browser");
+
+	// Show api navigation above article
+	$('#api-navigation').removeClass('hide');
+
+	// Hide/Disable Contribution elements (view/edit source)
+	$('.sideaffix .contribution').addClass('hide');
+	$('.sideaffix .contribution .nav li a').attr('href','#');
+
+	if(!isApiVersion3()) {
+		// Select correct version radio button
+		$("#api-v2").prop("checked", true);
+
+		// Change namespace dropdown to v2
+		$('.api-namespace').toggleClass('hide');
+	}
+}
+
 $(document).ready(function() {
 	if(document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('dev.steeltoe.io') > -1){
 		$("a[href^='https://steeltoe.io']").attr('href', function() { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
@@ -45,6 +110,20 @@ $(document).ready(function() {
 	//console.log(urlParams);
 
 	urlParams.forEach(function(value,key){localStorage[key] = value;});
+
+	// Toggle api browser vs docs
+	if (isApiBrowserPage()) {
+		showApiBrowserElements();
+
+		if (isApiVersion3()) {
+			setActiveNamespace('v3');
+			bindNavigationChangeEvent('v3');
+		}
+		else {
+			setActiveNamespace('v2');
+			bindNavigationChangeEvent('v2');
+		}
+	}
 
 	//toggle the docs version radio
 	if (window.location.href.indexOf("v2") > -1) {

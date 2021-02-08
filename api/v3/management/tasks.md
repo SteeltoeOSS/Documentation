@@ -2,7 +2,6 @@
 
 Steeltoe management tasks provide a way to run administrative tasks for ASP.NET Core applications by supporting an alternate entry point, letting you take advantage of the same configuration, logging, and dependency injection as the running version of your application. The original use case for this feature is managing database migrations with a bound database service on Cloud Foundry, but the framework is extensible for you to create your own tasks.
 
-
 ## Add NuGet Reference
 
 This package provides an extension for `Microsoft.AspNetCore.Hosting.IWebHost`.
@@ -12,7 +11,7 @@ Add the following PackageReference to your .csproj file.
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TaskCore" Version= "3.0.0"/>
+    <PackageReference Include="Steeltoe.Management.TaskCore" Version="3.0.2"/>
 ...
 </ItemGroup>
 ```
@@ -20,7 +19,7 @@ Add the following PackageReference to your .csproj file.
 Alternatively, you can use PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.TaskCore -Version 3.0.0
+PM>Install-Package  Steeltoe.Management.TaskCore -Version 3.0.2
 ```
 
 ## Implement Task Interface

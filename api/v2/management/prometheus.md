@@ -1,8 +1,8 @@
 # Prometheus
 
-The Steeltoe Prometheus endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. Similar to the [Metrics Endpoint](metrics), it automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics in the prometheus format.
+The Steeltoe Prometheus endpoint configures application metrics collection using the open source [OpenCensus](https://opencensus.io/) project. Similar to the [Metrics Endpoint](./metrics.md), it automatically configures built-in instrumentation of various aspects of the application and exposes the collected metrics in the prometheus format.
 
-The metrics collected are the same as those collected by the [Metrics Endpoint](metrics).
+The metrics collected are the same as those collected by the [Metrics Endpoint](./metrics.md).
 
 ## Configure Settings
 
@@ -36,7 +36,7 @@ To use the prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version= "2.4.2"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="2.5.2" />
 ...
 </ItemGroup>
 ```
@@ -44,7 +44,7 @@ To use the prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 or
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 2.4.2
+PM>Install-Package  Steeltoe.Management.EndpointCore -Version 2.5.2
 ```
 
 ## Cloud Foundry Forwarder
