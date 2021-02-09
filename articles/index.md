@@ -7,6 +7,9 @@ title: Blog
 uid: articles
 ---
 > [!div class="blog-entry latest container"]
+> <span>January <span class="font-size:larger;">2021</span></span> [.NET and Java together in Azure Spring Cloud with Pet Clinic](https://techcommunity.microsoft.com/t5/apps-on-azure/net-and-java-together-in-azure-spring-cloud-with-pet-clinic/ba-p/2087416)
+
+> [!div class="blog-entry container"]
 > <span>January <span class="font-size:larger;">2021</span></span> [Create .NET Microservice Projects Automatically with Steeltoe Initializr](xref:articles/create-dotnet-microservice-projects-automatically-with-steeltoe-initializr)
 
 > [!div class="blog-entry container"]
