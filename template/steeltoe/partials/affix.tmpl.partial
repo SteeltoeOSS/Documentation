@@ -1,5 +1,8 @@
 
   <div class="sideaffix">
+    <div id="close-sidebar">
+      <a class="mobile-sidebar-close" onclick="showMobileSidebar(); return false;">X</a>
+    </div>
     {{^_disableContribution}}
       <div class="contribution">
         <ul class="nav">
