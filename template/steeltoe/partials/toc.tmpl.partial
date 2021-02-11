@@ -1,8 +1,13 @@
 <div class="sidenav hide-when-search">
-  <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+  <div id="open-sidenav">
+    <a class="mobile-toc-showhide" onclick="showMobileToc(); return false;">Table of Contents</a>
+  </div>
   <div class="sidetoggle collapse" id="sidetoggle">
     <div class="sideVersion">
       {{^_hideTocVersionToggle}}
+      <div id="close-sidenav">
+        <a class="mobile-toc-showhide" onclick="showMobileToc(); return false;">X</a>
+      </div>
       <div class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
         <label class="btn btn-secondary versionLabel" onclick="location.href='/api/v2/welcome'">
           <input type="radio" name="options" id="v2" autocomplete="off"> Version 2

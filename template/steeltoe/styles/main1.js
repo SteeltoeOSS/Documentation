@@ -46,6 +46,10 @@ function bindNavigationChangeEvent(version) {
 	});
 }
 
+function showMobileToc() {
+	$('.sidetoggle.collapse').toggleClass('show');
+}
+
 function showApiBrowserElements() {
 	// Change current page highlight nav
 	$('#docsNavLink').removeClass('active');
