@@ -234,6 +234,10 @@ select.api-namespace option {
 	display: none;
 }
 
+#close-sidebar {
+	display: none;
+}
+
 .mobile-toc-showhide {
 	display: none;
 }
@@ -291,7 +295,41 @@ select.api-namespace option {
 	
 	#open-sidenav .mobile-toc-showhide {
 		border: solid #0066cc 1px;
+		display: inline;
 		padding: 5px;
 		width: fit-content;
+	}
+
+	/*** SIDE BAR ***/
+	.mobile-sidebar-select {
+		display: inline-table;
+		float: right;
+		font-weight: bolder;
+		height: 10px;
+		transform: rotate(90deg);
+		width: 10px;
+	}
+
+	div[role=complementary] {
+		left: 270px;
+		z-index: 5;
+	}
+
+	.sideaffix {
+		background-color: #FFF;
+		border: solid black 1px;
+		height: fit-content;
+		margin-top: 35px;
+		padding: 10px;
+		right: 15px;
+	}
+
+	nav.bs-docs-sidbar.affix {
+		padding: 10px;
+	}
+
+	#close-sidebar {
+		display: block;
+		text-align: right;
 	}
 }

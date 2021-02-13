@@ -50,6 +50,20 @@ function showMobileToc() {
 	$('.sidetoggle.collapse').toggleClass('show');
 }
 
+function showMobileSidebar() {
+	$('[role=complementary]').toggleClass('d-none');
+
+	// Remove mobile sidebar when something is selected
+	$('.sideaffix ul.nav li a').each((index, anchor) => {
+		var sidebarFunction = 'showMobileSidebar();';
+		var anchorOnclick = $(anchor).attr('onclick');
+
+		if (anchorOnclick !== sidebarFunction) {
+			$(anchor).attr('onclick',sidebarFunction);
+		}
+	});
+}
+
 function showApiBrowserElements() {
 	// Change current page highlight nav
 	$('#docsNavLink').removeClass('active');

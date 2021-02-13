@@ -1,6 +1,7 @@
 <div class="sidenav hide-when-search">
   <div id="open-sidenav">
     <a class="mobile-toc-showhide" onclick="showMobileToc(); return false;">Table of Contents</a>
+    <div class="mobile-sidebar-select"><a class="mobile-sidebar-showhide" onclick="showMobileSidebar(); return false;">.&nbsp;.&nbsp;.</a></div>
   </div>
   <div class="sidetoggle collapse" id="sidetoggle">
     <div class="sideVersion">
