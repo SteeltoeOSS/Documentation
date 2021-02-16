@@ -196,6 +196,10 @@ pre {
 	display: none;
 }
 
+.show {
+	display: block;
+}
+
 .api-browser .toc .nav > li > a {
 	font-size: 14px;
 }
@@ -224,4 +228,108 @@ select.api-namespace {
 
 select.api-namespace option {
     font-size: 15px;
+}
+
+#close-sidenav {
+	display: none;
+}
+
+#close-sidebar {
+	display: none;
+}
+
+.mobile-toc-showhide {
+	display: none;
+}
+
+/**** Mobile Side Nav Adjustments ****/
+
+@media only screen and (max-width: 768px) {
+	.article.grid-right {
+		margin-top: 0px!important;
+	}
+
+	article h1, article h2, article h3, article h4 {
+		margin-top: 0px;
+	}
+
+	.sidenav {
+		background-color: #fff;
+		margin-left: 0px;
+		padding: 15px 0px 0px 0px;
+		z-index: 500;
+	}
+
+	.sideVersion {
+		top: 80px;
+	}
+
+	.sidefilter {
+		position: fixed;
+	}
+
+	.sidetoc {
+		position: fixed;
+		overflow-y: scroll;
+	}
+
+	.toc li::after {
+		content: "";
+	}
+
+	.mobile-toc-showhide {
+		display: block;
+	}
+
+	#close-sidenav {
+		background-color: #F1F1F1;
+		display: block;
+		padding-right: 10px;
+		text-align: right;
+	}
+
+	#open-sidenav {
+		color: #0066cc;
+		padding: 10px;
+	}
+	
+	#open-sidenav .mobile-toc-showhide {
+		border: solid #0066cc 1px;
+		display: inline;
+		padding: 5px;
+		width: fit-content;
+	}
+
+	/*** SIDE BAR ***/
+	.mobile-sidebar-select {
+		display: inline-table;
+		float: right;
+		font-weight: bolder;
+		height: 10px;
+		transform: rotate(90deg);
+		width: 10px;
+	}
+
+	div[role=complementary] {
+		left: 270px;
+		z-index: 5;
+	}
+
+	.sideaffix {
+		background-color: #FFF;
+		border: solid black 1px;
+		height: fit-content;
+		margin-top: 35px;
+		padding: 10px;
+		right: 15px;
+	}
+
+	nav.bs-docs-sidbar.affix {
+		padding: 10px;
+	}
+
+	#close-sidebar {
+		display: block;
+		text-align: right;
+	}
 }

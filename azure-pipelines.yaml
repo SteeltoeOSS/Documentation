@@ -1,7 +1,3 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 pool:
   vmImage: 'windows-latest'
 
@@ -11,7 +7,6 @@ trigger:
       - dev
   paths:
     exclude:
-    - CI/*
     - README.md
 
 steps:
@@ -29,7 +24,7 @@ steps:
     docfx metadata api-v3.json
     docfx metadata api-all.json
   displayName: "Docfx Metadata"
-  
+
 - powershell: |
     docfx build -o ./publish --globalMetadataFiles "dev.json"
     if ($lastexitcode -ne 0){
@@ -44,12 +39,12 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)/_site'
     CleanTargetFolder: true
 
-- powershell: cp "CI/Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
+- powershell: cp "Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
   displayName: "Copy Dockerfile"
-  
-- powershell: cp "CI/deployment-dev.yaml" "$(Build.ArtifactStagingDirectory)/deployment.yaml"
-  displayName: "Copy kubernetes manifest"
-  
+
+- powershell: cp "deploy/kubernetes" "$(Build.ArtifactStagingDirectory)/kubernetes" -recurse
+  displayName: "Copy kubernetes manifests"
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
