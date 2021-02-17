@@ -333,3 +333,85 @@ select.api-namespace option {
 		text-align: right;
 	}
 }
+
+/**** Blog Live Preview ****/
+
+
+.blog-list-wrapper {
+	margin:auto;
+	text-align: center;
+	width: 50%;
+}
+
+ul.blog-list > :first-child {
+	border: solid 1px #0066cc;
+	font-style: italic;
+}
+
+ul.blog-list > :first-child .blog-date {
+	font-size: 1.1em;
+	font-style: italic;
+}
+
+ul.blog-list > :first-child .blog-date::after {
+	color: red;
+	content: ' * NEW';
+	font-size: .6em;
+	font-style: italic;
+}
+
+.blog-item {
+	border: solid #e7e7e7 1px;
+	list-style: none;
+	margin: 10px 0px;
+	padding: 20px;
+	text-align: left;
+}
+
+.blog-date {
+	font-weight: bold;
+}
+
+.blog-author {
+	float: right;
+	font-style: italic;
+}
+
+.blog-author::before {
+	content: 'By: ';
+}
+
+.blog-title {
+	font-size: 1.5em;
+	margin-top: 10px;
+	padding: 10px;
+}
+
+.blog-preview {
+	border: solid #b8b4b4 1px;
+	height: 500px;
+	width: 500px;
+}
+
+.preview {
+    display: none;
+	margin-left: 100px;
+	position: absolute;
+    width: 100%;
+    z-index: 500;
+}
+
+a:hover + .preview,.preview:hover{
+    display: block;
+}
+
+@media only screen and (max-width: 768px) {
+
+	a:hover + .preview,.preview:hover{
+		display: none;
+	}
+
+	.blog-list-wrapper {
+		width: 100%;
+	}
+}
