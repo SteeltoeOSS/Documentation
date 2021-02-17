@@ -4,7 +4,7 @@ pool:
 trigger:
   branches:
     include:
-      - dev
+      - main
   paths:
     exclude:
     - README.md
@@ -26,7 +26,7 @@ steps:
   displayName: "Docfx Metadata"
 
 - powershell: |
-    docfx build -o ./publish --globalMetadataFiles "dev.json"
+    docfx build -o ./publish
     if ($lastexitcode -ne 0){
       throw ("Error generating documentation")
     }
