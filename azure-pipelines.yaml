@@ -1,65 +1,49 @@
 trigger:
   branches:
     include:
-    - dev
+      - main
   paths:
     exclude:
     - README.md
-    - docfx/
-    - azure-pipelines-metadata.yaml
-    - build-metadata.sh
-    - Dockerfile-metadata
-    - metadata.conf
-stages:
-- stage: assemble
-  displayName: Assemble
-  jobs:
-  - job: build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: ShellScript@2
-      displayName: Generate Staging Manifest
-      inputs:
-        scriptPath: ./yttw.sh
-        args: >
-          -f kubernetes
-          -v image_tag=$(Build.BuildId)
-          -v hostname=docs-dev.steeltoe.io
-          --output-files manifests/staging
-    - task: ShellScript@2
-      displayName: Generate Production Manifest
-      inputs:
-        scriptPath: ./yttw.sh
-        args: >
-          -f kubernetes
-          -v image_tag=$(Build.BuildId)
-          -v replica_count=2
-          -v hostname=docs.steeltoe.io
-          --output-files manifests/production
-    - task: PublishPipelineArtifact@1
-      displayName: Publish Manifests
-      inputs:
-        targetPath: manifests
-        artifactName: manifests
-- stage: deploy
-  displayName: Deploy
-  dependsOn: assemble
-  condition:
-    not(eq(variables['build.reason'], 'PullRequest'))
-  jobs:
-  - job: deploy
-    displayName: Deploy
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Docker Build and Push
-      inputs:
-        command: buildAndPush
-        containerRegistry: SteeltoeContainerRegistry
-        repository: documentation
-        tags: |
-          $(Build.BuildId)
-          latest
+
+steps:
+- powershell: |
+    cd ..
+    git clone -b 3.0.2 https://github.com/SteeltoeOSS/Steeltoe.git
+    git clone -b 2.5.2 https://github.com/SteeltoeOSS/Steeltoe.git Steeltoe2x
+  displayName: "Clone Steeltoe 3.x & 2.x"
+
+- powershell: choco install docfx -y
+  displayName: "Install Docfx"
+
+- powershell: |
+    docfx metadata api-v2.json
+    docfx metadata api-v3.json
+    docfx metadata api-all.json
+  displayName: "Docfx Metadata"
+
+- powershell: |
+    docfx build -o ./publish
+    if ($lastexitcode -ne 0){
+      throw ("Error generating documentation")
+    }
+  displayName: "Docfx Build"
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: './publish/_site'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/_site'
+    CleanTargetFolder: true
+
+- powershell: cp "Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
+  displayName: "Copy Dockerfile"
+
+- powershell: cp "deploy/kubernetes" "$(Build.ArtifactStagingDirectory)/kubernetes" -recurse
+  displayName: "Copy kubernetes manifests"
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
