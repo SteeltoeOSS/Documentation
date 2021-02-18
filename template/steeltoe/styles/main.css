@@ -10,6 +10,12 @@ html, body {
 	scroll-behavior: smooth;
 }
 
+/* Bootstrap Override */
+
+.container-fluid {
+	margin-top: 100px!important;
+}
+
 /* =====================DOCFX OVERRIDE===================== */
 p {
 	font-size: larger;
@@ -110,9 +116,9 @@ pre {
 	display: none;
 } */
 .sideVersion{
-	position: fixed;
+	position: initial;
 	top: 103px;
-	width: 260px;
+	width: 260px; 
 	z-index: 1;
 }
 .sidefilter {
@@ -121,8 +127,9 @@ pre {
 }
 .sidetoc {
 	top: 203px;
-	width: 260px;
+	width: 260px; 
 }
+
 .btn.active, .btn:active {
 	outline: 0;
 	-webkit-box-shadow: unset;
@@ -133,12 +140,34 @@ pre {
 	border: 0;
 }
 
+/* Side Nav Positioning (fix vertically, flex horizontally) */
+
+.inflow {
+	float: right;
+	position: relative;
+}
+
+.positioner {
+	position: absolute;
+	right: 0;
+}
+
+.article-wrapper {
+	margin-left: 10px;
+}
+
+#version-toggles {
+	position: fixed;
+	top: 103px;
+	width: 260px;
+}
+
 /************ BLOG ************/
 .blog-entry{
 	padding: 1%;
 }
 
-@media (min-width: 950px){
+@media (min-width: 950px) {
 	.blog-entry{
 		max-width: 75%;
 	}
@@ -234,6 +263,10 @@ select.api-namespace option {
 	display: none;
 }
 
+#open-sidenav {
+	display: none;
+}
+
 #close-sidebar {
 	display: none;
 }
@@ -259,8 +292,11 @@ select.api-namespace option {
 		padding: 15px 0px 0px 0px;
 		z-index: 500;
 	}
-
+	
 	.sideVersion {
+		bottom: 0;
+		left: 0;
+		position: fixed;
 		top: 80px;
 	}
 
@@ -291,6 +327,7 @@ select.api-namespace option {
 	#open-sidenav {
 		color: #0066cc;
 		padding: 10px;
+		display: inline;
 	}
 	
 	#open-sidenav .mobile-toc-showhide {
@@ -331,6 +368,10 @@ select.api-namespace option {
 	#close-sidebar {
 		display: block;
 		text-align: right;
+	}
+
+	.inflow {
+		float: unset;
 	}
 }
 
@@ -407,7 +448,7 @@ a:hover + .preview,.preview:hover{
 
 @media only screen and (max-width: 768px) {
 
-	a:hover + .preview,.preview:hover{
+	a:hover + .preview,.preview:hover {
 		display: none;
 	}
 
