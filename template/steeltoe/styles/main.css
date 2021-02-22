@@ -344,7 +344,6 @@ select.api-namespace option {
 }
 
 ul.blog-list > :first-child {
-	border: solid 1px #0066cc;
 	font-style: italic;
 }
 
@@ -355,7 +354,7 @@ ul.blog-list > :first-child .blog-date {
 
 ul.blog-list > :first-child .blog-date::after {
 	color: red;
-	content: ' * NEW';
+	content: ' * LATEST';
 	font-size: .6em;
 	font-style: italic;
 }
@@ -368,23 +367,13 @@ ul.blog-list > :first-child .blog-date::after {
 	text-align: left;
 }
 
-.blog-date {
-	font-weight: bold;
+.blog-item:hover {
+	border: solid 1px #0066cc;
+	cursor: pointer;
 }
 
-.blog-author {
-	float: right;
-	font-style: italic;
-}
-
-.blog-author::before {
-	content: 'By: ';
-}
-
-.blog-title {
-	font-size: 1.5em;
-	margin-top: 10px;
-	padding: 10px;
+.blog-item:hover > .preview, .preview:hover{
+    display: block;
 }
 
 .blog-preview {
@@ -395,14 +384,29 @@ ul.blog-list > :first-child .blog-date::after {
 
 .preview {
     display: none;
-	margin-left: 100px;
+	margin-left: 200px;
 	position: absolute;
     width: 100%;
     z-index: 500;
 }
 
-a:hover + .preview,.preview:hover{
-    display: block;
+.blog-date {
+	color: #0066cc;
+	font-weight: bold;
+}
+
+.blog-author {
+	float: right;
+}
+
+.blog-author::before {
+	content: 'By: ';
+}
+
+.blog-title {
+	font-size: 1.5em;
+	margin-top: 10px;
+	padding: 10px;
 }
 
 @media only screen and (max-width: 768px) {
