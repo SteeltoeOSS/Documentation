@@ -122,7 +122,7 @@ pre {
 	z-index: 1;
 }
 .sidefilter {
-	top: 138px;
+	top: 140px;
 	width: 260px;
 }
 .sidetoc {
@@ -238,6 +238,9 @@ pre {
 	border-left: 1px solid #e7e7e7;
     border-right: 1px solid #e7e7e7;
     padding: 15px;
+	top: 140px;
+    position: fixed;
+    width: 260px;
 }
 
 .api-browser .sidefilter {
