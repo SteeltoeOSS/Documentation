@@ -12,8 +12,8 @@ html, body {
 
 /* Bootstrap Override */
 
-.container-fluid {
-	margin-top: 100px!important;
+div[role=main].container-fluid.body-content {
+	margin-top: 100px;
 }
 
 /* =====================DOCFX OVERRIDE===================== */
@@ -278,9 +278,10 @@ select.api-namespace option {
 	display: none;
 }
 
-/**** Mobile Side Nav Adjustments ****/
+/**** Mobile Side Nav & TOC Adjustments ****/
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1200px) {
+
 	.article.grid-right {
 		margin-top: 0px!important;
 	}
@@ -362,6 +363,14 @@ select.api-namespace option {
 		margin-top: 35px;
 		padding: 10px;
 		right: 15px;
+	}
+
+	div[role=complementary].d-none.d-md-block {
+		display: none!important;
+	}
+
+	#sidetoggle.collapse.collapse {
+		display: none;
 	}
 
 	nav.bs-docs-sidbar.affix {
@@ -451,6 +460,10 @@ a:hover + .preview,.preview:hover{
 
 @media only screen and (max-width: 768px) {
 
+	div[role=main].container-fluid.body-content {
+		margin-top: 25px;
+	}
+	
 	a:hover + .preview,.preview:hover {
 		display: none;
 	}
