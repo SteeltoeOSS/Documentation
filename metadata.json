@@ -20,7 +20,7 @@
 
     "_disableGitFeatures": false,
     "_disableDefaultFilter": false,
-    "_disableBreadcrumb": true,
+    "_disableBreadcrumb": false,
     "_disableNavbar": false,
     "_disableAffix": false,
 

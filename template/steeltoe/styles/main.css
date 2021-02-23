@@ -16,6 +16,14 @@ div[role=main].container-fluid.body-content {
 	margin-top: 100px;
 }
 
+div.subnav.navbar.navbar-default {
+	background-color: #fff;
+}
+
+.navbar > .container {
+	display: block;
+}
+
 /* =====================DOCFX OVERRIDE===================== */
 p {
 	font-size: larger;
