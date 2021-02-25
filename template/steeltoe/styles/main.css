@@ -82,6 +82,16 @@ pre {
 	min-width: unset;
 }
 
+/* Breadcrumbs */
+
+#breadcrumb {
+	margin-left: 10%;
+}
+
+ul.breadcrumb > :first-child {
+	font-weight: bold;
+}
+
 @media only screen and (max-width: 768px){
 	.sideaffix {
 			display: unset;
@@ -125,16 +135,24 @@ pre {
 } */
 .sideVersion{
 	position: initial;
-	top: 103px;
+	/* top: 135px; */
 	width: 260px; 
 	z-index: 1;
 }
-.sidefilter {
-	top: 140px;
+
+#version-toggles {
+	position: fixed;
+	top: 135px;
 	width: 260px;
 }
+
+.sidefilter {
+	top: 172px;
+	width: 260px;
+	z-index: 500;
+}
 .sidetoc {
-	top: 203px;
+	top: 224px;
 	width: 260px; 
 }
 
@@ -158,16 +176,6 @@ pre {
 .positioner {
 	position: absolute;
 	right: 0;
-}
-
-.article-wrapper {
-	margin-left: 10px;
-}
-
-#version-toggles {
-	position: fixed;
-	top: 103px;
-	width: 260px;
 }
 
 /************ BLOG ************/
@@ -226,6 +234,10 @@ pre {
 }
 #blog-specs img{height:30px;width:30px;}
 #blog-specs img{height:30px;width:30px;}
+
+.blog-wrapper {
+	padding: 0px 0px 0px 5%;
+}
 
 /************ API Browser ************/
 
@@ -298,10 +310,18 @@ select.api-namespace option {
 		margin-top: 0px;
 	}
 
+	.article-wrapper.col-xl-7 {
+		margin-left: 5%;
+	}
+
+	#breadcrumb {
+		display: none;
+	}
+
 	.sidenav {
 		background-color: #fff;
 		margin-left: 0px;
-		padding: 15px 0px 0px 0px;
+		padding: 20px 0px 0px 5%;
 		z-index: 500;
 	}
 	
@@ -309,7 +329,7 @@ select.api-namespace option {
 		bottom: 0;
 		left: 0;
 		position: fixed;
-		top: 80px;
+		/* top: 80px; */
 	}
 
 	.sidefilter {
@@ -400,8 +420,8 @@ select.api-namespace option {
 
 .blog-list-wrapper {
 	margin:auto;
+	padding: 0px 15%;
 	text-align: center;
-	width: 50%;
 }
 
 ul.blog-list > :first-child {
@@ -473,7 +493,7 @@ ul.blog-list > :first-child .blog-date::after {
 @media only screen and (max-width: 768px) {
 
 	div[role=main].container-fluid.body-content {
-		margin-top: 25px;
+		margin-top: 0px;
 	}
 	
 	a:hover + .preview,.preview:hover {
@@ -482,5 +502,9 @@ ul.blog-list > :first-child .blog-date::after {
 
 	.blog-list-wrapper {
 		width: 100%;
+	}
+
+	.sidenav {
+		padding: 0px 0px 0px 5%;
 	}
 }

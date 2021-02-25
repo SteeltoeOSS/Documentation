@@ -21,12 +21,22 @@
       {{/_enableSearch}}
       <div role="main" class="container-fluid body-content hide-when-search">
         <div class="row">
-          <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12">
-            {{^_disableToc}}
-              {{>partials/toc}}
+          {{^_disableToc}}
+            <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12">
+                {{>partials/toc}}
+            </div>
+          {{/_disableToc}}
+          {{#_disableAffix}}
+            <div class="col article-wrapper">
+          {{/_disableAffix}}
+          {{^_disableAffix}}
+            {{#_disableToc}}
+              <div class="article-wrapper blog-wrapper col-xl-9 col-lg-12 col-md-12 col-sm-12">
             {{/_disableToc}}
-          </div>
-          <div class="col article-wrapper">
+            {{^_disableToc}}
+              <div class="col-xl-7 article-wrapper">
+            {{/_disableToc}}
+          {{/_disableAffix}}
             <article class="content wrap" id="_content" data-uid="{{uid}}">
               {{>partials/blog-specs}}
               {{#_showBackToBlogs}}<div class="row col"><a href="../../articles/index.html">&lt;&lt; Back to blogs</a></div>{{/_showBackToBlogs}}
@@ -34,13 +44,13 @@
               {{#_showBackToBlogs}}<div class="row col pt-2"><a href="../../articles/index.html">&lt;&lt; Back to blogs</a></div>{{/_showBackToBlogs}}
             </article>
           </div>
-          <div class="col-2">
-            {{^_disableAffix}}
-              <div class="d-none d-md-block" role="complementary">
-                {{>partials/affix}}
-              </div>
-            {{/_disableAffix}}
-          </div>
+          {{^_disableAffix}}
+            <div class="col-2">
+                <div class="d-none d-md-block" role="complementary">
+                  {{>partials/affix}}
+                </div>
+            </div>
+          {{/_disableAffix}}
         </div>
         {{^_disableFooter}}
           {{>partials/footer}}
