@@ -16,6 +16,14 @@ div[role=main].container-fluid.body-content {
 	margin-top: 100px;
 }
 
+div.subnav.navbar.navbar-default {
+	background-color: #fff;
+}
+
+.navbar > .container {
+	display: block;
+}
+
 /* =====================DOCFX OVERRIDE===================== */
 p {
 	font-size: larger;
@@ -74,6 +82,16 @@ pre {
 	min-width: unset;
 }
 
+/* Breadcrumbs */
+
+#breadcrumb {
+	margin-left: 10%;
+}
+
+ul.breadcrumb > :first-child {
+	font-weight: bold;
+}
+
 @media only screen and (max-width: 768px){
 	.sideaffix {
 			display: unset;
@@ -117,16 +135,24 @@ pre {
 } */
 .sideVersion{
 	position: initial;
-	top: 103px;
+	/* top: 135px; */
 	width: 260px; 
 	z-index: 1;
 }
-.sidefilter {
-	top: 140px;
+
+#version-toggles {
+	position: fixed;
+	top: 135px;
 	width: 260px;
 }
+
+.sidefilter {
+	top: 172px;
+	width: 260px;
+	z-index: 500;
+}
 .sidetoc {
-	top: 203px;
+	top: 224px;
 	width: 260px; 
 }
 
@@ -150,16 +176,6 @@ pre {
 .positioner {
 	position: absolute;
 	right: 0;
-}
-
-.article-wrapper {
-	margin-left: 10px;
-}
-
-#version-toggles {
-	position: fixed;
-	top: 103px;
-	width: 260px;
 }
 
 /************ BLOG ************/
@@ -219,6 +235,10 @@ pre {
 #blog-specs img{height:30px;width:30px;}
 #blog-specs img{height:30px;width:30px;}
 
+.blog-wrapper {
+	padding: 0px 0px 0px 5%;
+}
+
 /************ API Browser ************/
 
 .hide {
@@ -238,18 +258,18 @@ pre {
 	border-left: 1px solid #e7e7e7;
     border-right: 1px solid #e7e7e7;
     padding: 15px;
-	top: 140px;
+	top: 173px;
     position: fixed;
     width: 260px;
 }
 
 .api-browser .sidefilter {
-    top: 195px;
+    top: 222px;
     z-index: 50;
 }
 
 .api-browser .sidetoc {
-	top: 235px;
+	top: 252px;
     z-index: 25;
 }
 
@@ -290,10 +310,18 @@ select.api-namespace option {
 		margin-top: 0px;
 	}
 
+	.article-wrapper.col-xl-7 {
+		margin-left: 5%;
+	}
+
+	#breadcrumb {
+		display: none;
+	}
+
 	.sidenav {
 		background-color: #fff;
 		margin-left: 0px;
-		padding: 15px 0px 0px 0px;
+		padding: 20px 0px 0px 5%;
 		z-index: 500;
 	}
 	
@@ -301,7 +329,6 @@ select.api-namespace option {
 		bottom: 0;
 		left: 0;
 		position: fixed;
-		top: 80px;
 	}
 
 	.sidefilter {
@@ -326,6 +353,9 @@ select.api-namespace option {
 		display: block;
 		padding-right: 10px;
 		text-align: right;
+		top: 32px;
+		width: 260px;
+		position: absolute;
 	}
 
 	#open-sidenav {
@@ -360,7 +390,6 @@ select.api-namespace option {
 		background-color: #FFF;
 		border: solid black 1px;
 		height: fit-content;
-		margin-top: 35px;
 		padding: 10px;
 		right: 15px;
 	}
@@ -392,8 +421,8 @@ select.api-namespace option {
 
 .blog-list-wrapper {
 	margin:auto;
+	padding: 0px 15%;
 	text-align: center;
-	width: 50%;
 }
 
 ul.blog-list > :first-child {
@@ -465,7 +494,7 @@ ul.blog-list > :first-child .blog-date::after {
 @media only screen and (max-width: 768px) {
 
 	div[role=main].container-fluid.body-content {
-		margin-top: 25px;
+		margin-top: 0px;
 	}
 	
 	a:hover + .preview,.preview:hover {
@@ -474,5 +503,9 @@ ul.blog-list > :first-child .blog-date::after {
 
 	.blog-list-wrapper {
 		width: 100%;
+	}
+
+	.sidenav {
+		padding: 0px 0px 0px 5%;
 	}
 }

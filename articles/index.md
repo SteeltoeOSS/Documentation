@@ -1,4 +1,5 @@
 ---
+_disableBreadcrumb: true
 _disableToc: true
 _disableAffix: true
 _disableGitFeatures: true
@@ -110,7 +111,7 @@ uid: articles
             <div class="blog-title">Steeltoe Turns 2.0, Adds Support for ASP.NET Core 2.0, CredHub, and a SQL Server Connector</div>
         </li>
         <li class="blog-item" onclick="location.href='pivotal-contributes-steeltoe-to-the-net-foundation.html'">
-            <span class="blog-date">November 15 2020</a>
+            <span class="blog-date">November 15 2020</span>
             <div class="preview">
                 <embed class="blog-preview" src="pivotal-contributes-steeltoe-to-the-net-foundation.html" />
             </div>
