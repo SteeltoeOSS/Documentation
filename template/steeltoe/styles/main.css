@@ -258,18 +258,18 @@ ul.breadcrumb > :first-child {
 	border-left: 1px solid #e7e7e7;
     border-right: 1px solid #e7e7e7;
     padding: 15px;
-	top: 140px;
+	top: 173px;
     position: fixed;
     width: 260px;
 }
 
 .api-browser .sidefilter {
-    top: 195px;
+    top: 222px;
     z-index: 50;
 }
 
 .api-browser .sidetoc {
-	top: 235px;
+	top: 252px;
     z-index: 25;
 }
 
@@ -329,7 +329,6 @@ select.api-namespace option {
 		bottom: 0;
 		left: 0;
 		position: fixed;
-		/* top: 80px; */
 	}
 
 	.sidefilter {
@@ -354,6 +353,9 @@ select.api-namespace option {
 		display: block;
 		padding-right: 10px;
 		text-align: right;
+		top: 32px;
+		width: 260px;
+		position: absolute;
 	}
 
 	#open-sidenav {
@@ -388,7 +390,6 @@ select.api-namespace option {
 		background-color: #FFF;
 		border: solid black 1px;
 		height: fit-content;
-		margin-top: 35px;
 		padding: 10px;
 		right: 15px;
 	}
