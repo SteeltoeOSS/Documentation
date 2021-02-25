@@ -353,9 +353,9 @@ select.api-namespace option {
 		display: block;
 		padding-right: 10px;
 		text-align: right;
-		top: 32px;
+		top: 111px;
 		width: 260px;
-		position: absolute;
+		position: fixed;
 	}
 
 	#open-sidenav {
