@@ -503,6 +503,7 @@ ul.blog-list > :first-child .blog-date::after {
 
 	.blog-list-wrapper {
 		width: 100%;
+		padding: 0px;
 	}
 
 	.sidenav {
