@@ -1,4 +1,5 @@
 ---
+_disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
 _showBackToBlogs: true

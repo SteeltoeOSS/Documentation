@@ -1,15 +1,15 @@
-<div class="sidenav hide-when-search">
+<div class="sidenav inflow hide-when-search">
   <div id="open-sidenav">
     <a class="mobile-toc-showhide" onclick="showMobileToc(); return false;">Table of Contents</a>
     <div class="mobile-sidebar-select"><a class="mobile-sidebar-showhide" onclick="showMobileSidebar(); return false;">.&nbsp;.&nbsp;.</a></div>
   </div>
-  <div class="sidetoggle collapse" id="sidetoggle">
+  <div class="sidetoggle positioner collapse" id="sidetoggle">
     <div class="sideVersion">
       {{^_hideTocVersionToggle}}
       <div id="close-sidenav">
         <a class="mobile-toc-showhide" onclick="showMobileToc(); return false;">X</a>
       </div>
-      <div class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
+      <div id="version-toggles" class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
         <label class="btn btn-secondary versionLabel" onclick="location.href='/api/v2/welcome'">
           <input type="radio" name="options" id="v2" autocomplete="off"> Version 2
         </label>
@@ -48,7 +48,7 @@
           </div>
       </div>
       {{/_hideTocVersionToggle}}
+      <div id="sidetoc"></div>
     </div>
-    <div id="sidetoc"></div>
   </div>
 </div>
