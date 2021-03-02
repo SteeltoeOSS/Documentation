@@ -19,10 +19,11 @@
 			</li>
 			<li class="nav-item dropdown mx-xl-2">
 				<a class="nav-link dropdown-toggle" href="#" id="learn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Learn
+					Get Started
 				</a>
 				<div class="dropdown-menu" aria-labelledby="learn">
-					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/get-started" onClick="$(this).removeAttr('target')">Get Started</a>
+					<a class="dropdown-item" href="https://start.steeltoe.io" target="_blank">Steeltoe Initializr</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/get-started" onClick="$(this).removeAttr('target')">Guides</a>
 					<a class="dropdown-item active" id="docsNavLink" href="~/api/v3/welcome/" onClick="$(this).removeAttr('target')">Documentation</a>
 					<a class="dropdown-item" id="apiBrowserNavLink" href="~/api/browser/v3/all" onClick="$(this).removeAttr('target')">API Browser</a>
 					<a class="dropdown-item" id="blogNavLink" href="~/articles/" onClick="$(this).removeAttr('target')">Blog</a>
@@ -43,8 +44,6 @@
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/service-connectors" onClick="$(this).removeAttr('target')">Steeltoe Service Connectors</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/service-discovery" onClick="$(this).removeAttr('target')">Steeltoe Service Discovery</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/messaging" onClick="$(this).removeAttr('target')">Steeltoe Messaging</a>
-					<div class="small pl-4 pt-3">Developer Tools</div>
-					<a class="dropdown-item pl-5" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/initializr" onClick="$(this).removeAttr('target')">Steeltoe Initializr</a>
 				</div>
 			</li>
 			<li class="nav-item mx-xl-2">
