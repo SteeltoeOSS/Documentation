@@ -512,8 +512,4 @@ ul.blog-list > :first-child .blog-date::after {
 		width: 100%;
 		padding: 0px;
 	}
-
-	.sidenav {
-		padding: 0px 0px 0px 5%;
-	}
 }
