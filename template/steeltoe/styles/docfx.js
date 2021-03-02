@@ -618,7 +618,7 @@ $(function () {
   
       function getHierarchy() {
         // supported headers are h1, h2, h3, and h4
-        var $headers = $($.map(['h1', 'h2', 'h3', 'h4'], function (h) { return ".article article " + h; }).join(", "));
+        var $headers = $($.map(['h1', 'h2', 'h3', 'h4'], function (h) { return ".article-wrapper article " + h; }).join(", "));
   
         // a stack of hierarchy items that are currently being built
         var stack = [];
