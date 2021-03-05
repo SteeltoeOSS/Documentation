@@ -56,13 +56,13 @@ $body = @{
     Dependencies='Actuator,Dynamic-Logger,SQLServer'
 }
 
-Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile MyProject.zip
+Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile Sample.zip
 ```
 
 # [Bash](#tab/bash)
 
 ```bash
-$ http https://start.steeltoe.io/api/project dependencies==actuator,dynamic-logger,sqlserver -o MyProject.zip
+$ http https://start.steeltoe.io/api/project dependencies==actuator,dynamic-logger,sqlserver -d
 ```
 
 ***
@@ -113,13 +113,13 @@ $body = @{
     Dependencies='Actuator,SQLServer'
 }
 
-Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile MyProject.zip
+Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile Sample.zip
 ```
 
 # [Bash](#tab/bash)
 
 ```bash
-$ http https://start.steeltoe.io/api/project dependencies==actuator,sqlserver -o MyProject.zip
+$ http https://start.steeltoe.io/api/project dependencies==actuator,sqlserver -d
 ```
 
 ***
