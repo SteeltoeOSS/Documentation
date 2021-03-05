@@ -10,8 +10,8 @@
           "articles/**.md",
           "articles/**/toc.yml",
 
-          "labs/**.md",
-          "labs/**/toc.yml",
+          "guides/**.md",
+          "guides/**/toc.yml",
           
           "toc.yml",
           "*.md"
