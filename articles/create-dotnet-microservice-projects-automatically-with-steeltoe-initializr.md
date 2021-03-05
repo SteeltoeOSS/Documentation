@@ -62,7 +62,7 @@ Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutF
 # [Bash](#tab/bash)
 
 ```bash
-curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,dynamic-logger,sqlserver
+$ http https://start.steeltoe.io/api/project dependencies==actuator,dynamic-logger,sqlserver -o MyProject.zip
 ```
 
 ***
@@ -119,7 +119,7 @@ Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutF
 # [Bash](#tab/bash)
 
 ```bash
-curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,sqlserver
+$ http https://start.steeltoe.io/api/project dependencies==actuator,sqlserver -o MyProject.zip
 ```
 
 ***
