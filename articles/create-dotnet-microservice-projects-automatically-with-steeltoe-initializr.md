@@ -53,11 +53,11 @@ We want to create a .NET Core microservice (aka webapi project) that hands us he
 ```powershell
 $body = @{Name:"MyApp",Dependencies:"Actuator,Dynamic-Logger,SQLServer"}
 
-Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile MyNewProject.zip
+Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile MyNewProject.zip
 
 #To unzip
 
-Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body | Expand-Archive -DestinationPath .
+Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body | Expand-Archive -DestinationPath .
 ```
 
 # [Bash](#tab/bash)
@@ -111,7 +111,7 @@ Alternatively you could also run the following command:
 ```powershell
 $body = @{Name:"MyProject",Dependencies:"actuator,sqlserver"}
 
-Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile MyProject.zip
+Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile MyProject.zip
 ```
 
 # [Bash](#tab/bash)
