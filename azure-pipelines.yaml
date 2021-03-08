@@ -43,8 +43,6 @@ steps:
 - powershell: cp "Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
   displayName: "Copy Dockerfile"
 
-- powershell: cp "deploy/kubernetes" "$(Build.ArtifactStagingDirectory)/kubernetes" -recurse
-
 - task: CopyFiles@2
   inputs:
     SourceFolder: './deploy/kubernetes'
