@@ -1,5 +1,5 @@
 ---
-uid: labs/modernize-dotnet/exercise1
+uid: guides/modernize-dotnet/exercise1
 _disableContribution: true
 _disableToc: true
 _disableFooter: true
@@ -9,17 +9,16 @@ _disableNav: true
 
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
+[modernize-frontend-newmanifest]: ~/guides/images/modernize-frontend-newmanifest.png "Create a new manifest for the frontend"
+[modernize-frontend-publish]: ~/guides/images/modernize-frontend-publish.png "Publish the frontend"
+[modernize-frontend-publish2]: ~/guides/images/modernize-frontend-publish2.png "Publish the frontend"
+[modernize-frontend-cfapp]: ~/guides/images/modernize-frontend-cfapp.png "Find the URL your application will respond on"
+[modernize-service-newmanifest]: ~/guides/images/modernize-service-newmanifest.png "Create a manifest for the backend service"
+[modernize-service-result]: ~/guides/images/modernize-service-result.png "Results of the service"
+[modernize-frontend-result]: ~/guides/images/modernize-frontend-result.png "Results of the service as consumed by the frontend"
 
-[modernize-frontend-newmanifest]: ~/labs/images/modernize-frontend-newmanifest.png "Create a new manifest for the frontend"
-[modernize-frontend-publish]: ~/labs/images/modernize-frontend-publish.png "Publish the frontend"
-[modernize-frontend-publish2]: ~/labs/images/modernize-frontend-publish2.png "Publish the frontend"
-[modernize-frontend-cfapp]: ~/labs/images/modernize-frontend-cfapp.png "Find the URL your application will respond on"
-[modernize-service-newmanifest]: ~/labs/images/modernize-service-newmanifest.png "Create a manifest for the backend service"
-[modernize-service-result]: ~/labs/images/modernize-service-result.png "Results of the service"
-[modernize-frontend-result]: ~/labs/images/modernize-frontend-result.png "Results of the service as consumed by the frontend"
-
-||[Next Exercise >>][exercise-2-link]|
-|:--|--:|
+|     | [Next Exercise >>][exercise-2-link] |
+| :-- | ----------------------------------: |
 
 # Exercise 1
 
@@ -35,6 +34,7 @@ Simulate an IIS Virtual Directory structure with routes in TAS
 ## Get Started
 
 ### Deploy the frontend application
+
 Using VS Code, create a manifest file for the web frontend named `manifest.yml` in the `WorkshopFrontEnd` directory. In this case every field can remain the same as the example.
 
 <br><br><br>
@@ -46,11 +46,11 @@ With the following content
 ```yaml
 ---
 applications:
-- instances: 1
-  memory: 384M 
-  path: bin/app.publish/
-  buildpacks: 
-    - hwc_buildpack
+  - instances: 1
+    memory: 384M
+    path: bin/app.publish/
+    buildpacks:
+      - hwc_buildpack
 ```
 
 In Visual Studio publish the application to the Folder profile by right-clicking the `WorkshopFrontEnd` project, selecting `Publish`, and clicking the `Publish` button on the right.
@@ -68,7 +68,7 @@ cd c:\Users\WorkshopStudent\src\Workshop\WorkshopFrontEnd
 cf push <front-end-app-name> -s windows
 ```
 
-Find the url for your application by visitng it's route in a web browser. You can retrieve the route with 
+Find the url for your application by visitng it's route in a web browser. You can retrieve the route with
 
 ```powershell
 cf app <front-end-app-name>
@@ -85,10 +85,11 @@ Select `ViewCounter` from the top menu of the web application. See the counter i
 Using VS Code, create a manifest file named `manifest.yml` for the backend in the `WorkshopService` directory. In the begining of the route place the URL used by the frontend application without the protocol i.e. `john-q-smith-1990.cfapps.io`. Ensure the route has `/api` after the domain name. This instructs cloud foundry to send all requests to the `/api` context path to the backend service while all other requests are routed to the front.
 
 Notes:
-* Your frontend app and api must be named differently
-* The frontend's route was set automatically
-* We'll set the route for the backend manually
-* The api's route should be set to the same as the frontend's with `/api` at the end.
+
+- Your frontend app and api must be named differently
+- The frontend's route was set automatically
+- We'll set the route for the backend manually
+- The api's route should be set to the same as the frontend's with `/api` at the end.
 
 <br><br><br>
 ![modernize-service-newmanifest]
@@ -100,22 +101,22 @@ applications:
 - instances: 1
   memory: 384M
   path: bin/app.publish/
-  buildpacks: 
+  buildpacks:
     - hwc_buildpack
   routes:
     - route: <host-name.domain-name>/api
-```    
+```
 
 Publish the application to the Folder profile by right-clicking the `WorkshopService` project, selecting `Publish`, and clicking the `Publish` button on the right.
 
-In powershell change directory to `WorkshopService` (the directory containing `WorkshopService.csproj`) then push the service to cloud foundry. Since you're sharing a space with your classmates you'll need to ensure the name is unique. Also, ensure the app name is DIFFERENT than front end. Note that outside of the classroom each deployment of the application would likely have a different space. 
+In powershell change directory to `WorkshopService` (the directory containing `WorkshopService.csproj`) then push the service to cloud foundry. Since you're sharing a space with your classmates you'll need to ensure the name is unique. Also, ensure the app name is DIFFERENT than front end. Note that outside of the classroom each deployment of the application would likely have a different space.
 
 ```powershell
 cd c:\Users\WorkshopStudent\src\Workshop\WorkshopService
 cf push <api-app-name> -s windows
 ```
 
-Verify the service is working by visiting `https://<host-name.domain-name>/api/values` in your web browser. Note that in the absense of special headers you may get an XML response. 
+Verify the service is working by visiting `https://<host-name.domain-name>/api/values` in your web browser. Note that in the absense of special headers you may get an XML response.
 
 <br><br><br>
 ![modernize-service-result]
@@ -127,7 +128,7 @@ Now validate that the frontend is consuming the API by visiting `https://<host-n
 ![modernize-frontend-result]
 <br><br><br>
 
-Note that in practice you can mix and match technologies behind context routes. For instance your `/api` could be a Java/Spring application and your front end at the root could be dotnet core, ASP.NET, or whatever you like. 
+Note that in practice you can mix and match technologies behind context routes. For instance your `/api` could be a Java/Spring application and your front end at the root could be dotnet core, ASP.NET, or whatever you like.
 
-||[Next Exercise >>][exercise-2-link]|
-|:--|--:|
+|     | [Next Exercise >>][exercise-2-link] |
+| :-- | ----------------------------------: |

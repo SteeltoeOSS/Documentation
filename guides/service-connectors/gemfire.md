@@ -1,5 +1,5 @@
 ---
-uid: labs/service-connectors/gemfire
+uid: guides/service-connectors/gemfire
 title: Apache Geode/GemFire Cache
 tags: []
 _disableFooter: true

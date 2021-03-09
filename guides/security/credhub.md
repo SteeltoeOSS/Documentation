@@ -1,5 +1,5 @@
 ---
-uid: labs/security-providers/credhub
+uid: guides/security-providers/credhub
 title: CredHub Client
 tags: []
 _disableFooter: true

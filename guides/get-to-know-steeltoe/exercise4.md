@@ -1,17 +1,17 @@
 ﻿---
-uid: labs/get-to-know-steeltoe/exercise4
+uid: guides/get-to-know-steeltoe/exercise4
 _disableContribution: true
 _disableToc: true
 _disableFooter: true
 _homePath: "./index.html"
 _disableNav: true
 ---
-[vs-add-configserver]: ~/labs/images/vs-add-configserver.png "Add configuration server library"
-[vs-new-folder]: ~/labs/images/vs-new-folder.png "Create a new project folder"
-[vs-new-class]: ~/labs/images/vs-new-class.png "Create a new project class"
-[run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
-[vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
 
+[vs-add-configserver]: ~/guides/images/vs-add-configserver.png "Add configuration server library"
+[vs-new-folder]: ~/guides/images/vs-new-folder.png "Create a new project folder"
+[vs-new-class]: ~/guides/images/vs-new-class.png "Create a new project class"
+[run-weatherforecast]: ~/guides/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
+[vs-run-application]: ~/guides/images/vs-run-application.png "Run the project"
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
@@ -19,8 +19,8 @@ _disableNav: true
 [exercise-4-link]: exercise4.md
 [summary-link]: summary.md
 
-|[<< Previous Exercise][exercise-3-link]||
-|:--|--:|
+| [<< Previous Exercise][exercise-3-link] |     |
+| :-------------------------------------- | --: |
 
 # Using an external configuration provider
 
@@ -51,7 +51,7 @@ Right click on the project name in the solution explorer and choose "Manage NuGe
 dotnet add package Steeltoe.Extensions.Configuration.ConfigServerCore
 ```
 
-***
+---
 
 ## Implement Spring Config client
 
@@ -71,7 +71,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 				.AddConfigServer()
 				.UseStartup<Startup>();
 		})
-    
+
     //Steeltoe actuators
 		.AddAllActuators()
 
@@ -97,7 +97,7 @@ cd Controllers
 dotnet new classlib -n "ValuesController.cs"
 ```
 
-***
+---
 
 Open the newly created class file in your IDE and replace the 'using' statements in the file with the below.
 
@@ -123,7 +123,7 @@ public class ValuesController : ControllerBase
       _config = config;
       _logger = logger;
   }
-  
+
   // GET api/values
   [HttpGet]
   public ActionResult<IEnumerable<string>> Get()
@@ -174,7 +174,7 @@ Executing the below command will start the application. You will see a log messa
 dotnet run
 ```
 
-***
+---
 
 With the application running and the weather forecast endpoint loaded your browser should show the following
 
@@ -198,7 +198,7 @@ Either close the browser window or click the red stop button in the top menu.
 
 Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
 
-***
+---
 
 ## Summary
 
@@ -206,5 +206,5 @@ With an existing Spring Config server running that was configured to retrieve va
 
 We've just begun to scratch the surface of what Spring Config can really do and all it's many features. Learn more about config in the [Steeltoe docs](/api/v3/configuration/config-server-provider.html).
 
-|[<< Previous Exercise][exercise-3-link]|[Workshop Summary >>][summary-link]|
-|:--|--:|
+| [<< Previous Exercise][exercise-3-link] | [Workshop Summary >>][summary-link] |
+| :-------------------------------------- | ----------------------------------: |

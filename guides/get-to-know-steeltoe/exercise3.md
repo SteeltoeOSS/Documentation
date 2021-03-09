@@ -1,27 +1,27 @@
 ﻿---
-uid: labs/get-to-know-steeltoe/exercise3
+uid: guides/get-to-know-steeltoe/exercise3
 _disableContribution: true
 _disableToc: true
 _disableFooter: true
 _homePath: "./index.html"
 _disableNav: true
 ---
-[vs-add-efcore]: ~/labs/images/vs-add-efcore.png "Steeltoe EFCore nuget dependency"
-[single-todoitem]: ~/labs/images/single-todoitem.png "ToDo item retrieved from the database"
-[run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
-[vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
-[vs-new-folder]: ~/labs/images/vs-new-folder.png "Create a new project folder"
-[vs-new-class]: ~/labs/images/vs-new-class.png "Create a new project class"
-[vs-add-efsqlserver]: ~/labs/images/vs-add-efsqlserver.png "Microsoft SqlServer EFCore nuget dependency"
 
+[vs-add-efcore]: ~/guides/images/vs-add-efcore.png "Steeltoe EFCore nuget dependency"
+[single-todoitem]: ~/guides/images/single-todoitem.png "ToDo item retrieved from the database"
+[run-weatherforecast]: ~/guides/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
+[vs-run-application]: ~/guides/images/vs-run-application.png "Run the project"
+[vs-new-folder]: ~/guides/images/vs-new-folder.png "Create a new project folder"
+[vs-new-class]: ~/guides/images/vs-new-class.png "Create a new project class"
+[vs-add-efsqlserver]: ~/guides/images/vs-add-efsqlserver.png "Microsoft SqlServer EFCore nuget dependency"
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-|[<< Previous Exercise][exercise-2-link]|[Next Exercise >>][exercise-4-link]|
-|:--|--:|
+| [<< Previous Exercise][exercise-2-link] | [Next Exercise >>][exercise-4-link] |
+| :-------------------------------------- | ----------------------------------: |
 
 # Adding a cloud connector with SQL
 
@@ -55,7 +55,7 @@ dotnet add package Steeltoe.Connector.EFCore
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-***
+---
 
 ## Add database context and model
 
@@ -74,7 +74,7 @@ mkdir "Models"
 cd "Models"
 ```
 
-***
+---
 
 Within that folder create a new class named 'TodoContext.cs'. This class will serve as our context for interacting with the database.
 
@@ -90,7 +90,7 @@ Right click on the 'Models' folder and choose "Add" > "Class..." and name it `To
 dotnet new classlib -n "TodoContext.cs"
 ```
 
-***
+---
 
 Open the newly created class file in your IDE and include the 'EntityFrameworkCore' package.
 
@@ -101,8 +101,8 @@ using Microsoft.EntityFrameworkCore;
 Also replace the class statement with this. Don't change the 'namespace' part, just the class within the namespace.
 
 ```csharp
-public class TodoContext : DbContext { 
-  public TodoContext(): base(){ }  
+public class TodoContext : DbContext {
+  public TodoContext(): base(){ }
   public TodoContext(DbContextOptions<TodoContext> options)
       : base(options) {
   }
@@ -125,7 +125,7 @@ Right click on the 'Models' folder and choose "Add" > "Class..." and name it `To
 dotnet new classlib -n "TodoItem.cs"
 ```
 
-***
+---
 
 Open the newly created class file in your IDE and replace th class statement with this. Don't change the 'namespace' part, just the class within the namespace.
 
@@ -167,7 +167,7 @@ Because we are going to be interacting with a brand new database instance we'll 
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Models.TodoContext context) {
-  
+
   //...
 
   context.Database.EnsureCreated();
@@ -191,7 +191,7 @@ cd ../Controllers
 dotnet new classlib -n "TodoItemsController.cs"
 ```
 
-***
+---
 
 Open the newly created class file in your IDE and replace the 'using' statements in the file with the below.
 
@@ -278,6 +278,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d m
 If your SQL instance is running somewhere else you'll need its URI port number and credentials. Use the provided parameters to configure the connection correctly.
 
 *** -->
+
 Add the below json to 'appsettings.json', just after the 'management' section. This will give Steeltoe connection information for the database instance as well as name the new database.
 
 ```json
@@ -314,7 +315,7 @@ Executing the below command will start the application. You will see a log messa
 dotnet run
 ```
 
-***
+---
 
 With the application running and the weather forecast endpoint loaded your browser should show the following
 
@@ -338,11 +339,11 @@ Either close the browser window or click the red stop button in the top menu.
 
 Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
 
-***
+---
 
 ## Summary
 
 We've done quite a bit in this exercise but notice it was mostly focused on working with the ToDo list. You never had to open a SQL editor, create a database, test the database, etc etc. Thats the purpose of this Steeltoe Connectors. They take care of all the messy behind-the-scenes work and let you focus on the business logic. Yeah we know, it's pretty awesome. Being awesome is one of Steeltoe's super powers.
 
-|[<< Previous Exercise][exercise-2-link]|[Next Exercise >>][exercise-4-link]|
-|:--|--:|
+| [<< Previous Exercise][exercise-2-link] | [Next Exercise >>][exercise-4-link] |
+| :-------------------------------------- | ----------------------------------: |
