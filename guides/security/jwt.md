@@ -1,5 +1,5 @@
 ---
-uid: labs/security-providers/jwt
+uid: guides/security-providers/jwt
 title: JWT Web Tokens
 tags: []
 _disableFooter: true

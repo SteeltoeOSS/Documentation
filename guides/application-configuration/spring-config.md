@@ -1,5 +1,5 @@
 ---
-uid: labs/application-configuration/spring-config
+uid: guides/application-configuration/spring-config
 title: Spring Config Provider
 tags: []
 _disableFooter: true
@@ -39,7 +39,7 @@ docker run -p 8888:8888 steeltoeoss/config-server --spring.cloud.config.server.g
 Next, **create a .NET Core WebAPI** that retrieves values from the Spring Config instance.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/labs/images/initializr/spring-config.png" alt="Steeltoe Initialzr" width="100%">
+   <img src="~/guides/images/initializr/spring-config.png" alt="Steeltoe Initialzr" width="100%">
 1. Name the project "Spring_Config_Example"
 1. Add the "Spring Cloud Config Server" dependency
 1. Click **Generate** to download a zip containing the new project

@@ -4,14 +4,13 @@
 _disableFooter: true
 #_homePath: "./index.html"
 #_disableNav: true
-uid: labs/get-to-know-steeltoe
+uid: guides/get-to-know-steeltoe
 title: Get To Know Steeltoe
 tags: ["get-started"]
 ---
 
-[strigo-desktop-vs]: ~/labs/images/strigo-desktop-vs.png "Strigo windows placement with Visual Studio"
-[strigo-desktop-vscode]: ~/labs/images/strigo-desktop-vscode.png "Strigo windows placement with VS Code"
-
+[strigo-desktop-vs]: ~/guides/images/strigo-desktop-vs.png "Strigo windows placement with Visual Studio"
+[strigo-desktop-vscode]: ~/guides/images/strigo-desktop-vscode.png "Strigo windows placement with VS Code"
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
 [exercise-3-link]: exercise3.md
@@ -27,16 +26,16 @@ Are you creating new .NET microservices for the cloud? Modernizing existing appl
 
 This lab has 4 exercises to get you familiar with adding Steeltoe in an application and using a few of its components:
 
-|||
-|:--:|:--|
-|1.|Getting to know Steeltoe|
-|2.|Exploring all actuators|
-|3.|Adding a cloud connector with SQL|
-|4.|Using an external configuration provider|
+|     |                                          |
+| :-: | :--------------------------------------- |
+| 1.  | Getting to know Steeltoe                 |
+| 2.  | Exploring all actuators                  |
+| 3.  | Adding a cloud connector with SQL        |
+| 4.  | Using an external configuration provider |
 
 <br/>
 
->[!TIP]
+> [!TIP]
 > As you make your way through the labs the idea is to place your IDE and the lab steps side-by-side. Before continuing with the workshop go ahead and open your preferred IDE by clicking either the purple Visual Studio icon or the blue VS Code icon in the task bar.
 
 With Visual Studio as your IDE
@@ -45,5 +44,5 @@ With Visual Studio as your IDE
 With VS COde as your IDE
 ![strigo-desktop-vscode]
 
-|[Get started][exercise-1-link]|
-|:--:|
+| [Get started][exercise-1-link] |
+| :----------------------------: |
