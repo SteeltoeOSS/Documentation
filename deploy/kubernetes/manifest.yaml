@@ -58,5 +58,5 @@ spec:
           - path: /(.*)
             pathType: ImplementationSpecific
             backend:
-              serviceName: documentation-service
+              serviceName: documentation
               servicePort: 80
