@@ -1,45 +1,45 @@
-- topicUid: labs/get-to-know-steeltoe
+- topicUid: guides/get-to-know-steeltoe
 - name: Application Configuration
   items:
-    - topicUid: labs/application-configuration/spring-config
-    - topicUid: labs/application-configuration/cloud-foundry
-    - topicUid: labs/application-configuration/placeholder
-    - topicUid: labs/application-configuration/random-value
+    - topicUid: guides/application-configuration/spring-config
+    - topicUid: guides/application-configuration/cloud-foundry
+    - topicUid: guides/application-configuration/placeholder
+    - topicUid: guides/application-configuration/random-value
 - name: Circuit Breakers
   items:
-    - topicUid: labs/circuit-breakers/circuit-breaker
+    - topicUid: guides/circuit-breakers/circuit-breaker
 - name: Cloud Management
   items:
-    - topicUid: labs/cloud-management/distributed-tracing
-    - topicUid: labs/cloud-management/endpoints-framework
-    - topicUid: labs/cloud-management/endpoints-netcore
-    - topicUid: labs/cloud-management/logging
+    - topicUid: guides/cloud-management/distributed-tracing
+    - topicUid: guides/cloud-management/endpoints-framework
+    - topicUid: guides/cloud-management/endpoints-netcore
+    - topicUid: guides/cloud-management/logging
 - name: Messaging
   items:
-    - topicUid: labs/messaging/rabbitmq
+    - topicUid: guides/messaging/rabbitmq
 - name: Observability
   items:
-    - topicUid: labs/observability/grafana
-    - topicUid: labs/observability/tanzu
-    - topicUid: labs/observability/wavefront
+    - topicUid: guides/observability/grafana
+    - topicUid: guides/observability/tanzu
+    - topicUid: guides/observability/wavefront
 - name: Security
   items:
-    - topicUid: labs/security-providers/credhub
-    - topicUid: labs/security-providers/jwt
-    - topicUid: labs/security-providers/redisstore
-    - topicUid: labs/security-providers/sso-oauth
-    - topicUid: labs/security-providers/sso-openid-framework
-    - topicUid: labs/security-providers/sso-openid-netcore
+    - topicUid: guides/security-providers/credhub
+    - topicUid: guides/security-providers/jwt
+    - topicUid: guides/security-providers/redisstore
+    - topicUid: guides/security-providers/sso-oauth
+    - topicUid: guides/security-providers/sso-openid-framework
+    - topicUid: guides/security-providers/sso-openid-netcore
 - name: Service Connectors
   items:
-    - topicUid: labs/service-connectors/gemfire
-    - topicUid: labs/service-connectors/mongo
-    - topicUid: labs/service-connectors/mssql
-    - topicUid: labs/service-connectors/mysql
-    - topicUid: labs/service-connectors/oauth
-    - topicUid: labs/service-connectors/postgresql
-    - topicUid: labs/service-connectors/rabbitmq
-    - topicUid: labs/service-connectors/redis
+    - topicUid: guides/service-connectors/gemfire
+    - topicUid: guides/service-connectors/mongo
+    - topicUid: guides/service-connectors/mssql
+    - topicUid: guides/service-connectors/mysql
+    - topicUid: guides/service-connectors/oauth
+    - topicUid: guides/service-connectors/postgresql
+    - topicUid: guides/service-connectors/rabbitmq
+    - topicUid: guides/service-connectors/redis
 - name: Service Discovery
   items:
-    - topicUid: labs/service-discovery/eureka
+    - topicUid: guides/service-discovery/eureka

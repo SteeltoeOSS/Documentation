@@ -1,5 +1,5 @@
 ---
-uid: labs/service-connectors/oauth
+uid: guides/service-connectors/oauth
 title: OAuth2 Client
 tags: []
 _disableFooter: true
