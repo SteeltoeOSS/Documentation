@@ -61,7 +61,7 @@
           "fonts/**",
           "articles/**/images/**",
           "api/**/images/**",
-          "labs/**/images/**",
+          "guides/**/images/**",
           "**.html"
         ]
       }
