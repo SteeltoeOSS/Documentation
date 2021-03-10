@@ -14,7 +14,7 @@ First, **create a .NET Core WebAPI** that retrieves (configuration) environment 
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
 
-  <img src="~/guides/images/initializr/cloud-foundry.png" alt="Steeltoe Initialzr" width="100%">
+  <img src="~/guides/images/initializr/cloud-foundry-dependency.png" alt="Steeltoe Initialzr - Cloud Foundry Dependency" width="100%">
 
 1. Name the project "Cloud_Foundry_Example"
 1. Add the "Cloud Foundry" dependency
