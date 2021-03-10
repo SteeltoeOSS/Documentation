@@ -64,4 +64,4 @@ steps:
     publishLocation: 'Container'
   condition:
           and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')))
-  displayName: "Upload Staging"
+  displayName: "Upload Staging Artifacts"
