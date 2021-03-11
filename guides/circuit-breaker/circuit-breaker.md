@@ -23,9 +23,9 @@ First, **start a instance of the Hystrix dashboard**. Depending on your hosting 
 **Create a .NET Core WebAPI** that implements the circuit breaker pattern
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/circuit-breaker.png)
-1. Name the project "Circuit-Breaker-Example"
-1. Add the "Circuit Breaker" dependency
+   <img src="~/guides/images/initializr/circuit-breaker-dependency.png" alt="Steeltoe Initialzr - Circuit Breaker" width="100%">
+1. Name the project "Circuit_Breaker_Example"
+1. Add the "Netflix Hystrix Circuit Breaker" dependency
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
 1. Set the instance address and name in **appsettings.json**
@@ -34,7 +34,7 @@ First, **start a instance of the Hystrix dashboard**. Depending on your hosting 
    {
      "spring": {
        "application": {
-         "name": "Circuit-Breaker-Example"
+         "name": "Circuit_Breaker_Example"
        }
      }
    }
