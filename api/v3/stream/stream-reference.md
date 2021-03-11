@@ -22,7 +22,7 @@ This section gives an overview of the following:
 A Streams application is composed of a middleware-neutral core components provided by Steeltoe.  Application developers typically do not have to deal with the underlying messaging middleware and instead can focus on the applicaiton logic itself.
 Normally the application communicates with the outside world through input and output channel abstractions injected into it by the Steeltoe Streams infrastructure.  Channels are an abstraction that represent messaging destinations through which applications can send and receive messages. Channels are automaticaly connected to external messaging systems through middleware-specific binder implementations provided by Steeltoe or other third parties.
 
-![Stream Application](./images/SCSt-with-binder.png)
+![Stream Application](./images/streams-application.jpg)
 
 ### Binder Abstraction
 
@@ -116,7 +116,7 @@ To understand the programming model, you need to understand the following core c
 * *Binding:* Bridge between the external messaging system and application provided producers and consumers.
 * *Message:* The canonical data structure used by producers and consumers to communicate with binders, and thus other applications via external messaging systems.
 
-![Stream Overview](./images/SCSt-overview.png)
+![Stream Overview](./images/streams-overview.jpg)
 
 ### Binder
 
