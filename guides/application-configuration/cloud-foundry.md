@@ -22,19 +22,6 @@ First, **create a .NET Core WebAPI** that retrieves (configuration) environment 
 
 **Run** the application.
 
-_Note_: Ensure the following is included in the Startup.cs - ConfigurationServices
-
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    ...
-
-    services.AddOptions();
-
-    services.ConfigureCloudFoundryOptions(Configuration);
-}
-```
-
 1. Publish the application locally using the .NET cli. The following command will create a publish folder automatically
 
    ```powershell
