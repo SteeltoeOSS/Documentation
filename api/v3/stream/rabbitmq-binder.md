@@ -1,28 +1,14 @@
-# <a name="spring-cloud-stream-binder-rabbit-reference"></a>Spring Cloud Stream RabbitMQ Binder Reference Guide
+# Spring Cloud Stream RabbitMQ Binder Reference Guide
 
-**2.2.1.RELEASE**
-
-This guide describes the RabbitMQ implementation of the Spring Cloud Stream Binder.
-It contains information about its design, usage and configuration options, as well as information on how the Stream Cloud Stream concepts map into RabbitMQ specific constructs.
+This guide describes the RabbitMQ implementation of the Steeltoe Stream Binder.
+It contains information about its design, usage and configuration options, as well as information on how the Streams concepts map into RabbitMQ specific constructs.
 
 ## Usage
 
-To use the RabbitMQ binder, you can add it to your Spring Cloud Stream application, by using the following Maven coordinates:
+To use the RabbitMQ binder, you can add it to your Streams application, by using the following in your `.csproj`.
 
 ```xml
-<dependency>
-  <groupId>org.springframework.cloud</groupId>
-  <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
-</dependency>
-```
-
-Alternatively, you can use the Spring Cloud Stream RabbitMQ Starter, as follows:
-
-```xml
-<dependency>
-  <groupId>org.springframework.cloud</groupId>
-  <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-</dependency>
+<PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.1.0" />
 ```
 
 ## RabbitMQ Binder Overview
@@ -35,88 +21,89 @@ By default, the RabbitMQ Binder implementation maps each destination to a `Topic
 For each consumer group, a `Queue` is bound to that `TopicExchange`.
 Each consumer instance has a corresponding RabbitMQ `Consumer` instance for its group's `Queue`.
 For partitioned producers and consumers, the queues are suffixed with the partition index and use the partition index as the routing key.
-For anonymous consumers (those with no `group` property), an auto-delete queue (with a randomized unique name) is used.
+For anonymous consumers (i.e. those with no `group` property), an auto-delete queue (with a randomized unique name) is used.
 
 By using the optional `autoBindDlq` option, you can configure the binder to create and configure dead-letter queues (DLQs) (and a dead-letter exchange `DLX`, as well as routing infrastructure).
 By default, the dead letter queue has the name of the destination, appended with `.dlq`.
-If retry is enabled (`maxAttempts > 1`), failed messages are delivered to the DLQ after retries are exhausted.
-If retry is disabled (`maxAttempts = 1`), you should set `requeueRejected` to `false` (the default) so that failed messages are routed to the DLQ, instead of being re-queued.
+If retry is enabled (i.e. `maxAttempts > 1`), failed messages are delivered to the DLQ after retries are exhausted.
+If retry is disabled (i.e. `maxAttempts = 1`), you should set `requeueRejected` to `False`, the default, so that failed messages are routed to the DLQ, instead of being re-queued.
 In addition, `republishToDlq` causes the binder to publish a failed message to the DLQ (instead of rejecting it).
-This feature lets additional information (such as the stack trace in the `x-exception-stacktrace` header) be added to the message in headers.
-See the [`frameMaxHeadroom` property](#spring-cloud-stream-rabbit-frame-max-headroom) for information about truncated stack traces.
-This option does not need retry enabled.
-You can republish a failed message after just one attempt.
-Starting with version 1.2, you can configure the delivery mode of republished messages.
-See the [`republishDeliveryMode` property](#spring-cloud-stream-rabbit-republish-delivery-mode).
+This feature lets additional information, such as the stack trace in the `x-exception-stacktrace` header, be added to the message in headers.
+See the `frameMaxHeadroom` setting below for information about truncated stack traces.
+This option does not require retry to be enabled.
+You can republish a failed message after just one attempt and you can configure the delivery mode of republished messages.
+See the `republishDeliveryMode` setting below.
 
-If the stream listener throws an `ImmediateAcknowledgeAmqpException`, the DLQ is bypassed and the message simply discarded.
-Starting with version 2.1, this is true regardless of the setting of `republishToDlq`; previously it was only the case when `republishToDlq` was `false`.
+If a stream listener throws an `ImmediateAcknowledgeAmqpException`, the DLQ is bypassed and the message simply discarded. This is True regardless of the setting of `republishToDlq`.
 
-**IMPORTANT:** Setting `requeueRejected` to `true` (with `republishToDlq=false` ) causes the message to be re-queued and redelivered continually, which is likely not what you want unless the reason for the failure is transient.
-In general, you should enable retry within the binder by setting `maxAttempts` to greater than one or by setting `republishToDlq` to `true`.
+>**IMPORTANT:** Setting `requeueRejected` to `True` (with `republishToDlq=False` ) causes the message to be re-queued and redelivered continually, which is likely not what you want unless the reason for the failure is transient.
+In general, you should enable retry within the binder by setting `maxAttempts` to greater than one or by setting `republishToDlq` to `True`.
 
-See [RabbitMQ Binder Properties](#rabbit-binder-properties) for more information about these properties.
+See [RabbitMQ Binder Settings](#rabbit-binder-settings) for more information about configuring these settings.
 
 The framework does not provide any standard mechanism to consume dead-letter messages (or to re-route them back to the primary queue).
 Some options are described in [Dead-Letter Queue Processing](#rabbit-dlq-processing).
 
-**NOTE:** When multiple RabbitMQ binders are used in a Spring Cloud Stream application, it is important to disable 'RabbitAutoConfiguration' to avoid the same configuration from `RabbitAutoConfiguration` being applied to the two binders.
+//TODO:  Is this possible with Steeltoe????????????
+>**NOTE:** When multiple RabbitMQ binders are used in a Streams application, it is important to disable 'RabbitAutoConfiguration' to avoid the same configuration from `RabbitAutoConfiguration` being applied to the two binders.
 You can exclude the class by using the `@SpringBootApplication` annotation.
 
-Starting with version 2.0, the `RabbitMessageChannelBinder` sets the `RabbitTemplate.userPublisherConnection` property to `true` so that the non-transactional producers avoid deadlocks on consumers, which can happen if cached connections are blocked because of a [memory alarm](https://www.rabbitmq.com/memory.html) on the broker.
+//TODO:
+The `RabbitMessageChannelBinder` sets the `RabbitTemplate.userPublisherConnection` property to `True` so that the non-transactional producers avoid deadlocks on consumers, which can happen if cached connections are blocked because of a [memory alarm](https://www.rabbitmq.com/memory.html) on the broker.
 
-**NOTE:** Currently, a `multiplex` consumer (a single consumer listening to multiple queues) is only supported for message-driven conssumers; polled consumers can only retrieve messages from a single queue.
+// TODO:
+>**NOTE:** Currently, a `multiplex` consumer (a single consumer listening to multiple queues) is only supported for message-driven conssumers; polled consumers can only retrieve messages from a single queue.
 
-## Configuration Options
+## Configuration Settings
 
-This section contains settings specific to the RabbitMQ Binder and bound channels.
+This section contains settings specific to the RabbitMQ Binder and associated channels.
 
-For general binding configuration options and properties, see the [Spring Cloud Stream core documentation](https://github.com/spring-cloud/spring-cloud-stream/blob/master/spring-cloud-stream-core-docs/src/main/asciidoc/spring-cloud-stream-overview.adoc#configuration-options).
+For general binding configuration options and properties, see the [Steeltoe Stream Reference Documentation](//TODO: ).
 
-### <a name="rabbit-binder-properties"></a>RabbitMQ Binder Properties
+### RabbitMQ Binder Settings
 
-By default, the RabbitMQ binder uses Spring Boot's `ConnectionFactory`.
-Conseuqently, it supports all Spring Boot configuration options for RabbitMQ.
-(For reference, see the [Spring Boot documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties)).
-RabbitMQ configuration options use the `spring.rabbitmq` prefix.
+By default, the RabbitMQ binder uses the Steeltoe RabbitMQ `ConnectionFactory`.
+Conseuqently, it supports all of the associated configuration settings for RabbitMQ.
+For reference, see the [Steeltoe RabbitMQ Documentation](//TODO:).
+RabbitMQ configuration settings use the `spring:rabbitmq` prefix.
 
-In addition to Spring Boot options, the RabbitMQ binder supports the following properties:
+In addition to the RabbitMQ settings, the RabbitMQ binder supports the following configuration values.  All settings should be prefixed with `spring:cloud:stream:rabbitmq:binder`.
 
-**spring.cloud.stream.rabbit.binder.adminAddresses**
+**adminAddresses**
 A comma-separated list of RabbitMQ management plugin URLs.
 Only used when `nodes` contains more than one entry.
-Each entry in this list must have a corresponding entry in `spring.rabbitmq.addresses`.
+Each entry in this list must have a corresponding entry in `spring:rabbitmq:addresses`.
 Only needed if you use a RabbitMQ cluster and wish to consume from the node that hosts the queue.
-See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/_reference.html#queue-affinity) for more information.
+See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/_reference.html#queue-affinity) for more information.  //TODO: Proper link
 
   Default: empty.
 
-**spring.cloud.stream.rabbit.binder.nodes**
+**nodes**
 A comma-separated list of RabbitMQ node names.
 When more than one entry, used to locate the server address where a queue is located.
-Each entry in this list must have a corresponding entry in `spring.rabbitmq.addresses`.
+Each entry in this list must have a corresponding entry in `spring:rabbitmq:addresses`.
 Only needed if you use a RabbitMQ cluster and wish to consume from the node that hosts the queue.
-See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/_reference.html#queue-affinity) for more information.
+See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/_reference.html#queue-affinity) for more information. // TODO: Proper link
 
   Default: empty.
 
-**spring.cloud.stream.rabbit.binder.compressionLevel**
+**compressionLevel**
 The compression level for compressed bindings.
-See `java.util.zip.Deflater`.
+See `System.IO.Compression.CompressionLevel`.
 
-  Default: `1` (BEST_LEVEL).
+  Default: `1` (CompressionLevel.Fastest).
 
-**spring.cloud.stream.binder.connection-name-prefix**
+**connectionNamePrefix**
 A connection name prefix used to name the connection(s) created by this binder.
 The name is this prefix followed by `#n`, where `n` increments each time a new connection is opened.
 
-  Default: none (Spring AMQP default).
+  Default: none 
 
-### RabbitMQ Consumer Properties
+### RabbitMQ Consumer Settings
 
-**NOTE:** To avoid repetition, Spring Cloud Stream supports setting values for all channels, in the format of `spring.cloud.stream.default.<property>=<value>`.
+The following properties are available for Rabbit consumers only and must be prefixed with `spring:cloud:stream:rabbitmq:bindings:<channelName>:consumer.`.
 
-The following properties are available for Rabbit consumers only and must be prefixed with `spring.cloud.stream.rabbit.bindings.<channelName>.consumer.`.
+>**NOTE:** To avoid repetition, Stream supports setting values for all channels, in the format of `spring:cloud:stream:default:<setting>=<value>`.
 
 **acknowledgeMode**
 The acknowledge mode.
@@ -124,7 +111,7 @@ The acknowledge mode.
   Default: `AUTO`.
 
 **anonymousGroupPrefix**
-When the binding has no `group` property, an anonymous, auto-delete queue is bound to the destination exchange.
+When the binding has no `group` setting, an anonymous, auto-delete queue is bound to the destination exchange.
 The default naming stragegy for such queues results in a queue named `anonymous.<base64 representation of a UUID>`.
 Set this property to change the prefix to something other than the default.
 
@@ -133,31 +120,25 @@ Set this property to change the prefix to something other than the default.
 **autoBindDlq**
 Whether to automatically declare the DLQ and bind it to the binder DLX.
 
-  Default: `false`.
+  Default: `False`.
 
 **bindingRoutingKey**
-The routing key with which to bind the queue to the exchange (if `bindQueue` is `true`).
+The routing key with which to bind the queue to the exchange (if `bindQueue` is `True`).
 For partitioned destinations, `-<instanceIndex>` is appended.
 
   Default: `#`.
 
 **bindQueue**
 Whether to declare the queue and bind it to the destination exchange.
-Set it to `false` if you have set up your own infrastructure and have previously created and bound the queue.
+Set it to `False` if you have set up your own infrastructure and have previously created and bound the queue.
 
-  Default: `true`.
+  Default: `True`.
 
 **consumerTagPrefix**
 Used to create the consumer tag(s); will be appended by `#n` where `n` increments for each consumer created.
-Example: `${spring.application.name}-${spring.cloud.stream.bindings.input.group}-${spring.cloud.stream.instance-index}`.
+Example: `${spring:application:name}-${spring:cloud:stream:bindings:input:group}-${spring:cloud:stream:instanceIndex}`.
 
-  Default: none - the broker will generate random consumer tags.
-
-**containerType**
-Select the type of listener container to be used.
-See [Choosing a Container](https://docs.spring.io/spring-amqp/reference/html/_reference.html#choose-container) in the Spring AMQP documentation for more information.
-
-  Default: `simple`
+  Default: `none` - the broker will generate random consumer tags.
 
 **deadLetterQueueName**
 The name of the DLQ
@@ -166,40 +147,40 @@ The name of the DLQ
 
 **deadLetterExchange**
 A DLX to assign to the queue.
-Relevant only if `autoBindDlq` is `true`.
+Relevant only if `autoBindDlq` is `True`.
 
-  Default: 'prefix+DLX'
+  Default: `prefix+DLX`
 
 **deadLetterExchangeType**
 The type of the DLX to assign to the queue.
-Relevant only if `autoBindDlq` is `true`.
+Relevant only if `autoBindDlq` is `True`.
 
-  Default: 'direct'
+  Default: `direct`
 
 **deadLetterRoutingKey**
 A dead letter routing key to assign to the queue.
-Relevant only if `autoBindDlq` is `true`.
+Relevant only if `autoBindDlq` is `True`.
 
   Default: `destination`
 
 **declareDlx**
 Whether to declare the dead letter exchange for the destination.
-Relevant only if `autoBindDlq` is `true`.
-Set to `false` if you have a pre-configured DLX.
+Relevant only if `autoBindDlq` is `True`.
+Set to `False` if you have a pre-configured DLX.
 
-  Default: `true`.
+  Default: `True`.
 
 **declareExchange**
 Whether to declare the exchange for the destination.
 
-  Default: `true`.
+  Default: `True`.
 
 **delayedExchange**
-Whether to declare the exchange as a `Delayed Message Exchange`.
+Whether to declare the exchange as a [Delayed Message Exchange](https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/).
 Requires the delayed message exchange plugin on the broker.
 The `x-delayed-type` argument is set to the `exchangeType`.
 
-  Default: `false`.
+  Default: `False`.
 
 **dlqDeadLetterExchange**
 If a DLQ is declared, a DLX to assign to that queue.
@@ -221,7 +202,7 @@ Declare the dead letter queue with the `x-queue-mode=lazy` argument.
 See [Lazy Queues](https://www.rabbitmq.com/lazy-queues.html).
 Consider using a policy instead of this setting, because using a policy allows changing the setting without deleting the queue.
 
-  Default: `false`.
+  Default: `False`.
 
 **dlqMaxLength**
 Maximum number of messages in the dead letter queue.
@@ -252,17 +233,17 @@ Default time to live to apply to the dead letter queue when declared (in millise
 Whether the subscription should be durable.
 Only effective if `group` is also set.
 
-  Default: `true`.
+  Default: `True`.
 
 **exchangeAutoDelete**
-If `declareExchange` is true, whether the exchange should be auto-deleted (that is, removed after the last queue is removed).
+If `declareExchange` is `True`, the exchange should be auto-deleted (i.e. removed after the last queue is removed).
 
-  Default: `true`.
+  Default: `True`.
 
 **exchangeDurable**
-If `declareExchange` is true, whether the exchange should be durable (that is, it survives broker restart).
+If `declareExchange` is `True`, the exchange should be durable (i.e. it survives broker restart).
 
-  Default: `true`.
+  Default: `True`.
 
 **exchangeType**
 The exchange type: `direct`, `fanout` or `topic` for non-partitioned destinations and `direct` or `topic` for partitioned destinations.
@@ -271,11 +252,11 @@ The exchange type: `direct`, `fanout` or `topic` for non-partitioned destination
 
 **exclusive**
 Whether to create an exclusive consumer.
-Concurrency should be 1 when this is `true`.
+Concurrency should be 1 when this is `True`.
 Often used when strict ordering is required but enabling a hot standby instance to take over after a failure.
 See `recoveryInterval`, which controls how often a standby instance attempts to consume.
 
-  Default: `false`.
+  Default: `False`.
 
 **expires**
 How long before an unused queue is deleted (in milliseconds).
@@ -283,17 +264,17 @@ How long before an unused queue is deleted (in milliseconds).
   Default: `no expiration`
 
 **failedDeclarationRetryInterval**
-The interval (in milliseconds) between attempts to consume from a queue if it is missing.
+The interval, in milliseconds, between attempts to consume from a queue if it is missing.
 
-  Default: 5000
+  Default: `5000`
 
-<a name="spring-cloud-stream-rabbit-frame-max-headroom"></a>**frameMaxHeadroom**
+**frameMaxHeadroom**
 The number of bytes to reserve for other headers when adding the stack trace to a DLQ message header.
 All headers must fit within the `frame_max` size configured on the broker.
 Stack traces can be large; if the size plus this property exceeds `frame_max` then the stack trace will be truncated.
 A WARN log will be written; consider increasing the `frame_max` or reducing the stack trace by catching the exception and throwing one with a smaller stack trace.
 
-  Default: 20000
+  Default: `20000`
 
 **headerPatterns**
 Patterns for headers to be mapped from inbound messages.
@@ -305,7 +286,7 @@ Declare the queue with the `x-queue-mode=lazy` argument.
 See [Lazy Queues](https://www.rabbitmq.com/lazy-queues.html).
 Consider using a policy instead of this setting, because using a policy allows changing the setting without deleting the queue.
 
-  Default: `false`.
+  Default: `False`.
 
 **maxConcurrency**
 The maximum number of consumers.
@@ -330,9 +311,9 @@ The maximum priority of messages in the queue (0-255).
 
 **missingQueuesFatal**
 When the queue cannot be found, whether to treat the condition as fatal and stop the listener container.
-Defaults to `false` so that the container keeps trying to consume from the queue -- for example, when using a cluster and the node hosting a non-HA queue is down.
+Defaults to `False` so that the container keeps trying to consume from the queue -- for example, when using a cluster and the node hosting a non-HA queue is down.
 
-  Default: `false`
+  Default: `False`
 
 **overflowBehavior**
 Action to take when `maxLength` or `maxLengthBytes` is exceeded; currently `drop-head` or `reject-publish` but refer to the RabbitMQ documentation.
@@ -351,18 +332,18 @@ A prefix to be added to the name of the `destination` and queues.
 
 **queueDeclarationRetries**
 The number of times to retry consuming from a queue if it is missing.
-Relevant only when `missingQueuesFatal` is `true`.
+Relevant only when `missingQueuesFatal` is `True`.
 Otherwise, the container keeps retrying indefinitely.
 Not supported when the `containerType` is `direct`.
 
   Default: `3`
 
 **queueNameGroupOnly**
-When true, consume from a queue with a name equal to the `group`.
+When True, consume from a queue with a name equal to the `group`.
 Otherwise the queue name is `destination.group`.
 This is useful, for example, when using Spring Cloud Stream to consume from an existing RabbitMQ queue.
 
-  Default: false.
+  Default: `False`.
 
 **recoveryInterval**
 The interval between connection recovery attempts, in milliseconds.
@@ -370,64 +351,56 @@ The interval between connection recovery attempts, in milliseconds.
   Default: `5000`.
 
 **requeueRejected**
-Whether delivery failures should be re-queued when retry is disabled or `republishToDlq` is `false`.
+Whether delivery failures should be re-queued when retry is disabled or `republishToDlq` is `False`.
 
-  Default: `false`.
+  Default: `False`.
 
-<a name="spring-cloud-stream-rabbit-republish-delivery-mode"></a>**republishDeliveryMode**
-When `republishToDlq` is `true`, specifies the delivery mode of the republished message.
+**republishDeliveryMode**
+When `republishToDlq` is `True`, specifies the delivery mode of the republished message.
 
-  Default: `DeliveryMode.PERSISTENT`
+  Default: `MessageDeliveryMode.PERSISTENT`
 
 **republishToDlq**
 By default, messages that fail after retries are exhausted are rejected.
 If a dead-letter queue (DLQ) is configured, RabbitMQ routes the failed message (unchanged) to the DLQ.
-If set to `true`, the binder republishs failed messages to the DLQ with additional headers, including the exception message and stack trace from the cause of the final failure.
-Also see the [frameMaxHeadroom property](#spring-cloud-stream-rabbit-frame-max-headroom).
+If set to `True`, the binder republishs failed messages to the DLQ with additional headers, including the exception message and stack trace from the cause of the final failure.
+Also see the `frameMaxHeadroom` setting above.
 
-  Default: false
+  Default: `False`
 
 **transacted**
 Whether to use transacted channels.
 
-  Default: `false`.
+  Default: `False`.
 
 **ttl**
 Default time to live to apply to the queue when declared (in milliseconds).
 
   Default: `no limit`
 
-**txSize**
-The number of deliveries between acks.
-Not supported when the `containerType` is `direct`.
-
-  Default: `1`.
-
 ### Advanced Listener Container Configuration
 
+// TODO: Is this possible?
 To set listener container properties that are not exposed as binder or binding properties, add a single bean of type `ListenerContainerCustomizer` to the application context.
 The binder and binding properties will be set and then the customizer will be called.
 The customizer (`configure()` method) is provided with the queue name as well as the consumer group as arguments.
 
-### Rabbit Producer Properties
+### Rabbit Producer Settings
 
-**NOTE:** To avoid repetition, Spring Cloud Stream supports setting values for all channels, in the format of `spring.cloud.stream.default.<property>=<value>`.
+The following settings are available for RabbitMQ producers only and must be prefixed with `spring:cloud:stream:rabbitmq:bindings:<channelName>:producer.`.
 
-
-The following properties are available for Rabbit producers only and
-must be prefixed with `spring.cloud.stream.rabbit.bindings.<channelName>.producer.`.
+>**NOTE:** To avoid repetition, Spring Cloud Stream supports setting values for all channels, in the format of `spring:cloud:stream:default:<setting>=<value>`.
 
 **autoBindDlq**
 Whether to automatically declare the DLQ and bind it to the binder DLX.
 
-  Default: `false`.
+  Default: `False`.
 
 **batchingEnabled**
 Whether to enable message batching by producers.
-Messages are batched into one message according to the following properties (described in the next three entries in this list): 'batchSize', `batchBufferLimit`, and `batchTimeout`.
-See [Batching](https://docs.spring.io/spring-amqp//reference/html/_reference.html#template-batching) for more information.
+Messages are batched into one message according to the following properties (described in the next three entries in this list): `batchSize`, `batchBufferLimit`, and `batchTimeout`.
 
-  Default: `false`.
+  Default: `False`.
 
 **batchSize**
 The number of messages to buffer when batching is enabled.
@@ -445,7 +418,7 @@ The batch timeout when batching is enabled.
   Default: `5000`.
 
 **bindingRoutingKey**
-The routing key with which to bind the queue to the exchange (if `bindQueue` is `true`).
+The routing key with which to bind the queue to the exchange (if `bindQueue` is `True`).
 Only applies to non-partitioned destinations.
 Only applies if `requiredGroups` are provided and then only to those groups.
 
@@ -453,18 +426,18 @@ Only applies if `requiredGroups` are provided and then only to those groups.
 
 **bindQueue**
 Whether to declare the queue and bind it to the destination exchange.
-Set it to `false` if you have set up your own infrastructure and have previously created and bound the queue.
+Set it to `False` if you have set up your own infrastructure and have previously created and bound the queue.
 Only applies if `requiredGroups` are provided and then only to those groups.
 
-  Default: `true`.
+  Default: `True`.
 
 **compress**
 Whether data should be compressed when sent.
 
-  Default: `false`.
+  Default: `False`.
 
 **confirmAckChannel**
-When `errorChannelEnabled` is true, a channel to which to send positive delivery acknowledgments (aka publisher confirms).
+When `errorChannelEnabled` is True, a channel to which to send positive delivery acknowledgments (aka publisher confirms).
 If the channel does not exist, a `DirectChannel` is registered with this name.
 The connection factory must be configured to enable publisher confirms.
 
@@ -478,40 +451,40 @@ Only applies if `requiredGroups` are provided and then only to those groups.
 
 **deadLetterExchange**
 A DLX to assign to the queue.
-Relevant only when `autoBindDlq` is `true`.
+Relevant only when `autoBindDlq` is `True`.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
-  Default: 'prefix+DLX'
+  Default: `prefix+DLX`
 
 **deadLetterExchangeType**
 The type of the DLX to assign to the queue.
-Relevant only if `autoBindDlq` is `true`.
+Relevant only if `autoBindDlq` is `True`.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
-  Default: 'direct'
+  Default: `direct`
 
 **deadLetterRoutingKey**
 A dead letter routing key to assign to the queue.
-Relevant only when `autoBindDlq` is `true`.
+Relevant only when `autoBindDlq` is `True`.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
   Default: `destination`
 
 **declareDlx**
 Whether to declare the dead letter exchange for the destination.
-Relevant only if `autoBindDlq` is `true`.
-Set to `false` if you have a pre-configured DLX.
+Relevant only if `autoBindDlq` is `True`.
+Set to `False` if you have a pre-configured DLX.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
-  Default: `true`.
+  Default: `True`.
 
 **declareExchange**
 Whether to declare the exchange for the destination.
 
-  Default: `true`.
+  Default: `True`.
 
 **delayExpression**
-A SpEL expression to evaluate the delay to apply to the message (`x-delay` header).
+An expression to evaluate the delay to apply to the message (`x-delay` header).
 It has no effect if the exchange is not a delayed message exchange.
 
   Default: No `x-delay` header is set.
@@ -521,7 +494,7 @@ Whether to declare the exchange as a `Delayed Message Exchange`.
 Requires the delayed message exchange plugin on the broker.
 The `x-delayed-type` argument is set to the `exchangeType`.
 
-  Default: `false`.
+  Default: `False`.
 
 **deliveryMode**
 The delivery mode.
@@ -577,14 +550,14 @@ Applies only when `requiredGroups` are provided and then only to those groups.
   Default: `no limit`
 
 **exchangeAutoDelete**
-If `declareExchange` is `true`, whether the exchange should be auto-delete (it is removed after the last queue is removed).
+If `declareExchange` is `True`, whether the exchange should be auto-delete (it is removed after the last queue is removed).
 
-  Default: `true`.
+  Default: `True`.
 
 **exchangeDurable**
-If `declareExchange` is `true`, whether the exchange should be durable (survives broker restart).
+If `declareExchange` is `True`, whether the exchange should be durable (survives broker restart).
 
-  Default: `true`.
+  Default: `True`.
 
 **exchangeType**
 The exchange type: `direct`, `fanout` or `topic` for non-partitioned destinations and `direct` or `topic` for partitioned destinations.
@@ -608,7 +581,7 @@ See [Lazy Queues](https://www.rabbitmq.com/lazy-queues.html).
 Consider using a policy instead of this setting, because using a policy allows changing the setting without deleting the queue.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
-  Default: `false`.
+  Default: `False`.
 
 **maxLength**
 Maximum number of messages in the queue.
@@ -634,15 +607,15 @@ A prefix to be added to the name of the `destination` exchange.
   Default: "".
 
 **queueNameGroupOnly**
-When `true`, consume from a queue with a name equal to the `group`.
+When `True`, consume from a queue with a name equal to the `group`.
 Otherwise the queue name is `destination.group`.
 This is useful, for example, when using Spring Cloud Stream to consume from an existing RabbitMQ queue.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
-  Default: false.
+  Default: False.
 
 **routingKeyExpression**
-A SpEL expression to determine the routing key to use when publishing messages.
+A expression to determine the routing key to use when publishing messages.
 For a fixed routing key, use a literal expression, such as `routingKeyExpression='my.routingKey'` in a properties file or `routingKeyExpression: '''my.routingKey'''` in a YAML file.
 
   Default: `destination` or `destination-<partition>` for partitioned destinations.
@@ -650,63 +623,63 @@ For a fixed routing key, use a literal expression, such as `routingKeyExpression
 **transacted**
 Whether to use transacted channels.
 
-  Default: `false`.
+  Default: `False`.
 
 **ttl**
-Default time (in milliseconds) to live to apply to the queue when declared.
+Default time, in milliseconds, to live to apply to the queue when declared.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
   Default: `no limit`
 
-**NOTE:** In the case of RabbitMQ, content type headers can be set by external applications.
-Spring Cloud Stream supports them as part of an extended internal protocol used for any type of transport -- including transports, such as Kafka (prior to 0.11), that do not natively support headers.
+>**NOTE:** In the case of RabbitMQ, content type headers can be set by external applications.
 
 ## Using Existing Queues/Exchanges
 
 By default, the binder will automatically provision a topic exchange with the name being derived from the value of the destination binding property `<prefix><destination>`.
 The destination defaults to the binding name, if not provided.
-When binding a consumer, a queue will automatically be provisioned with the name `<prefix><destination>.<group>` (if a `group` binding property is specified), or an anonymous, auto-delete queue when there is no `group`.
+When binding a consumer, a queue will automatically be provisioned with the name `<prefix><destination>.<group>` (if a `group` binding setting is specified), or an anonymous, auto-delete queue when there is no `group`.
 The queue will be bound to the exchange with the "match-all" wildcard routing key (`#`) for a non-partitioned binding or `<destination>-<instanceIndex>` for a partitioned binding.
-The prefix is an empty `String` by default.
+The prefix is an empty `string` by default.
 If an output binding is specified with `requiredGroups`, a queue/binding will be provisioned for each group.
 
-There are a number of rabbit-specific binding properties that allow you to modify this default behavior.
+There are a number of rabbitmq specific binding settings that allow you to modify this default behavior.
 
 If you have an existing exchange/queue that you wish to use, you can completely disable automatic provisioning as follows, assuming the exchange is named `myExchange` and the queue is named `myQueue`:
 
-* `spring.cloud.stream.binding.<binding name>.destination=myExhange`
-* `spring.cloud.stream.binding.<binding name>.group=myQueue`
-* `spring.cloud.stream.rabbit.bindings.<binding name>.consumer.bindQueue=false`
-* `spring.cloud.stream.rabbit.bindings.<binding name>.consumer.declareExchange=false`
-* `spring.cloud.stream.rabbit.bindings.<binding name>.consumer.queueNameGroupOnly=true`
+* `spring:cloud:stream:binding:<binding name>:destination=myExhange`
+* `spring:cloud:stream:binding:<binding name>:group=myQueue`
+* `spring:cloud:stream:rabbit:bindings:<binding name>:consumer:bindQueue=False`
+* `spring:cloud:stream:rabbit:bindings:<binding name>:consumer:declareExchange=False`
+* `spring:cloud:stream:rabbit:bindings:<binding name>:consumer:queueNameGroupOnly=True`
 
-If you want the binder to provision the queue/exchange, but you want to do it using something other than the defaults discussed here, use the following properties.
-Refer to the property documentation above for more information.
+If you want the binder to provision the queue/exchange, but you want to do it using something other than the defaults discussed here, use the following settings.
+Refer to the documentation above for more information.
 
-* `spring.cloud.stream.rabbit.bindings.<binding name>.consumer.bindingRoutingKey=myRoutingKey`
-* `spring.cloud.stream.rabbit.bindings.<binding name>.consumer.exchangeType=<type>`
+* `spring:cloud:stream:rabbit:bindings:<binding name>:consumer:bindingRoutingKey=myRoutingKey`
+* `spring:cloud:stream:rabbit:bindings:<binding name>:consumer:exchangeType=<type>`
 
-* `spring.cloud.stream.rabbit.bindings.<binding name>.producer.routingKeyExpression='myRoutingKey'`
+* `spring:cloud:stream:rabbit:bindings:<binding name>:producer:routingKeyExpression='myRoutingKey'`
 
-There are similar properties used when declaring a dead-letter exchange/queue, when `autoBindDlq` is `true`.
+There are similar settings used when declaring a dead-letter exchange/queue, when `autoBindDlq` is `True`.
 
 ## Retry With the RabbitMQ Binder
 
+// TODO: Is Strict ordering working properly???
+
 When retry is enabled within the binder, the listener container thread is suspended for any back off periods that are configured.
-This might be important when strict ordering is required with a single consumer. However, for other use cases, it prevents other messages from being processed on that thread.
+This might be important when strict ordering is required with a single consumer. However, for other use cases, it prevents other messages from being processed on that thread.  
 An alternative to using binder retry is to set up dead lettering with time to live on the dead-letter queue (DLQ) as well as dead-letter configuration on the DLQ itself.
-See [RabbitMQ Binder Properties](#rabbit-binder-properties) for more information about the properties discussed here.
+See [RabbitMQ Binder Settings](#rabbit-binder-settings) for more information about the settings discussed here.
 You can use the following example configuration to enable this feature:
 
-* Set `autoBindDlq` to `true`.
-The binder create a DLQ.
-Optionally, you can specify a name in `deadLetterQueueName`.
+* Set `autoBindDlq` to `True`. The binder creates a DLQ. Optionally, you can specify a name in `deadLetterQueueName`.
 * Set `dlqTtl` to the back off time you want to wait between redeliveries.
 * Set the `dlqDeadLetterExchange` to the default exchange.
+
 Expired messages from the DLQ are routed to the original queue, because the default `deadLetterRoutingKey` is the queue name (`destination.group`).
 Setting to the default exchange is achieved by setting the property with no value, as shown in the next example.
 
-To force a message to be dead-lettered, either throw an `AmqpRejectAndDontRequeueException` or set `requeueRejected` to `true` (the default) and throw any exception.
+To force a message to be dead-lettered, either throw an `AmqpRejectAndDontRequeueException` or set `requeueRejected` to `True` (the default) and throw any exception.
 
 The loop continue without end, which is fine for transient problems, but you may want to give up after some number of attempts.
 Fortunately, RabbitMQ provides the `x-death` header, which lets you determine how many cycles have occurred.
@@ -718,91 +691,86 @@ To acknowledge a message after giving up, throw an `ImmediateAcknowledgeAmqpExce
 The following configuration creates an exchange `myDestination` with queue `myDestination.consumerGroup` bound to a topic exchange with a wildcard routing key `#`:
 
 ```
-spring.cloud.stream.bindings.input.destination=myDestination
-spring.cloud.stream.bindings.input.group=consumerGroup
-#disable binder retries
-spring.cloud.stream.bindings.input.consumer.max-attempts=1
-#dlx/dlq setup
-spring.cloud.stream.rabbit.bindings.input.consumer.auto-bind-dlq=true
-spring.cloud.stream.rabbit.bindings.input.consumer.dlq-ttl=5000
-spring.cloud.stream.rabbit.bindings.input.consumer.dlq-dead-letter-exchange=
+spring:cloud:stream:bindings:input:destination=myDestination
+spring:cloud:stream:bindings:input:group=consumerGroup
+
+# disable binder retries
+spring:cloud:stream:bindings:input:consumer:max-attempts=1
+
+# dlx/dlq setup
+spring:cloud:stream:rabbitmq.bindings:input:consumer:autoBindDlq=True
+spring:cloud:stream:rabbitmq:bindings:input:consumer:dlqTTL=5000
+spring:cloud:stream:rabbit:bindings:input:consumer:dlqDeadLetterExchange=
 ```
 
 This configuration creates a DLQ bound to a direct exchange (`DLX`) with a routing key of `myDestination.consumerGroup`.
 When messages are rejected, they are routed to the DLQ.
 After 5 seconds, the message expires and is routed to the original queue by using the queue name as the routing key, as shown in the following example:
 
-*Spring Boot application*
-
-```java
-@SpringBootApplication
-@EnableBinding(Sink.class)
+// TODO: Validate this code??
+```csharp
+[EnableBinding(typeof(ISink))]
 public class XDeathApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(XDeathApplication.class, args);
+    public static void Main(string[] args) {
+        //TODO:   SpringApplication.run(XDeathApplication.class, args);
     }
 
-    @StreamListener(Sink.INPUT)
-    public void listen(String in, @Header(name = "x-death", required = false) Map<?,?> death) {
-        if (death != null && death.get("count").equals(3L)) {
+    [StreamListener(ISink.INPUT)]
+    public void Listen(string in, [Header(Name = "x-death", Required = False) IDictionary<string, object> death) {
+        if (death != null && death["count"] == 3L) 
+        {
             // giving up - don't send to DLX
             throw new ImmediateAcknowledgeAmqpException("Failed after 4 attempts");
         }
-        throw new AmqpRejectAndDontRequeueException("failed");
+        throw new RabbitRejectAndDontRequeueException("failed");
     }
-
 }
 ```
 
-Notice that the count property in the `x-death` header is a `Long`.
+Notice that the count property in the `x-death` header is a `long`.
 
-## <a name="rabbit-error-channels"></a>Error Channels
+## Error Channels
 
-Starting with version 1.3, the binder unconditionally sends exceptions to an error channel for each consumer destination and can also be configured to send async producer send failures to an error channel.
-See [Error Handling](./index.html#spring-cloud-stream-overview-error-handling) for more information.
+The binder unconditionally sends exceptions to an error channel for each consumer destination and can also be configured to send async producer send failures to an error channel.
+See [Error Handling](./stream-reference#error-handling) for more information.
 
 RabbitMQ has two types of send failures:
 
-* Returned messages,
+* Returned messages
 * Negatively acknowledged [Publisher Confirms](https://www.rabbitmq.com/confirms.html).
 
 The latter is rare.
 According to the RabbitMQ documentation "[A nack] will only be delivered if an internal error occurs in the Erlang process responsible for a queue.".
 
-As well as enabling producer error channels (as described in [Error Handling](./index.html#spring-cloud-stream-overview-error-handling)), the RabbitMQ binder only sends messages to the channels if the connection factory is appropriately configured, as follows:
+As well as enabling producer error channels (as described in [Error Handling](./stream-reference#error-handling)), the RabbitMQ binder only sends messages to the channels if the connection factory is appropriately configured, as follows.
+For the RabbitMQ set the following configuration settings:
 
-* `ccf.setPublisherConfirms(true);`
-* `ccf.setPublisherReturns(true);`
+* `spring:rabbitmq:publisherConfirms=True`
+* `spring:rabbitmq:publisherReturns=True`
 
-When using Spring Boot configuration for the connection factory, set the following properties:
+The payload of the `ErrorMessage` for a returned message is a `RabbitReturnedMessageException` with the following properties:
 
-* `spring.rabbitmq.publisher-confirms`
-* `spring.rabbitmq.publisher-returns`
+* `ReturnedMessage`: The messaging `IMessage` that failed to be sent.
+* `ReplyCode`: An integer value indicating the reason for the failure (for example, 312 - No route).
+* `ReplyText`: A text value indicating the reason for the failure (for example, `NO_ROUTE`).
+* `Exchange`: The exchange to which the message was published.
+* `RoutingKey`: The routing key used when the message was published.
 
-The payload of the `ErrorMessage` for a returned message is a `ReturnedAmqpMessageException` with the following properties:
+For negatively acknowledged confirmations, the payload is a `NackedRabbitMessageException` with the following properties:
 
-* `failedMessage`: The spring-messaging `Message<?>` that failed to be sent.
-* `amqpMessage`: The raw spring-amqp `Message`.
-* `replyCode`: An integer value indicating the reason for the failure (for example, 312 - No route).
-* `replyText`: A text value indicating the reason for the failure (for example, `NO_ROUTE`).
-* `exchange`: The exchange to which the message was published.
-* `routingKey`: The routing key used when the message was published.
+* `FailedMessage`: The messaging `IMessage that failed to be sent.
+* `NackReason`: A reason (if available -- you may need to examine the broker logs for more information).
 
-For negatively acknowledged confirmations, the payload is a `NackedAmqpMessageException` with the following properties:
-
-* `failedMessage`: The spring-messaging `Message<?>` that failed to be sent.
-* `nackReason`: A reason (if available -- you may need to examine the broker logs for more information).
-
-There is no automatic handling of these exceptions (such as sending to a [dead-letter queue](#rabbit-dlq-processing)).
+There is no automatic handling of these exceptions (such as sending to a [dead-letter queue](#dead-letter-queue-processing)).
 You can consume these exceptions with your own Spring Integration flow.
 
-## <a name="rabbit-dlq-processing"></a>Dead-Letter Queue Processing
+## Dead-Letter Queue Processing
 
 Because you cannot anticipate how users would want to dispose of dead-lettered messages, the framework does not provide any standard mechanism to handle them.
 If the reason for the dead-lettering is transient, you may wish to route the messages back to the original queue.
 However, if the problem is a permanent issue, that could cause an infinite loop.
-The following Spring Boot application shows an example of how to route those messages back to the original queue but moves them to a third "`parking lot`" queue after three attempts.
+The following application shows an example of how to route those messages back to the original queue but moves them to a third "`parking lot`" queue after three attempts.
 The second example uses the [RabbitMQ Delayed Message Exchange](https://www.rabbitmq.com/blog/2015/04/16/scheduling-messages-with-rabbitmq/) to introduce a delay to the re-queued message.
 In this example, the delay increases for each attempt.
 These examples use a `@RabbitListener` to receive messages from the DLQ.
@@ -814,109 +782,104 @@ The examples assume the original destination is `so8400in` and the consumer grou
 
 The first two examples are for when the destination is *not* partitioned:
 
-```java
-@SpringBootApplication
-public class ReRouteDlqApplication {
+// TODO:  This needs validation
+```csharp
+public class ReRouteDlqApplication 
+{
+    private const string ORIGINAL_QUEUE = "so8400in.so8400";
+    private const string DLQ = ORIGINAL_QUEUE + ".dlq";
+    private const string PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
+    private const string X_RETRIES_HEADER = "x-retries";
 
-    private static final String ORIGINAL_QUEUE = "so8400in.so8400";
-
-    private static final String DLQ = ORIGINAL_QUEUE + ".dlq";
-
-    private static final String PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
-
-    private static final String X_RETRIES_HEADER = "x-retries";
-
-    public static void main(String[] args) throws Exception {
-        ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
-        System.out.println("Hit enter to terminate");
-        System.in.read();
-        context.close();
+    public static void Main(string[] args)
+    {
+        // TODO: 
+        // ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
+        // Console.WriteLine("Hit enter to terminate");
+        // Console.ReadLine();
+        // context.Dispose();
     }
 
-    @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @RabbitListener(queues = DLQ)
-    public void rePublish(Message failedMessage) {
-        Integer retriesHeader = (Integer) failedMessage.getMessageProperties().getHeaders().get(X_RETRIES_HEADER);
-        if (retriesHeader == null) {
-            retriesHeader = Integer.valueOf(0);
-        }
-        if (retriesHeader < 3) {
-            failedMessage.getMessageProperties().getHeaders().put(X_RETRIES_HEADER, retriesHeader + 1);
-            this.rabbitTemplate.send(ORIGINAL_QUEUE, failedMessage);
-        }
-        else {
-            this.rabbitTemplate.send(PARKING_LOT, failedMessage);
-        }
+    public ReRouteDlqApplication(RabbitTemplate template) 
+    {
+      rabbitTemplate = template;
     }
 
-    @Bean
-    public Queue parkingLot() {
-        return new Queue(PARKING_LOT);
+    [DeclareQueue(PARKING_LOT)]
+    [RabbitListener(DLQ)]
+    public void RePublish(IMessage failedMessage)
+    {
+        if (!failedMessage.Headers.TryGetValue(X_RETRIES_HEADER, out int retriesHeader)
+        {
+            retriesHeader = 0;
+        }
+
+        if (retriesHeader < 3) 
+        {
+            var accessor = MessageHeaderAccessor.GetMutableAccessor(failedMessage);
+            accessor.SetHeader(X_RETRIES_HEADER, retriesHeader + 1);
+            rabbitTemplate.Send(ORIGINAL_QUEUE, failedMessage);
+        }
+        else 
+        {
+            rabbitTemplate.Send(PARKING_LOT, failedMessage);
+        }
     }
 
 }
 ```
 
-```java
-@SpringBootApplication
-public class ReRouteDlqApplication {
+```csharp
+public class ReRouteDlqApplication 
+{
+    private const string ORIGINAL_QUEUE = "so8400in.so8400";
+    private const string DLQ = ORIGINAL_QUEUE + ".dlq";
+    private const string PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
+    private const string X_RETRIES_HEADER = "x-retries";
+    private const string DELAY_EXCHANGE = "dlqReRouter";
 
-    private static final String ORIGINAL_QUEUE = "so8400in.so8400";
-
-    private static final String DLQ = ORIGINAL_QUEUE + ".dlq";
-
-    private static final String PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
-
-    private static final String X_RETRIES_HEADER = "x-retries";
-
-    private static final String DELAY_EXCHANGE = "dlqReRouter";
-
-    public static void main(String[] args) throws Exception {
-        ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
-        System.out.println("Hit enter to terminate");
-        System.in.read();
-        context.close();
+    public static void main(String[] args)
+    {
+        // TODO: 
+        // ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
+        // Console.WriteLine("Hit enter to terminate");
+        // Console.ReadLine();
+        // context.Dispose();
     }
 
-    @Autowired
+
     private RabbitTemplate rabbitTemplate;
 
-    @RabbitListener(queues = DLQ)
-    public void rePublish(Message failedMessage) {
-        Map<String, Object> headers = failedMessage.getMessageProperties().getHeaders();
-        Integer retriesHeader = (Integer) headers.get(X_RETRIES_HEADER);
-        if (retriesHeader == null) {
-            retriesHeader = Integer.valueOf(0);
+    public ReRouteDlqApplication(RabbitTemplate template) 
+    {
+      rabbitTemplate = template;
+    }
+
+    [DeclareQueue(PARKING_LOT)]
+    [DeclareExchange(Name = "delayExchange", Delayed = True)]
+    [DeclareQueueBinding(Name = "bindOriginalToDelay", QueueName = ORIGINAL_QUEUE, ExchangeName = "delayExchange")]
+    [RabbitListener(DLQ)]
+    public void RePublish(IMessage failedMessage) 
+    {
+        var headers = failedMessage.Headers;
+        if (!headers.TryGetValue(X_RETRIES_HEADER, out int retriesHeader)
+        {
+            retriesHeader = 0;
         }
-        if (retriesHeader < 3) {
-            headers.put(X_RETRIES_HEADER, retriesHeader + 1);
-            headers.put("x-delay", 5000 * retriesHeader);
-            this.rabbitTemplate.send(DELAY_EXCHANGE, ORIGINAL_QUEUE, failedMessage);
+        if (retriesHeader < 3)
+        {
+            var accessor = MessageHeaderAccessor.GetMutableAccessor(failedMessage);
+            accessor.SetHeader(X_RETRIES_HEADER, retriesHeader + 1);
+            accessor.SetHeader("x-delay", 5000 * retriesHeader);
+            rabbitTemplate.Send(DELAY_EXCHANGE, ORIGINAL_QUEUE, failedMessage);
         }
-        else {
-            this.rabbitTemplate.send(PARKING_LOT, failedMessage);
+        else
+        {
+            rabbitTemplate.Send(PARKING_LOT, failedMessage);
         }
     }
-
-    @Bean
-    public DirectExchange delayExchange() {
-        DirectExchange exchange = new DirectExchange(DELAY_EXCHANGE);
-        exchange.setDelayed(true);
-        return exchange;
-    }
-
-    @Bean
-    public Binding bindOriginalToDelay() {
-        return BindingBuilder.bind(new Queue(ORIGINAL_QUEUE)).to(delayExchange()).with(ORIGINAL_QUEUE);
-    }
-
-    @Bean
-    public Queue parkingLot() {
-        return new Queue(PARKING_LOT);
-    }
-
 }
 ```
 
@@ -924,115 +887,116 @@ public class ReRouteDlqApplication {
 
 With partitioned destinations, there is one DLQ for all partitions. We determine the original queue from the headers.
 
-#### `republishToDlq=false`
+#### `republishToDlq=False`
 
-When `republishToDlq` is `false`, RabbitMQ publishes the message to the DLX/DLQ with an `x-death` header containing information about the original destination, as shown in the following example:
+When `republishToDlq` is `False`, RabbitMQ publishes the message to the DLX/DLQ with an `x-death` header containing information about the original destination, as shown in the following example:
 
-```java
-@SpringBootApplication
-public class ReRouteDlqApplication {
+```csharp
+public class ReRouteDlqApplication
+{
 
-	private static final String ORIGINAL_QUEUE = "so8400in.so8400";
+	private const string  ORIGINAL_QUEUE = "so8400in.so8400";
+	private const string  DLQ = ORIGINAL_QUEUE + ".dlq";
+	private const string  PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
+	private const string  X_DEATH_HEADER = "x-death";
+	private const string  X_RETRIES_HEADER = "x-retries";
 
-	private static final String DLQ = ORIGINAL_QUEUE + ".dlq";
-
-	private static final String PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
-
-	private static final String X_DEATH_HEADER = "x-death";
-
-	private static final String X_RETRIES_HEADER = "x-retries";
-
-	public static void main(String[] args) throws Exception {
-		ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
-		System.out.println("Hit enter to terminate");
-		System.in.read();
-		context.close();
+	public static void main(String[] args)
+   {
+        // TODO: 
+        // ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
+        // Console.WriteLine("Hit enter to terminate");
+        // Console.ReadLine();
+        // context.Dispose();
 	}
 
-	@Autowired
-	private RabbitTemplate rabbitTemplate;
+    private RabbitTemplate rabbitTemplate;
 
-	@SuppressWarnings("unchecked")
-	@RabbitListener(queues = DLQ)
-	public void rePublish(Message failedMessage) {
-		Map<String, Object> headers = failedMessage.getMessageProperties().getHeaders();
-		Integer retriesHeader = (Integer) headers.get(X_RETRIES_HEADER);
-		if (retriesHeader == null) {
-			retriesHeader = Integer.valueOf(0);
-		}
-		if (retriesHeader < 3) {
-			headers.put(X_RETRIES_HEADER, retriesHeader + 1);
-			List<Map<String, ?>> xDeath = (List<Map<String, ?>>) headers.get(X_DEATH_HEADER);
-			String exchange = (String) xDeath.get(0).get("exchange");
-			List<String> routingKeys = (List<String>) xDeath.get(0).get("routing-keys");
-			this.rabbitTemplate.send(exchange, routingKeys.get(0), failedMessage);
-		}
-		else {
-			this.rabbitTemplate.send(PARKING_LOT, failedMessage);
-		}
+    public ReRouteDlqApplication(RabbitTemplate template) 
+    {
+      rabbitTemplate = template;
+    }
+
+
+  [DeclareQueue(PARKING_LOT)]
+  [RabbitListener(DLQ)]
+	public void RePublish(IMessage failedMessage) 
+  {
+    var headers = failedMessage.Headers;
+    if (!failedMessage.Headers.TryGetValue(X_RETRIES_HEADER, out int retriesHeader)
+    {
+        retriesHeader = 0;
+    }
+    if (retriesHeader < 3) 
+    {
+        var accessor = MessageHeaderAccessor.GetMutableAccessor(failedMessage);
+        accessor.SetHeader(X_RETRIES_HEADER, retriesHeader + 1);
+        var xDeath = (List<Dictionary<string, object>>)accessor.GetHeader(X_DEATH_HEADER)
+        xDeath[0].TryGetValue("exchange", out object exch);
+        xDeath[0].TryGetValue("routing-keys", out object rk);
+        var exchange = (string)exch;
+        var routingKeys = (List<string>)rk;
+        rabbitTemplate.Send(exchange, routingKeys[0], failedMessage);
+    }
+    else
+    {
+        rabbitTemplate.Send(PARKING_LOT, failedMessage);
+    }
 	}
-
-	@Bean
-	public Queue parkingLot() {
-		return new Queue(PARKING_LOT);
-	}
-
 }
 ```
 
-#### `republishToDlq=true`
+#### `republishToDlq=True`
 
-When `republishToDlq` is `true`, the republishing recoverer adds the original exchange and routing key to headers, as shown in the following example:
+When `republishToDlq` is `True`, the republishing recoverer adds the original exchange and routing key to headers, as shown in the following example:
 
-```java
-@SpringBootApplication
-public class ReRouteDlqApplication {
+```csharp
+public class ReRouteDlqApplication 
+{
+	private const string   ORIGINAL_QUEUE = "so8400in.so8400";
+	private const string   DLQ = ORIGINAL_QUEUE + ".dlq";
+	private const string  PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
+	private const string   X_RETRIES_HEADER = "x-retries";
+	private const string  X_ORIGINAL_EXCHANGE_HEADER = RepublishMessageRecoverer.X_ORIGINAL_EXCHANGE;
+	private const string   X_ORIGINAL_ROUTING_KEY_HEADER = RepublishMessageRecoverer.X_ORIGINAL_ROUTING_KEY;
 
-	private static final String ORIGINAL_QUEUE = "so8400in.so8400";
-
-	private static final String DLQ = ORIGINAL_QUEUE + ".dlq";
-
-	private static final String PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
-
-	private static final String X_RETRIES_HEADER = "x-retries";
-
-	private static final String X_ORIGINAL_EXCHANGE_HEADER = RepublishMessageRecoverer.X_ORIGINAL_EXCHANGE;
-
-	private static final String X_ORIGINAL_ROUTING_KEY_HEADER = RepublishMessageRecoverer.X_ORIGINAL_ROUTING_KEY;
-
-	public static void main(String[] args) throws Exception {
-		ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
-		System.out.println("Hit enter to terminate");
-		System.in.read();
-		context.close();
+	public static void Main(String[] args)
+  {
+        // TODO: 
+        // ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
+        // Console.WriteLine("Hit enter to terminate");
+        // Console.ReadLine();
+        // context.Dispose();
 	}
 
-	@Autowired
-	private RabbitTemplate rabbitTemplate;
+  private RabbitTemplate rabbitTemplate;
 
-	@RabbitListener(queues = DLQ)
-	public void rePublish(Message failedMessage) {
-		Map<String, Object> headers = failedMessage.getMessageProperties().getHeaders();
-		Integer retriesHeader = (Integer) headers.get(X_RETRIES_HEADER);
-		if (retriesHeader == null) {
-			retriesHeader = Integer.valueOf(0);
-		}
-		if (retriesHeader < 3) {
-			headers.put(X_RETRIES_HEADER, retriesHeader + 1);
-			String exchange = (String) headers.get(X_ORIGINAL_EXCHANGE_HEADER);
-			String originalRoutingKey = (String) headers.get(X_ORIGINAL_ROUTING_KEY_HEADER);
-			this.rabbitTemplate.send(exchange, originalRoutingKey, failedMessage);
-		}
-		else {
-			this.rabbitTemplate.send(PARKING_LOT, failedMessage);
-		}
-	}
+  public ReRouteDlqApplication(RabbitTemplate template) 
+  {
+    rabbitTemplate = template;
+  }
 
-	@Bean
-	public Queue parkingLot() {
-		return new Queue(PARKING_LOT);
-	}
-
+  [DeclareQueue(PARKING_LOT)]
+  [RabbitListener(DLQ)]
+	public void RePublish(IMessage failedMessage) 
+  {
+    var headers = failedMessage.Headers;
+    if (!failedMessage.Headers.TryGetValue(X_RETRIES_HEADER, out int retriesHeader)
+    {
+        retriesHeader = 0;
+    }
+    if (retriesHeader < 3) 
+    {
+      var accessor = MessageHeaderAccessor.GetMutableAccessor(failedMessage);
+      accessor.SetHeader(X_RETRIES_HEADER, retriesHeader + 1);
+			var exchange = (string) accessor.GetHeader(X_ORIGINAL_EXCHANGE_HEADER);
+			var originalRoutingKey = (string) accessor.GetHeader(X_ORIGINAL_ROUTING_KEY_HEADER);
+			rabbitTemplate.Send(exchange, originalRoutingKey, failedMessage);
+    }
+    else
+    {
+        rabbitTemplate.Send(PARKING_LOT, failedMessage);
+    }
 }
 ```
 
@@ -1044,63 +1008,92 @@ Sometimes, it is advantageous to send data to specific partitions -- for example
 
 The `RabbitMessageChannelBinder` provides partitioning by binding a queue for each partition to the destination exchange.
 
-The following Java and YAML examples show how to configure the producer:
+The following C# and JSON configuration examples show how to configure the producer:
 
-*Producer*
 
-```java
-@SpringBootApplication
-@EnableBinding(Source.class)
-public class RabbitPartitionProducerApplication {
-
-    private static final Random RANDOM = new Random(System.currentTimeMillis());
-
-    private static final String[] data = new String[] {
+```csharp
+[EnableBinding(typeof(ISource)]
+public class RabbitPartitionProducerApplication 
+{
+    private static readonly Random RANDOM = new Random();
+    private static readonly string[] data = new string[] {
             "abc1", "def1", "qux1",
             "abc2", "def2", "qux2",
             "abc3", "def3", "qux3",
             "abc4", "def4", "qux4",
             };
 
-    public static void main(String[] args) {
-        new SpringApplicationBuilder(RabbitPartitionProducerApplication.class)
-            .web(false)
-            .run(args);
+    public static void Main(string[] args)
+    {
+      // TODO:
+      // new SpringApplicationBuilder(RabbitPartitionProducerApplication.class)
+      //     .web(False)
+      //     .run(args);
+      // 
+    }
+}
+
+    // TODO: 
+    // TODO: Turn this into a WorkerService example ... something like below
+    // TODO:  @InboundChannelAdapter(channel = Source.OUTPUT, poller = @Poller(fixedRate = "5000"))
+public class Worker : BackgroundService
+{
+    private readonly ILogger<Worker> _logger;
+    private readonly ISource _source;
+
+    public Worker(ISource source, ILogger<Worker> logger)
+    {
+      _source = source;
+      _logger = logger;
     }
 
-    @InboundChannelAdapter(channel = Source.OUTPUT, poller = @Poller(fixedRate = "5000"))
-    public Message<?> generate() {
-        String value = data[RANDOM.nextInt(data.length)];
-        System.out.println("Sending: " + value);
-        return MessageBuilder.withPayload(value)
-                .setHeader("partitionKey", value)
-                .build();
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            var message = Generate();
+            _source.Output.Send(message);
+            await Task.Delay(5000, stoppingToken);
+        }
     }
 
+    protected virtual IMessage Generate() 
+    {
+      var value = data[RANDOM.Next(data.Length)];
+      Console.WriteLine("Sending: " + value);
+      return MessageBuilder.WithPayload(value).SetHeader("partitionKey", value).Build();
+  }
 }
 ```
 
-*application.yml*
-
-```yaml
-    spring:
-      cloud:
-        stream:
-          bindings:
-            output:
-              destination: partitioned.destination
-              producer:
-                partitioned: true
-                partition-key-expression: headers['partitionKey']
-                partition-count: 2
-                required-groups:
-                - myGroup
+```json
+{
+  "spring": {
+    "cloud": {
+      "stream": {
+        "bindings": {
+          "output": {
+            "destination" : "partitioned.destination",
+            "producer" : {
+              "partitioned": true,
+              "partitionKeyExpression" : "headers['partitionKey']",
+              "partitionCount": 2,
+              "requiredGroups" : "myGroup"
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
-**NOTE:** The configuration in the preceding example uses the default partitioning (`key.hashCode() % partitionCount`).
+>**NOTE:** The configuration in the preceding example uses the default partitioning (`key.GetHashCode() % partitionCount`).
+
 This may or may not provide a suitably balanced algorithm, depending on the key values.
-You can override this default by using the `partitionSelectorExpression` or `partitionSelectorClass` properties.
-The `required-groups` property is required only if you need the consumer queues to be provisioned when the producer is deployed.
+You can override this default by using the `partitionSelectorExpression`.
+The `requiredGroups` setting is required only if you need the consumer queues to be provisioned when the producer is deployed.
 Otherwise, any messages sent to a partition are lost until the corresponding consumer is deployed.
 
 The following configuration provisions a topic exchange:
@@ -1115,169 +1108,51 @@ The following bindings associate the queues to the exchange:
 
 ![Partition Bindings](./images/part-bindings.png)
 
-The following Java and YAML examples continue the previous examples and show how to configure the consumer:
+The following C# and JSON configuration example continue the previous example and show how to configure the consumer:
 
-*Consumer*
+```csharp
+[EnableBinding(typeof(ISink))]
+public class RabbitPartitionConsumerApplication
+{
 
-```java
-@SpringBootApplication
-@EnableBinding(Sink.class)
-public class RabbitPartitionConsumerApplication {
-
-    public static void main(String[] args) {
-        new SpringApplicationBuilder(RabbitPartitionConsumerApplication.class)
-            .web(false)
-            .run(args);
+    public static void Main(string[] args)
+    {
+      //TODO:
+      // new SpringApplicationBuilder(RabbitPartitionConsumerApplication.class)
+      //     .web(False)
+      //     .run(args);
     }
 
-    @StreamListener(Sink.INPUT)
-    public void listen(@Payload String in, @Header(AmqpHeaders.CONSUMER_QUEUE) String queue) {
-        System.out.println(in + " received from queue " + queue);
+    [StreamListener(ISink.INPUT)]
+    public void Listen([Payload] string in, [Header(RabbitMessageHeaders.CONSUMER_QUEUE) string queue)
+    {
+        Console.WriteLine(in + " received from queue " + queue);
     }
-
 }
 ```
 
-*application.yml*
-
-```yaml
-    spring:
-      cloud:
-        stream:
-          bindings:
-            input:
-              destination: partitioned.destination
-              group: myGroup
-              consumer:
-                partitioned: true
-                instance-index: 0
+```json
+{
+  "spring": {
+    "cloud": {
+      "stream": {
+        "bindings": {
+          "input": {
+            "destination" : "partitioned.destination",
+            "group": "myGroup",
+            "consumer": {
+              "partitioned": true,
+              "instanceIndex": 0
+              }
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
-**IMPORTANT:** The `RabbitMessageChannelBinder` does not support dynamic scaling.
+>**IMPORTANT:** The `RabbitMessageChannelBinder` does not support dynamic scaling.
 There must be at least one consumer per partition.
 The consumer's `instanceIndex` is used to indicate which partition is consumed.
 Platforms such as Cloud Foundry can have only one instance with an `instanceIndex`.
-
-# Appendices
-
-## <a name="building"></a>Building
-
-### Basic Compile and Test
-
-To build the source you will need to install JDK 1.8.
-
-The build uses the Maven wrapper so you don't have to install a specific
-version of Maven. To enable the tests, you should have RabbitMQ server running
-on localhost and the default port (5672)
-before building.
-
-The main build command is
-
-```sh
-$ ./mvnw clean install
-```
-
-You can also add '-DskipTests' if you like, to avoid running the tests.
-
-**NOTE:** You can also install Maven (>=3.3.3) yourself and run the `mvn` command
-in place of `./mvnw` in the examples below. If you do that you also
-might need to add `-P spring` if your local Maven settings do not
-contain repository declarations for spring pre-release artifacts.
-
-**NOTE:** Be aware that you might need to increase the amount of memory
-available to Maven by setting a `MAVEN_OPTS` environment variable with
-a value like `-Xmx512m -XX:MaxPermSize=128m`. We try to cover this in
-the `.mvn` configuration, so if you find you have to do it to make a
-build succeed, please raise a ticket to get the settings added to
-source control.
-
-
-The projects that require middleware generally include a
-`docker-compose.yml`, so consider using
-[Docker Compose](https://compose.docker.io/) to run the middeware servers
-in Docker containers.
-
-### Documentation
-
-There is a "docs" profile that will generate documentation.
-
-`./mvnw clean package -Pdocs -DskipTests`
-
-The reference documentation can then be found in `docs/target/contents/reference`.
-
-### Working with the code
-If you don't have an IDE preference we would recommend that you use
-[Spring Tools Suite](https://www.springsource.com/developer/sts) or
-[Eclipse](https://eclipse.org) when working with the code. We use the
-[m2eclipe](https://eclipse.org/m2e/) eclipse plugin for maven support. Other IDEs and tools
-should also work without issue.
-
-#### Importing into eclipse with m2eclipse
-We recommend the [m2eclipe](https://eclipse.org/m2e/) eclipse plugin when working with
-eclipse. If you don't already have m2eclipse installed it is available from the "eclipse
-marketplace".
-
-Unfortunately m2e does not yet support Maven 3.3, so once the projects
-are imported into Eclipse you will also need to tell m2eclipse to use
-the `.settings.xml` file for the projects.  If you do not do this you
-may see many different errors related to the POMs in the
-projects.  Open your Eclipse preferences, expand the Maven
-preferences, and select User Settings.  In the User Settings field
-click Browse and navigate to the Spring Cloud project you imported
-selecting the `.settings.xml` file in that project.  Click Apply and
-then OK to save the preference changes.
-
-**NOTE:** Alternatively you can copy the repository settings from [`.settings.xml`](https://github.com/spring-cloud/spring-cloud-build/blob/master/.settings.xml) into your own `~/.m2/settings.xml`.
-
-#### Importing into eclipse without m2eclipse
-If you prefer not to use m2eclipse you can generate eclipse project metadata using the
-following command:
-
-```sh
-$ ./mvnw eclipse:eclipse
-```
-
-The generated eclipse projects can be imported by selecting `import existing projects`
-from the `file` menu.
-
-## <a name="contributing"></a>Contributing
-
-Spring Cloud is released under the non-restrictive Apache 2.0 license,
-and follows a very standard Github development process, using Github
-tracker for issues and merging pull requests into master. If you want
-to contribute even something trivial please do not hesitate, but
-follow the guidelines below.
-
-### Sign the Contributor License Agreement
-Before we accept a non-trivial patch or pull request we will need you to sign the
-[contributor's agreement](https://support.springsource.com/spring_committer_signup).
-Signing the contributor's agreement does not grant anyone commit rights to the main
-repository, but it does mean that we can accept your contributions, and you will get an
-author credit if we do.  Active contributors might be asked to join the core team, and
-given the ability to merge pull requests.
-
-### Code Conventions and Housekeeping
-None of these is essential for a pull request, but they will all help.  They can also be
-added after the original pull request but before a merge.
-
-* Use the Spring Framework code format conventions. If you use Eclipse
-  you can import formatter settings using the
-  `eclipse-code-formatter.xml` file from the
-  [Spring
-  Cloud Build](https://github.com/spring-cloud/build/tree/master/eclipse-coding-conventions.xml) project. If using IntelliJ, you can use the
-  [Eclipse Code Formatter
-  Plugin](https://plugins.jetbrains.com/plugin/6546) to import the same file.
-* Make sure all new `.java` files to have a simple Javadoc class comment with at least an
-  `@author` tag identifying you, and preferably at least a paragraph on what the class is
-  for.
-* Add the ASF license header comment to all new `.java` files (copy from existing files
-  in the project)
-* Add yourself as an `@author` to the .java files that you modify substantially (more
-  than cosmetic changes).
-* Add some Javadocs and, if you change the namespace, some XSD doc elements.
-* A few unit tests would help a lot as well -- someone has to do it.
-* If no-one else is using your branch, please rebase it against the current master (or
-  other target branch in the main project).
-* When writing a commit message please follow [these conventions](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html),
-  if you are fixing an existing issue please add `Fixes gh-XXXX` at the end of the commit
-  message (where XXXX is the issue number).
