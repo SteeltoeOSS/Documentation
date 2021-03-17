@@ -23,14 +23,14 @@ steps:
     docfx metadata api-v2.json
     docfx metadata api-v3.json
     docfx metadata api-all.json
-  displayName: "Docfx Metadata"
+  displayName: "Extract Metadata"
 
 - powershell: |
     docfx build -o ./publish --globalMetadataFiles "dev.json"
     if ($lastexitcode -ne 0){
       throw ("Error generating documentation")
     }
-  displayName: "Docfx Build"
+  displayName: "Publish Site"
 
 - task: CopyFiles@2
   inputs:
@@ -38,10 +38,14 @@ steps:
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/_site'
     CleanTargetFolder: true
-  displayName: "Copy Site"
+  condition:
+          and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')))
+  displayName: "Stage Site"
 
 - powershell: cp "Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
-  displayName: "Copy Dockerfile"
+  condition:
+          and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')))
+  displayName: "Stage Dockerfile"
 
 - task: CopyFiles@2
   inputs:
@@ -49,10 +53,15 @@ steps:
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/kubernetes'
     CleanTargetFolder: true
-  displayName: "Copy Kubernetes Manifests"
+  condition:
+          and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')))
+  displayName: "Stage Kubernetes Manifest"
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+  condition:
+          and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')))
+  displayName: "Upload Staging Artifacts"
