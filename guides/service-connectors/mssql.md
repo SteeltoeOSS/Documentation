@@ -9,6 +9,9 @@ _disableFooter: true
 
 This tutorial takes you through setting up a .NET Core application with the Microsoft SQL service connector.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [SqlServerEFCore](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/SqlServerEFCore) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **start an MsSQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
 ```powershell
@@ -18,8 +21,8 @@ docker run --env ACCEPT_EULA=Y --env SA_PASSWORD=Steeltoe123 --publish 1433:1433
 Next, **create a .NET Core WebAPI** that interacts with MS SQL
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/mssql.png)
-1. Name the project "MsSql_Connector"
+   <img src="~/guides/images/initializr/mssql-connector-dependency.png" alt="Steeltoe Initialzr - MS SQL Connector" width="100%">
+1. Name the project "MsSqlConnector"
 1. Add the "Microsoft SQL Server" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -46,7 +49,7 @@ Next, **create a .NET Core WebAPI** that interacts with MS SQL
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run <PATH_TO>\MsSql_Connector.csproj
+dotnet run <PATH_TO>\MsSqlConnector.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)

@@ -9,6 +9,9 @@ _disableFooter: true
 
 This tutorial takes you through setting up a .NET Core application with the RabbitMQ service connector.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [RabbitMQ](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/RabbitMQ) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **start a RabbitMQ instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of RabbitMQ.
 
 ```powershell
@@ -18,8 +21,8 @@ docker run --publish 5672:5672 steeltoeoss/rabbitmq
 Next, **create a .NET Core WebAPI** that interacts with RabbitMQ
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/rabbitmq.png)
-1. Name the project "RabbitMQ_Connector"
+   <img src="~/guides/images/initializr/rabbitmq-connector-dependency.png" alt="Steeltoe Initialzr - PostgreSQL Connector" width="100%">
+1. Name the project "RabbitMQConnector"
 1. Add the "RabbitMQ" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -61,7 +64,7 @@ Next, **create a .NET Core WebAPI** that interacts with RabbitMQ
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run <PATH_TO>\RabbitMQ_Connector.csproj
+dotnet run <PATH_TO>\RabbitMQConnector.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
