@@ -12,6 +12,9 @@ _disableFooter: true
 
 This is a guide to integrate a .Net framework Web API with the Cloud Foundry SSO identity provider service. The sample provides authentication to select entry points of an application. It is meant to provide authentication similar to how IIS would when Windows authentication is enabled.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Security](https://github.com/SteeltoeOSS/Samples/tree/main/Security) section in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 ### Prereq's
 
 You'll need access to Tanzu Application Services to complete this guide.
@@ -35,21 +38,21 @@ Use the [Pivotal Single Sign-On guide](https://docs.pivotal.io/p-identity) to de
 **Create a .NET Framework Web API** project
 
 1. In Visual Studio (2019) choose to create a new project
-   ![New project](~/guides/images/new-vs-proj/create-new-project.png)
+   <img src="~/guides/images/new-vs-proj/create-new-project.png" alt="Visual Studio - New Project" width="100%">
 1. Configure the new project with the follow values
-   ![Configure project](~/guides/images/new-vs-proj/configure-new-project.png)
-1. **Project Name:** OpenID_SSO_Example
-1. **Solution Name:** OpenID_SSO_Example
+   <img src="~/guides/images/new-vs-proj/configure-new-project.png" alt="Visual Studio - Configure Project" width="100%">
+1. **Project Name:** OpenIdSSOExample
+1. **Solution Name:** OpenIdSSOExample
 1. **Framework:** (>= 4.5)
 1. Choose to create a new Web API project type
-   ![New web api](~/guides/images/new-vs-proj/create-new-asp_net-web-app.png)
+   <img src="~/guides/images/new-vs-proj/create-new-asp_net-web-app.png" alt="Visual Studio - Create New Web API" width="100%">
 1. Once created, the project should be loaded
-   ![Success](~/guides/images/new-vs-proj/create-successful.png)
+   <img src="~/guides/images/new-vs-proj/create-successful.png" alt="Visual Studio - New Project" width="100%">
 
 Next, **install packages** needed
 
 1. Open the package manager console
-   ![Package manager](~/guides/images/open-package-manager-console.png)
+   <img src="~/guides/images/open-package-manager-console.png" alt="Visual Studio - Package Manager Console" width="100%">
 1. Install NuGet distributed packages
 
    ```powershell
@@ -327,7 +330,7 @@ Then, **mark explicit access** to some of the app's endpoints
    ```yaml
    ---
    applications:
-     - name: OpenID_SSO_Example
+     - name: OpenIdSSOExample
        buildpacks:
          - dotnet_core_buildpack    stack: cflinuxfs3
        services:

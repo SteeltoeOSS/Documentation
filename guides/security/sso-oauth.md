@@ -9,6 +9,9 @@ _disableFooter: true
 
 This is a guide to integrate a .Net Core API with the Cloud Foundry SSO identity provider service. The sample provides authentication to select entry points of an application. It is meant to provide authentication simiar to how IIS would when Windows authentication is enabled.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [CloudFoundrySingleSignon](https://github.com/SteeltoeOSS/Samples/tree/main/Security/src/CloudFoundrySingleSignon) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 ### Prereq's
 
 You'll need access to Tanzu Application Services to complete this guide.
@@ -32,13 +35,13 @@ Use the [Pivotal Single Sign-On guide](https://docs.pivotal.io/p-identity) to de
 Next, **create a .NET Core WebAPI** that interacts with SSO
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/no-dependencies.png)
-1. Name the project "OAuth_SSO_Example"
+   <img src="~/guides/images/initializr/no-dependencies.png" alt="Steeltoe Initialzr - No Dependencies" width="100%">
+1. Name the project "OAuthSSOExample"
 1. No dependencies to add
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
 1. Open the package manager console
-   ![Package manager](~/guides/images/open-package-manager-console.png)
+   <img src="~/guides/images/open-package-manager-console.png" alt="Visual Studio - Package Manager Console" width="100%">
 1. Install NuGet distributed packages
 
    ```powershell
@@ -129,7 +132,7 @@ Then, **add** Cloud Foundry OAuth, secure endpoints, and run the app
 **Run** the application
 
 1. Open the package manager console
-   ![Package Manager](~/guides/images/open-package-manager-console.png)
+   <img src="~/guides/images/open-package-manager-console.png" alt="Visual Studio - Package Manager Console" width="100%">
 
 1. Add the Cloud Foundry package to the project
 
@@ -150,15 +153,15 @@ Then, **add** Cloud Foundry OAuth, secure endpoints, and run the app
 1. Publish the application locally using the .NET cli. The following command will create a publish folder automatically.
 
    ```powershell
-   dotnet publish -o .\publish <PATH_TO>\OAuth_SSO_Example.csproj
+   dotnet publish -o .\publish <PATH_TO>\OAuthSSOExample.csproj
    ```
 
-1. Create **manifest.yml** in the same folder as OAuth_SSO_Example.csproj
+1. Create **manifest.yml** in the same folder as OAuthSSOExample.csproj
 
    ```yaml
    ---
    applications:
-     - name: OAuth_SSO_Example
+     - name: OAuthSSOExample
        buildpacks:
          - dotnet_core_buildpack    stack: cflinuxfs3
        services:
