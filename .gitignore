@@ -12,3 +12,4 @@ _site
 publish
 api/browser/**/.manifest
 api/browser/**/*.yml
+.DS_Store

@@ -10,11 +10,14 @@ _hideTocVersionToggle: true
 
 This tutorial takes you through setting up a .NET Core application that gets a random value for a config setting.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [RandomValue](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/RandomValue) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **create a .NET Core WebAPI** that has a placeholder implemented.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
    <img src="~/guides/images/initializr/randomvalue-dependency.png" alt="Steeltoe Initialzr - Random Value" width="100%">
-1. Name the project "Random_Value_Example"
+1. Name the project "RandomValueExample"
 1. Add the "Random value" dependency
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice (we use Visual Studio)
@@ -24,7 +27,7 @@ First, **create a .NET Core WebAPI** that has a placeholder implemented.
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run <PATH_TO>\Placeholder_Example.csproj
+dotnet run <PATH_TO>\RandomValueExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)

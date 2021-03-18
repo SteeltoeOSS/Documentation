@@ -10,6 +10,9 @@ _hideTocVersionToggle: true
 
 This tutorial takes you through setting up a .NET Core application that gets configuration values from a Spring Config Server.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Simple (Config Server)](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/Simple) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **create a Github repository** to hold config values.
 
 1. Navigate to [Github](https://github.com) and either login or create a new account
@@ -39,8 +42,8 @@ docker run -p 8888:8888 steeltoeoss/config-server --spring.cloud.config.server.g
 Next, **create a .NET Core WebAPI** that retrieves values from the Spring Config instance.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/spring-config.png" alt="Steeltoe Initialzr" width="100%">
-1. Name the project "Spring_Config_Example"
+   <img src="~/guides/images/initializr/spring-config-dependency.png" alt="Steeltoe Initialzr - Spring Config" width="100%">
+1. Name the project "SpringConfigExample"
 1. Add the "Spring Cloud Config Server" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -64,7 +67,7 @@ Next, **create a .NET Core WebAPI** that retrieves values from the Spring Config
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run <PATH_TO>\Spring_Config_Example.csproj
+dotnet run <PATH_TO>\SpringConfigExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
