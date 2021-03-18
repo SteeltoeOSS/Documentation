@@ -10,6 +10,9 @@ _hideTocVersionToggle: true
 
 This tutorial takes you through setting up two .NET Core applications using services discovery. The first will register it's endpoints for discovery, and the second will discover the first's services.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [FortuneTeller (Discovery)](https://github.com/SteeltoeOSS/Samples/tree/main/Discovery/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **start a Eureka Server** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Eureka.
 
 ```powershell
@@ -19,8 +22,8 @@ docker run --publish 8761:8761 steeltoeoss/eureka-server
 Next, **create a .NET Core WebAPI** that registers itself as a service.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialize](~/guides/images/initializr/eureka-register-discovery.png)
-1. Name the project "Eureka_Register_Example"
+   <img src="~/guides/images/initializr/eureka-register-discovery-dependency.png" alt="Steeltoe Initialzr - Service Discovery" width="100%">
+1. Name the project "EurekaRegisterExample"
 1. Add the "Eureka Discovery Client" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -30,7 +33,7 @@ Next, **create a .NET Core WebAPI** that registers itself as a service.
    {
      "spring": {
        "application": {
-         "name": "Eureka_Register_Example"
+         "name": "EurekaRegisterExample"
        }
      },
      "eureka": {
@@ -70,7 +73,7 @@ Next, **create a .NET Core WebAPI** that registers itself as a service.
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run <PATH_TO>\Eureka_Register_Example.csproj
+dotnet run <PATH_TO>\EurekaRegisterExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
@@ -88,8 +91,8 @@ Navigate to the endpoint (you may need to change the port number) [http://localh
 Then, **create another .NET Core WebAPI** that will discover the registered service.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initializr](~/guides/images/initializr/eureka-discover-discovery.png)
-1. Name the project "Eureka_Discover_Example"
+   <img src="~/guides/images/initializr/eureka-discover-discovery-dependency.png" alt="Steeltoe Initialzr - Service Discovery" width="100%">
+1. Name the project "EurekaDiscoverExample"
 1. Add the "Eureka Discovery Client" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -99,7 +102,7 @@ Then, **create another .NET Core WebAPI** that will discover the registered serv
    {
      "spring": {
        "application": {
-         "name": "Eureka_Discover_Example"
+         "name": "EurekaDiscoverExample"
        }
      },
      "eureka": {
@@ -150,20 +153,20 @@ Then, **create another .NET Core WebAPI** that will discover the registered serv
      [HttpGet]
      public async Task<string> Get() {
        var client = new HttpClient(_handler, false);
-       return await client.GetStringAsync("http://Eureka_Register_Example/api/values");
+       return await client.GetStringAsync("http://EurekaRegisterExample/api/values");
      }
    }
    ```
 
    > [!NOTE]
-   > Notice the use of `Eureka_Register_Example` as the URI. Because Discovery has been enabled, the negotiation with the discovery Server happens automatically.
+   > Notice the use of `EurekaRegisterExample` as the URI. Because Discovery has been enabled, the negotiation with the discovery Server happens automatically.
 
 **Run** the app to see discovery in action
 
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run <PATH_TO>\Eureka_Discover_Example.csproj
+dotnet run <PATH_TO>\EurekaDiscoverExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
