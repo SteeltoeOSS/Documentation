@@ -13,24 +13,27 @@ _hideTocVersionToggle: true
 
 This tutorial takes you through setting up a ASP.NET 4.x Framework application with cloud management endpoints and dynamic logging levels enabled.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 **Create a .NET Framework Web API** project
 
 1. In Visual Studio (2019) choose to create a new project
-   ![New project](~/guides/images/new-vs-proj/create-new-project.png)
+   <img src="~/guides/images/new-vs-proj/create-new-project.png" alt="Visual Studio - Create New Project" width="100%">
 1. Configure the new project with the follow values
-   ![Configure project](~/guides/images/new-vs-proj/configure-new-project.png)
+   <img src="~/guides/images/new-vs-proj/configure-new-project.png" alt="Visual Studio - Configure New Project" width="100%">
 1. **Project Name:** Management_Endpoints_Framework_Example
 1. **Solution Name:** Management_Endpoints_Framework_Example
 1. **Framework:** (>= 4.5)
 1. Choose to create a new Web API project type
-   ![New web api](~/guides/images/new-vs-proj/create-new-asp_net-web-app.png)
+   <img src="~/guides/images/new-vs-proj/create-new-asp_net-web-app.png" alt="Visual Studio - New Web API" width="100%">
 1. Once created, the project should be loaded
-   ![Success](~/guides/images/new-vs-proj/create-successful.png)
+   <img src="~/guides/images/new-vs-proj/create-successful.png" alt="Visual Studio - Successful project load" width="100%">
 
 Next, **install packages** needed
 
 1. Open the package manager console
-   ![Package manager](~/guides/images/initializr/open-package-manager-console.png)
+   <img src="~/guides/images/open-package-manager-console.png" alt="Visual Studio - Package Manager Console" width="100%">
 1. Install NuGet distributed packages
 
    ```powershell
