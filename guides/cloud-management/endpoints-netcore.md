@@ -13,11 +13,14 @@ _hideTocVersionToggle: true
 
 This tutorial takes you through setting up a .NET Core application with cloud management endpoints automatically added in.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 **Create a .NET Core WebAPI** with Actuators enabled
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/actuators.png)
-1. Name the project "Management_Endpoints_Netcore_Example"
+   <img src="~/guides/images/initializr/actuators-dependency.png" alt="Initializr - Actuator Dependency" width="100%">
+1. Name the project "ManagementEndpointsNetCoreExample"
 1. Add the "Actuators" dependency
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -45,7 +48,7 @@ This tutorial takes you through setting up a .NET Core application with cloud ma
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run<PATH_TO>\Management_Endpoints_Netcore_Example.csproj
+dotnet run<PATH_TO>\ManagementEndpointsNetCoreExample.csproj
 ```
 
 Navigate to the management endpoints summary page (you may need to change the port number) [http://localhost:5000/actuator](http://localhost:5000/actuator)

@@ -9,6 +9,9 @@ _disableFooter: true
 
 This tutorial takes you through setting up a .NET Core application with the PostgreSQL service connector.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [PostgreSql](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSql) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **start a PostgreSQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of PostgreSQL.
 
 ```powershell
@@ -18,8 +21,8 @@ docker run --env POSTGRES_PASSWORD=Steeltoe789 --publish 5432:5432 steeltoeoss/p
 Next, **create a .NET Core WebAPI** that interacts with PostgreSQL
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/mongo-connector.png)
-1. Name the project "Postgre_Connector"
+   <img src="~/guides/images/initializr/postgresql-connector-dependency.png" alt="Steeltoe Initialzr - PostgreSQL Connector" width="100%">
+1. Name the project "PostgreSqlConnector"
 1. Add the "PostgreSQL" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -46,7 +49,7 @@ Next, **create a .NET Core WebAPI** that interacts with PostgreSQL
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run <PATH_TO>\Mongo_Connector.csproj
+dotnet run <PATH_TO>\PostgreSqlConnector.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)

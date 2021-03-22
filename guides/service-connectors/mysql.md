@@ -9,6 +9,9 @@ _disableFooter: true
 
 This tutorial takes you through setting up a .NET Core application with the MySQL service connector.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [MySql](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/MySql) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **start a MySQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles) start a local instance of MySQL.
 
 ```powershell
@@ -18,8 +21,8 @@ docker run --env MYSQL_ROOT_PASSWORD=Steeltoe456 --publish 3306:3306 steeltoeoss
 Next, **create a .NET Core WebAPI** that interacts with MySQL
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/mysql.png)
-1. Name the project "MySql_Connector"
+   <img src="~/guides/images/initializr/mysql-connector-dependency.png" alt="Steeltoe Initialzr - MySQL Connector" width="100%">
+1. Name the project "MySqlConnector"
 1. Add the "MySQL" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -46,7 +49,7 @@ Next, **create a .NET Core WebAPI** that interacts with MySQL
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run <PATH_TO>\MySql_Connector.csproj
+dotnet run <PATH_TO>\MySqlConnector.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)

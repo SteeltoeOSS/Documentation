@@ -10,6 +10,9 @@ _hideTocVersionToggle: true
 
 This tutorial takes you creating a simple Steeltoe app with actuators, logging, and distributed tracing. With that app running you then export the data to a Tanzu Application Services foundation.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 ### Prereq's
 
 You'll need access to Tanzu Application Services to complete this guide.
@@ -27,8 +30,8 @@ First, **start a Zipkin instance**.
 Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/actuators.png)
-1. Name the project "TAS_Observability"
+   <img src="~/guides/images/initializr/actuators-dependency.png" alt="Steeltoe Initialzr - Actuators" width="100%">
+1. Name the project "TASObservability"
 1. Add the "Actuators" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -41,7 +44,7 @@ Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies.
 
    public class Startup {
      public Startup(IConfiguration configuration) {
-       Configuration = configuration;
+        Configuration = configuration;
      }
 
      public IConfiguration Configuration { get; }
@@ -56,7 +59,7 @@ Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies.
 
      public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
        if (env.IsDevelopment()) {
-         app.UseDeveloperExceptionPage();
+          app.UseDeveloperExceptionPage();
        }
        app.UsePrometheusActuator();
        app.UseMetricsActuator();
@@ -64,7 +67,7 @@ Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies.
        app.UseRouting();
        app.UseEndpoints(endpoints =>
        {
-       endpoints.MapControllers();
+          endpoints.MapControllers();
        });
      }
    }
@@ -83,7 +86,7 @@ Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies.
      },
      "spring": {
        "application": {
-         "name": "TAS_Observability"
+         "name": "TASObservability"
        }
      },
      "management": {
@@ -136,15 +139,15 @@ Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies.
 1. Publish the application locally using the .NET cli. The following command will create a publish folder automatically.
 
    ```powershell
-   dotnet publish -o .\publish <PATH_TO>\TAS_Observability.csproj
+   dotnet publish -o .\publish <PATH_TO>\TASObservability.csproj
    ```
 
-1. Create **manifest.yml** in the same folder as TAS_Observability.csproj
+1. Create **manifest.yml** in the same folder as TASObservability.csproj
 
    ```yaml
    ---
    applications:
-     - name: TAS_Observability
+     - name: TASObservability
        buildpacks:
          - dotnet_core_buildpack    stack: cflinuxfs3
    ```
@@ -160,10 +163,10 @@ Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies.
 
 1. Navigate to the application endpoint `https://<APP_ROUTE>/api/values`
 1. With the application successfully pushed, navigate to App Manager to see the new features enabled.
-   ![Steeltoe Initializr](~/guides/images/actuators-app-manager.png)
+   <img src="~/guides/images/actuators-app-manager.png" alt="Tanzu App Manager" width="100%">
 
 1. Now that you have successfully run a request through the app, navigate back to the zipkin dashboard and click the "Find Traces" button. This will search for recent traces. The result should show the trace for your request.
-   ![Zipkin](~/guides/images/zipkin-search.png)
+   <img src="~/guides/images/zipkin-search.png" alt="Zipkin Search" width="100%">
 
 1. Clicking on that trace will drill into the details. Then clicking on a specific action within the trace will give you even more detail.
-   ![Zipkin](~/guides/images/zipkin-detail.png)
+   <img src="~/guides/images/zipkin-detail.png" alt="Zipkin Search" width="100%">

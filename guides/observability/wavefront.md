@@ -10,6 +10,9 @@ _hideTocVersionToggle: true
 
 This tutorial takes you creating a simple Steeltoe app with actuators, logging, and distributed tracing. With that app running you then export the data to a Wavefront account.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 ### Prereq's
 
 You'll need a Wavefront account to complete this guide successfully. [Create a 30 day trial](https://www.wavefront.com/sign-up/), if you don't already have access.
@@ -43,8 +46,8 @@ First, **clone to accompanying repo** that contains all the needed assets
 Then **create a .NET Core WebAPI** with the correct Steeltoe dependencies
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/actuators-logging-dockerfile.png)
-1. Name the project "Wavefront_Observability"
+   <img src="~/guides/images/initializr/actuators-logging-docker-dependency.png" alt="Steeltoe Initialzr - Actuators" width="100%">
+1. Name the project "WavefrontObservability"
 1. Add the "Actuators" dependency
 1. Add the "Dynamic Logger" dependency
 1. Add the "Docker" dependency
@@ -145,41 +148,41 @@ Next, **deploy everything** with docker compose
 Finally **use Wavefront** to view the metrics and traces being fed in
 
 1.  Navigate to your Wavefront instance and the "Dashboards" area
-    ![Wavefront](~/guides/images/wavefront/dashboards-nav.png)
+    <img src="~/guides/images/wavefront/dashboards-nav.png" alt="Wavefront - Dashboard" width="100%">
 
 1.  Create a new dashboard by clicking "Create Dashboard" button
-    ![Wavefront](~/guides/images/wavefront/create-dashboard.png)
+    <img src="~/guides/images/wavefront/create-dashboard.png" alt="Wavefront - Create Dashboard" width="100%">
 
 1.  Now locate the "JSON" link toward the top of the window and click
-    ![Wavefront](~/guides/images/wavefront/json-link.png)
+    <img src="~/guides/images/wavefront/json-link.png" alt="Wavefront - JSON Link" width="100%">
 
 1.  A popup window will be shown. Find the "Tree" drop down in the blue bar and change to "Code" view.
-    ![Wavefront](~/guides/images/wavefront/tree-drop-down.png)
+    <img src="~/guides/images/wavefront/tree-drop-down.png" alt="Wavefront - Tree Drop Down" width="100%">
 
 1.  Clear the pre-loaded JSON in the window and copy the contents of **dashboard-template.json** to the window.
 1.  Click the "Accept" link to close the window and let Wavefront parse the JSON.
 1.  Save your new dashboard by clicking the "Save" link at the top. A popup window will ask you to name your new dashboard and finish saving.
-    ![Wavefront](~/guides/images/wavefront/save-dashboard.png)
+    <img src="~/guides/images/wavefront/save-dashboard.png" alt="Wavefront - Save Dashboard" width="100%">
 
         > [!NOTE]
         > You must save the new dashboard for your application name to show and things start receiving data.
 
 1.  To make sure the correct traces are being used, in the top bar make sure the "application" is set to "Zipkin" and the "service" is set to the name of your application.
-    ![Wavefront](~/guides/images/wavefront/application-and-service.png)
+    <img src="~/guides/images/wavefront/application-and-service.png" alt="Wavefront - Application and Service" width="100%">
 
 1.  Done! Everything else should be pre-loaded for you. As the application runs in Docker, the metrics are shown.
 
 Further **learning** in Wavefront
 
 1. Notice the chart "Top Requests" in the bottom left corner. Click one of the URLs to view all of the traces coming in for your Steeltoe application. If you had other microservices they would also appear here and you can even configure your traces to deliver logs as well.
-   ![Wavefront](~/guides/images/wavefront/top-requests.png)
+   <img src="~/guides/images/wavefront/top-requests.png" alt="Wavefront - Top Requests" width="100%">
 
 1. You can see your traces on the left and sort them, on the right you will see other metrics as well.
 1. To get even deeper, select a trace in the left and then find the "traceid" in the "Critical Path Breakdown" area. Copy that value.
-   ![Wavefront](~/guides/images/wavefront/get-traceid.png)
+   <img src="~/guides/images/wavefront/get-traceid.png" alt="Wavefront - Get Trace ID" width="100%">
 
 1. Then "Add Filter" from the link at the top and paste that traceid value in the "TraceId" text box. Now click the "Add Trace Id" button. Your view will refresh to show all the essentials of that specific trace!
-   ![Wavefront](~/guides/images/wavefront/traceid.png)
+   <img src="~/guides/images/wavefront/traceid.png" alt="Wavefront - Trace ID" width="100%">
 
 1. Creating filters gives you all kinds of different ways to view data. In the "Add Filter" window clear the traceid value and click the "</>" button. This switches your filter view to thre query builder. Here are a few queries to get started:
 

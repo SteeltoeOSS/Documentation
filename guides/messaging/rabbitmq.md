@@ -10,23 +10,26 @@ _hideTocVersionToggle: true
 
 This tutorial takes you through setting up 2 .NET Core applications that interact through RabbitMQ.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Messaging](https://github.com/SteeltoeOSS/Samples/tree/main/Messaging/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **start a RabbitMQ instance**.
 Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of RabbitMQ
 
-    ```powershell
-    docker run --publish 5672:5672 steeltoeoss/rabbitmq
-    ```
+```powershell
+docker run --publish 5672:5672 steeltoeoss/rabbitmq
+```
 
 Next **create a .NET Core WebAPI** that will ensure the queue is created and write messages to it.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/no-dependencies.png)
-1. Name the project "WriteTo_RabbitMQ"
+   <img src="~/guides/images/initializr/no-dependencies.png" alt="Steeltoe Initialzr - No Dependencies" width="100%">
+1. Name the project "WriteToRabbitMQ"
 1. No need to add any dependencies
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
 1. Open the package manager console
-   ![Package mangager](~/guides/images/open-package-manager-console.png)
+   <img src="~/guides/images/open-package-manager-console.png" alt="Visual Studio - Open Package Manager" width="100%">
 1. Install NuGet distributed packages
 
    ```powershell
@@ -109,7 +112,7 @@ Next **create a .NET Core WebAPI** that will ensure the queue is created and wri
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run<PATH_TO>\WriteTo_RabbitMQ.csproj
+dotnet run<PATH_TO>\WriteToRabbitMQ.csproj
 ```
 
 # [Visual Studio](#tab/vs)
@@ -124,8 +127,8 @@ dotnet run<PATH_TO>\WriteTo_RabbitMQ.csproj
 Now **create a .NET Core WebAPI** that will monitor the queue and output anything received.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/no-dependencies.png)
-1. Name the project "Monitor_RabbitMQ"
+   <img src="~/guides/images/initializr/no-dependencies.png" alt="Steeltoe Initialzr - No Dependencies" width="100%">
+1. Name the project "MonitorRabbitMQ"
 1. No need to add any dependencies
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -134,7 +137,7 @@ Now **create a .NET Core WebAPI** that will monitor the queue and output anythin
    > Open the second app in a different Visual Studio instance.
 
 1. Open the package manager console
-   ![Package mangager](~/guides/images/open-package-manager-console.png)
+   <img src="~/guides/images/open-package-manager-console.png" alt="Visual Studio - Open Package Manager" width="100%">
 1. Install NuGet distributed packages
 
    ```powershell
@@ -201,7 +204,7 @@ Now **create a .NET Core WebAPI** that will monitor the queue and output anythin
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run<PATH_TO>\WriteTo_RabbitMQ.csproj
+dotnet run<PATH_TO>\WriteToRabbitMQ.csproj
 ```
 
 # [Visual Studio](#tab/vs)
@@ -215,7 +218,7 @@ dotnet run<PATH_TO>\WriteTo_RabbitMQ.csproj
 
 **Validate** the apps are working properly and the message queue is in use.
 
-1. View the WriteTo_RabbitMQ project message logs and verify there is a message stating it is "Sending message to queue". If you don't see the message refresh the endpoint `https://localhost:8080/WriteMessageQueue` to have a new message written.
-   ![Visual Studio debug output](~/guides/images/visual-studio-output-debug.png)
-1. View the Monitor_RabbitMQ project message logs and verify there is a message stating it "Received the message from the queue".
-   ![Visual studio debug output](~/guides/images/visual-studio-output-debug-messagereceived.png)
+1. View the WriteToRabbitMQ project message logs and verify there is a message stating it is "Sending message to queue". If you don't see the message refresh the endpoint `https://localhost:8080/WriteMessageQueue` to have a new message written.
+   <img src="~/guides/images/visual-studio-output-debug.png" alt="Visual Studio - Debug Output" width="100%">
+1. View the MonitorRabbitMQ project message logs and verify there is a message stating it "Received the message from the queue".
+   <img src="~/guides/images/visual-studio-output-debug-messagereceived.png" alt="Visual Studio - Debug Output Message Received" width="100%">

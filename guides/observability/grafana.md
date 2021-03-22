@@ -10,6 +10,9 @@ _hideTocVersionToggle: true
 
 This tutorial takes you creating a simple Steeltoe app with actuators, logging, and distributed tracing. With that app running you then export the data to an instance of Prometheus and visualize things in a Grafana dashboard.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **clone to accompanying repo** that contains all the needed assets
 
 1. ```powershell
@@ -36,8 +39,8 @@ First, **clone to accompanying repo** that contains all the needed assets
 Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/actuators-logging-dockerfile.png)
-1. Name the project "Grafana_Observability"
+   <img src="~/guides/images/initializr/actuators-logging-docker-dependency.png" alt="Steeltoe Initialzr - Actuators" width="100%">
+1. Name the project "GrafanaObservability"
 1. Add the "Actuators" dependency
 1. Add the "Dynamic Logging" dependency
 1. Add the "Docker" dependency
@@ -79,7 +82,7 @@ Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies
      },
      "spring": {
        "application": {
-         "name": "Grafana_Observability"
+         "name": "GrafanaObservability"
        }
      },
      "management": {

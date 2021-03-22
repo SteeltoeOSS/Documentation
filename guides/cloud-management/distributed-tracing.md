@@ -10,6 +10,9 @@ _hideTocVersionToggle: true
 
 This tutorial takes you through setting up a .NET Core application that sends tracing data to a Zipkin server.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Tracing](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src/Tracing) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **start a Zipkin instance**. Depending on your hosting platform this is done in several ways.
 
 1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Zipkin
@@ -24,8 +27,8 @@ First, **start a Zipkin instance**. Depending on your hosting platform this is d
 Next, **create a .NET Core WebAPI** that interacts with Distributed Tracing
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/no-dependencies.png)
-1. Name the project "Distributed_Tracing_Example"
+   <img src="~/guides/images/initializr/no-dependencies.png" alt="Steeltoe Initialzr - No Dependencies" width="100%">
+1. Name the project "DistributedTracingExample"
 1. No dependency needs to be added
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
@@ -35,7 +38,7 @@ Next, **create a .NET Core WebAPI** that interacts with Distributed Tracing
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run<PATH_TO>\Distributed_Tracing_Example.csproj
+dotnet run<PATH_TO>\DistributedTracingExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)

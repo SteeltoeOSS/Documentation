@@ -12,6 +12,9 @@ _disableFooter: true
 
 This is a guide to integrate a .Net Core API with the Cloud Foundry SSO identity provider service. The sample provides authentication to select entry points of an application. It is meant to provide authentication simiar to how IIS would when Windows authentication is enabled.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [Security](https://github.com/SteeltoeOSS/Samples/tree/main/Security) section in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **establish an identity provider**. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of SSO.
 
 ```powershell
@@ -24,13 +27,13 @@ docker run --rm -ti -p 8080:8080 --name steeltoe-uaa steeltoeoss/workshop-uaa-se
 Next, **create a .NET Core WebAPI** that interacts with SSO
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/no-dependencies.png)
-1. Name the project "OAuth_SSO_Example"
+   <img src="~/guides/images/initializr/spring-config-dependency.png" alt="Steeltoe Initialzr - Spring Config Server" width="100%">
+1. Name the project "OAuthSSOExample"
 1. Add the "Spring Cloud Config Server" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
 1. Open the package manager console
-   ![Package manager](~/guides/images/initializr/open-package-manager-console.png)
+   <img src="~/guides/images/open-package-manager-console.png" alt="Visual Studio - Package Manager Console" width="100%">
 1. Install NuGet distributed packages
 
    ```powershell
@@ -143,7 +146,7 @@ Then, **add** Cloud Foundry OpenID Connect, secure endpoints, and run the app
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run<PATH_TO>\OAuth_SSO_Example.csproj
+dotnet run<PATH_TO>\OAuthSSOExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)

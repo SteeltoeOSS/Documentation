@@ -10,6 +10,9 @@ _hideTocVersionToggle: true
 
 This tutorial takes you through setting up a .NET Core application that implements a circuit breaker pattern.
 
+> [!NOTE]
+> For more detailed examples, please refer to the [FortuneTeller (Circuit Breaker)](https://github.com/SteeltoeOSS/Samples/tree/main/CircuitBreaker/src/FortuneTeller) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
 First, **start a instance of the Hystrix dashboard**. Depending on your hosting platform this is done in several ways.
 
 1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of the Circuit Breaker dashboard
@@ -23,9 +26,9 @@ First, **start a instance of the Hystrix dashboard**. Depending on your hosting 
 **Create a .NET Core WebAPI** that implements the circuit breaker pattern
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![Steeltoe Initialzr](~/guides/images/initializr/circuit-breaker.png)
-1. Name the project "Circuit-Breaker-Example"
-1. Add the "Circuit Breaker" dependency
+   <img src="~/guides/images/initializr/circuit-breaker-dependency.png" alt="Steeltoe Initialzr - Circuit Breaker" width="100%">
+1. Name the project "CircuitBreakerExample"
+1. Add the "Netflix Hystrix Circuit Breaker" dependency
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
 1. Set the instance address and name in **appsettings.json**
@@ -34,7 +37,7 @@ First, **start a instance of the Hystrix dashboard**. Depending on your hosting 
    {
      "spring": {
        "application": {
-         "name": "Circuit-Breaker-Example"
+         "name": "CircuitBreakerExample"
        }
      }
    }
@@ -45,7 +48,7 @@ First, **start a instance of the Hystrix dashboard**. Depending on your hosting 
 # [.NET cli](#tab/cli)
 
 ```powershell
-dotnet run<PATH_TO>\Circuit-Breaker-Example.csproj
+dotnet run<PATH_TO>\CircuitBreakerExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
