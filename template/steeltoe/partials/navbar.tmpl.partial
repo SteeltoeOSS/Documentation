@@ -23,7 +23,7 @@
 				</a>
 				<div class="dropdown-menu" aria-labelledby="learn">
 					<a class="dropdown-item" href="https://start.steeltoe.io" target="_blank">Steeltoe Initializr</a>
-					<a class="dropdown-item" href="~/guides" onClick="$(this).removeAttr('target')">Guides</a>
+					<a class="dropdown-item" id="guidesNavLink" href="~/guides" onClick="$(this).removeAttr('target')">Guides</a>
 					<a class="dropdown-item active" id="docsNavLink" href="~/api/v3/welcome/" onClick="$(this).removeAttr('target')">Documentation</a>
 					<a class="dropdown-item" id="apiBrowserNavLink" href="~/api/browser/v3/all" onClick="$(this).removeAttr('target')">API Browser</a>
 					<a class="dropdown-item" id="blogNavLink" href="~/articles/" onClick="$(this).removeAttr('target')">Blog</a>

@@ -145,10 +145,15 @@ $(document).ready(function() {
 
 	//toggle the docs version radio
 	if (window.location.href.indexOf("v2") > -1) {
-    $('.versionLabel').toggleClass('active');
-	}else if (window.location.href.indexOf("articles") > -1) {
-    $('#docsNavLink').removeClass('active');
-    $('#blogNavLink').addClass('active');
+    	$('.versionLabel').toggleClass('active');
+	}
+	else if (window.location.href.indexOf("/articles") > -1) {
+		$('#docsNavLink').removeClass('active');
+		$('#blogNavLink').addClass('active');
+	}
+	else if (window.location.href.indexOf("/guides") > -1) {
+		$('#docsNavLink').removeClass('active');
+		$('#guidesNavLink').addClass('active');
 	}
 });
 
