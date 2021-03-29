@@ -1,4 +1,3 @@
-- topicUid: guides/get-to-know-steeltoe
 - name: Application Configuration
   items:
     - topicUid: guides/application-configuration/spring-config
@@ -13,7 +12,6 @@
     - topicUid: guides/cloud-management/distributed-tracing
     - topicUid: guides/cloud-management/endpoints-framework
     - topicUid: guides/cloud-management/endpoints-netcore
-    - topicUid: guides/cloud-management/logging
 - name: Messaging
   items:
     - topicUid: guides/messaging/rabbitmq
@@ -24,7 +22,6 @@
     - topicUid: guides/observability/wavefront
 - name: Security
   items:
-    - topicUid: guides/security-providers/credhub
     - topicUid: guides/security-providers/jwt
     - topicUid: guides/security-providers/redisstore
     - topicUid: guides/security-providers/sso-oauth
@@ -32,7 +29,6 @@
     - topicUid: guides/security-providers/sso-openid-netcore
 - name: Service Connectors
   items:
-    - topicUid: guides/service-connectors/gemfire
     - topicUid: guides/service-connectors/mongo
     - topicUid: guides/service-connectors/mssql
     - topicUid: guides/service-connectors/mysql
@@ -43,3 +39,11 @@
 - name: Service Discovery
   items:
     - topicUid: guides/service-discovery/eureka
+- name: Steeltoe Workshop
+  items:
+    - topicUid: guides/get-to-know-steeltoe
+    - topicUid: guides/get-to-know-steeltoe/exercise1
+    - topicUid: guides/get-to-know-steeltoe/exercise2
+    - topicUid: guides/get-to-know-steeltoe/exercise3
+    - topicUid: guides/get-to-know-steeltoe/exercise4
+    - topicUid: guides/get-to-know-steeltoe/summary

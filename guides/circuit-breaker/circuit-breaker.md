@@ -13,7 +13,9 @@ This tutorial takes you through setting up a .NET Core application that implemen
 > [!NOTE]
 > For more detailed examples, please refer to the [FortuneTeller (Circuit Breaker)](https://github.com/SteeltoeOSS/Samples/tree/main/CircuitBreaker/src/FortuneTeller) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
-First, **start a instance of the Hystrix dashboard**. Depending on your hosting platform this is done in several ways.
+### Start a instance of the Hystrix dashboard
+
+<i>(Depending on your hosting platform this is done in several ways.)</i>
 
 1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of the Circuit Breaker dashboard
 
@@ -35,7 +37,7 @@ First, **start a instance of the Hystrix dashboard**. Depending on your hosting 
 
 1. Confirm the service is running by viewing the dashboard - [http://localhost:7979/hystrix](http://localhost:7979/hystrix)
 
-**Create a .NET Core WebAPI** that implements the circuit breaker pattern
+### Create a .NET Core WebAPI that implements circuit breaker pattern
 
 1.  Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
     <img src="~/guides/images/initializr/circuit-breaker-dependency.png" alt="Steeltoe Initialzr - Circuit Breaker" width="100%">
@@ -101,7 +103,7 @@ First, **start a instance of the Hystrix dashboard**. Depending on your hosting 
     }
     ```
 
-**Run** the application
+### Run the application
 
 # [.NET cli](#tab/cli)
 
@@ -118,5 +120,9 @@ Navigate to the endpoint [http://localhost:5555/api/values](http://localhost:555
 
 ---
 
-Refresh the application in your browser a few times and go back to the dashboard to see it logging live activity.
-<img src="~/guides/images/circuit-breaker-closed.png" alt="Circuit Breaker Dashboard" width="100%">
+1.  Navigate to application stream to ensure it is running - [http://localhost:5555/hystrix/hystrix.stream](http://localhost:5555/hystrix/hystrix.stream)
+1.  Navigate to dashboard at [http://localhost:7979/hystrix](http://localhost:7979/hystrix) and enter the application stream url in the stream url text box (ex. [http://localhost:5555/hystrix/hystrix.stream](http://localhost:5555/hystrix/hystrix.stream))
+    <img src="~/guides/images/circuit-breaker-dashboard.png" alt="Circuit Breaker Landing" width="100%">
+
+1.  Refresh the application in your browser a few times and go back to the dashboard to see it logging live activity.
+    <img src="~/guides/images/circuit-breaker-closed.png" alt="Circuit Breaker Dashboard" width="100%">

@@ -1,14 +1,12 @@
 ---
 uid: guides/get-to-know-steeltoe/exercise2
 _disableContribution: true
-_disableToc: true
+_disableToc: false
 _disableFooter: true
 _homePath: "./index.html"
 _disableNav: true
 ---
 
-[vs-run-application]: ~/guides/images/vs-run-application.png "Run the project"
-[run-weatherforecast]: ~/guides/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
@@ -69,7 +67,7 @@ With all actuators implemented in host builder, we are ready to see everything i
 
 Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
 
-![vs-run-application]
+<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -83,7 +81,7 @@ dotnet run
 
 With the application running and the weather forecast endpoint loaded your browser should show the following
 
-![run-weatherforecast]
+<img src="~/guides/images/weatherforecast-endpoint.png" alt="Weatherforecast endpoint" width="100%">
 
 ## Discover all the management endpoints
 

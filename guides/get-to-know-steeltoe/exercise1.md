@@ -1,24 +1,12 @@
 ---
 uid: guides/get-to-know-steeltoe/exercise1
 _disableContribution: true
-_disableToc: true
+_disableToc: false
 _disableFooter: true
 _homePath: "./index.html"
 _disableNav: true
 ---
 
-[vs-get-started]: ~/guides/images/vs-get-started.png "Visual Studio get started"
-[vs-new-proj]: ~/guides/images/vs-new-proj.png "New visual studio web project"
-[vs-name-proj]: ~/guides/images/vs-configure-project.png "Name project"
-[vs-create-proj]: ~/guides/images/vs-create-project.png "Create an api project"
-[vs-add-endpointcore]: ~/guides/images/vs-add-endpointcore.png "Endpointcode nuget dependency"
-[vs-add-dynamiclogger]: ~/guides/images/vs-add-dynamiclogger.png "Dynamiclogger nuget dependency"
-[vs-add-tracingcore]: ~/guides/images/vs-add-tracingcore.png "TracingCode nuget dependency"
-[vs-run-application]: ~/guides/images/vs-run-application.png "Run the project"
-[run-weatherforecast]: ~/guides/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
-[health-endpoint]: ~/guides/images/health-endpoint.png "Health endpoint"
-[info-endpoint]: ~/guides/images/info-endpoint.png "Info endpoint"
-[trace-log]: ~/guides/images/trace-log.png "Trace logs"
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
 [exercise-3-link]: exercise3.md
@@ -44,16 +32,16 @@ Let's start by creating a brand new .NET Core webapi project.
 # [Visual Studio](#tab/visual-studio)
 
 Select "Create a new project". (If Visual Studio is already open, choose `File > New > Project`.)
-![vs-get-started]
+<img src="~/guides/images/vs-get-started.png" alt="Visual Studio - Get Started" width="100%">
 
 Choose "ASP.NET Core Web Application" from the default templates.
-![vs-new-proj]
+<img src="~/guides/images/vs-new-proj.png" alt="Visual Studio New Project" width="100%">
 
 The default project name WebApplication1 will be used throughout, but you can rename.
-![vs-name-proj]
+<img src="~/guides/images/vs-configure-project.png" alt="Visual Studio - Name Project" width="100%">
 
 Choose an application type of API, everything else can keep its default value.
-![vs-create-proj]
+<img src="~/guides/images/vs-create-project.png" alt="Visual Studio - Create an API Project" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -79,13 +67,13 @@ Once the project is created and opened in your IDE, the first action is to bring
 # [Visual Studio](#tab/visual-studio)
 
 Right click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manger window choose "Browse", then search for `Steeltoe.Management.Endpointcore`, and install.
-![vs-add-endpointcore]
+<img src="~/guides/images/vs-add-endpointcore.png" alt="Endpointcode NuGet dependency" width="100%">
 
 Then search for the `Steeltoe.Extensions.Logging.DynamicLogger` package and install.
-![vs-add-dynamiclogger]
+<img src="~/guides/images/vs-add-dynamiclogger.png" alt="Dynamiclogger NuGet dependency" width="100%">
 
 Finally the `Steeltoe.Management.TracingCore` package and install.
-![vs-add-tracingcore]
+<img src="~/guides/images/vs-add-tracingcore.png" alt="TracingCode NuGet dependency" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -179,7 +167,7 @@ With the packages implemented in host builder, distributed tracing activated, an
 
 Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
 
-![vs-run-application]
+<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -193,13 +181,13 @@ dotnet run
 
 With the application running and the weather forecast endpoint loaded your browser should show the following
 
-![run-weatherforecast]
+<img src="~/guides/images/weatherforecast-endpoint.png" alt="Weatherforecast endpoint" width="100%">
 
 ## Discover the health endpoint
 
 Let's look at the health endpoint. Replace `WeatherForecast` with `actuator/health` in the browser address bar. The health page will load with json formatted info.
 
-![health-endpoint]
+<img src="~/guides/images/health-endpoint.png" alt="Health endpoint" width="100%">
 
 As we discussed above, the fact that the page loaded (status of 200) is the first communication to the application's platform that it is healthy. Secondarily the application has output information to help certain platforms gain a deeper knowledge of app health. Learn more about the health endpoint [here](/api/v3/management/health.html).
 
@@ -207,7 +195,7 @@ As we discussed above, the fact that the page loaded (status of 200) is the firs
 
 Now navigate to the info endpoint by replacing `health` with `info` in the address bar.
 
-![info-endpoint]
+<img src="~/guides/images/info-endpoint.png" alt="Info endpoint" width="100%">
 
 We have loaded the bare minimum application info for this example. You could build your own 'IInfoContributor' and add all kinds of meta data and connection information. Learn more [here](/api/v3/management/info.html).
 
@@ -219,7 +207,7 @@ Finally lets look at the log message that was written.
 
 Go back to Visual Studio (keep the app running) and locate the Output tab (it should be in one of the bottom frames). Choose `Webapplication1 - ASP.NET Core Web Server` in the "from" dropdown and scroll to the bottom of the log.
 
-![trace-log]
+<img src="~/guides/images/trace-log.png" alt="Trace logs" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
