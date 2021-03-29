@@ -1,19 +1,12 @@
 ﻿---
 uid: guides/get-to-know-steeltoe/exercise3
 _disableContribution: true
-_disableToc: true
+_disableToc: false
 _disableFooter: true
 _homePath: "./index.html"
 _disableNav: true
 ---
 
-[vs-add-efcore]: ~/guides/images/vs-add-efcore.png "Steeltoe EFCore nuget dependency"
-[single-todoitem]: ~/guides/images/single-todoitem.png "ToDo item retrieved from the database"
-[run-weatherforecast]: ~/guides/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
-[vs-run-application]: ~/guides/images/vs-run-application.png "Run the project"
-[vs-new-folder]: ~/guides/images/vs-new-folder.png "Create a new project folder"
-[vs-new-class]: ~/guides/images/vs-new-class.png "Create a new project class"
-[vs-add-efsqlserver]: ~/guides/images/vs-add-efsqlserver.png "Microsoft SqlServer EFCore nuget dependency"
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
@@ -43,10 +36,10 @@ We're going to add a database connection and context using entity framework to t
 # [Visual Studio](#tab/visual-studio)
 
 Right click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manger window choose "Browse", then search for `Steeltoe.Connector.EFCore`, and install.
-![vs-add-efcore]
+<img src="~/guides/images/vs-add-efcore.png" alt="Steeltoe EFCore NuGet dependency" width="100%">
 
 Then search for the `Microsoft.EntityFrameworkCore.SqlServer` package and install.
-![vs-add-efsqlserver]
+<img src="~/guides/images/vs-add-efsqlserver.png" alt="Microsoft SqlServer EFCore NuGet dependency" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -65,7 +58,7 @@ Now create a new folder in the project named 'Models'.
 
 Right click on the project name in the solution explorer and choose "Add" > "New Folder" and name it `Models`.
 
-![vs-new-folder]
+<img src="~/guides/images/vs-new-folder.png" alt="Create a new project folder" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -82,7 +75,7 @@ Within that folder create a new class named 'TodoContext.cs'. This class will se
 
 Right click on the 'Models' folder and choose "Add" > "Class..." and name it `TodoContext.cs`.
 
-![vs-new-class]
+<img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -117,7 +110,7 @@ Also in the 'Models' folder, create a class named 'TodoItem.cs'. This will serve
 
 Right click on the 'Models' folder and choose "Add" > "Class..." and name it `TodoItem.cs`.
 
-![vs-new-class]
+<img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -182,7 +175,7 @@ Create a new class in the 'Controllers' folder named `TodoItemsController.cs`.
 
 Right click on the 'Controllers' folder and choose "Add" > "Class..." and name it `TodoItemsController.cs`.
 
-![vs-new-class]
+<img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -305,7 +298,7 @@ With the data context in place, we are ready to see everything in action. Run th
 
 Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
 
-![vs-run-application]
+<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -319,7 +312,7 @@ dotnet run
 
 With the application running and the weather forecast endpoint loaded your browser should show the following
 
-![run-weatherforecast]
+<img src="~/guides/images/weatherforecast-endpoint.png" alt="Weatherforecast endpoint" width="100%">
 
 ## Work with saved ToDo items
 
@@ -327,7 +320,7 @@ To test the database connection, navigate to the "GET" endpoint where all saved 
 
 You may have noticed in the 'TodoItemsController.GetTodoItem' method, there is a super secret value you can provide to add new list items. Replace `WeatherForecast` with `api/TodoItems/0` in the browser address bar. This page should load successfully but not provide much feedback. Behind the scenes you've just added a new list item. To confirm lets retrieve the saved list of items. Remove the `/0` in the address and loading the page. Wow! Now there is 1 list item retrieved from the database. Awesome!
 
-![single-todoitem]
+<img src="~/guides/images/single-todoitem.png" alt="ToDo item retrieved from the database" width="100%">
 
 ## Stop the application
 

@@ -7,4 +7,4 @@ _disableFooter: true
 
 ## Using JWT Bearer Tokens
 
-Please refer to our [sample app on Github](https://github.com/SteeltoeOSS/Samples/tree/master/Security/src/AspDotNetCore/CloudFoundryJwtAuthentication) for detailed directions on using JWT and Cloud Foundry.
+Please refer to our [sample app on Github](https://github.com/SteeltoeOSS/Samples/tree/main/Security/src/CloudFoundryJwtAuthentication) for detailed directions on using JWT and Cloud Foundry.
