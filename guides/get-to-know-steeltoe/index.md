@@ -39,7 +39,7 @@ This lab has 4 exercises to get you familiar with adding Steeltoe in an applicat
 With Visual Studio as your IDE
 <img src="~/guides/images/strigo-desktop-vs.png" alt="Windows placement with Visual Studio" width="100%">
 
-With VS COde as your IDE
+With VS Code as your IDE
 <img src="~/guides/images/strigo-desktop-vscode.png" alt="Windows placement with VS Code" width="100%">
 
 | [Get started][exercise-1-link] |

@@ -28,7 +28,6 @@ _disableFooter: true
 - @guides/cloud-management/distributed-tracing
 - @guides/cloud-management/endpoints-framework
 - @guides/cloud-management/endpoints-netcore
-- @guides/cloud-management/logging
 
 ## Messaging
 
@@ -42,7 +41,6 @@ _disableFooter: true
 
 ## Security
 
-- @guides/security-providers/credhub
 - @guides/security-providers/jwt
 - @guides/security-providers/redisstore
 - @guides/security-providers/sso-oauth
@@ -51,7 +49,6 @@ _disableFooter: true
 
 ## Service Connectors
 
-- @guides/service-connectors/gemfire
 - @guides/service-connectors/mongo
 - @guides/service-connectors/mssql
 - @guides/service-connectors/mysql
