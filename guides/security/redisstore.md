@@ -3,7 +3,6 @@ uid: guides/security-providers/redisstore
 title: Key Ring with Redis
 tags: []
 _disableFooter: true
-_hideTocVersionToggle: true
 ---
 
 ## Using Cloud Security with a Redis Cache for key ring store

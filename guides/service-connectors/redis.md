@@ -3,7 +3,6 @@ uid: guides/service-connectors/redis
 title: Redis Cache
 tags: []
 _disableFooter: true
-_hideTocVersionToggle: true
 ---
 
 ## Using Service Connectors with Redis Cache
@@ -13,7 +12,7 @@ This tutorial takes you through setting up a .NET Core application with the Redi
 > [!NOTE]
 > For more detailed examples, please refer to the [Redis](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
-First, **start a Redis instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
+First, **start a Redis instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Redis.
 
 ```powershell
 docker run --publish 6379:6379 steeltoeoss/redis
@@ -32,11 +31,10 @@ Next, **create a .NET Core WebAPI** that interacts with Redis
    ```json
    {
     "redis": {
-        "client": {
-          "host": "127.0.0.1",
-          "port": "6379"
-        }
-    }
+      "client": {
+        "connectRetry": 3
+      }
+    },
    ```
 
    > [!TIP]

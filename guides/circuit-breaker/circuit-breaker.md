@@ -1,6 +1,6 @@
 ---
 uid: guides/circuit-breakers/circuit-breaker
-title: Circuit Breakers w/ Hystrix
+title: Circuit Breakers
 tags: []
 _disableFooter: true
 _hideTocVersionToggle: true

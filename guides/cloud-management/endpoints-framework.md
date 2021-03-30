@@ -190,28 +190,19 @@ Next, **add actuators** support classes
 
    ```csharp
    using Microsoft.Extensions.Configuration;
-   using Microsoft.Extensions.DependencyInjection;
    using Microsoft.Extensions.Logging;
+   using Microsoft.Extensions.Logging.Console;
    using Steeltoe.Extensions.Logging;
 
-   public static class LoggingConfig
-   {
-       public static ILoggerFactory LoggerFactory { get; set; }
-       public static ILoggerProvider LoggerProvider { get; set; }
+   public static class LoggingConfig{
+   public static ILoggerFactory LoggerFactory { get; set; }
+   public static ILoggerProvider LoggerProvider { get; set; }
 
-       public static void Configure(IConfiguration configuration)
-       {
-           IServiceCollection serviceCollection = new ServiceCollection();
-           serviceCollection.AddLogging(builder => {
-               builder
-                   .SetMinimumLevel(LogLevel.Trace)
-                   .AddConfiguration(configuration)
-                   .AddDynamicConsole();
-           });
-           var serviceProvider = serviceCollection.BuildServiceProvider();
-           LoggerFactory = serviceProvider.GetService<ILoggerFactory>();
-           LoggerProvider = serviceProvider.GetService<ILoggerProvider>();
-       }
+   public static void Configure(IConfiguration configuration) {
+     LoggerProvider = new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
+     LoggerFactory = new LoggerFactory();
+     LoggerFactory.AddProvider(LoggerProvider);
+     }
    }
    ```
 

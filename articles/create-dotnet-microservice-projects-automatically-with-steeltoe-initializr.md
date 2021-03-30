@@ -51,19 +51,18 @@ We want to create a .NET Core microservice (aka webapi project) that hands us he
 # [Powershell](#tab/powershell)
 
 ```powershell
-$body = @{Name:"MyApp",Dependencies:"Actuator,Dynamic-Logger,SQLServer"}
+$body = @{
+    Name='MyApp'
+    Dependencies='Actuator,Dynamic-Logger,SQLServer'
+}
 
-Invoke-RestMethod -Method 'Post' -Uri '[https://start.steeltoe.io/api/project](http://52.179.217.184/api/project)' -Body $body -OutFile MyNewProject.zip
-
-#To unzip
-
-Invoke-RestMethod -Method 'Post' -Uri '[https://start.steeltoe.io/api/project](http://52.179.217.184/api/project)' -Body $body | Expand-Archive -DestinationPath .
+Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile Sample.zip
 ```
 
 # [Bash](#tab/bash)
 
 ```bash
-curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,dynamic-logger,sqlserver 
+$ http https://start.steeltoe.io/api/project dependencies==actuator,dynamic-logger,sqlserver -d
 ```
 
 ***
@@ -83,17 +82,17 @@ Initializr's API offers a few very helpful endpoints. It's how the web UI is abl
 Below is a brief explanation of Initializr's top level endpoints. But the conversation doesn't stop there. Each of these endpoints offer all kinds of deeper sub-url's that drill down to specifics of Initializr's config. Read more about [them here](https://docs.steeltoe.io/api/v3/initializr).
 
   **Endpoint Home**
-  
+
   Sending a GET request to this endpoint ([https://start.steeltoe.io/api/](https://start.steeltoe.io/api/)) will respond with essentials of the service. Things like what parameters can be provided when generating a project and what dependencies are available for use.
-  
+
   **Generate Project**
-  
+
   The endpoint `https://start.steeltoe.io/api/project` supports both the GET and POST methods. This is where all the Initializr magic happens. Send a GET request and include parameters in the querystring. Send a POST request and provide your project metadata as JSON in the body. Either way the response will be a zip of the generated project.
-  
+
   **Service Configuration**
-  
+
   The config endpoint ([https://start.steeltoe.io/api/config/](https://start.steeltoe.io/api/config/)) provides a way to get how Initializr has been configured. This endpoint has quite a few sub-endpoints that let you drill deeper into specific config values. Say you wanted to know what .NET runtimes are supported as well what the default version is. You could send a request to [https://start.steeltoe.io/api/config/dotNetFrameworks](https://start.steeltoe.io/api/config/dotNetFrameworks) and receive a JSON formatted answer.
-  
+
   You can create quite a rich set of tooling with the config endpoint. In true cloud-native design, you can run instances of Initializr in different environments while the tooling keeps a consistent experience.
 
 ## About dependencies
@@ -114,13 +113,13 @@ $body = @{
     Dependencies='Actuator,SQLServer'
 }
 
-Invoke-RestMethod -Method 'Post' -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile MyProject.zip
+Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutFile Sample.zip
 ```
 
 # [Bash](#tab/bash)
 
 ```bash
-curl https://start.steeltoe.io/api/project -o MyProject.zip -d dependencies=actuator,sqlserver 
+$ http https://start.steeltoe.io/api/project dependencies==actuator,sqlserver -d
 ```
 
 ***

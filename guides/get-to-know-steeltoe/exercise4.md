@@ -60,12 +60,20 @@ using Steeltoe.Extensions.Configuration.ConfigServer;
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
 	Host.CreateDefaultBuilder(args)
-		.ConfigureWebHostDefaults(webBuilder => 
-    {
-        webBuilder
-          .AddConfigServer()  //implement config server client
-          .UseStartup<Startup>();
-		});
+		.ConfigureWebHostDefaults(webBuilder => {
+			webBuilder
+
+        //implement config server client
+				.AddConfigServer()
+				.UseStartup<Startup>();
+		})
+
+    //Steeltoe actuators
+		.AddAllActuators()
+
+    //Steeltoe dynamic logging
+    .AddDynamicLogging()
+		;
 ```
 
 ## Create a Values controller
@@ -74,6 +82,14 @@ Right click on the 'Controllers' folder and choose "Add" > "Class..." and name i
 
 <img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
+# [.NET CLI](#tab/dotnet-cli)
+
+```powershell
+cd Controllers
+dotnet new classlib -n "ValuesController.cs"
+```
+
+---
 
 Open the newly created class file in your IDE and replace the 'using' statements in the file with the below.
 
@@ -144,7 +160,7 @@ With the data context in place, we are ready to see everything in action. Run th
 
 Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
 
-<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="50%">
+<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 

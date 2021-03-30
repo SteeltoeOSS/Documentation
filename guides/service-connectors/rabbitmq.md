@@ -3,7 +3,6 @@ uid: guides/service-connectors/rabbitmq
 title: RabbitMQ Messaging
 tags: []
 _disableFooter: true
-_hideTocVersionToggle: true
 ---
 
 ## Using Service Connectors with RabbitMQ
@@ -13,7 +12,7 @@ This tutorial takes you through setting up a .NET Core application with the Rabb
 > [!NOTE]
 > For more detailed examples, please refer to the [RabbitMQ](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/RabbitMQ) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
-First, **start a RabbitMQ instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
+First, **start a RabbitMQ instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of RabbitMQ.
 
 ```powershell
 docker run --publish 5672:5672 steeltoeoss/rabbitmq
@@ -31,14 +30,10 @@ Next, **create a .NET Core WebAPI** that interacts with RabbitMQ
 
    ```json
    {
-     "Logging": {
-       "LogLevel": {
-         "Default": "Debug",
-         "System": "Information",
-         "Microsoft": "Information",
-         "Steeltoe": "Debug",
-         "RabbitMQ_Connector": "Debug"
-       }
+     "LogLevel": {
+       "Default": "Information",
+       "System": "Information",
+       "Microsoft": "Information"
      }
    }
    ```

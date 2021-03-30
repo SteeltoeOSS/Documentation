@@ -1,14 +1,14 @@
 ---
+_hideTocVersionToggle: true
 uid: guides/index
 title: Steeltoe Get Started
 tags: []
 _disableFooter: true
-_hideTocVersionToggle: true
 ---
 
 # Get Started with Steeltoe
 
-## The Basics Workshop
+## The Basics
 
 - @guides/get-to-know-steeltoe
 
@@ -26,8 +26,8 @@ _hideTocVersionToggle: true
 ## Cloud Management
 
 - @guides/cloud-management/distributed-tracing
-- @guides/cloud-management/endpoints-netcore
 - @guides/cloud-management/endpoints-framework
+- @guides/cloud-management/endpoints-netcore
 
 ## Messaging
 
@@ -60,7 +60,3 @@ _hideTocVersionToggle: true
 ## Service Discovery
 
 - @guides/service-discovery/eureka
-
-## Stream
-
-- @guides/stream/quick-start

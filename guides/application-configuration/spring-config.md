@@ -13,9 +13,9 @@ This tutorial takes you through setting up a .NET Core application that gets con
 > [!NOTE]
 > For more detailed examples, please refer to the [Simple (Config Server)](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/Simple) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
-First, **create a GitHub repository** to hold config values.
+First, **create a Github repository** to hold config values.
 
-1. Navigate to [GitHub](https://github.com) and either login or create a new account
+1. Navigate to [Github](https://github.com) and either login or create a new account
 1. Create and initialize a new public repository, named `Spring-Config-Demo`
 1. Once created note the url of the new repo
 

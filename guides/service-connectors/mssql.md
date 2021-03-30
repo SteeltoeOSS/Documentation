@@ -3,7 +3,6 @@ uid: guides/service-connectors/mssql
 title: Microsoft SQL Database
 tags: []
 _disableFooter: true
-_hideTocVersionToggle: true
 ---
 
 ## Using Service Connectors with Microsoft SQL

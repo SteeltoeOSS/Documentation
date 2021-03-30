@@ -76,7 +76,7 @@ Next, **create a .NET Core WebAPI** that registers itself as a service.
 dotnet run <PATH_TO>\EurekaRegisterExample.csproj
 ```
 
-Navigate to the endpoint (you may need to change the port number) [http://localhost:8080/api/values](http://localhost:8080/api/values)
+Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
 
 # [Visual Studio](#tab/vs)
 
@@ -88,7 +88,7 @@ Navigate to the endpoint (you may need to change the port number) [http://localh
 1. Navigate to the Eureka dashboard at [http://localhost:8761/](http://localhost:8761/) to see the service listed.
 1. Leave the application running while you continue to the next steps, you'll be connecting to it.
 
-Now, **create another .NET Core WebAPI** that will discover the registered service.
+Then, **create another .NET Core WebAPI** that will discover the registered service.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
    <img src="~/guides/images/initializr/eureka-discover-discovery-dependency.png" alt="Steeltoe Initialzr - Service Discovery" width="100%">
@@ -169,12 +169,12 @@ Now, **create another .NET Core WebAPI** that will discover the registered servi
 dotnet run <PATH_TO>\EurekaDiscoverExample.csproj
 ```
 
-Navigate to the endpoint (you may need to change the port number) [http://localhost:8081/api/values](http://localhost:8081/api/values)
+Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
 
 # [Visual Studio](#tab/vs)
 
 1. Choose the top _Debug_ menu, then choose _Start Debugging (F5)_. This should bring up a browser with the app running
-1. Navigate to the endpoint (you may need to change the port number) [http://localhost:8081/api/values](http://localhost:8081/api/values)
+1. Navigate to the endpoint (you may need to change the port number) [http://localhost:8080/api/values](http://localhost:8080/api/values)
 
 ---
 
