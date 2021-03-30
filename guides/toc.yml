@@ -1,0 +1,49 @@
+- name: Application Configuration
+  items:
+    - topicUid: guides/application-configuration/spring-config
+    - topicUid: guides/application-configuration/cloud-foundry
+    - topicUid: guides/application-configuration/placeholder
+    - topicUid: guides/application-configuration/random-value
+- name: Circuit Breakers
+  items:
+    - topicUid: guides/circuit-breakers/circuit-breaker
+- name: Cloud Management
+  items:
+    - topicUid: guides/cloud-management/distributed-tracing
+    - topicUid: guides/cloud-management/endpoints-framework
+    - topicUid: guides/cloud-management/endpoints-netcore
+- name: Messaging
+  items:
+    - topicUid: guides/messaging/rabbitmq
+- name: Observability
+  items:
+    - topicUid: guides/observability/grafana
+    - topicUid: guides/observability/tanzu
+    - topicUid: guides/observability/wavefront
+- name: Security
+  items:
+    - topicUid: guides/security-providers/jwt
+    - topicUid: guides/security-providers/redisstore
+    - topicUid: guides/security-providers/sso-oauth
+    - topicUid: guides/security-providers/sso-openid-framework
+    - topicUid: guides/security-providers/sso-openid-netcore
+- name: Service Connectors
+  items:
+    - topicUid: guides/service-connectors/mongo
+    - topicUid: guides/service-connectors/mssql
+    - topicUid: guides/service-connectors/mysql
+    - topicUid: guides/service-connectors/oauth
+    - topicUid: guides/service-connectors/postgresql
+    - topicUid: guides/service-connectors/rabbitmq
+    - topicUid: guides/service-connectors/redis
+- name: Service Discovery
+  items:
+    - topicUid: guides/service-discovery/eureka
+- name: Steeltoe Workshop
+  items:
+    - topicUid: guides/get-to-know-steeltoe
+    - topicUid: guides/get-to-know-steeltoe/exercise1
+    - topicUid: guides/get-to-know-steeltoe/exercise2
+    - topicUid: guides/get-to-know-steeltoe/exercise3
+    - topicUid: guides/get-to-know-steeltoe/exercise4
+    - topicUid: guides/get-to-know-steeltoe/summary

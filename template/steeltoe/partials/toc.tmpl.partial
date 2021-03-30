@@ -16,10 +16,10 @@
         <label class="btn btn-secondary versionLabel active" onclick="location.href='/api/v3/welcome'">
           <input type="radio" name="options" id="v3" autocomplete="off" checked> Version 3
         </label>
-        <label class="btn btn-secondary versionLabel hide" onclick="location.href='/api/browser/v2/all/Steeltoe.CircuitBreaker.Hystrix.html'">
+        <label class="btn btn-secondary versionLabel hide" onclick="location.href='/api/browser/v2/all'">
           <input type="radio" name="optionsApi" id="api-v2" autocomplete="off"> Version 2
         </label>
-        <label class="btn btn-secondary versionLabel active hide" onclick="location.href='/api/browser/v3/all/Steeltoe.CircuitBreaker.html'">
+        <label class="btn btn-secondary versionLabel active hide" onclick="location.href='/api/browser/v3/all'">
           <input type="radio" name="optionsApi" id="api-v3" autocomplete="off" checked> Version 3
         </label>
       </div>
