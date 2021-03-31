@@ -1,10 +1,10 @@
 # Reference
 
-This section explores the components that make up the Steeltoe Streams framework together with how to build Streams based application.
+This section explores the components that make up the Steeltoe Streams framework together with how to build Streams based applications.
 
 ## Main Concepts
 
-Steeltoe Streams provides a number of abstractions and opinions that simplify the writing of message-driven microservice applications.
+Steeltoe Streams provides a number of abstractions and opinions that simplify the writing of message-driven microservice based applications.
 This section gives an overview of the following:
 
 * [Application Model](#application-model)
@@ -19,41 +19,41 @@ This section gives an overview of the following:
 
 ### Application Model
 
-A Streams application is composed of a middleware-neutral core components provided by Steeltoe.  Application developers typically do not have to deal with the underlying messaging middleware and instead can focus on the applicaiton logic itself.
-Normally the application communicates with the outside world through input and output channel abstractions injected into it by the Steeltoe Streams infrastructure.  Channels are an abstraction that represent messaging destinations through which applications can send and receive messages. Channels are automaticaly connected to external messaging systems through middleware-specific binder implementations provided by Steeltoe or other third parties.
+A Streams application is composed of middleware-neutral core microservices enhanced by Steeltoe Streams.  Application developers typically do not have to deal with the underlying messaging middleware and instead can focus on the microservice logic itself.
+Normally the service communicates with the outside world through input and output channel abstractions injected into it by the Steeltoe Streams infrastructure.  Channels are a programming abstraction that represent messaging destinations. Services can send and receive messages to and from destinations using these channels . Steeltoe Streams automatically configures channels for you and connects them to external messaging systems through middleware-specific binder implementations. Binders are components provided by Steeltoe or other third parties package providers.
 
 ![Stream Application](./images/streams-application.jpg)
 
 ### Binder Abstraction
 
-Steeltoe uses a binder abstraction to make it possible for Streams based applications to be flexible in how they connect to messaging middleware.
-Steeltoe automatically detects and uses whatever binder it finds in the applications startup directory when attempting to connect to the messaging system. This enables developers to use different types of messaging middleware without the need to change the applications code; You simply include a different binder at deployment time.
+Steeltoe uses a binder abstraction to make it possible for Streams based servicess to be flexible in how they connect to messaging middleware.
+Steeltoe automatically detects and uses whatever binder it finds in the services startup directory when attempting to connect to the messaging system. This enables developers to use different types of messaging middleware without the need to change the applications code; You simply include a different binder at deployment time.
 
-For more complex use cases, you can package multiple binders with your application and configure it to choose the correct binder for the different channels or destinations used by the applicaiton at runtime.
+For more complex use cases, you can package multiple binders with your services and configure it to choose the correct binder for the different channels or destinations used by the service at runtime.
 The configuration can be provided through normal .NET configuration providers, including command-line arguments, environment variables, and/or `appsettings.json`.
-For example, setting the configuration key `spring:cloud:stream:bindings:input:destination` to `raw-sensor-data` can be used to configure the `input channel` to be bound to the `raw-sensor-data` RabbitMQ exchange when using a RabbitMQ binder.
+For example, setting the configuration key `spring:cloud:stream:bindings:input:destination` to `raw-sensor-data` can be used to configure the channel named `input` to be bound to the `raw-sensor-data` RabbitMQ exchange when using a RabbitMQ binder.
 
 Currently, Steeltoe provides a single binder implementation for [Rabbit MQ](https://github.com/spring-cloud/spring-cloud-stream-binder-rabbit). Future binders provided by Steeltoe are on the roadmap including Kafka and others.
-You can also use the extensible Binder SPI to write your own.
+You can also use the extensible Binder SPI to write your own should you need to.
 
 ### Binding Abstraction
 
-Steeltoe also uses a binding abstraction to provide a way to define the name and types of destinations available to the Streams applications.  Bindings provide a bridge between the destinations in the external messaging system and the methods in the application which act as message producers and/or consumers.
+Steeltoe also uses a binding abstraction to provide a way to define the name and types of destinations available to the Streams based microservice.  Bindings provide a bridge between the destinations in the external messaging system and the methods in the application which act as message producers and/or consumers.
 
 ### Persistent Publish-Subscribe
 
-Communication between applications follow a publish-subscribe model, where data is broadcast through shared topics.
-This can be seen in the following figure, which shows a typical deployment for a set of interacting Stream applications.
+Communication between microservices follow a publish-subscribe model where data is broadcast through shared topics.
+This can be seen in the following figure, which shows a typical deployment for a set of interacting Streams microservices.
 
-![Spring Cloud Stream Publish-Subscribe](./images/SCSt-sensors.png)
+![Streams Publish-Subscribe](./images/SCSt-sensors.png)
 
 Data reported by sensors to an HTTP endpoint is sent to a common destination named `raw-sensor-data`.
-From the destination, it is independently processed by a microservice based application that computes time-windowed averages and by another microservice application that ingests the raw data into HDFS (Hadoop Distributed File System).
-In order to process the data, both applications declare the topic as their input at runtime.
+Receiving data from the destination, the data is independently processed by a microservice based application that computes time-windowed averages and by another microservice that ingests the raw data into HDFS (Hadoop Distributed File System).
+In order to process the data, both microservices declare the topic as their input at runtime.
 
-The publish-subscribe communication model reduces the complexity of both the producer and the consumer and lets new applications be be easily added to the topology without disruption of the existing flow.
-For example, downstream from the average-calculating application, you can add an application that calculates the highest temperature values for display and monitoring.
-Additionally, you can then add another application that interprets the same flow of averages for fault detection.
+The publish-subscribe communication model reduces the complexity of both the producer and the consumer and lets new services be be easily added to the topology without disruption of the existing flow.
+For example, downstream from the average-calculating microservice, you can add an additional service that calculates the highest temperature values for display and monitoring.
+Additionally, you can then add another service that interprets the same flow of averages for fault detection.
 Doing all communication through shared topics rather than point-to-point queues reduces coupling between microservices.
 
 While the concept of publish-subscribe messaging is not new, Streams takes the extra step of making it an opinionated choice for its application model.
@@ -69,42 +69,43 @@ Two types of consumer are supported by the Streams infrastructure:
 The default is to implement message driven consumers, but when you wish to control the rate at which messages are processed, you might want to use a synchronous consumer.  
 
 ### Consumer Groups
-While the publish-subscribe model makes it easy to connect applications through shared topics, the ability to scale up by creating multiple instances of a given application is equally important.
-When doing so, different instances of an application are placed in a competing consumer relationship, where only one of the instances is expected to handle a given message.
 
-Steeltoe Streams models this behavior through the concept of a consumer group. Streams consumer groups are similar to and inspired by Kafka consumer groups.
+While the publish-subscribe model makes it easy to connect microservices through shared topics, the ability to scale up by creating multiple instances of a given service is equally important.
+When doing so, different instances of a microservice are placed in a competing consumer relationship, where only one of the instances is expected to handle a given message.
+
+Steeltoe Streams models this behavior through the concept of a `consumer group`. Streams consumer groups are similar to and inspired by Kafka consumer groups.
 Each consumer binding can configure the `spring:cloud:stream:bindings:<channelName>:group` key to specify a group name.
 For the consumers shown in the following figure, this key would be set to `spring:cloud:stream:bindings:<channelName>:group=hdfsWrite` or `spring:cloud:stream:bindings:<channelName>:group=average`.
 
 ![Stream Consumer Groups](./images/SCSt-groups.png)
 
 All groups that subscribe to a given destination receive a copy of published data, but only one member of each group receives a given message from that destination.
-By default, when a group is not specified, Streams assigns the application to an anonymous and independent single-member consumer group that is in a publish-subscribe relationship with all other consumer groups.
+By default, when a group is not specified, Streams assigns the application service to an anonymous and independent single-member consumer group that is in a publish-subscribe relationship with all other consumer groups.
 
 ### Durability
 
-As part of the opinionated application model, Streams consumer group subscriptions are durable.
-That is, Binder implementations ensure that group subscriptions are persistent and once a subscription for a group has been created, the group receives messages, even if they are sent while all applications in the group have been stopped.
+As part of the opinionated model, Streams consumer group subscriptions are durable.
+That is, Binder implementations ensure that group subscriptions are persistent and once a subscription for a group has been created, the group receives messages, even if they are sent while all services in the group have been stopped.
 
-In general, it is preferable to always specify a consumer group when binding an application to a given destination.
-When scaling up a Streams application you must specify a consumer group for each of its input bindings.
-Doing so prevents the application's instances from receiving duplicate messages unless that behavior is desired, which is not typical.
+In general, it is preferable to always specify a consumer group when binding a service to a given destination.
+When scaling up a Streams services you must specify a consumer group for each of its input bindings.
+Doing so prevents the service instances from receiving duplicate messages unless that behavior is desired, which is not typical.
 
->Anonymous subscriptions are non-durable by nature. For some Binder implementations (such as RabbitMQ), it is possible to have non-durable group subscriptions.
+>Anonymous subscriptions are non-durable by nature. For some Binder implementations (such as RabbitMQ), it is possible to have non-durable group subscriptions as well.
 
 ### Partitioning
 
-Streams provides support for partitioning data between multiple instances of a given application.
+Streams provides support for partitioning data between multiple instances of a given service.
 In a partitioned scenario, the physical communication medium (such as the broker topic) is viewed as being structured into multiple partitions.
-One or more producer application instances send data to multiple consumer application instances and ensure that data identified by common characteristics are processed by the same consumer instance.
+One or more producer instances send data to multiple consumer instances and ensure that data identified by common characteristics are processed by the same consumer instance.
 
 Streams provides a common abstraction for implementing partitioned processing use cases in a uniform fashion.
 Partitioning can thus be used whether the broker itself is naturally partitioned (for example, Kafka) or not (for example, RabbitMQ).
 
 ![Stream Partitioning](./images/SCSt-partitioning.png)
 
-Partitioning is a critical concept in stateful processing, where it is critical (for either performance or consistency reasons) to ensure that all related data is processed together.
-For example, in the time-windowed average calculation example, it is important that all measurements from any given sensor are processed by the same application instance.
+Partitioning is a critical concept in stateful processing, where it is critical, for either performance or consistency reasons, to ensure that all related data is processed together.
+For example, in the time-windowed average calculation example, it is important that all measurements from any given sensor are processed by the same service instance.
 
 >To set up a partitioned processing scenario, you must configure both the data-producing and the data-consuming ends.
 
@@ -113,14 +114,14 @@ For example, in the time-windowed average calculation example, it is important t
 To understand the programming model, you need to understand the following core concepts:
 
 * *Binder:* Component responsible to provide integration with the external messaging systems.
-* *Binding:* Bridge between the external messaging system and application provided producers and consumers.
-* *Message:* The canonical data structure used by producers and consumers to communicate with binders, and thus other applications via external messaging systems.
+* *Binding:* Bridge between the external messaging system and application service provided producers and consumers.
+* *Message:* The canonical data structure used by producers and consumers to communicate with binders, and thus other application services via external messaging systems.
 
 ![Stream Overview](./images/streams-overview.jpg)
 
 ### Binder
 
-As mentioned earlier, binders are an abstraction used by Steeltoe that enables Streams based applications to integrate with external messaging systems.
+As mentioned earlier, binders are an abstraction used by Steeltoe that enables Streams based application services to integrate with external messaging systems.
 This integration includes the responsiblity for connectivity, delegation, and routing of messages to and from producers and consumers.  It also includes support for data type conversions,
 invocation of the application code responsible for processing messages, and more.  Binders are an infrastructure compoonent provided by Steeltoe or other third party providers.
 
@@ -130,17 +131,21 @@ Binders implement a lot of the boiler-plate code that would otherwise fall on th
 
 As stated earlier, bindings provide the bridge between the external messaging system and application-provided methods which act as producers and consumers.
 
-You can use the `EnableBinding` attribute in your application to declare bindings for your application or you can explicitly add them to the container yourself.
+You can use the `EnableBinding` attribute in your application to declare bindings for your application or you can use service container extension methods to explicitly add them to the container yourself.
 
-For example the following code shows a fully configured and functioning Streams application that receives strings from a destination with the name `input` and
-and converts the strings to uppercase and then sends the results to a destination with the name `output`.  Notice that the applications `Handle()` method expects the message payload from `input` to be a `string`, and as a result the Streams framework will attempt to convert the incomming message payload to a string before calling the handler method (see [Content Type Negotiation](#content-type-management) section).
+For example the following code shows a fully configured and functioning Streams application service that receives strings from a destination with the name `input` and
+and converts the strings to uppercase and then sends the results to a destination with the name `output`.  Notice that the applications `Handle()` method expects the message payload from `input` to be a `string`, and as a result the Streams framework will attempt to convert the incomming message payload to a `string` before calling the handler method (see [Content Type Negotiation](#content-type-management) section).
 
 ```csharp
 [EnableBinding(typeof(IProcessor))]
-public class MyApplication {
+public class Program {
 
-	public static void Main(string[] args) {
-		// TODO: Add Streams host code?
+	public static async Task Main(string[] args)
+  {
+    var host = StreamsHost
+      .CreateDefaultBuilder<Program>(args)
+      .Build();
+      await host.StartAsync();
 	}
 
 	[StreamListener(IProcessor.INPUT)]
@@ -152,12 +157,12 @@ public class MyApplication {
 }
 ```
 
-If you examine the `EnableBinding` attribute you'll see that it takes one or more interface types as parameters. Each interface represents a binding and each method defined in the binding interface represents a bindable or more frequently refered to as a destination. Each bindable represents a named message channel when using channel-based binders such as RabbitMQ, Kafka, etc. However other types of bindings can provide other types of bindables which are intended to support native features of the underlying messaging technology.
+If you examine the `EnableBinding` attribute you'll see that it takes one or more interface types as parameters. Each interface represents a binding and each method defined in the binding interface represents a bindable or more frequently refered to as a destination. Normally, each bindable represents a named message channel when using channel-based binders such as RabbitMQ, Kafka, etc. However other types of bindings can provide other types of bindables which are intended to support native features of the underlying messaging technology.
 
-Out of the box, Steeltoe provides the three bindings you can use. `ISource`, `ISink`, and `IProcessor` bindings are generic enough that you can use them for many different messaging systems.
+Out of the box, Steeltoe provides the three bindings that are commonly used in messaging based services. `ISource`, `ISink`, and `IProcessor` bindings are generic enough that you can use them with many different messaging systems.
 
-* *ISink:* Identifies a contract for a message consumer by providing a destination from which messages are consumed.
-* *ISource:* Identifies the contract for a message producer by providing the destination to which the produced message is sent.
+* *ISink:* Defines a contract for a message consumer by providing a destination from which messages are consumed.
+* *ISource:* Defines the contract for a message producer by providing the destination to which the produced message is sent.
 * *IProcessor:* Encapsulates both the `ISink` and the `ISource` contracts by exposing two destinations that allow consumption and production of messages.
 
 The following listing shows the definition of the various interfaces:
@@ -186,12 +191,12 @@ public interface IProcessor : ISource, ISink
 
 Notice in the above the usage of `Input` and `Output` attributes on the property getters.
 
-The `Input` attributes identifies an input channel from which received messages enter the application.  Notice that the construtor argument gives it a name and the type of channel is defined by the return type of the getter (`ISubscribableChannel`).
-The `Output` attributes identifies an output channel, through which messages are published. Again, notice the construtor argument gives it a name and the type of channel is defined by the return type of the getter (`ISubscribableChannel`).
-As you can see, both the `Input` and `Output` attributes optionally take a `channel name` as a constructor parameter.  If a name is not provided, the name of the annotated method is used as the `channel name`.
+The `Input` attribute identifies an input channel from which messages received enter the service.  Notice that the construtor argument gives it a name and the type of channel is defined by the return type of the getter (`ISubscribableChannel`).
+The `Output` attribute identifies an output channel, through which messages are published. Again, notice the construtor argument gives it a name and the type of channel is defined by the return type of the getter (`ISubscribableChannel`).
+As you can see, both the `Input` and `Output` attributes optionally take a `channel name` as a constructor parameter.  If a name is not provided, the name of the annotated method is used as the channel name.
 
 Steeltoe Streams automatically creates an implementation of the interface for you upon start up and makes it available in the service container.
-While not a common use case, you can use this in the application by adding it as a constructor argument to obtain access to the channels directly using the property getter.
+While not a common use case, you can use this in the application service by adding it as a constructor argument to a service you have written. This will give you access to the channel directly using the property getter.  This is not a common way of accessing the channel as Steeltoe provides a much easier programming model which is normally used.
 
 While the out of the box bindings satisfy the majority of use cases, you can also define your own contracts by defining your own binding interfaces by using the `Input` and `Output`
 attributes to identify the actual bindables.
@@ -201,15 +206,14 @@ For example:
 ```csharp
 public interface IBarista
  {
+  [Input]
+  ISubscribableChannel Orders { get; }
 
-    [Input]
-    ISubscribableChannel Orders { get; }
+  [Output]
+  IMessageChannel HotDrinks { get; }
 
-    [Output]
-    IMessageChannel HotDrinks { get; }
-
-    [Output]
-    IMessageChannel ColdDrinks { get; }
+  [Output]
+  IMessageChannel ColdDrinks { get; }
 }
 ```
 
@@ -219,26 +223,30 @@ respectively.
 You can provide as many binding interfaces as you need as arguments to the `EnableBinding` annotation:
 
 ```csharp
-[EnableBinding(typeof(IOrders), typeof(IPayment) }]
-public class Program 
+[EnableBinding(typeof(IOrders), typeof(IPayment))]
+public class Program {
 {
-  // TODO: add Streams host?
+  static async Task Main(string[] args)
+  {
+    var host = StreamsHost
+      .CreateDefaultBuilder<Program>(args)
+      .Build();
+      await host.StartAsync();
+	}
 }
 ```
 
-In Streams, the bindable `IMessageChannel` component is provided as part of the Steeltoe Messaging infrastructure for interfacing with outbound destinations while its extension, `ISubscribableChannel` is used for inbound.
-(for inbound).
+Notice in the above examples the retun type of the individual bindables (e.g. interface properties). The bindable return type `IMessageChannel` is a channel component provided as part of the Steeltoe Messaging infrastructure for interfacing with outbound destinations.  The `ISubscribableChannel` is also provided by Steeltoe Messaging and is used for inbound message reception.
 
-While the previously described bindings support event-based message consumption, sometimes you need more control of the interactions with the messaging infrastructure(e.g. rate of consumption). So instead of using a `ISubscribableChannel` channel, you can instead use a pollable message source, `IPollableMessageSource`.
+The above bindings support event-based message consumption but sometimes you need more control of the interactions with the messaging infrastructure(e.g. rate of consumption). So instead of using a `ISubscribableChannel` channel, you can instead use a pollable message source, `IPollableMessageSource`.
 
-The following example shows how to define a pollable binding/destination.
+The following example shows how to define a pollable binding.
 
 ```csharp
 public interface IPolledBarista {
 
-    [Input]
-    IPollableMessageSource Orders { get; }
-
+  [Input]
+  IPollableMessageSource Orders { get; }
 }
 ```
 
@@ -249,8 +257,8 @@ As mentioned earlier the `Input` and `Output` attributes allow you to specify a 
 ```csharp
 public interface IBarista 
 {
-    [Input("InboundOrders")]
-    ISubscribableChannel Orders { get; }
+  [Input("InboundOrders")]
+  ISubscribableChannel Orders { get; }
 }
 ```
 
@@ -258,24 +266,32 @@ In the above example the created channel is named `InboundOrders`.
 
 Normally, you need not access to the individual channels or bindings directly, however there may be times, such as testing or other corner cases, when you do.
 
-Aside from generating channels for each binding and registering them as services in the container, for each bound interface, Steeltoe Streams also generates a service that implements the interface.
-That means you can have access to the interfaces representing the bindings or individual channels by injecting the binding interface into your application.
+Aside from generating channels for each binding and registering them as services in the container, Steeltoe Streams also generates a service that implements the interface.
+That means you can have access to the interfaces representing the bindings or individual channels by injecting the binding interface into your application component.
 
 ### Producing and Consuming Messages
 
-The easiest way to write a a Steeltoe Stream application is by using Stream attributes.
+The easiest way to write a a Steeltoe Stream application service is by using Steeltoe Streams attributes.
 
 #### StreamListener Attribute
 
 Steeltoe Streams provides a `StreamListener` attribute, modeled after other Steeltoe Messaging annotations (e.g. `RabbitListener`, and others) and supports features such as content-based routing and others.
 
+// TODO: Verify this compiles and works (i.e. is VoteHandler added to the service container?)
+
 ```csharp
-[EnableBinding(typeof(ISink))]
 public class Program 
 {
-  // TODO: add Streams host?
+  static async Task Main(string[] args)
+  {
+    var host = StreamsHost
+      .CreateDefaultBuilder<VoteHandler>(args)
+      .Build();
+      await host.StartAsync();
+	}
 }
 
+[EnableBinding(typeof(ISink))]
 public class VoteHandler 
 {
   private readonly IVotingService votingService;
@@ -296,13 +312,21 @@ As with other Steeltoe Messaging methods, method arguments can be annotated with
 
 For methods that return data, you must use the `SendTo` attribute to specify the output destination for data returned by the method, as shown in the following example:
 
+// TODO: Verify this compiles and works (i.e. is TransformProcessor added to the service container?)
+
 ```csharp
-[EnableBinding(typeof(IProcessor))]
 public class Program 
 {
-  // TODO: add Streams host?
+  static async Task Main(string[] args)
+  {
+    var host = StreamsHost
+      .CreateDefaultBuilder<TransformProcessor>(args)
+      .Build();
+      await host.StartAsync();
+	}
 }
 
+[EnableBinding(typeof(IProcessor))]
 public class TransformProcessor 
 {
   private readonly IVotingService votingService;
@@ -322,7 +346,7 @@ public class TransformProcessor
 
 #### StreamListener and Content-based Routing
 
-Spring Cloud Stream supports dispatching messages to multiple handler methods annotated with `StreamListener` based on conditions.
+Steeltoe Streams supports dispatching messages to multiple handler methods annotated with `StreamListener` based on conditions.
 
 In order to be eligible to support conditional dispatching, the annotated method must not return a value;
 
@@ -332,13 +356,21 @@ All the handlers that match the condition are invoked in the same thread, and no
 In the following example of a `StreamListener` with dispatching conditions, all the messages bearing a header with the key `type` equal to the value `bogey` are dispatched to the
 `ReceiveBogey` method, and all the messages bearing a header `type` with the value `bacall` are dispatched to the `ReceiveBacall` method.
 
+// TODO: Verify this compiles and works (i.e. is TestPojoWithAnnotatedArguments added to the service container, Conditions work?)
+
 ```csharp
-[EnableBinding(typeof(IProcessor))]
 public class Program 
 {
-  // TODO: add Streams host?
+  static async Task Main(string[] args)
+  {
+    var host = StreamsHost
+      .CreateDefaultBuilder<TestPojoWithAnnotatedArguments>(args)
+      .Build();
+      await host.StartAsync();
+	}
 }
 
+[EnableBinding(typeof(IProcessor))]
 public class TestPojoWithAnnotatedArguments 
 {
 
@@ -361,14 +393,22 @@ It may also help if you familiarize yourself with the [Content Type Negotiation]
 
 Consider the following example:
 
+// TODO: Verify this compiles and works (i.e. is TestPojoWithAnnotatedArguments added to the service container, Conditions work?)
+
 ```csharp
-[EnableBinding(typeof(IProcessor))]
 public class Program 
 {
-  // TODO: add Streams host?
+  static async Task Main(string[] args)
+  {
+    var host = StreamsHost
+      .CreateDefaultBuilder<CatsAndDogs>(args)
+      .Build();
+      await host.StartAsync();
+	}
 }
 
-public static class CatsAndDogs
+[EnableBinding(typeof(IProcessor))]
+public class CatsAndDogs
  {
 
     [StreamListener(Target = Sink.INPUT, Condition = "Payload.GetType().Name=='Dog'")]
@@ -387,13 +427,13 @@ public static class CatsAndDogs
 
 The preceding code is perfectly valid. It compiles and deploys without any issues, yet it never produces the result you expect.  The intent of the expression in the `Condition` is to reference in the incoming `Payload` from the message and access the `Type` of the object returned and then route based on whether the objects type is a `Dog` or a `Cat`.
 
-The reason this does not work is because at this point the expression is testing something that does not yet exist in a state of the message that is being processed. At this point in processing in incoming message the payload has not yet been converted from the
-wire format ( typically a `byte[]`) to the desired type exposed in the methods signature.  In other words, it has not yet gone through the type conversion process described in the [Content Type Negotiation](#content-type-management).
+The reason this does not work is because at this point the expression is testing something that does not yet exist in the message that is being processed. At this point in processing of an incoming message the payload has not yet been converted from the
+wire format, typically a `byte[]`, to the desired type exposed in the methods signature.  In other words, it has not yet gone through the type conversion process described in the [Content Type Negotiation](#content-type-management).
 
->At the moment, dispatching through `StreamListener` conditions is supported only for channel-based binders.
+>At the moment, dispatching through `StreamListener` conditions is supported only for channel-based binders.  // TODO: Is this correct?????
 
 <!--
-  TODO: Might need this when we support a functional approach to streams
+  TODO: Keep this as we might need this when we support a functional approach to streams
 
 #### <a name="spring_cloud_function"></a>Spring Cloud Function support
 
@@ -518,7 +558,7 @@ For example, the above composition could be defined as such (if both functions p
 
 #### Polled Consumers
 
-// TODO: This section needs to be validated
+// TODO: This entire section needs to be validated, all the C# code which follows needs to be validated as its significantly different than the java example
 
 When implementing polled consumers, you are required to poll the `IPollableMessageSource` on demand.
 Consider the following example of a polled consumer:
@@ -526,12 +566,11 @@ Consider the following example of a polled consumer:
 ```csharp
 public interface IPolledConsumerBinding
 {
+  [Input]
+  IPollableMessageSource DestIn { get; }
 
-    [Input]
-    IPollableMessageSource DestIn { get; }
-
-    [Output]
-    IMessageChannel DestOut { get; }
+  [Output]
+  IMessageChannel DestOut { get; }
 
 }
 ```
@@ -582,34 +621,33 @@ public class Worker : BackgroundService, IMessageHandler
 }
 ```
 
-The `IPollableMessageSource.Poll()` method takes a `IMessageHandler` argument. It returns `True` if the message was received and successfully processed.
+The `IPollableMessageSource.Poll()` method takes a `IMessageHandler` argument. It returns `True` if a message was received and successfully processed.
 
 As with message-driven consumers, if the `IMessageHandler` throws an exception, messages are published to error channels, as discussed in [Error Handling](#error-handling).
 
-Normally, the `Poll()` method acknowledges the message when the `IMessageHandler` exits. If the method exits abnormally, the message is rejected (not re-queued), but see [Handling Errors](#polled-errors).
+Normally, the `Poll()` method acknowledges the message when the `IMessageHandler` exits. If the method exits abnormally, the message is rejected and not re-queued, but see [Handling Errors](#polled-errors) for more options.
 You can override that behavior by taking responsibility for the acknowledgment, as shown in the following example:
 
 ```csharp
-  public void HandleMessage(IMessage message)
+public void HandleMessage(IMessage message)
+{
+  try 
   {
-    try 
-    {
-      StaticMessageHeaderAccessor.GetAcknowledgmentCallback(message).IsAutoAck = False;
-      // e.g. hand off to another thread which can perform the ack
-      // or acknowledge(Status.REQUEUE)
-    } 
-    catch (Exception e)
-    {
-      // handle failure
-    }
+    StaticMessageHeaderAccessor.GetAcknowledgmentCallback(message).IsAutoAck = False;
+    // e.g. hand off to another thread which can perform the ack or Acknowledge(Status.REQUEUE)
+  } 
+  catch (Exception e)
+  {
+    // handle failure
   }
+}
 ```
 
 >IMPORTANT: You must `ack` (or `nack`) the message at some point, to avoid resource leaks.
 
 >IMPORTANT: Some messaging systems maintain a simple offset in a log. If a delivery fails and is re-queued with  `StaticMessageHeaderAccessor.GetAcknowledgmentCallback(m).Acknowledge(Status.REQUEUE);`, any later successfully ack'd messages are redelivered.
 
-There is also an overloaded `Poll` method for which the definition is as follows:
+There is also an overloaded `Poll` method which allows you to provide a conversion hint:
 
 ```csharp
 Poll(IMessageHandler handler, Type type)
@@ -619,65 +657,64 @@ The `type` is a conversion hint that allows the incoming message payload to be c
 
 ```csharp
 ....
-
-  protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+{
+  while (!stoppingToken.IsCancellationRequested)
   {
-    while (!stoppingToken.IsCancellationRequested)
-    {
-        _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-        try 
+      _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+      try 
+      {
+        if (!_binding.DestIn.Poll(this), typeof(Dictionary<string, Foo>))
         {
-          if (!_binding.DestIn.Poll(this), typeof(Dictionary<string, Foo>))
-          {
-            await Task.Delay(1000, stoppingToken);
-          }
+          await Task.Delay(1000, stoppingToken);
         }
-        catch (Exception e)
-        {
-          // handle failure
-        }
-    }
+      }
+      catch (Exception e)
+      {
+        // handle failure
+      }
   }
+}
 
-  public void HandleMessage(IMessage message)
+public void HandleMessage(IMessage message)
+{
+  try 
   {
-    try 
-    {
-      var payload = ((Dictionary<string, Foo>) message.Payload);
-      ....
-    } 
-    catch (Exception e)
-    {
-      // handle failure
-    }
+    var payload = ((Dictionary<string, Foo>) message.Payload);
+    ....
+  } 
+  catch (Exception e)
+  {
+    // handle failure
   }
+}
 ```
 
-By default, an error channel is configured for the pollable source. If the callback throws an exception, an `ErrorMessage` is sent to the error channel with the name(`<destination>.<group>.errors`).
+By default, an error channel is configured for the pollable source. If the callback throws an exception an `ErrorMessage` is sent to the error channel with the name(`<destination>.<group>.errors`).
 
-You can subscribe to the error channel with a `ServiceActivator` attribute to receive and processes the 'ErrorMessage'. Without a subscription, the error will simply be logged and the message will be acknowledged as successful.
+You can subscribe to the error channel with a `ServiceActivator` attribute to receive and process the `ErrorMessage`. Without a subscription, the error will simply be logged and the message will be acknowledged as successful.
 If the error channel service activator throws an exception, the message will be rejected (by default) and won't be redelivered.
 If the service activator throws a `RequeueCurrentMessageException`, the message will be requeued at the broker and will be again retrieved on a subsequent poll.
 
-If the listener throws a `RequeueCurrentMessageException` directly, the message will be requeued, as discussed above, and will not be sent to the error channels.
+If the handler throws a `RequeueCurrentMessageException` directly, the message will be requeued, as discussed above, and will not be sent to the error channel.
 
 ### Error Handling
 
-Errors happen, and Steeltoe Stream provides several flexible mechanisms to handle them.
+Errors happen and Steeltoe Stream provides several flexible mechanisms to handle them.
 The error handling comes in two flavors:
 
-  * *application:* The error handling is done within the application using a custom error handler.
-  * *system:* The error handling is delegated to the binder to handle by re-queueing, using a DL or other means. Note that the techniques are dependent on binder implementation and the capability of the underlying messaging middleware.
+  * *application:* The error handling is done within the application service using a custom error handler.
+  * *system:* The error handling is delegated to the binder to handle by re-queueing, or using a DL queue or via some other means. Note that the techniques are dependent on binder implementation and the capability of the underlying messaging middleware.
 
 #### Application Error Handling
 
-There are two types of application-level error handling. Errors can be handled at each binding subscription or a global handler can handle all the binding errors. Let's review the details.
+There are two types of application-level error handling. Errors can be handled at each binding subscription or by a global handler which handles all the binding errors. Below are the details.
 
 ![A Application with Custom and Global Error Handlers](./images/custom_vs_global_error_channels.png)
 
-For each input binding, Steeltoe Streams creates a dedicated error channel with the following semantics `<destinationName>.errors`.
+For each input binding, Steeltoe Streams creates a dedicated error channel with the following name `<destinationName>.errors`.
 
->The `<destinationName>` consists of the name of the binding destination name (such as `input`) and the name of the group (such as `myGroup`).
+>The `<destinationName>` consists of the name of the binding bindable name (e.g. `input`) and the name of the group (e.g. `myGroup`).
 
 Consider the following:
 
@@ -702,14 +739,13 @@ public void Error(IMessage message)
 In the preceding example the destination name is `input.myGroup` and the dedicated error channel name is `input.myGroup.errors`.
 
 >NOTE: The use of `StreamListener` annotation is intended specifically to define bindings that bridge internal channels and external destinations. The
-`ServiceActivator` annotation can be used to reference internally created channels.
+`ServiceActivator` annotation is used to reference internally created channels.
 
->NOTE: If `group` is not specified an anonymous group is used (something like `input.anonymous.2K37rb06Q6m2r51-SPIDDQ`), which is not suitable for error
-handling scenarious, since you don't know what it's going to be until the destination is created.
+>NOTE: If `group` is not specified, an anonymous group is used instead (e.g. `input.anonymous.2K37rb06Q6m2r51-SPIDDQ`). This is obviously not suitable for error
+handling scenarios, since you don't know what the name is going to be until the destination is created.
 
 If you have multiple bindings, you may want to have a single error handler for all of them. Steeltoe Streams automatically provides support for
-a _global error channel_ by bridging each individual error channel to the channel named `errorChannel`, allowing a single subscriber to handle all errors,
-as shown in the following example:
+a _global error channel_ by bridging each individual error channel to the channel named `errorChannel`, allowing a single subscriber to handle all errors as shown in the following example:
 
 ```csharp
 [ServiceActivator("errorChannel")]
@@ -723,8 +759,7 @@ This may be a convenient option if error handling logic is the same regardless o
 
 #### System Error Handling
 
-System-level error handling implies that the errors are communicated back to the messaging system and, given that not every messaging system
-is the same, the capabilities may differ from binder to binder.
+System-level error handling implies that the errors are communicated back to the messaging system and given that not every messaging system is the same, the capabilities may differ from binder to binder.
 
 That said, in this section we explain the general idea behind system level error handling and using the RabbitMQ binder as an example.  For more details and configuration options, see the individual binder's documentation.
 
@@ -755,7 +790,7 @@ The `consumer` indicates that it is a consumer property and `autoBindDlq` instru
 
 Once configured, all failed messages are routed to this queue with an error message similar to the following:
 
-```
+```yaml
 delivery_mode:	1
 headers:
 x-death:
@@ -780,7 +815,7 @@ spring:cloud:stream:rabbit:bindings:input:consumer:republishToDlq=True
 Doing so forces the internal error handler to intercept the error message and add additional information to it before publishing it to DLQ.
 Once configured, you can see that the error message contains more information relevant to the original error, as follows:
 
-```
+```yaml
 delivery_mode:	2
 headers:
 x-original-exchange:
@@ -874,17 +909,17 @@ The Binder SPI consists of a number of interfaces, out-of-the box utility classe
 The key point of the SPI is the `IBinder` interface(s), which is a strategy for connecting inputs and outputs to external middleware. The following listing shows the definnition of the `IBinder` interface:
 
 ```csharp
-    public interface IBinder : IServiceNameAware 
-    {
-        Type TargetType { get; }
-        IBinding BindConsumer(string name, string group, object inboundTarget, IConsumerOptions consumerOptions);
-        IBinding BindProducer(string name, object outboundTarget, IProducerOptions producerOptions);
-    }
-    public interface IBinder<in T> : IBinder
-    {
-        IBinding BindConsumer(string name, string group, T inboundTarget, IConsumerOptions consumerOptions);
-        IBinding BindProducer(string name, T outboundTarget, IProducerOptions producerOptions);
-    }
+public interface IBinder : IServiceNameAware 
+{
+    Type TargetType { get; }
+    IBinding BindConsumer(string name, string group, object inboundTarget, IConsumerOptions consumerOptions);
+    IBinding BindProducer(string name, object outboundTarget, IProducerOptions producerOptions);
+}
+public interface IBinder<in T> : IBinder
+{
+    IBinding BindConsumer(string name, string group, T inboundTarget, IConsumerOptions consumerOptions);
+    IBinding BindProducer(string name, T outboundTarget, IProducerOptions producerOptions);
+}
 ```
 
 The interface is parameterized, offering a number of extension points:
@@ -901,23 +936,22 @@ A typical binder implementation consists of the following:
 Here is an example of the 'startup class'
 
 ```csharp
-
 [assembly: Binder("testbinder", typeof(Startup))]
 
 public class Startup
 {
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+  public Startup(IConfiguration configuration)
+  {
+      Configuration = configuration;
+  }
 
-    public IConfiguration Configuration { get; }
+  public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to configure the service container for the binder
-    public void ConfigureServices(IServiceCollection services)
-    {
-      ....
-    }
+  // This method gets called by the runtime. Use this method to configure the service container for the binder
+  public void ConfigureServices(IServiceCollection services)
+  {
+    ....
+  }
 }
   ```
 
@@ -1418,7 +1452,10 @@ To better understand the mechanics and the necessity behind content-type negotia
 ```csharp
 [StreamListener(IProcessor.INPUT)]
 [SendTo(IProcessor.OUTPUT)]
-public string Handle(Person person) {..}
+public string Handle(Person person)
+{
+  ....
+}
 ```
 
 The handler shown above expects a `Person` object as an argument and produces a `string` type as an output.
@@ -1504,7 +1541,7 @@ does not know how to convert. If that is the case, you can add custom `IMessageC
 
 ### User-defined Message Converters
 
-// TODO: We need to make sure this works and is easy to add
+// TODO: We need to make sure this works and is easy to add a customer converter (probably needs a extension method++)
 
 Steeltoe Streams exposes a mechanism to define and register additional `IMessageConverters`.
 To use it, implement `Steeltoe.Messaging.Converter.IMessageConverter`, and add it to the service container.
@@ -1516,7 +1553,7 @@ Consequently, custom `IMessageConverter` implementations take precedence over th
 The following example shows how to create a message converter bean to support a new content type called `application/bar`:
 
 ```csharp
-[EnableBinding(typeof(ISink)]
+[EnableBinding(typeof(ISink))]
 public class SinkApplication
 {
 
