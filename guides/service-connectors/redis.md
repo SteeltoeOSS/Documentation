@@ -12,7 +12,7 @@ This tutorial takes you through setting up a .NET Core application with the Redi
 > [!NOTE]
 > For more detailed examples, please refer to the [Redis](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
-First, **start a Redis instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Redis.
+First, **start a Redis instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
 ```powershell
 docker run --publish 6379:6379 steeltoeoss/redis
@@ -31,10 +31,11 @@ Next, **create a .NET Core WebAPI** that interacts with Redis
    ```json
    {
     "redis": {
-      "client": {
-        "connectRetry": 3
-      }
-    },
+        "client": {
+          "host": "127.0.0.1",
+          "port": "6379"
+        }
+    }
    ```
 
    > [!TIP]

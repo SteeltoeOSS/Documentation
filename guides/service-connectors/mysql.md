@@ -12,7 +12,7 @@ This tutorial takes you through setting up a .NET Core application with the MySQ
 > [!NOTE]
 > For more detailed examples, please refer to the [MySql](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/MySql) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
-First, **start a MySQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles) start a local instance of MySQL.
+First, **start a MySQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
 ```powershell
 docker run --env MYSQL_ROOT_PASSWORD=Steeltoe456 --publish 3306:3306 steeltoeoss/mysql
