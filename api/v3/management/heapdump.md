@@ -2,7 +2,7 @@
 
 You can use the Steeltoe heap dump endpoint to generate and download a mini-dump of your application. The mini-dump can then be read into Visual Studio for analysis.
 
->NOTE: At this time, dumps are only possible on the Windows and Linux operating systems.
+>NOTE: At this time, heap dumps do not work on Linux containers when running in Cloud Foundry.
 
 ## Configure Settings
 
