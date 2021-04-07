@@ -27,9 +27,9 @@ docker run --rm -ti -p 8080:8080 --name steeltoe-uaa steeltoeoss/workshop-uaa-se
 Next, **create a .NET Core WebAPI** that interacts with SSO
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/spring-config-dependency.png" alt="Steeltoe Initialzr - Spring Config Server" width="100%">
+   <img src="~/guides/images/initializr/security-oauth-connector-dependency.png" alt="Steeltoe Initialzr - OAuth Connector" width="100%">
 1. Name the project "OAuthSSOExample"
-1. Add the "Spring Cloud Config Server" dependency
+1. Add the "OAuth Connector" dependency
 1. Click **Generate** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
 1. Open the package manager console
