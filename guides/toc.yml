@@ -25,7 +25,6 @@
     - topicUid: guides/security-providers/jwt
     - topicUid: guides/security-providers/redisstore
     - topicUid: guides/security-providers/sso-oauth
-    - topicUid: guides/security-providers/sso-openid-framework
     - topicUid: guides/security-providers/sso-openid-netcore
 - name: Service Connectors
   items:
