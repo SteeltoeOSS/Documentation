@@ -44,7 +44,6 @@ _disableFooter: true
 - @guides/security-providers/jwt
 - @guides/security-providers/redisstore
 - @guides/security-providers/sso-oauth
-- @guides/security-providers/sso-openid-framework
 - @guides/security-providers/sso-openid-netcore
 
 ## Service Connectors

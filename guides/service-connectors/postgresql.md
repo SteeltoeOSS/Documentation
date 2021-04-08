@@ -12,7 +12,7 @@ This tutorial takes you through setting up a .NET Core application with the Post
 > [!NOTE]
 > For more detailed examples, please refer to the [PostgreSql](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSql) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
-First, **start a PostgreSQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of PostgreSQL.
+First, **start a PostgreSQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
 ```powershell
 docker run --env POSTGRES_PASSWORD=Steeltoe789 --publish 5432:5432 steeltoeoss/postgresql
