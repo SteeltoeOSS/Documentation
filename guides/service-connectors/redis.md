@@ -3,6 +3,7 @@ uid: guides/service-connectors/redis
 title: Redis Cache
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Service Connectors with Redis Cache
