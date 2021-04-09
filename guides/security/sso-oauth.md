@@ -3,6 +3,7 @@ uid: guides/security-providers/sso-oauth
 title: Cloud Foundry Single Sign-on with OAuth2
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Cloud Foundry SSO with OAuth2 provider

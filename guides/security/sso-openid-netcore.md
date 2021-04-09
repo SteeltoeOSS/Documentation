@@ -3,6 +3,7 @@ uid: guides/security-providers/sso-openid-netcore
 title: Cloud Foundry Single Sign-on with OpenID Connect
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 > [!TIP]

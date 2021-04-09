@@ -1,9 +1,9 @@
 ---
-_hideTocVersionToggle: true
 uid: guides/index
 title: Steeltoe Get Started
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 # Get Started with Steeltoe

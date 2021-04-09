@@ -3,6 +3,7 @@ uid: guides/security-providers/jwt
 title: JWT Web Tokens
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using JWT Bearer Tokens
