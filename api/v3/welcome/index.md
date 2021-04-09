@@ -29,7 +29,7 @@ Steeltoe lets you monitor and manage your application while it runs in productio
 
 ## Messaging
 
-Steeltoe allows you to automatically wire up and configure messaging in your application. Steelto messaging simplifies your configuration and significantly reduces boiler-plate code.
+Steeltoe allows you to automatically wire up and configure messaging in your application. Steeltoe messaging simplifies your configuration and significantly reduces boiler-plate code.
 [read more](../messaging/index.md)
 
 ## Network File Sharing
