@@ -16,7 +16,7 @@ steps:
     git clone -b 2.5.2 https://github.com/SteeltoeOSS/Steeltoe.git Steeltoe2x
   displayName: "Clone Steeltoe 3.x & 2.x"
 
-- powershell: choco install docfx -y
+- powershell: choco install docfx --version=2.56.7
   displayName: "Install Docfx"
 
 - powershell: |
