@@ -3,6 +3,7 @@ uid: guides/service-connectors/mysql
 title: MySQL Database
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Service Connectors with MySQL

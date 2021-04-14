@@ -7,6 +7,7 @@ _disableFooter: true
 uid: guides/get-to-know-steeltoe
 title: Introduction
 tags: ["get-started"]
+_hideTocVersionToggle: true
 ---
 
 [exercise-1-link]: exercise1.md

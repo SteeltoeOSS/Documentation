@@ -3,6 +3,7 @@ uid: guides/service-connectors/postgresql
 title: PostgreSQL Database
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Service Connectors with PostgreSQL Database

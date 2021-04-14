@@ -5,6 +5,7 @@ _disableToc: false
 _disableFooter: true
 _homePath: "./index.html"
 _disableNav: true
+_hideTocVersionToggle: true
 ---
 
 [home-page-link]: index.md

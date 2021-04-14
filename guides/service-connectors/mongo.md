@@ -3,6 +3,7 @@ uid: guides/service-connectors/mongo
 title: Mongo Database
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Service Connectors with Mongo DB

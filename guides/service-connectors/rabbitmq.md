@@ -3,6 +3,7 @@ uid: guides/service-connectors/rabbitmq
 title: RabbitMQ Messaging
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 ## Using Service Connectors with RabbitMQ
