@@ -33,6 +33,9 @@ stages:
                 throw ("Error generating documentation")
               }
             displayName: "Publish Site"
+          - publish: './publish'
+            displayName: 'Publish Site'
+            artifact: site
   - stage: deploy
     displayName: Deploy
     dependsOn: assemble
@@ -44,10 +47,12 @@ stages:
         pool:
           vmImage: windows-latest
         steps:
+          - download: current
+            artifact: site
           - task: CopyFiles@2
             displayName: Stage Site
             inputs:
-              SourceFolder: './publish/_site'
+              SourceFolder: '$(Pipeline.Workspace)/site'
               Contents: '**'
               TargetFolder: '$(Build.ArtifactStagingDirectory)/_site'
               CleanTargetFolder: true
