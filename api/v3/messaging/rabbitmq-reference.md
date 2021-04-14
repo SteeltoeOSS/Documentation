@@ -2343,7 +2343,7 @@ Similarly, the `DirectMessageListenerContainer` also has a `SetAfterReceivePostP
 `AddBeforePublishPostProcessors()` and `AddAfterReceivePostProcessors()` have been added to the `RabbitTemplate` to allow appending new post processors to the list of before publish and after receive post processors respectively.
 Also there are methods provided to remove the post processors.
 Similarly, `DirectMessageListenerContainer` also has `AddAfterReceivePostProcessors()` and `RemoveAfterReceivePostProcessor()` methods added.
-See the code on Github of `RabbitTemplate` and `DirectMessageListenerContainer` for more detail.
+See the code on GitHub of `RabbitTemplate` and `DirectMessageListenerContainer` for more detail.
 
 ## Request and Reply Messaging
 
