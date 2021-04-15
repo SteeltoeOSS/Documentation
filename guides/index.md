@@ -1,9 +1,9 @@
 ---
-_hideTocVersionToggle: true
 uid: guides/index
 title: Steeltoe Get Started
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 # Get Started with Steeltoe
@@ -44,6 +44,7 @@ _disableFooter: true
 - @guides/security-providers/jwt
 - @guides/security-providers/redisstore
 - @guides/security-providers/sso-oauth
+- @guides/security-providers/sso-openid-framework
 - @guides/security-providers/sso-openid-netcore
 
 ## Service Connectors
