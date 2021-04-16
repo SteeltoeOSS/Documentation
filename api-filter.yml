@@ -8,3 +8,7 @@ apiRules:
 - exclude:
     uidRegex: ^Microsoft\.Extensions\.DependencyInjection$
     type: Namespace
+# Excluding Steeltoe.Messaging.RabbitMQ.* namespaces clears issue #147
+- exclude:
+    uidRegex: ^Steeltoe\.Messaging\.RabbitMQ\.*
+    type: Namespace
