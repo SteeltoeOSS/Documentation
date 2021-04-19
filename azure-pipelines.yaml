@@ -54,7 +54,7 @@ stages:
             inputs:
               SourceFolder: '$(Pipeline.Workspace)/site'
               Contents: '**'
-              TargetFolder: '$(Build.ArtifactStagingDirectory)/_site'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/site'
               CleanTargetFolder: true
           - powershell: cp "Dockerfile" "$(Build.ArtifactStagingDirectory)/Dockerfile"
             displayName: Stage Dockerfile
