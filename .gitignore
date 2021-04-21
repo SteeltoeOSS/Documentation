@@ -1,15 +1,8 @@
-###############
-#    folder   #
-###############
-/**/DROP/
-/**/TEMP/
-/**/packages/
-/**/bin/
-/**/obj/
-_site
-.vscode
-.vs
-publish
-api/browser/**/.manifest
-api/browser/**/*.yml
 .DS_Store
+/api/browser/**/*.manifest
+/api/browser/**/*.yml
+/bin/
+/obj/
+/sources/
+/.vscode/
+/.vs/
