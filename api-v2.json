@@ -7,7 +7,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/CircuitBreaker/src"
+        "src": "sources/v2/src/CircuitBreaker/src"
       }
     ],
     "dest": "api/browser/v2/circuitbreaker",
@@ -15,7 +15,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -26,7 +26,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Common/src"
+        "src": "sources/v2/src/Common/src"
       }
     ],
     "dest": "api/browser/v2/common",
@@ -34,7 +34,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -45,7 +45,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Configuration/src"
+        "src": "sources/v2/src/Configuration/src"
       }
     ],
     "dest": "api/browser/v2/configuration",
@@ -53,7 +53,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -64,7 +64,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Connectors/src"
+        "src": "sources/v2/src/Connectors/src"
       }
     ],
     "dest": "api/browser/v2/connectors",
@@ -72,7 +72,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -83,7 +83,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Discovery/src"
+        "src": "sources/v2/src/Discovery/src"
       }
     ],
     "dest": "api/browser/v2/discovery",
@@ -91,7 +91,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -102,7 +102,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Integration/src"
+        "src": "sources/v2/src/Integration/src"
       }
     ],
     "dest": "api/browser/v2/integration",
@@ -110,7 +110,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -121,7 +121,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Logging/src"
+        "src": "sources/v2/src/Logging/src"
       }
     ],
     "dest": "api/browser/v2/logging",
@@ -129,7 +129,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -140,7 +140,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Management/src"
+        "src": "sources/v2/src/Management/src"
       }
     ],
     "dest": "api/browser/v2/management",
@@ -148,7 +148,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -159,7 +159,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Messaging/src"
+        "src": "sources/v2/src/Messaging/src"
       }
     ],
     "dest": "api/browser/v2/messaging",
@@ -167,7 +167,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -178,7 +178,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Security/src"
+        "src": "sources/v2/src/Security/src"
       }
     ],
     "dest": "api/browser/v2/security",
@@ -186,7 +186,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   },
@@ -197,7 +197,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe2x/src/Stream/src"
+        "src": "sources/v2/src/Stream/src"
       }
     ],
     "dest": "api/browser/v2/stream",
@@ -205,7 +205,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.x"
   }
