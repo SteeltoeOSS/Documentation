@@ -7,7 +7,7 @@
           "src/**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**", "**/test/**" ],
-        "src": "../Steeltoe2x"
+        "src": "sources/v2"
       }
     ],
     "dest": "api/browser/v2/all",
@@ -15,7 +15,7 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net46"
+      "TargetFramework": "netcoreapp3.1"
     },
     "version": "2.all"
   },
@@ -26,7 +26,7 @@
           "src/**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**", "**/test/**" ],
-        "src": "../Steeltoe"
+        "src": "sources/v3"
       }
     ],
     "dest": "api/browser/v3/all",

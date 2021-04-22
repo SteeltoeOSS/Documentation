@@ -7,7 +7,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/CircuitBreaker/src"
+        "src": "sources/v3/src/CircuitBreaker/src"
       }
     ],
     "dest": "api/browser/v3/circuitbreaker",
@@ -26,7 +26,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Common/src"
+        "src": "sources/v3/src/Common/src"
       }
     ],
     "dest": "api/browser/v3/common",
@@ -45,7 +45,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Configuration/src"
+        "src": "sources/v3/src/Configuration/src"
       }
     ],
     "dest": "api/browser/v3/configuration",
@@ -64,7 +64,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Connectors/src"
+        "src": "sources/v3/src/Connectors/src"
       }
     ],
     "dest": "api/browser/v3/connectors",
@@ -83,7 +83,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Discovery/src"
+        "src": "sources/v3/src/Discovery/src"
       }
     ],
     "dest": "api/browser/v3/discovery",
@@ -102,7 +102,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Integration/src"
+        "src": "sources/v3/src/Integration/src"
       }
     ],
     "dest": "api/browser/v3/integration",
@@ -121,7 +121,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Logging/src"
+        "src": "sources/v3/src/Logging/src"
       }
     ],
     "dest": "api/browser/v3/logging",
@@ -140,7 +140,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Management/src"
+        "src": "sources/v3/src/Management/src"
       }
     ],
     "dest": "api/browser/v3/management",
@@ -159,7 +159,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Messaging/src"
+        "src": "sources/v3/src/Messaging/src"
       }
     ],
     "dest": "api/browser/v3/messaging",
@@ -178,7 +178,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Security/src"
+        "src": "sources/v3/src/Security/src"
       }
     ],
     "dest": "api/browser/v3/security",
@@ -197,7 +197,7 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "../Steeltoe/src/Stream/src"
+        "src": "sources/v3/src/Stream/src"
       }
     ],
     "dest": "api/browser/v3/stream",
