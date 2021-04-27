@@ -277,71 +277,67 @@ The easiest way to write a a Steeltoe Stream application service is by using Ste
 
 Steeltoe Streams provides a `StreamListener` attribute, modeled after other Steeltoe Messaging annotations (e.g. `RabbitListener`, and others) and supports features such as content-based routing and others.
 
-// TODO: Verify this compiles and works (i.e. is VoteHandler added to the service container?)
 
 ```csharp
-public class Program 
-{
-  static async Task Main(string[] args)
-  {
-    var host = StreamsHost
-      .CreateDefaultBuilder<VoteHandler>(args)
-      .Build();
-      await host.StartAsync();
-	}
-}
+     static async Task Main(string[] args)
+        {
+            var host = StreamsHost
+              .CreateDefaultBuilder<VoteHandler>(args)
+              .ConfigureServices(svc=> svc.AddSingleton<IVotingService, DefaultVotingService>())
+              .Build();
+            await host.StartAsync();
+        }
 
-[EnableBinding(typeof(ISink))]
-public class VoteHandler 
-{
-  private readonly IVotingService votingService;
-  public VoteHandler(IVotingService service)
-  {
-    votingService = service;
-  }
+        [EnableBinding(typeof(ISink))]
+        public class VoteHandler
+        {
+            private readonly IVotingService votingService;
+            public VoteHandler(IVotingService service)
+            {
+                votingService = service;
+            }
 
-  [StreamListener(ISink.INPUT)]
-  public void Handle(Vote vote) 
-  {
-    votingService.Record(vote);
-  }
-}
+            [StreamListener(ISink.INPUT)]
+            public void Handle(Vote vote)
+            {
+                votingService.Record(vote);
+            }
+        }
 ```
 
 As with other Steeltoe Messaging methods, method arguments can be annotated with `Payload`, `Headers`, and `Header` to enable access to additional content from the underlying message.
 
 For methods that return data, you must use the `SendTo` attribute to specify the output destination for data returned by the method, as shown in the following example:
 
-// TODO: Verify this compiles and works (i.e. is TransformProcessor added to the service container?)
-
 ```csharp
-public class Program 
-{
-  static async Task Main(string[] args)
-  {
-    var host = StreamsHost
-      .CreateDefaultBuilder<TransformProcessor>(args)
-      .Build();
-      await host.StartAsync();
-	}
-}
+    public class Program
+    {
+        static async Task Main(string[] args)
+        {
+            var host = StreamsHost
+              .CreateDefaultBuilder<TransformProcessor>(args)
+              .ConfigureServices(svc=> svc.AddSingleton<IVotingService, DefaultVotingService>())
+              .Build();
+            await host.StartAsync();
+        }
 
-[EnableBinding(typeof(IProcessor))]
-public class TransformProcessor 
-{
-  private readonly IVotingService votingService;
-  public TransformProcessor(IVotingService service)
-  {
-    votingService = service;
-  }
+        [EnableBinding(typeof(IProcessor))]
+        public class TransformProcessor
+        {
+            private readonly IVotingService votingService;
+            public TransformProcessor(IVotingService service)
+            {
+                votingService = service;
+            }
 
-  [StreamListener(IProcessor.INPUT)]
-  [SendTo(IProcessor.OUTPUT)]
-  public VoteResult Handle(Vote vote) 
-  {
-    return votingService.Record(vote);
-  }
-}
+            [StreamListener(IProcessor.INPUT)]
+            [SendTo(IProcessor.OUTPUT)]
+            public VoteResult Handle(Vote vote)
+            {
+                return votingService.Record(vote);
+            }
+        }
+    }
 ```
 
 #### StreamListener and Content-based Routing
@@ -356,36 +352,34 @@ All the handlers that match the condition are invoked in the same thread, and no
 In the following example of a `StreamListener` with dispatching conditions, all the messages bearing a header with the key `type` equal to the value `bogey` are dispatched to the
 `ReceiveBogey` method, and all the messages bearing a header `type` with the value `bacall` are dispatched to the `ReceiveBacall` method.
 
-// TODO: Verify this compiles and works (i.e. is TestPojoWithAnnotatedArguments added to the service container, Conditions work?)
-
 ```csharp
-public class Program 
-{
-  static async Task Main(string[] args)
-  {
-    var host = StreamsHost
-      .CreateDefaultBuilder<TestPojoWithAnnotatedArguments>(args)
-      .Build();
-      await host.StartAsync();
-	}
-}
-
-[EnableBinding(typeof(IProcessor))]
-public class TestPojoWithAnnotatedArguments 
-{
-
-    [StreamListener(Target = ISink.INPUT, Condition = "Headers['type']=='bogey'")]
-    public void ReceiveBogey([Payload] BogeyPojo bogeyPojo) 
+    public class Program
     {
-       // handle the message
-    }
+        static async Task Main(string[] args)
+        {
+            var host = StreamsHost
+              .CreateDefaultBuilder<CatsAndDogs>(args)
+              .Build();
+            await host.StartAsync();
+        }
 
-    [StreamListener(Target = ISink.INPUT, Condition = "Headers['type']=='bacall'")]
-    public void ReceiveBacall([Payload] BacallPojo bacallPojo) 
-    {
-       // handle the message
+        [EnableBinding(typeof(IProcessor))]
+        public class CatsAndDogs
+        {
+         
+            [StreamListener(ISink.INPUT, "Headers['type']=='Dog'")]
+            public void Handle(Dog dog)
+            {
+                Console.WriteLine("Dog says:"+ dog.Bark);
+            }
+
+            [StreamListener(ISink.INPUT, "Headers['type']=='Cat'")]
+            public void Handle(Cat cat)
+            {
+                Console.WriteLine("Cat says:" +cat.Meow);
+            }
+        }
     }
-}
 ```
 
 It is important to understand some of the mechanics behind content-based routing using the `Condition` property of `StreamListener`, especially in the context of the type of the message as a whole.
@@ -393,7 +387,7 @@ It may also help if you familiarize yourself with the [Content Type Negotiation]
 
 Consider the following example:
 
-// TODO: Verify this compiles and works (i.e. is TestPojoWithAnnotatedArguments added to the service container, Conditions work?)
+The code below is perfectly valid. It compiles and deploys without any issues, yet it never produces the result you expect. 
 
 ```csharp
 public class Program 
@@ -425,7 +419,7 @@ public class CatsAndDogs
 }
 ```
 
-The preceding code is perfectly valid. It compiles and deploys without any issues, yet it never produces the result you expect.  The intent of the expression in the `Condition` is to reference in the incoming `Payload` from the message and access the `Type` of the object returned and then route based on whether the objects type is a `Dog` or a `Cat`.
+ The intent of the expression in the `Condition` is to reference in the incoming `Payload` from the message and access the `Type` of the object returned and then route based on whether the objects type is a `Dog` or a `Cat`.
 
 The reason this does not work is because at this point the expression is testing something that does not yet exist in the message that is being processed. At this point in processing of an incoming message the payload has not yet been converted from the
 wire format, typically a `byte[]`, to the desired type exposed in the methods signature.  In other words, it has not yet gone through the type conversion process described in the [Content Type Negotiation](#content-type-management).
@@ -980,7 +974,7 @@ For instance, an application that has channels named `input` and `output` for re
 spring:cloud:stream:bindings:input:binder=foo
 spring:cloud:stream:bindings:output:binder=rabbit
 ```
-
+<!-- Test before RC2
 ### Connecting to Multiple Systems // TODO Check this
 
 By default, binders share the application's service container so only one instance of a binder is created.
@@ -1035,7 +1029,7 @@ The following example shows a typical configuration for a processor application 
     }
   }
 }
-```
+``` -->
 
 ### Binder Configuration
 
@@ -1321,9 +1315,9 @@ See [Error Handling](#error-handling) for more information.
 
   Default: `False`.
 
-### Dynamically Bound Destinations  
+<!-- ### Dynamically Bound Destinations  
 
-// TODO:  A sample needs to be built to verify/test this
+// TODO:  A sample needs to be built to verify/test this (RC2)
 
 Besides the channels defined by using `EnableBinding` attribute, Streams lets applications send messages to dynamically bound destinations.
 This is useful, for example, when the target destination needs to be determined at runtime.
@@ -1431,7 +1425,7 @@ public NewDestinationBindingCallback<RabbitProducerProperties> dynamicConfigurer
 }
 ```
 
-NOTE: If you need to support dynamic destinations with multiple binder types, use `Object` for the generic type and cast the `extended` argument as needed.
+NOTE: If you need to support dynamic destinations with multiple binder types, use `Object` for the generic type and cast the `extended` argument as needed. -->
 
 ## Content Type Negotiation
 
@@ -1536,7 +1530,9 @@ The following list describes the provided converters, in order of precedence (th
 1. `ObjectStringMessageConverter`: Supports conversion of any type to a `string` when `contentType` is `text/*`. For objects, it invokes `ToString()` method or if the payload is `byte[]`, it uses `EncodingUtils.Utf8.GetString(..)`.
 
 When no appropriate converter is found, the framework throws an exception. When that happens, you should check your code and configuration and ensure you did not miss anything (that is, ensure that you provided a `contentType` by using a binding or a header).
-However, most likely, you found some uncommon case (such as a custom `contentType` perhaps) and the current stack of provided `IMessageConverters`
+<!--
+TODO: RC2
+ However, most likely, you found some uncommon case (such as a custom `contentType` perhaps) and the current stack of provided `IMessageConverters`
 does not know how to convert. If that is the case, you can add custom `IMessageConverter`. See [User-defined Message Converters](#user-defined-message-converters).
 
 ### User-defined Message Converters
@@ -1586,7 +1582,7 @@ public class MyCustomMessageConverter : AbstractMessageConverter
       return (payload is Bar ? payload : new Bar((byte[]) payload));
     }
 }
-```
+``` 
 
 ## Inter-Application Communication
 
@@ -1701,3 +1697,4 @@ This might be useful if you want messages for a particular partition to always g
 When a binder configuration requires them, it is important to set both values correctly in order to ensure that all of the data is consumed and that the application instances receive mutually exclusive datasets.
 
 While a scenario in which using multiple instances for partitioned data processing may be complex to set up in a standalone case, [Spring Cloud Data flow](https://spring.io/projects/spring-cloud-dataflow) can simplify the process significantly by populating both the input and output values correctly and by letting you rely on the runtime infrastructure to provide information about the instance index and instance count.
+-->

@@ -52,7 +52,7 @@ You can exclude the class by using the `@SpringBootApplication` annotation.
 The `RabbitMessageChannelBinder` sets the `RabbitTemplate.userPublisherConnection` property to `True` so that the non-transactional producers avoid deadlocks on consumers, which can happen if cached connections are blocked because of a [memory alarm](https://www.rabbitmq.com/memory.html) on the broker.
 
 // TODO:
->**NOTE:** Currently, a `multiplex` consumer (a single consumer listening to multiple queues) is only supported for message-driven conssumers; polled consumers can only retrieve messages from a single queue.
+>**NOTE:** Currently, a `multiplex` consumer (a single consumer listening to multiple queues) is only supported for message-driven consumers; polled consumers can only retrieve messages from a single queue.
 
 ## Configuration Settings
 
@@ -379,7 +379,6 @@ Default time to live to apply to the queue when declared (in milliseconds).
   Default: `no limit`
 
 ### Advanced Listener Container Configuration
-
 // TODO: Is this possible?
 To set listener container properties that are not exposed as binder or binding properties, add a single bean of type `ListenerContainerCustomizer` to the application context.
 The binder and binding properties will be set and then the customizer will be called.
