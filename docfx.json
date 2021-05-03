@@ -19,7 +19,8 @@
         "exclude": [
           "**/amqp.md",
           "**/rabbitmq-binder.md",
-          "api/browser/v3/all/index.md"
+          "api/browser/v3/all/index.md",
+          "api/browser/v2/all/index.md"
         ]
       },
       {
@@ -42,6 +43,7 @@
       },
       {
         "files": [
+          "api/browser/v2/all/index.md",
           "api/browser/v2/all/**.yml"
         ],
         "version": "2.all"
@@ -61,7 +63,7 @@
           "fonts/**",
           "articles/**/images/**",
           "api/**/images/**",
-          "labs/**/images/**",
+          "guides/**/images/**",
           "**.html"
         ]
       }

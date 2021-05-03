@@ -1,16 +1,12 @@
 ﻿---
-uid: labs/get-to-know-steeltoe/exercise4
+uid: guides/get-to-know-steeltoe/exercise4
 _disableContribution: true
-_disableToc: true
+_disableToc: false
 _disableFooter: true
 _homePath: "./index.html"
 _disableNav: true
+_hideTocVersionToggle: true
 ---
-[vs-add-configserver]: ~/labs/images/vs-add-configserver.png "Add configuration server library"
-[vs-new-folder]: ~/labs/images/vs-new-folder.png "Create a new project folder"
-[vs-new-class]: ~/labs/images/vs-new-class.png "Create a new project class"
-[run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
-[vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
 
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
@@ -19,8 +15,8 @@ _disableNav: true
 [exercise-4-link]: exercise4.md
 [summary-link]: summary.md
 
-|[<< Previous Exercise][exercise-3-link]||
-|:--|--:|
+| [<< Previous Exercise][exercise-3-link] |     |
+| :-------------------------------------- | --: |
 
 # Using an external configuration provider
 
@@ -43,7 +39,7 @@ To communicate with an external config server we're going to need to add a clien
 
 Right click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manger window choose "Browse", then search for `Steeltoe.Extensions.Configuration.ConfigServerCore`, and install.
 
-![vs-add-configserver]
+<img src="~/guides/images/vs-add-configserver.png" alt="Add configuration server library" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -51,7 +47,7 @@ Right click on the project name in the solution explorer and choose "Manage NuGe
 dotnet add package Steeltoe.Extensions.Configuration.ConfigServerCore
 ```
 
-***
+---
 
 ## Implement Spring Config client
 
@@ -71,7 +67,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 				.AddConfigServer()
 				.UseStartup<Startup>();
 		})
-    
+
     //Steeltoe actuators
 		.AddAllActuators()
 
@@ -88,7 +84,7 @@ Create a new class in the 'Controllers' folder named `ValuesController.cs`.
 
 Right click on the 'Controllers' folder and choose "Add" > "Class..." and name it `ValuesController.cs`.
 
-![vs-new-class]
+<img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -97,7 +93,7 @@ cd Controllers
 dotnet new classlib -n "ValuesController.cs"
 ```
 
-***
+---
 
 Open the newly created class file in your IDE and replace the 'using' statements in the file with the below.
 
@@ -123,7 +119,7 @@ public class ValuesController : ControllerBase
       _config = config;
       _logger = logger;
   }
-  
+
   // GET api/values
   [HttpGet]
   public ActionResult<IEnumerable<string>> Get()
@@ -164,7 +160,7 @@ With the data context in place, we are ready to see everything in action. Run th
 
 Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
 
-![vs-run-application]
+<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -174,11 +170,11 @@ Executing the below command will start the application. You will see a log messa
 dotnet run
 ```
 
-***
+---
 
 With the application running and the weather forecast endpoint loaded your browser should show the following
 
-![run-weatherforecast]
+<img src="~/guides/images/weatherforecast-endpoint.png" alt="Weatherforecast endpoint" width="100%">
 
 ## See the config values output
 
@@ -198,7 +194,7 @@ Either close the browser window or click the red stop button in the top menu.
 
 Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
 
-***
+---
 
 ## Summary
 
@@ -206,5 +202,5 @@ With an existing Spring Config server running that was configured to retrieve va
 
 We've just begun to scratch the surface of what Spring Config can really do and all it's many features. Learn more about config in the [Steeltoe docs](/api/v3/configuration/config-server-provider.html).
 
-|[<< Previous Exercise][exercise-3-link]|[Workshop Summary >>][summary-link]|
-|:--|--:|
+| [<< Previous Exercise][exercise-3-link] | [Workshop Summary >>][summary-link] |
+| :-------------------------------------- | ----------------------------------: |

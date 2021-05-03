@@ -1,18 +1,12 @@
 ﻿---
-uid: labs/get-to-know-steeltoe/exercise3
+uid: guides/get-to-know-steeltoe/exercise3
 _disableContribution: true
-_disableToc: true
+_disableToc: false
 _disableFooter: true
 _homePath: "./index.html"
 _disableNav: true
+_hideTocVersionToggle: true
 ---
-[vs-add-efcore]: ~/labs/images/vs-add-efcore.png "Steeltoe EFCore nuget dependency"
-[single-todoitem]: ~/labs/images/single-todoitem.png "ToDo item retrieved from the database"
-[run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
-[vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
-[vs-new-folder]: ~/labs/images/vs-new-folder.png "Create a new project folder"
-[vs-new-class]: ~/labs/images/vs-new-class.png "Create a new project class"
-[vs-add-efsqlserver]: ~/labs/images/vs-add-efsqlserver.png "Microsoft SqlServer EFCore nuget dependency"
 
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
@@ -20,8 +14,8 @@ _disableNav: true
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-|[<< Previous Exercise][exercise-2-link]|[Next Exercise >>][exercise-4-link]|
-|:--|--:|
+| [<< Previous Exercise][exercise-2-link] | [Next Exercise >>][exercise-4-link] |
+| :-------------------------------------- | ----------------------------------: |
 
 # Adding a cloud connector with SQL
 
@@ -43,10 +37,10 @@ We're going to add a database connection and context using entity framework to t
 # [Visual Studio](#tab/visual-studio)
 
 Right click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manger window choose "Browse", then search for `Steeltoe.Connector.EFCore`, and install.
-![vs-add-efcore]
+<img src="~/guides/images/vs-add-efcore.png" alt="Steeltoe EFCore NuGet dependency" width="100%">
 
 Then search for the `Microsoft.EntityFrameworkCore.SqlServer` package and install.
-![vs-add-efsqlserver]
+<img src="~/guides/images/vs-add-efsqlserver.png" alt="Microsoft SqlServer EFCore NuGet dependency" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -55,7 +49,7 @@ dotnet add package Steeltoe.Connector.EFCore
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-***
+---
 
 ## Add database context and model
 
@@ -65,7 +59,7 @@ Now create a new folder in the project named 'Models'.
 
 Right click on the project name in the solution explorer and choose "Add" > "New Folder" and name it `Models`.
 
-![vs-new-folder]
+<img src="~/guides/images/vs-new-folder.png" alt="Create a new project folder" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -74,7 +68,7 @@ mkdir "Models"
 cd "Models"
 ```
 
-***
+---
 
 Within that folder create a new class named 'TodoContext.cs'. This class will serve as our context for interacting with the database.
 
@@ -82,7 +76,7 @@ Within that folder create a new class named 'TodoContext.cs'. This class will se
 
 Right click on the 'Models' folder and choose "Add" > "Class..." and name it `TodoContext.cs`.
 
-![vs-new-class]
+<img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -90,7 +84,7 @@ Right click on the 'Models' folder and choose "Add" > "Class..." and name it `To
 dotnet new classlib -n "TodoContext.cs"
 ```
 
-***
+---
 
 Open the newly created class file in your IDE and include the 'EntityFrameworkCore' package.
 
@@ -101,8 +95,8 @@ using Microsoft.EntityFrameworkCore;
 Also replace the class statement with this. Don't change the 'namespace' part, just the class within the namespace.
 
 ```csharp
-public class TodoContext : DbContext { 
-  public TodoContext(): base(){ }  
+public class TodoContext : DbContext {
+  public TodoContext(): base(){ }
   public TodoContext(DbContextOptions<TodoContext> options)
       : base(options) {
   }
@@ -117,7 +111,7 @@ Also in the 'Models' folder, create a class named 'TodoItem.cs'. This will serve
 
 Right click on the 'Models' folder and choose "Add" > "Class..." and name it `TodoItem.cs`.
 
-![vs-new-class]
+<img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -125,7 +119,7 @@ Right click on the 'Models' folder and choose "Add" > "Class..." and name it `To
 dotnet new classlib -n "TodoItem.cs"
 ```
 
-***
+---
 
 Open the newly created class file in your IDE and replace th class statement with this. Don't change the 'namespace' part, just the class within the namespace.
 
@@ -167,7 +161,7 @@ Because we are going to be interacting with a brand new database instance we'll 
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Models.TodoContext context) {
-  
+
   //...
 
   context.Database.EnsureCreated();
@@ -182,7 +176,7 @@ Create a new class in the 'Controllers' folder named `TodoItemsController.cs`.
 
 Right click on the 'Controllers' folder and choose "Add" > "Class..." and name it `TodoItemsController.cs`.
 
-![vs-new-class]
+<img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -191,7 +185,7 @@ cd ../Controllers
 dotnet new classlib -n "TodoItemsController.cs"
 ```
 
-***
+---
 
 Open the newly created class file in your IDE and replace the 'using' statements in the file with the below.
 
@@ -278,6 +272,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d m
 If your SQL instance is running somewhere else you'll need its URI port number and credentials. Use the provided parameters to configure the connection correctly.
 
 *** -->
+
 Add the below json to 'appsettings.json', just after the 'management' section. This will give Steeltoe connection information for the database instance as well as name the new database.
 
 ```json
@@ -304,7 +299,7 @@ With the data context in place, we are ready to see everything in action. Run th
 
 Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
 
-![vs-run-application]
+<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -314,11 +309,11 @@ Executing the below command will start the application. You will see a log messa
 dotnet run
 ```
 
-***
+---
 
 With the application running and the weather forecast endpoint loaded your browser should show the following
 
-![run-weatherforecast]
+<img src="~/guides/images/weatherforecast-endpoint.png" alt="Weatherforecast endpoint" width="100%">
 
 ## Work with saved ToDo items
 
@@ -326,7 +321,7 @@ To test the database connection, navigate to the "GET" endpoint where all saved 
 
 You may have noticed in the 'TodoItemsController.GetTodoItem' method, there is a super secret value you can provide to add new list items. Replace `WeatherForecast` with `api/TodoItems/0` in the browser address bar. This page should load successfully but not provide much feedback. Behind the scenes you've just added a new list item. To confirm lets retrieve the saved list of items. Remove the `/0` in the address and loading the page. Wow! Now there is 1 list item retrieved from the database. Awesome!
 
-![single-todoitem]
+<img src="~/guides/images/single-todoitem.png" alt="ToDo item retrieved from the database" width="100%">
 
 ## Stop the application
 
@@ -338,11 +333,11 @@ Either close the browser window or click the red stop button in the top menu.
 
 Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
 
-***
+---
 
 ## Summary
 
 We've done quite a bit in this exercise but notice it was mostly focused on working with the ToDo list. You never had to open a SQL editor, create a database, test the database, etc etc. Thats the purpose of this Steeltoe Connectors. They take care of all the messy behind-the-scenes work and let you focus on the business logic. Yeah we know, it's pretty awesome. Being awesome is one of Steeltoe's super powers.
 
-|[<< Previous Exercise][exercise-2-link]|[Next Exercise >>][exercise-4-link]|
-|:--|--:|
+| [<< Previous Exercise][exercise-2-link] | [Next Exercise >>][exercise-4-link] |
+| :-------------------------------------- | ----------------------------------: |

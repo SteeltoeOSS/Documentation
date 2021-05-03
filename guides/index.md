@@ -1,65 +1,62 @@
 ---
-_hideTocVersionToggle: true
-uid: labs/index
+uid: guides/index
 title: Steeltoe Get Started
 tags: []
 _disableFooter: true
+_hideTocVersionToggle: true
 ---
 
 # Get Started with Steeltoe
 
 ## The Basics
 
-- @labs/get-to-know-steeltoe
+- @guides/get-to-know-steeltoe
 
 ## Application Configuration
 
-- @labs/application-configuration/spring-config
-- @labs/application-configuration/cloud-foundry
-- @labs/application-configuration/placeholder
-- @labs/application-configuration/random-value
+- @guides/application-configuration/spring-config
+- @guides/application-configuration/cloud-foundry
+- @guides/application-configuration/placeholder
+- @guides/application-configuration/random-value
 
 ## Circuit Breakers
 
-- @labs/circuit-breakers/circuit-breaker
+- @guides/circuit-breakers/circuit-breaker
 
 ## Cloud Management
 
-- @labs/cloud-management/distributed-tracing
-- @labs/cloud-management/endpoints-framework
-- @labs/cloud-management/endpoints-netcore
-- @labs/cloud-management/logging
+- @guides/cloud-management/distributed-tracing
+- @guides/cloud-management/endpoints-framework
+- @guides/cloud-management/endpoints-netcore
 
 ## Messaging
 
-- @labs/messaging/rabbitmq
+- @guides/messaging/rabbitmq
 
 ## Observability
 
-- @labs/observability/grafana
-- @labs/observability/tanzu
-- @labs/observability/wavefront
+- @guides/observability/grafana
+- @guides/observability/tanzu
+- @guides/observability/wavefront
 
 ## Security
 
-- @labs/security-providers/credhub
-- @labs/security-providers/jwt
-- @labs/security-providers/redisstore
-- @labs/security-providers/sso-oauth
-- @labs/security-providers/sso-openid-framework
-- @labs/security-providers/sso-openid-netcore
+- @guides/security-providers/jwt
+- @guides/security-providers/redisstore
+- @guides/security-providers/sso-oauth
+- @guides/security-providers/sso-openid-framework
+- @guides/security-providers/sso-openid-netcore
 
 ## Service Connectors
 
-- @labs/service-connectors/gemfire
-- @labs/service-connectors/mongo
-- @labs/service-connectors/mssql
-- @labs/service-connectors/mysql
-- @labs/service-connectors/oauth
-- @labs/service-connectors/postgresql
-- @labs/service-connectors/rabbitmq
-- @labs/service-connectors/redis
+- @guides/service-connectors/mongo
+- @guides/service-connectors/mssql
+- @guides/service-connectors/mysql
+- @guides/service-connectors/oauth
+- @guides/service-connectors/postgresql
+- @guides/service-connectors/rabbitmq
+- @guides/service-connectors/redis
 
 ## Service Discovery
 
-- @labs/service-discovery/eureka
+- @guides/service-discovery/eureka

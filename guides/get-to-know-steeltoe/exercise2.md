@@ -1,13 +1,12 @@
 ---
-uid: labs/get-to-know-steeltoe/exercise2
+uid: guides/get-to-know-steeltoe/exercise2
 _disableContribution: true
-_disableToc: true
+_disableToc: false
 _disableFooter: true
 _homePath: "./index.html"
 _disableNav: true
+_hideTocVersionToggle: true
 ---
-[vs-run-application]: ~/labs/images/vs-run-application.png "Run the project"
-[run-weatherforecast]: ~/labs/images/weatherforecast-endpoint.png "Weatherforecast endpoint"
 
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
@@ -15,8 +14,8 @@ _disableNav: true
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-|[<< Previous Exercise][exercise-1-link]|[Next Exercise >>][exercise-3-link]|
-|:--|--:|
+| [<< Previous Exercise][exercise-1-link] | [Next Exercise >>][exercise-3-link] |
+| :-------------------------------------- | ----------------------------------: |
 
 # Exploring all actuators
 
@@ -69,7 +68,7 @@ With all actuators implemented in host builder, we are ready to see everything i
 
 Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
 
-![vs-run-application]
+<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="100%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -79,11 +78,11 @@ Executing the below command will start the application. You will see a log messa
 dotnet run
 ```
 
-***
+---
 
 With the application running and the weather forecast endpoint loaded your browser should show the following
 
-![run-weatherforecast]
+<img src="~/guides/images/weatherforecast-endpoint.png" alt="Weatherforecast endpoint" width="100%">
 
 ## Discover all the management endpoints
 
@@ -112,12 +111,11 @@ Either close the browser window or click the red stop button in the top menu.
 
 Use the key combination "ctrl+c" on windows/linux or "cmd+c" on Mac.
 
-***
+---
 
 ## Summary
 
 Similar to the previous exercise, there is a minimum expectation of any microserivce running in the cloud. These things are meant to help the developer debug, trace, and observe the application within its container. But these things have the potential to consume the developer's time creating everything, adding the right options, and making it distributable. Steeltoe aims to use the best in .NET to get the developer back to coding business logic and not deal with the boilerplate stuff.
 
-
-|[<< Previous Exercise][exercise-1-link]|[Next Exercise >>][exercise-3-link]|
-|:--|--:|
+| [<< Previous Exercise][exercise-1-link] | [Next Exercise >>][exercise-3-link] |
+| :-------------------------------------- | ----------------------------------: |

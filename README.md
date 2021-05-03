@@ -114,16 +114,16 @@ docfx build -o "../publish"
 
 By default the navigation links will use the live site (https://steeltoe.io) as the base host address. You can override that by including the applicable metadata file.
 
-If running the MainSite locally on port 8080, then use the localServer metadata file.
+If running the MainSite locally on port 8080, then use the `localhost.json` metadata file.
 
 ```powershell
-docfx build --serve --port 8082 --globalMetadataFiles "localServer.json" --logLevel Warning
+docfx build --serve --port 8082 --globalMetadataFiles "localhost.json" --logLevel Warning
 ```
 
-If running the MainSite locally with the dev site, then use the dev metadata file.
+If running the MainSite locally with the dev site, then use the `devhost.json` metadata file.
 
 ```powershell
-docfx build --serve --port 8082 --globalMetadataFiles "dev.json" --logLevel Warning
+docfx build --serve --port 8082 --globalMetadataFiles "devhost.json" --logLevel Warning
 ```
 
 ## Updating Generated API Docs
