@@ -44,27 +44,26 @@ See [RabbitMQ Binder Settings](#rabbit-binder-settings) for more information abo
 The framework does not provide any standard mechanism to consume dead-letter messages (or to re-route them back to the primary queue).
 Some options are described in [Dead-Letter Queue Processing](#rabbit-dlq-processing).
 
-//TODO:  Is this possible with Steeltoe????????????
+<!-- //TODO:  Is this possible with Steeltoe????????????
 >**NOTE:** When multiple RabbitMQ binders are used in a Streams application, it is important to disable 'RabbitAutoConfiguration' to avoid the same configuration from `RabbitAutoConfiguration` being applied to the two binders.
-You can exclude the class by using the `@SpringBootApplication` annotation.
+You can exclude the class by using the `@SpringBootApplication` annotation. -->
 
-//TODO:
 The `RabbitMessageChannelBinder` sets the `RabbitTemplate.userPublisherConnection` property to `True` so that the non-transactional producers avoid deadlocks on consumers, which can happen if cached connections are blocked because of a [memory alarm](https://www.rabbitmq.com/memory.html) on the broker.
 
-// TODO:
+<!-- // TODO: verify multiplex consumers work -->
 >**NOTE:** Currently, a `multiplex` consumer (a single consumer listening to multiple queues) is only supported for message-driven consumers; polled consumers can only retrieve messages from a single queue.
 
 ## Configuration Settings
 
 This section contains settings specific to the RabbitMQ Binder and associated channels.
 
-For general binding configuration options and properties, see the [Steeltoe Stream Reference Documentation](//TODO: ).
+For general binding configuration options and properties, see the [Steeltoe Stream Reference Documentation](./stream-reference.md).
 
 ### RabbitMQ Binder Settings
 
 By default, the RabbitMQ binder uses the Steeltoe RabbitMQ `ConnectionFactory`.
-Conseuqently, it supports all of the associated configuration settings for RabbitMQ.
-For reference, see the [Steeltoe RabbitMQ Documentation](//TODO:).
+Consequently, it supports all of the associated configuration settings for RabbitMQ.
+For reference, see the [Steeltoe RabbitMQ Documentation](./stream-reference.md).
 RabbitMQ configuration settings use the `spring:rabbitmq` prefix.
 
 In addition to the RabbitMQ settings, the RabbitMQ binder supports the following configuration values.  All settings should be prefixed with `spring:cloud:stream:rabbitmq:binder`.
@@ -83,7 +82,7 @@ A comma-separated list of RabbitMQ node names.
 When more than one entry, used to locate the server address where a queue is located.
 Each entry in this list must have a corresponding entry in `spring:rabbitmq:addresses`.
 Only needed if you use a RabbitMQ cluster and wish to consume from the node that hosts the queue.
-See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/_reference.html#queue-affinity) for more information. // TODO: Proper link
+See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/#queue-affinity) for more information.
 
   Default: empty.
 
@@ -378,11 +377,11 @@ Default time to live to apply to the queue when declared (in milliseconds).
 
   Default: `no limit`
 
-### Advanced Listener Container Configuration
+<!-- ### Advanced Listener Container Configuration
 // TODO: Is this possible?
 To set listener container properties that are not exposed as binder or binding properties, add a single bean of type `ListenerContainerCustomizer` to the application context.
 The binder and binding properties will be set and then the customizer will be called.
-The customizer (`configure()` method) is provided with the queue name as well as the consumer group as arguments.
+The customizer (`configure()` method) is provided with the queue name as well as the consumer group as arguments. -->
 
 ### Rabbit Producer Settings
 
@@ -661,9 +660,11 @@ Refer to the documentation above for more information.
 
 There are similar settings used when declaring a dead-letter exchange/queue, when `autoBindDlq` is `True`.
 
+<!-- 
+The Code compiles but does not work. The message arrives but the X-Death header never appears and its count is not incremented  - hananiel
 ## Retry With the RabbitMQ Binder
 
-// TODO: Is Strict ordering working properly???
+// TODO: Is Strict ordering working properly??? 
 
 When retry is enabled within the binder, the listener container thread is suspended for any back off periods that are configured.
 This might be important when strict ordering is required with a single consumer. However, for other use cases, it prevents other messages from being processed on that thread.  
@@ -689,45 +690,72 @@ To acknowledge a message after giving up, throw an `ImmediateAcknowledgeAmqpExce
 
 The following configuration creates an exchange `myDestination` with queue `myDestination.consumerGroup` bound to a topic exchange with a wildcard routing key `#`:
 
-```
-spring:cloud:stream:bindings:input:destination=myDestination
-spring:cloud:stream:bindings:input:group=consumerGroup
+```json
 
 # disable binder retries
-spring:cloud:stream:bindings:input:consumer:max-attempts=1
-
 # dlx/dlq setup
-spring:cloud:stream:rabbitmq.bindings:input:consumer:autoBindDlq=True
-spring:cloud:stream:rabbitmq:bindings:input:consumer:dlqTTL=5000
-spring:cloud:stream:rabbit:bindings:input:consumer:dlqDeadLetterExchange=
+
+"spring": {
+    "cloud": {
+      "stream": {
+        "binder": "rabbit",
+        "bindings": {
+          "input": {
+            "destination": "myDestination",
+            "group": "consumerGroup",
+            "consumer": {
+              "max-attempts": 1,
+              "auto-bind-dlq": true,
+              "dlq-ttl": 5000,
+              "dlq-dead-letter-exchange": ""
+            }
+          }
+        }
+      }
+    }
+  }
 ```
 
 This configuration creates a DLQ bound to a direct exchange (`DLX`) with a routing key of `myDestination.consumerGroup`.
 When messages are rejected, they are routed to the DLQ.
 After 5 seconds, the message expires and is routed to the original queue by using the queue name as the routing key, as shown in the following example:
 
-// TODO: Validate this code??
+// TODO: Compiles but doesnt produce x-death header
 ```csharp
-[EnableBinding(typeof(ISink))]
-public class XDeathApplication {
-
-    public static void Main(string[] args) {
-        //TODO:   SpringApplication.run(XDeathApplication.class, args);
-    }
-
-    [StreamListener(ISink.INPUT)]
-    public void Listen(string in, [Header(Name = "x-death", Required = False) IDictionary<string, object> death) {
-        if (death != null && death["count"] == 3L) 
+   [EnableBinding(typeof(ISink))]
+    public class Program
+    {
+        static async Task Main(string[] args)
         {
-            // giving up - don't send to DLX
-            throw new ImmediateAcknowledgeAmqpException("Failed after 4 attempts");
+
+            await StreamsHost.CreateDefaultBuilder<Program>(args)
+              .ConfigureServices((context, services) =>
+              {
+                  services.AddLogging(builder =>
+                  {
+                      builder.AddDebug();
+                      builder.AddConsole();
+                  });
+              }).StartAsync();
         }
-        throw new RabbitRejectAndDontRequeueException("failed");
+
+        [StreamListener(ISink.INPUT)]
+        public void Listen(string input, 
+            [Header(Name ="x-death", Required = false)]
+            IDictionary<string, object> death)
+        {
+            if (death != null && (long) death["count"] == 3L)
+            {
+                // giving up - don't send to DLX
+                throw new ImmediateAcknowledgeException("Failed after 4 attempts");
+            }
+            throw new RabbitRejectAndDontRequeueException("failed");
+        }
+
     }
-}
 ```
 
-Notice that the count property in the `x-death` header is a `long`.
+Notice that the count property in the `x-death` header is a `long`. 
 
 ## Error Channels
 
@@ -1155,3 +1183,4 @@ public class RabbitPartitionConsumerApplication
 There must be at least one consumer per partition.
 The consumer's `instanceIndex` is used to indicate which partition is consumed.
 Platforms such as Cloud Foundry can have only one instance with an `instanceIndex`.
+-->

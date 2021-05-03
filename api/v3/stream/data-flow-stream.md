@@ -209,15 +209,15 @@ Before registering and deploying stream applications to Cloud Foundry by using t
 
 Once you have followed the steps shown earlier in this chapter and have registered the applications as well as deployed the stream, you can see the successfully deployed applications in your in your Org and Space in Cloud Foundry.
 
-<!-- ![Cloud Foundry Apps Manager with the deployed Stream Application](images/SCDF-CF-dashboard.png) -->
+![Cloud Foundry Apps Manager with the deployed Stream Application](images/SCDF-CF-dashboard.png)
 
 You can access the runtime information of your stream applications in the Spring Cloud Data Flow dashboard as well.
 
 Besides verifying the runtime status of your stream, you should also verify the logging output produced by the `basicstreamsink` sink. In Cloud Foundry Apps Manager, click the **Logs** tab of the `basicstreamsink` sink application. 
 
-<!-- The logging statements should look like the following:
+ The logging statements should look like the following:
 
-![Data Flow Runtime Information](images/SCDF-CF-dashboard-logging.png) -->
+![Data Flow Runtime Information](images/SCDF-CF-dashboard-logging.png)
 
 <!-- ### Kubernetes
 
