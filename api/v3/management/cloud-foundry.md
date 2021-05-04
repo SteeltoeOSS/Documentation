@@ -41,7 +41,7 @@ The default path to the Cloud Foundry endpoint is computed by combining the glob
 
 See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-The Cloud Foundry actuator, the Cloud Foundry actuator's security middleware and CORS policy can be added to the application in either `program.cs` or `startup.cs` and either specifically or in a grouping with all the other actuators. All of these options can function effectively the same way, so this may be interpreted as a style choice.
+The Cloud Foundry actuator, the actuator's security middleware, and the CORS policy can be added to the application in either `program.cs` or `startup.cs`. This can be done individually or in a grouping with all the other actuators. All of these options will function effectively the same way, so this is a style choice.
 
 >Of all the options provided, the approach of using `AddAllActuators()` on the `HostBuilder` is most recommended.
 
