@@ -6,10 +6,12 @@ These providers enable the use of Cloud Foundry security services (such as [UAA 
 
 You can choose from the following providers when adding Cloud Foundry security integration:
 
-* `OAuth2 Single Sign-on with Cloud Foundry Security services`: ASP.NET Core
-* `Using JWT tokens issued by Cloud Foundry for securing resources/endpoints`: ASP.NET Core
+* [Single Sign-on with OAuth2 for ASP.NET Core](sso-oauth2.md)
+* [Single Sign-on with OpenID Connect for ASP.NET Core](sso-open-id.md)
+* [Resource protection with JWT tokens for ASP.NET Core](jwt-authentication.md)
+* [Resource protection using Mutual TLS in ASP.NET Core](mtls.md)
 
 In addition to authentication and authorization providers, Steeltoe security offers:
 
-* A security provider for using Redis on Cloud Foundry with ASP.NET Core Data Protection Key Ring storage
-* A CredHub API Client for .NET applications to perform credential storage, retrieval, and generation
+* [A security provider for using Redis on Cloud Foundry with ASP.NET Core Data Protection Key Ring storage](redis-key-storage-provider.md)
+* [A CredHub API Client for .NET applications to perform credential storage, retrieval, and generation](credhub-api-client.md)
