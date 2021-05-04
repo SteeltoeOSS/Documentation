@@ -32,12 +32,14 @@ In this guide, we describe how you can register these Steeltoe based components 
 
 ## Development
 
-The SCDF team publishes a number of sample stream components, written in other languages (e.g. Java, etc.), at the `https://repo.spring.io` repository. These off-the-shelf components can easily be used and combined with .NET based Steeltoe Streams components you develop.
-
-In this example, we will be using the Java based HttpSource component available at 
-``` 
-maven://org.springframework.cloud.stream.app:http-source-rabbit:3.0.1 
+The [samples repo](https://github.com/SteeltoeOSS/Samples/tree/main/Streams) has a number of Steeltoe stream sample applications. For this example we will be using the `CloudDataFlowLogToUpperProcessor` sample, which implements an `IProcessor` interface and the `CloudDataFlowLogSink` sample, which implements an `ISink` interface.
+For an `ISource` we will use the `HttpSource`  application available at 
 ```
+maven://org.springframework.cloud.stream.app:http-source-rabbit:3.0.1 
+``` 
+
+Spring Cloud team publishes a number of sample applications as `maven` and `docker` artifacts at the `https://repo.spring.io` Maven repository. These pre-packaged applications can be used with Steeltoe Streams.
+
 <!-- For the `UsageDetailSender` source, use one of the following:
 
 ```
