@@ -18,7 +18,7 @@ Spring Cloud Data Flow is a cloud-native orchestration service for composable mi
 
 # Deploying .NET applications to SCDF
 
-Steeltoe Streams enables .NET applications to run on SCDF by parsing the appropriate configuration and binding to the message broker. .NET applications built with Steeltoe are interoperable with their Java counterparts allowing you leverage prebuilt applications. To learn more about these applications, Spring cloud team has an excellent guide that describes installing and deploying Java applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). 
+Steeltoe Streams enables .NET applications to run on SCDF by parsing the appropriate configuration and binding to the message broker. .NET applications built with Steeltoe are interoperable with their Java counterparts allowing you leverage prebuilt applications maintained by the Spring Cloud team. To learn more about these applications, Spring cloud team has an excellent guide that describes installing and deploying Java applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). 
 
 This guide is focused on deploying Steeltoe Stream applications on SCDF.
 
@@ -71,7 +71,7 @@ docker://springcloudstream/usage-cost-logger-rabbit:0.0.1-SNAPSHOT
 
 ### The Data Flow Dashboard
 
-Assuming Data Flow is [installed](%currentPath%/installation/) and running <!-- TODO: on one of the supported platforms -->, open your browser at `<data-flow-url>/dashboard`. Here, `<data-flow-url>` depends on the platform. See the [installation guide](%currentPath%/installation) to determining the base URL for your installation. 
+Assuming Data Flow is [installed](https://dataflow.spring.io/docs/installation/cloudfoundry/) and running <!-- TODO: on one of the supported platforms -->, open your browser at `<data-flow-url>/dashboard`. Here, `<data-flow-url>` depends on the platform. See the [installation guide](https://dataflow.spring.io/docs/installation/cloudfoundry/) to determining the base URL for your installation. 
 
 <!-- TODO: If Data Flow is running on your local machine, go to http://localhost:9393/dashboard. -->
 
@@ -79,7 +79,9 @@ Assuming Data Flow is [installed](%currentPath%/installation/) and running <!-- 
 
 Applications in Spring Cloud Data Flow are registered as named resources so that they may be referenced when you use the Data Flow DSL to configure and compose streaming pipelines. Registration associates a logical application name and type with a physical resource, which is given by a URI.
 
-The URI conforms to a [schema](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#spring-cloud-dataflow-register-stream-apps). As of 3.1.0-RC1 only Docker images are supported.
+The URI conforms to a [schema](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#spring-cloud-dataflow-register-stream-apps).
+
+As of 3.1.0-RC1 only Docker images are supported.
 
 <!-- and may represent a Maven artifact, a Docker image, or an actual `http(s)` or `file` URL. -->
  Data Flow defines some logical application types to indicate its role as a streaming component, a task, or a standalone application. For streaming applications, as you might expect, we use `Source`,`Processor`, and `Sink` types.
@@ -219,7 +221,7 @@ END_NOTE -->
 
 ### Cloud Foundry
 
-Before registering and deploying stream applications to Cloud Foundry by using the instructions shown earlier, you should ensure that you have an instance of Spring Cloud Data Flow running on Cloud Foundry. Follow the Cloud Foundry [installation guide](%currentPath%/installation/cloudfoundry/cf-cli) for reference.
+Before registering and deploying stream applications to Cloud Foundry by using the instructions shown earlier, you should ensure that you have an instance of Spring Cloud Data Flow running on Cloud Foundry. Follow the Cloud Foundry [installation guide](https://dataflow.spring.io/docs/installation/cloudfoundry/) for reference.
 
 Once you have followed the steps shown earlier in this chapter and have registered the applications as well as deployed the stream, you can see the successfully deployed applications in your in your Org and Space in Cloud Foundry.
 
