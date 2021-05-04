@@ -10,7 +10,7 @@ This section gives an overview of the following:
 * [Application Model](#application-model)
 * [Binder Abstraction](#binder-abstraction)
 * [Binding Abstraction](#binding-abstraction)
-* [Persistent Publish-Subscribe](#persistent-publish-subscribe-support)
+* [Persistent Publish-Subscribe](#persistent-publish-subscribe)
 * [Consumer Types](#consumer-types)
 * [Consumer Groups](#consumer-groups)
 * [Durability](#durability)
@@ -40,7 +40,7 @@ You can also use the extensible Binder SPI to write your own should you need to.
 
 Steeltoe also uses a binding abstraction to provide a way to define the name and types of destinations available to the Streams based microservice.  Bindings provide a bridge between the destinations in the external messaging system and the methods in the application which act as message producers and/or consumers.
 
-### Persistent Publish-Subscribe
+### Persistent Publish-Subscribe 
 
 Communication between microservices follow a publish-subscribe model where data is broadcast through shared topics.
 This can be seen in the following figure, which shows a typical deployment for a set of interacting Streams microservices.
@@ -134,7 +134,7 @@ As stated earlier, bindings provide the bridge between the external messaging sy
 You can use the `EnableBinding` attribute in your application to declare bindings for your application or you can use service container extension methods to explicitly add them to the container yourself.
 
 For example the following code shows a fully configured and functioning Streams application service that receives strings from a destination with the name `input` and
-and converts the strings to uppercase and then sends the results to a destination with the name `output`.  Notice that the applications `Handle()` method expects the message payload from `input` to be a `string`, and as a result the Streams framework will attempt to convert the incomming message payload to a `string` before calling the handler method (see [Content Type Negotiation](#content-type-management) section).
+and converts the strings to uppercase and then sends the results to a destination with the name `output`.  Notice that the applications `Handle()` method expects the message payload from `input` to be a `string`, and as a result the Streams framework will attempt to convert the incomming message payload to a `string` before calling the handler method (see [Content Type Negotiation](#content-type-negotiation) section).
 
 ```csharp
 [EnableBinding(typeof(IProcessor))]
@@ -250,7 +250,7 @@ public interface IPolledBarista {
 }
 ```
 
-In this case, an implementation of `IPollableMessageSource` is bound to the channel with the name `Orders`. See [Using Polled Consumers](#using-polled-consumers) for more details.
+In this case, an implementation of `IPollableMessageSource` is bound to the channel with the name `Orders`. See [Using Polled Consumers](#polled-consumers) for more details.
 
 As mentioned earlier the `Input` and `Output` attributes allow you to specify a customized channel name for the channel, as shown in the following example:
 
@@ -383,7 +383,7 @@ In the following example of a `StreamListener` with dispatching conditions, all 
 ```
 
 It is important to understand some of the mechanics behind content-based routing using the `Condition` property of `StreamListener`, especially in the context of the type of the message as a whole.
-It may also help if you familiarize yourself with the [Content Type Negotiation](#content-type-management) before you proceed.
+It may also help if you familiarize yourself with the [Content Type Negotiation](#content-type-negotiation) before you proceed.
 
 Consider the following example:
 
@@ -422,7 +422,7 @@ public class CatsAndDogs
  The intent of the expression in the `Condition` is to reference in the incoming `Payload` from the message and access the `Type` of the object returned and then route based on whether the objects type is a `Dog` or a `Cat`.
 
 The reason this does not work is because at this point the expression is testing something that does not yet exist in the message that is being processed. At this point in processing of an incoming message the payload has not yet been converted from the
-wire format, typically a `byte[]`, to the desired type exposed in the methods signature.  In other words, it has not yet gone through the type conversion process described in the [Content Type Negotiation](#content-type-management).
+wire format, typically a `byte[]`, to the desired type exposed in the methods signature.  In other words, it has not yet gone through the type conversion process described in the [Content Type Negotiation](#content-type-negotiation).
 
 >At the moment, dispatching through `StreamListener` conditions is supported only for channel-based binders.  // TODO: Is this correct?????
 
@@ -619,7 +619,7 @@ The `IPollableMessageSource.Poll()` method takes a `IMessageHandler` argument. I
 
 As with message-driven consumers, if the `IMessageHandler` throws an exception, messages are published to error channels, as discussed in [Error Handling](#error-handling).
 
-Normally, the `Poll()` method acknowledges the message when the `IMessageHandler` exits. If the method exits abnormally, the message is rejected and not re-queued, but see [Handling Errors](#polled-errors) for more options.
+Normally, the `Poll()` method acknowledges the message when the `IMessageHandler` exits. If the method exits abnormally, the message is rejected and not re-queued, but see [Handling Errors](#error-handling) for more options.
 You can override that behavior by taking responsibility for the acknowledgment, as shown in the following example:
 
 ```csharp
@@ -1098,7 +1098,8 @@ See [Multiple Binders](#multiple-binders).
 **overrideCloudConnectors**
 If the setting is `False` (the default), the binder detects a suitable bound service (for example, a RabbitMQ service bound in Cloud Foundry for the RabbitMQ binder) and uses it for creating connections (usually through Steeltoe Connectors).
 When set to `True`, this setting instructs binders to completely ignore the bound services and rely on applications configuration (for example, relying on the `spring:rabbitmq.*` properties provided in the configuration for the RabbitMQ binder).
-The typical usage of this setting is to be nested in a customized environment [Connecting to Multiple Systems](#multiple-systems).
+The typical usage of this setting is to be nested in a customized environment.
+ <!-- [Connecting to Multiple Systems](#multiple-systems). -->
 
   Default: `False`.
 
@@ -1142,7 +1143,7 @@ See [Consumer Groups](#consumer-groups).
 
 **contentType**
 The content type of the channel.
-See [Content Type Negotiation](#content-type-management).
+See [Content Type Negotiation](#content-type-negotiation).
 
   Default: `application/json`.
 
@@ -1212,14 +1213,14 @@ Whether exceptions thrown by the listener that are not listed in the `retryableE
 **instanceIndex**
 When set to a value greater than equal to zero, it allows customizing the instance index of this consumer (if different from `spring:cloud:stream:instanceIndex`).
 When set to a negative value, it defaults to `spring:cloud:stream:instanceIndex`.
-See [Instance Index and Instance Count](#instance-index-instance-count) for more information.
+<!-- See [Instance Index and Instance Count](#instance-index-instance-count) for more information. -->
 
   Default: `-1`.
 
 **instanceCount**
 When set to a value greater than equal to zero, it allows customizing the instance count of this consumer (if different from `spring:cloud:stream:instanceCount`).
 When set to a negative value, it defaults to `spring:cloud:stream:instanceCount`.
-See [Instance Index and Instance Count](#instance-index-instance-count) for more information.
+<!-- See [Instance Index and Instance Count](#instance-index-instance-count) for more information. -->
 
   Default: `-1`.
 
@@ -1493,7 +1494,8 @@ If you look at the the method  `object FromMessage(IMessage message, Type target
 The framework also ensures that the provided `IMessage` always contains a `contentType` header.
 When no contentType header is present, it injects either the per-binding `contentType` header or the default `contentType` header.
 The combination of `contentType` together with the argument type is the mechanism by which framework determines if message can be converted to a target type.
-If no appropriate `IMessageConverter` is found, an exception is thrown, which you can handle by adding a custom `IMessageConverter` (see [User-defined Message Converters](#user-defined-message-converters)).
+If no appropriate `IMessageConverter` is found, an exception is thrown, which you can handle by adding a custom `IMessageConverter`.
+ <!-- (see [User-defined Message Converters](#user-defined-message-converters)). -->
 
 If the payload type matches the target type declared by the handler method, then there is nothing to convert, and the
 payload is passed unmodified. While this sounds pretty straightforward and logical, keep in mind handler methods that take a `IMessage` or `object` as an argument you essentially forfeit the conversion process.
