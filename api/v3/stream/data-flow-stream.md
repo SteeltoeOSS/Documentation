@@ -2,11 +2,25 @@
 title: 'Steeltoe Stream Processing using Spring Cloud Data Flow'
 description: 'Create and Deploy a Steeltoe Stream Processing Pipeline using Spring Cloud Data Flow'
 ---
-# Getting Started
+# Introduction
+Spring Cloud Data Flow is a cloud-native orchestration service for composable microservice applications on modern runtimes. With Spring Cloud Data Flow, developers can create and orchestrate data pipelines for common use cases such as data ingest, real-time analytics, and data import/export.
 
-Spring cloud team has an excellent guide that describes installing and deploying Java applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). 
 
-This guide is focussed on deploying Steeltoe Stream applications on SCDF.
+### Features
+
+* Develop using DSL, REST-APIs, Dashboard, and the drag-and-drop GUI - Flo
+* Create, unit-test, troubleshoot and manage microservice applications in isolation
+* Build data pipelines rapidly using the out-of-the-box stream and task/batch applications
+* Consume microservice applications as maven or docker artifacts
+* Scale data pipelines without interrupting data flows
+* Orchestrate data-centric applications on a variety of modern runtime platforms including Cloud Foundry, Apache YARN, Apache Mesos, and Kubernetes
+* Take advantage of metrics, health checks, and the remote management of each microservice application
+
+# Deploying .NET applications to SCDF
+
+Steeltoe Streams enables .NET applications to run on SCDF by parsing the appropriate configuration and binding to the message broker. .NET applications built with Steeltoe are interoperable with their Java counterparts allowing you leverage prebuilt applications. To learn more about these applications, Spring cloud team has an excellent guide that describes installing and deploying Java applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). 
+
+This guide is focused on deploying Steeltoe Stream applications on SCDF.
 
 
 # Steeltoe Stream Processing with Data Flow and RabbitMQ
@@ -15,7 +29,7 @@ This section shows how to register stream applications with Data Flow, create a 
 
  In the previous guides, we created `ISource`, `IProcessor` and `ISink` streaming applications and deployed them as standalone applications. <!-- TODO: on multiple platforms. -->
 
-In this guide, we register these applications with Data Flow, create a Stream DSL, and deploy the stream to Cloud Foundry, Kubernetes, and your local machine.
+In this guide, we register these applications with Data Flow, create a Stream DSL, and deploy the stream to Cloud Foundry.<!-- , Kubernetes, and your local machine. -->
 
 ## Development
 
