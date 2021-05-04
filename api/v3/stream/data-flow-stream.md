@@ -3,7 +3,7 @@ title: 'Steeltoe Stream Processing using Spring Cloud Data Flow'
 description: 'Create and Deploy a Steeltoe Stream Processing Pipeline using Spring Cloud Data Flow'
 ---
 # Introduction
-Spring Cloud Data Flow (SCDF) is a cloud-native orchestration service for composing microservice based applications on modern runtimes. With Spring Cloud Data Flow, developers can create and orchestrate data pipelines for common use cases such as data ingest, real-time analytics, and data import/export.
+Spring Cloud Data Flow (SCDF) is a cloud-native orchestration service for composing microservice based applications on modern runtimes. With Spring Cloud Data Flow, developers can create and orchestrate data pipelines for common use cases such as data ingestion, real-time analytics, and data import/export.
 
 
 ### Features
