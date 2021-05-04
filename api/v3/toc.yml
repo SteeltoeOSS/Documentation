@@ -7,6 +7,8 @@
       name: Prerequisites
     - topicHref: welcome/common-steps.md
       name: Common Steps
+- name: Application Bootstrapping
+  topicHref: bootstrap/
 - name: Application Configuration
   topicHref: configuration/
   items:
