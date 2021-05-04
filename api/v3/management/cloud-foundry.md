@@ -41,7 +41,7 @@ The default path to the Cloud Foundry endpoint is computed by combining the glob
 
 See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-The Cloud Foundry actuator, it's security middleware and CORS policy can be added to the application in either `program.cs` or `startup.cs` and either specifically or in a grouping with all the other actuators. All of these options can function effectively the same way, so this may be interpreted as a style choice.
+The Cloud Foundry actuator, the Cloud Foundry actuator's security middleware and CORS policy can be added to the application in either `program.cs` or `startup.cs` and either specifically or in a grouping with all the other actuators. All of these options can function effectively the same way, so this may be interpreted as a style choice.
 
 >Of all the options provided, the approach of using `AddAllActuators()` on the `HostBuilder` is most recommended.
 
@@ -59,9 +59,9 @@ using Steeltoe.Management.Endpoint;     // for other options
     }
     public static IHost BuildHost(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .AddCloudFoundryActuators() // add CF + security + others, deprecated in 3.1.0
-            .AddCloudFoundryActuator()  // add just CF + security
-            .AddAllActuators()          // add CF + security (when deployed to CF) and all others
+            .AddAllActuators()            // add CF + security (when deployed to CF) and all others
+            //.AddCloudFoundryActuators() // add CF + security + others, deprecated in 3.1.0
+            //.AddCloudFoundryActuator()  // add just CF + security
             .Build();
 ```
 
@@ -84,11 +84,13 @@ public class Startup
     public IConfiguration Configuration { get; }
     public void ConfigureServices(IServiceCollection services)
     {
-        // to add individual actuators one at a time
-        services.AddCloudFoundryActuator(Configuration);   // add just CF + security
-        // to add a group of actuators, choose ONE of the options below
-        services.AddCloudFoundryActuators(Configuration);  // add CF + security + others, deprecated in 3.1.0
-        services.AddAllActuators(Configuration);           // adds CF + security (when deployed to CF) and all others
+        // for versions >= 3.1.0-rc1, add all actuators and Cloud Foundry integration pieces
+        services.AddAllActuators(Configuration);
+
+        // for versions < 3.1.0, add all actuators and Cloud Foundry integration pieces
+        //services.AddCloudFoundryActuators(Configuration);
+        // if you prefer to add individual actuators
+        //services.AddCloudFoundryActuator(Configuration);
         ...    
     }
     public void Configure(IApplicationBuilder app)
@@ -103,8 +105,8 @@ public class Startup
         {
             endpoints.MapAllActuators()
         }
-
-        app.ApplicationServices.InitializeAvailability(); // Initializes health readiness and liveness probes
+        // Initializes health readiness and liveness probes
+        app.ApplicationServices.InitializeAvailability();
     }
 }
 ```
