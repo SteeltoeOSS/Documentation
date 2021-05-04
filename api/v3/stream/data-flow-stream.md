@@ -3,10 +3,10 @@ title: 'Steeltoe Stream Processing using Spring Cloud Data Flow'
 description: 'Create and Deploy a Steeltoe Stream Processing Pipeline using Spring Cloud Data Flow'
 ---
 # Introduction
+
 Spring Cloud Data Flow (SCDF) is a cloud-native orchestration service for composing microservice based applications on modern runtimes. With Spring Cloud Data Flow, developers can create and orchestrate data pipelines for common use cases such as data ingestion, real-time analytics, and data import/export.
 
-
-### Features
+## Features
 
 * Develop applications using DSL, REST-APIs, Dashboard, and the drag-and-drop GUI - Flo
 * Create, unit-test, troubleshoot and manage microservice applications in isolation
@@ -33,10 +33,7 @@ In this guide, we describe how you can register these Steeltoe based components 
 ## Development
 
 The [samples repo](https://github.com/SteeltoeOSS/Samples/tree/main/Streams) has a number of Steeltoe stream sample applications. For this example we will be using the `CloudDataFlowLogToUpperProcessor` sample, which implements an `IProcessor` interface and the `CloudDataFlowLogSink` sample, which implements an `ISink` interface.
-For an `ISource` we will use the `HttpSource`  application available at 
-```
-maven://org.springframework.cloud.stream.app:http-source-rabbit:3.0.1 
-``` 
+For an `ISource` use the `HttpSource` application available at `maven://org.springframework.cloud.stream.app:http-source-rabbit:3.0.1` 
 
 Spring Cloud team publishes a number of sample applications as `maven` and `docker` artifacts at the `https://repo.spring.io` Maven repository. These pre-packaged applications can be used with Steeltoe Streams.
 
@@ -72,7 +69,7 @@ docker://springcloudstream/usage-cost-logger-rabbit:0.0.1-SNAPSHOT
 
 ### The Data Flow Dashboard
 
-Assuming Data Flow is [installed](https://dataflow.spring.io/docs/installation/cloudfoundry/) and running <!-- TODO: on one of the supported platforms -->, open your browser at `<data-flow-url>/dashboard`. Here, `<data-flow-url>` depends on the platform. See the [installation guide](https://dataflow.spring.io/docs/installation/cloudfoundry/) to determining the base URL for your installation. 
+Assuming Data Flow is [installed](https://dataflow.spring.io/docs/installation/cloudfoundry/) and running <!-- TODO: on one of the supported platforms -->, open your browser at `<data-flow-url>/dashboard`. Here, `<data-flow-url>` depends on the platform. See the [installation guide](https://dataflow.spring.io/docs/installation/cloudfoundry/) to determining the base URL for your installation.
 
 <!-- TODO: If Data Flow is running on your local machine, go to http://localhost:9393/dashboard. -->
 
@@ -125,8 +122,7 @@ You can register the `HttpSource` source application. To do so:
 
 1. Register the `docker` artifact of the `HttpSource` application named `http-source`, as follows:
 
-   > (uri = `
-source.http=docker:springcloudstream/http-source-rabbit:3.0.1`)
+   > (uri = `source.http=docker:springcloudstream/http-source-rabbit:3.0.1`)
 
 1. Click on **NEW APPLICATION** to display another instance of the form to enter the values for the processor.
 

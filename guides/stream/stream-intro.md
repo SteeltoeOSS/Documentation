@@ -1,6 +1,6 @@
 ### Quick Start
 
-This guide will show you how to create a Steeltoe Stream servfice that receives messages coming from messaging middleware of your choice and logs the received message to the console.
+This guide will show you how to create a Steeltoe Stream service that receives messages coming from messaging middleware of your choice and logs the received message to the console.
 
 We call it `LoggingConsumer`. While not very practical, it provides a good introduction to some of the main concepts
 and abstractions, making it easier to digest the rest of this user guide.
