@@ -756,7 +756,7 @@ After 5 seconds, the message expires and is routed to the original queue by usin
 ```
 
 Notice that the count property in the `x-death` header is a `long`. 
-
+-->
 ## Error Channels
 
 The binder unconditionally sends exceptions to an error channel for each consumer destination and can also be configured to send async producer send failures to an error channel.
@@ -804,7 +804,7 @@ These examples use a `@RabbitListener` to receive messages from the DLQ.
 You could also use `RabbitTemplate.receive()` in a batch process.
 
 The examples assume the original destination is `so8400in` and the consumer group is `so8400`.
-
+<!--
 ### Non-Partitioned Destinations
 
 The first two examples are for when the destination is *not* partitioned:
