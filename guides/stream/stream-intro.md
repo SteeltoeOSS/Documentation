@@ -1,11 +1,11 @@
 ### Quick Start
 
-This guide will show you how to create a Spring Cloud Stream application that receives messages coming from the messaging middleware of your choice and logs received messages to the console.
+This guide will show you how to create a Steeltoe Stream servfice that receives messages coming from messaging middleware of your choice and logs the received message to the console.
 
 We call it `LoggingConsumer`. While not very practical, it provides a good introduction to some of the main concepts
 and abstractions, making it easier to digest the rest of this user guide.
 
-First, **start a rabbitmq server** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of RabbitMQ. 
+First, **start a rabbitmq server** locally using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles). 
 
 1. [Creating a Sample Application by Using Steeltoe Initializr](https://start.steeltoe.io)
 1. Name the project `LoggingConsumer`
@@ -14,7 +14,7 @@ First, **start a rabbitmq server** using the [Steeltoe dockerfile](https://githu
 1. [Adding a Message Handler, Building, and Running](#steeltoe-stream-preface-adding-message-handler)
 
 #### <a name="steeltoe-stream-preface-creating-sample-application"></a>Creating a Sample Application by Using Spring Initializr
-To get started, visit the [Spring Initializr](https://start.steeltoe.io). From there, you can generate our `LoggingConsumer` application. To do so:
+To get started, visit the [Steeltoe Initializr](https://start.steeltoe.io). From there, you can generate our `LoggingConsumer` application. To do so:
 
 <!-- TODO: initializr template for Stream 
 1. In the *Dependencies* section, start typing `stream`.
@@ -33,8 +33,7 @@ To get started, visit the [Spring Initializr](https://start.steeltoe.io). From t
     Doing so downloads the zipped version of the generated project to your hard drive.
 1. Unzip the file into the folder you want to use as your project directory.
 
-TIP: We encourage you to explore the many possibilities available in the Steeltoe Initializr.
-It lets you create many different kinds of .NET applications.
+TIP: We encourage you to explore the many possibilities available in the Steeltoe Initializr as it lets you create many different kinds of .NET applications.
 
 #### <a name="steeltoe-stream-preface-importing-project"></a>Importing the Project into Your IDE
 
@@ -100,7 +99,7 @@ Doing so signals to the framework to initiate binding to the messaging middlewar
 * We have added a `Handle` method to receive incoming messages of type `Person`.
 Doing so lets you see one of the core features of the framework: It tries to automatically convert incoming message payloads to type `Person`.
 
-You now have a fully functional Steeltoe Stream application that does listens for messages.
+You now have a fully functional Steeltoe Streams application that listens for messages.
 Assuming you have RabbitMQ installed and running, you can start the application in your IDE.
 
 You should see following output:
@@ -131,4 +130,4 @@ Then, in your console, you should see:
 
 `Received: Sam Spade`
 
-Now you have a working (albeit very basic) Spring Cloud Stream application.
+Now you have a working (albeit very basic) Streams based service.
