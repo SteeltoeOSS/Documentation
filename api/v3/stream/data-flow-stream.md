@@ -3,38 +3,38 @@ title: 'Steeltoe Stream Processing using Spring Cloud Data Flow'
 description: 'Create and Deploy a Steeltoe Stream Processing Pipeline using Spring Cloud Data Flow'
 ---
 # Introduction
-Spring Cloud Data Flow is a cloud-native orchestration service for composable microservice applications on modern runtimes. With Spring Cloud Data Flow, developers can create and orchestrate data pipelines for common use cases such as data ingest, real-time analytics, and data import/export.
+Spring Cloud Data Flow (SCDF) is a cloud-native orchestration service for composing microservice based applications on modern runtimes. With Spring Cloud Data Flow, developers can create and orchestrate data pipelines for common use cases such as data ingest, real-time analytics, and data import/export.
 
 
 ### Features
 
-* Develop using DSL, REST-APIs, Dashboard, and the drag-and-drop GUI - Flo
+* Develop applications using DSL, REST-APIs, Dashboard, and the drag-and-drop GUI - Flo
 * Create, unit-test, troubleshoot and manage microservice applications in isolation
-* Build data pipelines rapidly using the out-of-the-box stream and task/batch components
+* Build data pipelines rapidly using out-of-the-box stream and task/batch components
 * Consume microservices written in Java or other languages as docker artifacts
 * Scale data pipelines without interrupting data flows
 * Orchestrate data-centric applications on a variety of modern runtime platforms including Cloud Foundry, Apache YARN, Apache Mesos, and Kubernetes
-* Take advantage of metrics, health checks, and the remote management of each microservice component
+* Take advantage of metrics, health checks, and the remote management of each microservice application
 
 # Deploying .NET Components to SCDF
 
-Steeltoe Streams enables .NET services to run on SCDF by parsing the appropriate configuration and binding to the message broker. .NET applications built with Steeltoe are interoperable with their Java counterparts allowing you the ability to leverage prebuilt components written in other languages and maintained by the Spring Cloud team. To learn more about these components, Spring Cloud Data Flow team has an excellent guide that describes installing and deploying Java applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). 
+Steeltoe Streams enables .NET components to run on SCDF by parsing and acting on the appropriate SCDF configuration parameters and binding the .NET application to the underlying message broker. .NET components built with Steeltoe are interoperable with their Java counterparts giving you the ability to leverage prebuilt components written in other languages (e.g. Java, etc.) and maintained by the Spring Cloud Data Flow team. To learn more about these components, SCDF team has an excellent guide that describes installing and deploying Java based applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). We encourage you to get familiar with that content.
 
-This guide is focused on describing how you can deploy .NET based Steeltoe Stream components on SCDF and how you can easily combine them with already existing components written in other languages.
+This guide is focused on describing how you can deploy .NET based Streams components to SCDF and how you can easily combine them with already existing components written in other languages such as Java.
 
 # Steeltoe Stream Processing with Data Flow and RabbitMQ
 
-This section shows how to register stream applications with Data Flow, create a Stream DSL, and deploy the stream to Cloud Foundry, Kubernetes, and your local machine.
+This section shows how to register stream applications with Data Flow, create a Stream DSL, and deploy the resulting applicaiton to Cloud Foundry, Kubernetes, and your local machine.
 
-In our previous guides, we created `ISource`, `IProcessor` and `ISink` .NET streaming components and deployed them as standalone applications (i.e. not on SCDF). <!-- TODO: on multiple platforms. -->
+In our previous guides we created `ISource`, `IProcessor` and `ISink` .NET streaming components using Steeltoe and deployed them as standalone applications (i.e. not on SCDF). <!-- TODO: on multiple platforms. -->
 
-In this guide, we describe how you can register these .NET components with Data Flow, combine them with Java based components, create a Stream DSL to orchestrate their interactions, and deploy the final stream application to Cloud Foundry.<!-- , Kubernetes, and your local machine. -->
+In this guide, we describe how you can register these Steeltoe based components with Data Flow, combine them with other Java based components, create a Stream DSL to orchestrate their interactions, and deploy the final application to Cloud Foundry.<!-- , Kubernetes, and your local machine. -->
 
 ## Development
 
-The Spring Cloud team publishes a number of sample stream components, written in other languages (e.g. Java, etc.), at the `https://repo.spring.io` repository. These off-the-shelf components can easily be used and combined with .NET based Steeltoe Streams components you develop.
+The SCDF team publishes a number of sample stream components, written in other languages (e.g. Java, etc.), at the `https://repo.spring.io` repository. These off-the-shelf components can easily be used and combined with .NET based Steeltoe Streams components you develop.
 
-In this example,we will be using the Java based HttpSource component available at 
+In this example, we will be using the Java based HttpSource component available at 
 ``` 
 maven://org.springframework.cloud.stream.app:http-source-rabbit:3.0.1 
 ```
