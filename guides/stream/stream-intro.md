@@ -5,7 +5,11 @@ This guide will show you how to create a Steeltoe Stream service that receives m
 We call it `LoggingConsumer`. While not very practical, it provides a good introduction to some of the main concepts
 and abstractions, making it easier to digest the rest of this user guide.
 
-First, **start a rabbitmq server** locally using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles). 
+First, **start a rabbitmq server** locally using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
+
+```shell
+    docker run --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+```
 
 1. [Creating a Sample Application by Using Steeltoe Initializr](https://start.steeltoe.io)
 1. Name the project `LoggingConsumer`
@@ -21,12 +25,12 @@ To get started, visit the [Steeltoe Initializr](https://start.steeltoe.io). From
     When the "`Cloud Stream`" option should appears, select it.
 1. Start typing 'rabbit'.
 1. Select "`RabbitMQ`". -->
+
 1. In the *Name* field, type 'LoggingConsumer'.
   
     <!-- 
     TODO:  If you chose RabbitMQ for the middleware, your Spring Initializr should now be as follows:
-    ![Spring Initializr](./images/spring-initializr.png) 
-    
+    ![Spring Initializr](./images/spring-initializr.png)
     -->
 
 1. Click the *Generate Project* button.
@@ -104,7 +108,7 @@ Assuming you have RabbitMQ installed and running, you can start the application 
 
 You should see following output:
 
-```
+```shell
 info: Steeltoe.Messaging.RabbitMQ.Connection.CachingConnectionFactory[0]
       Attempting to connect to: amqp://127.0.0.1:5672
 info: Microsoft.Hosting.Lifetime[0]
@@ -124,7 +128,9 @@ For something more predictable, you can use an explicit group name by setting `s
 
 The contents of the message should be a JSON representation of the `Person` class, as follows:
 
-	{"name":"Sam Spade"}
+```json
+{"name":"Sam Spade"}
+```
 
 Then, in your console, you should see:
 
