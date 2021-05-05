@@ -1,6 +1,6 @@
-# Reference
+# Steeltoe Streams Reference
 
-This section explores the components that make up the Steeltoe Streams framework together with how to build Streams based applications.
+This section explores the components that make up the Steeltoe Streams framework together with how to build Streams-based applications.
 
 ## Main Concepts
 
@@ -138,26 +138,27 @@ and converts the strings to uppercase and then sends the results to a destinatio
 
 ```csharp
 [EnableBinding(typeof(IProcessor))]
-public class Program {
-
-	public static async Task Main(string[] args)
+public class Program
+{
+  public static async Task Main(string[] args)
   {
     var host = StreamsHost
       .CreateDefaultBuilder<Program>(args)
       .Build();
       await host.StartAsync();
-	}
+  }
 
-	[StreamListener(IProcessor.INPUT)]
-	[SendTo(IProcessor.OUTPUT)]
-	public string Handle(string value) {
-		Console.WriteLine("Received: " + value);
-		return value.ToUpper();
-	}
+  [StreamListener(IProcessor.INPUT)]
+  [SendTo(IProcessor.OUTPUT)]
+  public string Handle(string value)
+  {
+    Console.WriteLine("Received: " + value);
+    return value.ToUpper();
+  }
 }
 ```
 
-If you examine the `EnableBinding` attribute you'll see that it takes one or more interface types as parameters. Each interface represents a binding and each method defined in the binding interface represents a bindable or more frequently refered to as a destination. Normally, each bindable represents a named message channel when using channel-based binders such as RabbitMQ, Kafka, etc. However other types of bindings can provide other types of bindables which are intended to support native features of the underlying messaging technology.
+If you examine the `EnableBinding` attribute, you'll see that it takes one or more interface types as parameters. Each interface represents a binding and each method defined in the binding interface represents a bindable (frequently referred to as a destination). Normally, each bindable represents a named message channel when using channel-based binders such as RabbitMQ, Kafka, etc. However, other types of bindings can provide other types of bindables which are intended to support native features of the underlying messaging technology.
 
 Out of the box, Steeltoe provides the three bindings that are commonly used in messaging based services. `ISource`, `ISink`, and `IProcessor` bindings are generic enough that you can use them with many different messaging systems.
 
@@ -191,15 +192,14 @@ public interface IProcessor : ISource, ISink
 
 Notice in the above the usage of `Input` and `Output` attributes on the property getters.
 
-The `Input` attribute identifies an input channel from which messages received enter the service.  Notice that the construtor argument gives it a name and the type of channel is defined by the return type of the getter (`ISubscribableChannel`).
-The `Output` attribute identifies an output channel, through which messages are published. Again, notice the construtor argument gives it a name and the type of channel is defined by the return type of the getter (`ISubscribableChannel`).
+The `Input` attribute identifies an input channel from which messages received enter the service.  Notice that the constructor argument gives it a name and the type of channel is defined by the return type of the getter (`ISubscribableChannel`).
+The `Output` attribute identifies an output channel, through which messages are published. Again, notice the constructor argument gives it a name and the type of channel is defined by the return type of the getter (`ISubscribableChannel`).
 As you can see, both the `Input` and `Output` attributes optionally take a `channel name` as a constructor parameter.  If a name is not provided, the name of the annotated method is used as the channel name.
 
 Steeltoe Streams automatically creates an implementation of the interface for you upon start up and makes it available in the service container.
-While not a common use case, you can use this in the application service by adding it as a constructor argument to a service you have written. This will give you access to the channel directly using the property getter.  This is not a common way of accessing the channel as Steeltoe provides a much easier programming model which is normally used.
+While not a common use case, you can use this in the application service by adding it as a constructor argument to a service you have written. This will give you access to the channel directly via the property getter.  This is not a common way of accessing the channel as Steeltoe provides a much easier programming model which is normally used.
 
-While the out of the box bindings satisfy the majority of use cases, you can also define your own contracts by defining your own binding interfaces by using the `Input` and `Output`
-attributes to identify the actual bindables.
+While the out-of-the-box bindings satisfy the majority of use cases, you can also create your own contracts by defining your own binding interfaces with the `Input` and `Output` attributes identifying the actual bindables.
 
 For example:
 
@@ -232,11 +232,11 @@ public class Program {
       .CreateDefaultBuilder<Program>(args)
       .Build();
       await host.StartAsync();
-	}
+  }
 }
 ```
 
-Notice in the above examples the retun type of the individual bindables (e.g. interface properties). The bindable return type `IMessageChannel` is a channel component provided as part of the Steeltoe Messaging infrastructure for interfacing with outbound destinations.  The `ISubscribableChannel` is also provided by Steeltoe Messaging and is used for inbound message reception.
+Notice in the above examples the return type of the individual bindables (e.g. interface properties). The bindable return type `IMessageChannel` is a channel component provided as part of the Steeltoe Messaging infrastructure for interfacing with outbound destinations.  The `ISubscribableChannel` is also provided by Steeltoe Messaging and is used for inbound message reception.
 
 The above bindings support event-based message consumption but sometimes you need more control of the interactions with the messaging infrastructure(e.g. rate of consumption). So instead of using a `ISubscribableChannel` channel, you can instead use a pollable message source, `IPollableMessageSource`.
 
@@ -264,7 +264,7 @@ public interface IBarista
 
 In the above example the created channel is named `InboundOrders`.
 
-Normally, you need not access to the individual channels or bindings directly, however there may be times, such as testing or other corner cases, when you do.
+Normally, you do not need to access the individual channels or bindings directly, however there may be times (such as testing or other corner cases) when you do.
 
 Aside from generating channels for each binding and registering them as services in the container, Steeltoe Streams also generates a service that implements the interface.
 That means you can have access to the interfaces representing the bindings or individual channels by injecting the binding interface into your application component.
@@ -276,7 +276,6 @@ The easiest way to write a a Steeltoe Stream application service is by using Ste
 #### StreamListener Attribute
 
 Steeltoe Streams provides a `StreamListener` attribute, modeled after other Steeltoe Messaging annotations (e.g. `RabbitListener`, and others) and supports features such as content-based routing and others.
-
 
 ```csharp
      static async Task Main(string[] args)
@@ -398,7 +397,7 @@ public class Program
       .CreateDefaultBuilder<CatsAndDogs>(args)
       .Build();
       await host.StartAsync();
-	}
+  }
 }
 
 [EnableBinding(typeof(IProcessor))]
@@ -576,7 +575,7 @@ public class Worker : BackgroundService, IMessageHandler
 {
   private readonly IPolledConsumerBinding _binding;
 
-  pubilc Worker(IPolledConsumerBinding binding)
+  public Worker(IPolledConsumerBinding binding)
   {
     _binding = binding;
   }

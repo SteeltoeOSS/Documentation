@@ -1,14 +1,13 @@
 # Spring Cloud Stream RabbitMQ Binder Reference Guide
 
-This guide describes the RabbitMQ implementation of the Steeltoe Stream Binder.
-It contains information about its design, usage and configuration options, as well as information on how the Streams concepts map into RabbitMQ specific constructs.
+This guide describes the RabbitMQ implementation of the Steeltoe Stream Binder, along with usage and configuration options, as well as information on how the Streams concepts map into RabbitMQ-specific constructs.
 
 ## Usage
 
-To use the RabbitMQ binder, you can add it to your Streams application, by using the following in your `.csproj`.
+To use the RabbitMQ binder, add it to your Streams application with a PackageReference in your `.csproj` as seen in this example:
 
 ```xml
-<PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.1.0" />
+<PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.1.0-rc1" />
 ```
 
 ## RabbitMQ Binder Overview
@@ -21,7 +20,7 @@ By default, the RabbitMQ Binder implementation maps each destination to a `Topic
 For each consumer group, a `Queue` is bound to that `TopicExchange`.
 Each consumer instance has a corresponding RabbitMQ `Consumer` instance for its group's `Queue`.
 For partitioned producers and consumers, the queues are suffixed with the partition index and use the partition index as the routing key.
-For anonymous consumers (i.e. those with no `group` property), an auto-delete queue (with a randomized unique name) is used.
+For anonymous consumers (those with no `group` property), an auto-delete queue (with a randomized unique name) is used.
 
 By using the optional `autoBindDlq` option, you can configure the binder to create and configure dead-letter queues (DLQs) (and a dead-letter exchange `DLX`, as well as routing infrastructure).
 By default, the dead letter queue has the name of the destination, appended with `.dlq`.
@@ -34,7 +33,7 @@ This option does not require retry to be enabled.
 You can republish a failed message after just one attempt and you can configure the delivery mode of republished messages.
 See the `republishDeliveryMode` setting below.
 
-If a stream listener throws an `ImmediateAcknowledgeAmqpException`, the DLQ is bypassed and the message simply discarded. This is True regardless of the setting of `republishToDlq`.
+If a stream listener throws an `ImmediateAcknowledgeAmqpException`, the DLQ is bypassed and the message simply discarded. This is true regardless of the setting of `republishToDlq`.
 
 >**IMPORTANT:** Setting `requeueRejected` to `True` (with `republishToDlq=False` ) causes the message to be re-queued and redelivered continually, which is likely not what you want unless the reason for the failure is transient.
 In general, you should enable retry within the binder by setting `maxAttempts` to greater than one or by setting `republishToDlq` to `True`.
@@ -111,7 +110,7 @@ The acknowledge mode.
 
 **anonymousGroupPrefix**
 When the binding has no `group` setting, an anonymous, auto-delete queue is bound to the destination exchange.
-The default naming stragegy for such queues results in a queue named `anonymous.<base64 representation of a UUID>`.
+The default naming strategy for such queues results in a queue named `anonymous.<base64 representation of a UUID>`.
 Set this property to change the prefix to something other than the default.
 
   Default: `anonymous.`.
@@ -362,7 +361,7 @@ When `republishToDlq` is `True`, specifies the delivery mode of the republished 
 **republishToDlq**
 By default, messages that fail after retries are exhausted are rejected.
 If a dead-letter queue (DLQ) is configured, RabbitMQ routes the failed message (unchanged) to the DLQ.
-If set to `True`, the binder republishs failed messages to the DLQ with additional headers, including the exception message and stack trace from the cause of the final failure.
+If set to `True`, the binder republishes failed messages to the DLQ with additional headers, including the exception message and stack trace from the cause of the final failure.
 Also see the `frameMaxHeadroom` setting above.
 
   Default: `False`
