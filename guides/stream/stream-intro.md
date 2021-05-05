@@ -13,7 +13,7 @@ First, **start a rabbitmq server** locally using the [Steeltoe dockerfile](https
 1. Add the "Steeltoe.Stream.StreamBase" dependency
 1. [Adding a Message Handler, Building, and Running](#steeltoe-stream-preface-adding-message-handler)
 
-#### <a name="steeltoe-stream-preface-creating-sample-application"></a>Creating a Sample Application by Using Spring Initializr
+#### Creating a Sample Application by Using Spring Initializr
 To get started, visit the [Steeltoe Initializr](https://start.steeltoe.io). From there, you can generate our `LoggingConsumer` application. To do so:
 
 <!-- TODO: initializr template for Stream 
@@ -35,7 +35,7 @@ To get started, visit the [Steeltoe Initializr](https://start.steeltoe.io). From
 
 TIP: We encourage you to explore the many possibilities available in the Steeltoe Initializr as it lets you create many different kinds of .NET applications.
 
-#### <a name="steeltoe-stream-preface-importing-project"></a>Importing the Project into Your IDE
+#### Importing the Project into Your IDE
 
 Now you can open the project in your IDE.
 
@@ -44,7 +44,7 @@ Once imported, the project must have no errors of any kind.
 Technically, at this point, you can run the application's Program class.
 However, it does not do anything, so we want to add some code.
 
-#### <a name="steeltoe-stream-preface-adding-message-handler"></a>Adding a Message Handler, Building, and Running
+#### Adding a Message Handler, Building, and Running
 
 Modify the `LoggingConsumer.Program` class to look as follows:
 

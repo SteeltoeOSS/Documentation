@@ -8,7 +8,7 @@ Spring Cloud Data Flow (SCDF) is a cloud-native orchestration service for compos
 
 ## Features
 
-* Develop applications using DSL, REST-APIs, Dashboard, and the drag-and-drop GUI - Flo
+* Develop applications using DSL, REST-APIs, Dashboard, and the drag-and-drop GUI - [Flo](https://github.com/spring-projects/spring-flo)
 * Create, unit-test, troubleshoot and manage microservice applications in isolation
 * Build data pipelines rapidly using out-of-the-box stream and task/batch components
 * Consume microservices written in Java or other languages as docker artifacts
