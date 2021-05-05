@@ -16,13 +16,13 @@ Spring Cloud Data Flow (SCDF) is a cloud-native orchestration service for compos
 * Orchestrate data-centric applications on a variety of modern runtime platforms including Cloud Foundry, Apache YARN, Apache Mesos, and Kubernetes
 * Take advantage of metrics, health checks, and the remote management of each microservice application
 
-# Deploying .NET Components to SCDF
+## Deploying .NET Components to SCDF
 
 Steeltoe Streams enables .NET components to run on SCDF by parsing and acting on the appropriate SCDF configuration parameters and binding the .NET application to the underlying message broker. .NET components built with Steeltoe are interoperable with their Java counterparts giving you the ability to leverage prebuilt components written in other languages (e.g. Java, etc.) and maintained by the Spring Cloud Data Flow team. To learn more about these components, SCDF team has an excellent guide that describes installing and deploying Java based applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). We encourage you to get familiar with that content.
 
 This guide is focused on describing how you can deploy .NET based Streams components to SCDF and how you can easily combine them with already existing components written in other languages such as Java.
 
-# Steeltoe Stream Processing with Data Flow and RabbitMQ
+## Steeltoe Stream Processing with Data Flow and RabbitMQ
 
 This section shows how to register stream applications with Data Flow, create a Stream DSL, and deploy the resulting applicaiton to Cloud Foundry, Kubernetes, and your local machine.
 
