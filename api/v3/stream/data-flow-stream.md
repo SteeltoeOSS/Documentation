@@ -113,7 +113,7 @@ accessible. We recommend using `http://`, `maven://` or `docker://` for applicat
 
 This example assumes Spring Cloud Data Flow and Skipper servers are running in your Cloud Foundry environment.
 
-You can register the `HttpSource` source application. To do so:
+In addition to the samples, register the pre-packaged `HttpSource` source application. To do so:
 
 1. From the Applications view, select **ADD APPLICATION(S)**.
    This shows a view that lets you register applications.
