@@ -5,7 +5,7 @@ This guide will show you how to create a Steeltoe Stream service that receives m
 We call it `LoggingConsumer`. While not very practical, it provides a good introduction to some of the main concepts
 and abstractions, making it easier to digest the rest of this user guide.
 
-First, **start a rabbitmq server** locally using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
+First, **start a rabbitmq server** locally using Docker:
 
 ```shell
     docker run --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
