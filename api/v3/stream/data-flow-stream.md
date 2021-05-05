@@ -18,13 +18,13 @@ Spring Cloud Data Flow (SCDF) is a cloud-native orchestration service for compos
 
 ## Deploying .NET Components to SCDF
 
-Steeltoe Streams enables .NET components to run on SCDF by parsing and acting on the appropriate SCDF configuration parameters and binding the .NET application to the underlying message broker. .NET components built with Steeltoe are interoperable with their Java counterparts giving you the ability to leverage prebuilt components written in other languages (e.g. Java, etc.) and maintained by the Spring Cloud Data Flow team. To learn more about these components, SCDF team has an excellent guide that describes installing and deploying Java based applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). We encourage you to get familiar with that content.
+Steeltoe Streams enables .NET components to run on SCDF by parsing and acting on the appropriate SCDF configuration parameters and binding the .NET application to the underlying message broker. .NET components built with Steeltoe are interoperable with their Java counterparts giving you the ability to leverage prebuilt components written in other languages (such as Java) and maintained by the Spring Cloud Data Flow team. To learn more about these components, SCDF team has an excellent guide that describes installing and deploying Java based applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). We encourage you to get familiar with that content.
 
 This guide is focused on describing how you can deploy .NET based Streams components to SCDF and how you can easily combine them with already existing components written in other languages such as Java.
 
 ## Steeltoe Stream Processing with Data Flow and RabbitMQ
 
-This section shows how to register stream applications with Data Flow, create a Stream DSL, and deploy the resulting applicaiton to Cloud Foundry, Kubernetes, and your local machine.
+This section shows how to register stream applications with Data Flow, create a Stream DSL, and deploy the resulting application to Cloud Foundry, Kubernetes, and your local machine.
 
 In our previous guides we created `ISource`, `IProcessor` and `ISink` .NET streaming components using Steeltoe and deployed them as standalone applications (i.e. not on SCDF). <!-- TODO: on multiple platforms. -->
 
@@ -32,7 +32,7 @@ In this guide, we describe how you can register these Steeltoe based components 
 
 ## Development
 
-The [samples repo](https://github.com/SteeltoeOSS/Samples/tree/main/Streams) has a number of Steeltoe stream sample applications. For this example we will be using the `CloudDataFlowLogToUpperProcessor` sample, which implements an `IProcessor` interface and the `CloudDataFlowLogSink` sample, which implements an `ISink` interface.
+The [samples repo](https://github.com/SteeltoeOSS/Samples/tree/main/Streams) has a number of Steeltoe Stream sample applications. For this example we will be using the `CloudDataFlowLogToUpperProcessor` sample, which implements an `IProcessor` interface and the `CloudDataFlowLogSink` sample, which implements an `ISink` interface.
 For an `ISource` use the `HttpSource` application available at `maven://org.springframework.cloud.stream.app:http-source-rabbit:3.0.1` 
 
 Spring Cloud team publishes a number of sample applications as `maven` and `docker` artifacts at the `https://repo.spring.io` Maven repository. These pre-packaged applications can be used with Steeltoe Streams.
@@ -79,7 +79,7 @@ Applications in Spring Cloud Data Flow are registered as named resources so that
 
 The URI conforms to a [schema](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#spring-cloud-dataflow-register-stream-apps).
 
-As of 3.1.0-RC1 only Docker images are supported.
+>As of Steeltoe 3.1.0-rc1 only Docker images are supported.
 
 <!-- and may represent a Maven artifact, a Docker image, or an actual `http(s)` or `file` URL. -->
  Data Flow defines some logical application types to indicate its role as a streaming component, a task, or a standalone application. For streaming applications, as you might expect, we use `Source`,`Processor`, and `Sink` types.
@@ -91,10 +91,10 @@ The Data Flow Dashboard lands on the Application Registration view, where we can
 In this step, we register the applications we previously created.
 When you register an application, you provide its:
 
-- Location URI (Maven, HTTP, Docker, file, and so on)
-- Application version
-- Application type (source, processor, or sink)
-- Application name
+* Location URI (Maven, HTTP, Docker, file, and so on)
+* Application version
+* Application type (source, processor, or sink)
+* Application name
 
 The following table shows the applications listed in the Samples:
 
@@ -111,7 +111,7 @@ accessible. We recommend using `http://`, `maven://` or `docker://` for applicat
 
 <!-- END_NOTE -->
 
-For this example, assume you run Spring Cloud Data Flow and Skipper servers on your Cloud Foundry environment.
+This example assumes Spring Cloud Data Flow and Skipper servers are running in your Cloud Foundry environment.
 
 You can register the `HttpSource` source application. To do so:
 
