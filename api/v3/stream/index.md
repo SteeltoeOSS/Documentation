@@ -12,7 +12,6 @@ With Steeltoe Streams, developers can:
 * Rely on the framework's automatic content-type support for common use-cases and yet is extendable to different data conversion types as needed.
 * Develop Streams components in .NET which can be deployed on [Spring Cloud Data Flow](https://spring.io/projects/spring-cloud-dataflow#overview).
 
-
 For more reading about Steeltoe Streams:
 
 * Explore the components that make up the streams framework with the [Stream Reference](./stream-reference.md).
