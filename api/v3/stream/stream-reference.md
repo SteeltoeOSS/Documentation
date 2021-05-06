@@ -703,7 +703,7 @@ The error handling comes in two flavors:
 
 There are two types of application-level error handling. Errors can be handled at each binding subscription or by a global handler which handles all the binding errors. Below are the details.
 
-![A Application with Custom and Global Error Handlers](./images/custom_vs_global_error_channels.png)
+   <img src="~/api/v3/stream/images/custom_vs_global_error_channels.png" alt="An Application with Custom and Global Error Handler" width="100%">
 
 For each input binding, Steeltoe Streams creates a dedicated error channel with the following name `<destinationName>.errors`.
 

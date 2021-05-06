@@ -147,7 +147,7 @@
   topicHref: stream/
   items:
     - topicHref: stream/stream-reference.md
-      name: Introduction
+      name: Streams Reference
     - topicHref: stream/rabbit-binder.md
       name: RabbitMQ Binder
     - topicHref: stream/data-flow-stream.md
