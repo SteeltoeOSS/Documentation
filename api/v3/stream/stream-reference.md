@@ -26,7 +26,7 @@ Normally the service communicates with the outside world through input and outpu
 
 ### Binder Abstraction
 
-Steeltoe uses a binder abstraction to make it possible for Streams based servicess to be flexible in how they connect to messaging middleware.
+Steeltoe uses a binder abstraction to make it possible for Streams based services to be flexible in how they connect to messaging middleware.
 Steeltoe automatically detects and uses whatever binder it finds in the services startup directory when attempting to connect to the messaging system. This enables developers to use different types of messaging middleware without the need to change the applications code; You simply include a different binder at deployment time.
 
 For more complex use cases, you can package multiple binders with your services and configure it to choose the correct binder for the different channels or destinations used by the service at runtime.
@@ -40,7 +40,7 @@ You can also use the extensible Binder SPI to write your own should you need to.
 
 Steeltoe also uses a binding abstraction to provide a way to define the name and types of destinations available to the Streams based microservice.  Bindings provide a bridge between the destinations in the external messaging system and the methods in the application which act as message producers and/or consumers.
 
-### Persistent Publish-Subscribe 
+### Persistent Publish-Subscribe
 
 Communication between microservices follow a publish-subscribe model where data is broadcast through shared topics.
 This can be seen in the following figure, which shows a typical deployment for a set of interacting Streams microservices.
@@ -122,8 +122,8 @@ To understand the programming model, you need to understand the following core c
 ### Binder
 
 As mentioned earlier, binders are an abstraction used by Steeltoe that enables Streams based application services to integrate with external messaging systems.
-This integration includes the responsiblity for connectivity, delegation, and routing of messages to and from producers and consumers.  It also includes support for data type conversions,
-invocation of the application code responsible for processing messages, and more.  Binders are an infrastructure compoonent provided by Steeltoe or other third party providers.
+This integration includes the responsibility for connectivity, delegation, and routing of messages to and from producers and consumers.  It also includes support for data type conversions,
+invocation of the application code responsible for processing messages, and more.  Binders are an infrastructure component provided by Steeltoe or other third party providers.
 
 Binders implement a lot of the boiler-plate code that would otherwise fall on the shoulders of an application developer when communicating with the messaging system. A binder typically requires some form of configuration settings in order to properly function. This detail will be covered in an the upcoming section.
 
@@ -134,7 +134,7 @@ As stated earlier, bindings provide the bridge between the external messaging sy
 You can use the `EnableBinding` attribute in your application to declare bindings for your application or you can use service container extension methods to explicitly add them to the container yourself.
 
 For example the following code shows a fully configured and functioning Streams application service that receives strings from a destination with the name `input` and
-and converts the strings to uppercase and then sends the results to a destination with the name `output`.  Notice that the applications `Handle()` method expects the message payload from `input` to be a `string`, and as a result the Streams framework will attempt to convert the incomming message payload to a `string` before calling the handler method (see [Content Type Negotiation](#content-type-negotiation) section).
+and converts the strings to uppercase and then sends the results to a destination with the name `output`.  Notice that the applications `Handle()` method expects the message payload from `input` to be a `string`, and as a result the Streams framework will attempt to convert the incoming message payload to a `string` before calling the handler method (see [Content Type Negotiation](#content-type-negotiation) section).
 
 ```csharp
 [EnableBinding(typeof(IProcessor))]
@@ -386,7 +386,7 @@ It may also help if you familiarize yourself with the [Content Type Negotiation]
 
 Consider the following example:
 
-The code below is perfectly valid. It compiles and deploys without any issues, yet it never produces the result you expect. 
+The code below is perfectly valid. It compiles and deploys without any issues, yet it never produces the result you expect.
 
 ```csharp
 public class Program 
@@ -696,8 +696,8 @@ If the handler throws a `RequeueCurrentMessageException` directly, the message w
 Errors happen and Steeltoe Stream provides several flexible mechanisms to handle them.
 The error handling comes in two flavors:
 
-  * *application:* The error handling is done within the application service using a custom error handler.
-  * *system:* The error handling is delegated to the binder to handle by re-queueing, or using a DL queue or via some other means. Note that the techniques are dependent on binder implementation and the capability of the underlying messaging middleware.
+* *application:* The error handling is done within the application service using a custom error handler.
+* *system:* The error handling is delegated to the binder to handle by re-queueing, or using a DL queue or via some other means. Note that the techniques are dependent on binder implementation and the capability of the underlying messaging middleware.
 
 #### Application Error Handling
 
@@ -719,13 +719,13 @@ spring:cloud:stream:bindings:input:group=myGroup
 [StreamListener(ISink.INPUT)]      // destination name 'input.myGroup'
 public void Handle(Person value) 
 {
-	throw new Exception("BOOM!");
+ throw new Exception("BOOM!");
 }
 
 [ServiceActivator(IProcessor.INPUT + ".myGroup.errors")]     //channel name 'input.myGroup.errors'
 public void Error(IMessage message) 
 {
-	Console.WriteLine("Handling ERROR: " + message);
+ Console.WriteLine("Handling ERROR: " + message);
 }
 ```
 
@@ -744,7 +744,7 @@ a _global error channel_ by bridging each individual error channel to the channe
 [ServiceActivator("errorChannel")]
 public void Error(IMessage message) 
 {
-	Console.WriteLine("Handling ERROR: " + message);
+ Console.WriteLine("Handling ERROR: " + message);
 }
 ```
 
@@ -784,15 +784,15 @@ The `consumer` indicates that it is a consumer property and `autoBindDlq` instru
 Once configured, all failed messages are routed to this queue with an error message similar to the following:
 
 ```yaml
-delivery_mode:	1
+delivery_mode: 1
 headers:
 x-death:
-count:	1
-reason:	rejected
-queue:	input.hello
-time:	1522328151
+count: 1
+reason: rejected
+queue: input.hello
+time: 1522328151
 exchange:
-routing-keys:	input.myGroup
+routing-keys: input.myGroup
 Payload {"name”:"Bob"}
 ```
 
@@ -809,12 +809,12 @@ Doing so forces the internal error handler to intercept the error message and ad
 Once configured, you can see that the error message contains more information relevant to the original error, as follows:
 
 ```yaml
-delivery_mode:	2
+delivery_mode: 2
 headers:
 x-original-exchange:
-x-exception-message:	has an error
-x-original-routingKey:	input.myGroup
-x-exception-stacktrace:	<The stack trace captured during the error>
+x-exception-message: has an error
+x-original-routingKey: input.myGroup
+x-exception-stacktrace: <The stack trace captured during the error>
 Payload {"name”:"Bob"}
 ```
 
@@ -849,17 +849,17 @@ The number of attempts to process the message.
   Default: 3.
 
 **backOffInitialInterval**
-  The backoff initial interval on retry.
+  The back-off initial interval on retry.
 
   Default 1000 milliseconds.
 
 **backOffMaxInterval**
-  The maximum backoff interval.
+  The maximum back-off interval.
 
   Default 10000 milliseconds.
 
 **backOffMultiplier**
-  The backoff multiplier.
+  The back-off multiplier.
 
   Default 2.0.
 
@@ -871,7 +871,7 @@ The number of attempts to process the message.
 **retryableExceptions**
   A list of Exception class names.
   Specify those exceptions (and subclasses) that will be retried.
-  Also see `defaultRetriable`.
+  Also see `defaultRetryable`.
 
   Default: empty.
 
@@ -899,7 +899,7 @@ If there are multiple consumer instances bound with the same group name, then me
 
 The Binder SPI consists of a number of interfaces, out-of-the box utility classes, and discovery strategies that provide a pluggable mechanism for connecting to external middleware.
 
-The key point of the SPI is the `IBinder` interface(s), which is a strategy for connecting inputs and outputs to external middleware. The following listing shows the definnition of the `IBinder` interface:
+The key point of the SPI is the `IBinder` interface(s), which is a strategy for connecting inputs and outputs to external middleware. The following listing shows the definition of the `IBinder` interface:
 
 ```csharp
 public interface IBinder : IServiceNameAware 
@@ -967,12 +967,13 @@ When multiple binders are discovered, the application must indicate which binder
 Each assembly `BinderAttribute` discovered contains the name of the binder that should be used when configuring channel bindings.
 
 Binder selection can either be performed globally, using the `spring:cloud:stream:defaultBinder` configuration key (for example, `spring:cloud:stream:defaultBinder=rabbit`) or individually, by configuring the binder on each channel binding.
-For instance, an application that has channels named `input` and `output` for read and write operations and needs to read from a binder wiih name `foo` and write to RabbitMQ can specify the following configuration:
+For instance, an application that has channels named `input` and `output` for read and write operations and needs to read from a binder with name `foo` and write to RabbitMQ can specify the following configuration:
 
 ```
 spring:cloud:stream:bindings:input:binder=foo
 spring:cloud:stream:bindings:output:binder=rabbit
 ```
+
 <!-- Test before RC2
 ### Connecting to Multiple Systems // TODO Check this
 
@@ -1224,10 +1225,9 @@ When set to a negative value, it defaults to `spring:cloud:stream:instanceCount`
   Default: `-1`.
 
 **retryableExceptions**
-A comma seperated list of Exception class names.
+A comma separated list of Exception class names.
 Specify those exceptions (and subclasses) that will be retried.
-Also see `defaultRetriable`.
-
+Also see `defaultRetryable`.
 
   Default: empty.
 
@@ -1310,7 +1310,7 @@ See the consumer setting `useNativeDecoding`.
   Default: `False`.
 
 **errorChannelEnabled**
-When set to `True`, if the binder supports asynchroous send results, send failures are sent to an error channel for the destination.
+When set to `True`, if the binder supports asynchronous send results, send failures are sent to an error channel for the destination.
 See [Error Handling](#error-handling) for more information.
 
   Default: `False`.
@@ -1369,7 +1369,6 @@ public class SourceWithDynamicDestination {
 
     @Autowired
     private BinderAwareChannelResolver resolver;
-
 
     @RequestMapping(path = "/", method = POST, consumes = "application/json")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -1459,7 +1458,7 @@ To accomplish that, the framework needs some instructions from the user.
 One of these instructions is already provided by the signature of the handler method itself (`Person` type).
 Consequently, in theory, that should be (and, in some cases, is) enough.
 However, for the majority of use cases, in order to select the appropriate `IMessageConverter`, the framework needs an additional piece of information.
-That missing piece is `contentType` of the incomming message.
+That missing piece is `contentType` of the incoming message.
 
 Steeltoe Streams provides three mechanisms to define `contentType` (in order of precedence):
 
@@ -1487,7 +1486,7 @@ You can always opt out of returning a `IMessage` from the handler method where y
 
 As mentioned earlier, for the framework to select the appropriate `IMessageConverter`, it requires argument type and, optionally, content type information.
 The logic for selecting the appropriate `IMessageConverter` resides with the argument resolvers (`IHandlerMethodArgumentResolver`) in use by the application and trigger right before the invocation of the user-defined handler method (which is when the actual argument type is known to the framework).
-If the argument type of the hanlder method does not match the type of the current payload, the framework delegates to a stack of pre-configured `IMessageConverter`s to see if any one of them can convert the payload.
+If the argument type of the handler method does not match the type of the current payload, the framework delegates to a stack of pre-configured `IMessageConverter`s to see if any one of them can convert the payload.
 If you look at the the method  `object FromMessage(IMessage message, Type targetClass);` of the `IMessageConverter` you see it takes `targetClass` as one of its arguments to indicate what `Type` of result it would like.
 
 The framework also ensures that the provided `IMessage` always contains a `contentType` header.
@@ -1542,7 +1541,7 @@ does not know how to convert. If that is the case, you can add custom `IMessageC
 
 Steeltoe Streams exposes a mechanism to define and register additional `IMessageConverters`.
 To use it, implement `Steeltoe.Messaging.Converter.IMessageConverter`, and add it to the service container.
-At startup time, it will be discovered and then apended to the default stack of `IMessageConverter`s.
+At startup time, it will be discovered and then appended to the default stack of `IMessageConverter`s.
 
 >NOTE: It is important to understand that custom `IMessageConverter` implementations are added to the head of the default stack.
 Consequently, custom `IMessageConverter` implementations take precedence over the default ones, which lets you override as well as add to the default converters.
