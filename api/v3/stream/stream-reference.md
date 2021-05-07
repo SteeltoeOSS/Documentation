@@ -719,13 +719,13 @@ spring:cloud:stream:bindings:input:group=myGroup
 [StreamListener(ISink.INPUT)]      // destination name 'input.myGroup'
 public void Handle(Person value) 
 {
- throw new Exception("BOOM!");
+    throw new Exception("BOOM!");
 }
 
 [ServiceActivator(IProcessor.INPUT + ".myGroup.errors")]     //channel name 'input.myGroup.errors'
 public void Error(IMessage message) 
 {
- Console.WriteLine("Handling ERROR: " + message);
+    Console.WriteLine("Handling ERROR: " + message);
 }
 ```
 
@@ -744,7 +744,7 @@ a _global error channel_ by bridging each individual error channel to the channe
 [ServiceActivator("errorChannel")]
 public void Error(IMessage message) 
 {
- Console.WriteLine("Handling ERROR: " + message);
+    Console.WriteLine("Handling ERROR: " + message);
 }
 ```
 
