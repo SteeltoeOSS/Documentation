@@ -13,7 +13,7 @@ To use this connector:
 
 ### Add NuGet Reference
 
-To use the MongoDB connector, add the official [MongoDB.Driver NuGet package](https://www.nuget.org/packages/MongoDB.Driver/) as you would if you were not using Steeltoe. Then add a reference to the appropriate Steeltoe Connector NuGet package.
+To use the MongoDB connector, add the official [MongoDB.Driver NuGet package](https://www.nuget.org/packages/MongoDB.Driver/) as you would if you were not using Steeltoe. Then [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references).
 
 ### Configure Settings
 

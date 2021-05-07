@@ -25,7 +25,7 @@ To use the Microsoft SQL Server connector, add one of the following Microsoft SQ
 * [Entity Framework](https://www.nuget.org/packages/EntityFramework/)
 * [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/)
 
-Add the package as you would if you were not using Steeltoe. Then add a reference to the appropriate Steeltoe Connector NuGet package.
+Add the package as you would if you were not using Steeltoe. Then [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references).
 
 ### Configure Settings
 
@@ -199,7 +199,7 @@ public class TestContext : DbContext
 
 #### Entity Framework Core
 
-To use the Microsoft SQL Server connector with Entity Framework Core, inject a `DbContext` into your application with the standard `AddDbContext<>()` method, substituting Steeltoe’s `UseSqlServer` method that takes an `IConfiguration` as a parameter in the options configuration for the standard `UseSqlServer` method. The following example demonstrates the basic usage:
+To use the Microsoft SQL Server connector with Entity Framework Core, inject a `DbContext` into your application with the standard `AddDbContext<>()` method, substituting Steeltoe's `UseSqlServer` method that takes an `IConfiguration` as a parameter in the options configuration for the standard `UseSqlServer` method. The following example demonstrates the basic usage:
 
 ```csharp
 using Steeltoe.Connector.SqlServer.EFCore;

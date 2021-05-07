@@ -20,7 +20,7 @@ To use this Connector:
 
 ### Add NuGet Reference
 
-To use the OAuth connector, you need to add a reference to the appropriate Steeltoe connector NuGet package.
+To use the OAuth connector, you need to [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references)
 
 ### Configure Settings
 

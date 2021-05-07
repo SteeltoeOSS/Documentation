@@ -9,4 +9,3 @@ All connectors use configuration information from Cloud Foundry's `VCAP_SERVICES
 For more information on `VCAP_SERVICES`, see the Cloud Foundry [documentation](https://docs.cloudfoundry.org/).
 
 >NOTE: Depending on your hosting environment, service instances you create for the purpose of exploring the Quick Starts on this page may have a cost associated.
-

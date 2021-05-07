@@ -28,7 +28,7 @@ To use this connector:
 
 ### Add NuGet Reference
 
-To use the Redis connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and a reference to `Microsoft.Extensions.Caching.Redis`, `Microsoft.Extensions.Caching.StackExhangeRedis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
+To use the Redis connector, you need to [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references) and a reference to `Microsoft.Extensions.Caching.Redis`, `Microsoft.Extensions.Caching.StackExchangeRedis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
 
 >Because `Microsoft.Extensions.Caching.Redis` depends on `StackExchange.Redis.StrongName`, adding a reference to the Microsoft library also enables access to the StackExchange classes, as seen in the sample application.
 

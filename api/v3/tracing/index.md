@@ -107,7 +107,7 @@ public class Startup
     {
         ...
         // Add Distributed tracing
-        services.AddDistributedTracing(Configuration, builder => builer.UseZipkinWithTraceOptions(services));
+        services.AddDistributedTracing(Configuration, builder => builder.UseZipkinWithTraceOptions(services));
 
         // Add framework services.
         services.AddMvc();

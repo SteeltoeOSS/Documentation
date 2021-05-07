@@ -315,7 +315,7 @@ If you expect that the Config Server may occasionally be unavailable when your a
 
 First, you need to set `Spring:Cloud:Config:FailFast=true`. Then you need to enable retry by setting `Spring:Cloud:Config:Retry:Enabled=true`.
 
-The default behavior is to retry six times with an initial backoff interval of 1000ms and an exponential multiplier of 1.1 for subsequent backoffs. You can configure these settings (and others) by setting the `Spring:Cloud:Config:Retry:*` configuration settings described earlier.
+The default behavior is to retry six times with an initial back-off interval of 1000ms and an exponential multiplier of 1.1 for subsequent back-offs. You can configure these settings (and others) by setting the `Spring:Cloud:Config:Retry:*` configuration settings described earlier.
 
 ### Configuring Multiple URLs
 

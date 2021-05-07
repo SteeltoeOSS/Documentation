@@ -2,7 +2,7 @@
 
 You can use the Steeltoe heap dump endpoint to generate and download a mini-dump of your application. The mini-dump can then be read into Visual Studio for analysis.
 
->NOTE: At this time, heap dumps do not work on Linux containers when running in Cloud Foundry.
+>NOTE: At this time, heap dumps do not work on Linux containers in Cloud Foundry because .NET heap dumps on Linux depend on `CAP_SYS_PTRACE`, which is disabled by the [container hardening rules](https://docs.cloudfoundry.org/concepts/container-security.html#hardening).
 
 ## Configure Settings
 

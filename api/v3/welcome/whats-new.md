@@ -151,13 +151,13 @@ Steeltoe Service Discovery has been rearchitected so that the core library no lo
 The base of Steeltoe service discovery is now available in the appropriately named package `Steeltoe.Discovery.ClientBase`, and discovery client implementations are configured as extensions to this package.
 It is also still possible to directly reference the discovery client implementations
 
->A direct reference to any/all discovery client implentations your application may use is now required. Read more in the [Service Discovery documentation](../discovery/initialize-discovery-client.md)
+>A direct reference to any/all discovery client implementations your application may use is now required. Read more in the [Service Discovery documentation](../discovery/initialize-discovery-client.md)
 
 ### Cloud Foundry
 
 For applications running on Cloud Foundry, please be aware of the changes to Connectors and Discovery outlined above.
 
-Addtionally, please note that `UseCloudFoundryHosting` has been removed, in favor of the new `UseCloudHosting`, which is found in the package `Steeltoe.Common.Hosting`.
+Additionally, please note that `UseCloudFoundryHosting` has been removed, in favor of the new `UseCloudHosting`, which is found in the package `Steeltoe.Common.Hosting`.
 
 ### Management
 

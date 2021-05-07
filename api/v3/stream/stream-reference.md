@@ -1213,16 +1213,16 @@ Set to `1` to disable retry.
   Default: `3`.
 
 **backOffInitialInterval**
-The backoff initial interval on retry.
+The back-off initial interval on retry.
 
   Default: `1000`.
 
 **backOffMaxInterval**
-The maximum backoff interval.
+The maximum back-off interval.
 
   Default: `10000`.
 **backOffMultiplier**
-The backoff multiplier.
+The back-off multiplier.
 
   Default: `2.0`.
 
