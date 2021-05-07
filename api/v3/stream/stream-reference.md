@@ -422,10 +422,10 @@ public class CatsAndDogs
 
 The reason this does not work is because at this point the expression is testing something that does not yet exist in the message that is being processed. At this point in processing of an incoming message the payload has not yet been converted from the
 wire format, typically a `byte[]`, to the desired type exposed in the methods signature.  In other words, it has not yet gone through the type conversion process described in the [Content Type Negotiation](#content-type-negotiation).
-
+<!--
 >At the moment, dispatching through `StreamListener` conditions is supported only for channel-based binders.  // TODO: Is this correct?????
 
-<!--
+
   TODO: Keep this as we might need this when we support a functional approach to streams
 
 #### <a name="spring_cloud_function"></a>Spring Cloud Function support
@@ -551,67 +551,88 @@ For example, the above composition could be defined as such (if both functions p
 
 #### Polled Consumers
 
-// TODO: This entire section needs to be validated, all the C# code which follows needs to be validated as its significantly different than the java example
-
 When implementing polled consumers, you are required to poll the `IPollableMessageSource` on demand.
 Consider the following example of a polled consumer:
 
 ```csharp
+
 public interface IPolledConsumerBinding
 {
-  [Input]
-  IPollableMessageSource DestIn { get; }
+    [Input]
+    IPollableMessageSource DestIn { get; }
 
-  [Output]
-  IMessageChannel DestOut { get; }
-
+    [Output]
+    IMessageChannel DestOut { get; }
 }
+
+[EnableBinding(typeof(IPolledConsumerBinding))]
+public class Program
+{
+    static async Task Main(string[] args)
+    {
+        var host = StreamsHost
+          .CreateDefaultBuilder<Program>(args)
+          .ConfigureServices(svc => svc.AddHostedService<Worker>())
+          .Build();
+        await host.StartAsync();
+    }
+}
+
 ```
 
 Given the polled consumer in the preceding example, you might use it as follows:
 
 ```csharp
-public class Worker : BackgroundService, IMessageHandler
-{
-  private readonly IPolledConsumerBinding _binding;
-
-  public Worker(IPolledConsumerBinding binding)
-  {
-    _binding = binding;
-  }
-
-  protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-  {
-    while (!stoppingToken.IsCancellationRequested)
+  public class Worker : BackgroundService, IMessageHandler
     {
-        _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-        try 
+        private readonly IPolledConsumerBinding _binding;
+        private readonly ILogger<Worker> _logger;
+
+        public string ServiceName { get; set; } = "BackgroundWorker";
+
+        public Worker(IPolledConsumerBinding binding, ILogger<Worker> logger)
         {
-          if (!_binding.DestIn.Poll(this))
-          {
-            await Task.Delay(1000, stoppingToken);
-          }
+            _binding = binding;
+            _logger = logger;
         }
-        catch (Exception e)
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-          // handle failure
+            await Task.Delay(5000, stoppingToken); // Wait for setup on first poll 
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                try
+                {
+                    if (!_binding.DestIn.Poll(this))
+                    {
+                        await Task.Delay(2000, stoppingToken);
+                    }
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, e.Message);
+                }
+            }
+        }
+
+        public void HandleMessage(IMessage message)
+        {
+            try
+            {
+                var payloadString = (string)message.Payload;
+                var newPayload = payloadString.ToUpper();
+                _logger.LogInformation("Received Message : " + payloadString);
+                _binding.DestOut.Send(Message.Create(newPayload));
+                _logger.LogInformation("Sent Message : " + newPayload);
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+            }
         }
     }
-  }
-
-  public void HandleMessage(IMessage message)
-  {
-    try 
-    {
-      var newPayload = ((string) message.Payload).ToUpper();
-      _binding.DestOut.Send(Message.Create(newPayload));
-    } 
-    catch (Exception e)
-    {
-      // handle failure
-    }
-  }
-}
 ```
 
 The `IPollableMessageSource.Poll()` method takes a `IMessageHandler` argument. It returns `True` if a message was received and successfully processed.
