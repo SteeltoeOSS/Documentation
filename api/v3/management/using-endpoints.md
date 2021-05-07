@@ -1,6 +1,6 @@
 # Using Endpoints
 
-Steeltoe provides a base set of endpoint (also known as actuator actuator) functionality, along with several implementations for exposing the endpoints over HTTP. HTTP implementations are provided with ASP.NET Core middleware. To expose the core endpoint functionality over some protocol other than HTTPS, you can provide your own implementation.
+Steeltoe provides a base set of endpoint (also known as actuator) functionality, along with several implementations for exposing the endpoints over HTTP. HTTP implementations are provided with ASP.NET Core middleware. To expose the core endpoint functionality over some protocol other than HTTPS, you can provide your own implementation.
 
 ## Reference Materials
 
