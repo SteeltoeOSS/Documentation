@@ -52,7 +52,7 @@ Steeltoe lets you automatically configure and manage connections to common cloud
 Steeltoe includes .NET clients to both register and discover microservices in your registry of choice.
 [read more](../discovery/index.md)
 
-## [Streams](../stream/index.md)
+## [Streams](../streams/index.md)
 
 Steeltoe Streams is a framework for building message-driven microservice applications.
-[read more](../stream/index.md)
+[read more](../streams/index.md)

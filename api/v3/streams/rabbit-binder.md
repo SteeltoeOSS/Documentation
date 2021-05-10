@@ -38,10 +38,10 @@ If a stream listener throws an `ImmediateAcknowledgeAmqpException`, the DLQ is b
 >**IMPORTANT:** Setting `requeueRejected` to `True` (with `republishToDlq=False` ) causes the message to be re-queued and redelivered continually, which is likely not what you want unless the reason for the failure is transient.
 In general, you should enable retry within the binder by setting `maxAttempts` to greater than one or by setting `republishToDlq` to `True`.
 
-See [RabbitMQ Binder Settings](#rabbit-binder-settings) for more information about configuring these settings.
+See [RabbitMQ Binder Settings](#rabbitmq-binder-settings) for more information about configuring these settings.
 
 The framework does not provide any standard mechanism to consume dead-letter messages (or to re-route them back to the primary queue).
-Some options are described in [Dead-Letter Queue Processing](#rabbit-dlq-processing).
+Some options are described in [Dead-Letter Queue Processing](#dead-letter-queue-processing).
 
 <!-- //TODO:  Is this possible with Steeltoe????????????
 >**NOTE:** When multiple RabbitMQ binders are used in a Streams application, it is important to disable 'RabbitAutoConfiguration' to avoid the same configuration from `RabbitAutoConfiguration` being applied to the two binders.
@@ -759,7 +759,7 @@ Notice that the count property in the `x-death` header is a `long`.
 ## Error Channels
 
 The binder unconditionally sends exceptions to an error channel for each consumer destination and can also be configured to send async producer send failures to an error channel.
-See [Error Handling](./stream-reference#error-handling) for more information.
+See [Error Handling](./stream-reference.md#error-handling) for more information.
 
 RabbitMQ has two types of send failures:
 
@@ -769,7 +769,7 @@ RabbitMQ has two types of send failures:
 The latter is rare.
 According to the RabbitMQ documentation "[A nack] will only be delivered if an internal error occurs in the Erlang process responsible for a queue.".
 
-As well as enabling producer error channels (as described in [Error Handling](./stream-reference#error-handling)), the RabbitMQ binder only sends messages to the channels if the connection factory is appropriately configured, as follows.
+As well as enabling producer error channels (as described in [Error Handling](./stream-reference.md#error-handling)), the RabbitMQ binder only sends messages to the channels if the connection factory is appropriately configured, as follows.
 For the RabbitMQ set the following configuration settings:
 
 * `spring:rabbitmq:publisherConfirms=True`
