@@ -49,13 +49,13 @@ namespace WebApplication1
 | [Kubernetes Configuration](../configuration/kubernetes-providers.md) |`Steeltoe.Extensions.Configuration.KubernetesCore` |  N/A |
 | [Random Value Provider](../configuration/random-value-provider.md) |`Steeltoe.Extensions.Configuration.RandomValueBase` |  N/A |
 | [Placeholder Resolver](../configuration/placeholder-provider.md) |`Steeltoe.Extensions.Configuration.PlaceholderCore` |  N/A |
-| [Connectors*](../connectors/) |`Steeltoe.Connector.ConnectorCore` |  Supported driver (MySQL, PostgreSQL, RabbitMQ, SQL Server, etc) |
+| [Connectors*](../connectors/index.md) |`Steeltoe.Connector.ConnectorCore` |  Supported driver (MySQL, PostgreSQL, RabbitMQ, SQL Server, etc) |
 | [Dynamic Serilog](../logging/serilog-logger.md) | `Steeltoe.Extensions.Logging.DynamicSerilogCore` | N/A |
-| [Service Discovery](../discovery/) |`Steeltoe.Discovery.ClientBase` or `ClientCore` | Desired client (Eureka, Consul, Kubernetes)
-| [Actuators](../management/) | `Steeltoe.Management.EndpointCore` | N/A |
+| [Service Discovery](../discovery/index.md) |`Steeltoe.Discovery.ClientBase` or `ClientCore` | Desired client (Eureka, Consul, Kubernetes)
+| [Actuators](../management/index.md) | `Steeltoe.Management.EndpointCore` | N/A |
 | [Actuators with Cloud Foundry support**](../management/cloud-foundry.md) |`Steeltoe.Management.CloudFoundryCore` |  N/A |
-| [Actuators with Kubernetes support](../management/) |`Steeltoe.Management.KubernetesCore` |  N/A |
-| [Distributed Tracing](../tracing/) | `Steeltoe.Management.TracingCore` | N/A |
+| [Actuators with Kubernetes support](../management/index.md) |`Steeltoe.Management.KubernetesCore` |  N/A |
+| [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.TracingCore` | N/A |
 | [Cloud Foundry Container Identity](../security/mtls.md#configure-settings) | `Steeltoe.Security.Authentication.CloudFoundryCore` | N/A |
 
 >\* The [Connection String Configuration provider](../connectors/usage.md#connectionstring-configuration-provider) is always added when `ConnectorCore` is referenced. Individual connector clients will only be configured if a corresponding supported driver NuGet package reference is also included.

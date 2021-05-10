@@ -18,9 +18,9 @@ Spring Cloud Data Flow (SCDF) is a cloud-native orchestration service for compos
 
 ## Deploying .NET Components to SCDF
 
-Steeltoe Streams enables .NET components to run on SCDF by parsing and acting on the appropriate SCDF configuration parameters and binding the .NET application to the underlying message broker. .NET components built with Steeltoe are interoperable with their Java counterparts giving you the ability to leverage prebuilt components written in other languages (such as Java) and maintained by the Spring Cloud Data Flow team. To learn more about these components, SCDF team has an excellent guide that describes installing and deploying Java based applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). We encourage you to get familiar with that content.
+Steeltoe Stream enables .NET components to run on SCDF by parsing and acting on the appropriate SCDF configuration parameters and binding the .NET application to the underlying message broker. .NET components built with Steeltoe are interoperable with their Java counterparts giving you the ability to leverage prebuilt components written in other languages (such as Java) and maintained by the Spring Cloud Data Flow team. To learn more about these components, SCDF team has an excellent guide that describes installing and deploying Java based applications on SCDF at the [Spring Cloud Data Flow Microsite](https://dataflow.spring.io/getting-started/). We encourage you to get familiar with that content.
 
-This guide is focused on describing how you can deploy .NET based Streams components to SCDF and how you can easily combine them with already existing components written in other languages such as Java.
+This guide is focused on describing how you can deploy .NET based Stream components to SCDF and how you can easily combine them with already existing components written in other languages such as Java.
 
 ## Steeltoe Stream Processing with Data Flow and RabbitMQ
 
@@ -32,10 +32,10 @@ In this guide, we describe how you can register these Steeltoe based components 
 
 ## Development
 
-The [samples repo](https://github.com/SteeltoeOSS/Samples/tree/main/Streams) has a number of Steeltoe Stream sample applications. For this example we will be using the `CloudDataFlowLogToUpperProcessor` sample, which implements an `IProcessor` interface and the `CloudDataFlowLogSink` sample, which implements an `ISink` interface.
-For an `ISource` use the `HttpSource` application available at `maven://org.springframework.cloud.stream.app:http-source-rabbit:3.0.1` 
+The [samples repo](https://github.com/SteeltoeOSS/Samples/tree/main/Stream) has a number of Steeltoe Stream sample applications. For this example we will be using the `CloudDataFlowLogToUpperProcessor` sample, which implements an `IProcessor` interface and the `CloudDataFlowLogSink` sample, which implements an `ISink` interface.
+For an `ISource` use the `HttpSource` application available at `maven://org.springframework.cloud.stream.app:http-source-rabbit:3.0.1`
 
-Spring Cloud team publishes a number of sample applications as `maven` and `docker` artifacts at the `https://repo.spring.io` Maven repository. These pre-packaged applications can be used with Steeltoe Streams.
+Spring Cloud team publishes a number of sample applications as `maven` and `docker` artifacts at the `https://repo.spring.io` Maven repository. These pre-packaged applications can be used with Steeltoe Stream.
 
 <!-- For the `UsageDetailSender` source, use one of the following:
 
@@ -147,11 +147,11 @@ To create the stream definition:
 
 1. Select **Streams** from the left navigation bar. This shows the main Streams view, as follows:
 
- <img src="~/api/v3/stream/images/SCDF-create-streams.png" alt="Create Streams " width="100%">
+ <img src="~/api/v3/stream/images/SCDF-create-streams.png" alt="Create Streams" width="100%">
 
 1. Select **Create stream(s)** to display a graphical editor to create the stream definition, as the following image shows:
 
- <img src="~/api/v3/stream/images/SCDF-create-steeltoe-stream.png" alt="Create Steeltoe stream " width="100%">
+ <img src="~/api/v3/stream/images/SCDF-create-steeltoe-stream.png" alt="Create Steeltoe Stream" width="100%">
 
    You can see the `Source`, `Processor` and `Sink` applications, as registered above, in the left panel.
 

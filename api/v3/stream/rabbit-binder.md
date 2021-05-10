@@ -1,10 +1,10 @@
-# Spring Cloud Stream RabbitMQ Binder Reference Guide
+# Steeltoe Stream RabbitMQ Binder Reference Guide
 
-This guide describes the RabbitMQ implementation of the Steeltoe Stream Binder, along with usage and configuration options, as well as information on how the Streams concepts map into RabbitMQ-specific constructs.
+This guide describes the RabbitMQ implementation of the Steeltoe Stream Binder, along with usage and configuration options, as well as information on how the Stream concepts map into RabbitMQ-specific constructs.
 
 ## Usage
 
-To use the RabbitMQ binder, add it to your Streams application with a PackageReference in your `.csproj` as seen in this example:
+To use the RabbitMQ binder, add it to your Stream application with a PackageReference in your `.csproj` as seen in this example:
 
 ```xml
 <PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.1.0-rc1" />
@@ -38,13 +38,13 @@ If a stream listener throws an `ImmediateAcknowledgeAmqpException`, the DLQ is b
 >**IMPORTANT:** Setting `requeueRejected` to `True` (with `republishToDlq=False` ) causes the message to be re-queued and redelivered continually, which is likely not what you want unless the reason for the failure is transient.
 In general, you should enable retry within the binder by setting `maxAttempts` to greater than one or by setting `republishToDlq` to `True`.
 
-See [RabbitMQ Binder Settings](#rabbit-binder-settings) for more information about configuring these settings.
+See [RabbitMQ Binder Settings](#rabbitmq-binder-settings) for more information about configuring these settings.
 
 The framework does not provide any standard mechanism to consume dead-letter messages (or to re-route them back to the primary queue).
-Some options are described in [Dead-Letter Queue Processing](#rabbit-dlq-processing).
+Some options are described in [Dead-Letter Queue Processing](#dead-letter-queue-processing).
 
 <!-- //TODO:  Is this possible with Steeltoe????????????
->**NOTE:** When multiple RabbitMQ binders are used in a Streams application, it is important to disable 'RabbitAutoConfiguration' to avoid the same configuration from `RabbitAutoConfiguration` being applied to the two binders.
+>**NOTE:** When multiple RabbitMQ binders are used in a Stream application, it is important to disable 'RabbitAutoConfiguration' to avoid the same configuration from `RabbitAutoConfiguration` being applied to the two binders.
 You can exclude the class by using the `@SpringBootApplication` annotation. -->
 
 The `RabbitMessageChannelBinder` sets the `RabbitTemplate.userPublisherConnection` property to `True` so that the non-transactional producers avoid deadlocks on consumers, which can happen if cached connections are blocked because of a [memory alarm](https://www.rabbitmq.com/memory.html) on the broker.
@@ -72,7 +72,7 @@ A comma-separated list of RabbitMQ management plugin URLs.
 Only used when `nodes` contains more than one entry.
 Each entry in this list must have a corresponding entry in `spring:rabbitmq:addresses`.
 Only needed if you use a RabbitMQ cluster and wish to consume from the node that hosts the queue.
-See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/#queue-affinity) for more information. 
+See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/#queue-affinity) for more information.
 
 Default: empty.
 
@@ -95,7 +95,7 @@ See `System.IO.Compression.CompressionLevel`.
 A connection name prefix used to name the connection(s) created by this binder.
 The name is this prefix followed by `#n`, where `n` increments each time a new connection is opened.
 
-  Default: none 
+  Default: none
 
 ### RabbitMQ Consumer Settings
 
@@ -339,7 +339,7 @@ Not supported when the `containerType` is `direct`.
 **queueNameGroupOnly**
 When True, consume from a queue with a name equal to the `group`.
 Otherwise the queue name is `destination.group`.
-This is useful, for example, when using Spring Cloud Stream to consume from an existing RabbitMQ queue.
+This is useful, for example, when using Steeltoe Stream to consume from an existing RabbitMQ queue.
 
   Default: `False`.
 
@@ -386,7 +386,7 @@ The customizer (`configure()` method) is provided with the queue name as well as
 
 The following settings are available for RabbitMQ producers only and must be prefixed with `spring:cloud:stream:rabbitmq:bindings:<channelName>:producer.`.
 
->**NOTE:** To avoid repetition, Spring Cloud Stream supports setting values for all channels, in the format of `spring:cloud:stream:default:<setting>=<value>`.
+>**NOTE:** To avoid repetition, Steeltoe Stream supports setting values for all channels, in the format of `spring:cloud:stream:default:<setting>=<value>`.
 
 **autoBindDlq**
 Whether to automatically declare the DLQ and bind it to the binder DLX.
@@ -606,7 +606,7 @@ A prefix to be added to the name of the `destination` exchange.
 **queueNameGroupOnly**
 When `True`, consume from a queue with a name equal to the `group`.
 Otherwise the queue name is `destination.group`.
-This is useful, for example, when using Spring Cloud Stream to consume from an existing RabbitMQ queue.
+This is useful, for example, when using Steeltoe Stream to consume from an existing RabbitMQ queue.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
   Default: False.
@@ -727,7 +727,7 @@ After 5 seconds, the message expires and is routed to the original queue by usin
         static async Task Main(string[] args)
         {
 
-            await StreamsHost.CreateDefaultBuilder<Program>(args)
+            await StreamHost.CreateDefaultBuilder<Program>(args)
               .ConfigureServices((context, services) =>
               {
                   services.AddLogging(builder =>
@@ -759,7 +759,7 @@ Notice that the count property in the `x-death` header is a `long`.
 ## Error Channels
 
 The binder unconditionally sends exceptions to an error channel for each consumer destination and can also be configured to send async producer send failures to an error channel.
-See [Error Handling](./stream-reference#error-handling) for more information.
+See [Error Handling](./stream-reference.md#error-handling) for more information.
 
 RabbitMQ has two types of send failures:
 
@@ -769,7 +769,7 @@ RabbitMQ has two types of send failures:
 The latter is rare.
 According to the RabbitMQ documentation "[A nack] will only be delivered if an internal error occurs in the Erlang process responsible for a queue.".
 
-As well as enabling producer error channels (as described in [Error Handling](./stream-reference#error-handling)), the RabbitMQ binder only sends messages to the channels if the connection factory is appropriately configured, as follows.
+As well as enabling producer error channels (as described in [Error Handling](./stream-reference.md#error-handling)), the RabbitMQ binder only sends messages to the channels if the connection factory is appropriately configured, as follows.
 For the RabbitMQ set the following configuration settings:
 
 * `spring:rabbitmq:publisherConfirms=True`

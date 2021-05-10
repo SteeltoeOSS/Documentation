@@ -25,11 +25,11 @@ To use this connector:
 1. Add the Steeltoe Cloud Foundry config provider to your ConfigurationBuilder.
 1. Add DistributedRedisCache or ConnectionMultiplexer to your ServiceCollection.
 
->NOTE: The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on Pivotal Platform. If you encounder a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you will need to have Lua scripting enabled by a platform operator.
+>NOTE: The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on Pivotal Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you will need to have Lua scripting enabled by a platform operator.
 
 ### Add NuGet Reference
 
-To use the Redis connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and a reference to `Microsoft.Extensions.Caching.Redis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
+To use the Redis connector, you need to [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references) and a reference to `Microsoft.Extensions.Caching.Redis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
 
 >NOTE: The requirement to add a direct Redis package reference is new as of version 2.0.0.
 

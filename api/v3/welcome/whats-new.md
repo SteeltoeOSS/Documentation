@@ -1,7 +1,12 @@
-# What's New in Steeltoe 3.0
+# What's New in Steeltoe 3
 
 ## New Features and Changes
 
+### Steeltoe 3.1.0
+* Steeltoe Messaging, with support for [RabbitMQ](../messaging/rabbitmq-intro.md)
+* [Steeltoe Stream](../stream/index.md), with support for [Spring Cloud Data Flow](../stream/data-flow-stream.md) and [RabbitMQ](../stream/rabbit-binder.md)
+
+### Steeltoe 3.0.0
 * We made the Steeltoe libraries more platform agnostic to allow for better extensibility into other platforms, starting by separating the abstractions for our core components into separate packages. This will allow future extensibility for our libraries and grow the community into other areas.
 * We added and renamed many of the packages to support our new features and to provide a consistent package naming.
 * We redirected our focus to support only .NET Core. This decision was based on the direction the Microsoft .NET team is taking the project and to support our users moving forward. We will still be supporting .NET Framework in our 2.x release line.
@@ -151,13 +156,13 @@ Steeltoe Service Discovery has been rearchitected so that the core library no lo
 The base of Steeltoe service discovery is now available in the appropriately named package `Steeltoe.Discovery.ClientBase`, and discovery client implementations are configured as extensions to this package.
 It is also still possible to directly reference the discovery client implementations
 
->A direct reference to any/all discovery client implentations your application may use is now required. Read more in the [Service Discovery documentation](../discovery/initialize-discovery-client.md)
+>A direct reference to any/all discovery client implementations your application may use is now required. Read more in the [Service Discovery documentation](../discovery/initialize-discovery-client.md)
 
 ### Cloud Foundry
 
 For applications running on Cloud Foundry, please be aware of the changes to Connectors and Discovery outlined above.
 
-Addtionally, please note that `UseCloudFoundryHosting` has been removed, in favor of the new `UseCloudHosting`, which is found in the package `Steeltoe.Common.Hosting`.
+Additionally, please note that `UseCloudFoundryHosting` has been removed, in favor of the new `UseCloudHosting`, which is found in the package `Steeltoe.Common.Hosting`.
 
 ### Management
 

@@ -343,7 +343,7 @@ bool deleteCertificate = await _credHub.DeleteByNameAsync("/MyPreviouslyGenerate
 
 ### Permission Operations
 
-CredHub supports permissions management on credential access for UAA users. See the [offical CredHub permissions documentation](https://credhub-api.cfapps.io/#permissions).
+CredHub supports permissions management on credential access for UAA users. See the [official CredHub permissions documentation](https://credhub-api.cfapps.io/#permissions).
 
 #### Get Permissions
 

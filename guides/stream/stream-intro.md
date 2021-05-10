@@ -1,4 +1,4 @@
-### Quick Start
+# Quick Start
 
 This guide will show you how to create a Steeltoe Stream service that receives messages coming from messaging middleware of your choice and logs the received message to the console.
 
@@ -15,9 +15,10 @@ First, **start a rabbitmq server** locally using Docker:
 1. Name the project `LoggingConsumer`
 1. Add the "Steeltoe.Stream.Binder.RabbitMQ" dependency
 1. Add the "Steeltoe.Stream.StreamBase" dependency
-1. [Adding a Message Handler, Building, and Running](#steeltoe-stream-preface-adding-message-handler)
+1. [Adding a Message Handler, Building, and Running](#adding-a-message-handler-building-and-running)
 
-#### Creating a Sample Application by Using Spring Initializr
+## Creating a Sample Application by Using Initializr
+
 To get started, visit the [Steeltoe Initializr](https://start.steeltoe.io). From there, you can generate our `LoggingConsumer` application. To do so:
 
 <!-- TODO: initializr template for Stream 
@@ -39,16 +40,16 @@ To get started, visit the [Steeltoe Initializr](https://start.steeltoe.io). From
 
 TIP: We encourage you to explore the many possibilities available in the Steeltoe Initializr as it lets you create many different kinds of .NET applications.
 
-#### Importing the Project into Your IDE
+## Importing the Project into Your IDE
 
 Now you can open the project in your IDE.
 
-Once imported, the project must have no errors of any kind. 
+Once imported, the project must have no errors of any kind.
 
 Technically, at this point, you can run the application's Program class.
 However, it does not do anything, so we want to add some code.
 
-#### Adding a Message Handler, Building, and Running
+## Adding a Message Handler, Building, and Running
 
 Modify the `LoggingConsumer.Program` class to look as follows:
 
@@ -57,7 +58,7 @@ Modify the `LoggingConsumer.Program` class to look as follows:
 
 using Steeltoe.Stream.Attributes;
 using Steeltoe.Stream.Messaging;
-using Steeltoe.Stream.StreamsHost;
+using Steeltoe.Stream.StreamHost;
 ...
 
     [EnableBinding(typeof(ISink))]
@@ -66,7 +67,7 @@ using Steeltoe.Stream.StreamsHost;
         static async Task Main(string[] args)
         {
 
-            await StreamsHost.CreateDefaultBuilder<LoggingConsumerApplication>(args)
+            await StreamHost.CreateDefaultBuilder<LoggingConsumerApplication>(args)
               .ConfigureServices((context, services) =>
               {
                   services.AddLogging(builder =>
@@ -103,7 +104,7 @@ Doing so signals to the framework to initiate binding to the messaging middlewar
 * We have added a `Handle` method to receive incoming messages of type `Person`.
 Doing so lets you see one of the core features of the framework: It tries to automatically convert incoming message payloads to type `Person`.
 
-You now have a fully functional Steeltoe Streams application that listens for messages.
+You now have a fully functional Steeltoe Stream application that listens for messages.
 Assuming you have RabbitMQ installed and running, you can start the application in your IDE.
 
 You should see following output:
@@ -136,4 +137,4 @@ Then, in your console, you should see:
 
 `Received: Sam Spade`
 
-Now you have a working (albeit very basic) Streams based service.
+Now you have a working (albeit very basic) Stream based service.
