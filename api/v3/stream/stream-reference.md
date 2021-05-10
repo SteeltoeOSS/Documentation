@@ -1315,7 +1315,7 @@ A comma-separated list of groups to which the producer must ensure message deliv
 **headerMode**
 When set to `None`, it disables header embedding on output.
 It is effective only for messaging middleware that does not support message headers natively and requires header embedding.
-This option is useful when producing data for non-Spring Cloud Stream applications when native headers are not supported.
+This option is useful when producing data for non-Stream applications when native headers are not supported.
 When set to `Headers`, it uses the middleware's native header mechanism.
 When set to `EmbeddedHeaders`, it embeds headers into the message payload.
 

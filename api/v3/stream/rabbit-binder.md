@@ -339,7 +339,7 @@ Not supported when the `containerType` is `direct`.
 **queueNameGroupOnly**
 When True, consume from a queue with a name equal to the `group`.
 Otherwise the queue name is `destination.group`.
-This is useful, for example, when using Spring Cloud Stream to consume from an existing RabbitMQ queue.
+This is useful, for example, when using Steeltoe Stream to consume from an existing RabbitMQ queue.
 
   Default: `False`.
 
@@ -386,7 +386,7 @@ The customizer (`configure()` method) is provided with the queue name as well as
 
 The following settings are available for RabbitMQ producers only and must be prefixed with `spring:cloud:stream:rabbitmq:bindings:<channelName>:producer.`.
 
->**NOTE:** To avoid repetition, Spring Cloud Stream supports setting values for all channels, in the format of `spring:cloud:stream:default:<setting>=<value>`.
+>**NOTE:** To avoid repetition, Steeltoe Stream supports setting values for all channels, in the format of `spring:cloud:stream:default:<setting>=<value>`.
 
 **autoBindDlq**
 Whether to automatically declare the DLQ and bind it to the binder DLX.
@@ -606,7 +606,7 @@ A prefix to be added to the name of the `destination` exchange.
 **queueNameGroupOnly**
 When `True`, consume from a queue with a name equal to the `group`.
 Otherwise the queue name is `destination.group`.
-This is useful, for example, when using Spring Cloud Stream to consume from an existing RabbitMQ queue.
+This is useful, for example, when using Steeltoe Stream to consume from an existing RabbitMQ queue.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
   Default: False.
