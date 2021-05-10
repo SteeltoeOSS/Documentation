@@ -3,7 +3,7 @@
 ## New Features and Changes
 
 * Steeltoe Messaging, with support for [RabbitMQ](../messaging/rabbitmq-intro.md)
-* [Steeltoe Streams](../streams/index.md), with support for [Spring Cloud Data Flow](../streams/data-flow-stream.md) and [RabbitMQ](../streams/rabbit-binder.md)
+* [Steeltoe Stream](../stream/index.md), with support for [Spring Cloud Data Flow](../stream/data-flow-stream.md) and [RabbitMQ](../stream/rabbit-binder.md)
 * We made the Steeltoe libraries more platform agnostic to allow for better extensibility into other platforms, starting by separating the abstractions for our core components into separate packages. This will allow future extensibility for our libraries and grow the community into other areas.
 * We added and renamed many of the packages to support our new features and to provide a consistent package naming.
 * We redirected our focus to support only .NET Core. This decision was based on the direction the Microsoft .NET team is taking the project and to support our users moving forward. We will still be supporting .NET Framework in our 2.x release line.

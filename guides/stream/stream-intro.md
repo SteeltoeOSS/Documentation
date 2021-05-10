@@ -58,7 +58,7 @@ Modify the `LoggingConsumer.Program` class to look as follows:
 
 using Steeltoe.Stream.Attributes;
 using Steeltoe.Stream.Messaging;
-using Steeltoe.Stream.StreamsHost;
+using Steeltoe.Stream.StreamHost;
 ...
 
     [EnableBinding(typeof(ISink))]
@@ -67,7 +67,7 @@ using Steeltoe.Stream.StreamsHost;
         static async Task Main(string[] args)
         {
 
-            await StreamsHost.CreateDefaultBuilder<LoggingConsumerApplication>(args)
+            await StreamHost.CreateDefaultBuilder<LoggingConsumerApplication>(args)
               .ConfigureServices((context, services) =>
               {
                   services.AddLogging(builder =>
@@ -104,7 +104,7 @@ Doing so signals to the framework to initiate binding to the messaging middlewar
 * We have added a `Handle` method to receive incoming messages of type `Person`.
 Doing so lets you see one of the core features of the framework: It tries to automatically convert incoming message payloads to type `Person`.
 
-You now have a fully functional Steeltoe Streams application that listens for messages.
+You now have a fully functional Steeltoe Stream application that listens for messages.
 Assuming you have RabbitMQ installed and running, you can start the application in your IDE.
 
 You should see following output:
@@ -137,4 +137,4 @@ Then, in your console, you should see:
 
 `Received: Sam Spade`
 
-Now you have a working (albeit very basic) Streams based service.
+Now you have a working (albeit very basic) Stream based service.

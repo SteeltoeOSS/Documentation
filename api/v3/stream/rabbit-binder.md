@@ -1,10 +1,10 @@
 # Spring Cloud Stream RabbitMQ Binder Reference Guide
 
-This guide describes the RabbitMQ implementation of the Steeltoe Stream Binder, along with usage and configuration options, as well as information on how the Streams concepts map into RabbitMQ-specific constructs.
+This guide describes the RabbitMQ implementation of the Steeltoe Stream Binder, along with usage and configuration options, as well as information on how the Stream concepts map into RabbitMQ-specific constructs.
 
 ## Usage
 
-To use the RabbitMQ binder, add it to your Streams application with a PackageReference in your `.csproj` as seen in this example:
+To use the RabbitMQ binder, add it to your Stream application with a PackageReference in your `.csproj` as seen in this example:
 
 ```xml
 <PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.1.0-rc1" />
@@ -44,7 +44,7 @@ The framework does not provide any standard mechanism to consume dead-letter mes
 Some options are described in [Dead-Letter Queue Processing](#dead-letter-queue-processing).
 
 <!-- //TODO:  Is this possible with Steeltoe????????????
->**NOTE:** When multiple RabbitMQ binders are used in a Streams application, it is important to disable 'RabbitAutoConfiguration' to avoid the same configuration from `RabbitAutoConfiguration` being applied to the two binders.
+>**NOTE:** When multiple RabbitMQ binders are used in a Stream application, it is important to disable 'RabbitAutoConfiguration' to avoid the same configuration from `RabbitAutoConfiguration` being applied to the two binders.
 You can exclude the class by using the `@SpringBootApplication` annotation. -->
 
 The `RabbitMessageChannelBinder` sets the `RabbitTemplate.userPublisherConnection` property to `True` so that the non-transactional producers avoid deadlocks on consumers, which can happen if cached connections are blocked because of a [memory alarm](https://www.rabbitmq.com/memory.html) on the broker.
@@ -72,7 +72,7 @@ A comma-separated list of RabbitMQ management plugin URLs.
 Only used when `nodes` contains more than one entry.
 Each entry in this list must have a corresponding entry in `spring:rabbitmq:addresses`.
 Only needed if you use a RabbitMQ cluster and wish to consume from the node that hosts the queue.
-See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/#queue-affinity) for more information. 
+See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/#queue-affinity) for more information.
 
 Default: empty.
 
@@ -95,7 +95,7 @@ See `System.IO.Compression.CompressionLevel`.
 A connection name prefix used to name the connection(s) created by this binder.
 The name is this prefix followed by `#n`, where `n` increments each time a new connection is opened.
 
-  Default: none 
+  Default: none
 
 ### RabbitMQ Consumer Settings
 
@@ -727,7 +727,7 @@ After 5 seconds, the message expires and is routed to the original queue by usin
         static async Task Main(string[] args)
         {
 
-            await StreamsHost.CreateDefaultBuilder<Program>(args)
+            await StreamHost.CreateDefaultBuilder<Program>(args)
               .ConfigureServices((context, services) =>
               {
                   services.AddLogging(builder =>

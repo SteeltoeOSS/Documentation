@@ -143,14 +143,14 @@
       name: Kubernetes
     - topicHref: discovery/load-balancing.md
       name: Load Balancing
-- name: Streams
-  topicHref: streams/
+- name: Stream
+  topicHref: stream/
   items:
-    - topicHref: streams/stream-reference.md
-      name: Streams Reference
-    - topicHref: streams/rabbit-binder.md
+    - topicHref: stream/stream-reference.md
+      name: Stream Reference
+    - topicHref: stream/rabbit-binder.md
       name: RabbitMQ Binder
-    - topicHref: streams/data-flow-stream.md
+    - topicHref: stream/data-flow-stream.md
       name: Spring Cloud Dataflow
 - name: Initializr
   topicHref: initializr/

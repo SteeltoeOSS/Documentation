@@ -1,10 +1,10 @@
-# Steeltoe Streams Reference
+# Steeltoe Stream Reference
 
-This section explores the components that make up the Steeltoe Streams framework together with how to build Streams-based applications.
+This section explores the components that make up the Steeltoe Stream framework together with how to build Stream-based applications.
 
 ## Main Concepts
 
-Steeltoe Streams provides a number of abstractions and opinions that simplify the writing of message-driven microservice based applications.
+Steeltoe Stream provides a number of abstractions and opinions that simplify the writing of message-driven microservice based applications.
 This section gives an overview of the following:
 
 * [Application Model](#application-model)
@@ -19,14 +19,14 @@ This section gives an overview of the following:
 
 ### Application Model
 
-A Streams application is composed of middleware-neutral core microservices enhanced by Steeltoe Streams.  Application developers typically do not have to deal with the underlying messaging middleware and instead can focus on the microservice logic itself.
-Normally the service communicates with the outside world through input and output channel abstractions injected into it by the Steeltoe Streams infrastructure.  Channels are a programming abstraction that represent messaging destinations. Services can send and receive messages to and from destinations using these channels . Steeltoe Streams automatically configures channels for you and connects them to external messaging systems through middleware-specific binder implementations. Binders are components provided by Steeltoe or other third parties package providers.
+A Stream application is composed of middleware-neutral core microservices enhanced by Steeltoe Stream.  Application developers typically do not have to deal with the underlying messaging middleware and instead can focus on the microservice logic itself.
+Normally the service communicates with the outside world through input and output channel abstractions injected into it by the Steeltoe Stream infrastructure.  Channels are a programming abstraction that represent messaging destinations. Services can send and receive messages to and from destinations using these channels . Steeltoe Stream automatically configures channels for you and connects them to external messaging systems through middleware-specific binder implementations. Binders are components provided by Steeltoe or other third parties package providers.
 
 ![Stream Application](./images/streams-application.jpg)
 
 ### Binder Abstraction
 
-Steeltoe uses a binder abstraction to make it possible for Streams based services to be flexible in how they connect to messaging middleware.
+Steeltoe uses a binder abstraction to make it possible for Stream-based services to be flexible in how they connect to messaging middleware.
 Steeltoe automatically detects and uses whatever binder it finds in the services startup directory when attempting to connect to the messaging system. This enables developers to use different types of messaging middleware without the need to change the applications code; You simply include a different binder at deployment time.
 
 For more complex use cases, you can package multiple binders with your services and configure it to choose the correct binder for the different channels or destinations used by the service at runtime.
@@ -38,14 +38,14 @@ You can also use the extensible Binder SPI to write your own should you need to.
 
 ### Binding Abstraction
 
-Steeltoe also uses a binding abstraction to provide a way to define the name and types of destinations available to the Streams based microservice.  Bindings provide a bridge between the destinations in the external messaging system and the methods in the application which act as message producers and/or consumers.
+Steeltoe also uses a binding abstraction to provide a way to define the name and types of destinations available to the Stream-based microservice.  Bindings provide a bridge between the destinations in the external messaging system and the methods in the application which act as message producers and/or consumers.
 
 ### Persistent Publish-Subscribe
 
 Communication between microservices follow a publish-subscribe model where data is broadcast through shared topics.
-This can be seen in the following figure, which shows a typical deployment for a set of interacting Streams microservices.
+This can be seen in the following figure, which shows a typical deployment for a set of interacting Stream microservices.
 
-![Streams Publish-Subscribe](./images/SCSt-sensors.png)
+![Stream Publish-Subscribe](./images/SCSt-sensors.png)
 
 Data reported by sensors to an HTTP endpoint is sent to a common destination named `raw-sensor-data`.
 Receiving data from the destination, the data is independently processed by a microservice based application that computes time-windowed averages and by another microservice that ingests the raw data into HDFS (Hadoop Distributed File System).
@@ -56,12 +56,12 @@ For example, downstream from the average-calculating microservice, you can add a
 Additionally, you can then add another service that interprets the same flow of averages for fault detection.
 Doing all communication through shared topics rather than point-to-point queues reduces coupling between microservices.
 
-While the concept of publish-subscribe messaging is not new, Streams takes the extra step of making it an opinionated choice for its application model.
-By using native middleware support, Streams also simplifies use of the publish-subscribe model across different platforms.
+While the concept of publish-subscribe messaging is not new, Stream takes the extra step of making it an opinionated choice for its application model.
+By using native middleware support, Stream also simplifies use of the publish-subscribe model across different platforms.
 
 ### Consumer Types
 
-Two types of consumer are supported by the Streams infrastructure:
+Two types of consumer are supported by the Stream infrastructure:
 
 * Message-driven (sometimes referred to as Asynchronous)
 * Polled (sometimes referred to as Synchronous)
@@ -73,33 +73,33 @@ The default is to implement message driven consumers, but when you wish to contr
 While the publish-subscribe model makes it easy to connect microservices through shared topics, the ability to scale up by creating multiple instances of a given service is equally important.
 When doing so, different instances of a microservice are placed in a competing consumer relationship, where only one of the instances is expected to handle a given message.
 
-Steeltoe Streams models this behavior through the concept of a `consumer group`. Streams consumer groups are similar to and inspired by Kafka consumer groups.
+Steeltoe Stream models this behavior through the concept of a `consumer group`. Stream consumer groups are similar to and inspired by Kafka consumer groups.
 Each consumer binding can configure the `spring:cloud:stream:bindings:<channelName>:group` key to specify a group name.
 For the consumers shown in the following figure, this key would be set to `spring:cloud:stream:bindings:<channelName>:group=hdfsWrite` or `spring:cloud:stream:bindings:<channelName>:group=average`.
 
 ![Stream Consumer Groups](./images/SCSt-groups.png)
 
 All groups that subscribe to a given destination receive a copy of published data, but only one member of each group receives a given message from that destination.
-By default, when a group is not specified, Streams assigns the application service to an anonymous and independent single-member consumer group that is in a publish-subscribe relationship with all other consumer groups.
+By default, when a group is not specified, Stream assigns the application service to an anonymous and independent single-member consumer group that is in a publish-subscribe relationship with all other consumer groups.
 
 ### Durability
 
-As part of the opinionated model, Streams consumer group subscriptions are durable.
+As part of the opinionated model, Stream consumer group subscriptions are durable.
 That is, Binder implementations ensure that group subscriptions are persistent and once a subscription for a group has been created, the group receives messages, even if they are sent while all services in the group have been stopped.
 
 In general, it is preferable to always specify a consumer group when binding a service to a given destination.
-When scaling up a Streams services you must specify a consumer group for each of its input bindings.
+When scaling up a Stream service, you must specify a consumer group for each of its input bindings.
 Doing so prevents the service instances from receiving duplicate messages unless that behavior is desired, which is not typical.
 
 >Anonymous subscriptions are non-durable by nature. For some Binder implementations (such as RabbitMQ), it is possible to have non-durable group subscriptions as well.
 
 ### Partitioning
 
-Streams provides support for partitioning data between multiple instances of a given service.
+Stream provides support for partitioning data between multiple instances of a given service.
 In a partitioned scenario, the physical communication medium (such as the broker topic) is viewed as being structured into multiple partitions.
 One or more producer instances send data to multiple consumer instances and ensure that data identified by common characteristics are processed by the same consumer instance.
 
-Streams provides a common abstraction for implementing partitioned processing use cases in a uniform fashion.
+Stream provides a common abstraction for implementing partitioned processing use cases in a uniform fashion.
 Partitioning can thus be used whether the broker itself is naturally partitioned (for example, Kafka) or not (for example, RabbitMQ).
 
 ![Stream Partitioning](./images/SCSt-partitioning.png)
@@ -121,7 +121,7 @@ To understand the programming model, you need to understand the following core c
 
 ### Binder
 
-As mentioned earlier, binders are an abstraction used by Steeltoe that enables Streams based application services to integrate with external messaging systems.
+As mentioned earlier, binders are an abstraction used by Steeltoe that enables Stream-based application services to integrate with external messaging systems.
 This integration includes the responsibility for connectivity, delegation, and routing of messages to and from producers and consumers.  It also includes support for data type conversions,
 invocation of the application code responsible for processing messages, and more.  Binders are an infrastructure component provided by Steeltoe or other third party providers.
 
@@ -133,8 +133,8 @@ As stated earlier, bindings provide the bridge between the external messaging sy
 
 You can use the `EnableBinding` attribute in your application to declare bindings for your application or you can use service container extension methods to explicitly add them to the container yourself.
 
-For example the following code shows a fully configured and functioning Streams application service that receives strings from a destination with the name `input` and
-and converts the strings to uppercase and then sends the results to a destination with the name `output`.  Notice that the applications `Handle()` method expects the message payload from `input` to be a `string`, and as a result the Streams framework will attempt to convert the incoming message payload to a `string` before calling the handler method (see [Content Type Negotiation](#content-type-negotiation) section).
+For example the following code shows a fully configured and functioning Stream application service that receives strings from a destination with the name `input` and
+and converts the strings to uppercase and then sends the results to a destination with the name `output`.  Notice that the applications `Handle()` method expects the message payload from `input` to be a `string`, and as a result the Stream framework will attempt to convert the incoming message payload to a `string` before calling the handler method (see [Content Type Negotiation](#content-type-negotiation) section).
 
 ```csharp
 [EnableBinding(typeof(IProcessor))]
@@ -142,7 +142,7 @@ public class Program
 {
   public static async Task Main(string[] args)
   {
-    var host = StreamsHost
+    var host = StreamHost
       .CreateDefaultBuilder<Program>(args)
       .Build();
       await host.StartAsync();
@@ -196,7 +196,7 @@ The `Input` attribute identifies an input channel from which messages received e
 The `Output` attribute identifies an output channel, through which messages are published. Again, notice the constructor argument gives it a name and the type of channel is defined by the return type of the getter (`ISubscribableChannel`).
 As you can see, both the `Input` and `Output` attributes optionally take a `channel name` as a constructor parameter.  If a name is not provided, the name of the annotated method is used as the channel name.
 
-Steeltoe Streams automatically creates an implementation of the interface for you upon start up and makes it available in the service container.
+Steeltoe Stream automatically creates an implementation of the interface for you upon start up and makes it available in the service container.
 While not a common use case, you can use this in the application service by adding it as a constructor argument to a service you have written. This will give you access to the channel directly via the property getter.  This is not a common way of accessing the channel as Steeltoe provides a much easier programming model which is normally used.
 
 While the out-of-the-box bindings satisfy the majority of use cases, you can also create your own contracts by defining your own binding interfaces with the `Input` and `Output` attributes identifying the actual bindables.
@@ -228,7 +228,7 @@ public class Program {
 {
   static async Task Main(string[] args)
   {
-    var host = StreamsHost
+    var host = StreamHost
       .CreateDefaultBuilder<Program>(args)
       .Build();
       await host.StartAsync();
@@ -266,21 +266,21 @@ In the above example the created channel is named `InboundOrders`.
 
 Normally, you do not need to access the individual channels or bindings directly, however there may be times (such as testing or other corner cases) when you do.
 
-Aside from generating channels for each binding and registering them as services in the container, Steeltoe Streams also generates a service that implements the interface.
+Aside from generating channels for each binding and registering them as services in the container, Steeltoe Stream also generates a service that implements the interface.
 That means you can have access to the interfaces representing the bindings or individual channels by injecting the binding interface into your application component.
 
 ### Producing and Consuming Messages
 
-The easiest way to write a a Steeltoe Stream application service is by using Steeltoe Streams attributes.
+The easiest way to write a a Steeltoe Stream application service is by using Steeltoe Stream attributes.
 
 #### StreamListener Attribute
 
-Steeltoe Streams provides a `StreamListener` attribute, modeled after other Steeltoe Messaging annotations (e.g. `RabbitListener`, and others) and supports features such as content-based routing and others.
+Steeltoe Stream provides a `StreamListener` attribute, modeled after other Steeltoe Messaging annotations (e.g. `RabbitListener`, and others) and supports features such as content-based routing and others.
 
 ```csharp
      static async Task Main(string[] args)
         {
-            var host = StreamsHost
+            var host = StreamHost
               .CreateDefaultBuilder<VoteHandler>(args)
               .ConfigureServices(svc=> svc.AddSingleton<IVotingService, DefaultVotingService>())
               .Build();
@@ -313,7 +313,7 @@ For methods that return data, you must use the `SendTo` attribute to specify the
     {
         static async Task Main(string[] args)
         {
-            var host = StreamsHost
+            var host = StreamHost
               .CreateDefaultBuilder<TransformProcessor>(args)
               .ConfigureServices(svc=> svc.AddSingleton<IVotingService, DefaultVotingService>())
               .Build();
@@ -341,7 +341,7 @@ For methods that return data, you must use the `SendTo` attribute to specify the
 
 #### StreamListener and Content-based Routing
 
-Steeltoe Streams supports dispatching messages to multiple handler methods annotated with `StreamListener` based on conditions.
+Steeltoe Stream supports dispatching messages to multiple handler methods annotated with `StreamListener` based on conditions.
 
 In order to be eligible to support conditional dispatching, the annotated method must not return a value;
 
@@ -356,7 +356,7 @@ In the following example of a `StreamListener` with dispatching conditions, all 
     {
         static async Task Main(string[] args)
         {
-            var host = StreamsHost
+            var host = StreamHost
               .CreateDefaultBuilder<CatsAndDogs>(args)
               .Build();
             await host.StartAsync();
@@ -393,7 +393,7 @@ public class Program
 {
   static async Task Main(string[] args)
   {
-    var host = StreamsHost
+    var host = StreamHost
       .CreateDefaultBuilder<CatsAndDogs>(args)
       .Build();
       await host.StartAsync();
@@ -570,7 +570,7 @@ public class Program
 {
     static async Task Main(string[] args)
     {
-        var host = StreamsHost
+        var host = StreamHost
           .CreateDefaultBuilder<Program>(args)
           .ConfigureServices(svc => svc.AddHostedService<Worker>())
           .Build();
@@ -724,9 +724,9 @@ The error handling comes in two flavors:
 
 There are two types of application-level error handling. Errors can be handled at each binding subscription or by a global handler which handles all the binding errors. Below are the details.
 
-   <img src="~/api/v3/streams/images/custom_vs_global_error_channels.png" alt="An Application with Custom and Global Error Handler" width="100%">
+   <img src="~/api/v3/stream/images/custom_vs_global_error_channels.png" alt="An Application with Custom and Global Error Handler" width="100%">
 
-For each input binding, Steeltoe Streams creates a dedicated error channel with the following name `<destinationName>.errors`.
+For each input binding, Steeltoe Stream creates a dedicated error channel with the following name `<destinationName>.errors`.
 
 >The `<destinationName>` consists of the name of the binding bindable name (e.g. `input`) and the name of the group (e.g. `myGroup`).
 
@@ -758,7 +758,7 @@ In the preceding example the destination name is `input.myGroup` and the dedicat
 >NOTE: If `group` is not specified, an anonymous group is used instead (e.g. `input.anonymous.2K37rb06Q6m2r51-SPIDDQ`). This is obviously not suitable for error
 handling scenarios, since you don't know what the name is going to be until the destination is created.
 
-If you have multiple bindings, you may want to have a single error handler for all of them. Steeltoe Streams automatically provides support for
+If you have multiple bindings, you may want to have a single error handler for all of them. Steeltoe Stream automatically provides support for
 a _global error channel_ by bridging each individual error channel to the channel named `errorChannel`, allowing a single subscriber to handle all errors as shown in the following example:
 
 ```csharp
@@ -898,7 +898,7 @@ The number of attempts to process the message.
 
 ## Binders
 
-Steeltoe Streams provides a Binder abstraction for use in connecting to physical destinations at the external middleware.  This section provides information about the main concepts behind the Binder SPI, its main components, and implementation-specific details. This section is relevant to those developers who might be considering developing a binder for a specific messaging platform.
+Steeltoe Stream provides a Binder abstraction for use in connecting to physical destinations at the external middleware.  This section provides information about the main concepts behind the Binder SPI, its main components, and implementation-specific details. This section is relevant to those developers who might be considering developing a binder for a specific messaging platform.
 
 ### Producers and Consumers
 
@@ -971,12 +971,12 @@ public class Startup
 
 ### Binder Detection
 
-The Steeltoe Streams infrastructure relies on implementations of the Binder SPI to perform the task of connecting channels to message brokers.
+The Steeltoe Stream infrastructure relies on implementations of the Binder SPI to perform the task of connecting channels to message brokers.
 Each Binder implementation typically connects to one type of messaging system.
 
-By default, the Streams infrastructure will auto-configure the binder by searching for the assembly `BinderAttribute` in each assembly located in the directory from which the application is started.
-If a single Binder implementation is found, Steeltoe Streams automatically uses it and configures it using the `ConfigureServices()` method illustrated above.
-For example, a Streams project that aims to bind only to RabbitMQ can add the following dependency to the project.
+By default, the Stream infrastructure will auto-configure the binder by searching for the assembly `BinderAttribute` in each assembly located in the directory from which the application is started.
+If a single Binder implementation is found, Steeltoe Stream automatically uses it and configures it using the `ConfigureServices()` method illustrated above.
+For example, a Stream project that aims to bind only to RabbitMQ can add the following dependency to the project.
 
 ```xml
     <PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.1.0" />
@@ -1083,10 +1083,10 @@ This setting allows adding a binder without interfering with the default process
 
 ## Configuration Settings
 
-Steeltoe Streams supports general configuration settings as well as configuration for bindings and binders.
+Steeltoe Stream supports general configuration settings as well as configuration for bindings and binders.
 Some binders let additional binding properties support middleware-specific features.
 
-Configuration settings can be provided to Streams applications through any mechanism supported by .NET.
+Configuration settings can be provided to Stream applications through any mechanism supported by .NET.
 This includes application arguments, environment variables, and JSON files.
 
 ### Binding Service Settings
@@ -1135,7 +1135,7 @@ Set it to zero to treat such conditions as fatal, preventing the application fro
 Binding settings are supplied by using the format of `spring:cloud:stream:bindings:<channelName>:<setting>=<value>`.
 The `<channelName>` represents the name of the channel being configured (for example, `output` for a `Source`).
 
-To avoid repetition, Streams supports setting values for all channels, in the format of `spring:cloud:stream:default:<setting>=<value>` for common binding properties, and `spring:cloud:stream:default:<producer|consumer>.<setting>=<value>`.
+To avoid repetition, Stream supports setting values for all channels, in the format of `spring:cloud:stream:default:<setting>=<value>` for common binding properties, and `spring:cloud:stream:default:<producer|consumer>.<setting>=<value>`.
 
 When it comes to avoiding repetitions for extended binding properties, this format should be used - `spring:cloud:stream:<binder-type>:default:<producer|consumer>.<setting>=<value>`.
 
@@ -1200,7 +1200,7 @@ Whether the consumer receives data from a partitioned producer.
 **headerMode**
 When set to `None`, disables header parsing on input.
 Effective only for messaging middleware that does not support message headers natively and requires header embedding.
-This option is useful when consuming data from non-Streams applications when native headers are not supported.
+This option is useful when consuming data from non-Stream applications when native headers are not supported.
 When set to `Headers`, it uses the middleware's native header mechanism.
 When set to `EmbeddedHeaders`, it embeds headers into the message payload.
 
@@ -1340,7 +1340,7 @@ See [Error Handling](#error-handling) for more information.
 
 // TODO:  A sample needs to be built to verify/test this (RC2)
 
-Besides the channels defined by using `EnableBinding` attribute, Streams lets applications send messages to dynamically bound destinations.
+Besides the channels defined by using `EnableBinding` attribute, Stream lets applications send messages to dynamically bound destinations.
 This is useful, for example, when the target destination needs to be determined at runtime.
 Applications can do so by using the `BinderAwareChannelResolver` bean, registered automatically by the `@EnableBinding` annotation.
 
@@ -1449,7 +1449,7 @@ NOTE: If you need to support dynamic destinations with multiple binder types, us
 
 ## Content Type Negotiation
 
-Data transformation is one of the core features of any message-driven microservice architecture. Given that, in Steeltoe Streams, data is represented as a Steeltoe `IMessage`, and may be transformed to a desired shape or size before reaching its destination. This is typically required for two reasons:
+Data transformation is one of the core features of any message-driven microservice architecture. Given that, in Steeltoe Stream, data is represented as a Steeltoe `IMessage`, and may be transformed to a desired shape or size before reaching its destination. This is typically required for two reasons:
 
 1. To convert the contents of the incoming message to match the signature of the application-provided handler method.
 
@@ -1457,7 +1457,7 @@ Data transformation is one of the core features of any message-driven microservi
 
 The wire format is typically `byte[]` (that is true for the RabbiMQt binder), but it is governed by the binder implementation in use.
 
-In Steeltoe Streams, message transformation is accomplished with an `Steeltoe.Messaging.Converter.IMessageConverter`.
+In Steeltoe Stream, message transformation is accomplished with an `Steeltoe.Messaging.Converter.IMessageConverter`.
 
 ### Overview
 
@@ -1481,7 +1481,7 @@ Consequently, in theory, that should be (and, in some cases, is) enough.
 However, for the majority of use cases, in order to select the appropriate `IMessageConverter`, the framework needs an additional piece of information.
 That missing piece is `contentType` of the incoming message.
 
-Steeltoe Streams provides three mechanisms to define `contentType` (in order of precedence):
+Steeltoe Stream provides three mechanisms to define `contentType` (in order of precedence):
 
 1. *HEADER*: The `contentType` can be communicated through the `IMessage` itself. By providing a `contentType` header, you declare the content type to use when locating and applying the appropriate `IMessageConverter`.
 
@@ -1533,7 +1533,7 @@ If you wish, you can provide a hint, which `IMessageConverter` may or may not ta
   IMessage ToMessage(object payload, IMessageHeaders headers);
 ```
 
-It is important to understand the contract of these methods and their usage, specifically in the context of Streams.
+It is important to understand the contract of these methods and their usage, specifically in the context of Stream.
 
 The `FromMessage` methods convert an incoming `IMessage` to an expected type.
 The payload of the `IMessage` could be any type, and it is up to the actual implementation of the `IMessageConverter` to support multiple types.
@@ -1560,7 +1560,7 @@ does not know how to convert. If that is the case, you can add custom `IMessageC
 
 // TODO: We need to make sure this works and is easy to add a customer converter (probably needs a extension method++)
 
-Steeltoe Streams exposes a mechanism to define and register additional `IMessageConverters`.
+Steeltoe Stream exposes a mechanism to define and register additional `IMessageConverters`.
 To use it, implement `Steeltoe.Messaging.Converter.IMessageConverter`, and add it to the service container.
 At startup time, it will be discovered and then appended to the default stack of `IMessageConverter`s.
 
@@ -1607,7 +1607,7 @@ public class MyCustomMessageConverter : AbstractMessageConverter
 
 ## Inter-Application Communication
 
-Streams enables communication between applications. Inter-application communication is a complex issue spanning several concerns, as described in the following topics:
+Stream enables communication between applications. Inter-application communication is a complex issue spanning several concerns, as described in the following topics:
 
 * [Connecting Multiple Application Instances](#connecting-multiple-application-instances)
 * [Instance Index and Instance Count](#instance-index-instance-count)
@@ -1615,7 +1615,7 @@ Streams enables communication between applications. Inter-application communicat
 
 ### Connecting Multiple Application Instances
 
-While Streams makes it easy for individual applications to connect to messaging systems, the typical scenario for Streams based applications is the creation of microservices pipelines, where microservices send data to each other.
+While Stream makes it easy for individual applications to connect to messaging systems, the typical scenario for Stream-based applications is the creation of microservices pipelines, where microservices send data to each other.
 You can achieve this scenario by correlating the input and output destinations of "`adjacent`" applications.
 
 Suppose a design calls for a Time Source application to send data to a Log Sink application. You could use a common destination named `ticktock` for bindings within both applications.
@@ -1634,18 +1634,18 @@ spring:cloud:stream:bindings:input:destination=ticktock
 
 ### Instance Index and Instance Count
 
-When scaling up Streams applications horizontally, each instance can receive information about how many other instances of the same component exist and what its own instance index is.
-Streams does this through the configuration setting `spring:cloud:stream:instanceCount` and `spring:cloud:stream:instanceIndex` settings.
+When scaling up Stream applications horizontally, each instance can receive information about how many other instances of the same component exist and what its own instance index is.
+Stream does this through the configuration setting `spring:cloud:stream:instanceCount` and `spring:cloud:stream:instanceIndex` settings.
 For example, if there are three instances of a "HDFS sink component", all three instances have `spring:cloud:stream:instanceCount` set to `3`, and the individual instances have `spring:cloud:stream:instanceIndex` set to `0`, `1`, and `2`, respectively.
 
-When Steeltoe Streams components are deployed through [Spring Cloud Data Flow](https://spring.io/projects/spring-cloud-dataflow), these settings are configured automatically; when you launch the Stream components independently, these settings must be set correctly.
+When Steeltoe Stream components are deployed through [Spring Cloud Data Flow](https://spring.io/projects/spring-cloud-dataflow), these settings are configured automatically; when you launch the Stream components independently, these settings must be set correctly.
 By default, `spring:cloud:stream:instanceCount` is `1`, and `spring:cloud:stream:instanceIndex` is `0`.
 
 In a scaled-up scenario, correct configuration of these two settings is important for proper partitioning behavior (see below), and the two settings are always required by certain binders in order to ensure that data are split correctly across multiple consumer instances.
 
 ### Partitioning
 
-Partitioning in Streams applications consists of two tasks:
+Partitioning in Stream applications consists of two tasks:
 
 * [Configuring Output Bindings for Partitioning](#configuring-output-bindings-partitioning)
 * [Configuring Input Bindings for Partitioning](#configuring-input-bindings-partitioning)
