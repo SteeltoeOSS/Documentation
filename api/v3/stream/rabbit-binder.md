@@ -1,4 +1,4 @@
-# Spring Cloud Stream RabbitMQ Binder Reference Guide
+# Steeltoe Stream RabbitMQ Binder Reference Guide
 
 This guide describes the RabbitMQ implementation of the Steeltoe Stream Binder, along with usage and configuration options, as well as information on how the Stream concepts map into RabbitMQ-specific constructs.
 
