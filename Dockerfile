@@ -30,4 +30,5 @@ RUN \
 
 FROM nginx:1.19
 COPY --from=build /docs/build/_site /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
