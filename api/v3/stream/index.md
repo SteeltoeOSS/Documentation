@@ -14,6 +14,7 @@ With Steeltoe Stream, developers can:
 
 For more reading about Steeltoe Stream:
 
+* Quick Start [Guide](../../../guides/stream/quick-start.md)
 * Explore the components that make up the Stream framework with the [Stream Reference](./stream-reference.md).
 * Learn about the design, usage and configuration options provided with the [RabbitMQ Binder](./rabbit-binder.md).
 * Learn how to [deploy .NET applications to Spring Cloud Data Flow (SCDF)](./data-flow-stream.md).
