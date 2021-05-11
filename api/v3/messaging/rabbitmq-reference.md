@@ -3196,7 +3196,7 @@ private class Customizer : IDeclarableCustomizer
 If you lose your connection to the broker in a synchronous sequence when using `RabbitTemplate` (for instance), Steeltoe RabbitMQ throws an `RabbitException` (usually, but not always, `AmqpIOException`).
 We do not try to hide the fact that there was a problem, so you have to be able to catch and respond to the exception.
 The easiest thing to do if you suspect that the connection was lost (and it was not your fault) is to try the operation again.
-You can do this manually, or you could look at using Steeltoe Retry to handle the retry. Steeltoe Retry a great deal of flexibility to specify the parameters of the retry (number of attempts, exception types, backoff algorithm, and others) when using the `PollyRetryTemplate`.
+You can do this manually, or you could look at using Steeltoe Retry to handle the retry. Steeltoe Retry a great deal of flexibility to specify the parameters of the retry (number of attempts, exception types, back-off algorithm, and others) when using the `PollyRetryTemplate`.
 
 ### Message Listeners and the Asynchronous Case
 

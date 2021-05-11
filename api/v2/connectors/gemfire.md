@@ -1,6 +1,6 @@
 # Apache Geode/GemFire
 
->Note: This feature is avaible in version 2.3.0+
+>Note: This feature is available in version 2.3.0+
 
 [VMware Tanzu GemFire](https://tanzu.vmware.com/gemfire) is VMware's distribution of [Apache Geode](https://geode.apache.org/). This connector was built for using GemFire in an application using the [GemFire Native Client](https://gemfire-native.docs.pivotal.io/100/gemfire-native-client/about-client-users-guide.html) on Cloud Foundry. It has not been extensively tested under other deployment configurations, but will be best-effort supported for other situations as well.
 
@@ -23,7 +23,7 @@ Follow the instructions in the [GemFire Native Client documentation](https://gem
 
 ### Add NuGet Reference
 
-Add a reference to the appropriate Steeltoe Connector NuGet package.
+[Add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references)
 
 ### Configure Settings
 

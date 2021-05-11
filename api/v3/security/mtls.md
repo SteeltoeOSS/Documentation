@@ -25,11 +25,11 @@ To use the provider, add a reference to the Steeltoe Cloud Foundry Security NuGe
 </ItemGroup>
 ```
 
->This step is required on services that are sending or recieving mTLS-secured requests
+>This step is required on services that are sending or receiving mTLS-secured requests
 
 ### Configure Settings
 
-In a Cloud Foundry setting, instance identity certificates are automatically provisioned (and rotated on a regular basis) for each application instance. Steeltoe provides the `AddCloudFoundryContainerIdentity` extension to find the location of the certificate files from the environment variables `CF_INSTANCE_CERT` and `CF_INSTANCE_KEY`. When running outside of Cloud Foundry, this extension will automatically generate similar certificates. Use the optional parameters specify a space and/or org id to faciliate communication between services that are using this form of security.
+In a Cloud Foundry setting, instance identity certificates are automatically provisioned (and rotated on a regular basis) for each application instance. Steeltoe provides the `AddCloudFoundryContainerIdentity` extension to find the location of the certificate files from the environment variables `CF_INSTANCE_CERT` and `CF_INSTANCE_KEY`. When running outside of Cloud Foundry, this extension will automatically generate similar certificates. Use the optional parameters specify a space and/or org id to facilitate communication between services that are using this form of security.
 
 This sample code adds the certificate paths (and creates the certificates when running off-platform) to configuration for use later:
 
@@ -41,7 +41,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 The above example will create self-signed certificates with an OrgId of `a8fef16f-94c0-49e3-aa0b-ced7c3da6229` and a SpaceId of `122b942a-d7b9-4839-b26e-836654b9785f` when running locally.
 
->This step is required on services that are sending or recieving mTLS-secured requests
+>This step is required on services that are sending or receiving mTLS-secured requests
 
 ### Securing Endpoints
 
@@ -74,7 +74,7 @@ public void Configure(IApplicationBuilder app, ...)
 }
 ```
 
->These steps are only required on services that are recieving mTLS-secured requests
+>These steps are only required on services that are receiving mTLS-secured requests
 
 #### Applying Authorization Polices
 
@@ -113,9 +113,9 @@ public class HomeController : ControllerBase
 }
 ```
 
-In the preceding example, when an incoming request is made to the `SameOrgCheck` endpoint, the request is evaluated for the presence of a certificate. If a certificate is not present, the request is rejected. If a certificate is present, the subject is evaluated for the presense of an `org` value, which is then compared with the `org` value in the certificate found on disk where the service is deployed. If the values do not match, the request is rejected. The same process is applied for `SameSpaceCheck`, with the only difference being a check for the `space` value instead of the `org` value.
+In the preceding example, when an incoming request is made to the `SameOrgCheck` endpoint, the request is evaluated for the presence of a certificate. If a certificate is not present, the request is rejected. If a certificate is present, the subject is evaluated for the presence of an `org` value, which is then compared with the `org` value in the certificate found on disk where the service is deployed. If the values do not match, the request is rejected. The same process is applied for `SameSpaceCheck`, with the only difference being a check for the `space` value instead of the `org` value.
 
->This step is only required on services that are recieving mTLS-secured requests
+>This step is only required on services that are receiving mTLS-secured requests
 
 ### Communicating with Secured Services
 
@@ -153,7 +153,7 @@ services.AddHttpClient("default", (services, client) =>
 
 >This step is only required on services that are sending mTLS-secured requests
 
-Should you need to customize or disable the certificate validation on clients making requests to secured endpoints (such as with certifcates that are self-signed or use an untrusted root), it is possible to configure the primary http message handler used in the `HttpClientFactory` with code like this:
+Should you need to customize or disable the certificate validation on clients making requests to secured endpoints (such as with certificates that are self-signed or use an un-trusted root), it is possible to configure the primary http message handler used in the `HttpClientFactory` with code like this:
 
 ```csharp
 .ConfigurePrimaryHttpMessageHandler((isp) => new HttpClientHandler { ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true })

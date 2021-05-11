@@ -2,11 +2,13 @@
   topicHref: welcome/
   items:
     - topicHref: welcome/whats-new.md
-      name: What's New in Steeltoe 3.0
+      name: What's New in Steeltoe 3
     - topicHref: welcome/prerequisites.md
       name: Prerequisites
     - topicHref: welcome/common-steps.md
       name: Common Steps
+- name: Application Bootstrapping
+  topicHref: bootstrap/
 - name: Application Configuration
   topicHref: configuration/
   items:
@@ -141,6 +143,15 @@
       name: Kubernetes
     - topicHref: discovery/load-balancing.md
       name: Load Balancing
+- name: Stream
+  topicHref: stream/
+  items:
+    - topicHref: stream/stream-reference.md
+      name: Stream Reference
+    - topicHref: stream/rabbit-binder.md
+      name: RabbitMQ Binder
+    - topicHref: stream/data-flow-stream.md
+      name: Spring Cloud Dataflow
 - name: Initializr
   topicHref: initializr/
   items:

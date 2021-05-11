@@ -38,14 +38,13 @@ Alternatively, first,add the Prometheus actuator to the service container, using
 
 Then, add the Prometheus actuator middleware to the ASP.NET Core pipeline, use the `Map<PrometheusEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
-
 ## Exporting
 
 Prometheus metrics are typically configured to be scraped by registering the Prometheus with Prometheus server. At this time, the push model is not supported.
 
 ## Add NuGet References
 
-To use the Prometheus endpoint, you need to add a reference to `Steetoe.Management.EndpointCore`. To add this NuGet to your project, add a `PackageReference` resembling the following:
+To use the Prometheus endpoint, you need to add a reference to `Steeltoe.Management.EndpointCore`. To add this NuGet to your project, add a `PackageReference` resembling the following:
 
 ```xml
 <ItemGroup>

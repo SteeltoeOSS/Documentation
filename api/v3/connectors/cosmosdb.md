@@ -12,7 +12,7 @@ To use this connector:
 
 ### Add NuGet References
 
-To use the CosmosDB connector, add either [Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Microsoft.Azure.Cosmos) or [Azure.Cosmos](https://www.nuget.org/packages/Azure.Cosmos/) (pre-release only as of this writing) as you would if you were not using Steeltoe. Then add a reference to [Steeltoe.ConnectorBase](https://www.nuget.org/packages/Steeltoe.ConnectorBase)
+To use the CosmosDB connector, add either [Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Microsoft.Azure.Cosmos) or [Azure.Cosmos](https://www.nuget.org/packages/Azure.Cosmos/) (pre-release only as of this writing) as you would if you were not using Steeltoe. Then [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references).
 
 ### Configure Settings
 
