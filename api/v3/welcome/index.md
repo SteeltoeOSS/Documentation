@@ -1,6 +1,10 @@
 # Steeltoe Documentation
 
-## [What's New in 3.0](./whats-new.md)
+## [What's New in Steeltoe 3](./whats-new.md)
+
+## [Application Bootstrapping](../bootstrap/index.md)
+
+Automatically configure many Steeltoe components with a single line of code [read more](../bootstrap/index.md)
 
 ## [Application Configuration](../configuration/index.md)
 
