@@ -39,6 +39,9 @@
 - name: Service Discovery
   items:
     - topicUid: guides/service-discovery/eureka
+- name: Stream
+  items: 
+    - topicUid: guides/stream/quick-start
 - name: Steeltoe Workshop
   items:
     - topicUid: guides/get-to-know-steeltoe

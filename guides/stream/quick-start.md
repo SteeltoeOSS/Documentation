@@ -1,3 +1,11 @@
+---
+uid: guides/stream/quick-start
+title: Quick Start
+tags: []
+_disableFooter: true
+_hideTocVersionToggle: true
+---
+
 # Quick Start
 
 This guide will show you how to create a Steeltoe Stream service that receives messages coming from messaging middleware of your choice and logs the received message to the console.
