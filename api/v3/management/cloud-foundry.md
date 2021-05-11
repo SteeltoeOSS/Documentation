@@ -7,6 +7,8 @@ Integration with Apps Manager is accomplished by adding the Cloud Foundry manage
 * Adds Cloud Foundry security middleware to the request pipeline, to secure access to the management endpoints by using security tokens acquired from the UAA.
 * Adds extension methods that simplify adding the Steeltoe management endpoints necessary for Apps Manager integration with HTTP access to the application.
 
+>NOTE: The Cloud Foundry integration will not work unless the [Cloud Foundry Configuration Provider](../configuration/cloud-foundry-provider.md) has also been configured.
+
 ## Security
 
 When adding this management endpoint to your application, the Cloud Foundry security middleware is added to the request processing pipeline of your application to enforce that, when a request is made of any of the management endpoints, a valid UAA access token is provided as part of that request. Additionally, the security middleware uses the token to determine whether the authenticated user has permission to access the management endpoint.
@@ -31,7 +33,7 @@ Typically, you need not do any additional configuration. However, the following 
 | `ApplicationId` | The ID of the application used in permissions check. | VCAP settings |
 | `CloudFoundryApi` | The URL of the Cloud Foundry API. | VCAP settings |
 
->Each setting in the preceding table must be prefixed with `management:endpoints:cloudfoundry`.
+>Each setting in the preceding table must be prefixed with `Management:Endpoints:CloudFoundry`.
 
 ## Enable HTTP Access
 
@@ -39,21 +41,72 @@ The default path to the Cloud Foundry endpoint is computed by combining the glob
 
 See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the actuator to the service container and map its route, you can use the `AddCloudFoundryActuator` extension method from `ManagementHostBuilderExtensions`.
+The Cloud Foundry actuator, the actuator's security middleware, and the CORS policy can be added to the application in either `program.cs` or `startup.cs`. This can be done individually or in a grouping with all the other actuators. All of these options will function effectively the same way, so this is a style choice.
 
-Alternatively, first, add the Cloud Foundry actuator to the service container, using the `AddCloudFoundryActuator()` extension method from `EndpointServiceCollectionExtensions`.
+>Of all the options provided, the approach of using `AddAllActuators()` on the `HostBuilder` is most recommended.
 
-Then, add the Cloud Foundry actuator and security middleware to the ASP.NET Core pipeline, using the `UseCloudFoundrySecurity()` extension methods from `EndpointApplicationBuilderExtensions` and `Map<CloudFoundryEndpoint>()` from `ActuatorRouteBuilderExtensions`
+### Program.cs
 
-Extensions for both `IHostBuilder` and `IWebHostBuilder` are included to configure all actuators including CloudFoundry, Hypermedia and others, with a single line of code in `Program.cs`:
+If you prefer maximum convenience, extension methods for both `IHostBuilder` and `IWebHostBuilder` can configure all actuators at once with a single line of code:
 
 ```csharp
+using Steeltoe.Management.CloudFoundry; // for .AddCloudFoundryActuators()
+using Steeltoe.Management.Endpoint;     // for other options
+...
     public static void Main(string[] args)
     {
         BuildWebHost(args).Run();
     }
     public static IHost BuildHost(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .AddCloudFoundryActuators()
+            .AddAllActuators()            // add CF + security (when deployed to CF) and all others
+            //.AddCloudFoundryActuators() // add CF + security + others, deprecated in 3.1.0
+            //.AddCloudFoundryActuator()  // add just CF + security
             .Build();
+```
+
+### Startup.cs
+
+If you prefer to configure the services and activate the middleware separately, more code is required, but you may use these extensions methods for `IServiceCollection` and `IApplicationBuilder`:
+
+```csharp
+using Steeltoe.Management.Endpoint;
+using Steeltoe.Management.Endpoint.CloudFoundry;
+using Steeltoe.Management.Endpoint.Health;
+
+public class Startup
+{
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+
+    public IConfiguration Configuration { get; }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // for versions >= 3.1.0-rc1, add all actuators and Cloud Foundry integration pieces
+        services.AddAllActuators(Configuration);
+
+        // for versions < 3.1.0, add all actuators and Cloud Foundry integration pieces
+        //services.AddCloudFoundryActuators(Configuration);
+        // if you prefer to add individual actuators
+        //services.AddCloudFoundryActuator(Configuration);
+        ...    
+    }
+    public void Configure(IApplicationBuilder app)
+    {
+        // because Apps Manager interacts with actuators through your browser, CORS must be configured
+        app.UseCors("SteeltoeManagement");
+        // activate the CF security middleware
+        app.UseCloudFoundrySecurity();
+
+        app.UseRouting();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapAllActuators()
+        }
+        // Initializes health readiness and liveness probes
+        app.ApplicationServices.InitializeAvailability();
+    }
+}
 ```

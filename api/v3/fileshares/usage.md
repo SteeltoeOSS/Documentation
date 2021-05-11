@@ -37,7 +37,7 @@ using (new WindowsNetworkFileShare(@"\\server\path", new System.Net.NetworkCrede
 
 Credentials are generally required for interacting with SMB shares. `WindowsNetworkFileShare` does not have an opinion on where those credentials are stored. However, as a general guideline, storing credentials with your application's code or standard configuration is not recommended. Consider using the [CredHub Service Broker](https://docs.pivotal.io/credhub-service-broker/) for storing and retrieving your credentials.
 
-When used in conjuction with the Cloud Foundry Configuration Provider, you can access the values as follows:
+When used in conjunction with the Cloud Foundry Configuration Provider, you can access the values as follows:
 
 ```csharp
 public SomeClassConstructor(IOptions<CloudFoundryServicesOptions> serviceOptions)

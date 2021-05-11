@@ -9,6 +9,7 @@ After selecting desired project parameters, an end user uses _InitializrWeb_ to 
 ![Steeltoe Initializr](./images/default.png)
 
 The interface is made up of 4 areas:
+
 * project configuration area
 * project action area (bottom)
 * UI configuration (right)

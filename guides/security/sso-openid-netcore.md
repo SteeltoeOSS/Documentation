@@ -7,7 +7,7 @@ _hideTocVersionToggle: true
 ---
 
 > [!TIP]
-> Looking for a .NET Framework example? Have a [look](security-providers/get-started/sso/openid/framework).
+> Looking for a .NET Framework example? Have a [look](./sso-openid-framework.md).
 
 ## Using Cloud Foundry SSO with OpenID Connect provider
 

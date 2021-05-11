@@ -23,7 +23,7 @@ Follow the instructions in the [GemFire Native Client documentation](https://gem
 
 ### Add NuGet Reference
 
-Add a reference to the appropriate Steeltoe Connector NuGet package.
+[Add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references).
 
 ### Configure Settings
 

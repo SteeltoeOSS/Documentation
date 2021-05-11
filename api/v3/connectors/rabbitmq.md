@@ -21,7 +21,7 @@ To use this Connector:
 
 ### Add NuGet Reference
 
-To use the RabbitMQ connector, you need to add a reference to the appropriate Steeltoe Connector NuGet package and `RabbitMQ.Client`.
+To use the RabbitMQ connector, you need to [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references) and `RabbitMQ.Client`.
 
 ### Configure Settings
 
