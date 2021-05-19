@@ -1580,14 +1580,11 @@ The following list describes the provided converters, in order of precedence (th
 1. `ObjectStringMessageConverter`: Supports conversion of any type to a `string` when `contentType` is `text/*`. For objects, it invokes `ToString()` method or if the payload is `byte[]`, it uses `EncodingUtils.Utf8.GetString(..)`.
 
 When no appropriate converter is found, the framework throws an exception. When that happens, you should check your code and configuration and ensure you did not miss anything (that is, ensure that you provided a `contentType` by using a binding or a header).
-<!--
-TODO: RC2
- However, most likely, you found some uncommon case (such as a custom `contentType` perhaps) and the current stack of provided `IMessageConverters`
+
+However, most likely, you found some uncommon case (such as a custom `contentType` perhaps) and the current stack of provided `IMessageConverters`
 does not know how to convert. If that is the case, you can add custom `IMessageConverter`. See [User-defined Message Converters](#user-defined-message-converters).
 
 ### User-defined Message Converters
-
-// TODO: We need to make sure this works and is easy to add a customer converter (probably needs a extension method++)
 
 Steeltoe Stream exposes a mechanism to define and register additional `IMessageConverters`.
 To use it, implement `Steeltoe.Messaging.Converter.IMessageConverter`, and add it to the service container.
@@ -1596,44 +1593,44 @@ At startup time, it will be discovered and then appended to the default stack of
 >NOTE: It is important to understand that custom `IMessageConverter` implementations are added to the head of the default stack.
 Consequently, custom `IMessageConverter` implementations take precedence over the default ones, which lets you override as well as add to the default converters.
 
-The following example shows how to create a message converter bean to support a new content type called `application/bar`:
+The following example shows how to create a message converter bean to support a content type called `text/*`:
 
+Startup.cs
 ```csharp
-[EnableBinding(typeof(ISink))]
-public class SinkApplication
+public void ConfigureServices(IServiceCollection services)
 {
-
-    // TODO: How do we do this????
-    // @Bean
-    // @StreamMessageConverter
-    // public MessageConverter customMessageConverter() {
-    //     return new MyCustomMessageConverter();
-    // }
-
+  // ...
+  services.AddTransient<IMessageConverter, MyCustomMessageConverter>();
+  // ...
 }
+```
 
+MyCustomMessageConverter.cs
+```csharp
 public class MyCustomMessageConverter : AbstractMessageConverter
 {
     public override string ServiceName { get; set; } = "MyCustomMessageConverter";
 
     public MyCustomMessageConverter()
-    : base(new MimeType("application", "bar"))
+      : base(new MimeType("text", "*", EncodingUtils.Utf8)) { }
+
+    public override bool CanConvertFrom(IMessage message, Type targetClass)
     {
+      return message.Payload.ToString() != null;
     }
 
     protected override bool Supports(Type clazz)
     {
-        return typeof(Bar) == clazz;
+      return typeof(string) == clazz;
     }
 
     protected override object ConvertFromInternal(IMessage message, Type targetClass, object conversionHint)
     {
-      var payload = message.Payload;
-      return (payload is Bar ? payload : new Bar((byte[]) payload));
+      return $"ATTENTION: {Encoding.Default.GetString((byte[])message.Payload)}; End of Message;";
     }
 }
 ``` 
-
+<!--
 ## Inter-Application Communication
 
 Stream enables communication between applications. Inter-application communication is a complex issue spanning several concerns, as described in the following topics:
