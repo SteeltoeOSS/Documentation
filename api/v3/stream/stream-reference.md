@@ -1361,13 +1361,10 @@ class Program
             .ConfigureAppConfiguration(config => {
                     config.AddJsonFile("appsettings.json");
             })
-            .ConfigureServices(services =>
-            {
-                services.AddTransient<BinderAwareChannelResolver>();
-            })
             .Build();
 
-        binderAwareChannelResolver = host.Services.GetService<BinderAwareChannelResolver>();
+        binderAwareChannelResolver = 
+          host.Services.GetService<IDestinationResolver<IMessageChannel>>() as BinderAwareChannelResolver;
 
         await host.StartAsync();
     }
