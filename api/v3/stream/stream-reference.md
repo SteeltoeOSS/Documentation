@@ -1336,50 +1336,79 @@ See [Error Handling](#error-handling) for more information.
 
   Default: `False`.
 
-<!-- ### Dynamically Bound Destinations  
-
-// TODO:  A sample needs to be built to verify/test this (RC2)
+### Dynamically Bound Destinations  
 
 Besides the channels defined by using `EnableBinding` attribute, Stream lets applications send messages to dynamically bound destinations.
 This is useful, for example, when the target destination needs to be determined at runtime.
-Applications can do so by using the `BinderAwareChannelResolver` bean, registered automatically by the `@EnableBinding` annotation.
+Applications can do so by using the `BinderAwareChannelResolver` service (which is registered automatically when using `AddStreamServices<T>` extension in the application Host Builder).
 
 The `spring.cloud.stream.dynamicDestinations` setting can be used for restricting the dynamic destination names to a known set (whitelisting).
 If this property is not set, any destination can be bound dynamically.
 
-The `BinderAwareChannelResolver` can be used directly, as shown in the following example of a REST controller using a path variable to decide the target channel:
+The `BinderAwareChannelResolver` can be used directly, as shown in the following example of a console application receiving messages from an input source and deciding the target channel based on the body of the message (see [Dynamic Destination Sample](https://github.com/SteeltoeOSS/Samples/tree/main/Stream/DynamicDestinationMessaging) for full solution):
 
-```java
-@EnableBinding
-@Controller
-public class SourceWithDynamicDestination {
 
-    @Autowired
-    private BinderAwareChannelResolver resolver;
+Program.cs
+```csharp
+[EnableBinding(typeof(IProcessor))]
+class Program
+{
+    private static BinderAwareChannelResolver binderAwareChannelResolver;
 
-    @RequestMapping(path = "/{target}", method = POST, consumes = "*/*")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void handleRequest(@RequestBody String body, @PathVariable("target") target,
-           @RequestHeader(HttpHeaders.CONTENT_TYPE) Object contentType) {
-        sendMessage(body, target, contentType);
+    static async Task Main(string[] args)
+    {
+        var host = StreamHost.CreateDefaultBuilder<Program>(args)
+            .ConfigureAppConfiguration(config => {
+                    config.AddJsonFile("appsettings.json");
+            })
+            .ConfigureServices(services =>
+            {
+                services.AddTransient<BinderAwareChannelResolver>();
+            })
+            .Build();
+
+        binderAwareChannelResolver = host.Services.GetService<BinderAwareChannelResolver>();
+
+        await host.StartAsync();
     }
 
-    private void sendMessage(String body, String target, Object contentType) {
-        resolver.resolveDestination(target).send(MessageBuilder.createMessage(body,
-                new MessageHeaders(Collections.singletonMap(MessageHeaders.CONTENT_TYPE, contentType))));
+    [StreamListener(IProcessor.INPUT)]
+    public async void Handle(string incomingMessage)
+    {
+        var destination = incomingMessage.Contains("URGENT") ? "requests.urgent" : "requests.general";
+        var outgoingMessage = Message.Create(Encoding.UTF8.GetBytes(incomingMessage));
+
+        await binderAwareChannelResolver.ResolveDestination(destination).SendAsync(outgoingMessage);
     }
 }
 ```
 
-Now consider what happens when we start the application on the default port (8080) and make the following requests with CURL:
+appsettings.json
 
-----
-curl -H "Content-Type: application/json" -X POST -d "customer-1" http://localhost:8080/customers
+```json
+{
+  "spring": {
+    "cloud": {
+      "stream": {
+        "binder": "rabbit",
+        "bindings": {
+          "input": {
+            "group": "requests",
+            "destination": "requests.incoming"
+          }
+        }
+      }
+    }
+  }
+}
+```
 
-curl -H "Content-Type: application/json" -X POST -d "order-1" http://localhost:8080/orders
-----
+Now consider what happens when we start the application and make the following requests from the `requests.incoming` exhange within RabbitMQ.
+The destinations, 'requests.urgent' and 'requests.general', are created in the broker (in the exchange for RabbitMQ) with names of 'requests.urgent' and 'requests.general', and the data is published to the appropriate destinations.
 
-The destinations, 'customers' and 'orders', are created in the broker (in the exchange for Rabbit or in the topic for Kafka) with names of 'customers' and 'orders', and the data is published to the appropriate destinations.
+<!--
+
+// TODO:  Need to verify/test ServiceActivator wiring in context of RabbitMQ binder
 
 The `BinderAwareChannelResolver` is a general-purpose Spring Integration `DestinationResolver` and can be injected in other components -- for example, in a router using a SpEL expression based on the `target` field of an incoming JSON message. The following example includes a router that reads SpEL expressions:
 
