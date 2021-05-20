@@ -1585,7 +1585,7 @@ At startup time, it will be discovered and then appended to the default stack of
 >NOTE: It is important to understand that custom `IMessageConverter` implementations are added to the head of the default stack.
 Consequently, custom `IMessageConverter` implementations take precedence over the default ones, which lets you override as well as add to the default converters.
 
-The following example shows how to create a message converter bean to support a content type called `text/*`:
+The following example shows how to create a message converter bean to support a new content type called `application/bar`:
 
 Startup.cs
 ```csharp
@@ -1604,21 +1604,25 @@ public class MyCustomMessageConverter : AbstractMessageConverter
     public override string ServiceName { get; set; } = "MyCustomMessageConverter";
 
     public MyCustomMessageConverter()
-      : base(new MimeType("text", "*", EncodingUtils.Utf8)) { }
+      : base(new MimeType("application", "bar")) { }
 
     public override bool CanConvertFrom(IMessage message, Type targetClass)
     {
-      return message.Payload.ToString() != null;
+        return Supports(targetClass);
     }
 
     protected override bool Supports(Type clazz)
     {
-      return typeof(string) == clazz;
+        return clazz == typeof(Bar) || clazz == typeof(string);
     }
 
     protected override object ConvertFromInternal(IMessage message, Type targetClass, object conversionHint)
     {
-      return $"ATTENTION: {Encoding.Default.GetString((byte[])message.Payload)}; End of Message;";
+        var serializedBar = Encoding.Default.GetString((byte[])message.Payload);
+        var serializationOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        var bar = JsonSerializer.Deserialize<Bar>(serializedBar, serializationOptions);
+
+        return $"{bar.Name} has been processed";
     }
 }
 ``` 
