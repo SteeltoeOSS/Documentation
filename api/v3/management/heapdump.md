@@ -17,7 +17,7 @@ The following table describes the settings that you can apply to the endpoint:
 
 >NOTE: Each setting above must be prefixed with `Management:Endpoints:Heapdump`.
 
-**HeapDumpType**: Introduced in Steeltoe 3.1.0 after RC1, this setting is supported for .NET Core 3.1 and .NET 5.0 on Linux and .NET 5 on Windows. Acceptable values are `Normal`, `WithHeap`, `Triage` and `Full`.
+**HeapDumpType**: Introduced in Steeltoe 3.1.0, this setting is supported for .NET Core 3.1 and .NET 5.0 on Linux and .NET 5 on Windows. Acceptable values are `Normal`, `WithHeap`, `Triage` and `Full`.
 
 ## Enable HTTP Access
 
