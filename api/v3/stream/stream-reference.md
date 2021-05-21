@@ -1336,50 +1336,71 @@ See [Error Handling](#error-handling) for more information.
 
   Default: `False`.
 
-<!-- ### Dynamically Bound Destinations  
-
-// TODO:  A sample needs to be built to verify/test this (RC2)
+### Dynamically Bound Destinations  
 
 Besides the channels defined by using `EnableBinding` attribute, Stream lets applications send messages to dynamically bound destinations.
 This is useful, for example, when the target destination needs to be determined at runtime.
-Applications can do so by using the `BinderAwareChannelResolver` bean, registered automatically by the `@EnableBinding` annotation.
+Applications can do so by using the `BinderAwareChannelResolver` service (which is registered automatically when using `AddStreamServices<T>` extension in the application Host Builder).
 
 The `spring.cloud.stream.dynamicDestinations` setting can be used for restricting the dynamic destination names to a known set (whitelisting).
 If this property is not set, any destination can be bound dynamically.
 
-The `BinderAwareChannelResolver` can be used directly, as shown in the following example of a REST controller using a path variable to decide the target channel:
+The `BinderAwareChannelResolver` can be used directly, as shown in the following example of a console application receiving messages from an input source and deciding the target channel based on the body of the message (see [Dynamic Destination Sample](https://github.com/SteeltoeOSS/Samples/tree/main/Stream/DynamicDestinationMessaging) for full solution):
 
-```java
-@EnableBinding
-@Controller
-public class SourceWithDynamicDestination {
 
-    @Autowired
-    private BinderAwareChannelResolver resolver;
+Program.cs
+```csharp
+[EnableBinding(typeof(ISink))]
+class Program
+{
+    private static BinderAwareChannelResolver binderAwareChannelResolver;
 
-    @RequestMapping(path = "/{target}", method = POST, consumes = "*/*")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void handleRequest(@RequestBody String body, @PathVariable("target") target,
-           @RequestHeader(HttpHeaders.CONTENT_TYPE) Object contentType) {
-        sendMessage(body, target, contentType);
+    static async Task Main(string[] args)
+    {
+        var host = StreamHost.CreateDefaultBuilder<Program>(args).Build();
+
+        binderAwareChannelResolver = 
+          host.Services.GetService<IDestinationResolver<IMessageChannel>>() as BinderAwareChannelResolver;
+
+        await host.StartAsync();
     }
 
-    private void sendMessage(String body, String target, Object contentType) {
-        resolver.resolveDestination(target).send(MessageBuilder.createMessage(body,
-                new MessageHeaders(Collections.singletonMap(MessageHeaders.CONTENT_TYPE, contentType))));
+    [StreamListener(ISink.INPUT)]
+    public async void Handle(string incomingMessage)
+    {
+        var destination = incomingMessage.Contains("URGENT") ? "requests.urgent" : "requests.general";
+        var outgoingMessage = Message.Create(Encoding.UTF8.GetBytes(incomingMessage));
+
+        await binderAwareChannelResolver.ResolveDestination(destination).SendAsync(outgoingMessage);
     }
 }
 ```
 
-Now consider what happens when we start the application on the default port (8080) and make the following requests with CURL:
+appsettings.json
+```json
+{
+  "spring": {
+    "cloud": {
+      "stream": {
+        "binder": "rabbit",
+        "bindings": {
+          "input": {
+            "group": "requests",
+            "destination": "requests.incoming"
+          }
+        }
+      }
+    }
+  }
+}
+```
 
-----
-curl -H "Content-Type: application/json" -X POST -d "customer-1" http://localhost:8080/customers
+Now consider what happens when we start the application and make the following requests from the `requests.incoming` exhange within RabbitMQ.
+The destinations, 'requests.urgent' and 'requests.general', are created in the broker (in the exchange for RabbitMQ) with names of 'requests.urgent' and 'requests.general', and the data is published to the appropriate destinations.
 
-curl -H "Content-Type: application/json" -X POST -d "order-1" http://localhost:8080/orders
-----
+<!--
 
-The destinations, 'customers' and 'orders', are created in the broker (in the exchange for Rabbit or in the topic for Kafka) with names of 'customers' and 'orders', and the data is published to the appropriate destinations.
+// TODO:  Need to verify/test ServiceActivator wiring in context of RabbitMQ binder
 
 The `BinderAwareChannelResolver` is a general-purpose Spring Integration `DestinationResolver` and can be injected in other components -- for example, in a router using a SpEL expression based on the `target` field of an incoming JSON message. The following example includes a router that reads SpEL expressions:
 
@@ -1551,14 +1572,11 @@ The following list describes the provided converters, in order of precedence (th
 1. `ObjectStringMessageConverter`: Supports conversion of any type to a `string` when `contentType` is `text/*`. For objects, it invokes `ToString()` method or if the payload is `byte[]`, it uses `EncodingUtils.Utf8.GetString(..)`.
 
 When no appropriate converter is found, the framework throws an exception. When that happens, you should check your code and configuration and ensure you did not miss anything (that is, ensure that you provided a `contentType` by using a binding or a header).
-<!--
-TODO: RC2
- However, most likely, you found some uncommon case (such as a custom `contentType` perhaps) and the current stack of provided `IMessageConverters`
+
+However, most likely, you found some uncommon case (such as a custom `contentType` perhaps) and the current stack of provided `IMessageConverters`
 does not know how to convert. If that is the case, you can add custom `IMessageConverter`. See [User-defined Message Converters](#user-defined-message-converters).
 
 ### User-defined Message Converters
-
-// TODO: We need to make sure this works and is easy to add a customer converter (probably needs a extension method++)
 
 Steeltoe Stream exposes a mechanism to define and register additional `IMessageConverters`.
 To use it, implement `Steeltoe.Messaging.Converter.IMessageConverter`, and add it to the service container.
@@ -1569,42 +1587,46 @@ Consequently, custom `IMessageConverter` implementations take precedence over th
 
 The following example shows how to create a message converter bean to support a new content type called `application/bar`:
 
+Startup.cs
 ```csharp
-[EnableBinding(typeof(ISink))]
-public class SinkApplication
+public void ConfigureServices(IServiceCollection services)
 {
-
-    // TODO: How do we do this????
-    // @Bean
-    // @StreamMessageConverter
-    // public MessageConverter customMessageConverter() {
-    //     return new MyCustomMessageConverter();
-    // }
-
+  // ...
+  services.AddTransient<IMessageConverter, MyCustomMessageConverter>();
+  // ...
 }
+```
 
+MyCustomMessageConverter.cs
+```csharp
 public class MyCustomMessageConverter : AbstractMessageConverter
 {
     public override string ServiceName { get; set; } = "MyCustomMessageConverter";
 
     public MyCustomMessageConverter()
-    : base(new MimeType("application", "bar"))
+      : base(new MimeType("application", "bar")) { }
+
+    public override bool CanConvertFrom(IMessage message, Type targetClass)
     {
+        return Supports(targetClass);
     }
 
     protected override bool Supports(Type clazz)
     {
-        return typeof(Bar) == clazz;
+        return clazz == typeof(Bar) || clazz == typeof(string);
     }
 
     protected override object ConvertFromInternal(IMessage message, Type targetClass, object conversionHint)
     {
-      var payload = message.Payload;
-      return (payload is Bar ? payload : new Bar((byte[]) payload));
+        var serializedBar = Encoding.Default.GetString((byte[])message.Payload);
+        var serializationOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        var bar = JsonSerializer.Deserialize<Bar>(serializedBar, serializationOptions);
+
+        return $"{bar.Name} has been processed";
     }
 }
 ``` 
-
+<!--
 ## Inter-Application Communication
 
 Stream enables communication between applications. Inter-application communication is a complex issue spanning several concerns, as described in the following topics:
