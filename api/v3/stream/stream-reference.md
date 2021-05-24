@@ -1626,7 +1626,7 @@ public class MyCustomMessageConverter : AbstractMessageConverter
     }
 }
 ``` 
-<!--
+
 ## Inter-Application Communication
 
 Stream enables communication between applications. Inter-application communication is a complex issue spanning several concerns, as described in the following topics:
@@ -1644,14 +1644,34 @@ Suppose a design calls for a Time Source application to send data to a Log Sink 
 
 Time Source (that has the channel name `output`) would set the following setting:
 
-```
-spring:cloud:stream:bindings:output:destination=ticktock
+```json
+"spring": {
+    "cloud": {
+      "stream": {
+        "bindings": {
+          "output": {
+            "destination": "ticktock"
+          }
+        }
+      }
+    }
+  }
 ```
 
 Log Sink (that has the channel name `input`) would set the following property:
 
-```
-spring:cloud:stream:bindings:input:destination=ticktock
+```json
+"spring": {
+    "cloud": {
+      "stream": {
+        "bindings": {
+          "input": {
+            "destination": "ticktock"
+          }
+        }
+      }
+    }
+  }
 ```
 
 ### Instance Index and Instance Count
@@ -1678,9 +1698,24 @@ You can configure an output binding to send partitioned data by setting one and 
 
 For example, the following is a valid and typical configuration:
 
-```
-spring:cloud:stream:bindings:output:producer:partitionKeyExpression=payload.id
-spring:cloud:stream:bindings:output:producer:partitionCount=5
+```json
+"spring": {
+    "cloud": {
+      "stream": {
+        "bindings": {
+          "output": {
+            "destination": "partitioned.destination",
+            "producer": {
+              "partitioned": true,
+              "partitionKeyExpression": "Headers['partitionKey']",
+              "partitionCount": 5,
+              "requiredGroups": [ "myGroup" ]
+            }
+          }
+        }
+      }
+    }
+  }
 ```
 
 Based on the above configuration, data is sent to the target partition by using the following logic.
@@ -1740,4 +1775,3 @@ This might be useful if you want messages for a particular partition to always g
 When a binder configuration requires them, it is important to set both values correctly in order to ensure that all of the data is consumed and that the application instances receive mutually exclusive datasets.
 
 While a scenario in which using multiple instances for partitioned data processing may be complex to set up in a standalone case, [Spring Cloud Data flow](https://spring.io/projects/spring-cloud-dataflow) can simplify the process significantly by populating both the input and output values correctly and by letting you rely on the runtime infrastructure to provide information about the instance index and instance count.
--->
