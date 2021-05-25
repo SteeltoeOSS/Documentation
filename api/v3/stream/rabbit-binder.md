@@ -840,7 +840,10 @@ public class Program
             [Header(Name = X_RETRIES_HEADER, Required = false)]
             int? retriesHeader)
         {
-            var failedMessage = MessageBuilder.WithPayload(Encoding.UTF8.GetBytes(text)).SetHeader(X_RETRIES_HEADER, (retriesHeader ?? 0) + 1).Build();
+            var failedMessage = MessageBuilder
+               .WithPayload(Encoding.UTF8.GetBytes(text))
+               .SetHeader(X_RETRIES_HEADER, (retriesHeader ?? 0) + 1)
+               .Build();
           
             if (!retriesHeader.HasValue || retriesHeader < 3)
             {
@@ -982,7 +985,10 @@ When `republishToDlq` is `False`, RabbitMQ publishes the message to the DLX/DLQ 
                 IDictionary<string, object> xDeathHeader
                 )
             {
-                var failedMessage = MessageBuilder.WithPayload(Encoding.UTF8.GetBytes(text)).SetHeader(X_RETRIES_HEADER, (retriesHeader ?? 0) + 1).Build();
+                var failedMessage = MessageBuilder
+                   .WithPayload(Encoding.UTF8.GetBytes(text))
+                   .SetHeader(X_RETRIES_HEADER, (retriesHeader ?? 0) + 1)
+                   .Build();
 
                 if (!retriesHeader.HasValue || retriesHeader < 3)
                 {
