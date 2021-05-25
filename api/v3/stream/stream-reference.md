@@ -1676,6 +1676,7 @@ Log Sink (that has the channel name `input`) would set the following property:
 
 ### Instance Index and Instance Count
 
+<!-- TODO: Verify SCDF sets instance count and index automatically -->
 When scaling up Stream applications horizontally, each instance can receive information about how many other instances of the same component exist and what its own instance index is.
 Stream does this through the configuration setting `spring:cloud:stream:instanceCount` and `spring:cloud:stream:instanceIndex` settings.
 For example, if there are three instances of a "HDFS sink component", all three instances have `spring:cloud:stream:instanceCount` set to `3`, and the individual instances have `spring:cloud:stream:instanceIndex` set to `0`, `1`, and `2`, respectively.
@@ -1708,8 +1709,7 @@ For example, the following is a valid and typical configuration:
             "producer": {
               "partitioned": true,
               "partitionKeyExpression": "Headers['partitionKey']",
-              "partitionCount": 5,
-              "requiredGroups": [ "myGroup" ]
+              "partitionCount": 5
             }
           }
         }
