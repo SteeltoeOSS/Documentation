@@ -686,10 +686,6 @@ To acknowledge a message after giving up, throw an `ImmediateAcknowledgeAmqpExce
 The following configuration creates an exchange `myDestination` with queue `myDestination.consumerGroup` bound to a topic exchange with a wildcard routing key `#`:
 
 ```json
-
-# disable binder retries
-# dlx/dlq setup
-
   "spring": {
     "cloud": {
       "stream": {
