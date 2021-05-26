@@ -659,11 +659,7 @@ Refer to the documentation above for more information.
 
 There are similar settings used when declaring a dead-letter exchange/queue, when `autoBindDlq` is `True`.
 
-<!-- 
-The Code compiles but does not work. The message arrives but the X-Death header never appears and its count is not incremented  - hananiel
 ## Retry With the RabbitMQ Binder
-
-// TODO: Is Strict ordering working properly??? 
 
 When retry is enabled within the binder, the listener container thread is suspended for any back off periods that are configured.
 This might be important when strict ordering is required with a single consumer. However, for other use cases, it prevents other messages from being processed on that thread.  
@@ -690,11 +686,7 @@ To acknowledge a message after giving up, throw an `ImmediateAcknowledgeAmqpExce
 The following configuration creates an exchange `myDestination` with queue `myDestination.consumerGroup` bound to a topic exchange with a wildcard routing key `#`:
 
 ```json
-
-# disable binder retries
-# dlx/dlq setup
-
-"spring": {
+  "spring": {
     "cloud": {
       "stream": {
         "binder": "rabbit",
@@ -703,10 +695,18 @@ The following configuration creates an exchange `myDestination` with queue `myDe
             "destination": "myDestination",
             "group": "consumerGroup",
             "consumer": {
-              "max-attempts": 1,
-              "auto-bind-dlq": true,
-              "dlq-ttl": 5000,
-              "dlq-dead-letter-exchange": ""
+              "maxAttempts": 1
+            }
+          }
+        },
+        "rabbit": {
+          "bindings": {
+            "input": {
+              "consumer": {
+                "autoBindDlq": true,
+                "dlqTtl": 5000,
+                "dlqDeadLetterExchange": ""
+              }
             }
           }
         }
@@ -719,23 +719,15 @@ This configuration creates a DLQ bound to a direct exchange (`DLX`) with a routi
 When messages are rejected, they are routed to the DLQ.
 After 5 seconds, the message expires and is routed to the original queue by using the queue name as the routing key, as shown in the following example:
 
-// TODO: Compiles but doesnt produce x-death header
 ```csharp
-   [EnableBinding(typeof(ISink))]
+    [EnableBinding(typeof(ISink))]
     public class Program
     {
         static async Task Main(string[] args)
         {
+              var host = await StreamHost.CreateDefaultBuilder<Program>(args)
+             .StartAsync();
 
-            await StreamHost.CreateDefaultBuilder<Program>(args)
-              .ConfigureServices((context, services) =>
-              {
-                  services.AddLogging(builder =>
-                  {
-                      builder.AddDebug();
-                      builder.AddConsole();
-                  });
-              }).StartAsync();
         }
 
         [StreamListener(ISink.INPUT)]
@@ -743,19 +735,18 @@ After 5 seconds, the message expires and is routed to the original queue by usin
             [Header(Name ="x-death", Required = false)]
             IDictionary<string, object> death)
         {
-            if (death != null && (long) death["count"] == 3L)
+            if (death != null && (long)death["count"] == 3L)
             {
                 // giving up - don't send to DLX
                 throw new ImmediateAcknowledgeException("Failed after 4 attempts");
             }
             throw new RabbitRejectAndDontRequeueException("failed");
         }
-
     }
 ```
 
-Notice that the count property in the `x-death` header is a `long`. 
--->
+Notice that the count property in the `x-death` header is a `long`.
+
 ## Error Channels
 
 The binder unconditionally sends exceptions to an error channel for each consumer destination and can also be configured to send async producer send failures to an error channel.
@@ -803,110 +794,143 @@ These examples use a `@RabbitListener` to receive messages from the DLQ.
 You could also use `RabbitTemplate.receive()` in a batch process.
 
 The examples assume the original destination is `so8400in` and the consumer group is `so8400`.
-<!--
+
 ### Non-Partitioned Destinations
 
 The first two examples are for when the destination is *not* partitioned:
 
-// TODO:  This needs validation
 ```csharp
-public class ReRouteDlqApplication 
+public class Program 
 {
     private const string ORIGINAL_QUEUE = "so8400in.so8400";
     private const string DLQ = ORIGINAL_QUEUE + ".dlq";
     private const string PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
     private const string X_RETRIES_HEADER = "x-retries";
 
-    public static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-        // TODO: 
-        // ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
-        // Console.WriteLine("Hit enter to terminate");
-        // Console.ReadLine();
-        // context.Dispose();
+        var host = StreamHost
+          .CreateDefaultBuilder<ReRouteDlq>(args)
+          .ConfigureServices((ctx, services) =>
+          {
+              services.AddRabbitServices();
+              services.AddRabbitTemplate();
+
+              services.AddRabbitListeners<ReRouteDlq>();
+          })
+          .Build();
+
+        await host.StartAsync();
     }
 
-    private RabbitTemplate rabbitTemplate;
-
-    public ReRouteDlqApplication(RabbitTemplate template) 
+    [EnableBinding(typeof(ISink))]
+    public class ReRouteDlq
     {
-      rabbitTemplate = template;
+        private readonly RabbitTemplate rabbitTemplate;
+
+        public ReRouteDlq(RabbitTemplate template)
+        {
+            rabbitTemplate = template;
+        }
+
+        [DeclareQueue(Name = PARKING_LOT)]
+        [RabbitListener(DLQ)]
+        public void RePublish(
+            string text, 
+            [Header(Name = X_RETRIES_HEADER, Required = false)]
+            int? retriesHeader)
+        {
+            var failedMessage = MessageBuilder
+               .WithPayload(Encoding.UTF8.GetBytes(text))
+               .SetHeader(X_RETRIES_HEADER, (retriesHeader ?? 0) + 1)
+               .Build();
+          
+            if (!retriesHeader.HasValue || retriesHeader < 3)
+            {
+                rabbitTemplate.Send(ORIGINAL_QUEUE, failedMessage);
+            }
+            else
+            {
+                rabbitTemplate.Send(PARKING_LOT, failedMessage);
+            }
+        }
+
+        [StreamListener(ISink.INPUT)]
+        public void InitialMessage(IMessage failedMessage)
+        {
+            throw new RabbitRejectAndDontRequeueException("failed");
+        }
     }
-
-    [DeclareQueue(PARKING_LOT)]
-    [RabbitListener(DLQ)]
-    public void RePublish(IMessage failedMessage)
-    {
-        if (!failedMessage.Headers.TryGetValue(X_RETRIES_HEADER, out int retriesHeader)
-        {
-            retriesHeader = 0;
-        }
-
-        if (retriesHeader < 3) 
-        {
-            var accessor = MessageHeaderAccessor.GetMutableAccessor(failedMessage);
-            accessor.SetHeader(X_RETRIES_HEADER, retriesHeader + 1);
-            rabbitTemplate.Send(ORIGINAL_QUEUE, failedMessage);
-        }
-        else 
-        {
-            rabbitTemplate.Send(PARKING_LOT, failedMessage);
-        }
-    }
-
 }
 ```
 
 ```csharp
-public class ReRouteDlqApplication 
-{
-    private const string ORIGINAL_QUEUE = "so8400in.so8400";
-    private const string DLQ = ORIGINAL_QUEUE + ".dlq";
-    private const string PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
-    private const string X_RETRIES_HEADER = "x-retries";
-    private const string DELAY_EXCHANGE = "dlqReRouter";
-
-    public static void main(String[] args)
+    public class Program
     {
-        // TODO: 
-        // ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
-        // Console.WriteLine("Hit enter to terminate");
-        // Console.ReadLine();
-        // context.Dispose();
-    }
+        private const string ORIGINAL_QUEUE = "so8400in.so8400";
+        private const string DLQ = ORIGINAL_QUEUE + ".dlq";
+        private const string PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
+        private const string X_RETRIES_HEADER = "x-retries";
+        private const string DELAY_EXCHANGE = "dlqReRouter";
 
-
-    private RabbitTemplate rabbitTemplate;
-
-    public ReRouteDlqApplication(RabbitTemplate template) 
-    {
-      rabbitTemplate = template;
-    }
-
-    [DeclareQueue(PARKING_LOT)]
-    [DeclareExchange(Name = "delayExchange", Delayed = True)]
-    [DeclareQueueBinding(Name = "bindOriginalToDelay", QueueName = ORIGINAL_QUEUE, ExchangeName = "delayExchange")]
-    [RabbitListener(DLQ)]
-    public void RePublish(IMessage failedMessage) 
-    {
-        var headers = failedMessage.Headers;
-        if (!headers.TryGetValue(X_RETRIES_HEADER, out int retriesHeader)
+        static async Task Main(string[] args)
         {
-            retriesHeader = 0;
+            var host = StreamHost
+              .CreateDefaultBuilder<ReRouteDlq>(args)
+              .ConfigureServices((ctx, services) =>
+              {
+                  services.AddRabbitServices();
+                  services.AddRabbitTemplate();
+
+                  services.AddRabbitListeners<ReRouteDlq>();
+              })
+              .Build();
+
+            await host.StartAsync();
         }
-        if (retriesHeader < 3)
+
+        [EnableBinding(typeof(ISink))]
+        public class ReRouteDlq
         {
-            var accessor = MessageHeaderAccessor.GetMutableAccessor(failedMessage);
-            accessor.SetHeader(X_RETRIES_HEADER, retriesHeader + 1);
-            accessor.SetHeader("x-delay", 5000 * retriesHeader);
-            rabbitTemplate.Send(DELAY_EXCHANGE, ORIGINAL_QUEUE, failedMessage);
-        }
-        else
-        {
-            rabbitTemplate.Send(PARKING_LOT, failedMessage);
+            private readonly RabbitTemplate rabbitTemplate;
+
+            public ReRouteDlq(RabbitTemplate template)
+            {
+                rabbitTemplate = template;
+            }
+
+            [DeclareQueue(Name = PARKING_LOT)]
+            [DeclareExchange(Name = "delayExchange", Delayed = "True")]
+            [DeclareQueueBinding(Name = "bindOriginalToDelay", QueueName = ORIGINAL_QUEUE, ExchangeName = "delayExchange")]
+            [RabbitListener(DLQ)]
+            public void RePublish(
+                string text,
+                [Header(Name = X_RETRIES_HEADER, Required = false)]
+                int? retriesHeader)
+            {
+                var failedMessage = MessageBuilder
+                    .WithPayload(Encoding.UTF8.GetBytes(text))
+                    .SetHeader(X_RETRIES_HEADER, (retriesHeader ?? 0) + 1)
+                    .SetHeader("x-delay", 5000*retriesHeader)
+                    .Build();
+
+                if (!retriesHeader.HasValue || retriesHeader < 3)
+                {
+                    rabbitTemplate.Send(ORIGINAL_QUEUE, failedMessage);
+                }
+                else
+                {
+                    rabbitTemplate.Send(PARKING_LOT, failedMessage);
+                }
+            }
+
+            [StreamListener(ISink.INPUT)]
+            public void InitialMessage(IMessage failedMessage)
+            {
+                throw new RabbitRejectAndDontRequeueException("failed");
+            }
         }
     }
-}
 ```
 
 ### Partitioned Destinations
@@ -918,58 +942,82 @@ With partitioned destinations, there is one DLQ for all partitions. We determine
 When `republishToDlq` is `False`, RabbitMQ publishes the message to the DLX/DLQ with an `x-death` header containing information about the original destination, as shown in the following example:
 
 ```csharp
-public class ReRouteDlqApplication
-{
-
-	private const string  ORIGINAL_QUEUE = "so8400in.so8400";
-	private const string  DLQ = ORIGINAL_QUEUE + ".dlq";
-	private const string  PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
-	private const string  X_DEATH_HEADER = "x-death";
-	private const string  X_RETRIES_HEADER = "x-retries";
-
-	public static void main(String[] args)
-   {
-        // TODO: 
-        // ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
-        // Console.WriteLine("Hit enter to terminate");
-        // Console.ReadLine();
-        // context.Dispose();
-	}
-
-    private RabbitTemplate rabbitTemplate;
-
-    public ReRouteDlqApplication(RabbitTemplate template) 
+    public class Program
     {
-      rabbitTemplate = template;
-    }
+        private const string ORIGINAL_QUEUE = "so8400in.so8400";
+        private const string DLQ = ORIGINAL_QUEUE + ".dlq";
+        private const string PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
+        private const string X_DEATH_HEADER = "x-death";
+        private const string X_RETRIES_HEADER = "x-retries";
 
+        static async Task Main(string[] args)
+        {
+            var host = StreamHost
+              .CreateDefaultBuilder<ReRouteDlq>(args)
+              .ConfigureServices((ctx, services) =>
+              {
+                  services.AddRabbitServices();
+                  services.AddRabbitTemplate();
 
-  [DeclareQueue(PARKING_LOT)]
-  [RabbitListener(DLQ)]
-	public void RePublish(IMessage failedMessage) 
-  {
-    var headers = failedMessage.Headers;
-    if (!failedMessage.Headers.TryGetValue(X_RETRIES_HEADER, out int retriesHeader)
-    {
-        retriesHeader = 0;
+                  services.AddRabbitListeners<ReRouteDlq>();
+              })
+              .Build();
+
+            await host.StartAsync();
+        }
+        [EnableBinding(typeof(ISink))]
+        public class ReRouteDlq
+        {
+            private readonly RabbitTemplate rabbitTemplate;
+
+            public ReRouteDlq(RabbitTemplate template)
+            {
+                rabbitTemplate = template;
+            }
+
+            [DeclareQueue(Name = PARKING_LOT)]
+            [RabbitListener(DLQ)]
+            public void RePublish(
+                string text,
+                [Header(Name = X_RETRIES_HEADER, Required = false)]
+                int? retriesHeader,
+                [Header(Name = X_DEATH_HEADER, Required = false)]
+                IDictionary<string, object> xDeathHeader
+                )
+            {
+                var failedMessage = MessageBuilder
+                   .WithPayload(Encoding.UTF8.GetBytes(text))
+                   .SetHeader(X_RETRIES_HEADER, (retriesHeader ?? 0) + 1)
+                   .Build();
+
+                if (!retriesHeader.HasValue || retriesHeader < 3)
+                {
+                    if (xDeathHeader != null
+                        && xDeathHeader.TryGetValue("exchange", out var exchange)
+                        && exchange is string strExchange
+                        && xDeathHeader.TryGetValue("routing-keys", out var rk)
+                        && rk is List<object> routingKeys)
+                    {
+                        rabbitTemplate.Send(strExchange, routingKeys[0].ToString(), failedMessage);
+                    }
+                    else
+                    {
+                        throw new RabbitRejectAndDontRequeueException("failed");
+                    }    
+                }
+                else
+                {
+                    rabbitTemplate.Send(PARKING_LOT, failedMessage);
+                }
+            }
+
+            [StreamListener(ISink.INPUT)]
+            public void InitialMessage(IMessage failedMessage)
+            {
+                throw new RabbitRejectAndDontRequeueException("failed");
+            }
+        }
     }
-    if (retriesHeader < 3) 
-    {
-        var accessor = MessageHeaderAccessor.GetMutableAccessor(failedMessage);
-        accessor.SetHeader(X_RETRIES_HEADER, retriesHeader + 1);
-        var xDeath = (List<Dictionary<string, object>>)accessor.GetHeader(X_DEATH_HEADER)
-        xDeath[0].TryGetValue("exchange", out object exch);
-        xDeath[0].TryGetValue("routing-keys", out object rk);
-        var exchange = (string)exch;
-        var routingKeys = (List<string>)rk;
-        rabbitTemplate.Send(exchange, routingKeys[0], failedMessage);
-    }
-    else
-    {
-        rabbitTemplate.Send(PARKING_LOT, failedMessage);
-    }
-	}
-}
 ```
 
 #### `republishToDlq=True`
@@ -977,53 +1025,79 @@ public class ReRouteDlqApplication
 When `republishToDlq` is `True`, the republishing recoverer adds the original exchange and routing key to headers, as shown in the following example:
 
 ```csharp
-public class ReRouteDlqApplication 
-{
-	private const string   ORIGINAL_QUEUE = "so8400in.so8400";
-	private const string   DLQ = ORIGINAL_QUEUE + ".dlq";
-	private const string  PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
-	private const string   X_RETRIES_HEADER = "x-retries";
-	private const string  X_ORIGINAL_EXCHANGE_HEADER = RepublishMessageRecoverer.X_ORIGINAL_EXCHANGE;
-	private const string   X_ORIGINAL_ROUTING_KEY_HEADER = RepublishMessageRecoverer.X_ORIGINAL_ROUTING_KEY;
-
-	public static void Main(String[] args)
-  {
-        // TODO: 
-        // ConfigurableApplicationContext context = SpringApplication.run(ReRouteDlqApplication.class, args);
-        // Console.WriteLine("Hit enter to terminate");
-        // Console.ReadLine();
-        // context.Dispose();
-	}
-
-  private RabbitTemplate rabbitTemplate;
-
-  public ReRouteDlqApplication(RabbitTemplate template) 
-  {
-    rabbitTemplate = template;
-  }
-
-  [DeclareQueue(PARKING_LOT)]
-  [RabbitListener(DLQ)]
-	public void RePublish(IMessage failedMessage) 
-  {
-    var headers = failedMessage.Headers;
-    if (!failedMessage.Headers.TryGetValue(X_RETRIES_HEADER, out int retriesHeader)
+    public class Program
     {
-        retriesHeader = 0;
+        private const string ORIGINAL_QUEUE = "so8400in.so8400";
+        private const string DLQ = ORIGINAL_QUEUE + ".dlq";
+        private const string PARKING_LOT = ORIGINAL_QUEUE + ".parkingLot";
+        private const string X_RETRIES_HEADER = "x-retries";
+        private const string X_ORIGINAL_EXCHANGE_HEADER = RepublishMessageRecoverer.X_ORIGINAL_EXCHANGE;
+        private const string X_ORIGINAL_ROUTING_KEY_HEADER = RepublishMessageRecoverer.X_ORIGINAL_ROUTING_KEY;
+
+        static async Task Main(string[] args)
+        {
+            var host = StreamHost
+              .CreateDefaultBuilder<ReRouteDlq>(args)
+              .ConfigureServices((ctx, services) =>
+              {
+                  services.AddRabbitServices();
+                  services.AddRabbitTemplate();
+
+                  services.AddRabbitListeners<ReRouteDlq>();
+              })
+              .Build();
+
+            await host.StartAsync();
+        }
+        [EnableBinding(typeof(ISink))]
+        public class ReRouteDlq
+        {
+            private readonly RabbitTemplate rabbitTemplate;
+
+            public ReRouteDlq(RabbitTemplate template)
+            {
+                rabbitTemplate = template;
+            }
+
+            [DeclareQueue(Name = PARKING_LOT)]
+            [RabbitListener(DLQ)]
+            public void RePublish(
+                string text,
+                [Header(Name = X_RETRIES_HEADER, Required = false)]
+                int? retriesHeader,
+                [Header(Name = X_ORIGINAL_EXCHANGE_HEADER, Required = false)]
+                string exchange,
+                [Header(Name = X_ORIGINAL_ROUTING_KEY_HEADER, Required = false)]
+                string originalRoutingKey
+
+                )
+            {
+                var failedMessage = MessageBuilder.WithPayload(Encoding.UTF8.GetBytes(text)).SetHeader(X_RETRIES_HEADER, (retriesHeader ?? 0) + 1).Build();
+
+                if (!retriesHeader.HasValue || retriesHeader < 3)
+                {
+                    if (exchange != null && !string.IsNullOrEmpty(originalRoutingKey) )
+                    {
+                        rabbitTemplate.Send(exchange, originalRoutingKey, failedMessage);
+                    }
+                    else
+                    {
+                        rabbitTemplate.Send(ORIGINAL_QUEUE, failedMessage);
+                    }
+                }
+                else
+                {
+                    rabbitTemplate.Send(PARKING_LOT, failedMessage);
+                }
+            }
+
+            [StreamListener(ISink.INPUT)]
+            public void InitialMessage(IMessage failedMessage)
+            {
+                throw new RabbitRejectAndDontRequeueException("failed");
+            }
+        }
     }
-    if (retriesHeader < 3) 
-    {
-      var accessor = MessageHeaderAccessor.GetMutableAccessor(failedMessage);
-      accessor.SetHeader(X_RETRIES_HEADER, retriesHeader + 1);
-			var exchange = (string) accessor.GetHeader(X_ORIGINAL_EXCHANGE_HEADER);
-			var originalRoutingKey = (string) accessor.GetHeader(X_ORIGINAL_ROUTING_KEY_HEADER);
-			rabbitTemplate.Send(exchange, originalRoutingKey, failedMessage);
-    }
-    else
-    {
-        rabbitTemplate.Send(PARKING_LOT, failedMessage);
-    }
-}
 ```
 
 ## Partitioning with the RabbitMQ Binder
@@ -1036,61 +1110,64 @@ The `RabbitMessageChannelBinder` provides partitioning by binding a queue for ea
 
 The following C# and JSON configuration examples show how to configure the producer:
 
-
 ```csharp
-[EnableBinding(typeof(ISource)]
-public class RabbitPartitionProducerApplication 
-{
-    private static readonly Random RANDOM = new Random();
-    private static readonly string[] data = new string[] {
-            "abc1", "def1", "qux1",
-            "abc2", "def2", "qux2",
-            "abc3", "def3", "qux3",
-            "abc4", "def4", "qux4",
-            };
-
-    public static void Main(string[] args)
-    {
-      // TODO:
-      // new SpringApplicationBuilder(RabbitPartitionProducerApplication.class)
-      //     .web(False)
-      //     .run(args);
-      // 
-    }
-}
-
-    // TODO: 
-    // TODO: Turn this into a WorkerService example ... something like below
-    // TODO:  @InboundChannelAdapter(channel = Source.OUTPUT, poller = @Poller(fixedRate = "5000"))
-public class Worker : BackgroundService
-{
-    private readonly ILogger<Worker> _logger;
-    private readonly ISource _source;
-
-    public Worker(ISource source, ILogger<Worker> logger)
-    {
-      _source = source;
-      _logger = logger;
-    }
-
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            var message = Generate();
-            _source.Output.Send(message);
-            await Task.Delay(5000, stoppingToken);
-        }
-    }
-
-    protected virtual IMessage Generate() 
-    {
-      var value = data[RANDOM.Next(data.Length)];
-      Console.WriteLine("Sending: " + value);
-      return MessageBuilder.WithPayload(value).SetHeader("partitionKey", value).Build();
+  [EnableBinding(typeof(ISource))]
+  public class RabbitPartitionProducerApplication
+  {
+      static async Task Main(string[] args)
+      {
+          var host = StreamHost
+            .CreateDefaultBuilder<RabbitPartitionProducerApplication>(args)
+            .ConfigureServices(svc => svc.AddHostedService<Worker>())
+            .Build();
+          await host.StartAsync();
+      }
   }
-}
+  public class Worker : BackgroundService
+  {
+      private readonly ISource _source;
+      private readonly ILogger<Worker> _logger;
+      private static readonly Random RANDOM = new Random();
+      private static readonly string[] data = new string[] {
+          "abc1", "def1", "qux1",
+          "abc2", "def2", "qux2",
+          "abc3", "def3", "qux3",
+          "abc4", "def4", "qux4",
+          };
+      public string ServiceName { get; set; } = "BackgroundWorker";
+
+      public Worker(ISource source, ILogger<Worker> logger)
+      {
+          _source = source;
+          _logger = logger;
+      }
+
+      protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+      {
+          await Task.Delay(5000, stoppingToken); // Wait for the Infrastructure to be setup correctly; 
+          while (!stoppingToken.IsCancellationRequested)
+          {
+              _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+              try
+              {
+                  var message = Generate();
+                  _source.Output.Send(message);
+              }
+              catch(Exception ex)
+              {
+                  _logger.LogError(ex, ex.Message);
+              }
+              await Task.Delay(5000, stoppingToken);
+          }
+      }
+
+      protected virtual IMessage Generate()
+      {
+          var value = data[RANDOM.Next(data.Length)];
+          Console.WriteLine("Sending: " + value);
+          return MessageBuilder.WithPayload(value).SetHeader("partitionKey", value).Build();
+      }
+  }
 ```
 
 ```json
@@ -1098,14 +1175,15 @@ public class Worker : BackgroundService
   "spring": {
     "cloud": {
       "stream": {
+        "binder": "rabbit",
         "bindings": {
           "output": {
-            "destination" : "partitioned.destination",
-            "producer" : {
+            "destination": "partitioned.destination",
+            "producer": {
               "partitioned": true,
-              "partitionKeyExpression" : "headers['partitionKey']",
+              "partitionKeyExpression": "Headers['partitionKey']",
               "partitionCount": 2,
-              "requiredGroups" : "myGroup"
+              "requiredGroups": [ "myGroup" ]
             }
           }
         }
@@ -1137,24 +1215,24 @@ The following bindings associate the queues to the exchange:
 The following C# and JSON configuration example continue the previous example and show how to configure the consumer:
 
 ```csharp
-[EnableBinding(typeof(ISink))]
-public class RabbitPartitionConsumerApplication
-{
-
-    public static void Main(string[] args)
+ [EnableBinding(typeof(ISink))]
+    public class PartitionedConsumer
     {
-      //TODO:
-      // new SpringApplicationBuilder(RabbitPartitionConsumerApplication.class)
-      //     .web(False)
-      //     .run(args);
-    }
+        static async Task Main(string[] args)
+        {
+            var host = StreamHost
+              .CreateDefaultBuilder<PartitionedConsumer>(args)
+              .Build();
+            await host.StartAsync();
+        }
 
-    [StreamListener(ISink.INPUT)]
-    public void Listen([Payload] string in, [Header(RabbitMessageHeaders.CONSUMER_QUEUE) string queue)
-    {
-        Console.WriteLine(in + " received from queue " + queue);
+
+        [StreamListener(ISink.INPUT)]
+        public void Listen([Payload] string input, [Header(RabbitMessageHeaders.CONSUMER_QUEUE)] string queue)
+        {
+            Console.WriteLine(input +" received from queue " + queue);
+        }
     }
-}
 ```
 
 ```json
@@ -1182,4 +1260,3 @@ public class RabbitPartitionConsumerApplication
 There must be at least one consumer per partition.
 The consumer's `instanceIndex` is used to indicate which partition is consumed.
 Platforms such as Cloud Foundry can have only one instance with an `instanceIndex`.
--->
