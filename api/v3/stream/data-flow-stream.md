@@ -173,6 +173,9 @@ To deploy your stream,
 
 1. When deploying the stream, choose the target platform accounts from local, Kubernetes, or Cloud Foundry. This is based on the Spring Cloud Skipper server deployer platform account setup.
 
+>**NOTE:** Currently, when deploying on K8s, set the application properties for the .NET applications to [entrypoint-style]
+() of `boot`
+
  <img src="~/api/v3/stream/images/SCDF-deploy-stream.png" alt="Deploy Stream" width="100%">
 
    When all the applications are running, the stream is successfully deployed.
