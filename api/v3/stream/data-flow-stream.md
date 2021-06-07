@@ -257,7 +257,7 @@ docker:springcloudstream/http-source-rabbit:3.0.1
 For the `BasicStreamProcessor` processor, use the following:
 
 ```
-ocker://projects.registry.vmware.com/steeltoe/basicstreamprocessor:latest
+docker://projects.registry.vmware.com/steeltoe/basicstreamprocessor:latest
 ```
 
 For the `BasicStreamSink` sink, use the following:
