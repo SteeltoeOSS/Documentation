@@ -228,7 +228,11 @@ You can access the runtime information of your stream applications in the Spring
 
 Besides verifying the runtime status of your stream, you should also verify the logging output produced by the `basicstreamsink` sink. In Cloud Foundry Apps Manager, click the **Logs** tab of the `basicstreamsink` sink application.
 
-To run data through the stream, POST data to the HttpSource application and verify the logs for the transformed output.
+To run data through the stream, POST data to the HttpSource application using a client such as [Httpie](https://httpie.io/) and verify the logs for the transformed output.
+
+```bash
+ http --json POST https://mkzmlko-steeltoestream-http-v1.apps.pcfone.io/ test=data
+```
 
  The logging statements should look like the following:
 
@@ -290,10 +294,16 @@ steeltoestream-steeltoebasicsink-v2-5fd5c84448-f2w5b          1/1     Running   
 ##### Verifying the Logs
 
 To be sure the steps in the previous sections have worked correctly, you should verify the logs.
-To run data through the stream you can POST data to the HttpSource application and verify the logs for the transformed output.
+To run data through the stream you can POST data to the HttpSource application using a client such as [Httpie](https://httpie.io/) and verify the logs for the transformed output.
+
 The following example (shown with its output) shows how to make sure that the values you expect appear in the logs:
 
 ```bash
+
+kubectl port-forward --namespace default svc/steeltoestream-http 8081:8080
+
+http --json POST http://localhost:8081 "test=data"
+
 kubectl logs steeltoestream-steeltoebasicsink-v2-5fd5c84448-f2w5b
 ```
 
