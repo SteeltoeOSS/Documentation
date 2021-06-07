@@ -26,7 +26,7 @@ This guide is focused on describing how you can deploy .NET based Stream compone
 
 This section shows how to register stream applications with Data Flow, create a Stream DSL, and deploy the resulting application to Cloud Foundry, Kubernetes, and your local machine.
 
-In our previous guides we created `ISource`, `IProcessor` and `ISink` .NET streaming components using Steeltoe and deployed them as standalone applications (i.e. not on SCDF) on multiple platforms.
+In our previous guides we created `ISource`, `IProcessor` and `ISink` .NET streaming components using Steeltoe and deployed them as standalone applications on multiple platforms without using Spring Cloud Data Flow.
 
 In this guide, we describe how you can register these Steeltoe based components with Data Flow, combine them with other Java based components, create a Stream DSL to orchestrate their interactions, and deploy the final application to Cloud Foundry or Kubernetes.
 
@@ -173,15 +173,14 @@ To deploy your stream,
 
 1. When deploying the stream, choose the target platform accounts from local, Kubernetes, or Cloud Foundry. This is based on the Spring Cloud Skipper server deployer platform account setup.
 
->**NOTE:** Currently, when deploying on K8s, set the application properties for the .NET applications to [entrypoint-style]
-(https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#_entry_point_style) of `boot`
+>**NOTE:** When deploying on K8s, .NET applications should have the application properties for the [entrypoint-style](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#_entry_point_style) set to `boot`
 
  <img src="~/api/v3/stream/images/SCDF-deploy-stream.png" alt="Deploy Stream" width="100%">
 
    When all the applications are running, the stream is successfully deployed.
 
  <img src="~/api/v3/stream/images/SCDF-stream-deployed.png" alt="Stream deployed" width="100%">
-  The preceding process is basically the same for all platforms. The following sections addresses platform-specific details for deploying on Data Flow on Cloud Foundry and Kubernetes.
+  The preceding process is basically the same for all platforms. The following sections address platform-specific details for deploying on Data Flow on Cloud Foundry and Kubernetes.
 
 <!--
 TODO: Until we can deploy archive to scdf from dotnet apps, we cannot deploy to SCDF locally (using docker)
@@ -229,7 +228,7 @@ You can access the runtime information of your stream applications in the Spring
 
 Besides verifying the runtime status of your stream, you should also verify the logging output produced by the `basicstreamsink` sink. In Cloud Foundry Apps Manager, click the **Logs** tab of the `basicstreamsink` sink application.
 
-To run data through the stream you can POST data to the HttpSource application and verify the logs for the transformed output.
+To run data through the stream, POST data to the HttpSource application and verify the logs for the transformed output.
 
  The logging statements should look like the following:
 
