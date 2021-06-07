@@ -26,9 +26,9 @@ This guide is focused on describing how you can deploy .NET based Stream compone
 
 This section shows how to register stream applications with Data Flow, create a Stream DSL, and deploy the resulting application to Cloud Foundry, Kubernetes, and your local machine.
 
-In our previous guides we created `ISource`, `IProcessor` and `ISink` .NET streaming components using Steeltoe and deployed them as standalone applications (i.e. not on SCDF). <!-- TODO: on multiple platforms. -->
+In our previous guides we created `ISource`, `IProcessor` and `ISink` .NET streaming components using Steeltoe and deployed them as standalone applications on multiple platforms without using Spring Cloud Data Flow.
 
-In this guide, we describe how you can register these Steeltoe based components with Data Flow, combine them with other Java based components, create a Stream DSL to orchestrate their interactions, and deploy the final application to Cloud Foundry.<!-- , Kubernetes, and your local machine. -->
+In this guide, we describe how you can register these Steeltoe based components with Data Flow, combine them with other Java based components, create a Stream DSL to orchestrate their interactions, and deploy the final application to Cloud Foundry or Kubernetes.
 
 ## Development
 
@@ -69,7 +69,7 @@ docker://springcloudstream/usage-cost-logger-rabbit:0.0.1-SNAPSHOT
 
 ### The Data Flow Dashboard
 
-Assuming Data Flow is [installed](https://dataflow.spring.io/docs/installation/cloudfoundry/) and running <!-- TODO: on one of the supported platforms -->, open your browser at `<data-flow-url>/dashboard`. Here, `<data-flow-url>` depends on the platform. See the [installation guide](https://dataflow.spring.io/docs/installation/cloudfoundry/) to determining the base URL for your installation.
+Assuming Data Flow is [installed](https://dataflow.spring.io/docs/installation/cloudfoundry/) and running on one of the supported platforms, open your browser at `<data-flow-url>/dashboard`. Here, `<data-flow-url>` depends on the platform. See the [installation guide](https://dataflow.spring.io/docs/installation/cloudfoundry/) to determining the base URL for your installation.
 
 <!-- TODO: If Data Flow is running on your local machine, go to http://localhost:9393/dashboard. -->
 
@@ -173,17 +173,19 @@ To deploy your stream,
 
 1. When deploying the stream, choose the target platform accounts from local, Kubernetes, or Cloud Foundry. This is based on the Spring Cloud Skipper server deployer platform account setup.
 
+>**NOTE:** When deploying on K8s, .NET applications should have the application properties for the [entrypoint-style](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#_entry_point_style) set to `boot`
+
  <img src="~/api/v3/stream/images/SCDF-deploy-stream.png" alt="Deploy Stream" width="100%">
 
    When all the applications are running, the stream is successfully deployed.
 
  <img src="~/api/v3/stream/images/SCDF-stream-deployed.png" alt="Stream deployed" width="100%">
-<!-- TODO The preceding process is basically the same for all platforms. The following sections addresses platform-specific details for deploying on Data Flow on Local, Cloud Foundry, and Kubernetes. -->
-<!-- >
+  The preceding process is basically the same for all platforms. The following sections address platform-specific details for deploying on Data Flow on Cloud Foundry and Kubernetes.
 
+<!--
 TODO: Until we can deploy archive to scdf from dotnet apps, we cannot deploy to SCDF locally (using docker)
 
-### Local
+   ### Local
 
 <!-- NOTE - ->
 
@@ -226,11 +228,17 @@ You can access the runtime information of your stream applications in the Spring
 
 Besides verifying the runtime status of your stream, you should also verify the logging output produced by the `basicstreamsink` sink. In Cloud Foundry Apps Manager, click the **Logs** tab of the `basicstreamsink` sink application.
 
+To run data through the stream, POST data to the HttpSource application using a client such as [Httpie](https://httpie.io/) and verify the logs for the transformed output.
+
+```bash
+ http --json POST https://mkzmlko-steeltoestream-http-v1.apps.pcfone.io/ test=data
+```
+
  The logging statements should look like the following:
 
  <img src="~/api/v3/stream/images/SCDF-CF-dashboard-logging.png" alt="Data Flow Runtime Information" width="100%">
 
-<!-- ### Kubernetes
+### Kubernetes
 
 Once you have the Spring Cloud Data Flow server running in Kubernetes (by following the instructions from the [installation guide](%currentPath%/installation/kubernetes/)), you can:
 
@@ -239,24 +247,23 @@ Once you have the Spring Cloud Data Flow server running in Kubernetes (by follow
 
 #### Registering Applications with Spring Cloud Data Flow server
 
-The Kubernetes environment requires the application artifacts to be `docker` images.
-
-For the `UsageDetailSender` source, use the following:
+For the `Http` source, use the following:
 
 ```
-docker://springcloudstream/usage-detail-sender-rabbit:0.0.1-SNAPSHOT
-```
-
-For the `UsageCostProcessor` processor, use the following:
+docker:springcloudstream/http-source-rabbit:3.0.1
 
 ```
-docker://springcloudstream/usage-cost-processor-rabbit:0.0.1-SNAPSHOT
-```
 
-For the `UsageCostLogger` sink, use the following:
+For the `BasicStreamProcessor` processor, use the following:
 
 ```
-docker://springcloudstream/usage-cost-logger-rabbit:0.0.1-SNAPSHOT
+docker://projects.registry.vmware.com/steeltoe/basicstreamprocessor:latest
+```
+
+For the `BasicStreamSink` sink, use the following:
+
+```
+docker://projects.registry.vmware.com/steeltoe/basicstreamprocessor:latest
 ```
 
 You can register these applications, as described in the application registration step [described earlier](#application-registration).
@@ -275,29 +282,44 @@ To lists the pods (including the server components and the streaming application
 
 ```
 NAME                                                         READY   STATUS    RESTARTS   AGE
-scdf-release-data-flow-server-795c77b85c-tqdtx               1/1     Running   0          36m
-scdf-release-data-flow-skipper-85b6568d6b-2jgcv              1/1     Running   0          36m
-scdf-release-mysql-744757b689-tsnnz                          1/1     Running   0          36m
-scdf-release-rabbitmq-5fb7f7f644-878pz                       1/1     Running   0          36m
-usage-cost-logger-usage-cost-logger-v1-568599d459-hk9b6      1/1     Running   0          2m41s
-usage-cost-logger-usage-cost-processor-v1-79745cf97d-dwjpw   1/1     Running   0          2m42s
-usage-cost-logger-usage-detail-sender-v1-6cd7d9d9b8-m2qf6    1/1     Running   0          2m41s
+scdf-release-mariadb-0                                        1/1     Running   0          4d
+scdf-release-rabbitmq-0                                       1/1     Running   0          4d
+scdf-release-spring-cloud-dataflow-server-5c794bfb6b-n9fql    1/1     Running   0          4d
+scdf-release-spring-cloud-dataflow-skipper-7d69cb747c-mwjj6   1/1     Running   0          4d
+steeltoestream-http-v2-ff96445b9-8p2fl                        1/1     Running   0          3m12s
+steeltoestream-steeltoebasicprocessor-v2-78974485d9-66w55     1/1     Running   0          3m12s
+steeltoestream-steeltoebasicsink-v2-5fd5c84448-f2w5b          1/1     Running   0          3m12s
 ```
 
 ##### Verifying the Logs
 
 To be sure the steps in the previous sections have worked correctly, you should verify the logs.
+To run data through the stream you can POST data to the HttpSource application using a client such as [Httpie](https://httpie.io/) and verify the logs for the transformed output.
+
 The following example (shown with its output) shows how to make sure that the values you expect appear in the logs:
 
 ```bash
-kubectl logs -f usage-cost-logger-usage-cost-logger-v1-568599d459-hk9b6
+
+kubectl port-forward --namespace default svc/steeltoestream-http 8081:8080
+
+http --json POST http://localhost:8081 "test=data"
+
+kubectl logs steeltoestream-steeltoebasicsink-v2-5fd5c84448-f2w5b
 ```
 
 ```
-2019-05-17 17:53:44.189  INFO 1 --- [e-cost-logger-1] i.s.d.s.u.UsageCostLoggerApplication     : {"userId": "user2", "callCost": "0.7000000000000001", "dataCost": "23.950000000000003" }
-2019-05-17 17:53:45.190  INFO 1 --- [e-cost-logger-1] i.s.d.s.u.UsageCostLoggerApplication     : {"userId": "user4", "callCost": "2.9000000000000004", "dataCost": "10.65" }
-2019-05-17 17:53:46.190  INFO 1 --- [e-cost-logger-1] i.s.d.s.u.UsageCostLoggerApplication     : {"userId": "user3", "callCost": "5.2", "dataCost": "28.85" }
-2019-05-17 17:53:47.192  INFO 1 --- [e-cost-logger-1] i.s.d.s.u.UsageCostLoggerApplication     : {"userId": "user4", "callCost": "1.7000000000000002", "dataCost": "30.35" }
+info: Steeltoe.Stream.Binder.Rabbit.RabbitMessageChannelBinder[0]
+      Channel 'steeltoestream.steeltoebasicprocessor.steeltoestream.errors' has 1 subscriber(s).
+info: Steeltoe.Stream.Binder.Rabbit.RabbitMessageChannelBinder[0]
+      Channel 'steeltoestream.steeltoebasicprocessor.steeltoestream.errors' has 2 subscriber(s).
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /app
+info: CloudDataflowSink.Program[0]
+      sink: {"TEST": "DATA"}
 ``` -->
 
 ## Comparison with Standalone Deployment
