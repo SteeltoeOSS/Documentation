@@ -26,7 +26,7 @@ This guide is focused on describing how you can deploy .NET based Stream compone
 
 This section shows how to register stream applications with Data Flow, create a Stream DSL, and deploy the resulting application to Cloud Foundry, Kubernetes, and your local machine.
 
-In the [standalone guide](./standalone-stream-rabbitmq) we created `ISource`, `IProcessor` and `ISink` .NET streaming components using Steeltoe and deployed them as standalone applications on multiple platforms without using Spring Cloud Data Flow.
+In the [standalone guide](./standalone-stream-rabbitmq.md) we created `ISource`, `IProcessor` and `ISink` .NET streaming components using Steeltoe and deployed them as standalone applications on multiple platforms without using Spring Cloud Data Flow.
 
 In this guide, we describe how you can register these Steeltoe based components with Data Flow, combine them with other Java based components, create a Stream DSL to orchestrate their interactions, and deploy the final application to Cloud Foundry or Kubernetes.
 

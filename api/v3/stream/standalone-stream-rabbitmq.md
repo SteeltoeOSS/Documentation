@@ -1,34 +1,32 @@
 # Stream Processing with RabbitMQ
 
 In this guide, we develop three Steeltoe applications that use Steeltoe Stream's support for RabbitMQ and deploy them to Cloud Foundry and to Kubernetes.
-In another guide, we [deploy these applications by using Data Flow](./data-flow-stream.md).
-By deploying the applications manually, you get a better understanding of the steps that Data Flow automates for you.
+In another guide, we [deploy these applications using Data Flow](./data-flow-stream.md).
+Taking the time to deploy the applications manually will provide you with a better understanding of the steps that Data Flow automates for you.
 
 The following sections describe how to build these applications from scratch.
 If you prefer, you can clone the Steeltoe [sample applications](https://github.com/SteeltoeOSS/Samples/blob/main/Stream/UsageCost), and proceed to the [deployment](#deployment) section.
 
 ## Development
 
-We create three Steeltoe Stream applications that communicate by using RabbitMQ.
-
-The scenario is a cell phone company creating bills for its customers.
+This guide will walk through creating three Steeltoe Stream applications that communicate by using RabbitMQ, using the scenario of a cell phone company creating bills for its customers.
 Each call made by a user has a `Duration` and an amount of `Data` used during the call.
 As part of the process to generate a bill, the raw call data needs to be converted to a cost for the duration of the call and a cost for the amount of data used.
 
-The call is modeled by using the `UsageDetail` class that contains the `Duration` of the call and the amount of `Data` used during the call.
-The bill is modeled by using the `UsageCostDetail` class that contains the cost of the call (`CostCall`) and the cost of the data (`CostData`). Each class contains an ID (`UserId`) to identify the person making the call.
+The call is modeled using the `UsageDetail` class that contains the `Duration` of the call and the amount of `Data` used during the call.
+The bill is modeled using the `UsageCostDetail` class that contains the cost of the call (`CostCall`) and the cost of the data (`CostData`). Each class contains an ID (`UserId`) to identify the person making the call.
 
 The three streaming applications are as follows:
 
-- The `ISource` application named `UsageDetailSender` generates the users' call `Duration` and the amount of `Data` used for each `UserId` and sends a message that contains the `UsageDetail` object as JSON.
+- `UsageDetailSender`: an `ISource` application that generates the users' call `Duration` and the amount of `Data` used for each `UserId`. Sends messages containing `UsageDetail` objects as JSON.
 
-- The `IProcessor` application named `UsageCostProcessor` consumes the `UsageDetail` and computes the cost of the call and the cost of the data per `UserId`. It sends the `UsageCostDetail` object as JSON.
+-  `UsageCostProcessor`: an `IProcessor` application that consumes `UsageDetail` and computes the cost of the call and the data per `UserId`. Sends messages containing `UsageCostDetail` objects as JSON.
 
-- The `ISink` application named `UsageCostLogger` consumes the `UsageCostDetail` object and logs the cost of the call and data.
+- `UsageCostLogger`: an `ISink` application that consumes `UsageCostDetail` objects and logs the cost of the call and data.
 
 ### Add NuGet Reference
 
-In each of the three following projects, in order to make it a Steeltoe streams application, you need to add a reference to the following packages:
+In order to make each of the three projects Steeltoe Stream applications,  you need to add references to the following packages:
 
 | Package | Description | .NET Target |
 | --- | --- | --- |
@@ -45,7 +43,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 
 ### Source
 
-In this step, we create the `UsageDetailSender` Source project. Create a new .NET Console  project and add the NuGet packages as referred in the [Add NuGet reference](#Add-NuGet-Reference)
+In this step, we create the `UsageDetailSender` Source project. Create a new .NET Console project and add the NuGet packages as described in the [Add NuGet reference](#Add-NuGet-Reference)
 
 <!-- TODO: Initializr Instructions-->
 
@@ -114,14 +112,13 @@ namespace UsageSender
         }
     }
 }
-
 ```
 
 The `[EnableBinding]` attribute indicates that you want to bind your application to messaging middleware.
 The attribute takes one or more interfaces as a parameter, in this case, the [ISource](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Stream/src/Abstractions/Messaging/ISource.cs) interface that defines an output channel named `output`.
 In the case of RabbitMQ, messages sent to the `output` channel are in turn sent to the RabbitMQ message broker by using a `TopicExchange`.
 
-Deriving from [BackgroundService](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-5.0&tabs=visual-studio#backgroundservice-base-class) and calling `Task.Delay` makes the UsageGenerator a background task that gets called by the framework every `5` seconds.
+Deriving from [BackgroundService](https://docs.microsoft.com/aspnet/core/fundamentals/host/hosted-services#backgroundservice-base-class) and calling `Task.Delay` makes the UsageGenerator a background task that gets called by the framework every `5` seconds.
 
 In every iteration of the loop, The `GenerateAndSend` method constructs a `UsageDetail` object which is sent to the output channel by accessing the `_source` object's `Output.Send()` method.
 
@@ -136,13 +133,13 @@ In `appSettings.json`, you can add the following properties:
 
 ```json
 { 
-    "spring": {
-      "cloud": {
-        "stream": {
-          "bindings": {
-            "output": {
-              "producer": { "requiredGroups": "usage-cost-customer"},
-              "destination": "usage-detail"
+    "Spring": {
+      "Cloud": {
+        "Stream": {
+          "Bindings": {
+            "Output": {
+              "Producer": { "RequiredGroups": "usage-cost-customer"},
+              "Destination": "usage-detail"
             }
           }
         }
@@ -225,11 +222,11 @@ namespace UsageProcessor
 
 ```
 
-In the preceding application, the ` [EnableBinding]` attribute indicates that you want to bind your application to the messaging middleware. The attribute takes one or more interfaces as a parameter, in this case, the [IProcessor](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Stream/src/Abstractions/Messaging/IProcessor.cs) that defines and input and output channel.
+In the preceding application, the `[EnableBinding]` attribute indicates that you want to bind your application to the messaging middleware. The attribute takes one or more interfaces as a parameter, in this case, the [IProcessor](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Stream/src/Abstractions/Messaging/IProcessor.cs) that defines and input and output channel.
 
-The `[StreamListener]` attribute binds the application's `input` channel to the `Handle` method by converting the incoming JSON into `UsageDetail` object.
+The `[StreamListener]` attribute binds the application's `input` channel to the `Handle` method and automatically deserializes the incoming JSON into `UsageDetail` object.
 
-The `[SendTo]` attribute sends the `Handle` method's output to the application's `output` channel, which is, in turn, sent to the a RabbitMQ message broker by using a `TopicExchange`.
+The `[SendTo]` attribute sends the `Handle` method's output to the application's `output` channel, which is in turn, sent to the a RabbitMQ message broker by using a `TopicExchange`.
 
 #### Configuration
 
@@ -267,9 +264,9 @@ In `appsettings.json`, you can add the following properties:
 
 - The `spring:cloud:stream:bindings:input:destination` and `spring:cloud:stream:bindings:input:group` properties bind the `UsageCostProcessor` object's `input` to the `usage-detail` RabbitMQ exchange through the `usage-detail.usage-cost-consumer` durable queue.
 - The `spring:cloud:stream:bindings:output:destination` property binds the `UsageCostProcessor` object's output to the `usage-cost` RabbitMQ exchange.
-- The `spring"cloud:stream:bindings:output:producer:requiredGroups` property makes sure to create a durable queue named `usage-cost.logger`, which consumes from the `usage-cost` RabbitMQ exchange.
+- The `spring"cloud:stream:bindings:output:producer:requiredGroups` property tells Steeltoe to make sure a durable queue named `usage-cost.logger` exists for consumption of the `usage-cost` RabbitMQ exchange.
 
-There are many configuration options that you can choose to extend/override to achieve the desired runtime behavior when using RabbitMQ as the message broker. The RabbitMQ-specific binder configuration properties are listed in the [RabbitMQ-binder documentation](./rabbit-binder.md)
+There are many configuration options that you can choose to extend or override to achieve the desired runtime behavior when using RabbitMQ as the message broker. The RabbitMQ-specific binder configuration properties are listed in the [RabbitMQ-binder documentation](./rabbit-binder.md)
 
 ### Sink
 
@@ -373,7 +370,7 @@ You can use the default account username and password: `guest` and `guest`.
 
 #### Running the `UsageDetailSender` Source
 
-By using the [pre-defined](#configuration) configuration properties(along with a unique server port) for `UsageSender`, you can run the application, as follows:
+By using the [pre-defined](#configuration) configuration properties (along with a unique server port) for `UsageSender`, you can run the application, as follows:
 
 ```
 cd UsageSender
@@ -577,12 +574,12 @@ For this example, we need a running [Kubernetes cluster](%currentPath%/installat
 To verify that you have a running Kubernetes instance, run the following command (show with sample output):
 
 ```bash
-λ kubectl config get-contexts
+kubectl config get-contexts
 
 CURRENT   NAME             CLUSTER          AUTHINFO         NAMESPACE
 *         docker-desktop   docker-desktop   docker-desktop
 
-λ kubectl config use-context docker-desktop
+kubectl config use-context docker-desktop
 Switched to context "docker-desktop".
 ```
 
@@ -750,4 +747,4 @@ kubectl delete all -l app=rabbitmq
 
 ## What's Next
 
-You can use Spring Cloud Data Flow to deploy the three applications, as detailed in [Steeltoe Stream Processing using Spring Cloud Data Flow](./data-flow-stream).
+You can use Spring Cloud Data Flow to deploy the three applications, as detailed in [Steeltoe Stream Processing using Spring Cloud Data Flow](./data-flow-stream.md).
