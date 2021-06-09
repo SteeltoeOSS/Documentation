@@ -18,11 +18,15 @@ The bill is modeled using the `UsageCostDetail` class that contains the cost of 
 
 The three streaming applications are as follows:
 
-- `UsageDetailSender`: an `ISource` application that generates the users' call `Duration` and the amount of `Data` used for each `UserId`. Sends messages containing `UsageDetail` objects as JSON.
+- `UsageDetailSender`: a `Source` application that generates the users' call `Duration` and the amount of `Data` used for each `UserId`. Sends messages containing `UsageDetail` objects as JSON.
 
--  `UsageCostProcessor`: an `IProcessor` application that consumes `UsageDetail` and computes the cost of the call and the data per `UserId`. Sends messages containing `UsageCostDetail` objects as JSON.
+- `UsageCostProcessor`: a `Processor` application that consumes `UsageDetail` and computes the cost of the call and the data per `UserId`. Sends messages containing `UsageCostDetail` objects as JSON.
 
-- `UsageCostLogger`: an `ISink` application that consumes `UsageCostDetail` objects and logs the cost of the call and data.
+- `UsageCostLogger`: an `Sink` application that consumes `UsageCostDetail` objects and logs the cost of the call and data.
+
+### Source
+
+In this step, we create the `UsageDetailSender` Source project. Create a new .NET Console project and add the NuGet packages as described below.
 
 ### Add NuGet Reference
 
@@ -41,19 +45,26 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 </ItemGroup>
 ```
 
-### Source
-
-In this step, we create the `UsageDetailSender` Source project. Create a new .NET Console project and add the NuGet packages as described in the [Add NuGet reference](#Add-NuGet-Reference)
-
 <!-- TODO: Initializr Instructions-->
 
 #### Business Logic
 
 Now we can create the code required for this application. To do so:
 
-1.  Create a `UsageDetail` class in the project that looks like [UsageDetail.cs](https://github.com/SteeltoeOSS/Samples/blob/main/Stream/UsageCost/UsageSender/UsageDetail.cs).
-    The `UsageDetail` class contains `UserId`, `Data`, and `Duration` properties.
-1.  Create the `UsageGenerator` class in the project, which resembles the following listing:
+1. Create a `UsageDetail` class in the project.
+
+```csharp
+  public class UsageDetail
+  {
+      public string UserId { get; set; }
+
+      public long Duration { get; set; }
+
+      public long Data { get; set; }
+  }
+```
+
+1. Create the `UsageGenerator` class in the project, which resembles the following listing:
 
 ```csharp
 
@@ -93,7 +104,7 @@ namespace UsageSender
                 var message = GenerateAndSend();
                 _source.Output.Send(message);
             
-                await Task.Delay(5000, stoppingToken);
+                await Task.Delay(5000, stoppingToken); // Wait 5 seconds before sending again
             }
         }
 
@@ -148,8 +159,8 @@ In `appSettings.json`, you can add the following properties:
 }
 ```
 
-- The `spring:cloud:stream:bindings:output:destination` property binds the `UsageDetailSender` object's output to the `usage-detail` RabbitMQ exchange.
-- The `spring:cloud:stream:bindings:output:producer:requiredGroups` property makes sure to create a durable queue named `usage-detail.usage-cost-consumer`, which consumes from the `usage-detail` RabbitMQ exchange.
+- The `Spring:Cloud:Stream:Bindings:Output:Destination` property binds the `UsageDetailSender` object's output to the `usage-detail` RabbitMQ exchange.
+- The `Spring:Cloud:Stream:Bindings:Output:Producer:RequiredGroups` property makes sure to create a durable queue named `usage-detail.usage-cost-consumer`, which consumes from the `usage-detail` RabbitMQ exchange.
 
 ##### Durable Queues
 
@@ -160,12 +171,12 @@ Hence, for guaranteed message delivery, you need a `durable` queue.
 
 To pre-create durable queues and bind them to the exchange, the producer application should set the following property:
 
-```
-spring:cloud:stream:bindings:<channelName>:producer:requiredGroups
+```json
+Spring:Cloud:Stream:Bindings:<ChannelName>:Producer:RequiredGroups
 ```
 
-The `requiredGroups` property accepts a comma-separated list of groups to which the producer must ensure message delivery.
-When this property is set, a durable queue is created by using the `<exchange>.<requiredGroup>` format.
+The `RequiredGroups` property accepts a comma-separated list of groups to which the producer must ensure message delivery.
+When this property is set, a durable queue is created by using the `<Exchange>.<RequiredGroup>` format.
 
 ### Processor
 
@@ -175,13 +186,33 @@ In this step, we create the `UsageProcessor` processor. Create a new .NET Consol
 
 Now we can create the code required for this application. To do so:
 
-1.  Create a `UsageDetail` class in the project that looks like [UsageDetail.cs](https://github.com/SteeltoeOSS/Samples/blob/main/Stream/UsageCost/UsageProcessor/UsageDetail.cs).
-    The `UsageDetail` class contains `UserId`, `Data`, and `Duration` properties.
+1. Create a `UsageDetail` class in the project that looks like the listing below. Note that  Steeltoe supports sharing your models via NuGet package, shared code or independently maintained models.
 
-1.  Create the `UsageCostDetail` class that looks like [UsageCostDetail.cs](https://github.com/SteeltoeOSS/Samples/blob/main/Stream/UsageCost/UsageProcessor/UsageCostDetail.cs)
-    The `UsageCostDetail` class contains `UserId`, `CallCost`, and `DataCost` properties.
+```csharp
+  public class UsageDetail
+  {
+      public string UserId { get; set; }
 
-1.  Create the `UsageCostProcessor` class which receives the `UsageDetail` message, computes the call and data cost, and sends a `UsageCostDetail` message. The following listing shows the source code:
+      public long Duration { get; set; }
+
+      public long Data { get; set; }
+  }
+```
+
+1. Create the `UsageCostDetail` class.
+
+```csharp
+  public class UsageCostDetail
+  {
+      public string UserId { get; set; }
+
+      public double CallCost { get; set; }
+
+      public double DataCost { get; set; }
+  }
+```
+
+1. Create the `UsageCostProcessor` class which receives the `UsageDetail` message, computes the call and data cost, and sends a `UsageCostDetail` message as shown:
 
 ```csharp
 using Microsoft.Extensions.Logging;
@@ -203,7 +234,7 @@ namespace UsageProcessor
 
         public UsageProcessor(ILogger<UsageProcessor> logger)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = logger ?? NullLogger<UsageProcessor>.Instance;
         }
 
         [StreamListener(IProcessor.INPUT)]
@@ -239,21 +270,21 @@ When configuring the `processor` application, we need to set the following prope
 
 In `appsettings.json`, you can add the following properties:
 
-```
+```json
 {
-    "spring": {
-        "cloud": {
-            "stream": {
-                "bindings": {
-                    "input": {
-                        "destination": "usage-detail",
-                        "group": "usage-cost-customer"
+    "Spring": {
+        "Cloud": {
+            "Stream": {
+                "Bindings": {
+                    "Input": {
+                        "Destination": "usage-detail",
+                        "Group": "usage-cost-customer"
                     },
-                    "output": {
-                        "producer": {
-                        "requiredGroups": "logger"
+                    "Output": {
+                        "Producer": {
+                        "RequiredGroups": "logger"
                         },
-                        "destination": "usage-cost"
+                        "Destination": "usage-cost"
                     }
                 }
             }
@@ -262,8 +293,8 @@ In `appsettings.json`, you can add the following properties:
 }
 ```
 
-- The `spring:cloud:stream:bindings:input:destination` and `spring:cloud:stream:bindings:input:group` properties bind the `UsageCostProcessor` object's `input` to the `usage-detail` RabbitMQ exchange through the `usage-detail.usage-cost-consumer` durable queue.
-- The `spring:cloud:stream:bindings:output:destination` property binds the `UsageCostProcessor` object's output to the `usage-cost` RabbitMQ exchange.
+- The `Spring:Cloud:Stream:Bindings:Input:Destination` and `Spring:Cloud:Stream:Bindings:Input:Group` properties bind the `UsageCostProcessor` object's `input` to the `usage-detail` RabbitMQ exchange through the `usage-detail.usage-cost-consumer` durable queue.
+- The `Spring:Cloud:Stream:Bindings:Output:destination` property binds the `UsageCostProcessor` object's output to the `usage-cost` RabbitMQ exchange.
 - The `spring"cloud:stream:bindings:output:producer:requiredGroups` property tells Steeltoe to make sure a durable queue named `usage-cost.logger` exists for consumption of the `usage-cost` RabbitMQ exchange.
 
 There are many configuration options that you can choose to extend or override to achieve the desired runtime behavior when using RabbitMQ as the message broker. The RabbitMQ-specific binder configuration properties are listed in the [RabbitMQ-binder documentation](./rabbit-binder.md)
@@ -297,7 +328,7 @@ namespace UsageLogger
 
         public UsageLogger(ILogger<UsageLogger> logger)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = logger ?? NullLogger<UsageLogger>.Instance;
         }
 
         [StreamListener(IProcessor.INPUT)]
@@ -323,13 +354,13 @@ In `appsettings.json`, you can add the following properties:
 
 ```json
 { 
-  "spring": {
-    "cloud": {
-      "stream": {
-        "bindings": {
-          "input": {
-            "group": "logger",
-            "destination": "usage-cost"
+  "Spring": {
+    "Cloud": {
+      "Stream": {
+        "Bindings": {
+          "Input": {
+            "Group": "logger",
+            "Destination": "usage-cost"
           }
         }
       }
@@ -338,7 +369,7 @@ In `appsettings.json`, you can add the following properties:
 }
 ```
 
-The `spring:cloud:stream:bindings:input:destination` and `spring:cloud:stream:bindings:input:group` properties bind the `UsageCostLogger` object's `input` to the `usage-cost` RabbitMQ exchange through the `usage-cost.logger` durable queue.
+The `Spring:Cloud:Stream:Bindings:Input:Destination` and `Spring:Cloud:Stream:Bindings:Input:Group` properties bind the `UsageCostLogger` object's `input` to the `usage-cost` RabbitMQ exchange through the `usage-cost.logger` durable queue.
 
 ## Deployment
 
@@ -387,8 +418,7 @@ Also, if you click on the `Queues` and check the queue `usage-detail.usage-cost-
 
 When configuring the consumer applications for this `Source` application, you can set the `group` binding property to connect to the corresponding queue.
 
-[[note]]
-| If you do not set the `requiredGroups` property, you can see that there is no `queue` for consuming the messages from the `usage-detail` exchange and, therefore, the messages are lost if the consumer is not up before this application is started. 
+>NOTE: If you do not set the `requiredGroups` property, you can see that there is no `queue` for consuming the messages from the `usage-detail` exchange and, therefore, the messages are lost if the consumer is not up before this application is started. 
 
 #### Running the Processor
 
@@ -401,9 +431,9 @@ dotnet build && dotnet run --framework net5.0
 
 From the RabbitMQ console, you can see:
 
-- The `UsageProcessor` application consumes from the `usage-detail.usage-cost-consumer` durable queue, based on the `spring:cloud:stream:bindings:input:group=usage-cost-consumer` setting.
-- The `UsageProcessor` application produces the `UsageCostDetail` and sends it to the exchange `usage-cost`, based on the `spring:cloud:stream:bindings:output:destination=usage-cost` setting.
-- The `usage-cost.logger` durable queue is created. It consumes the messages from the `usage-cost` exchange, based on the `spring:cloud:stream:bindings:output:producer:requiredGroups=logger` property.
+- The `UsageProcessor` application consumes from the `usage-detail.usage-cost-consumer` durable queue, based on the `Spring:Cloud:Stream:Bindings:Input:group=usage-cost-consumer` setting.
+- The `UsageProcessor` application produces the `UsageCostDetail` and sends it to the exchange `usage-cost`, based on the `Spring:Cloud:Stream:Bindings:Output:Destination=usage-cost` setting.
+- The `usage-cost.logger` durable queue is created. It consumes the messages from the `usage-cost` exchange, based on the `Spring:Cloud:Stream:Bindings:Output:Producer:RequiredGroups=logger` property.
 
 When this application is running, you can see that the `usage-cost` RabbitMQ exchange is created and the queue named `usage-cost.logger` is bound to this exchange, as the following image shows:
 
@@ -445,7 +475,7 @@ info: UsageLogger.UsageLogger[0]
 
 ### Cloud Foundry
 
-This section walks you through how to deploy the `UsageDetailSender`, `UsageCostProcessor`, and `UsageCostLogger` applications on PWS CloudFoundry environment.
+This section walks you through how to deploy the `UsageDetailSender`, `UsageCostProcessor`, and `UsageCostLogger` applications on your Cloud Foundry environment.
 
 #### Creating a RabbitMQ service
 
@@ -567,7 +597,7 @@ This section walks you through how to deploy the three Stream Stream application
 
 #### Setting up the Kubernetes cluster
 
-For this example, we need a running [Kubernetes cluster](%currentPath%/installation/kubernetes/#creating-a-kubernetes-cluster). For this example, we deploy to `Docker for Windows Desktop with Integrated Kubernetes`.
+For this example, we need a running Kubernetes cluster. For this example, we deploy to [Docker for Windows Desktop](https://docs.docker.com/docker-for-windows/install/) with integrated [Kubernetes](https://docs.docker.com/desktop/kubernetes/).
 
 ##### Verifying Kubernetes is running
 
