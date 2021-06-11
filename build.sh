@@ -97,4 +97,4 @@ msg "building all metadata"
 docfx metadata api-all.json
 msg "building site"
 rm -rf $build_dir
-docfx build -o $build_dir --globalMetadataFiles devhost.json
+docfx build -o $build_dir
