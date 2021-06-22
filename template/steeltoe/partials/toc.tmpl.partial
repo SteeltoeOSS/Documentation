@@ -33,6 +33,7 @@
               <option value="/api/browser/v3/discovery/Steeltoe.Discovery.html">Steeltoe.Discovery</option>
               <option value="/api/browser/v3/logging/Steeltoe.Extensions.Logging.html">Steeltoe.Extensions.Logging</option>
               <option value="/api/browser/v3/management/Steeltoe.Management.html">Steeltoe.Management</option>
+              <option value="/api/browser/v3/messaging/Steeltoe.Messaging.html">Steeltoe.Messaging</option>
               <option value="/api/browser/v3/security/Steeltoe.Security.Authentication.CloudFoundry.html">Steeltoe.Security</option>
             </select>
             <select id="api-namespace-v2" class="form-control api-namespace hide">
