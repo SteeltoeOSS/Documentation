@@ -23,9 +23,9 @@ docker run --publish 5672:5672 steeltoeoss/rabbitmq
 Next **create a .NET Core WebAPI** that will ensure the queue is created and write messages to it.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/no-dependencies.png" alt="Steeltoe Initialzr - No Dependencies" width="100%">
+   <img src="~/guides/images/initializr/rabbitmq-connector-dependency.png" alt="Steeltoe Initialzr - RabbitMQ" width="100%">
 1. Name the project "WriteToRabbitMQ"
-1. No need to add any dependencies
+1. Add RabbitMQ Messaging Dependency
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
 1. Open the package manager console
@@ -35,7 +35,17 @@ Next **create a .NET Core WebAPI** that will ensure the queue is created and wri
    ```powershell
    Install-Package -Id Steeltoe.Messaging.RabbitMQ
    ```
+1. Ensure RabbitMQHost appears in **Program.cs**
 
+   <i>See [RabbitMQHost](../../api/v3/messaging/rabbitmq-host.md) documentation to further understand what is happening behind the scenes</i>
+   ```csharp
+   public static IHostBuilder CreateHostBuilder(string[] args) =>
+        RabbitMQHost.CreateDefaultBuilder()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+   ```
 1. Add rabbit messaging configurations to **Startup.cs**
 
    ```csharp
@@ -46,17 +56,9 @@ Next **create a .NET Core WebAPI** that will ensure the queue is created and wri
      public const string RECEIVE_AND_CONVERT_QUEUE = "steeltoe_message_queue";
 
      public void ConfigureServices(IServiceCollection services){
-       // Add steeltoe rabbit services
-       services.AddRabbitServices();
-
-       // Add the steeltoe rabbit admin client... will be used to declare queues below
-       services.AddRabbitAdmin();
 
        // Add a queue to the message container that the rabbit admin will discover and declare at startup
        services.AddRabbitQueue(new Queue(RECEIVE_AND_CONVERT_QUEUE));
-
-       // Add the rabbit client template used for send and receiving messages
-       services.AddRabbitTemplate();
      }
    }
    ```
