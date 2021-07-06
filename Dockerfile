@@ -25,8 +25,8 @@ WORKDIR /docs
 COPY . .
 RUN \
     ./build.sh \
-        -3 3.0.2 \
-        -2 2.5.3
+        -3 3.1.0-rc2 \
+        -2 2.5.4
 
 FROM nginx:1.19
 COPY --from=build /docs/build/_site /usr/share/nginx/html
