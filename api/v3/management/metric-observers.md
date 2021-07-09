@@ -31,6 +31,9 @@ The following table describes the settings that you can apply to the observers:
 | `HttpClientCore` | Enable Http Client Metrics. | `false` |
 | `HttpClientDesktop` | Enable Http Client Desktop Metrics. | `false` |
 | `HystrixEvents` | Enable Circuit Breaker Metrics. | `false` |
+| `ExcludedMetrics` | Specify a list of metrics that should not be captured | none |
+
+> The ExcludedMetrics option is new in 3.1.0 and only applies to [these events](https://docs.microsoft.com/dotnet/core/diagnostics/available-counters#systemruntime-counters), which are captured from counters in the runtime. Tne observer that reports these metrics is controlled by the `EventCounterEvents` setting above.
 
 ## Hystrix Event Source
 

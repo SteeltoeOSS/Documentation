@@ -46,7 +46,7 @@ To add this type of NuGet to your project, add a `PackageReference` that resembl
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.KubernetesCore" Version="3.0.2"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.KubernetesCore" Version="3.1.0"/>
 ...
 </ItemGroup>
 ```

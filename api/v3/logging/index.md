@@ -1,5 +1,6 @@
 # Dynamic Logging
 
-Steeltoe adds a Logging provider to the set of available logging packages to support the Steeltoe management logger endpoint.
+Steeltoe includes two logging providers that wrap existing logger libraries with support for managing log levels at runtime through the [Steeltoe Management logger endpoint](../management/loggers.md) and [recording distributed trace information](../tracing/index.md#enabling-log-correlation).
 
-When used with the Steeltoe management logger endpoint, this package enables dynamically changing the logging levels for running applications.
+* [Steeltoe Dynamic Logger](./dynamic-logging-provider.md) works with `Microsoft.Extensions.Logging.Console`.
+* [Steeltoe Dynamic Serilog](./serilog-logger.md) works with `Serilog`

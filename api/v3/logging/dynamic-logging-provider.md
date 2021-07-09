@@ -1,6 +1,6 @@
 # Dynamic Logging Provider
 
-This logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider. This wrapper allows for querying the currently defined loggers and their levels as well as then modifying the levels dynamically at runtime.
+This logging provider is a wrapper around the [Microsoft Console Logging](hhttps://github.com/dotnet/runtime/tree/main/src/libraries/Microsoft.Extensions.Logging.Console) provider. This wrapper allows for querying the currently defined loggers and their levels as well as then modifying the levels dynamically at runtime.
 
 >CAUTION: External tool integration involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP Requests.
 
@@ -25,7 +25,7 @@ You can add the provider to your project by using the following `PackageReferenc
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicLogger" Version="3.0.2"/>
+    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicLogger" Version="3.1.0"/>
 ...
 </ItemGroup>
 ```
