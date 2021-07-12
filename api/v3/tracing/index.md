@@ -104,6 +104,9 @@ var host = Host.CreateDefaultBuilder(args)
     })
 ```
 
+`AddDistributedTracing()` is included in `Steeltoe.Management.TracingBase`, configures OpenTelemetry, `HttpClient` instrumentation and [exporters](./distributed-tracing-exporting.md).
+`AddDistributedTracingAspNetCore()` is included in `Steeltoe.Management.TracingCore`, and calls `AddDistributedTracing()` with the addition of `ASP.NET Core` and `Grpc.AspNetCore` instrumentation.
+
 ### Code-based Instrumentation Configuration
 
 Some of the options for HttpClient and ASP.NET Core instrumentation must be configured in code. These can be accessed using IOptions configuration methods like [`PostConfigure`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.optionsservicecollectionextensions.postconfigure):
