@@ -15,9 +15,7 @@ author.github: ddieruf
 author.twitter: dierufdavid
 ---
 
-# Steeltoe 3.1 Includes Event-driven Microservices & Stream-based Data Processing
-
-## Introduction
+# Steeltoe 3.1, a minor release, but a major deal
 
 While Steeltoe 3.1 is a minor release, it sure feels like a major deal. The project recently passed [20 million downloads](https://www.nuget.org/profiles/SteeltoeOSS) and there’s no sign of slowing down. This release kept a very tight focus on two new features and includes a welcome contribution from the Steeltoe community.
 
