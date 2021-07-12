@@ -3,6 +3,7 @@
 
 This section explores the interfaces and classes that are the essential components for developing applications with Steeltoe RabbitMQ.
 
+
 ## Abstractions
 
 Steeltoe RabbitMQ consists of two packages (each represented by a nuget in the distribution): `Steeltoe.Messaging.MessagingBase` and `Steeltoe.Messaging.RabbitMQ`.
@@ -1926,6 +1927,8 @@ You can also assign a `Group` to the container on the `[RabbitListener()]` endpo
 This provides a mechanism to get a reference to a subset of containers.
 Adding a `Group` property causes a service of type `IMessageListenerContainerCollection` to be registered with the `IApplicationContext` with the group name.
 You can then use the `IApplicationContext` and call `context.GetService<IMessageListenerContainerCollection>(group)` to obtain the containers.
+
+>Note: By default, Steeltoe RabbitMQ messaging component uses the .NET Framework BinaryFormatter for object serialization. The BinaryFormatter has been marked deprecated in .NET 5 and can cause issues for you depending on the type of application you are building and running. There are various workarounds, including switching to JSON for serialization. See this [write-up](https://github.com/SteeltoeOSS/Steeltoe/issues/487#issuecomment-742006596) for more details on the issue and how you can work around it.
 
 ### RabbitListener with Batching
 
