@@ -15,7 +15,7 @@ uid: articles
                 <embed class="blog-preview" src="releases/steeltoe-3-1-includes-event-driven-microservices-and-stream-based-data-Processing.html" />
             </div>
             <div class="blog-author">David Dieruf</div>
-            <div class="blog-title">Steeltoe 3.1 Includes Event-driven Microservices & Stream-based Data Processing</div>
+            <div class="blog-title">Steeltoe 3.1, a minor release, but a major deal</div>
         </li>
         <li class="blog-item" onclick="location.href='https://techcommunity.microsoft.com/t5/apps-on-azure/net-and-java-together-in-azure-spring-cloud-with-pet-clinic/ba-p/2087416'">
             <span class="blog-date" href="">January 25 2021</span>
