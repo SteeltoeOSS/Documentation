@@ -6,7 +6,7 @@ title: Steeltoe 3.1 Includes Event-driven Microservices & Stream-based Data Proc
 description: All about Steeltoe 3.1
 monikerRange: '== steeltoe-3.1'
 type: markdown
-date: 07/08/2021
+date: 07/13/2021
 uid: releases/steeltoe-3-1-includes-event-driven-microservices-and-stream-based-data-Processing
 tags: ["new-release"]
 author.name: David Dieruf

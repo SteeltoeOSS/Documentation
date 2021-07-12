@@ -10,7 +10,7 @@ uid: articles
 <div class="blog-list-wrapper">
     <ul class="blog-list">
         <li class="blog-item" onclick="location.href='releases/steeltoe-3-1-includes-event-driven-microservices-and-stream-based-data-Processing.html'">
-            <span class="blog-date">July 12 2021</span>
+            <span class="blog-date">July 13 2021</span>
             <div class="preview">
                 <embed class="blog-preview" src="releases/steeltoe-3-1-includes-event-driven-microservices-and-stream-based-data-Processing.html" />
             </div>
