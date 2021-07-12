@@ -25,7 +25,9 @@ As you may know, the vision of the Steeltoe project has been to provide .NET dev
 * Build polyglot microservices-based applications with Java/Spring interoperability builtin.
 * Build portable cloud based applications by provided programming abstractions on top of cloud provider "lock-in APIs"; "Your .NET code => on any cloud platform"
 
-With the introduction of the Stream programming model and full compatibility with Spring Cloud Data Flow, teams can now use both Java and .NET to create resilient, high throughput polyglot data processing pipelines. For example, you can create a pipeline that uses a pre-made Java component with a RESTful endpoint for ingesting data into the pipeline. Then add a C# processor to the pipeline that makes decisions about the data - possibly transforming it to other formats. Finally, passing the data to a third Java component which acts as a sink sending the data to a database. The combination of Java and .NET in SCDF unlocks a true polyglot model for data pipeline developers.
+With the introduction of 3.1, Steeltoe now includes a new Stream programming model with full compatibility with Spring Cloud Data Flow. Teams can now use both Java and .NET to create resilient, high throughput polyglot data processing pipelines. For example, you can create a pipeline that uses a pre-made Java component with a RESTful endpoint for ingesting data into the pipeline. Then add a C# processor to the pipeline that makes decisions about the data - possibly transforming it to other formats. Finally, passing the data to a third Java component which acts as a sink sending the data to a database. The combination of Java and .NET in SCDF unlocks a true polyglot model for data pipeline developers.
+
+Also included in 3.1 is an updated Messaging programming model that makes it very easy to create message based, event-driven microservices. With just a few lines of code a developer can standup a production-grade, highly resilent, message driven microservice.
 
 Let’s look at all the new features of Steeltoe 3.1 and how it’s going to get your microservices to production even faster.
 
