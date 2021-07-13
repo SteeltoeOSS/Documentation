@@ -3,19 +3,19 @@ _disableBreadcrumb: true
 _disableContribution: true
 _showBackToBlogs: true
 
-title: Steeltoe 3.1 Includes Event-driven Microservices & Stream-based Data Processing
+title: Steeltoe 3.1 is a minor release, but a major deal
 description: All about Steeltoe 3.1
 monikerRange: '== steeltoe-3.1'
 type: markdown
 date: 07/13/2021
-uid: releases/steeltoe-3-1-includes-event-driven-microservices-and-stream-based-data-Processing
+uid: releases/steeltoe-3-1-minor-release-major-deal.html
 tags: ["new-release"]
 author.name: David Dieruf
 author.github: ddieruf
 author.twitter: dierufdavid
 ---
 
-# Steeltoe 3.1, a minor release, but a major deal
+# Steeltoe 3.1 is a minor release, but a major deal
 
 While Steeltoe 3.1 is a minor release, it sure feels like a major deal. The project recently passed [20 million downloads](https://www.nuget.org/profiles/SteeltoeOSS) and there’s no sign of slowing down. This release kept a very tight focus on two new features and includes a welcome contribution from the Steeltoe community.
 

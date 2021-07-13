@@ -9,10 +9,10 @@ uid: articles
 ---
 <div class="blog-list-wrapper">
     <ul class="blog-list">
-        <li class="blog-item" onclick="location.href='releases/steeltoe-3-1-includes-event-driven-microservices-and-stream-based-data-Processing.html'">
+        <li class="blog-item" onclick="location.href='releases/steeltoe-3-1-minor-release-major-deal.html'">
             <span class="blog-date">July 13 2021</span>
             <div class="preview">
-                <embed class="blog-preview" src="releases/steeltoe-3-1-includes-event-driven-microservices-and-stream-based-data-Processing.html" />
+                <embed class="blog-preview" src="releases/steeltoe-3-1-minor-release-major-deal.html" />
             </div>
             <div class="blog-author">David Dieruf</div>
             <div class="blog-title">Steeltoe 3.1, a minor release, but a major deal</div>
