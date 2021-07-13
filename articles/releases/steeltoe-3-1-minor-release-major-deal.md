@@ -17,7 +17,7 @@ author.twitter: dierufdavid
 
 # Steeltoe 3.1 is a minor release, but a major deal
 
-While Steeltoe 3.1 is a minor release, it sure feels like a major deal. The project recently passed [20 million downloads](https://www.nuget.org/profiles/SteeltoeOSS) and there’s no sign of slowing down. This release kept a very tight focus on two new features and includes a welcome contribution from the Steeltoe community.
+While Steeltoe 3.1 is a minor release, it sure feels like a major deal. The project recently passed [22 million downloads](https://www.nuget.org/profiles/SteeltoeOSS) and there’s no sign of slowing down. This release kept a very tight focus on two new features and includes a welcome contribution from the Steeltoe community.
 
 As you may know, the vision of the Steeltoe project has been to provide .NET developers with the tools and frameworks that enable them to:
 
