@@ -1,12 +1,12 @@
 # Application Bootstrapping
 
-A new experiment in improving the Steeltoe developer experience has been included in Steeltoe 3.1.0 that allows the configuration of most Steeltoe components with a single line of code in your application. The package is named [`Steeltoe.Bootstrap.Autoconfig`](https://github.com/SteeltoeOSS/Steeltoe/tree/main/src/Bootstrap/src/Autoconfig), and it works by applying the `HostBuilder` extensions that are included in many Steeltoe packages to automatically wire up each of those components.
+In order to improve the Steeltoe developer experience, Steeltoe 3.1.0 includes this new feature that allows the configuration of most Steeltoe components with a single line of code in your application. The package is named [`Steeltoe.Bootstrap.Autoconfig`](https://github.com/SteeltoeOSS/Steeltoe/tree/main/src/Bootstrap/src/Autoconfig), and it works by applying the same extensions that are already included in Steeltoe packages to automatically wire up each of those components.
 
 Applications running on .NET Core 3.1+ and .NET 5.0+ are supported. Get started by adding a reference to the Autoconfig package (you may want to add other Steeltoe references at this point too, see [the table below](#supported-steeltoe-packages) for the full list of what's supported now):
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="Steeltoe.Bootstrap.Autoconfig" Version="3.1.0-rc1" />
+    <PackageReference Include="Steeltoe.Bootstrap.Autoconfig" Version="3.1.0" />
 </ItemGroup>
 ```
 
@@ -44,18 +44,18 @@ namespace WebApplication1
 
 |  Feature Description | Steeltoe Package |Additional Package Required |
 | --- | --- | --- |
-| [Config Server Configuration](../configuration/config-server-provider.md) | `Steeltoe.Extensions.Configuration.ConfigServerCore` | N/A |
-| [Cloud Foundry Configuration](../configuration/cloud-foundry-provider.md) |`Steeltoe.Extensions.Configuration.CloudFoundryCore` |  N/A |
-| [Kubernetes Configuration](../configuration/kubernetes-providers.md) |`Steeltoe.Extensions.Configuration.KubernetesCore` |  N/A |
+| [Config Server Configuration](../configuration/config-server-provider.md) | `Steeltoe.Extensions.Configuration.ConfigServerBase` or `ConfigServerCore` | N/A |
+| [Cloud Foundry Configuration](../configuration/cloud-foundry-provider.md) |`Steeltoe.Extensions.Configuration.CloudFoundryBase` or `CloudFoundryCore` |  N/A |
+| [Kubernetes Configuration](../configuration/kubernetes-providers.md) |`Steeltoe.Extensions.Configuration.KubernetesBase` or `KubernetesCore` |  N/A |
 | [Random Value Provider](../configuration/random-value-provider.md) |`Steeltoe.Extensions.Configuration.RandomValueBase` |  N/A |
-| [Placeholder Resolver](../configuration/placeholder-provider.md) |`Steeltoe.Extensions.Configuration.PlaceholderCore` |  N/A |
+| [Placeholder Resolver](../configuration/placeholder-provider.md) |`Steeltoe.Extensions.Configuration.PlaceholderBase` or `PlaceholderCore` |  N/A |
 | [Connectors*](../connectors/index.md) |`Steeltoe.Connector.ConnectorCore` |  Supported driver (MySQL, PostgreSQL, RabbitMQ, SQL Server, etc) |
 | [Dynamic Serilog](../logging/serilog-logger.md) | `Steeltoe.Extensions.Logging.DynamicSerilogCore` | N/A |
 | [Service Discovery](../discovery/index.md) |`Steeltoe.Discovery.ClientBase` or `ClientCore` | Desired client (Eureka, Consul, Kubernetes)
 | [Actuators](../management/index.md) | `Steeltoe.Management.EndpointCore` | N/A |
 | [Actuators with Cloud Foundry support**](../management/cloud-foundry.md) |`Steeltoe.Management.CloudFoundryCore` |  N/A |
 | [Actuators with Kubernetes support](../management/index.md) |`Steeltoe.Management.KubernetesCore` |  N/A |
-| [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.TracingCore` | N/A |
+| [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.TracingBase` or `TracingCore` | OpenTelemetry Exporter (Zipkin, Jaeger, OTLP) |
 | [Cloud Foundry Container Identity](../security/mtls.md#configure-settings) | `Steeltoe.Security.Authentication.CloudFoundryCore` | N/A |
 
 >\* The [Connection String Configuration provider](../connectors/usage.md#connectionstring-configuration-provider) is always added when `ConnectorCore` is referenced. Individual connector clients will only be configured if a corresponding supported driver NuGet package reference is also included.
@@ -100,8 +100,10 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 
 ## Limitations
 
-- At this time, only Steeltoe libraries that can be configured from `HostBuilder` are supported.
-- Most configuration providers require the `*Core` package variation and don't currently work with the `*Base` package
+At this time there is no support for:
+
+* Features that need to be configured directly in `IApplicationBuilder`, such as Cloud Foundry SSO and JWT.
+* Features that require a custom type (such as a DbContext) for setup.
 
 ## Feedback
 

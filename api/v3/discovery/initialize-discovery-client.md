@@ -26,7 +26,7 @@ To add this type of NuGet to your project, add an element resembling the followi
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Discovery.Consul" Version="3.0.2" />
+    <PackageReference Include="Steeltoe.Discovery.Consul" Version="3.1.0" />
 ...
 </ItemGroup>
 ```

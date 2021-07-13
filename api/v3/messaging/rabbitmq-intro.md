@@ -12,7 +12,7 @@ For example, simply add the following to your `.csproj` file:
 
 ```XML
   <ItemGroup>
-    <PackageReference Include="Steeltoe.Messaging.RabbitMQ" Version="3.0.2" />
+    <PackageReference Include="Steeltoe.Messaging.RabbitMQ" Version="3.1.0" />
   </ItemGroup>
 ```
 
@@ -131,6 +131,9 @@ class Program
 
 This example uses Steeltoe together with a .NET Generic host and shows how to configure the services:
 
+
+<i>See [RabbitMQHost](rabbitmq-host.md) documentation to further understand what is happening behind the scenes</i>
+
 ```csharp
 class Program
 {
@@ -140,18 +143,9 @@ class Program
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
+        RabbitMQHost.CreateDefaultBuilder(args)
         .ConfigureServices((hostContext, services) =>
         {
-            // Add core services
-            services.AddRabbitServices();
-
-            // Add Rabbit admin
-            services.AddRabbitAdmin();
-
-            // Add Rabbit template
-            services.AddRabbitTemplate();
-
             // Add a queue to be declared
             services.AddRabbitQueue(new Queue("myqueue"));
 

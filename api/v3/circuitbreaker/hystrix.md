@@ -48,7 +48,7 @@ To add this type of NuGet to your project, add something like the following `Pac
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.HystrixCore" Version="3.0.2"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.HystrixCore" Version="3.1.0"/>
 ...
 </ItemGroup>
 ```
@@ -60,7 +60,7 @@ To do so, include the following `PackageReference` in your application:
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore" Version="3.0.2"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore" Version="3.1.0"/>
 ...
 </ItemGroup>
 ```
@@ -78,7 +78,7 @@ To add this type of NuGet to your project, add something like the following:
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore" Version="3.0.2"/>
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore" Version="3.1.0"/>
     <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
 ...
 </ItemGroup>
@@ -793,9 +793,8 @@ Regardless of which dashboard or package you choose to use, to enable your appli
 
 * Add Hystrix Metrics stream service to the service container
 * Use Hystrix Request context middleware in pipeline
-* Start Hystrix Metrics stream
 
-To add the metrics stream to the service container, you must use the `AddHystrixMetricsStream()` extension method in the `ConfigureService()` method in your `Startup` class, as follows:
+To add the metrics stream to the service container, you must use the `AddHystrixMetricsStreams()` extension method in the `ConfigureService()` method in your `Startup` class, as follows:
 
 ```csharp
 using Steeltoe.CircuitBreaker.Hystrix;
@@ -819,33 +818,20 @@ public class Startup {
         services.AddMvc();
 
         // Add Hystrix Metrics to container
-        services.AddHystrixMetricsStream(Configuration);
+        services.AddHystrixMetricsStreams(Configuration);
         ...
     }
     ...
 }
 ```
 
-Next, you must configure two Hystrix related items in the request processing pipeline. You can do so in the `Configure()` method of the `Startup` class.
-
-First, metrics requires that Hystrix `Request` contexts be initialized and available in every request being processed. You can enable this by using the Steeltoe extension method `UseHystrixRequestContext()` shown in the next example.
-
-Additionally, in order to start the metrics stream service so that it starts to publish metrics and events, you need to call the `UseHystrixMetricsStream()` extension method. See the contents of the `Configure()` method in the following example:
+Next, you must configure the Hystrix `Request` contexts be initialized and available in every request being processed in the request processing pipeline. You can do so in the `Configure()` method of the `Startup` class as shown in this example:
 
 ```csharp
 using Steeltoe.CircuitBreaker.Hystrix;
 
 public class Startup {
     ...
-    public IConfiguration Configuration { get; private set; }
-    public Startup(IConfiguration configuration)
-    {
-      Configuration = configuration;
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        ...
-    }
     public void Configure(IApplicationBuilder app)
     {
         app.UseStaticFiles();
@@ -854,9 +840,6 @@ public class Startup {
         app.UseHystrixRequestContext();
 
         app.UseMvc();
-
-        // Start Hystrix metrics stream service
-        app.UseHystrixMetricsStream();
     }
     ...
 }

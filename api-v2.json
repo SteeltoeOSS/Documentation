@@ -159,25 +159,6 @@
           "**/*.csproj"
         ],
         "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Messaging/src"
-      }
-    ],
-    "dest": "api/browser/v2/messaging",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
-    },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
         "src": "sources/v2/src/Security/src"
       }
     ],
