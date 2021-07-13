@@ -1,12 +1,12 @@
 ---
 uid: guides/stream/quick-start
-title: Quick Start
+title: Quick Start w/ RabbitMQ 
 tags: []
 _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
-# Quick Start
+# Quick Start w/ RabbitMQ
 
 This guide will show you how to create a Steeltoe Stream service that receives messages coming from messaging middleware of your choice and logs the received message to the console.
 
