@@ -8,7 +8,7 @@ _hideTocVersionToggle: true
 
 # Get Started with Steeltoe
 
-## The Basics
+## The Basics Workshop
 
 - @guides/get-to-know-steeltoe
 
@@ -26,8 +26,8 @@ _hideTocVersionToggle: true
 ## Cloud Management
 
 - @guides/cloud-management/distributed-tracing
-- @guides/cloud-management/endpoints-framework
 - @guides/cloud-management/endpoints-netcore
+- @guides/cloud-management/endpoints-framework
 
 ## Messaging
 
@@ -60,3 +60,7 @@ _hideTocVersionToggle: true
 ## Service Discovery
 
 - @guides/service-discovery/eureka
+
+## Stream
+
+- @guides/stream/quick-start
