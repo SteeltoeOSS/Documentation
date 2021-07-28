@@ -11,12 +11,13 @@ The following table describes the settings that you can apply to the endpoint:
 | Key | Description | Default |
 | --- | --- | --- |
 | `Enabled` | Whether to enable the dbmigrations management endpoint. | `true` |
+| `Path` | Url path used to access dbmigrations management endpoint. | `dbmigrations` |
 
 >Each setting above must be prefixed with `Management:Endpoints:DbMigrations`.
 
 ## Enable HTTP Access
 
-The default path to the Prometheus endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is `/actuator/dbmigrations`.
+The default path to the DbMigrations endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is `/actuator/dbmigrations`.
 
 See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
