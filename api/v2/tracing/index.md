@@ -48,7 +48,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TracingCore" Version="2.5.2" />
+    <PackageReference Include="Steeltoe.Management.TracingCore" Version="2.5.4" />
 ...
 </ItemGroup>
 ```
@@ -99,6 +99,9 @@ Steeltoe distributed tracing handles this for you by default when using the .NET
 To enable distributed tracing all you need to to do is add the service to the container. To do this use the `AddDistributedTracing()` extension method from `TracingServiceCollectionExtensions`.
 
 ```csharp
+// Other Microsoft using statements...
+using Steeltoe.Management.Tracing
+
 public class Startup
 {
     public Startup(IConfiguration configuration)
