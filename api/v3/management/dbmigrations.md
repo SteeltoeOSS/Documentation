@@ -1,6 +1,6 @@
 # Database Migrations
 
-The Steeltoe `dbmigration` endpoint exposes information about data migrations that are available to an application's data source that has been built with Entity Framework Core (EF Core). EF Core migrations gives developers the ability to update an application's database schema while staying consistent with the application's data model without removing any existing data. 
+The Steeltoe `dbmigration` endpoint exposes information about data migrations that are available to an application's data source that has been built with Entity Framework Core (EF Core). EF Core migrations give developers the ability to update an application's database schema while staying consistent with the application's data model without removing any existing data.
 
 >NOTE: Please review Microsoft's [EF Core Migrations Overview](https://docs.microsoft.com/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli) for more in-depth information
 
