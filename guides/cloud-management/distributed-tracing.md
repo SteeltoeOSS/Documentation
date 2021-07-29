@@ -50,7 +50,7 @@ Next, **create a .NET Core WebAPI** that interacts with Distributed Tracing
       // Other service registrations...
 
       // Available through Steeltoe.Management.Tracing namespace
-      services.AddDistributedTracing();
+      services.AddDistributedTracingAspNetCore();
    }
    ```
 
