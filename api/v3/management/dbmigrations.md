@@ -37,7 +37,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         .AddDbMigrationsActuator();
 ```
 
-Alternatively, first,add the DbMigrations actuator to the service container, using the `AddDbMigrationsActuator()` extension method from `EndpointServiceCollectionExtensions`.
+Alternatively, first, add the DbMigrations actuator to the service container, using the `AddDbMigrationsActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
 Then, add the DbMigrations actuator middleware to the ASP.NET Core pipeline, use the `Map<DbMigrationsEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
