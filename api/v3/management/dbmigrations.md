@@ -2,7 +2,7 @@
 
 The Steeltoe `dbmigration` endpoint exposes information about data migrations that are available to an application's data source that has been built with Entity Framework Core (EF Core). EF Core migrations gives developers the ability to update an application's database schema while staying consistent with the application's data model without removing any existing data. 
 
->NOTE: <i>Please review Microsoft's [EF Core Migrations Overview](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli) for more in-depth information</i>
+>NOTE: Please review Microsoft's [EF Core Migrations Overview](https://docs.microsoft.com/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli) for more in-depth information
 
 ## Configure Settings
 
@@ -25,7 +25,7 @@ To add the actuator to the service container and map its route, use the `AddDbMi
 
 The following example shows how to use the dbmigrations actuator endpoint:
 
-<i>Program.cs</i>
+### Program.cs
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -41,7 +41,7 @@ Alternatively, first, add the DbMigrations actuator to the service container, us
 
 Then, add the DbMigrations actuator middleware to the ASP.NET Core pipeline, use the `Map<DbMigrationsEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
-<i>Startup.cs</i>
+### Startup.cs
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -67,7 +67,9 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 ## Sample Output
 
-<i>Default Endpoint: `/actuator/dbmigrations`</i>
+This endpoint returns a list of objects representing each registered `dbcontext` along with it's migrations, grouped by status (pending or applied).
+
+The default path for this endpoint is `/actuator/dbmigrations` and the response will always be returned as JSON, like this:
 
 ```json
 {
