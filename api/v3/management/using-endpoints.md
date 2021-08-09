@@ -16,7 +16,6 @@ The following table describes the available Steeltoe management endpoints that c
 | ID|Description |
 | --- | --- |
 | [cloudfoundry](./cloud-foundry.md) | Enables the management endpoint integration with Cloud Foundry. |
-| [dbmigrations](./dbmigrations.md) | Provides ability to see current and pending database migrations for an application data source. |
 | [env](./env.md) | Reports the keys and values from the application's configuration. |
 | [health](./health.md) | Customizable endpoint that gathers application health information. |
 | [heapdump](./heapdump.md) | Generates and downloads a mini-dump of the application (Windows and Linux only). |
