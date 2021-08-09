@@ -32,6 +32,27 @@ Next, **create a .NET Core WebAPI** that interacts with Distributed Tracing
 1. No dependency needs to be added
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
+1. Add `Steeltoe.Management.TracingCore` NuGet package to your project
+
+   ```xml
+   <ItemGroup>
+   ...
+      <PackageReference Include="Steeltoe.Management.TracingCore" Version="3.1.0" />
+   ...
+   </ItemGroup>
+   ```
+
+1. Add Distributed Tracing to your startup services
+
+   ```csharp
+   public void ConfigureServices(IServiceCollection services)
+   {
+      // Other service registrations...
+
+      // Available through Steeltoe.Management.Tracing namespace
+      services.AddDistributedTracingAspNetCore();
+   }
+   ```
 
 **Run** the application
 
