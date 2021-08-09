@@ -48,7 +48,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TracingCore" Version="2.5.2" />
+    <PackageReference Include="Steeltoe.Management.TracingCore" Version="2.5.4" />
 ...
 </ItemGroup>
 ```
@@ -112,6 +112,7 @@ public class Startup
     {
         ...
         // Add Distributed tracing
+        // Available through Steeltoe.Management.Tracing namespace
         services.AddDistributedTracing(Configuration);
 
         // Add framework services.
