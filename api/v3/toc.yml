@@ -54,8 +54,6 @@
       name: Spring Boot Admin Client
     - topicHref: management/cloud-foundry.md
       name: Cloud Foundry Integration
-    - topicHref: management/dbmigrations.md
-      name: /dbmigrations
     - topicHref: management/env.md
       name: /env
     - topicHref: management/health.md
