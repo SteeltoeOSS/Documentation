@@ -9,7 +9,15 @@ uid: articles
 ---
 <div class="blog-list-wrapper">
     <ul class="blog-list">
-        <li class="blog-item" onclick="location.href='releases/steeltoe-3-1-minor-release-major-deal.html'">
+        <li class="blog-item" onclick="location.href='whats-new-in-steeltoe-31.html'">
+            <span class="blog-date">July 13 2021</span>
+            <div class="preview">
+                <embed class="blog-preview" src="whats-new-in-steeltoe-31.html" />
+            </div>
+            <div class="blog-author">Dave Tillman, Hananiel Sarella</div>
+            <div class="blog-title">Tanzu TV Episode: Steeltoe Messaging, Steeltoe Stream, and more</div>
+        </li>
+		<li class="blog-item" onclick="location.href='releases/steeltoe-3-1-minor-release-major-deal.html'">
             <span class="blog-date">July 13 2021</span>
             <div class="preview">
                 <embed class="blog-preview" src="releases/steeltoe-3-1-minor-release-major-deal.html" />
