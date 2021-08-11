@@ -10,7 +10,7 @@ uid: articles
 <div class="blog-list-wrapper">
     <ul class="blog-list">
         <li class="blog-item" onclick="location.href='whats-new-in-steeltoe-31.html'">
-            <span class="blog-date">July 13 2021</span>
+            <span class="blog-date">July 27 2021</span>
             <div class="preview">
                 <embed class="blog-preview" src="whats-new-in-steeltoe-31.html" />
             </div>
