@@ -110,7 +110,8 @@ public class Startup {
         app.UseStaticFiles();
         app.UseMvc();
 
-        // Use the Steeltoe Discovery Client service
+        // Activate the Steeltoe Discovery Client service background thread
+        // This line is not needed for Steeltoe 3.1.0 and above
         app.UseDiscoveryClient();
     }
     ...
