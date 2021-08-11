@@ -790,7 +790,9 @@ With Steeltoe, you can currently choose from two dashboards.
 
 The first is the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard). This dashboard is appropriate when you are not running your application on Cloud Foundry -- for example, when you are developing and testing your application locally on your desktop.
 
-The second is the [Spring Cloud Services Hystrix Dashboard](https://docs.pivotal.io/spring-cloud-services/1-5/common/circuit-breaker/). This dashboard is part of the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/) offering and is made available to applications through the normal service instance binding mechanisms on Cloud Foundry.
+The second is the [Spring Cloud Services Hystrix Dashboard](https://docs.pivotal.io/spring-cloud-services/2-1/common/circuit-breaker/index.html). This dashboard is part of the [Spring Cloud Services v2](https://docs.pivotal.io/spring-cloud-services/) offering and is made available to applications through the normal service instance binding mechanisms on Cloud Foundry.
+
+> As of Spring Cloud Services 3.0, the Hystrix Dashboard has been deprecated. The dashboard is still supported in version 2.1
 
 You should use the `Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore` package in an ASP.NET Core application when targeting the Netflix Hystrix Dashboard. When added to your app, it exposes a new REST endpoint in your application: `/hystrix/hystrix.stream`. This endpoint is used by the Netflix dashboard in receiving `SSE` metrics and status events from your application.
 
