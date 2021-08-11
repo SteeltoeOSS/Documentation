@@ -165,7 +165,7 @@ The samples and most templates are already set up to read from `appsettings.json
 
 ### Bind to Cloud Foundry
 
-When you want to use a Eureka Server on Cloud Foundry and you have installed [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/index.html), you can create and bind a instance of the server to the application by using the Cloud Foundry CLI, as follows:
+When you want to use a Eureka Server on Cloud Foundry and you have installed [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/), you can create and bind a instance of the server to the application by using the Cloud Foundry CLI, as follows:
 
 ```bash
 # Create eureka server instance named `myDiscoveryService`
@@ -181,7 +181,7 @@ cf bind-service myApp myDiscoveryService
 cf restage myApp
 ```
 
-For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/index.html) documentation.
+For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/) documentation.
 
 Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`.
 

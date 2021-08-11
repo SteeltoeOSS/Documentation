@@ -168,7 +168,7 @@ public class Program
 
 ### Bind to Cloud Foundry
 
-When you want to use a Config Server on Cloud Foundry and you have installed [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/1-5/common/index.html), you can create and bind an instance of it to your application by using the Cloud Foundry CLI, as follows:
+When you want to use a Config Server on Cloud Foundry and you have installed [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/), you can create and bind an instance of it to your application by using the Cloud Foundry CLI, as follows:
 
 ```bash
 # Create config server instance named `myConfigServer`
