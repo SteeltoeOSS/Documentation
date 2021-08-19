@@ -74,7 +74,6 @@ Right click on the 'Controllers' folder and choose "Add" > "Class..." and name i
 
 <img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
----
 
 Open the newly created class file in your IDE and replace the 'using' statements in the file with the below.
 

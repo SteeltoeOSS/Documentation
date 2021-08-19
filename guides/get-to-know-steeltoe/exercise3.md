@@ -72,19 +72,11 @@ cd "Models"
 
 Within that folder create a new class named 'TodoContext.cs'. This class will serve as our context for interacting with the database.
 
-# [Visual Studio](#tab/visual-studio)
 
 Right click on the 'Models' folder and choose "Add" > "Class..." and name it `TodoContext.cs`.
 
 <img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
-# [.NET CLI](#tab/dotnet-cli)
-
-```powershell
-dotnet new classlib -n "TodoContext.cs"
-```
-
----
 
 Open the newly created class file in your IDE and include the 'EntityFrameworkCore' package.
 
@@ -107,19 +99,10 @@ public class TodoContext : DbContext {
 
 Also in the 'Models' folder, create a class named 'TodoItem.cs'. This will serve as a definition of the things that make up a ToDo list item.
 
-# [Visual Studio](#tab/visual-studio)
-
 Right click on the 'Models' folder and choose "Add" > "Class..." and name it `TodoItem.cs`.
 
 <img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
-# [.NET CLI](#tab/dotnet-cli)
-
-```powershell
-dotnet new classlib -n "TodoItem.cs"
-```
-
----
 
 Open the newly created class file in your IDE and replace th class statement with this. Don't change the 'namespace' part, just the class within the namespace.
 
@@ -172,20 +155,10 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Models.T
 
 Create a new class in the 'Controllers' folder named `TodoItemsController.cs`.
 
-# [Visual Studio](#tab/visual-studio)
-
 Right click on the 'Controllers' folder and choose "Add" > "Class..." and name it `TodoItemsController.cs`.
 
 <img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
 
-# [.NET CLI](#tab/dotnet-cli)
-
-```powershell
-cd ../Controllers
-dotnet new classlib -n "TodoItemsController.cs"
-```
-
----
 
 Open the newly created class file in your IDE and replace the 'using' statements in the file with the below.
 
