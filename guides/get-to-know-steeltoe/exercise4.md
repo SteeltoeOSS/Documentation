@@ -29,7 +29,7 @@ Setup an external git repo holding configuration values and using Spring Config 
 With a running instance of Spring Config server, navigate to an endpoint in a .NET Core application and see the values output.
 
 > [!NOTE]
-> For this exercise a Spring Config server have already been initialized. The settings have been preloaded below.
+> For this exercise a Spring Config server has already been initialized. The settings have been preloaded below.
 
 ## Get Started
 
@@ -60,38 +60,19 @@ using Steeltoe.Extensions.Configuration.ConfigServer;
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
 	Host.CreateDefaultBuilder(args)
-		.ConfigureWebHostDefaults(webBuilder => {
-			webBuilder
-
-        //implement config server client
-				.AddConfigServer()
-				.UseStartup<Startup>();
-		})
-
-    //Steeltoe actuators
-		.AddAllActuators()
-
-    //Steeltoe dynamic logging
-    .AddDynamicLogging()
-		;
+		.ConfigureWebHostDefaults(webBuilder => 
+    {
+        webBuilder
+          .AddConfigServer()  //implement config server client
+          .UseStartup<Startup>();
+		});
 ```
 
 ## Create a Values controller
 
-Create a new class in the 'Controllers' folder named `ValuesController.cs`.
-
-# [Visual Studio](#tab/visual-studio)
-
 Right click on the 'Controllers' folder and choose "Add" > "Class..." and name it `ValuesController.cs`.
 
 <img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
-
-# [.NET CLI](#tab/dotnet-cli)
-
-```powershell
-cd Controllers
-dotnet new classlib -n "ValuesController.cs"
-```
 
 ---
 
@@ -132,20 +113,24 @@ public class ValuesController : ControllerBase
 
 In 'appsettings.json' add the following json just below the "sqlserver" section. This should be preloaded with the correct connection values of a Spring Config server.
 
+> [!NOTE]
+> If you do not have a Spring Cloud Config Server running, please follow the instructions in [App Configuration with a Spring Config Server](../application-configuration/spring-config.md) in the Steeltoe Getting Started Guide
+
 ```json
 ,"spring": {
-  "application": {
-    "name": "myapplication"
-  },
-  "cloud": {
-    "config": {
-      "validateCertificates": false,
-      "FailFast": %%SPRING_CONFIG_FAILFAST%%,
-      "uri": %%SPRING_CONFIG_URI%%,
-      //"Username": %%SPRING_CONFIG_USERNAME%%,
-      //"Password": %%SPRING_CONFIG_PASSWORD%%
+    "application": {
+        "name": "myapplication"
+    },
+// Below is not needed if you are running a local Config Server
+    "cloud": {
+        "config": {
+            "validateCertificates": false,
+            "FailFast": %%SPRING_CONFIG_FAILFAST%%,
+            "uri": %%SPRING_CONFIG_URI%%,
+            "Username": %%SPRING_CONFIG_USERNAME%%,
+            "Password": %%SPRING_CONFIG_PASSWORD%%
+        }
     }
-  }
 }
 ```
 
@@ -160,7 +145,7 @@ With the data context in place, we are ready to see everything in action. Run th
 
 Clicking the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started your default browser should open and automatically load the weather forecast endpoint.
 
-<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="100%">
+<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="50%">
 
 # [.NET CLI](#tab/dotnet-cli)
 
