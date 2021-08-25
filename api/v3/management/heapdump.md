@@ -2,7 +2,7 @@
 
 You can use the Steeltoe heap dump endpoint to generate and download a mini-dump of your application. The mini-dump can then be read into Visual Studio for analysis.
 
->NOTE: Due to Cloud Foundry [container hardening rules](https://docs.cloudfoundry.org/concepts/container-security.html#hardening), heap dumps on did not work on Linux containers because the containers depend on `CAP_SYS_PTRACE`, which is disabled by the container hardening rules.  This problem has been resolved in TAS 2.11.2+ versions.
+>NOTE: Due to Cloud Foundry [container hardening rules](https://docs.cloudfoundry.org/concepts/container-security.html#hardening), heap dumps did not work on Linux containers because the containers depend on `CAP_SYS_PTRACE` which is disabled by the container hardening rules.  This problem has been resolved in TAS 2.11.2+ versions.
 
 ## Configure Settings
 
