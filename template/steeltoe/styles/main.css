@@ -421,6 +421,11 @@ select.api-namespace option {
 	.inflow {
 		float: unset;
 	}
+
+	/** Fix "Back to top covering text **/
+	.doc-wrapper article.content.wrap {
+		margin-bottom: 10%;
+	}
 }
 
 /**** Blog Live Preview ****/
