@@ -91,6 +91,20 @@ function showApiBrowserElements() {
 	}
 }
 
+function inIframe () {
+	try {
+		return window.self !== window.top;
+	}
+	catch (e) {
+		return true;
+	}
+}
+
+if (inIframe()) {
+	$(".hidewhenembedded").hide();
+	$("div[role=main].container-fluid.body-content").css({"margin-top":"0"})
+}
+
 $(document).ready(function() {
 	if(document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('dev.steeltoe.io') > -1){
 		$("a[href^='https://steeltoe.io']").attr('href', function() { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
@@ -145,7 +159,7 @@ $(document).ready(function() {
 
 	//toggle the docs version radio
 	if (window.location.href.indexOf("v2") > -1) {
-    	$('.versionLabel').toggleClass('active');
+		$('.versionLabel').toggleClass('active');
 	}
 	else if (window.location.href.indexOf("/articles") > -1) {
 		$('#docsNavLink').removeClass('active');
@@ -157,7 +171,7 @@ $(document).ready(function() {
 	}
 });
 
-var options = {
+	var options = {
 	contentSelector: "#wrapper",
 	loadDelay: 10,
 	// CSS class(es) used to render the copy icon.
