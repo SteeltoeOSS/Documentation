@@ -473,14 +473,14 @@ ul.blog-list > :first-child .blog-date::after {
 .blog-preview {
 	border: solid #b8b4b4 1px;
 	height: 500px;
-	width: 500px;
+	width: 100%;
 }
 
 .preview {
     display: none;
 	margin-left: 200px;
 	position: absolute;
-    width: 100%;
+    width: 60%;
     z-index: 500;
 }
 
