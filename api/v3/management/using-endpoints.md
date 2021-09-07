@@ -71,8 +71,27 @@ The following table describes the settings that you can apply globally:
 | `Enabled` | Whether to enable all management endpoints. | `true` |
 | `Path` | The path prefix applied to all endpoints when exposed over HTTP. | `/actuator` |
 | `UseStatusCodeFromResponse` | Whether or not to use accurate status codes in some responses.  | `true` |
+| `SerializerOptions` | Configure Json serialization | CamelCase properties |
+| `CustomJsonConverters` | List of `JsonConverters` to use | none |
 
 >When running an application in IIS or with the HWC buildpack, response body content is automatically filtered out when the HTTP response code is 503. Some actuator responses intentionally return a code of 503 in failure scenarios. Setting `UseStatusCodeFromResponse` to `false` will allow the response body to be returned by using a status code of 200 instead. This switch will not affect the status code of responses outside of Steeltoe.
+
+### Custom Serialization Options
+
+As of 3.1.1, the `JsonSerializerOptions` used to serialize actuator responses are configurable, and custom JsonConverters can be used by adding the [assembly-qualified type](https://docs.microsoft.com/dotnet/api/system.type.assemblyqualifiedname").
+
+For example, to have DateTime values serialized as epoch times and all JSON pretty printed:
+
+```json
+{
+  "Management": {
+    "Endpoints": {
+      "SerializerOptions": { "WriteIndented": true },
+      "CustomJsonConverters": [ "Steeltoe.Management.Endpoint.Info.EpochSecondsDateTimeConverter" ]
+    }
+  }
+}
+```
 
 ## Exposing Endpoints
 
