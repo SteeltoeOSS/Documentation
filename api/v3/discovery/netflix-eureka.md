@@ -80,6 +80,8 @@ The following table describes the settings you can use to configure the behavior
 
 All of the settings in the preceding table should start with `Eureka:Instance:`.
 
+> As of Steeltoe 3.1.1, `HealthCheckUrlPath` and `StatusPageUrlPath` will be automatically configured to be the `Health` and `Info` actuator paths (respectively) if those actuators are configured.
+
 You should register by using the `direct` setting mentioned earlier when you want to use container-to-container networking on Cloud Foundry. You should use the `Hostname` setting on Cloud Foundry when you want the registration to use whatever value is configured or computed as `Eureka:Instance:HostName`.
 
 For a complete understanding of the effects of many of these settings, we recommend that you review the documentation on the [Netflix Eureka Wiki](https://github.com/Netflix/eureka/wiki). In most cases, unless you are confident that you understand the effects of changing the values from their defaults, we recommend that you use the defaults.
