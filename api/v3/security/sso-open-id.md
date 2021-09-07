@@ -10,8 +10,9 @@ Usage of Steeltoe's OpenID Connect provider is effectively identical to that of 
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `additionalScopes` | Scopes to request for tokens in addition to `openid` | `string.Empty` |
-| `validateCertificates` | Validate Auth server certificate | `true` |
+| `AdditionalScopes` | Scopes to request for tokens in addition to `openid`. | `string.Empty` |
+| `Timeout` | The timeout (in MS) for calls to the auth server. | 100000 |
+| `ValidateCertificates` | Validate Auth server certificate. | `true` |
 
 >Each setting above must be prefixed with `Security:Oauth2:Client`.
 

@@ -59,6 +59,7 @@ The JWT provider uses Microsoft's JWT implementation, and settings are based on 
 
 | Key | Description | Default |
 | --- | --- | --- |
+| `Timeout` | The timeout (in MS) for calls to the auth server. | 100000 |
 | `ValidateCertificates` | Validate Auth server certificate. | `true` |
 
 >Each setting above must be prefixed with `Security:Oauth2:Client`.
