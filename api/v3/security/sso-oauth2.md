@@ -62,12 +62,13 @@ The samples and most templates are already set up to read from `appsettings.json
 
 The Steeltoe OAuth2 security provider options are based on [`Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions`](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.oauth.oauthoptions), with these additional properties:
 
-|Name|Description |Default|
+| Name | Description | Default |
 | --- | --- | --- |
-| `additionalScopes` |Scopes to request for tokens in addition to `openid` | `string.Empty` |
-| `validateCertificates` |Validate Auth server certificate| `true` |
+| `AdditionalScopes` | Scopes to request for tokens in addition to `openid`. | `string.Empty` |
+| `Timeout` | The timeout (in milliseconds) for calls to the auth server. | 100000 |
+| `ValidateCertificates` | Validate Auth server certificate. | `true` |
 
->Each setting above must be prefixed with `security:oauth2:client`.
+>Each setting above must be prefixed with `Security:Oauth2:Client`.
 
 ### Cloud Foundry
 
