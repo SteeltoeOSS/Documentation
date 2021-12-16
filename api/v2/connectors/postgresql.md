@@ -48,7 +48,7 @@ The following table describes all of the possible settings for the connector:
 
 |Key|Description|Default
 |---|---|---|
-|server|Hostname or IP Address of server|localhost|
+|host|Hostname or IP Address of server|localhost|
 |port|Port number of server|5432|
 |username|Username for authentication|not set|
 |password|Password for authentication|not set|
