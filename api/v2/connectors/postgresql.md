@@ -48,7 +48,7 @@ The following table describes all of the possible settings for the connector:
 
 |Key|Description|Default
 |---|---|---|
-|server|Hostname or IP Address of server|localhost|
+|host|Hostname or IP Address of server|localhost|
 |port|Port number of server|5432|
 |username|Username for authentication|not set|
 |password|Password for authentication|not set|
@@ -111,6 +111,8 @@ To use a `NpgsqlConnection` in your application, add it to the service container
 
 The `AddPostgresConnection(Configuration)` method call configures the `NpgsqlConnection` by using the configuration built by the application and adds the connection to the service container.
 
+> By default, this extension method will automatically configure an `IHealthContributor` to report the health of this database connection. This behavior can be turned off by passing `false` for the parameter `addSteeltoeHealthChecks`
+
 ### Use NpgsqlConnection
 
 Once the connection is configured and added to the service container, you can inject and use in a controller or a view, as shown in the following example:
@@ -159,13 +161,15 @@ public class Startup {
         // Add EFCore TestContext configured with a PostgreSQL configuration
         services.AddDbContext<TestContext>(options => options.UseNpgsql(Configuration));
 
-        // Add framework services.
-        services.AddMvc();
+        // see note below explaining AddPostgresHealthContributor
+        services.AddPostgresHealthContributor(Configuration);
         ...
     }
 ```
 
 The `AddDbContext<TestContext>(options => options.UseNpgsql(Configuration));` method call configures the `TestContext` by using the configuration built by the application and adds the context to the service container.
+
+> This extension method will _NOT_ automatically configure an `IHealthContributor` to report the health of this database connection. The package Steeltoe.CloudFoundry.ConnectorCore provides an `IServiceCollection` extension method that will. Directly add the health contributor with the code `services.AddPostgresHealthContributor(Configuration)`
 
 The following example shows how you would define the `DbContext`:
 

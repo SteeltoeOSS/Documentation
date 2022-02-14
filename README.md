@@ -146,3 +146,7 @@ docker build -t steeltoe-docs .
 
 docker run -d --name local-docs -p 8082:80 steeltoe-docs
 ```
+
+## Contributions
+
+All project information is available on the [Steeltoe Wiki](https://github.com/SteeltoeOSS/Steeltoe/wiki)

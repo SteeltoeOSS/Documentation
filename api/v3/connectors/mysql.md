@@ -134,6 +134,8 @@ public class Startup {
 
 The `AddMySqlConnection(Configuration)` method call configures the `MySqlConnection` by using the configuration built by the application and adds the connection to the service container.
 
+> By default, this extension method will automatically configure an `IHealthContributor` to report the health of this database connection. This behavior can be turned off by passing `false` for the parameter `addSteeltoeHealthChecks`
+
 ### Use MySqlConnection
 
 Once you have configured and added the connection to the service container, you can inject it and use it in a controller or a view:
@@ -193,6 +195,8 @@ public class Startup {
 
 The `AddDbContext<TestContext>(..)` method call configures `TestContext` by using the configuration built earlier and then adds the DbContext (called `TestContext`) to the service container.
 
+> This extension method will automatically configure an `IHealthContributor` to report the health of this database connection.
+
 Your `DbContext` does not need to be modified from a standard EF6 `DbContext` to work with Steeltoe:
 
 ```csharp
@@ -233,6 +237,8 @@ public class Startup {
     ...
 }
 ```
+
+> This extension method will _NOT_ configure an `IHealthContributor` for this database connection. The NuGet package Steeltoe.Connector.ConnectorCore provides an `IServiceCollection` extension method that will. Directly add the health contributor with the code `services.AddMySqlHealthContributor(Configuration)`
 
 Your `DbContext` does not need to be modified from a standard `DbContext` to work with Steeltoe:
 
