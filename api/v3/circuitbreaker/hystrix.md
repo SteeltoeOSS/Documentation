@@ -100,7 +100,7 @@ public class HelloWorldCommand : HystrixCommand<string>
 }
 ```
 
-Each command needs to inherit from `HystrixCommand` or `HystrixCommand<T>` and override and implement the inherited and protected `RunAsync()` method. Optionally, you can also override and implement the inherited method `RunFallbackAsync()` method. In the above simple example the two provided lambdas provide each of those two methods
+Each command needs to inherit from `HystrixCommand` or `HystrixCommand<T>` and override and implement the inherited and protected `RunAsync()` method. Optionally, you can also override and implement the inherited method `RunFallbackAsync()` method. The simple example above provides lambdas for each of those two methods.
 
 The `RunAsync()` method should implement the fundamental logic of the command, and the `RunFallbackAsync()` method should implement any fallback logic, in case the `RunAsync()` method fails.
 
