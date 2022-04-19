@@ -320,7 +320,7 @@ Each setting is prefixed with a key of `Metrics`, as shown in the following exam
 
 ### Configuring Hystrix Collapsers
 
-The last group of settings you can configure pertain to the usage of a Hystrix collapser. Not everyone will need to use collapers, but if you do the settings can be used.
+The last group of settings you can configure pertain to the usage of a Hystrix collapser. Not everyone will need to use collapsers, but if you do, these settings can be used.
 
 As with all other Hystrix settings, there are four levels of precedence that are followed and applied by the framework:
 
