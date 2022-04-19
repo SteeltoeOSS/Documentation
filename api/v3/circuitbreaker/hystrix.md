@@ -140,7 +140,7 @@ For each of the possible Hystrix settings listed below, there are four levels of
 1. `Fixed global command settings`: These settings specify defaults for all Hystrix commands. Used if nothing else is specified.
 1. `Configured global command settings`: These settings are specified in an application configuration and overrides fixed global settings for all Hystrix commands.
 1. `Command settings specified in code`: Can be specified in the constructor of your Hystrix command and only applies to that specific instance.
-1. `Configured command specific settings`: Are specified in an applications configuration and are specifice for 'named' command. Applies to all command instances created with that name.
+1. `Configured command specific settings`: Are specified in an application's configuration and are specific for 'named' command. Applies to all command instances created with that name.
 
 All Hystrix command configuration settings should be prefixed with `Hystrix:Command:`.
 
