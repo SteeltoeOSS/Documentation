@@ -412,7 +412,7 @@ The following example shows some Hystrix settings in JSON (e.g. `appsettings.jso
 }
 ```
 
-All of the Steelto samples and most of the .NET templates are already set up to read from `appsettings.json`.
+All of the Steeltoe samples and most of the .NET templates are already set up to read from `appsettings.json`.
 
 ### Adding Commands to Container
 
