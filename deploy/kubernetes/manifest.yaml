@@ -40,25 +40,19 @@ spec:
   selector:
     app: documentation
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
 metadata:
   name: documentation
   namespace: website
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-  rules:
-  - host: docs-dev.steeltoe.io
-    http:
-      paths:
-      - path: /(.*)
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: documentation
-            port:
-              number: 80
+  virtualhost:
+    fqdn: docs-dev.steeltoe.io
+    tls:
+      secretName: website-tls
+  routes:
+    - conditions:
+      - prefix: /
+      services:
+        - name: documentation
+          port: 80
