@@ -4,6 +4,8 @@
 /bin/
 /obj/
 /sources/
+/tools/
+/manifests/
 /.vscode/
 /.vs/
 _site
