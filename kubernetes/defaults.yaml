@@ -1,9 +1,9 @@
 #@data/values-schema
 #@schema/type any=True
 ---
-name: main-site
+name: documentation
 namespace: website
-image_name: steeltoe.azurecr.io/main-site
+image_name: steeltoe.azurecr.io/documentation
 image_tag: latest
 container_port: 80
 container_memory: 128Mi
