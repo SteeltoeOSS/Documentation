@@ -7,7 +7,7 @@ metadata:
   name: #@ data.values.name
   namespace: #@ data.values.namespace
 spec:
-  replicas: 1
+  replicas: #@ int(data.values.replica_count)
   selector:
     matchLabels:
       app: #@ data.values.name
