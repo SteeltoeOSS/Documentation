@@ -19,14 +19,14 @@ spec:
       nodeSelector:
         "beta.kubernetes.io/os": linux
       containers:
-        - name: #@ data.values.name
-          image: #@ "{}:{}".format(data.values.image_name, data.values.image_tag)
-          ports:
-            - containerPort: #@ int(data.values.container_port)
-          resources:
-            limits:
-              memory: #@ data.values.container_memory
-              cpu: #@ data.values.container_cpu
+      - name: #@ data.values.name
+        image: #@ "{}:{}".format(data.values.image_name, data.values.image_tag)
+        ports:
+        - containerPort: #@ int(data.values.container_port)
+        resources:
+          limits:
+            memory: #@ data.values.container_memory
+            cpu: #@ data.values.container_cpu
 
 ---
 apiVersion: v1
@@ -37,9 +37,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - protocol: TCP
-      port: #@ int(data.values.service_port)
-      targetPort: #@ int(data.values.container_port)
+  - protocol: TCP
+    port: #@ int(data.values.service_port)
+    targetPort: #@ int(data.values.container_port)
   selector:
     app: #@ data.values.name
 
@@ -56,8 +56,8 @@ spec:
     tls:
       secretName: #@ data.values.tls_secret
   routes:
-    - conditions:
-      - prefix: /
-      services:
-        - name: #@ data.values.name
-          port: #@ int(data.values.service_port)
+  - conditions:
+    - prefix: /
+    services:
+    - name: #@ data.values.name
+      port: #@ int(data.values.service_port)
