@@ -100,7 +100,7 @@ public class HelloWorldCommand : HystrixCommand<string>
 }
 ```
 
-Each command needs to inherit from `HystrixCommand` or `HystrixCommand<T>` and override and implement the inherited and protected `RunAsync()` method. Optionally, you can also override and implement the inherited method `RunFallbackAsync()` method. In the above simple example the two provided lambdas provide each of those two methods
+Each command needs to inherit from `HystrixCommand` or `HystrixCommand<T>` and override and implement the inherited and protected `RunAsync()` method. Optionally, you can also override and implement the inherited method `RunFallbackAsync()` method. The simple example above provides lambdas for each of those two methods.
 
 The `RunAsync()` method should implement the fundamental logic of the command, and the `RunFallbackAsync()` method should implement any fallback logic, in case the `RunAsync()` method fails.
 
@@ -140,7 +140,7 @@ For each of the possible Hystrix settings listed below, there are four levels of
 1. `Fixed global command settings`: These settings specify defaults for all Hystrix commands. Used if nothing else is specified.
 1. `Configured global command settings`: These settings are specified in an application configuration and overrides fixed global settings for all Hystrix commands.
 1. `Command settings specified in code`: Can be specified in the constructor of your Hystrix command and only applies to that specific instance.
-1. `Configured command specific settings`: Are specified in an applications configuration and are specifice for 'named' command. Applies to all command instances created with that name.
+1. `Configured command specific settings`: Are specified in an application's configuration and are specific for 'named' command. Applies to all command instances created with that name.
 
 All Hystrix command configuration settings should be prefixed with `Hystrix:Command:`.
 
@@ -320,7 +320,7 @@ Each setting is prefixed with a key of `Metrics`, as shown in the following exam
 
 ### Configuring Hystrix Collapsers
 
-The last group of settings you can configure pertain to the usage of a Hystrix collapser. Not everyone will need to use collapers, but if you do the settings can be used.
+The last group of settings you can configure pertain to the usage of a Hystrix collapser. Not everyone will need to use collapsers, but if you do, these settings can be used.
 
 As with all other Hystrix settings, there are four levels of precedence that are followed and applied by the framework:
 
@@ -412,7 +412,7 @@ The following example shows some Hystrix settings in JSON (e.g. `appsettings.jso
 }
 ```
 
-All of the Steelto samples and most of the .NET templates are already set up to read from `appsettings.json`.
+All of the Steeltoe samples and most of the .NET templates are already set up to read from `appsettings.json`.
 
 ### Adding Commands to Container
 
