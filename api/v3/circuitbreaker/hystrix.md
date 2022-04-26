@@ -855,7 +855,7 @@ Once you have made the changes described earlier, you can then use the Netflix H
 
 ##### Run Hystrix Dashboard with Docker
 
-There are a few images available on Docker Hub that provide basic Hystrix Dashboard functionality. This example has been tested:
+There are a few images available on Docker Hub that provide basic Hystrix Dashboard functionality. This example has been tested with:
 
 ```bash
 docker run --rm -ti -p 7979:7979 --name steeltoe-hystrix steeltoeoss/hystrix-dashboard
@@ -864,6 +864,8 @@ docker run --rm -ti -p 7979:7979 --name steeltoe-hystrix steeltoeoss/hystrix-das
 Once this image is up and running, you should be able to browse to your [local dashboard](http://localhost:7979/hystrix/) and provide the address of the Hystrix stream(s) you wish to monitor.
 
 > NOTE: This image may be running on a separate network than your application. Remember to provide a stream address that is accessible from within the Docker network. This may require using the external IP address of your workstation or the name of the machine instead of 127.0.0.1 or localhost.
+
+> NOTE: This Hystrix Dashboard image is not production ready and is intended for development and testing only.
 
 ##### Run Hystrix Dashboard with Java
 
