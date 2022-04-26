@@ -17,49 +17,39 @@ This tutorial takes you through setting up a .NET Core application that implemen
 
 <i>(Depending on your hosting platform this is done in several ways.)</i>
 
-1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of the Circuit Breaker dashboard
+1. There are a few images available on Docker Hub that provide basic Hystrix Dashboard functionality. The following image is provided by the Steeltoe team for testing and development:
 
-   ```powershell
-   docker run --publish 7979:7979 steeltoeoss/hystrix-dashboard
-   ```
+```bash
+docker run --rm -ti -p 7979:7979 --name steeltoe-hystrix steeltoeoss/hystrix-dashboard
+```
 
-1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Eureka Discovery Client
+Once this image is up and running, you should be able to browse to your [local dashboard](http://localhost:7979/hystrix/) and provide the address of the Hystrix stream(s) you wish to monitor.
 
-   ```powershell
-   docker run --publish 8761:8761 steeltoeoss/eureka-server
-   ```
+> NOTE: This image may be running on a separate network than your application. Remember to provide a stream address that is accessible from within the Docker network as the application will be running on your host. This may require using the external IP address of your workstation or the name of the machine instead of 127.0.0.1 or localhost.
 
-1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of RabbitMQ
+Alternatively, to run a Hystrix Dashboard with Java on your local workstation
 
-   ```powershell
-   docker run --publish 5672:5672 --publish 15672:15672 rabbitmq:3-management
-   ```
-
-1. Confirm the service is running by viewing the dashboard - [http://localhost:7979/hystrix](http://localhost:7979/hystrix)
+1. Install Java 8 JDK.
+1. Install Maven 3.x.
+1. Clone the Spring Cloud Samples Hystrix dashboard: `cd https://github.com/spring-cloud-samples/hystrix-dashboard`
+1. Change to the hystrix dashboard directory: `cd hystix-dashboard`
+1. Start the server `mvn spring-boot:run`
+1. Open a browser window and connect to the dashboard: <http://localhost:7979/hystrix>
 
 ### Create a .NET Core WebAPI that implements circuit breaker pattern
 
 1.  Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
 1.  Name the project "CircuitBreakerExample"
 1.  Add the "Netflix Hystrix Circuit Breaker" dependency
-1.  Add the "Eureka Discovery Client" dependency
-1.  Add the "RabbitMQ" dependency
 1.  Click **Generate Project** to download a zip containing the new project
 1.  Extract the zipped project and open in your IDE of choice
-1.  Set the instance address and name in **appsettings.json**
+1.  Add the following to **appsettings.json**
 
     ```json
     {
       "Spring": {
         "Application": {
           "Name": "mycircuitbreaker"
-        }
-      },
-      "Eureka": {
-        "Client": {
-          "ServiceUrl": "http://localhost:8761/eureka/",
-          "ShouldRegisterWithEureka": true,
-          "ValidateCertificates": false
         }
       },
       "Hystrix": {
@@ -72,31 +62,24 @@ This tutorial takes you through setting up a .NET Core application that implemen
     }
     ```
 
-1.  Set the local environment variables in **launchsettings.json** (Properties folder)
+1.  Open up the `.csproj` file that was generated for you and replace the package reference:
 
-    ```json
-    {
-      "CircuitBreakerExample": {
-        "commandName": "Project",
-        "launchBrowser": true,
-        "launchUrl": "api/values",
-        "applicationUrl": "http://localhost:5555",
-        "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
-          "BUILD": "LOCAL",
-          "PORT": 5555
-        }
-      }
-    }
+    ```xml
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore" Version="$(SteeltoeVersion)" />
+    ```
+    with
+
+    ```xml
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore" Version="$(SteeltoeVersion)" />
     ```
 
-1.  Replace default "GET" controller method in **ValuesController.cs** (Controllers folder) with the below:
+1.  Replace default "GET" controller method in **WeatherForcastController.cs** (Controllers folder) with the below:
 
     ```csharp
     [HttpGet]
     public async Task<ActionResult<string>> GetAsync()
     {
-        MyCircuitBreakerCommand cb = new MyCircuitBreakerCommand("ThisIsMyBreaker");
+        HelloHystrixCommand cb = new HelloHystrixCommand("ThisIsMyBreaker");
         cb.IsFallbackUserDefined = true;
         return await cb.ExecuteAsync();
     }
@@ -110,18 +93,20 @@ This tutorial takes you through setting up a .NET Core application that implemen
 dotnet run <PATH_TO>\CircuitBreakerExample.csproj
 ```
 
-Navigate to the endpoint [http://localhost:5555/api/values](http://localhost:5555/api/values)
+Navigate to the endpoint [http://localhost:5000/WeatherForecast](http://localhost:5000/WeatherForecast)
 
 # [Visual Studio](#tab/vs)
 
 1. Choose the top _Debug_ menu, then choose _Start Debugging (F5)_. This should bring up a browser with the app running
-1. Navigate to the endpoint [http://localhost:5555/api/values](http://localhost:5555/api/values)
+1. Navigate to the endpoint [http://localhost:5000/WeatherForecast](http://localhost:5000/WeatherForecast)
 
 ---
 
-1.  Navigate to application stream to ensure it is running - [http://localhost:5555/hystrix/hystrix.stream](http://localhost:5555/hystrix/hystrix.stream)
-1.  Navigate to dashboard at [http://localhost:7979/hystrix](http://localhost:7979/hystrix) and enter the application stream url in the stream url text box (ex. [http://localhost:5555/hystrix/hystrix.stream](http://localhost:5555/hystrix/hystrix.stream))
+1.  Navigate to the dashboard at [http://localhost:7979/hystrix](http://localhost:7979/hystrix) and enter the application stream url in the stream url text box (ex. [http://localhost:5000/hystrix/hystrix.stream](http://localhost:5000/hystrix/hystrix.stream))
     <img src="~/guides/images/circuit-breaker-dashboard.png" alt="Circuit Breaker Landing" width="100%">
+
+    
+> NOTE: The stream url `http://localhost:5000/hystrix/hystrix.stream` will only work if the Hystrix dashboard is running on your local host.  You will have to use a different URL, one that is accessible from Docker if you are running the dashboard using Docker.
 
 1.  Refresh the application in your browser a few times and go back to the dashboard to see it logging live activity.
     <img src="~/guides/images/circuit-breaker-closed.png" alt="Circuit Breaker Dashboard" width="100%">
