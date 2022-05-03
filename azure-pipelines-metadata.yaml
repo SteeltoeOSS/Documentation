@@ -4,7 +4,10 @@ trigger:
     - ccheetham/rework-pipeline
   paths:
     include:
-    - metadata-versions
+    - azure-pipelines-metadata.yaml
+    - build-metadata.sh
+    - Dockerfile-metadata
+    - metadata.conf
 
 variables:
 - name: tagv3

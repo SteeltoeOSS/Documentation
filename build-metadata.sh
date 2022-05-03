@@ -7,8 +7,8 @@ base_dir=$(dirname $0)
 cd $base_dir
 
 git_sources_url=https://github.com/SteeltoeOSS/Steeltoe
-v2_sources=$(cat metadata-versions | grep '^2:' | cut -d: -f2)
-v3_sources=$(cat metadata-versions | grep '^3:' | cut -d: -f2)
+v2_sources=$(cat metadata.conf | grep '^2:' | cut -d: -f2)
+v3_sources=$(cat metadata.conf | grep '^3:' | cut -d: -f2)
 build_dir=build
 
 get_sources() {
