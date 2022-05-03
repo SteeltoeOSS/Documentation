@@ -9,6 +9,8 @@ variables:
 - name: patch
   value: 2
 
+name: $(major).$(minor).$(patch)-$(Rev:r)
+
 stages:
 - stage: Deploy
   displayName: Deploy
