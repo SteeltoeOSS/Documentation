@@ -1,6 +1,6 @@
 resources:
   pipelines:
-    pipeline: Documentation
+    - pipeline: Documentation
       trigger:
         branches:
           include:
