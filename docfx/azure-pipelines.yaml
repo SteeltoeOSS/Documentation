@@ -1,0 +1,34 @@
+trigger:
+- ccheetham/rework-pipeline
+
+variables:
+- name: major
+  value: 2
+- name: minor
+  value: 57
+- name: patch
+  value: 2
+
+stages:
+- stage: Deploy
+  displayName: Deploy
+  condition:
+    not(eq(variables['build.reason'], 'PullRequest'))
+  jobs:
+  - job: push
+    displayName: Push
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - bash: echo v$(major)-$(minor)-$(patch) > docfx/version
+      displayName: Set Version
+    - task: Docker@2
+      displayName: Build and Push
+      inputs:
+        command: buildAndPush
+        buildContext: docfx/
+        containerRegistry: SteeltoeContainerRegistry
+        repository: docfx
+        tags: |
+          $(major)-$(minor)-$(patch)-$(Build.BuildId)
+          latest
