@@ -22,7 +22,7 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - bash: echo v$(major)-$(minor)-$(patch) > docfx/version
+    - bash: echo v$(major).$(minor).$(patch) > docfx/version
       displayName: Set Version
     - task: Docker@2
       displayName: Build and Push
