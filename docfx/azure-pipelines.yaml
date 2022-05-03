@@ -28,7 +28,8 @@ stages:
       displayName: Build and Push
       inputs:
         command: buildAndPush
-        buildContext: docfx/
+        Dockerfile: docfx/Dockerfile
+        buildContext: docfx/**
         containerRegistry: SteeltoeContainerRegistry
         repository: docfx
         tags: |
