@@ -29,7 +29,6 @@ stages:
       inputs:
         command: buildAndPush
         Dockerfile: docfx/Dockerfile
-        buildContext: docfx/**
         containerRegistry: SteeltoeContainerRegistry
         repository: docfx
         tags: |
