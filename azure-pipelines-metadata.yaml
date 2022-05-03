@@ -12,7 +12,7 @@ variables:
 - name: tagv2
   value: 2.5.4
 
-name: $(tagv3).$(tagv2)-$(Rev:r)
+name: $(tagv3)-$(tagv2)-$(Rev:r)
 
 stages:
 - stage: Deploy
