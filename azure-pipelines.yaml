@@ -1,62 +1,65 @@
-trigger:
-  branches:
-    include:
-      - dev
-  paths:
-    exclude:
-    - README.md
+resources:
+  pipelines:
+    pipeline: Documentation
+      trigger:
+        branches:
+          include:
+            - dev
+        paths:
+          exclude:
+          - README.md
 
-stages:
-  - stage: assemble
-    displayName: Assemble
-    jobs:
-      - job: build
-        displayName: Build
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-          - task: ShellScript@2
-            displayName: Generate Staging Manifest
-            inputs:
-              scriptPath: ./yttw.sh
-              args: >
-                -f kubernetes
-                -v image_tag=$(Build.BuildId)
-                -v hostname=docs-dev.steeltoe.io
-                --output-files manifests/staging
-          - task: ShellScript@2
-            displayName: Generate Production Manifest
-            inputs:
-              scriptPath: ./yttw.sh
-              args: >
-                -f kubernetes
-                -v image_tag=$(Build.BuildId)
-                -v replica_count=2
-                -v hostname=docs.steeltoe.io
-                --output-files manifests/production
-          - task: PublishPipelineArtifact@1
-            displayName: Publish Manifests
-            inputs:
-              targetPath: manifests
-              artifactName: manifests
+      stages:
+        - stage: assemble
+          displayName: Assemble
+          jobs:
+            - job: build
+              displayName: Build
+              pool:
+                vmImage: ubuntu-latest
+              steps:
+                - task: ShellScript@2
+                  displayName: Generate Staging Manifest
+                  inputs:
+                    scriptPath: ./yttw.sh
+                    args: >
+                      -f kubernetes
+                      -v image_tag=$(Build.BuildId)
+                      -v hostname=docs-dev.steeltoe.io
+                      --output-files manifests/staging
+                - task: ShellScript@2
+                  displayName: Generate Production Manifest
+                  inputs:
+                    scriptPath: ./yttw.sh
+                    args: >
+                      -f kubernetes
+                      -v image_tag=$(Build.BuildId)
+                      -v replica_count=2
+                      -v hostname=docs.steeltoe.io
+                      --output-files manifests/production
+                - task: PublishPipelineArtifact@1
+                  displayName: Publish Manifests
+                  inputs:
+                    targetPath: manifests
+                    artifactName: manifests
 
-  - stage: deploy
-    displayName: Deploy
-    dependsOn: assemble
-    condition:
-      not(eq(variables['build.reason'], 'PullRequest'))
-    jobs:
-      - job: deploy
-        displayName: Deploy
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-          - task: Docker@2
-            displayName: Docker Build and Push
-            inputs:
-              command: buildAndPush
-              containerRegistry: SteeltoeContainerRegistry
-              repository: documentation
-              tags: |
-                $(Build.BuildId)
-                latest
+        - stage: deploy
+          displayName: Deploy
+          dependsOn: assemble
+          condition:
+            not(eq(variables['build.reason'], 'PullRequest'))
+          jobs:
+            - job: deploy
+              displayName: Deploy
+              pool:
+                vmImage: ubuntu-latest
+              steps:
+                - task: Docker@2
+                  displayName: Docker Build and Push
+                  inputs:
+                    command: buildAndPush
+                    containerRegistry: SteeltoeContainerRegistry
+                    repository: documentation
+                    tags: |
+                      $(Build.BuildId)
+                      latest
