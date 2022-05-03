@@ -1,5 +1,10 @@
 trigger:
-- ccheetham/rework-pipeline
+  branches:
+    include:
+    - ccheetham/rework-pipeline
+  paths:
+    include:
+    - docfx/
 
 variables:
 - name: major
