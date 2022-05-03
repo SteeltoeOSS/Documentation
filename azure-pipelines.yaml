@@ -5,6 +5,11 @@ trigger:
   paths:
     exclude:
     - README.md
+    - docfx/
+    - azure-pipelines-metadata.yaml
+    - build-metadata.sh
+    - Dockerfile-metadata
+    - metadata.conf
 stages:
 - stage: assemble
   displayName: Assemble
