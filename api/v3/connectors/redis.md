@@ -93,7 +93,7 @@ cf restage myApp
 
 >The preceding commands assume you use the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command to fit your environment.
 
-This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
+This connector also works with the [Cloud Service Broker](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.2/csb-azure/GUID-index.html).
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
