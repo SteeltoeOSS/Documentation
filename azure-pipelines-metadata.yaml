@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-    - ccheetham/rework-pipeline
+    - dev
   paths:
     include:
     - azure-pipelines-metadata.yaml
