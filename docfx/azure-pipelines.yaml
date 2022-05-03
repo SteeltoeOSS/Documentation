@@ -32,5 +32,5 @@ stages:
         containerRegistry: SteeltoeContainerRegistry
         repository: docfx
         tags: |
-          $(major)-$(minor)-$(patch)-$(Build.BuildId)
+          $(Build.BuildNumber)
           latest
