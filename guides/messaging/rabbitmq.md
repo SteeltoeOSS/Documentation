@@ -23,7 +23,6 @@ docker run --publish 5672:5672 steeltoeoss/rabbitmq
 Next **create a .NET Core WebAPI** that will ensure the queue is created and write messages to it.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/rabbitmq-connector-dependency.png" alt="Steeltoe Initialzr - RabbitMQ" width="100%">
 1. Name the project "WriteToRabbitMQ"
 1. Add RabbitMQ Messaging Dependency
 1. Click **Generate Project** to download a zip containing the new project
@@ -129,7 +128,6 @@ dotnet run<PATH_TO>\WriteToRabbitMQ.csproj
 Now **create a .NET Core WebAPI** that will monitor the queue and output anything received.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/no-dependencies.png" alt="Steeltoe Initialzr - No Dependencies" width="100%">
 1. Name the project "MonitorRabbitMQ"
 1. No need to add any dependencies
 1. Click **Generate Project** to download a zip containing the new project

@@ -22,7 +22,6 @@ docker run --env POSTGRES_PASSWORD=Steeltoe789 --publish 5432:5432 steeltoeoss/p
 Next, **create a .NET Core WebAPI** that interacts with PostgreSQL
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/postgresql-connector-dependency.png" alt="Steeltoe Initialzr - PostgreSQL Connector" width="100%">
 1. Name the project "PostgreSqlConnector"
 1. Add the "PostgreSQL" dependency
 1. Click **Generate** to download a zip containing the new project
