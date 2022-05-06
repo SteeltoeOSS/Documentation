@@ -42,7 +42,7 @@ Then, add the Prometheus actuator middleware to the ASP.NET Core pipeline, use t
 
 Prometheus metrics are typically configured to be scraped by registering the Prometheus with Prometheus server. At this time, the push model is not supported.
 
-## Add NuGet References
+### Add NuGet References
 
 To use the Prometheus endpoint, you need to add a reference to `Steeltoe.Management.EndpointCore`. To add this NuGet to your project, add a `PackageReference` resembling the following:
 
@@ -60,9 +60,9 @@ Alternatively, you can use PowerShell:
 PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.1.0
 ```
 
-## Cloud Foundry
+## Tanzu Application Services (TAS)
 
-The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported on Pivotal Application Service (PAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/platform/application-service/2-8/metric-registrar/index.html).
+To emit custom metrics on TAS for VMs v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/2-11/metric-registrar/index.html).
 
 To register your endpoint for metrics collection, install the metrics-registrar plugin and use it to register your endpoint:
 
@@ -70,7 +70,7 @@ To register your endpoint for metrics collection, install the metrics-registrar 
 
 `cf register-metrics-endpoint your-dotnet-app /actuator/prometheus`
 
-## Prometheus Server
+### Prometheus Server
 
 You can set up [Prometheus Server](https://prometheus.io/) to scrape this endpoint by registering your application in the server's configuration. For example, the following `prometheus.yml` file expects a Steeltoe-enabled application to be running on port 8000 with the actuator management path at the default of `/actuator`:
 

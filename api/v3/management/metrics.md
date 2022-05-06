@@ -1,59 +1,17 @@
 # Metrics
 
-The Steeltoe metrics endpoint configures built-in instrumentation of various aspects of the application and exposes them in Spring Boot Metrics format.
-
-The following instrumentation is automatically configured:
-
-* CLR Metrics
-  * Heap memory, Garbage collections, Thread utilization
-* HTTP Client Metrics
-  * Request timings & counts
-* HTTP Server Metrics
-  * Request timings & counts
-
-All of these metrics are tagged with values specific to the requests being processed, thereby giving multi-dimensional views of the collected metrics.
-
-## Configure Settings
-
-The following table describes the settings that you can apply to the endpoint:
-
-| Key | Description | Default |
-| --- | --- | --- |
-| `Id` | The ID of the metrics endpoint. | `metrics` |
-| `Enabled` | Whether to enable the metrics management endpoint. | `true` |
-| `IngressIgnorePattern` | Regex pattern describing what incoming requests to ignore. | See `MetricsOptions` |
-| `EgressIgnorePattern` | Regex pattern describing what outgoing requests to ignore. | See `MetricsOptions` |
-
->Each setting above must be prefixed with `Management:Endpoints:Metrics`.
-
-To configure Observers, see [Metric Observers](./metric-observers.md)
-
-## Enable HTTP Access
-
-The default path to the metrics endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is `/actuator/metrics`.
-
-See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
-
-To add the actuator to the service container and map its route, use the `hostBuilder.AddMetricsActuator` extension method from `ManagementHostBuilderExtensions`.
-
-Alternatively, first, add the metrics actuator to the service container, using the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
-
-Then add the metrics actuator middleware to the ASP.NET Core pipeline, using the `Map<MetricsEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
-
-## Exporting
-
-See [Prometheus](./prometheus.md) to export metrics.
+The metrics functionality in Steeltoe is built on top of the OpenTelemetry project. Steeltoe extends it's functionality by providing additional Instrumentation (via Metric Observers) and making it easy to exporting to additional destinations such as CloudFoundry, Spring Boot Admin, App Live View & Tanzu Observability.
 
 ## Add NuGet References
 
-To use the metrics actuator, you need to add a reference to the `Steeltoe.Management.EndpointCore` NuGet package.
+To use any of the metrics functionality, you need to add a reference to the `Steeltoe.Management.EndpointCore` NuGet package.
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.1.0"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.2.0"/>
 ...
 </ItemGroup>
 ```
@@ -61,50 +19,117 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Alternatively, you can add the package through PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.1.0
+PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.2.0
 ```
 
-## Cloud Foundry Forwarder
+## Metric Observers
 
- The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](./prometheus.md).
+Adding either the [metrics](./metrics.md) or [prometheus](./prometheus.md) endpoints automatically configures built-in instrumentation of various aspects of the application.
 
-## ASP NET Core Example
+The following instrumentation is available:
 
-The following example shows how to use the metrics actuator endpoint:
+| Metrics Type | Description |
+| --- | --- |
+| CLR | Heap memory, Garbage collections, Thread utilization. |
+| HTTP Client | Request timings & counts. |
+| HTTP Server | Request timings & counts. |
+| Event Counter | CPU, Memory. |
+| Hystrix Events | Circuit Breaker metrics. |
 
-```csharp
- public static IHost BuildHost(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .AddMetricsActuator()
-            .Build();
+All of the above metrics are tagged with values specific to the requests being processed; thereby giving multi-dimensional views of the collected metrics.
+
+### Configure Settings
+
+The following table describes the settings that you can apply to the observers:
+
+>Each setting below must be prefixed with `Management:Metrics:Observer`.
+
+| Key | Description | Default |
+| --- | --- | --- |
+| `IngressIgnorePattern` | Regex pattern describing what incoming requests to ignore. | See `MetricsObserverOptions` |
+| `EgressIgnorePattern` | Regex pattern describing what outgoing requests to ignore. | See `MetricsObserverOptions` |
+| `AspNetCoreHosting` | Enable Http Server Metrics. | `true` |
+| `GCEvents` | Enable Garbage collector Metrics. | `true` |
+| `ThreadPoolEvents` | Enable Thread Pool Metrics. | `true` |
+| `EventCounterEvents` | Enable Event Counter Metrics. | `false` |
+| `HttpClientCore` | Enable Http Client Metrics. | `false` |
+| `HttpClientDesktop` | Enable Http Client Desktop Metrics. | `false` |
+| `HystrixEvents` | Enable Circuit Breaker Metrics. | `false` |
+| `ExcludedMetrics` | Specify a list of metrics that should not be captured | none |
+
+> The ExcludedMetrics option is new in 3.1.0 and only applies to [these events](https://docs.microsoft.com/dotnet/core/diagnostics/available-counters#systemruntime-counters), which are captured from counters in the runtime. Tne observer that reports these metrics is controlled by the `EventCounterEvents` setting above.
+
+### Hystrix Event Source
+
+Adding either the prometheus or metrics endpoints automatically adds the observers to service container for all the configured options. To get CircuitBreaker metrics, Hystrix Metrics EventSource must be added when configuring CircuitBreaker using `AddHystrixMetricsEventSource` extension.
+
+## Metric Exporters
+
+Steeltoe supports both pull and push based configuration for exporting metrics. The pull based mechanism is supported by the [metrics](./metrics.md) or [prometheus](./prometheus.md) endpoints. The push based mechanism is supported by Wavefront Exporter.
+
+### Tanzu Observability (Wavefront)
+
+To add the Wavefront metric exporter, you can use any of the available extension methods:
+
+* `hostBuilder.AddWavefrontMetrics` extension method from `ManagementHostBuilderExtensions`.
+* `AddWavefrontMetrics()` extension method from `ManagementWebHostBuilderExtensions`.
+* `AddWavefrontMetrics()` extension method from `ManagementWebApplicationBuilderExtensions`.
+
+In addition the following settings are available to be configured. Note that these settings are shared between tracing and metrics.
+
+| Key | Description | Default |
+| --- | --- | --- |
+| `ApiToken` | Your Tanzu Observability [API Token](https://docs.wavefront.com/users_account_managing.html#generate-an-api-token) | not set |
+| `Uri` | The Uri of your Wavefront Instance | not set |
+| `Step` | The interval between reporting to Wavefront  | 30000  |
+| `BatchSize` | The max batch of data sent per flush interval | 10000 |
+| `MaxQueueSize` |  the size of internal buffer beyond which data is dropped | 500000
+
+**Note**: **Each setting above must be prefixed with `Management:Metrics:Export:Wavefront`**
+
+If using the a proxy, the `apiToken` is not needed and the `uri` would be `proxy://<ProxyHost>:<ProxyPort>`
+
+In addition, the following settings can be used to set the application and service names:
+
+| Key | Description | Default |
+| --- | --- | --- |
+| `Source`| Unique identifier for the app instance that is publishing metrics to Wavefront | DNS name
+| `Name` | Name of the application | SteeltoeApp |
+| `Service` | Name of the service | SteeltoeService |
+
+**Note**: **Each setting above must be prefixed with `Wavefront:Application`**
+
+### Tanzu Application Service (TAS for VMs)
+
+To emit custom metrics on TAS for VMs v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/2-11/metric-registrar/index.html).
+
+To register your endpoint for metrics collection, install the metrics-registrar plugin and use it to register your endpoint:
+
+```bash
+cf install-plugin -r CF-Community "metric-registrar"`
+cf register-metrics-endpoint your-dotnet-app /actuator/prometheus
 ```
 
-Or,
+### Prometheus Server
 
-```csharp
-public class Startup
-{
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add Metrics collection
-        services.AddMetricsActuator(Configuration);
+You can set up [Prometheus Server](https://prometheus.io/) to scrape this endpoint by registering your application in the server's configuration. For example, the following `prometheus.yml` file expects a Steeltoe-enabled application to be running on port 8000 with the actuator management path at the default of `/actuator`:
 
-        ...
-    }
-    public void Configure(IApplicationBuilder app)
-    {
-         app.UseEndpoints(endpoints =>
-            {
-                // Add management endpoints into pipeline like this
-                endpoints.Map<MetricsEndpoint>();
+```yml
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'steeltoe-prometheus'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:8000']
+```
 
-                // ... Other mappings
-            });
+Running Prometheus server with this configuration lets you view metrics in the built-in UI. You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/), to use Prometheus as a datasource. The following example shows how to run Prometheus in Docker:
 
-    }
-}
+```bash
+docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
 ```
