@@ -33,7 +33,7 @@
   topicHref: tracing/
   items:
     - topicHref: tracing/distributed-tracing-exporting.md
-      name: Using Zipkin Trace Exporter
+      name: Using Trace Exporters
 - name: Dynamic Logging
   topicHref: logging/
   items:
@@ -48,8 +48,8 @@
       name: Using Endpoints
     - topicHref: management/tasks.md
       name: Tasks
-    - topicHref: management/metric-observers.md
-      name: Metric Observers
+    - topicHref: management/metrics.md
+      name: Metrics
     - topicHref: management/springbootadmin.md
       name: Spring Boot Admin Client
     - topicHref: management/cloud-foundry.md
@@ -72,7 +72,7 @@
       name: /loggers
     - topicHref: management/mappings.md
       name: /mappings
-    - topicHref: management/metrics.md
+    - topicHref: management/metrics-endpoint.md
       name: /metrics
     - topicHref: management/prometheus.md
       name: /prometheus
