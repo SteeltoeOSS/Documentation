@@ -24,7 +24,6 @@ First, **start a Mongo DB instance**. Depending on your hosting platform this is
 Next, **create a .NET Core WebAPI** that interacts with Mongo DB
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/mongo-connector-dependency.png" alt="Steeltoe Initialzr - Mongo Connector" width="100%">
 1. Name the project "MongoConnector"
 1. Add the "MongoDB" dependency
 1. Click **Generate** to download a zip containing the new project

@@ -22,7 +22,6 @@ docker run --publish 8761:8761 steeltoeoss/eureka-server
 Next, **create a .NET Core WebAPI** that registers itself as a service.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/eureka-register-discovery-dependency.png" alt="Steeltoe Initialzr - Service Discovery" width="100%">
 1. Name the project "EurekaRegisterExample"
 1. Add the "Eureka Discovery Client" dependency
 1. Click **Generate** to download a zip containing the new project
@@ -91,7 +90,6 @@ Navigate to the endpoint (you may need to change the port number) [http://localh
 Now, **create another .NET Core WebAPI** that will discover the registered service.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/eureka-discover-discovery-dependency.png" alt="Steeltoe Initialzr - Service Discovery" width="100%">
 1. Name the project "EurekaDiscoverExample"
 1. Add the "Eureka Discovery Client" dependency
 1. Click **Generate** to download a zip containing the new project

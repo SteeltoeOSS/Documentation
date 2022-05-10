@@ -46,7 +46,6 @@ First, **clone to accompanying repo** that contains all the needed assets
 Then **create a .NET Core WebAPI** with the correct Steeltoe dependencies
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/actuators-logging-docker-dependency.png" alt="Steeltoe Initialzr - Actuators" width="100%">
 1. Name the project "WavefrontObservability"
 1. Add the "Actuators" dependency
 1. Add the "Dynamic Logger" dependency

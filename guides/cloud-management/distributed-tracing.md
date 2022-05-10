@@ -27,7 +27,6 @@ First, **start a Zipkin instance**. Depending on your hosting platform this is d
 Next, **create a .NET Core WebAPI** that interacts with Distributed Tracing
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/no-dependencies.png" alt="Steeltoe Initialzr - No Dependencies" width="100%">
 1. Name the project "DistributedTracingExample"
 1. No dependency needs to be added
 1. Click **Generate Project** to download a zip containing the new project
