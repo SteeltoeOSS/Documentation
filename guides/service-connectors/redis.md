@@ -22,7 +22,6 @@ docker run --publish 6379:6379 steeltoeoss/redis
 Next, **create a .NET Core WebAPI** that interacts with Redis
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/redis-connector-dependency.png" alt="Steeltoe Initialzr - Redis Connector" width="100%">
 1. Name the project "RedisConnector"
 1. Add the "Redis" dependency
 1. Click **Generate** to download a zip containing the new project

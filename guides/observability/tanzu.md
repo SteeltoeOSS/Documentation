@@ -30,7 +30,6 @@ First, **start a Zipkin instance**.
 Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/actuators-dependency.png" alt="Steeltoe Initialzr - Actuators" width="100%">
 1. Name the project "TASObservability"
 1. Add the "Actuators" dependency
 1. Click **Generate** to download a zip containing the new project
