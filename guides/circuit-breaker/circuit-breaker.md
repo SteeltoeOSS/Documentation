@@ -40,7 +40,6 @@ This tutorial takes you through setting up a .NET Core application that implemen
 ### Create a .NET Core WebAPI that implements circuit breaker pattern
 
 1.  Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-    <img src="~/guides/images/initializr/circuit-breaker-dependency.png" alt="Steeltoe Initialzr - Circuit Breaker" width="100%">
 1.  Name the project "CircuitBreakerExample"
 1.  Add the "Netflix Hystrix Circuit Breaker" dependency
 1.  Add the "Eureka Discovery Client" dependency

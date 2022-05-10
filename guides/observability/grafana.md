@@ -39,7 +39,6 @@ First, **clone to accompanying repo** that contains all the needed assets
 Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/actuators-logging-docker-dependency.png" alt="Steeltoe Initialzr - Actuators" width="100%">
 1. Name the project "GrafanaObservability"
 1. Add the "Actuators" dependency
 1. Add the "Dynamic Logging" dependency

@@ -16,9 +16,6 @@ This tutorial takes you through setting up a .NET Core application that retrieve
 First, **create a .NET Core WebAPI** that retrieves (configuration) environment variables from Cloud Foundry.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-
-  <img src="~/guides/images/initializr/cloud-foundry-dependency.png" alt="Steeltoe Initialzr - Cloud Foundry Dependency" width="100%">
-
 1. Name the project "CloudFoundryExample"
 1. Add the "Cloud Foundry" dependency
 1. Click **Generate Project** to download a zip containing the new project

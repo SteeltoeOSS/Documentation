@@ -22,7 +22,7 @@ docker run --publish 5672:5672 steeltoeoss/rabbitmq
 Next, **create a .NET Core WebAPI** that interacts with RabbitMQ
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/rabbitmq-connector-dependency.png" alt="Steeltoe Initialzr - PostgreSQL Connector" width="100%">
+
 1. Name the project "RabbitMQConnector"
 1. Add the "RabbitMQ" dependency
 1. Click **Generate** to download a zip containing the new project
