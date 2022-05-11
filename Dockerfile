@@ -1,5 +1,6 @@
 FROM steeltoe.azurecr.io/documentation-metadata:3.1.3-2.5.4-1 AS build
 WORKDIR /docs
+COPY . .
 RUN docfx build -o build --globalMetadataFiles devhost.json
 
 FROM nginx:1.19
