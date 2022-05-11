@@ -12,7 +12,7 @@
 
           "guides/**.md",
           "guides/**/toc.yml",
-          
+
           "toc.yml",
           "*.md"
         ],
@@ -69,7 +69,7 @@
       }
     ],
     "xref": [
-      "_site/xrefmap.yml"
+      "build/_site/xrefmap.yml"
     ],
     "dest": "_site",
     "globalMetadataFiles": ["metadata.json"],
