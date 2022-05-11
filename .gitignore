@@ -3,6 +3,7 @@
 /obj/
 /build/
 /sources/
+/tools/
 /.vscode/
 /.vs/
 .DS_Store
