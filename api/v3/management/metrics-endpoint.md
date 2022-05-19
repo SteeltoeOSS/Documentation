@@ -36,9 +36,9 @@ See the [HTTP Access](./using-endpoints.md#http-access) section to see the overa
 
 To add the actuator to the service container and map its route, use the `hostBuilder.AddMetricsActuator` extension method from `ManagementHostBuilderExtensions`.
 
-Alternatively, first, add the metrics actuator to the service container, using the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
+Alternatively, first, add the metrics actuator to the service container using the `AddMetricsActuator()` extension method from `EndpointServiceCollectionExtensions`.
 
-Then add the metrics actuator middleware to the ASP.NET Core pipeline, using the `Map<MetricsEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
+Then add the metrics actuator middleware to the ASP.NET Core pipeline using the `Map<MetricsEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
 
 ## Add NuGet References
 
@@ -71,7 +71,7 @@ The following example shows how to use the metrics actuator endpoint:
             .Build();
 ```
 
-Or,
+Or:
 
 ```csharp
 public class Startup

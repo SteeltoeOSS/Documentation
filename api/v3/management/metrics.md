@@ -36,7 +36,7 @@ The following instrumentation is available:
 | Event Counter | CPU, Memory. |
 | Hystrix Events | Circuit Breaker metrics. |
 
-All of the above metrics are tagged with values specific to the requests being processed; thereby giving multi-dimensional views of the collected metrics.
+All of the above metrics are tagged with values specific to the requests being processed, thereby giving multi-dimensional views of the collected metrics.
 
 ### Configure Settings
 
@@ -65,7 +65,7 @@ Adding either the prometheus or metrics endpoints automatically adds the observe
 
 ## Metric Exporters
 
-Steeltoe supports both pull and push based configuration for exporting metrics. The pull based mechanism is supported by the [metrics](./metrics.md) or [prometheus](./prometheus.md) endpoints. The push based mechanism is supported by Wavefront Exporter.
+Steeltoe supports both pull and push-based configuration for exporting metrics. The pull-based mechanism is supported by the [metrics](./metrics.md) or [prometheus](./prometheus.md) endpoints. The push-based mechanism is supported by Wavefront Exporter.
 
 ### Tanzu Observability (Wavefront)
 
