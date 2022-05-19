@@ -2,7 +2,7 @@
 
 Steeltoe provides a number of security-related services that simplify using Cloud Foundry-based security services in ASP.NET applications.
 
-These providers enable the use of Cloud Foundry security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) and [Pivotal Single Sign-on](https://docs.pivotal.io/p-identity/)) for authentication and authorization.
+These providers enable the use of Cloud Foundry security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) and [TAS Single-Sign-on](https://docs.pivotal.io/p-identity/)) for authentication and authorization.
 
 You can choose from the following providers when adding Cloud Foundry security integration:
 

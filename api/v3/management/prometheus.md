@@ -62,7 +62,7 @@ PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.1.0
 
 ## Cloud Foundry
 
-The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported on Pivotal Application Service (PAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/platform/application-service/2-8/metric-registrar/index.html).
+The [Metrics Forwarder for TAS](https://docs.pivotal.io/metrics-forwarder/) is no longer supported on Tanzu Application Service (TAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/platform/application-service/2-8/metric-registrar/index.html).
 
 To register your endpoint for metrics collection, install the metrics-registrar plugin and use it to register your endpoint:
 

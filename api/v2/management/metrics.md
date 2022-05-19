@@ -81,11 +81,11 @@ PM>Install-Package  Steeltoe.Management.ExporterCore -Version 2.5.2
 
 ## Cloud Foundry Forwarder
 
-The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is a service that allows apps to emit metrics to the [Loggregator](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html) system and consume those metrics from the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html#firehose).
+The [Metrics Forwarder for TAS](https://docs.pivotal.io/metrics-forwarder/) is a service that allows apps to emit metrics to the [Loggregator](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html) system and consume those metrics from the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html#firehose).
 
-You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI), [Pivotal Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/manage-apps.html), and an [HTTP API](https://docs.pivotal.io/metrics-forwarder/api/). See the [documentation](https://docs.pivotal.io/metrics-forwarder/using.html) for details on how to use the service in your application.
+You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI), [TAS Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/manage-apps.html), and an [HTTP API](https://docs.pivotal.io/metrics-forwarder/api/). See the [documentation](https://docs.pivotal.io/metrics-forwarder/using.html) for details on how to use the service in your application.
 
-[Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/)  enables users to do the following:
+[Metrics Forwarder for TAS](https://docs.pivotal.io/metrics-forwarder/)  enables users to do the following:
 
 * Configure apps to emit custom metrics to [Loggregator](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html) system.
 * Read custom metrics from the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html#firehose) using a Firehose consumer of their choice, including [community](https://github.com/cloudfoundry/loggregator-release/blob/develop/docs/community-nozzles.md) and third-party nozzles.
@@ -112,7 +112,7 @@ The following table describes the settings that you can apply to the exporter:
 
 ### ASP.NET Core App
 
-There are three steps needed to use the Metrics Forwarder for Pivotal Cloud Foundry (PCF) service:
+There are three steps needed to use the Metrics Forwarder for TAS service:
 
 1. Create and bind a forwarder service to your application. Follow the steps in the Metrics Forwarder for PCF [documentation](https://docs.pivotal.io/metrics-forwarder/using.html).
 1. Add the exporter to the service container. Use the `AddMetricsForwarderExporter()` extension method from `EndpointServiceCollectionExtensions`.
@@ -151,7 +151,7 @@ public class Startup
 
 ### ASP.NET 4.x App
 
-There are two steps needed to use the Metrics Forwarder for Pivotal Cloud Foundry (PCF) service:
+There are two steps needed to use the Metrics Forwarder for TAS service:
 
 1. Create and bind a forwarder service to your application. Follow the steps in the Metrics Forwarder for PCF [documentation](https://docs.pivotal.io/metrics-forwarder/using.html).
 1. Configure and start the exporter background thread.

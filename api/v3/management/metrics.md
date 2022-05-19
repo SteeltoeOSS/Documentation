@@ -66,7 +66,7 @@ PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.1.0
 
 ## Cloud Foundry Forwarder
 
- The [Metrics Forwarder for Pivotal Cloud Foundry (PCF)](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](./prometheus.md).
+ The [Metrics Forwarder for TAS](https://docs.pivotal.io/metrics-forwarder/) is no longer supported. To export metrics to PCF, see [Prometheus](./prometheus.md).
 
 ## ASP NET Core Example
 

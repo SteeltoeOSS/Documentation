@@ -25,7 +25,7 @@ To use this connector:
 1. Add the Steeltoe Cloud Foundry config provider to your ConfigurationBuilder.
 1. Add DistributedRedisCache or ConnectionMultiplexer to your ServiceCollection.
 
->NOTE: The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on Pivotal Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you will need to have Lua scripting enabled by a platform operator.
+>NOTE: The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on TAS. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you will need to have Lua scripting enabled by a platform operator.
 
 ### Add NuGet Reference
 
@@ -96,7 +96,7 @@ cf bind-service myApp myRedisCache
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command to fit your environment.
+>NOTE: The preceding commands assume you use the Redis service provided by TAS. If you use a different service, you have to adjust the `create-service` command to fit your environment.
 
 Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `redis:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
 

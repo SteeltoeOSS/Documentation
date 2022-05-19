@@ -101,7 +101,7 @@ cf bind-service myApp myMySqlService
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use [MySQL for PCF](https://network.pivotal.io/products/p-mysql), provided by Pivotal on Cloud Foundry. If you use a different service, you must adjust the `create-service` command to fit your environment.
+>NOTE: The preceding commands assume you use [MySQL for PCF](https://network.pivotal.io/products/p-mysql), provided by TAS. If you use a different service, you must adjust the `create-service` command to fit your environment.
 
 Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `mysql:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
 
