@@ -22,7 +22,6 @@ docker run --env MYSQL_ROOT_PASSWORD=Steeltoe456 --publish 3306:3306 steeltoeoss
 Next, **create a .NET Core WebAPI** that interacts with MySQL
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/mysql-connector-dependency.png" alt="Steeltoe Initialzr - MySQL Connector" width="100%">
 1. Name the project "MySqlConnector"
 1. Add the "MySQL" dependency
 1. Click **Generate** to download a zip containing the new project

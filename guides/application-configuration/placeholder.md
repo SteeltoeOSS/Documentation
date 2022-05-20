@@ -16,7 +16,6 @@ This tutorial takes you through setting up a .NET Core application that uses pla
 First, **create a .NET Core WebAPI** that has a placeholder implemented
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/placeholder-dependency.png" alt="Steeltoe Initialzr - Placeholder" width="100%">
 1. Name the project "PlaceholderExample"
 1. Add the "Placeholder" dependency
 1. Click **Generate Project** to download a zip containing the new project

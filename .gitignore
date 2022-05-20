@@ -1,9 +1,9 @@
-.DS_Store
 /api/browser/**/*.manifest
 /api/browser/**/*.yml
-/bin/
 /obj/
+/build/
 /sources/
+/tools/
 /.vscode/
 /.vs/
-_site
+.DS_Store

@@ -19,7 +19,6 @@ docker run --publish 8500:8500 consul
 Next, **create a .NET Core WebAPI** that registers itself as a service.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![](~/guides/images/initializr/service-discovery.png)
 1. Name the project "Consul_Register_Example"
 1. Add the "Redis" dependency
 1. Click **Generate** to download a zip containing the new project
@@ -106,7 +105,6 @@ Update with the Consul info
 Then, **create another .NET Core WebAPI** that will discover the registered service.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   ![](~/guides/images/initializr/service-discovery.png)
 1. **SteeltoeVersion:** 2.4 for the latest stable
 1. Project Metadata:
    **Name:** Consul_Discover_Example
