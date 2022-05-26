@@ -16,10 +16,8 @@ This tutorial takes you through setting up a .NET Core application that gets con
 First, **create a GitHub repository** to hold config values.
 
 1. Navigate to [GitHub](https://github.com) and either login or create a new account
-1. Create and initialize a new public repository, named `Spring-Config-Demo`
-1. Once created note the url of the new repo
-
-**Note:** There is an open issue in which the config server will not recognize branches other than `master`. Ensure your changes are on a branch named `master`.
+1. Create and initialize a new **public** repository, named `Spring-Config-Demo`
+1. Once created, note the url of the new repo
 
 Next, **add a config file** to the repository.
 
@@ -36,13 +34,14 @@ Next, **add a config file** to the repository.
 Then, **start a config server instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
 ```bash
-docker run -p 8888:8888 steeltoeoss/config-server --spring.cloud.config.server.git.uri=<NEW_REPO_URL>
+docker run -p 8888:8888 steeltoeoss/config-server --spring.cloud.config.server.git.default-label=main --spring.cloud.config.server.git.uri=<NEW_REPO_URL>
 ```
+
+**Note:** By default, the config server assumes the branch name to be `master`. The `spring.cloud.config.server.git.default-label` switch above changes that to `main`.
 
 Next, **create a .NET Core WebAPI** that retrieves values from the Spring Config instance.
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/spring-config-dependency.png" alt="Steeltoe Initialzr - Spring Config" width="100%">
 1. Name the project "SpringConfigExample"
 1. Add the "Spring Cloud Config Server" dependency
 1. Click **Generate** to download a zip containing the new project

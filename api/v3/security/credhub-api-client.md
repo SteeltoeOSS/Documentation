@@ -56,7 +56,7 @@ The samples and most templates are already set up to read from `appsettings.json
 
 ### On Cloud Foundry
 
-Pivotal Cloud Foundry (in versions 2.0 and up) ships with a version of CredHub Server with which this client works. To use UAA authentication, you need a user with `credhub.read` or `credhub.write` claims.
+TAS (in versions 2.0 and up) ships with a version of CredHub Server with which this client works. To use UAA authentication, you need a user with `credhub.read` or `credhub.write` claims.
 
 ### Getting a Client
 

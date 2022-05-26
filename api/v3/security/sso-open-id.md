@@ -1,6 +1,6 @@
 # Single Sign-on with OpenID Connect
 
-Single Sign-on with OpenID Connect lets you use existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [Pivotal Single Sign-on service](https://docs.pivotal.io/p-identity) for authentication and authorization in ASP.NET Core applications.
+Single Sign-on with OpenID Connect lets you use existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [TAS Single-Sign-on service](https://docs.pivotal.io/p-identity) for authentication and authorization in ASP.NET Core applications.
 
 ## Usage
 

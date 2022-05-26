@@ -54,7 +54,7 @@ cf bind-service myApp myRedisCache
 cf restage myApp
 ```
 
->The preceding commands are for the Redis service provided by Pivotal on Cloud Foundry. If you use a different service, you have to adjust the `create-service` command.
+>The preceding commands are for the Redis service provided by TAS. If you use a different service, you have to adjust the `create-service` command.
 
 Once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 

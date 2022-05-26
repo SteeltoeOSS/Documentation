@@ -1,6 +1,6 @@
 # Introduction
 
-This first part of the documentation is a high-level overview of Steeltoe RabbitMQ support and the underlying concepts. It includes some code snippets to get you up and running as quickly as possible.
+This first part of the documentation is a high-level overview of Steeltoe RabbitMQ and the underlying concepts. It includes some code snippets to get you up and running as quickly as possible.
 
 ## Quick Start
 
@@ -12,7 +12,7 @@ For example, simply add the following to your `.csproj` file:
 
 ```XML
   <ItemGroup>
-    <PackageReference Include="Steeltoe.Messaging.RabbitMQ" Version="3.1.0" />
+    <PackageReference Include="Steeltoe.Messaging.RabbitMQ" Version="3.x.x" />
   </ItemGroup>
 ```
 
@@ -61,7 +61,7 @@ class Program
 Note that there is also a `IConnectionFactory` in the native .NET RabbitMQ client.
 But notice above we use the Steeltoe abstractions with no references to the native client.
 The Steeltoe factory caches channels (and optionally connections) for reuse.
-Steeltoe relies on the default exchange to the broker (since none is specified in the send operation) and the default binding of all queues to the default exchange by their name (thus, we can use the queue name as a routing key in the send operation).
+Steeltoe relies on the default exchange provided by the broker (since none is specified in the send operation) and the default binding of all queues to the default exchange by their name (thus, we can use the queue name as a routing key in the send operation).
 Those behaviors are defined in the AMQP specification.
 
 ### Using DI in Console App
@@ -208,7 +208,7 @@ public class MyRabbitSender : IHostedService
 }
 ```
 
-## Basics
+## RabbitMQ Basics
 
 [RabbitMQ](https://www.rabbitmq.com/) is a lightweight, reliable, scalable, and portable message broker based on the AMQP protocol.
 Steeltoe uses the `RabbitMQ` .NET client to communicate to a broker over the AMQP protocol.
@@ -289,18 +289,18 @@ To retry operations, you can enable retries on the `RabbitTemplate` (for example
 }
 ```
 
->retries are disabled by default.
+>Note: Retries are disabled by default.
 
 If you need to create more `RabbitTemplate` instances or if you want to override the defaults, Steeltoe provides extension methods `AddRabbitTemplate(.. , Action<IServiceProvider, RabbitTemplate> configure)` that you can use to configure a `RabbitTemplate` with the settings you desire.
 
 ### Receiving a Message
 
 When the RabbitMQ infrastructure is present, any service can be annotated with a `[RabbitListener()]` attribute to create a listener endpoint.
-A default `DirectRabbitListenerContainerFactory` is automatically added to the .NET service container and configured properly. These factories are used to create `DirectRabbitListenerContainer`s which process and deliver messages to the `[RabbitListener()]`s.
+A default `DirectRabbitListenerContainerFactory` is automatically added to the .NET service container and configured properly. These factories are used to create `DirectRabbitListenerContainer`s which process and deliver messages to the methods that are annotated with `[RabbitListener()]`s.
 
 If a `IMessageConverter` service has been defined, it is automatically associated with the default container factory as well.
 
-The following sample component creates a listener endpoint on the `someQueue` queue:
+The following sample component creates a listener endpoint that will process messages from the `someQueue` queue:
 
 ```csharp
 public class MyService {
@@ -313,7 +313,7 @@ public class MyService {
 }
 ```
 
-If you need to create more `DirectRabbitListenerContainerFactory` instances or if you want to override the default settings, Steeltoe provides extension methods that you can use to initialize a `DirectRabbitListenerContainerFactory` with the settings that will be used when creating `DirectRabbitListenerContainer`s.
+For advanced cases, if you need to create more `DirectRabbitListenerContainerFactory` instances or if you want to override the default settings, Steeltoe provides extension methods that you can use to initialize a `DirectRabbitListenerContainerFactory` with the settings that will be used when creating `DirectRabbitListenerContainer`s.
 
 For instance, the following adds another factory to the service container that uses a specific `IMessageConverter` when configuring `DirectRabbitListenerContainer`:
 
@@ -338,7 +338,7 @@ public class Startup
 }
 ```
 
-Then you can use the factory in any `[RabbitListener()]`-annotated method, as follows:
+Then you can reference the factory in any `[RabbitListener()]`-annotated method, as follows:
 
 ```csharp
 public class MyService
@@ -362,3 +362,61 @@ By default, retries are disabled. -->
 >IMPORTANT: By default, if retries are disabled and the listener throws an exception, the delivery is retried indefinitely.
 You can modify this behavior in one of two ways: Set the `DefaultRequeueRejected` property in the container factory to `false` so that zero re-deliveries are attempted, or throw a `RabbitRejectAndDontRequeueException` to signal the message should be rejected.
 The latter is the mechanism used when retries are enabled and the maximum number of delivery attempts is reached.
+
+### Using RabbitMQ Host
+
+The Steeltoe RabbitMQHost extends the Microsoft Generic Host and provides for auto configuration of Steeltoe RabbitMQ services.
+
+> [!NOTE]
+> For more detailed examples of using the RabbitMQ Host, please refer to the [Messaging](https://github.com/SteeltoeOSS/Samples/tree/main/Messaging/src) solutions in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+
+Below are two code snippets within `Program.cs` and `Startup.cs` that demonstrate the usage of RabbitMQHost:
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    RabbitMQHost.CreateDefaultBuilder()
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.UseStartup<Startup>();
+        });
+```
+
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // Add a queue to the container that the rabbit admin will discover and declare at startup
+    services.AddRabbitQueue(new Queue("myQueue"));
+
+    // Add singleton that will process incoming messages
+    services.AddSingleton<RabbitListenerService>();
+
+    // Tell steeltoe about singleton so it can wire up queues with methods to process queues (i.e. RabbitListenerAttribute)
+    services.AddRabbitListeners<RabbitListenerService>();
+
+    services.AddControllers();
+}
+```
+
+If you don't use the RabbitMQHost within your application, you will need to add the below additional configuration in `Startup.cs` to get RabbitMQ services up and running:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // Configure any rabbit client values;
+    var rabbitSection = Configuration.GetSection(RabbitOptions.PREFIX);
+    services.Configure<RabbitOptions>(rabbitSection);
+
+    // Add steeltoe rabbit services
+    services.AddRabbitServices();
+    
+    // Add the steeltoe rabbit admin client... will be used to declare queues below
+    services.AddRabbitAdmin();
+
+    // Add the rabbit client template used for send and receiving messages
+    services.AddRabbitTemplate();
+
+    // ...
+}
+```
+

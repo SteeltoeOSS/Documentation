@@ -31,7 +31,7 @@ using (new WindowsNetworkFileShare(@"\\server\path", new System.Net.NetworkCrede
 };
 ```
 
->WARNING: Levels of support for accessing SMB shares on Pivotal Application Service for Windows (PASW) may vary by installed version. Support for IP-based SMB shares was included with the initial 2.4 release and in patch releases for lower versions. Support for FQDN-based SMB shares will be included in PASW 2.5 and in patch releases for lower versions. See the [PASW Release notes](https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/windows-rn.html) to confirm the relevant patch version required.
+>WARNING: Levels of support for accessing SMB shares on TAS for Windows may vary by installed version. Support for IP-based SMB shares was included with the initial 2.4 release and in patch releases for lower versions. Support for FQDN-based SMB shares will be included in PASW 2.5 and in patch releases for lower versions. See the [TAS Release notes](https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/windows-rn.html) to confirm the relevant patch version required.
 
 ### Managing Credentials
 

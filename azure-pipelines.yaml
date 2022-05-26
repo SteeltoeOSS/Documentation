@@ -5,78 +5,53 @@ trigger:
   paths:
     exclude:
     - README.md
-
-variables:
-  - name: registry
-    value: steeltoe.azurecr.io
-  - name: repository
-    value: documentation
+    - docfx/
+    - azure-pipelines-metadata.yaml
+    - build-metadata.sh
+    - Dockerfile-metadata
+    - metadata.conf
 
 stages:
-  - stage: assemble
-    displayName: Assemble
-    jobs:
-      - job: build
-        displayName: Build
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-          - task: Docker@2
-            displayName: docker build
-            inputs:
-              command: build
-              containerRegistry: SteeltoeContainerRegistry
-              repository: $(repository)
-          - task: Docker@2
-            displayName: docker save
-            inputs:
-              command: save
-              arguments: $(registry)/$(repository):$(Build.BuildId) -o $(Build.ArtifactStagingDirectory)/$(repository).$(Build.BuildId).tar
-          - publish: $(Build.ArtifactStagingDirectory)
-            displayName: Publish Docker Image
-            artifact: docker-image
-  - stage: deploy
+- stage: deploy
+  displayName: Deploy
+  condition:
+    not(eq(variables['build.reason'], 'PullRequest'))
+  jobs:
+  - job: deploy
     displayName: Deploy
-    dependsOn: assemble
-    condition:
-      not(eq(variables['build.reason'], 'PullRequest'))
-    jobs:
-      - job: deployToStaging
-        displayName: Deploy to Staging
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-          - download: current
-            displayName: Download Docker Image
-            artifact: docker-image
-          - task: Docker@2
-            displayName: docker load
-            inputs:
-              command: load
-              arguments: --input $(Pipeline.Workspace)/docker-image/$(repository).$(Build.BuildId).tar
-          - task: Docker@2
-            displayName: docker tag
-            inputs:
-              command: tag
-              arguments: $(registry)/$(repository):$(Build.BuildId) $(registry)/$(repository):latest
-          - task: Docker@2
-            displayName: docker push
-            inputs:
-              command: push
-              containerRegistry: SteeltoeContainerRegistry
-              repository: $(repository)
-              tags: |
-                $(Build.BuildId)
-                latest
-          - task: CopyFiles@2
-            displayName: Copy Kubernetes Manifest
-            inputs:
-              SourceFolder: ./deploy/kubernetes
-              Contents: '**'
-              TargetFolder: $(Build.ArtifactStagingDirectory)/kubernetes
-              CleanTargetFolder: true
-          - task: PublishBuildArtifacts@1
-            displayName: Stage for Release
-            inputs:
-              PathtoPublish: $(Build.ArtifactStagingDirectory)
-              publishLocation: Container
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build and Push Docker Image
+      inputs:
+        command: buildAndPush
+        containerRegistry: SteeltoeContainerRegistry
+        repository: documentation
+        tags: |
+          $(Build.BuildId)
+          latest
+    - task: ShellScript@2
+      displayName: Generate Staging Manifest
+      inputs:
+        scriptPath: ./yttw.sh
+        args: >
+          -f kubernetes
+          -v image_tag=$(Build.BuildId)
+          -v hostname=docs-dev.steeltoe.io
+          --output-files manifests/staging
+    - task: ShellScript@2
+      displayName: Generate Production Manifest
+      inputs:
+        scriptPath: ./yttw.sh
+        args: >
+          -f kubernetes
+          -v image_tag=$(Build.BuildId)
+          -v replica_count=2
+          -v hostname=docs.steeltoe.io
+          --output-files manifests/production
+    - task: PublishPipelineArtifact@1
+      displayName: Publish Manifests
+      inputs:
+        targetPath: manifests
+        artifactName: manifests

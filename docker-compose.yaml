@@ -1,0 +1,6 @@
+version: "3"
+services:
+  main-site:
+    build: .
+    ports:
+      - "8082:80"

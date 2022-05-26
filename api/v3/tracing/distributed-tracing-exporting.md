@@ -1,6 +1,6 @@
 # Exporting Distributed Traces
 
-Steeltoe is able to automatically configure several exporters provided by the [OpenTelemetry](https://opentelemetry.io) project, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [Jaeger](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Jaeger) and [OpenTelemetryProtocol](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol), if a NuGet reference to the desired exporter is included. The `Steeltoe.Management.ExporterBase` and  `Steeltoe.Management.ExporterCore` packages are no longer required.
+Steeltoe is able to automatically configure several exporters provided by the [OpenTelemetry](https://opentelemetry.io) project, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [Jaeger](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Jaeger) and [OpenTelemetryProtocol](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol), if a NuGet reference to the desired exporter is included. The `Steeltoe.Management.ExporterBase` and `Steeltoe.Management.ExporterCore` packages are no longer required. In addition, Steeltoe supports exporting traces to [TanzuObservability](https://tanzu.vmware.com/observability) without any other NuGet references.
 
 ## Common Settings
 
@@ -85,3 +85,33 @@ Steeltoe will discover and automatically configure the Open Telemetry Protocol e
 ```xml
 <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.1.0-rc1" />
 ```
+
+## Tanzu Observability by Wavefront
+
+[Tanzu Observability](https://docs.wavefront.com/wavefront_introduction.html) is an observability platform for distributed applications that can ingest metric & trace data. A free trial is available [here](https://tanzu.vmware.com/observability-trial) to try it.
+
+### Use Wavefront Exporter (Tanzu Observability)
+
+Steeltoe will automatically send traces to Wavefront if the following settings are provided. Note that these are shared between tracing and metrics and the Wavefront Trace exporter is activated by the presence of a valid `Uri` and `ApiToken` combination. 
+
+| Key | Description | Default |
+| --- | --- | --- |
+| `ApiToken` | Your Tanzu Observability [API Token](https://docs.wavefront.com/users_account_managing.html#generate-an-api-token) | not set |
+| `Uri` | The Uri of your Wavefront Instance | not set |
+| `Step` | The interval between reporting to Wavefront  | 30000  |
+| `BatchSize` | The max batch of data sent per flush interval | 10000 |
+| `MaxQueueSize` |  the size of internal buffer beyond which data is dropped | 500000
+
+**Note**: **Each setting above must be prefixed with `Management:Metrics:Export:Wavefront`**
+
+If using the a proxy, the `apiToken` is not needed and the `uri` would be `proxy://<ProxyHost>:<ProxyPort>`
+
+In addition, the following settings can be used to set the application and service names:
+
+| Key | Description | Default |
+| --- | --- | --- |
+| `Source`| Unique identifier for the app instance that is publishing metrics to Wavefront | DNS name 
+| `Name` | Name of the application | SteeltoeApp |
+| `Service` | Name of the service | SteeltoeService |
+
+**Note**: **Each setting above must be prefixed with `Wavefront:Application`**

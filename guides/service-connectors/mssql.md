@@ -22,7 +22,6 @@ docker run --env ACCEPT_EULA=Y --env SA_PASSWORD=Steeltoe123 --publish 1433:1433
 Next, **create a .NET Core WebAPI** that interacts with MS SQL
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/mssql-connector-dependency.png" alt="Steeltoe Initialzr - MS SQL Connector" width="100%">
 1. Name the project "MsSqlConnector"
 1. Add the "Microsoft SQL Server" dependency
 1. Click **Generate** to download a zip containing the new project

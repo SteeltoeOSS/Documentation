@@ -1,6 +1,6 @@
 ### Cloud Foundry
 
-The primary purpose of this endpoint is to enable integration with the Pivotal Apps Manager. This endpoint is similar to Hypermedia Actuator but is preconfigured for Apps Manager integration. When used, the Steeltoe Cloud Foundry management endpoint enables the following additional functionality on Cloud Foundry:
+The primary purpose of this endpoint is to enable integration with the TAS Apps Manager. This endpoint is similar to Hypermedia Actuator but is preconfigured for Apps Manager integration. When used, the Steeltoe Cloud Foundry management endpoint enables the following additional functionality on Cloud Foundry:
 
 * Provides an alternate, secured route to the endpoints expected by Apps Manager and configured in your application
 * Exposes an endpoint that can be queried to return the IDs of and links to the enabled management endpoints in the application.

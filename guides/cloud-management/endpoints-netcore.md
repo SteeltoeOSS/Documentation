@@ -19,7 +19,6 @@ This tutorial takes you through setting up a .NET Core application with cloud ma
 **Create a .NET Core WebAPI** with Actuators enabled
 
 1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-   <img src="~/guides/images/initializr/actuators-dependency.png" alt="Initializr - Actuator Dependency" width="100%">
 1. Name the project "ManagementEndpointsNetCoreExample"
 1. Add the "Actuators" dependency
 1. Click **Generate Project** to download a zip containing the new project
