@@ -898,6 +898,6 @@ Once the service is bound to your application, the settings are available in `VC
 
 Once you have performed the steps described earlier and you have made the changes described in the use metrics section, you can use the Spring Cloud Services dashboard by following these instructions:
 
-1. Open a browser and connect to the Pivotal Apps Manager.
+1. Open a browser and connect to the TAS Apps Manager.
 1. Follow [these instructions](https://docs.pivotal.io/spring-cloud-services/1-3/common/circuit-breaker/using-the-dashboard.html) to open the Hystrix Dashboard service.
 1. Use your application and see the metrics begin to flow.

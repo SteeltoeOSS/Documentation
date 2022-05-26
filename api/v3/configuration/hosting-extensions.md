@@ -1,6 +1,6 @@
 # Hosting Extensions
 
-Many cloud hosting providers, including Pivotal Cloud Foundry, dynamically provide port numbers at runtime. For ASP.NET Core applications, Steeltoe provides extension methods that let both `IWebHostBuilder` and `IHostBuilder` read in these values and configure the application to listen on the assigned port.
+Many cloud hosting providers, including TAS, dynamically provide port numbers at runtime. For ASP.NET Core applications, Steeltoe provides extension methods that let both `IWebHostBuilder` and `IHostBuilder` read in these values and configure the application to listen on the assigned port.
 
 ## The UseCloudHosting Method
 

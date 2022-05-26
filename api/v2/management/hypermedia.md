@@ -11,7 +11,7 @@ This actuator also creates a base context path from which the endpoints can be a
 
 When running in Cloud Foundry, the [Cloud Foundry Actuator](cloud-foundry.md) assumes the role of providing a base context path to requests originating inside Cloud Foundry, such as from Apps Manager. This path defaults to `/cloudfoundryapplication`. All other requests default to `/actuator` or the explicitly configured path.
 
->NOTE: Adding Cloud Foundry and Hypermedia endpoints together will allow Pivotal Apps Manager integration along with the ability to access these endpoints on another route for other applications (by default: `/actuator`). Using Cloud Foundry endpoint without Hypermedia endpoint allows Apps Manager integration, however external clients cannot access the endpoints.  When Apps Manager integration is not needed, the Hypermedia endpoint can be used by itself.
+>NOTE: Adding Cloud Foundry and Hypermedia endpoints together will allow TAS Apps Manager integration along with the ability to access these endpoints on another route for other applications (by default: `/actuator`). Using Cloud Foundry endpoint without Hypermedia endpoint allows Apps Manager integration, however external clients cannot access the endpoints.  When Apps Manager integration is not needed, the Hypermedia endpoint can be used by itself.
 
 ## Configure Settings
 
