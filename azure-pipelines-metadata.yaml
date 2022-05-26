@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-    - dev
+    - main
   paths:
     include:
     - azure-pipelines-metadata.yaml
