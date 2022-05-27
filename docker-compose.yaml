@@ -1,6 +1,14 @@
 version: "3"
 services:
-  main-site:
+  mainsite:
+    image: steeltoe.azurecr.io/mainsite
+    ports:
+    - "9081:80"
+    environment:
+      DOTNET_ENVIRONMENT: Docker
+  documentation:
     build: .
     ports:
-      - "8082:80"
+    - "9082:80"
+    environment:
+      DOC_ENVIRONMENT: Docker
