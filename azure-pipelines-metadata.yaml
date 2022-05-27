@@ -5,9 +5,7 @@ trigger:
   paths:
     include:
     - azure-pipelines-metadata.yaml
-    - build-metadata.sh
     - Dockerfile-metadata
-    - metadata.conf
 
 variables:
 - name: tagv3
@@ -29,8 +27,8 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - bash: |
-        echo '2:'$(tagv2) > metadata-versions
-        echo '3:'$(tagv3) >> metadata-versions
+        echo '2:'$(tagv2) > metadata.conf
+        echo '3:'$(tagv3) >> metadata.conf
       displayName: Set Version
     - task: Docker@2
       displayName: Build and Push

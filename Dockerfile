@@ -1,4 +1,4 @@
-FROM steeltoe.azurecr.io/documentation-metadata:3.1.3-2.5.5-1 AS build
+FROM steeltoe.azurecr.io/documentation-metadata:3.2.0-2.5.5-3 AS build
 WORKDIR /docs
 COPY . .
 RUN docfx build -o build --globalMetadataFiles devhost.json
