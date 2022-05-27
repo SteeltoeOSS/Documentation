@@ -10,5 +10,6 @@ container_memory: 128Mi
 container_cpu: 500m
 service_port: 80
 replica_count: 1
+doc_environment: ""
 hostname: ""
 tls_secret: documentation-tls

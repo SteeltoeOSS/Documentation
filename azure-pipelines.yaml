@@ -39,6 +39,7 @@ stages:
           -f kubernetes
           -v image_tag=$(Build.BuildId)
           -v hostname=docs-dev.steeltoe.io
+          -v doc_environment=Staging
           --output-files manifests/staging
     - task: ShellScript@2
       displayName: Generate Production Manifest
@@ -49,6 +50,7 @@ stages:
           -v image_tag=$(Build.BuildId)
           -v replica_count=2
           -v hostname=docs.steeltoe.io
+          -v doc_environment=Production
           --output-files manifests/production
     - task: PublishPipelineArtifact@1
       displayName: Publish Manifests

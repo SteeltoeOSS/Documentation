@@ -23,6 +23,9 @@ spec:
         image: #@ "{}:{}".format(data.values.image_name, data.values.image_tag)
         ports:
         - containerPort: #@ int(data.values.container_port)
+        env:
+        - name: DOC_ENVIRONMENT
+          value: #@ data.values.doc_environment
         resources:
           limits:
             memory: #@ data.values.container_memory
