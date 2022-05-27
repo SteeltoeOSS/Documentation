@@ -30,7 +30,8 @@ else
     log "using $docenv configuration"
     docenv_file=$docenv_home/$docenv.env
     if [[ ! -f $docenv_file ]]; then
-        die "env file not found: $docenv_file"
+        log "env file not found: $docenv_file"
+        return
     fi
     source $docenv_file
 fi
