@@ -4,8 +4,6 @@
 
 This is the home of Steeltoe documentation and blog articles. The site uses [DocFX](https://dotnet.github.io/docfx) to convert Markdown to HTML and generate site navigation.
 
-## Directories
-
 | Path | Description
 | --- | ---
 | `/api` | documentation Markdown and Table of Contents
@@ -19,6 +17,17 @@ This is the home of Steeltoe documentation and blog articles. The site uses [Doc
 
 DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) documentation.
 Visual Studio users may find the [Docs Authoring Pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack) extension pack useful.
+
+## Markdown parser
+
+DocFX offers a custom flavor of markdown with quite a few enhanced capabilities. To see examples and learn more, view the [DocFX Flavored Markdown specification](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html?tabs=tabid-1%2Ctabid-a).
+
+### Links and Cross References
+
+As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/tutorial/links_and_cross_references.html).
+
+**Note** it should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
+>>>>>>> fe35dd4 (Updated README.md)
 
 ## Creating a new blog post
 
