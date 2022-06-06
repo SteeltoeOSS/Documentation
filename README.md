@@ -22,13 +22,6 @@ Visual Studio users may find the [Docs Authoring Pack](https://marketplace.visua
 
 DocFX offers a custom flavor of markdown with quite a few enhanced capabilities. To see examples and learn more, view the [DocFX Flavored Markdown specification](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html?tabs=tabid-1%2Ctabid-a).
 
-### Links and Cross References
-
-As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/tutorial/links_and_cross_references.html).
-
-**Note** it should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
->>>>>>> fe35dd4 (Updated README.md)
-
 ## Creating a new blog post
 
 Create a new `.md` file in the `articles` directory. Name the file something that is URL safe. In `/articles/index.md` add a shorthand link to the document as well as a short description. If the post should also be included in Steeltoe's RSS feed, add a link entry in `articles/rss.xml`.
@@ -114,7 +107,10 @@ Copyright (C) 2022 ? Microsoft Corporation. All rights reserved.
 This is open-source software under MIT License.
 ```
 
-## Building the site
+Download the DocFX [distribution](https://github.com/dotnet/docfx/releases/).
+Unzip to directory of your choosing and add that directory to your `PATH`.
+If running on Linux or OS X, you will need to [install Mono](https://www.mono-project.com/docs/getting-started/install/) and use `mono` to execute the DoxFX binary.
+See [docfx/docfx](docfx/docfx) for an example wrapper script.
 
 Build API docs for Steeltoe 2 and 3
 
