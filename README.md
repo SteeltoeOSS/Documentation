@@ -18,6 +18,7 @@ This is the home of Steeltoe documentation and blog articles. The site uses [Doc
 ## DocFX Markdown
 
 DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) documentation.
+Visual Studio users may find the [Docs Authoring Pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack) extension pack useful.
 
 ## Creating a new blog post
 
