@@ -20,7 +20,7 @@ Visual Studio users may find the [Docs Authoring Pack](https://marketplace.visua
 
 ## Markdown parser
 
-DocFX offers a custom flavor of markdown with quite a few enhanced capabilities. To see examples and learn more, view the [DocFX Flavored Markdown specification](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html?tabs=tabid-1%2Ctabid-a).
+DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) documentation.
 
 ## Creating a new blog post
 
