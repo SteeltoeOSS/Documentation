@@ -31,7 +31,7 @@ As you get familiar with DocFX, you'll notice the addition of a YAML header in t
 
 ## Creating a new blog post
 
-Create a new `.md` file in the `articles` folder. Name the file something authentic that is URL-safe. Then in `/articles/index.md`, include a shorthand link to the document, as well as a short description. If the post should also be included in Steeltoe's RSS feed, add a link entry in `articles/rss.xml`.
+Create a new `.md` file in the `articles` folder. Name the file something authentic that is URL-safe. Then in `/articles/index.md`, include a shorthand link to the document, as well as a short description.
 
 Here is a starter blog post:
 
