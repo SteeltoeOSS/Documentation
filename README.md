@@ -4,9 +4,7 @@
 
 This is the home of Steeltoe documentation and blog articles. The site uses [DocFX](https://dotnet.github.io/docfx) to convert markdown to HTML, as well as site navigation. To get the DocFX CLI, visit [this](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html) page to see the different distributions.
 
-If you are using [VS Code](https://code.visualstudio.com/) as your editor, there is a [super sweet plugin for DocFX](https://github.com/tintoy/docfx-assistant). All it really does is discover `UID`'s and provide IntelliSense when the `@` char is typed in markdown.
-
-Also, you can use *most* of the features included in Microsoft's [docs authoring pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack).
+If you are using [VS Code](https://code.visualstudio.com/) as your editor, you can use *most* of the features included in Microsoft's [docs authoring pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack).
 
 ## Folders
 
