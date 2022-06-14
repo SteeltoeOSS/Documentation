@@ -9,6 +9,13 @@ uid: articles
 ---
 <div class="blog-list-wrapper">
     <ul class="blog-list">
+        <li class="blog-item" onclick="location.href='whats-new-in-steeltoe-32.html'">
+            <span class="blog-date">June 14 2022</span>
+            <div class="preview">
+                <embed class="blog-preview" src="whats-new-in-steeltoe-32.html" />
+            </div>
+            <div class="blog-title">What's New in Steeltoe 3.2.0</div>
+        </li>
         <li class="blog-item" onclick="location.href='whats-new-in-steeltoe-31.html'">
             <span class="blog-date">July 27 2021</span>
             <div class="preview">
@@ -29,7 +36,7 @@ uid: articles
             <span class="blog-date" href="">January 25 2021</span>
             <div class="blog-author">David Dieruf</div>
             <div class="blog-title">.NET and Java together in Azure Spring Cloud with Pet Clinic</div>
-        </li> 
+        </li>
         <li class="blog-item" onclick="location.href='create-dotnet-microservice-projects-automatically-with-steeltoe-initializr.html'">
             <span class="blog-date">January 10 2021</span>
             <div class="preview">
