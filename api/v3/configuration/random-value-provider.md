@@ -48,7 +48,7 @@ To do so, add a `PackageReference` resembling the following:
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.RandomValueBase" Version="3.1.0"/>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.RandomValueBase" Version="3.2.0"/>
 ...
 </ItemGroup>
 ```

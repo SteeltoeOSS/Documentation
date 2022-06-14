@@ -7,7 +7,7 @@ This guide describes the RabbitMQ implementation of the Steeltoe Stream Binder, 
 To use the RabbitMQ binder, add it to your Stream application with a PackageReference in your `.csproj` as seen in this example:
 
 ```xml
-<PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.1.0" />
+<PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.2.0" />
 ```
 
 ## RabbitMQ Binder Overview

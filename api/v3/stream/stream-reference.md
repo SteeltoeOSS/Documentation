@@ -979,7 +979,7 @@ If a single Binder implementation is found, Steeltoe Stream automatically uses i
 For example, a Stream project that aims to bind only to RabbitMQ can add the following dependency to the project.
 
 ```xml
-    <PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.1.0" />
+    <PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.2.0" />
 ```
 
 ### Multiple Binders

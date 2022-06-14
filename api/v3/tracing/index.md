@@ -40,7 +40,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TracingCore" Version="3.1.0"/>
+    <PackageReference Include="Steeltoe.Management.TracingCore" Version="3.2.0"/>
 ...
 </ItemGroup>
 ```
