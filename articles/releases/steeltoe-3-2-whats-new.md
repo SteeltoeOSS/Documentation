@@ -1,16 +1,15 @@
 ---
 _disableBreadcrumb: true
 _disableContribution: true
-_disableAffix: true
 _showBackToBlogs: true
 
-title: What's New in 3.2.0
-description: 3.2.0 adds support for .NET 6.0 and adds new features and enhancements
-
+title: Steeltoe 3.2
+description: All about Steeltoe 3.2
+monikerRange: '== steeltoe-3.2
 type: markdown
-date: 06/14/2022
-uid: articles/whats-new-in-steeltoe-32
-tags: [ "3.2",  "whats-new" ]
+date: 06/15/2022
+uid: releases/steeltoe-3-2-whats-new.html
+tags: ["new-release"]
 ---
 
 # What's New in 3.2.0
