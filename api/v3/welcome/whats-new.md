@@ -2,6 +2,17 @@
 
 ## New Features and Changes
 
+### Steeltoe 3.2.0
+
+* Support for .NET 6
+  * WebApplicationBuilder extensions
+  * ConfigurationManager support
+* Support polling Spring Cloud Config Server for updates
+* Management
+  * Update Thread and Heap Dump implementations
+  * Depend on a GA release of OpenTelemetry Metrics
+  * Support exporting metrics and traces to Wavefront
+
 ### Steeltoe 3.1.0
 
 * Steeltoe Messaging, with support for [RabbitMQ](../messaging/rabbitmq-intro.md)
