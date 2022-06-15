@@ -57,7 +57,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Alternatively, you can add the package through PowerShell:
 
 ```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.1.0
+PM>Install-Package  Steeltoe.Management.EndpointCore
 ```
 
 ## ASP NET Core Example
