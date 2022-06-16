@@ -1234,14 +1234,14 @@ Whether exceptions thrown by the listener that are not listed in the `retryableE
 **instanceIndex**
 When set to a value greater than equal to zero, it allows customizing the instance index of this consumer (if different from `spring:cloud:stream:instanceIndex`).
 When set to a negative value, it defaults to `spring:cloud:stream:instanceIndex`.
-<!-- See [Instance Index and Instance Count](#instance-index-instance-count) for more information. -->
+<!-- See [Instance Index and Instance Count](#instance-index-and-instance-count) for more information. -->
 
   Default: `-1`.
 
 **instanceCount**
 When set to a value greater than equal to zero, it allows customizing the instance count of this consumer (if different from `spring:cloud:stream:instanceCount`).
 When set to a negative value, it defaults to `spring:cloud:stream:instanceCount`.
-<!-- See [Instance Index and Instance Count](#instance-index-instance-count) for more information. -->
+<!-- See [Instance Index and Instance Count](#instance-index-and-instance-count) for more information. -->
 
   Default: `-1`.
 
@@ -1632,7 +1632,7 @@ public class MyCustomMessageConverter : AbstractMessageConverter
 Stream enables communication between applications. Inter-application communication is a complex issue spanning several concerns, as described in the following topics:
 
 * [Connecting Multiple Application Instances](#connecting-multiple-application-instances)
-* [Instance Index and Instance Count](#instance-index-instance-count)
+* [Instance Index and Instance Count](#instance-index-and-instance-count)
 * [Partitioning](#partitioning)
 
 ### Connecting Multiple Application Instances
@@ -1690,8 +1690,8 @@ In a scaled-up scenario, correct configuration of these two settings is importan
 
 Partitioning in Stream applications consists of two tasks:
 
-* [Configuring Output Bindings for Partitioning](#configuring-output-bindings-partitioning)
-* [Configuring Input Bindings for Partitioning](#configuring-input-bindings-partitioning)
+* [Configuring Output Bindings for Partitioning](#configuring-output-bindings-for-partitioning)
+* [Configuring Input Bindings for Partitioning](#configuring-input-bindings-for-partitioning)
 
 #### Configuring Output Bindings for Partitioning
 
