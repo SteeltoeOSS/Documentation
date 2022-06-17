@@ -133,7 +133,7 @@ Deriving from [BackgroundService](https://docs.microsoft.com/aspnet/core/fundame
 
 In every iteration of the loop, The `GenerateAndSend` method constructs a `UsageDetail` object which is sent to the output channel by accessing the `_source` object's `Output.Send()` method.
 
-#### Configuration
+#### <a name="configuration-usage-detail-sender"></a>Configuration
 
 When configuring the `ISource` application, we need to set:
 
@@ -180,7 +180,7 @@ When this property is set, a durable queue is created by using the `<Exchange>.<
 
 ### Processor
 
-In this step, we create the `UsageProcessor` processor. Create a new .NET Console  project and add the NuGet packages as referred in the [Add NuGet reference](#Add-NuGet-Reference)
+In this step, we create the `UsageProcessor` processor. Create a new .NET Console  project and add the NuGet packages as referred in the [Add NuGet reference](#add-nuget-reference)
 
 #### Business Logic
 
@@ -259,7 +259,7 @@ The `[StreamListener]` attribute binds the application's `input` channel to the 
 
 The `[SendTo]` attribute sends the `Handle` method's output to the application's `output` channel, which is in turn, sent to the a RabbitMQ message broker by using a `TopicExchange`.
 
-#### Configuration
+#### <a name="configuration-usage-cost-processor"></a>Configuration
 
 When configuring the `processor` application, we need to set the following properties:
 
@@ -303,7 +303,7 @@ There are many configuration options that you can choose to extend or override t
 
 In this step, we create the `UsageCostLogger` sink.
 
-Create a new .NET Console  project and add the NuGet packages as referred in the [Add NuGet reference](#Add-NuGet-Reference)
+Create a new .NET Console  project and add the NuGet packages as referred in the [Add NuGet reference](#add-nuget-reference)
 
 #### Business Logic
 
@@ -343,7 +343,7 @@ In the preceding application, the `[EnableBinding]` attribute indicates that you
 
 The `[StreamListener]` attribute binds the application's `input` channel to the `process` method by converting the incoming JSON to a `UsageCostDetail` object.
 
-#### Configuration
+#### <a name="configuration-usage-cost-logger"></a>Configuration
 
 When configuring the `sink` application, we need to set:
 
@@ -401,7 +401,7 @@ You can use the default account username and password: `guest` and `guest`.
 
 #### Running the `UsageDetailSender` Source
 
-By using the [pre-defined](#configuration) configuration properties (along with a unique server port) for `UsageSender`, you can run the application, as follows:
+By using the [pre-defined](#configuration-usage-detail-sender) configuration properties (along with a unique server port) for `UsageSender`, you can run the application, as follows:
 
 ```
 cd UsageSender
@@ -422,7 +422,7 @@ When configuring the consumer applications for this `Source` application, you ca
 
 #### Running the Processor
 
-By using the [pre-defined](#configuration-2) configuration properties (along with a unique server port) for `UsageProcessor`, you can run the application, as follows:
+By using the [pre-defined](#configuration-usage-cost-processor) configuration properties (along with a unique server port) for `UsageProcessor`, you can run the application, as follows:
 
 ```
 cd UsageProcessor
@@ -445,7 +445,7 @@ Also, if you click on the `Queues` and check the `usage-cost.logger` queue, you 
 
 #### Running the Sink
 
-By using the [pre-defined](#configuration-3) configuration properties (along with a unique server port) for `UsageLogger`, you can run the application, as follows:
+By using the [pre-defined](#configuration-usage-cost-logger) configuration properties (along with a unique server port) for `UsageLogger`, you can run the application, as follows:
 
 ```bash
 cd UsageLogger

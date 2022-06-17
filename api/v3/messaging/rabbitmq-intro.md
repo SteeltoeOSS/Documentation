@@ -131,9 +131,6 @@ class Program
 
 This example uses Steeltoe together with a .NET Generic host and shows how to configure the services:
 
-
-<i>See [RabbitMQHost](rabbitmq-host.md) documentation to further understand what is happening behind the scenes</i>
-
 ```csharp
 class Program
 {
