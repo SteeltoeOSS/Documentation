@@ -3,14 +3,12 @@
 ## Overview
 
 This is the home of Steeltoe documentation and blog articles. The site uses [DocFX](https://dotnet.github.io/docfx) to convert Markdown to HTML and generate site navigation.
+See [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) to learn more about DocFX's enhanced Markdown syntax.
 
 | Path | Description
 | --- | ---
-| `/api` | documentation Markdown and Table of Contents
-| `/api/v2` | version 2 documentation
-| `/api/v3` | version 3 documentation
-| `/articles` | blog post Markdown
-| `/images` | images
+| `/api` | API documentation
+| `/articles` | blog posts
 | `/template` | theming
 
 ## DocFX Markdown
@@ -115,11 +113,12 @@ See [docfx/docfx](docfx/docfx) for an example wrapper script.
 Build API docs for Steeltoe 2 and 3
 
 ```
-$ git clone https://github.com/SteeltoeOSS/Steeltoe sources/v3 -b release/3.2
 $ git clone https://github.com/SteeltoeOSS/Steeltoe sources/v2 -b release/2.5
+$ git clone https://github.com/SteeltoeOSS/Steeltoe sources/v3 -b release/3.2
 $ git clean -fX api
-$ docfx metadata api-v3.json
 $ docfx metadata api-v2.json
+$ docfx metadata api-v3.json
+$ docfx metadata api-all.json
 ```
 
 Build the site docs
