@@ -19,7 +19,7 @@ RUN \
     wget https://github.com/dotnet/docfx/releases/download/$(cat docfx_version)/docfx.zip && \
     mkdir -p /usr/local/libexec && \
     unzip docfx.zip -d /usr/local/libexec/docfx && \
-    cp docfx /usr/local/bin && \
+    install docfx /usr/local/bin && \
     rm -rf /scratch
 WORKDIR /work
 ENTRYPOINT ["docfx"]
