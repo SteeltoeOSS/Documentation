@@ -9,6 +9,13 @@ uid: articles
 ---
 <div class="blog-list-wrapper">
     <ul class="blog-list">
+        <li class="blog-item" onclick="location.href='releases/steeltoe-3-2-whats-new.html'">
+            <span class="blog-date">June 14 2022</span>
+            <div class="preview">
+                <embed class="blog-preview" src="releases/steeltoe-3-2-whats-new.html" />
+            </div>
+            <div class="blog-title">What's New in Steeltoe 3.2.0</div>
+        </li>
         <li class="blog-item" onclick="location.href='whats-new-in-steeltoe-31.html'">
             <span class="blog-date">July 27 2021</span>
             <div class="preview">
@@ -17,7 +24,7 @@ uid: articles
             <div class="blog-author">Dave Tillman, Hananiel Sarella</div>
             <div class="blog-title">Tanzu TV Episode: Steeltoe Messaging, Steeltoe Stream, and more</div>
         </li>
-		<li class="blog-item" onclick="location.href='releases/steeltoe-3-1-minor-release-major-deal.html'">
+        <li class="blog-item" onclick="location.href='releases/steeltoe-3-1-minor-release-major-deal.html'">
             <span class="blog-date">July 13 2021</span>
             <div class="preview">
                 <embed class="blog-preview" src="releases/steeltoe-3-1-minor-release-major-deal.md" />
@@ -29,7 +36,7 @@ uid: articles
             <span class="blog-date" href="">January 25 2021</span>
             <div class="blog-author">David Dieruf</div>
             <div class="blog-title">.NET and Java together in Azure Spring Cloud with Pet Clinic</div>
-        </li> 
+        </li>
         <li class="blog-item" onclick="location.href='create-dotnet-microservice-projects-automatically-with-steeltoe-initializr.html'">
             <span class="blog-date">January 10 2021</span>
             <div class="preview">
