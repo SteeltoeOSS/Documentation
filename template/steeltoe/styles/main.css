@@ -64,15 +64,22 @@ article h1{
 	color: #0066cc;
 }
 article.content.wrap{margin-bottom: 7%;}
+article h1, article h2, article h3, article h4{
+  margin-top: 50px;
+}
 h1 {
 	font-weight: 700;
 	line-height: 1em;
 	font-size: 210%;
+	-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 h2 {
 	font-weight: 500;
 	line-height: 1em;
 	font-size: 175%;
+	-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 h3 {
 	font-weight: 300;
@@ -122,6 +129,11 @@ pre {
 
 ul.breadcrumb > :first-child {
 	font-weight: bold;
+}
+
+.article-wrapper {
+	padding-left: 35px;
+	padding-right: 35px;
 }
 
 .article-wrapper.doc-wrapper > article > h1 {
@@ -190,6 +202,10 @@ ul.breadcrumb > :first-child {
 .sidetoc {
 	top: 224px;
 	width: 260px; 
+}
+.sidetoc a {
+	-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .btn.active, .btn:active {
