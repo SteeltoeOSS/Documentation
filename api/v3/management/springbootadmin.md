@@ -9,7 +9,7 @@ Add the following PackageReference to your .csproj file.
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointBase" Version="3.1.0" />
+    <PackageReference Include="Steeltoe.Management.EndpointBase" Version="3.2.0" />
 ...
 </ItemGroup>
 ```

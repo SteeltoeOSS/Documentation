@@ -36,7 +36,7 @@ Next, **create a .NET Core WebAPI** that interacts with Distributed Tracing
    ```xml
    <ItemGroup>
    ...
-      <PackageReference Include="Steeltoe.Management.TracingCore" Version="3.1.0" />
+      <PackageReference Include="Steeltoe.Management.TracingCore" Version="3.2.0" />
    ...
    </ItemGroup>
    ```

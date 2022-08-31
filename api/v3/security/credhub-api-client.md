@@ -24,7 +24,7 @@ Use the NuGet package manager tools or directly add the appropriate package to y
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.DataProtection.CredHubCore" Version="3.1.0"/>
+    <PackageReference Include="Steeltoe.Security.DataProtection.CredHubCore" Version="3.2.0"/>
 ...
 </ItemGroup>
 ```

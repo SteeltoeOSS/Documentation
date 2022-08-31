@@ -6,7 +6,7 @@ Applications running on .NET Core 3.1+ and .NET 5.0+ are supported. Get started 
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="Steeltoe.Bootstrap.Autoconfig" Version="3.1.0" />
+    <PackageReference Include="Steeltoe.Bootstrap.Autoconfig" Version="3.2.0" />
 </ItemGroup>
 ```
 
