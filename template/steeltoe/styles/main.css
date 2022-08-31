@@ -1,9 +1,38 @@
 @import url('../../../styles/open-iconic/font/css/open-iconic-bootstrap.min.css');
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,800&display=swap');
+
+@font-face {
+  font-family: 'Metropolis';
+  font-weight: normal;
+  font-weight: 300;
+  font-weight: 200;
+  font-weight: 100;
+  font-style: normal;
+  src: url('../fonts/WOFF2/Metropolis-Regular.woff2') format('woff2'),
+  url('../fonts/WOFF/Metropolis-Regular.woff') format('woff'),
+  url('../fonts/Truetype/Metropolis-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Metropolis';
+  font-weight: 500;
+  font-style: normal;
+  src: url('../fonts/WOFF2/Metropolis-SemiBold.woff2') format('woff2'),
+  url('../fonts/WOFF/Metropolis-SemiBold.woff') format('woff'),
+  url('../fonts/Truetype/Metropolis-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Metropolis';
+  font-weight: 600;
+  font-weight: 700;
+  font-weight: bold;
+  font-style: normal;
+  src: url('../fonts/WOFF2/Metropolis-Bold.woff2') format('woff2'),
+  url('../fonts/WOFF/Metropolis-Bold.woff') format('woff'),
+  url('../fonts/Truetype/Metropolis-Bold.ttf') format('truetype');
+}
 
 /* DEVELOP WIDTH = 1400px */
 html, body {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Metropolis', sans-serif;
 	font-size: 100%;
 	font-style: normal;
 	font-weight: normal;
