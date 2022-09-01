@@ -124,8 +124,13 @@ pre {
 }
 
 /* Breadcrumbs */
+.navbar:before {
+	display: none;
+}
 #breadcrumb {
 	margin-top: 30px;
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .breadcrumb {
