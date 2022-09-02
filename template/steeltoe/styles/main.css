@@ -106,7 +106,15 @@ pre {
 .hljs {
 	padding: 1em 1.5rem !important;
 }
-
+.toc .level1 > li {
+	font-size: 15px;
+}
+.toc .nav > li> .expand-stub {
+	color: #666666;
+}
+.toc .nav > li> .expand-stub:hover {
+	color: black;
+}
  /* NAV BAR */
 .navbar{
 	padding: 0;
