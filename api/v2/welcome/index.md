@@ -2,7 +2,7 @@
 
 ## [Application Configuration](../configuration/index.md)
 
-Steeltoe lets you store external configuration values in Git, the filesystem, or Hashicorp Vault with Spring Cloud Config.
+Steeltoe lets you store external configuration values in Git, the filesystem, or HashiCorp Vault with Spring Cloud Config.
 [read more](../configuration/index.md)
 
 ## [Circuit Breakers](../circuitbreaker/index.md)

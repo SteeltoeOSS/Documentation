@@ -97,9 +97,9 @@ The following table describes all the settings that can be used to configure the
 |username|Username for basic authentication|none|
 |password|Password for basic authentication|none|
 |failFast|Enable or disable failure at startup|false|
-|token|Hashicorp Vault authentication token|none|
-|tokenTtl|Hashicorp Vault token renewal TTL. Valid on Cloud Foundry only|300000ms|
-|tokenRenewRate|Hashicorp Vault token renewal rate. Valid on Cloud Foundry only|60000ms|
+|token|HashiCorp Vault authentication token|none|
+|tokenTtl|HashiCorp Vault token renewal TTL. Valid on Cloud Foundry only|300000ms|
+|tokenRenewRate|HashiCorp Vault token renewal rate. Valid on Cloud Foundry only|60000ms|
 |retry:enabled|Enable or disable retry logic|false|
 |retry:maxAttempts|Max retries if retry enabled|6|
 |retry:initialInterval|Starting interval|1000ms|

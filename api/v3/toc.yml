@@ -140,7 +140,7 @@
     - topicHref: discovery/netflix-eureka.md
       name: Netflix Eureka
     - topicHref: discovery/hashicorp-consul.md
-      name: Hashicorp Consul
+      name: HashiCorp Consul
     - topicHref: discovery/kubernetes.md
       name: Kubernetes
     - topicHref: discovery/load-balancing.md

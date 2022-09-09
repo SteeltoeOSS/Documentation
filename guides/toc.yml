@@ -39,6 +39,7 @@
 - name: Service Discovery
   items:
     - topicUid: guides/service-discovery/eureka
+    - topicUid: guides/service-discovery/consul
 - name: Stream
   items: 
     - topicUid: guides/stream/quick-start

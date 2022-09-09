@@ -1,215 +1,232 @@
 ---
 uid: guides/service-discovery/consul
-title: Console Service Discovery
+title: Consul Service Discovery
 tags: []
 _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
-## Using Service Discovery with Hashicorp Consul server
+## Using Service Discovery with HashiCorp Consul server
 
 This tutorial takes you through setting up two .NET Core applications using services discovery. The first will register it's endpoints for discovery, and the second will discover the first's services.
 
-First, **start a Hashicorp Consul server** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Consul.
+First, **start a HashiCorp Consul server**. There are a variety of ways to get a Consul server, but using this command will create a server that will be cleaned up automatically after you stop it:
 
 ```powershell
-docker run --publish 8500:8500 consul
+docker run --rm -ti -p 8500:8500 --name=steeltoe_guide_consul consul
 ```
 
-Next, **create a .NET Core WebAPI** that registers itself as a service.
+Next, **create a .NET Core WebAPI** and configure Steeltoe to register with the Consul server.
 
-1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-1. Name the project "Consul_Register_Example"
-1. Add the "Redis" dependency
-1. Click **Generate** to download a zip containing the new project
-1. Extract the zipped project and open in your IDE of choice
-1. Set the instance address in **appsettings.json**
-1.
-1.
-1. **SteeltoeVersion:** 2.4 for the latest stable
-1. Project Metadata:
-   **Name:**
-   **Target Framework:** netcoreapp3.1 is the latest stable 1.**Dependencies:** Discovery
-   1.Click **Generate Project** to download a zip containing the new project
+# [Visual Studio](#tab/visualstudio-create1)
 
-1. Extract the zipped project and open in your IDE of choice (we use Visual Studio)
-1. Set the instance address in **appsettings.json**
+* From the File menu, select New > Project.
+* Enter Web API in the search box.
+* Select the ASP.NET Core Web API template and select Next.
+* In the Configure your new project dialog, name the project "Consul_Register_Example" and select Next.
+* In the Additional information dialog:
+  * Confirm the Framework is .NET 6.0 (Long-term support).
+  * Confirm the checkbox for Use controllers(uncheck to use minimal APIs) is checked.
+  * Select Create.
+* Use the NuGet Package Manager to add a reference to `Steeltoe.Discovery.Consul`
 
-# [Local](#tab/local)
+# [dotnet CLI](#tab/dotnet-create1)
 
-Update with the Consul info
+First, open your preferred shell and navigate to the folder you'd like the sample created in.
 
-```json
-{
-  "spring": {
-    "application": {
-      "name": "Consul-Register-Example"
-    }
-  },
-  "consul": {
-    "host": "localhost",
-    "port": 8500,
-    "discovery": {
-      "enabled": true,
-      "register": true,
-      "port": "8080",
-      "ipAddress": "localhost",
-      "preferIpAddress": true
-    }
-  }
-}
+```powershell
+# create the project
+dotnet new webapi --name Consul_Register_Example
+
+# enter the project directory
+cd .\Consul_Register_Example\
+
+# add the NuGet reference
+dotnet add Steeltoe.Discovery.Consul
 ```
 
 ---
 
-> [!TIP]
-> Looking for additional params to use when connecting? Have a look at the docs [here](/service-discovery/docs).
-
-1. Validate the port number the app will be served on, in **Properties\launchSettings.json**
-
-# [Local](#tab/local)
-
-```json
-"iisSettings": {
-  "windowsAuthentication": false,
-  "anonymousAuthentication": true,
-  "iisExpress": {
-    "applicationUrl": "http://localhost:8080",
-    "sslPort": 0
-  }
-}
-```
-
----
-
-1. Run the application and confirm it has registered with Consul
-
-# [Local](#tab/local)
-
-1. Using the .NET cli
-
-
-    ```powershell
-    dotnet run <PATH_TO>\Consul_Register_Example.csproj
-    ```
-
-1. Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
-1. Using Visual Studio
-   Choose the top _Debug_ menu, then choose _Start Debugging (F5)_. This should bring up a browser with the app running.\*
-1. Navigate to the endpoint (you may need to change the port number) [http://localhost:8080/api/values](http://localhost:8080/api/values)
-1. Navigate to the Consol dashboard at [http://localhost:8500/](http://localhost:8500/) to see the service listed.
-1. Leave the application running while you continue to the next steps, you'll be connecting to it.
-
----
-
-Then, **create another .NET Core WebAPI** that will discover the registered service.
-
-1. Create a new ASP.NET Core WebAPI app with the [Steeltoe Initializr](https://start.steeltoe.io)
-1. **SteeltoeVersion:** 2.4 for the latest stable
-1. Project Metadata:
-   **Name:** Consul_Discover_Example
-   **Target Framework:** netcoreapp3.1 is the latest stable 1.**Dependencies:** Discovery
-   1.Click **Generate Project** to download a zip containing the new project
-
-1. Update the discovery values to not register in **appsettings.json**
-
-# [Local](#tab/local)
-
-Update with the Consul info
-
-```json
-{
-  "spring": {
-    "application": {
-      "name": "Consul-Discover-Example"
-    }
-  },
-  "consul": {
-    "host": "localhost",
-    "port": 8500,
-    "discovery": {
-      "enabled": true,
-      "register": false
-    }
-  }
-}
-```
-
----
-
-1. Validate the port number the app will be served on, in **Properties\launchSettings.json**
-
-# [Local](#tab/local)
-
-```json
-"iisSettings": {
-  "windowsAuthentication": false,
-  "anonymousAuthentication": true,
-  "iisExpress": {
-    "applicationUrl": "http://localhost:8081",
-    "sslPort": 0
-  }
-}
-```
-
----
-
-1. Change the values controller to make a request to the discovery service and return the result in **contollers\ValuesController.cs**
+Open `program.cs` and add the following `using` and code:
 
 ```csharp
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc;
-using Steeltoe.Common.Discovery;
-using System.Net.Http;
+using Steeltoe.Discovery.Client;
 
-namespace Consul_Discover_Example.Controllers
-{
-[Route("api/[controller]")]
-[ApiController]
-public class ValuesController : ControllerBase
-{
-private readonly ILogger _logger;
-DiscoveryHttpClientHandler _handler;
-public ValuesController(ILogger<ValuesController> logger, IDiscoveryClient client)
-{
-_logger = logger;
-_handler = new DiscoveryHttpClientHandler(client);
-}
-
-// GET api/values
-[HttpGet]
-public async Task<string> Get()
-{
-var client = new HttpClient(_handler, false);
-return await client.GetStringAsync("http://Consul-Register-Example/api/values");
-}
-}
-}
+// Add services to the container.
+builder.Services.AddDiscoveryClient();
 ```
 
-> [!NOTE]
-> Notice the use of `Consul-Register-Example` as the URI. Because Discovery has been enabled, the negotiation with the discovery Server happens automatically.
-
-1. Run the app to see discovery in action
-
-# [Local](#tab/local)
-
-1. Using the .NET cli
-
-
-    ```powershell
-    dotnet run <PATH_TO>\Consul_Discover_Example.csproj
-    ```
-
-1. Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)
-1. Using Visual Studio
-   Choose the top _Debug_ menu, then choose _Start Debugging (F5)_. This should bring up a browser with the app running.\*
-1. Navigate to the endpoint (you may need to change the port number) [http://localhost:8081/api/values](http://localhost:8081/api/values)
+Now when the application starts up, Steeltoe will activate the appropriate discovery client. In this case, Consul is the only one configured, but you _can_ add multiple package references and switch between them with application configuration.
 
 ---
 
-1.  Once the discovery app loads in the browser you will see the 2 values that were retrieved from the registered app.
-    "["value1","value2"]"
+# [dotnet CLI](#tab/dotnet-run1)
 
-        </app>
+When the application is run directly, Steeltoe should be able to register with the default settings.
+
+```powershell
+dotnet run
+```
+
+# [Visual Studio (Consul_Register_Example)](#tab/visualstudio-run1)
+
+There are several ways to start this application in Visual Studio using the project profile, choose whichever you prefer:
+
+* Right click on the project name (Consul-Discover-Example) and select Debug -> Start New Instance
+* Press F5
+* Click the "Start" or "Start Without Debugging" button in the standard toolbar
+
+# [Visual Studio (IIS Express)](#tab/iis-run1)
+
+Steeltoe isn't always able to accurately determine hostname and port when running behind servers like IIS Express, so additional settings need to be configured with this arrangement.
+
+Find the port number the app will be served on in `Properties\launchSettings.json`. The default configuration may redirect to HTTPS, so `sslPort` is most likely the port you want to copy:
+
+```json
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:25835",
+      "sslPort": 44338
+    }
+  },
+```
+
+Update `appsettings.json` with host, port and scheme as needed:
+
+```json
+{
+  "$schema": "https://steeltoe.io/schema/latest/schema.json",
+  "Consul": {
+    "Discovery": {
+      "HostName": "localhost",
+      "Port": 44338,
+      "Scheme": "https"
+    }
+  }
+}
+```
+
+> [!TIP]
+> Need to customize more settings when connecting to Consul? Have a look at the [Service Discovery with Consul docs](/api/v3/discovery/hashicorp-consul.md).
+
+---
+
+1. Confirm the application is up and running
+    * By default, Visual Studio will open a browser when the app starts
+    * Alternatively navigate to the weather endpoint by changing the port [in this link](http://localhost:5000/api/WeatherForecast)
+1. Navigate to the Consul dashboard at [http://localhost:8500/](http://localhost:8500/) to see the service listed.
+1. If possible, leave the application running while you continue to the next steps, as you'll be connecting to it.
+
+Once you've confirmed the service runs and registers correctly, **create another .NET Core WebAPI** that will discover the registered service.
+
+# [Visual Studio](#tab/visualstudio-create2)
+
+* From the File menu, select New > Project.
+* Enter Web API in the search box.
+* Select the ASP.NET Core Web API template and select Next.
+* In the Configure your new project dialog, name the project "Consul_Discover_Example" and select Next.
+* In the Additional information dialog:
+  * Confirm the Framework is .NET 6.0 (Long-term support).
+  * Confirm the checkbox for Use controllers(uncheck to use minimal APIs) is checked.
+  * Select Create.
+* Use the NuGet Package Manager to add a reference to `Steeltoe.Discovery.Consul`
+
+# [dotnet CLI](#tab/dotnet-create2)
+
+First, open your preferred shell and navigate to the folder you'd like the sample created in.
+
+```powershell
+# create the project
+dotnet new webapi --name Consul_Discover_Example
+
+# enter the project directory
+cd .\Consul_Discover_Example\
+
+# add the NuGet reference
+dotnet add Steeltoe.Discovery.Consul
+```
+
+---
+
+As with the first application, open `program.cs` and add the following `using` and code:
+
+```csharp
+using Steeltoe.Discovery.Client;
+
+// Add services to the container.
+builder.Services.AddDiscoveryClient();
+```
+
+Update the application's settings for Consul to prevent this application from registering with the server:
+
+```json
+{
+  "$schema": "https://steeltoe.io/schema/latest/schema.json",
+  "Consul": {
+    "Discovery": {
+      "Register": false
+    }
+  }
+}
+```
+
+Now update `WeatherForecastController` to remove the embedded weather code and get the weather from `Consul_Register_Example` instead:
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+
+namespace Consul_Discover_Example.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
+{
+    private readonly HttpClient _httpClient;
+
+    public WeatherForecastController(IHttpClientFactory clientFactory)
+    {
+        _httpClient = clientFactory.CreateClient("DiscoveryRandom");
+    }
+
+    [HttpGet(Name = "GetWeatherForecast")]
+    public async Task<string> Get()
+    {
+        return await _httpClient.GetStringAsync("http://Consul-Register-Example/WeatherForecast");
+    }
+}
+```
+
+Some notes about the above code:
+
+* Steeltoe configures [`HttpClientFactory`](https://docs.microsoft.com/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) to provide named `HttpClient`s that are configured with Random or RoundRobin load balancers.
+  * There are several other ways to [discover services](/api/v3/discovery/discovering-services.html)
+* Inside the outbound HTTP request pipeline, Steeltoe replaces "http://Consul-Register-Example/" in the request Uri with a scheme + host + port returned from Consul
+
+Run the app to see discovery in action:
+
+# [dotnet CLI](#tab/dotnet-run2)
+
+```powershell
+cd Consul_Discover_Example
+dotnet run
+```
+
+# [Visual Studio](#tab/visualstudio-run)
+
+Now that there are two runnable projects in Visual Studio, the options to start applications change a little:
+
+* Right click on the project name (Consul-Discover-Example) and select Debug -> Start New Instance
+* Right click on the solution and select "Set Startup Projects..."
+  * Choose "Multiple startup projects"
+  * Ensure that `Consul_Register_Example` is sorted to the top of the list
+  * Change the "Action" for both projects to "Start"
+  * ![Start multiple projects at once](../images/vs-multi-project-start.png)
+  * Press F5 or click "Start"
+
+---
+
+Once both applications are up and running and you've confirmed the Register example is listed in Consul, use Swagger UI or navigate to /WeatherForecast **in Consul_Discover_Example** to confirm that the discover sample is able to look up and contact Consul_Register_Example.
+
+Learn more in the [documentation for Steeltoe Service Discovery](/api/v3/discovery/index.md)
