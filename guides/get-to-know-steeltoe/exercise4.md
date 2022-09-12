@@ -39,7 +39,7 @@ To communicate with an external config server, we're going to need to add a clie
 
 Right-click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manager window, choose "Browse", then search for `Steeltoe.Extensions.Configuration.ConfigServerCore`, and install.
 
-<img src="~/guides/images/vs-add-configserver.png" alt="Add configuration server library" width="100%">
+![Add configuration server library](../images/vs-add-configserver.png)
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -49,9 +49,9 @@ dotnet add package Steeltoe.Extensions.Configuration.ConfigServerCore
 
 ---
 
-## Use Spring Config client
+## Use Spring Cloud Config Server client
 
-Open "Program.cs" and register a Spring Config client in the application builder.
+Open "Program.cs" and register a configuration provider for Spring Config Server client in the application builder.
 
 ```csharp
 using Steeltoe.Extensions.Configuration.ConfigServer;
@@ -68,7 +68,7 @@ builder.AddConfigServer();
 
 Right-click on the 'Controllers' folder, choose "Add" > "Class..." and name it `ValuesController.cs`.
 
-<img src="~/guides/images/vs-new-class.png" alt="Create a new project class" width="100%">
+![Create a new project class](../images/vs-new-class.png)
 
 Open the newly created class file in your IDE and replace the 'using' statements in the file with the one below.
 
@@ -104,24 +104,24 @@ public class ValuesController : ControllerBase
 }
 ```
 
-In 'appsettings.json', add the following JSON just below the "sqlserver" section. This should be preloaded with the correct connection values of a Spring Config server.
+In 'appsettings.json', add the following JSON just below the "SqlServer" section. This should be preloaded with the correct connection values of a Spring Config server.
 
 > [!NOTE]
 > If you do not have a Spring Cloud Config Server running, please follow the instructions in [App Configuration with a Spring Config Server](../application-configuration/spring-config.md) in the Steeltoe Getting Started Guide.
 
 ```json
-,"spring": {
-  "application": {
-    "name": "my-values"
+,"Spring": {
+  "Application": {
+    "Name": "my-values"
   },
   // Below is not needed if you are running a local Config Server
-  "cloud": {
-    "config": {
-      "validateCertificates": false,
-      "failFast": %%SPRING_CONFIG_FAILFAST%%,
-      "uri": %%SPRING_CONFIG_URI%%,
-      "username": %%SPRING_CONFIG_USERNAME%%,
-      "password": %%SPRING_CONFIG_PASSWORD%%
+  "Cloud": {
+    "Config": {
+      "ValidateCertificates": false,
+      "FailFast": %%SPRING_CONFIG_FAILFAST%%,
+      "Uri": %%SPRING_CONFIG_URI%%,
+      "Username": %%SPRING_CONFIG_USERNAME%%,
+      "Password": %%SPRING_CONFIG_PASSWORD%%
     }
   }
 }
@@ -136,9 +136,9 @@ With the data context in place, we are ready to see everything in action. Run th
 
 # [Visual Studio](#tab/visual-studio)
 
-Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started, your default browser should open and automatically load the weather forecast endpoint.
+Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. Once started, your default browser should open and automatically load the weather forecast endpoint.
 
-<img src="~/guides/images/vs-run-application.png" alt="Run the project" width="50%">
+![Run the project](../images/vs-run-application.png)
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -152,7 +152,7 @@ dotnet run
 
 With the application running and the weather forecast endpoint loaded your browser should show the following
 
-<img src="~/guides/images/weatherforecast-endpoint.png" alt="WeatherForecast endpoint" width="100%">
+![WeatherForecast endpoint](../images/weatherforecast-endpoint.png)
 
 > [!NOTE]
 > If "Enable OpenAPI support" was checked at project creation, the Swagger endpoint is used as the startup page. Replace "swagger/index.html" with "WeatherForecast" to get the response above.
@@ -181,7 +181,7 @@ Use the key combination "Ctrl+C" on Windows/Linux or "Cmd+C" on Mac.
 
 With an existing Spring Config server running that was configured to retrieve values from a YAML file, we added a Spring Config client to our application and output the retrieved values. With this architecture in place, you can now do things like update the YAML file and visit the `/actuator/refresh` management endpoint in the application. This will automatically refresh values within the application, without downtime (or restart). You could store a server's connection name in the YAML and have the application retrieve the value. As the application moves through different environments (dev, test, staging, prod) the connection value can change, but the original tested application stays unchanged.
 
-We've just begun to scratch the surface of what Spring Config can really do and all its many features. Learn more about config in the [Steeltoe docs](/api/v3/configuration/config-server-provider.html).
+We've just begun to scratch the surface of what Spring Cloud Config Server can really do and all its many features. Learn more about [using Spring Cloud Config Server with Steeltoe](/api/v3/configuration/config-server-provider.html).
 
 | [<< Previous Exercise][exercise-3-link] | [Workshop Summary >>][summary-link] |
 | :-------------------------------------- | ----------------------------------: |

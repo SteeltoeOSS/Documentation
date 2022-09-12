@@ -161,7 +161,7 @@ Initialized Steeltoe Developer Tools
 Add application.
 ```sh
 $ st add-app Redis
-Added app 'Redis' (netcoreapp2.1/win10-x64)
+Added app 'Redis' (netcoreapp3.1/win10-x64)
 ```
 
 Add service.
