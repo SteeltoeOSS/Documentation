@@ -148,7 +148,7 @@ All Hystrix command configuration settings should be prefixed with `Hystrix:Comm
 
 `Hystrix:Command:default:Execution:Isolation:Thread:TimeoutInMilliseconds=750`
 
-To configure `Command settings specifed in code`, use `HystrixCommandOptions` from the `Steeltoe.CircuitBreaker.HystrixBase` package.
+To configure `Command settings specified in code`, use `HystrixCommandOptions` from the `Steeltoe.CircuitBreaker.HystrixBase` package.
 
 All `configured command-specific settings`, as described earlier in #4, should be prefixed with `Hystrix:Command:HYSTRIX_COMMAND_KEY:`, where `HYSTRIX_COMMAND_KEY` is the `Name` of the command. The following example configures the timeout for the Hystrix command with a name of `sample` to be 750 milliseconds:
 
@@ -247,7 +247,7 @@ Each setting is prefixed with the key `RequestLog`, as shown in the following ex
 
 #### Thread Pool Settings
 
-Hystrix commands use thread pools to implement an underlying isolation pattern for resilence and fault tolerance features. By default each command will create its own 'named' thread pool and everytime an instance of that command is executed, a thread from that thread pool will be chosen and used. 
+Hystrix commands use thread pools to implement an underlying isolation pattern for resilience and fault tolerance features. By default each command will create its own 'named' thread pool and every time an instance of that command is executed, a thread from that thread pool will be chosen and used. 
 
 Optionally, you can configure your own 'named' thread pool (see next section) and in turn associate one or more commands to a specific thread pool. The describes the settings that control what thread pool a command uses when executing:
 
@@ -386,7 +386,7 @@ Each setting is prefixed with a key of `metrics`, as shown in the following exam
 
 The most convenient way to configure any of the settings for Hystrix mentioned above is to put them in a file and then use one of the file-based .NET configuration providers to read them.
 
-The following example shows some Hystrix settings in JSON (e.g. `appsettings.json`) that configure the `FortuneService` command to use a thread pool with a name of `FortuneServiceTPool`.  Since there are no thread pool settings provided for `FortureServiceTPool` all the defaults will be used in its definition.
+The following example shows some Hystrix settings in JSON (e.g. `appsettings.json`) that configure the `FortuneService` command to use a thread pool with a name of `FortuneServiceTPool`.  Since there are no thread pool settings provided for `FortuneServiceTPool` all the defaults will be used in its definition.
 
 ```json
 {
@@ -874,7 +874,7 @@ To run a Hystrix Dashboard without Docker:
 1. Install Java 8 JDK.
 1. Install Maven 3.x.
 1. Clone the Spring Cloud Samples Hystrix dashboard: `cd https://github.com/spring-cloud-samples/hystrix-dashboard`
-1. Change to the hystrix dashboard directory: `cd hystix-dashboard`
+1. Change to the hystrix dashboard directory: `cd hystrix-dashboard`
 1. Start the server `mvn spring-boot:run`
 1. Open a browser window and connect to the dashboard: <http://localhost:7979>
 1. In the first field, enter the endpoint that is exposing the hystrix metrics (eg: <http://localhost:5555/hystrix/hystrix.stream>)
