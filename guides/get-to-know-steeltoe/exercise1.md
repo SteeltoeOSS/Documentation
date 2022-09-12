@@ -103,9 +103,9 @@ builder.AddInfoActuator();
 builder.AddLoggersActuator();
 ```
 
-We've just included three features within the application by adding these actuators
+We've just included three features within the application by adding these actuators.
 
-- The [health actuator](/api/v3/management/health.md) adds a new endpoint at `/actuator/health`. This endpoint retrieves health contributors that have been registered in the application's service container with either Steeltoe's `IHealthContributor` or Microsoft's `IHealthRegistration` to aggregate the health checks of all the application's dependencies. This endpoint use the HTTP status code of 200 when everything is OK and 503 when it isn't. Details of the health checks can be included in JSON-formatted responses too.
+- The [health actuator](/api/v3/management/health.md) adds a new endpoint at `/actuator/health`. This endpoint retrieves health contributors that have been registered in the application's service container with either Steeltoe's `IHealthContributor` or Microsoft's `IHealthRegistration` to aggregate the health checks of all the application's dependencies. This endpoint use the HTTP status code of [200](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200) when everything is OK and [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) when it isn't. Details of the health checks can be included in JSON-formatted responses, too.
 - The [info actuator](/api/v3/management/info.md) adds a new endpoint at `/actuator/info`. This function gathers all kinds of information like versioning information, select package information, and anything you'd like to include with your own custom `IInfoContributor`. Everything is formatted as JSON and included in the response.
 - The [logger actuator](/api/v3/management/loggers.md) enables dynamic log level management at runtime and enhanced log message details via `ILogger`.
 
@@ -152,7 +152,7 @@ With the packages registered in the application builder, distributed tracing act
 
 # [Visual Studio](#tab/visual-studio)
 
-Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started, your default browser should open and automatically load the weather forecast endpoint.
+Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. Once started, your default browser should open and automatically load the weather forecast endpoint.
 
 ![Run the project](../images/vs-run-application.png)
 

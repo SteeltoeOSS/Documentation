@@ -227,7 +227,7 @@ If your Visual Studio installation has this feature enabled (there's a very good
 
 # [Local & Docker SQL](#tab/Local-SQL)
 
-Local installations of SQL Server are usually available on `localhost` through port `1433`. If so, then Steeltoe can connect with the built-in default settings and you won't need anything from the JSON below. Otherwise, uncomment the provided parameters (server, port, etc) to configure the connection correctly.
+Local installations of SQL Server are usually available on `localhost:1433`. If so, then Steeltoe can connect with the built-in default settings and you won't need anything from the JSON below. Otherwise, uncomment the provided parameters (server, port, etc) to configure the connection correctly.
 
 Should you require one, here is an example docker command for running a SQL Server instance:
 
@@ -266,7 +266,7 @@ With the data context in place, we are ready to see everything in action. Run th
 
 # [Visual Studio](#tab/visual-studio)
 
-Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started, your default browser should open and automatically load the weather forecast endpoint.
+Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. Once started, your default browser should open and automatically load the weather forecast endpoint.
 
 ![Run the project](../images/vs-run-application.png)
 

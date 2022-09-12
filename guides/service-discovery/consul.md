@@ -56,7 +56,7 @@ using Steeltoe.Discovery.Client;
 builder.Services.AddDiscoveryClient();
 ```
 
-Now when the application starts up, Steeltoe will activate the appropriate discovery client. In this case, Consul is the only one configured, but you _can_ add multiple package references and switch between them with application configuration.
+Now when the application starts up, Steeltoe will activate the appropriate discovery client. In this case, Consul is the only one configured, but you could add multiple package references and switch between them with application configuration.
 
 ---
 
