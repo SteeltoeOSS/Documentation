@@ -31,7 +31,7 @@
               <div class="article-wrapper blog-wrapper col-xl-9 col-lg-12 col-md-12 col-sm-12">
             {{/_disableToc}}
             {{^_disableToc}}
-              <div class="col-xl-9 col-12 article-wrapper doc-wrapper">
+              <div class="col-xl-7 article-wrapper doc-wrapper">
             {{/_disableToc}}
           {{/_disableAffix}}
             <article class="content wrap" id="_content" data-uid="{{uid}}">
@@ -44,6 +44,13 @@
               {{#_showBackToBlogs}}<div class="row col pt-2 hidewhenembedded"><a href="../../articles/index.html">&lt;&lt; Back to blogs</a></div>{{/_showBackToBlogs}}
             </article>
           </div>
+          {{^_disableAffix}}
+            <div class="col-2">
+                <div class="d-none d-md-block" role="complementary">
+                  {{>partials/affix}}
+                </div>
+            </div>
+          {{/_disableAffix}}
         </div>
         {{^_disableFooter}}
           {{>partials/footer}}

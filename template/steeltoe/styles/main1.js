@@ -186,6 +186,7 @@ $(document).ready(function() {
 				$("#sidetoc #toc .level1").children().eq(i).find("li").children().eq(j).prepend((i+1) + "." + (j+1) + " ");
 			}
 		}
+		document.querySelector('.active.in .active.in .active').appendChild(document.getElementById('affix'));
 
 	}, "100")
 });

@@ -260,6 +260,44 @@ ul.breadcrumb > :first-child {
 	position: absolute;
 	right: 0;
 }
+#affix {
+	margin-top: -10px;
+}
+#affix .title {
+	display: none;
+}
+.affix > ul > li.active:last-child {
+	margin-bottom: 0;
+}
+.toc .level1 > li {
+	margin-top: 0;
+	padding: 0;
+	font-size: 14px;
+}
+.toc .level1 > li {
+	font-weight: normal;
+}
+.level3 {
+	font-size: 14px;
+}
+.affix > ul > li > a:before {
+	top: -2px;
+	left: -8px;
+}
+.affix ul ul > li > a:before {
+	left: -12px;
+}
+.affix > ul.level1 {
+	padding-bottom: 0;
+}
+.affix > ul > li.active > a {
+	color: #337ab7;
+	font-weight: bold;
+	margin-left: 13px;
+}
+.affix ul > li.active > ul {
+	white-space: normal;
+}
 
 /************ BLOG ************/
 .blog-entry{
