@@ -57,35 +57,20 @@ Once imported, the project must have no errors of any kind.
 Technically, at this point, you can run the application's Program class.
 However, it does not do anything, so we want to add some code.
 
-## Adding a Message Handler, Building, and Running
+## Adding a Message Handler
 
-Modify the `LoggingConsumer.Program` class to look as follows:
+Add a `LoggingConsumer` class to look as follows:
 
 ```csharp
 ...
 
 using Steeltoe.Stream.Attributes;
 using Steeltoe.Stream.Messaging;
-using Steeltoe.Stream.StreamHost;
 ...
 
     [EnableBinding(typeof(ISink))]
-    public class LoggingConsumerApplication
+    public class LoggingConsumer
     {
-        static async Task Main(string[] args)
-        {
-
-            await StreamHost.CreateDefaultBuilder<LoggingConsumerApplication>(args)
-              .ConfigureServices((context, services) =>
-              {
-                  services.AddLogging(builder =>
-                  {
-                      builder.AddDebug();
-                      builder.AddConsole();
-                  });
-              }).StartAsync();
-        }
-
         [StreamListener(ISink.INPUT)]
         public void Handle(Person person)
         {
@@ -112,6 +97,36 @@ Doing so signals to the framework to initiate binding to the messaging middlewar
 * We have added a `Handle` method to receive incoming messages of type `Person`.
 Doing so lets you see one of the core features of the framework: It tries to automatically convert incoming message payloads to type `Person`.
 
+## Building and Running
+
+Modify the `program.cs` to look as follows:
+
+```csharp
+    public class Program
+    {
+        static async Task Main(string[] args)
+        {
+
+            await StreamHost.CreateDefaultBuilder<LoggingConsumer>(args)
+              .ConfigureServices((context, services) =>
+              {
+                  services.AddLogging(builder =>
+                  {
+                      builder.AddDebug();
+                      builder.AddConsole();
+                  });
+              }).StartAsync();
+        }
+```
+
+We are using the StreamHost implementation that configures services required to run a Steeltoe Stream application. Alternatively, we can use the Generic Host or the WebApplication Host to do this:
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+builder.Host.AddStreamServices<LoggingConsumer>();
+builder.Build().Run(); 
+```
+
 You now have a fully functional Steeltoe Stream application that listens for messages.
 Assuming you have RabbitMQ installed and running, you can start the application in your IDE.
 
@@ -125,9 +140,9 @@ info: Microsoft.Hosting.Lifetime[0]
 info: Steeltoe.Messaging.RabbitMQ.Connection.CachingConnectionFactory[0]
       Created new connection: ccFactory:1.publisher/Steeltoe.Messaging.RabbitMQ.Connection.SimpleConnection
 info: Steeltoe.Stream.Binder.Rabbit.RabbitMessageChannelBinder[0]
-      Channel 'LoggingConsumer.Application.errors' has 1 subscriber(s).
+      Channel 'input.anonymous.CbMIwdkJSBO1ZoPDOtHtCg' has 1 subscriber(s).
 info: Steeltoe.Stream.Binder.Rabbit.RabbitMessageChannelBinder[0]
-      Channel 'LoggingConsumer.Application.errors' has 2 subscriber(s).
+      Channel 'input.anonymous.CbMIwdkJSBO1ZoPDOtHtCg' has 2 subscriber(s).
 info: Microsoft.Hosting.Lifetime[0]
 ```
 
