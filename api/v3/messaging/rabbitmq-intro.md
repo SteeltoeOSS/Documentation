@@ -402,16 +402,16 @@ When using the WebApplication Builder, or if you prefer not to use the RabbitMQH
 
     var builder = WebApplication.CreateBuilder(args);
 
-    // Configure the rabbit client connection;
+    // Configure the RabbitMQ client connection;
     builder.services.AddRabbitMQConnection(builder.Configuration);
 
-    // Add steeltoe rabbit services
+    // Add Steeltoe services for RabbitMQ
     builder.services.AddRabbitServices();
     
-    // Add the steeltoe rabbit admin client... will be used to declare queues below
+    // Add the Steeltoe RabbitMQ admin client... will be used to declare queues below
     builder.services.AddRabbitAdmin();
 
-    // Add the rabbit client template used for send and receiving messages
+    // Add the RabbitMQ client template used for send and receiving messages
     builder.services.AddRabbitTemplate();
 
     // ...
