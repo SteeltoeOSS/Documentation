@@ -178,7 +178,6 @@ $(document).ready(function() {
 		for( i = 0; i < level1length; i++) {
 			$("#sidetoc #toc .level1").children().eq(i).children('a').prepend(i+1 + ". ");
 			
-			
 			// Add chapter to level 2 li anchors
 			let level2length = $("#sidetoc #toc .level1").children().eq(i).find("li").length;
 			
@@ -188,6 +187,14 @@ $(document).ready(function() {
 		}
 		document.querySelector('.active.in .active.in .active').appendChild(document.getElementById('affix'));
 
+		let level3length = $(".affix .level1").find("li").length;
+
+		for( k = 0; k < level3length; k++) {
+			console.log(k);
+			// $("affix .level1").children().eq(k).children('a').prepend(k+1 + ". ");
+
+			$("affix .level1").children().eq(1).children('a').prepend(". ");
+		}
 	}, "100")
 });
 

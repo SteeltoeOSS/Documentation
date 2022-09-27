@@ -281,8 +281,8 @@ ul.breadcrumb > :first-child {
 	font-size: 14px;
 }
 .affix > ul > li > a:before {
-	top: -2px;
-	left: -8px;
+	top: 4px;
+	left: 2px;
 }
 .affix ul ul > li > a:before {
 	left: -12px;
@@ -298,7 +298,10 @@ ul.breadcrumb > :first-child {
 .affix ul > li.active > ul {
 	white-space: normal;
 }
-
+.level1 .affix .nav li > a:before {
+	top: -2px;
+	left: -10px;
+}
 /************ BLOG ************/
 .blog-entry{
 	padding: 1%;
@@ -581,24 +584,6 @@ ul.blog-list > :first-child .blog-date::after {
 	cursor: pointer;
 }
 
-.blog-item:hover > .preview, .preview:hover{
-    display: block;
-}
-
-.blog-preview {
-	border: solid #b8b4b4 1px;
-	height: 500px;
-	width: 100%;
-}
-
-.preview {
-    display: none;
-	margin-left: 200px;
-	position: absolute;
-    width: 60%;
-    z-index: 500;
-}
-
 .blog-date {
 	color: #0066cc;
 	font-weight: bold;
@@ -622,10 +607,6 @@ ul.blog-list > :first-child .blog-date::after {
 
 	div[role=main].container-fluid.body-content {
 		margin-top: 0px;
-	}
-	
-	a:hover + .preview,.preview:hover {
-		display: none;
 	}
 
 	.blog-list-wrapper {
