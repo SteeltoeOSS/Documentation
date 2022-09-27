@@ -5,7 +5,7 @@ _showBackToBlogs: true
 
 title: Steeltoe 3.2
 description: All about Steeltoe 3.2
-monikerRange: '== steeltoe-3.2
+monikerRange: '== steeltoe-3.2'
 type: markdown
 date: 06/15/2022
 uid: releases/steeltoe-3-2-whats-new.html

@@ -60,6 +60,7 @@ _hideTocVersionToggle: true
 ## Service Discovery
 
 - @guides/service-discovery/eureka
+- @guides/service-discovery/consul
 
 ## Stream
 
