@@ -57,9 +57,9 @@ div.subnav.navbar.navbar-default {
 p {
 	font-size: larger;
 }
-.nav.level2 li {
+/* .nav.level2 li {
 	padding: 5px 0 5px 0;
-}
+} */
 article h1{
 	color: #0066cc;
 }
@@ -262,6 +262,13 @@ ul.breadcrumb > :first-child {
 }
 #affix {
 	margin-top: -10px;
+	padding-left: 10px;
+	overflow-wrap: break-word;
+}
+#affix .level3,
+#affix .level4,
+#affix .level5 {
+	padding-left: 10px;
 }
 #affix .title {
 	display: none;
@@ -301,6 +308,24 @@ ul.breadcrumb > :first-child {
 .level1 .affix .nav li > a:before {
 	top: -2px;
 	left: -10px;
+}
+.toc .level2 {
+	margin: 0px 0 0 15px;
+}
+.affix li.active > a,
+.toc > .level1 > li.active > a,
+.level1 .affix .nav li,
+.nav.level2 > li,
+.toc > .level1 > li {
+	margin-bottom: 8px;
+}
+#wrapper > .container-fluid .row > .col-xl-3 + .col-xl-7 + .col-2 {
+	display: none;
+}
+#wrapper > .container-fluid .row > .col-xl-3 + .col-xl-7 {
+	-ms-flex: 0 0 75%;
+	flex: 0 0 75%;
+	max-width: 75%;
 }
 /************ BLOG ************/
 .blog-entry{
