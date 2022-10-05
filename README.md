@@ -99,7 +99,7 @@ In the YAML header of a page's markdown, you have options to turn page elements 
 
 ## Building the site
 
-Use DocFX's [user manual](https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html) to build and run the site in a few different ways. The simplest way is to `cd` into the root folder of this project and run the following command. The site will build in a temporary folder named `_site` and be served at http://localhost:8082.
+Use DocFX's [user manual](https://dotnet.github.io/docfx/tutorial/docfx.exe_user_manual.html) to build and run the site in a few different ways. The simplest way is to `cd` into the root folder of this project and run the following command. The site will build in a temporary folder named `_site` and be served at <http://localhost:8082>.
 
 ```powershell
 docfx build --serve --port 8082
@@ -113,7 +113,7 @@ docfx build -o "../publish"
 
 ## Base host address
 
-By default, the navigation links will use the live site (https://steeltoe.io) as the base host address. You can override that by including the applicable metadata file.
+By default, the navigation links will use the live site (<https://steeltoe.io>) as the base host address. You can override that by including the applicable metadata file.
 
 If running the MainSite locally on port 8080, then use the `localhost.json` metadata file.
 
@@ -139,7 +139,7 @@ To test the documentation locally in Docker, run the following command:
 docker-compose up
 ```
 
-The main site will be serving at http://localhost:9081 and the documentation site will be serving at http://localhost:9082.
+The main site will be serving at <http://localhost:9081> and the documentation site will be serving at <http://localhost:9082>.
 Note you can navigate from the navigation site to the documentation site using a browser.
 
 ## Contributions

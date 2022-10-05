@@ -378,7 +378,6 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
@@ -395,25 +394,26 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-If you don't use the RabbitMQHost within your application, you will need to add the below additional configuration in `Startup.cs` to get RabbitMQ services up and running:
+### Using WebApplication Builder
+
+When using the WebApplication Builder, or if you prefer not to use the RabbitMQHost within your application, you will need to add the below additional configuration to the service container to get Steelotoe RabbitMQ services up and running:
 
 ```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    // Configure any rabbit client values;
-    var rabbitSection = Configuration.GetSection(RabbitOptions.PREFIX);
-    services.Configure<RabbitOptions>(rabbitSection);
 
-    // Add steeltoe rabbit services
-    services.AddRabbitServices();
+    var builder = WebApplication.CreateBuilder(args);
+
+    // Configure the RabbitMQ client connection;
+    builder.services.AddRabbitMQConnection(builder.Configuration);
+
+    // Add Steeltoe services for RabbitMQ
+    builder.services.AddRabbitServices();
     
-    // Add the steeltoe rabbit admin client... will be used to declare queues below
-    services.AddRabbitAdmin();
+    // Add the Steeltoe RabbitMQ admin client... will be used to declare queues below
+    builder.services.AddRabbitAdmin();
 
-    // Add the rabbit client template used for send and receiving messages
-    services.AddRabbitTemplate();
+    // Add the RabbitMQ client template used for send and receiving messages
+    builder.services.AddRabbitTemplate();
 
     // ...
 }
 ```
-

@@ -33,16 +33,16 @@ Let's start by creating a brand new ASP.NET Core Web API project.
 # [Visual Studio](#tab/visual-studio)
 
 Select "Create a new project". (If Visual Studio is already open, choose `File > New > Project`.)
-<img src="~/guides/images/vs-get-started.png" alt="Visual Studio - Get Started" width="100%">
+![Visual Studio - Get Started](../images/vs-get-started.png)
 
 Choose "ASP.NET Core Web API" from the default templates.
-<img src="~/guides/images/vs-new-proj.png" alt="Visual Studio New Project" width="100%">
+![Visual Studio New Project](../images/vs-new-proj.png)
 
 The default project name WebApplication1 will be used throughout, but you can rename it.
-<img src="~/guides/images/vs-configure-project.png" alt="Visual Studio - Name Project" width="100%">
+![Visual Studio - Name Project](../images/vs-configure-project.png)
 
 At "Additional information", you can keep the default values.
-<img src="~/guides/images/vs-create-project.png" alt="Visual Studio - Create an API Project" width="100%">
+![Visual Studio - Create an API Project](../images/vs-create-project.png)
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -67,20 +67,16 @@ Once the project is created and opened in your IDE, the first action is to bring
 
 # [Visual Studio](#tab/visual-studio)
 
-Right-click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manager window, choose "Browse", then search for `Steeltoe.Management.Endpointcore`, and install.
-<img src="~/guides/images/vs-add-endpointcore.png" alt="Endpointcode NuGet dependency" width="100%">
-
-Then search for the `Steeltoe.Extensions.Logging.DynamicLogger` package and install.
-<img src="~/guides/images/vs-add-dynamiclogger.png" alt="Dynamiclogger NuGet dependency" width="100%">
+Right-click on the project name in the solution explorer and choose "Manage NuGet packages...." In the package manager window, choose "Browse", then search for `Steeltoe.Management.EndpointCore`, and install.
+![EndpointCore NuGet dependency](../images/vs-add-endpointcore.png)
 
 Finally the `Steeltoe.Management.TracingCore` package and install.
-<img src="~/guides/images/vs-add-tracingcore.png" alt="TracingCode NuGet dependency" width="100%">
+![TracingCore NuGet dependency](../images/vs-add-tracingcore.png)
 
 # [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
-dotnet add package Steeltoe.Management.Endpointcore
-dotnet add package Steeltoe.Extensions.Logging.DynamicLogger
+dotnet add package Steeltoe.Management.EndpointCore
 dotnet add package Steeltoe.Management.TracingCore
 ```
 
@@ -88,9 +84,9 @@ dotnet add package Steeltoe.Management.TracingCore
 
 ## Use Steeltoe packages
 
-Steeltoe features are broken up into packages, giving you the option to only bring in and extend the dependencies needed. As we use each package within the application, we'll discuss why these packages were chosen.
+Steeltoe features are broken up into packages, giving you the option to be selective about which components are included. As we use each of these packages within the application, we'll discuss why they were chosen.
 
-Open "Program.cs" in the IDE and add the next using statement
+Open "Program.cs" in the IDE and add the next using statement:
 
 ```csharp
 using Steeltoe.Management.Endpoint;
@@ -107,11 +103,11 @@ builder.AddInfoActuator();
 builder.AddLoggersActuator();
 ```
 
-We've used three features within the application by adding these actuators
+We've just included three features within the application by adding these actuators.
 
-- The health actuator will add a new endpoint at `/actuator/health`. Internally this method uses .NET's `IHealthContributor` to "decide" if everything is reporting good health and responds with HTTP 200 status. Also, within the response body, there is a JSON formatted message to accommodate a deeper check that specific platforms like Cloud Foundry and Kubernetes do.
-- The info actuator adds a new endpoint at `/actuator/info`. This function gathers all kinds of information like versioning information, select package information, and DLL info. Everything is formatted as JSON and included in the response.
-- The logger actuator enables enhanced log message details via `ILogger`.
+- The [health actuator](/api/v3/management/health.md) adds a new endpoint at `/actuator/health`. This endpoint retrieves health contributors that have been registered in the application's service container with either Steeltoe's `IHealthContributor` or Microsoft's `IHealthRegistration` to aggregate the health checks of all the application's dependencies. This endpoint use the HTTP status code of [200](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200) when everything is OK and [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) when it isn't. Details of the health checks can be included in JSON-formatted responses, too.
+- The [info actuator](/api/v3/management/info.md) adds a new endpoint at `/actuator/info`. This function gathers all kinds of information like versioning information, select package information, and anything you'd like to include with your own custom `IInfoContributor`. Everything is formatted as JSON and included in the response.
+- The [logger actuator](/api/v3/management/loggers.md) enables dynamic log level management at runtime and enhanced log message details via `ILogger`.
 
 ## Enable distributed tracing
 
@@ -121,7 +117,7 @@ In "Program.cs", add the next using statement
 using Steeltoe.Management.Tracing;
 ```
 
-Add the distributed tracing feature to the service container
+Add the distributed tracing feature to the service container:
 
 ```csharp
 // Add services to the container.
@@ -130,7 +126,7 @@ Add the distributed tracing feature to the service container
 builder.Services.AddDistributedTracingAspNetCore();
 ```
 
-With the addition of the distributed tracing option, under the covers, Steeltoe uses the OpenTelemetry specification to generate spans and traces throughout the application, as requests are received. No additional configuration is needed, but if you wanted to manipulate how traces and spans are created you could provide settings in "appsettings.json", [read the docs](/api/v3/tracing/index.html#configure-settings) for more information.
+With the addition of the distributed tracing option, under the covers, Steeltoe uses the OpenTelemetry specification to generate and propagate spans and traces throughout the application, as requests are received. No additional configuration is needed, but if you wanted to manipulate how traces and spans are created you could provide settings in "appsettings.json", [read the docs](/api/v3/tracing/index.html#configure-settings) for more information.
 
 > [!TIP]
 > Having the combination of the logging actuator and distributed tracing enabled, Steeltoe will automatically append the application name, span Id, and trace Id on log messages when possible. This can be very handy when debugging a specific happening or error in production.
@@ -141,11 +137,12 @@ To see the trace logging in action, let's add a log message in the "Controllers\
 
 ```csharp
 [HttpGet]
-public IEnumerable<WeatherForecast> Get() {
-	// Testing Steeltoe logging with distributed tracing
-	_logger.LogInformation("Hi there");
+public IEnumerable<WeatherForecast> Get()
+{
+    // Testing Steeltoe logging with distributed tracing
+    _logger.LogInformation("Hi there");
 
-	// ...
+    // ...
 }
 ```
 
@@ -155,9 +152,9 @@ With the packages registered in the application builder, distributed tracing act
 
 # [Visual Studio](#tab/visual-studio)
 
-Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. It's safe, trust us. Once started, your default browser should open and automatically load the weather forecast endpoint.
+Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust the IIS Express SSL certificate" and install the certificate. Once started, your default browser should open and automatically load the weather forecast endpoint.
 
-<img src="~/guides/images/vs-run-application.png" alt="Run the project">
+![Run the project](../images/vs-run-application.png)
 
 # [.NET CLI](#tab/dotnet-cli)
 
@@ -171,7 +168,7 @@ dotnet run
 
 With the application running and the weather forecast endpoint loaded, your browser should show the following
 
-<img src="~/guides/images/weatherforecast-endpoint.png" alt="WeatherForecast endpoint" width="100%">
+![WeatherForecast endpoint](../images/weatherforecast-endpoint.png)
 
 > [!NOTE]
 > If "Enable OpenAPI support" was checked at project creation, the Swagger endpoint is used as the startup page. Replace "swagger/index.html" with "WeatherForecast" to get the response above.
@@ -180,7 +177,7 @@ With the application running and the weather forecast endpoint loaded, your brow
 
 Let's look at the health endpoint. Replace `WeatherForecast` with `actuator/health` in the browser address bar. The health page will load with JSON formatted info.
 
-<img src="~/guides/images/health-endpoint.png" alt="Health endpoint" width="100%">
+![Health endpoint](../images/health-endpoint.png)
 
 As we discussed above, the fact that the page loaded (status of 200) is the first communication to the application's platform that it is healthy. Secondarily, the application has output information to help certain platforms gain a deeper knowledge of app health. Learn more about the health endpoint [here](/api/v3/management/health.html).
 
@@ -188,7 +185,7 @@ As we discussed above, the fact that the page loaded (status of 200) is the firs
 
 Now navigate to the info endpoint by replacing `health` with `info` in the address bar.
 
-<img src="~/guides/images/info-endpoint.png" alt="Info endpoint" width="100%">
+![Info endpoint](../images/info-endpoint.png)
 
 We have loaded the bare minimum application info for this example. You could build your own `IInfoContributor` and add all kinds of metadata and connection information. Learn more [here](/api/v3/management/info.html).
 
@@ -199,7 +196,7 @@ Finally, let's look at the log message that was written.
 Go back to the terminal window where the application was started. The logs should be streaming. Locate the following line:
 
 ```plaintext
-[WebApplicaion1, 917e146c942117d2, 917e146c942117d2, true] Hi there
+[WebApplication1, 917e146c942117d2, 917e146c942117d2, true] Hi there
 ```
 
 ---

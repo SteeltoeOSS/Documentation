@@ -6,8 +6,8 @@
 
 Use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/dotnet/core/tools/dotnet-publish) the application for the framework and runtime you will deploy the application to:
 
-* Linux with .NET Core: `dotnet publish -f netcoreapp2.1 -r linux-x64`
-* Windows with .NET Core: `dotnet publish -f netcoreapp2.1 -r win10-x64`
+* Linux with .NET Core: `dotnet publish -f netcoreapp3.1 -r linux-x64`
+* Windows with .NET Core: `dotnet publish -f netcoreapp3.1 -r win10-x64`
 * Windows with .NET Platform: `dotnet publish -f net461 -r win10-x64`
 
 >NOTE: Starting with .NET Core 2.0, the `dotnet publish` command will automatically restore dependencies for you. Running `dotnet restore` explicitly is not generally required.
@@ -24,10 +24,10 @@ Use the Cloud Foundry CLI to push the published application to Cloud Foundry usi
 
 ```bash
 # Push to Linux cell
-cf push -f manifest.yml -p bin/Debug/netcoreapp2.1/linux-x64/publish
+cf push -f manifest.yml -p bin/Debug/netcoreapp3.1/linux-x64/publish
 
 # Push to Windows cell, .NET Core
-cf push -f manifest-windows.yml -p bin/Debug/netcoreapp2.1/win10-x64/publish
+cf push -f manifest-windows.yml -p bin/Debug/netcoreapp3.1/win10-x64/publish
 
 # Push to Windows cell, .NET Framework
 cf push -f manifest-windows.yml -p bin/Debug/net461/win10-x64/publish
