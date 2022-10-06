@@ -258,6 +258,9 @@ ul.breadcrumb > :first-child {
 	position: absolute;
 	right: 0;
 }
+.blog-wrapper + .col-2 #affix {
+	margin-top: 0 !important;
+}
 #affix {
 	margin-top: -10px;
 	padding-left: 10px;
@@ -310,6 +313,14 @@ ul.breadcrumb > :first-child {
 .toc .level2 {
 	margin: 0px 0 0 15px;
 }
+.level2 .active.in .active {
+	margin-bottom: 16px;
+}
+.level2 .level2 li > a:before {
+	top: 0px !important;
+	left: -14px !important;
+}
+.level1 .in > a,
 .affix li.active > a,
 .toc > .level1 > li.active > a,
 .level1 .affix .nav li,
@@ -324,6 +335,9 @@ ul.breadcrumb > :first-child {
 	-ms-flex: 0 0 75%;
 	flex: 0 0 75%;
 	max-width: 75%;
+}
+.code-badge-copy-icon {
+	color: black;
 }
 /************ BLOG ************/
 .blog-entry{
