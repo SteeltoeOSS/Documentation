@@ -1,4 +1,5 @@
-<nav class="bg-white navbar navbar-expand-xl container py-2 navbar-light hidewhenembedded">
+<a id="dotnet-promo" class="p-2 text-center d-block text-decoration-none text-white" href="https://springone.io/dotnet-beyond?utm_source=steeltoe" target="_blank">Join us for .NET Beyond to hear how the smartest voices in the .NET community are using it to develop for the enterprise—and at scale. ></a>
+<nav class="bg-white navbar navbar-expand-xl container py-xl-2 navbar-light hidewhenembedded">
 	{{>partials/logo}}
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
