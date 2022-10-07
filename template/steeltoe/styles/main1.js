@@ -169,7 +169,38 @@ $(document).ready(function() {
 		$('#docsNavLink').removeClass('active');
 		$('#guidesNavLink').addClass('active');
 	}
+
+	// Add numbers to toc
+	setTimeout(() => {
+		let level1length = $('#sidetoc #toc .level1 > li').length;
+
+		// Add chapter to level 1 li anchors
+		for( i = 0; i < level1length; i++) {
+			$("#sidetoc #toc .level1").children().eq(i).children('a').prepend(i+1 + ". ");
+			
+			// Add chapter to level 2 li anchors
+			let level2length = $("#sidetoc #toc .level1").children().eq(i).find("li").length;
+			
+			for( j = 0; j < level2length; j++) {
+				$("#sidetoc #toc .level1").children().eq(i).find("li").children().eq(j).prepend((i+1) + "." + (j+1) + " ");
+			}
+		}
+		document.querySelector('.active.in .active.in .active').appendChild(document.getElementById('affix'));
+
+		let level3length = $(".affix .level1").find("li").length;
+
+		for( k = 0; k < level3length; k++) {
+			console.log(k);
+			// $("affix .level1").children().eq(k).children('a').prepend(k+1 + ". ");
+
+			$("affix .level1").children().eq(1).children('a').prepend(". ");
+		}
+	}, "100")
 });
+
+	
+	
+
 
 	var options = {
 	contentSelector: "#wrapper",
