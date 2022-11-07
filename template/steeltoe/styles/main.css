@@ -644,15 +644,6 @@ ul.blog-list > :first-child .blog-date::after {
 	padding: 10px;
 }
 
-#dotnet-promo {
-	background: #001F3F;
-	transition: .2s ease-out;
-}
-#dotnet-promo:focus,
-#dotnet-promo:hover {
-	color: rgba(255,255,255, 0.7) !important;
-}
-
 @media only screen and (max-width: 768px) {
 
 	div[role=main].container-fluid.body-content {
@@ -664,4 +655,3 @@ ul.blog-list > :first-child .blog-date::after {
 		padding: 0px;
 	}
 }
-
