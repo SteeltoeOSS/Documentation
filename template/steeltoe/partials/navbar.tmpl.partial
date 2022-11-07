@@ -1,4 +1,4 @@
-<nav class="bg-white navbar navbar-expand-xl container py-2 navbar-light hidewhenembedded">
+<nav class="bg-white navbar navbar-expand-xl container py-xl-2 navbar-light hidewhenembedded">
 	{{>partials/logo}}
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -68,4 +68,3 @@
 		</form>
 	</div>
 </nav>
-			
