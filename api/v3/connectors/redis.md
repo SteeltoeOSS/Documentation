@@ -24,7 +24,7 @@ To use this connector:
 1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
 1. Add `DistributedRedisCache` or `ConnectionMultiplexer` to your `ServiceCollection`.
 
->The Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on the TAS Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you need to have Lua scripting enabled by a platform operator.
+>The Microsoft wrapper for the Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on the TAS Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you need to either have Lua scripting enabled by a platform operator or try using the `ConnectionMultiplexer` instead of the `IDistributedCache` or `RedisCache` interfaces provided by Microsoft.
 
 ### Add NuGet Reference
 
