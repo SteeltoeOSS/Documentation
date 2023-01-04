@@ -31,7 +31,13 @@ _hideTocVersionToggle: true
 
 ## Messaging
 
-- @guides/messaging/rabbitmq
+- @guides/messaging/tutorials/tutorial1/readme
+- @guides/messaging/tutorials/tutorial2/readme
+- @guides/messaging/tutorials/tutorial3/readme
+- @guides/messaging/tutorials/tutorial4/readme
+- @guides/messaging/tutorials/tutorial5/readme
+- @guides/messaging/tutorials/tutorial6/readme
+- @guides/messaging/tutorials/tutorial7/readme
 
 ## Observability
 
