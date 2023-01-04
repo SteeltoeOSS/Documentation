@@ -10,15 +10,15 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running 
-> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`). 
-> 
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running
+> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
+>
 > In case you use a different host, port or credentials, connections settings would require adjusting.
 >
 > **Where to get help**
 >
 > If you're having trouble going through this tutorial you can contact us through Github issues on our
-> [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> [Steeltoe Documentation Repository](https://github.com/SteeltoeOSS/Documentation).
 
 ## Introduction
 
@@ -38,7 +38,7 @@ Publisher confirms are a RabbitMQ extension to the AMQP 0.9.1 protocol,
 so they are not enabled by default. Publisher confirms are
 enabled at the channel level of a connection to the RabbitMQ broker.
 
-Remember from the first tutorial we explained that Steeltoe adds to the service container a Caching Connection Factory that is used to create and cache connections to the RabbitMQ broker. By default, all of the Steeltoe RabbitMQ components (e.g. RabbitTemplate) use the factory when interacting with the broker (i.e. creating connections and channels). 
+Remember from the first tutorial we explained that Steeltoe adds to the service container a Caching Connection Factory that is used to create and cache connections to the RabbitMQ broker. By default, all of the Steeltoe RabbitMQ components (e.g. RabbitTemplate) use the factory when interacting with the broker (i.e. creating connections and channels).
 
 By default the factory does not create connections/channels that have publisher confirms enabled. So in order to use publisher confirms in Steeltoe we need to add an additional connection factory to the service container configured with publisher confirms enabled.  And we also then need to add an additional `RabbitTemplate` that is configured to use this additional connection factory.
 
@@ -115,7 +115,7 @@ namespace Sender
 Let's start with the simplest approach to publishing with confirms,
 that is, publishing a message and waiting synchronously for its confirmation:
 
-```csharp 
+```csharp
 while (ThereAreMessagesToPublish()) {
     ....
      _rabbitTemplate.ConvertAndSend(QueueName, (object)"Hello World!");
@@ -148,7 +148,6 @@ good enough for some applications.
 > accordingly. Think of `WaitForConfirmsOrDie` as a synchronous helper
 > which relies on asynchronous notifications under the hood.
 
-
 ## Strategy #2: Publishing Messages in Batches
 
 To improve upon our previous example, we can publish a batch
@@ -178,7 +177,6 @@ so we may have to keep a whole batch in memory to log something meaningful or
 to re-publish the messages. And this solution is still synchronous, so it
 blocks the publishing of messages.
 
-
 ## Strategy #3: Handling Publisher Confirms Asynchronously
 
 The broker confirms published messages asynchronously, one just needs
@@ -187,7 +185,6 @@ to register a callback with the template to be notified of these confirms or ret
 Here is a simple example of how to do that:
 
 ```csharp
-
 using Steeltoe.Messaging;
 using Steeltoe.Messaging.RabbitMQ.Connection;
 using Steeltoe.Messaging.RabbitMQ.Core;
@@ -235,7 +232,7 @@ namespace Sender
 }
 ```
 
-There are two callbacks: one for confirmed messages and one returned messages. 
+There are two callbacks: one for confirmed messages and one returned messages.
 
 ```csharp
 
@@ -253,16 +250,16 @@ public void Confirm(CorrelationData correlationData, bool ack, string cause)
 
 ```
 
-For the `ReturnedMessage()` callback method to be 
+For the `ReturnedMessage()` callback method to be
 invoked the templates property `Mandatory` must be set to true and the underlying connection factory must be configured
 with `IsPublisherReturns` set to true.  If those values are set, then the template will issue the returns callback to whatever is registered
 with the template property `ReturnCallback`.
 
-For publisher confirms (also known as publisher acknowledgements) to be enabled, the template requires the underlying connection factory 
-to have `PublisherConfirmType` property set to `ConfirmType.CORRELATED`. Then the template will issue confirm callbacks to whatever is registered 
+For publisher confirms (also known as publisher acknowledgements) to be enabled, the template requires the underlying connection factory
+to have `PublisherConfirmType` property set to `ConfirmType.CORRELATED`. Then the template will issue confirm callbacks to whatever is registered
 with the template property `ConfirmCallback.`
 
-Note that the `CorrelationData` provided in the `Confirm(CorrelationData correlationData, ...)` is provided the user (developer) on the `ConvertAndSendAsync(...)` method call. 
+Note that the `CorrelationData` provided in the `Confirm(CorrelationData correlationData, ...)` is provided the user (developer) on the `ConvertAndSendAsync(...)` method call.
 The template then returns it as part of the arguments to the `Confirm(...)` callback.
 
 ```csharp
@@ -276,7 +273,7 @@ await _rabbitTemplate.ConvertAndSendAsync(Program.QueueName, (object)"Hello Worl
 ```
 
 A simple way to correlate messages with sequence numbering consists in using a
-dictionary of `CorrelationData` and messages . The publishing code can then track outbound 
+dictionary of `CorrelationData` and messages . The publishing code can then track outbound
 messages using the dictionary and upon receiving the `Confirm` callback can behave accordingly
 depending on whether the message was acked or nacked.
 
@@ -288,11 +285,11 @@ confirms are asynchronous in nature but it is also possible to handle them synch
 There is no definitive way to implement publisher confirms, this usually comes down
 to the constraints in the application and in the overall system. Typical techniques are:
 
- * publishing messages individually, waiting for the confirmation synchronously: simple, but very
+* publishing messages individually, waiting for the confirmation synchronously: simple, but very
  limited throughput.
- * publishing messages in batch, waiting for the confirmation synchronously for a batch: simple, reasonable
+* publishing messages in batch, waiting for the confirmation synchronously for a batch: simple, reasonable
  throughput, but hard to reason about when something goes wrong.
- * asynchronous handling: best performance and use of resources, good control in case of error, but
+* asynchronous handling: best performance and use of resources, good control in case of error, but
  can be involved to implement correctly.
 
 ## Putting It All Together
@@ -451,7 +448,7 @@ namespace Sender
 }
 ```
 
-Compile as usual, see [tutorial one](~/guides/messaging/tutorials/tutorial1/Readme.html)
+Compile as usual, see [tutorial one](../Tutorial1/Readme.md)
 
 ```bash
 cd tutorials\tutorial7
@@ -461,8 +458,6 @@ dotnet build
 To run the receiver, execute the following commands:
 
 ```bash
-# receiver
-
 cd receiver
 dotnet run
 ```
@@ -470,8 +465,6 @@ dotnet run
 To watch the confirms come back, run the sender
 
 ```bash
-# sender
-
 cd sender
 dotnet run
 ```

@@ -10,19 +10,19 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running 
-> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`). 
-> 
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running
+> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
+>
 > In case you use a different host, port or credentials, connections settings would require adjusting.
 >
 > **Where to get help**
 >
 > If you're having trouble going through this tutorial you can contact us through Github issues on our
-> [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> [Steeltoe Documentation Repository](https://github.com/SteeltoeOSS/Documentation).
 
 ## Introduction
 
-In the [previous tutorial](~/guides/messaging/tutorials/tutorial3/Readme.html) we built a
+In the [previous tutorial](../Tutorial3/Readme.md) we built a
 simple fanout exchange. Using it, we were able to broadcast messages to many receivers.
 
 In this tutorial we're going to add a feature to it - we're going to
@@ -31,9 +31,7 @@ example, we will be able to direct only  messages to the
 certain colors of interest ("orange", "black", "green"), while still being
 able to print all of the messages on the console.
 
-
-Bindings
---------
+## Bindings
 
 In previous examples we were already creating bindings. You may recall
 code like this:
@@ -57,8 +55,7 @@ The meaning of a routing key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignores its
 value.
 
-Direct exchange
----------------
+## Direct exchange
 
 Our messaging system from the previous tutorial broadcasts all messages
 to all consumers. We want to extend that to allow filtering messages
@@ -86,9 +83,7 @@ In such a setup a message published to the exchange with a routing key
 `orange` will be routed to queue `Q1`. Messages with a routing key of `black`
 or `green` will go to `Q2`. All other messages will be discarded.
 
-
-Multiple bindings
------------------
+## Multiple bindings
 
 ![Multiple Bindings](~/guides/images/messaging/direct-exchange-multiple.png)
 
@@ -109,21 +104,19 @@ Here are the `DeclareQueueBinding` attributes that illustrate the above concepts
 
 ```
 
-Publishing messages
--------------
+## Publishing messages
 
 We'll use this model for our routing system. Instead of `fanout` we'll
-send messages to a `direct` exchange defined using the attribute shown below: 
+send messages to a `direct` exchange defined using the attribute shown below:
 
 ```csharp
 [DeclareExchange(Name = "tut.direct", Type = ExchangeType.DIRECT)]
 ```
 
 We will supply the color as a routing key in the `ConvertAndSendAsync(..)` method call. That way the receiving program will be able to select
-the color it wants to receive (or subscribe to). 
+the color it wants to receive (or subscribe to).
 
-Subscribing
------------
+## Subscribing
 
 Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each color
@@ -154,13 +147,12 @@ namespace Receiver
         {
             _logger = logger;
         }
-		....
-	}
+        ....
+    }
 }
 ```
 
-Putting it all together
------------------------
+## Putting it all together
 
 ![Final routing: putting it all together](~/guides/images/messaging/python-four.png)
 
@@ -241,7 +233,6 @@ namespace Receiver
             _logger = logger;
         }
 
-
         [RabbitListener(Queue = "#{@queue1}")]
         public void Receive1(string input)
         {
@@ -279,7 +270,7 @@ namespace Receiver
 }
 ```
 
-Compile as usual, see [tutorial one](~/guides/messaging/tutorials/tutorial1/Readme.html)
+Compile as usual, see [tutorial one](../Tutorial1/Readme.md)
 
 ```bash
 cd tutorials\tutorial4
@@ -289,8 +280,6 @@ dotnet build
 To run the receiver, execute the following commands:
 
 ```bash
-# receiver
-
 cd receiver
 dotnet run
 ```
@@ -298,11 +287,9 @@ dotnet run
 Open another shell to run the sender:
 
 ```bash
-# sender
-
 cd sender
 dotnet run
 ```
 
-Move on to [tutorial 5](~/guides/messaging/tutorials/tutorial5/Readme.html) to find out how to listen
+Move on to [tutorial 5](../Tutorial5/Readme.md) to find out how to listen
 for messages based on a pattern.

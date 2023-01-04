@@ -14,7 +14,13 @@
     - topicUid: guides/cloud-management/endpoints-netcore
 - name: Messaging
   items:
-    - topicUid: guides/messaging/rabbitmq
+    - topicUid: guides/messaging/tutorials/tutorial1/readme
+    - topicUid: guides/messaging/tutorials/tutorial2/readme
+    - topicUid: guides/messaging/tutorials/tutorial3/readme
+    - topicUid: guides/messaging/tutorials/tutorial4/readme
+    - topicUid: guides/messaging/tutorials/tutorial5/readme
+    - topicUid: guides/messaging/tutorials/tutorial6/readme
+    - topicUid: guides/messaging/tutorials/tutorial7/readme
 - name: Observability
   items:
     - topicUid: guides/observability/grafana

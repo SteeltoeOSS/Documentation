@@ -10,19 +10,19 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running 
-> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`). 
-> 
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running
+> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
+>
 > In case you use a different host, port or credentials, connections settings would require adjusting.
 >
 > **Where to get help**
 >
 > If you're having trouble going through this tutorial you can contact us through Github issues on our
-> [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> [Steeltoe Documentation Repository](https://github.com/SteeltoeOSS/Documentation).
 
 ## Introduction
 
-In the [previous tutorial](~/guides/messaging/tutorials/tutorial4/Readme.html) we improved our
+In the [previous tutorial](../Tutorial4/Readme.md) we improved our
 messaging flexibility. Instead of using a `fanout` exchange which is only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the message based on the routing key.
@@ -44,9 +44,7 @@ just critical errors coming from 'cron' but also all logs from 'kern'.
 To implement that flexibility in our logging system we need to learn
 about a more complex `topic` exchange.
 
-
-Topic exchange
---------------
+## Topic exchange
 
 Messages sent to a `topic` exchange can't have an arbitrary
 `routing_key` - it must be a list of words, delimited by dots. The
@@ -62,13 +60,12 @@ particular routing key will be delivered to all the queues that are
 bound with a matching binding key. However there are two important
 special cases for routing keys associated with bindings.
 
-  * `*` (star) can substitute for exactly one word.
-  * `#` (hash) can substitute for zero or more words.
+* `*` (star) can substitute for exactly one word.
+* `#` (hash) can substitute for zero or more words.
 
 It's easiest to explain this in an example:
 
 ![Topic Exchange illustration](~/guides/images/messaging/python-five.png)
-
 
 In this example, we're going to send messages which all describe
 animals. The messages will be sent with a routing key that consists of
@@ -81,8 +78,8 @@ and Q2 with "`*.*.rabbit`" and "`lazy.#`".
 
 These bindings can be summarized as:
 
-  * Q1 is interested in all the orange animals.
-  * Q2 wants to hear everything about rabbits, and everything about lazy
+* Q1 is interested in all the orange animals.
+* Q2 wants to hear everything about rabbits, and everything about lazy
     animals.
 
 A message with a routing key set to "`quick.orange.rabbit`"
@@ -111,15 +108,14 @@ queue.
 > When special characters "`*`" (star) and "`#`" (hash) aren't used in bindings,
 > the topic exchange will behave just like a `direct` one.
 
-Putting it all together
------------------------
+## Putting it all together
 
 We're going to use a `topic` exchange in our messaging system. We'll
 start off with a working assumption that the routing keys will take
 advantage of both wildcards and a hash tag.
 
 The code is almost the same as in the
-[previous tutorial](~/guides/messaging/tutorials/tutorial4/Readme.html).
+[previous tutorial](../Tutorial4/Readme.md).
 
 First let's configure all the RabbitMQ entities using the Steeltoe attributes:
 
@@ -147,14 +143,13 @@ namespace Receiver
         {
             _logger = logger;
         }
-		......
-	}
+        ....
+    }
 }
 ```
 
 The `Tut5Receiver` again uses the `RabbitListener` attribute to receive messages from the respective
 topics.
-
 
 ```csharp
 using Microsoft.Extensions.Logging;
@@ -250,7 +245,6 @@ namespace Sender
             _rabbitTemplate = rabbitTemplate;
         }
 
-
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -275,7 +269,7 @@ namespace Sender
 }
 ```
 
-Compile as usual, see [tutorial one](~/guides/messaging/tutorials/tutorial1/Readme.html)
+Compile as usual, see [tutorial one](../Tutorial1/Readme.md)
 
 ```bash
 cd tutorials\tutorial5
@@ -285,8 +279,6 @@ dotnet build
 To run the receiver, execute the following commands:
 
 ```bash
-# receiver
-
 cd receiver
 dotnet run
 ```
@@ -294,14 +286,13 @@ dotnet run
 Open another shell to run the sender:
 
 ```bash
-# sender
-
 cd sender
 dotnet run
 ```
+
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
 Next, find out how to do a round trip message as a remote procedure call (RPC)
-in [tutorial 6](~/guides/messaging/tutorials/tutorial6/Readme.html)
+in [tutorial 6](../Tutorial6/Readme.md)

@@ -10,25 +10,25 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running 
-> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`). 
-> 
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running
+> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
+>
 > In case you use a different host, port or credentials, connections settings would require adjusting.
 >
 > **Where to get help**
 >
 > If you're having trouble going through this tutorial you can contact us through Github issues on our
-> [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> [Steeltoe Documentation Repository](https://github.com/SteeltoeOSS/Documentation).
 
 ## Introduction
 
-In the [first tutorial](~/guides/messaging/tutorials/tutorial1/Readme.html) we showed how
+In the [first tutorial](../Tutorial1/Readme.md) we showed how
 to use Visual Studio to create a solution with two projects
 with the Steeltoe RabbitMQ Messaging dependency and to create simple
 applications that send and receive string hello messages.
 
-In the [previous tutorial](~/guides/messaging/tutorials/tutorial2/Readme.html) we created
-a sender and receiver and a work queue with two consumers. 
+In the [previous tutorial](../Tutorial2/Readme.md) we created
+a sender and receiver and a work queue with two consumers.
 We also used Steeltoe attributes to declare the queue. The assumption behind a work queue is that each task is delivered to exactly one worker.
 
 In this tutorial we'll implement a fanout pattern to deliver
@@ -37,8 +37,7 @@ and is implemented by configuring a number of RabbitMQ entities using Steeltoe a
 
 Essentially, published messages are going to be broadcast to all the receivers.
 
-Exchanges
----------
+## Exchanges
 
 In previous parts of the tutorial we sent and received messages to and
 from a queue. Now it's time to introduce the full messaging model available in
@@ -46,9 +45,9 @@ RabbitMQ.
 
 Let's quickly go over what we covered in the previous tutorials:
 
- * A **producer** is a user application that sends messages.
- * A **queue** is a buffer that stores messages.
- * A **consumer_** is a user application that receives messages.
+* A **producer** is a user application that sends messages.
+* A **queue** is a buffer that stores messages.
+* A **consumer_** is a user application that receives messages.
 
 The core idea in the messaging model in RabbitMQ is that the **producer**
 never sends any messages directly to a **queue**. Actually, quite often
@@ -90,19 +89,19 @@ namespace Receiver
         {
             _logger = logger;
         } 
-		....
-	}
+        ....
+    }
 }
 ```
 
-We follow the same approach as in the previous tutorial and use attributes to declare our RabbitMQ entities. 
+We follow the same approach as in the previous tutorial and use attributes to declare our RabbitMQ entities.
 We declare the `FanoutExchange` using the `DeclareExchange` attribute. We also
 define four additional RabbitMQ entities, two `AnonymousQueue`s (non-durable, exclusive, auto-delete queues
 in AMQP terms) using the `DeclareAnonymousQueue`attribute and two bindings (`DeclareQueueBinding`) to bind those queues to the exchange.
 
 Notice how we tie together these entities. First, the name of the exchange is `tut.fanout` and the two anonymous queues are named `queue1` and `queue2`.
-Next, the bindings reference both the exchange name (e.g. `ExchangeName = "tut.fanout"`) and the queue name (e.g. `QueueName = "#{@queue2}"`). 
-Notice we are using the same `expression language` we mentioned in the [previous tutorial](~/guides/messaging/tutorials/tutorial2/Readme.html).
+Next, the bindings reference both the exchange name (e.g. `ExchangeName = "tut.fanout"`) and the queue name (e.g. `QueueName = "#{@queue2}"`).
+Notice we are using the same `expression language` we mentioned in the [previous tutorial](../Tutorial2/Readme.md).
 
 The fanout exchange is very simple. As you can probably guess from the
 name, it just broadcasts all the messages it receives to all the
@@ -146,33 +145,30 @@ namespace Sender
 {
     public class Tut3Sender : BackgroundService
     {
-		internal const string FanoutExchangeName = "tut.fanout";
-		private readonly RabbitTemplate _rabbitTemplate;
+        internal const string FanoutExchangeName = "tut.fanout";
+        private readonly RabbitTemplate _rabbitTemplate;
 
-		public Tut3Sender(ILogger<Tut3Sender> logger, RabbitTemplate rabbitTemplate)
-		{
-			_logger = logger;
-			_rabbitTemplate = rabbitTemplate;
-		}
-	
-	
+        public Tut3Sender(ILogger<Tut3Sender> logger, RabbitTemplate rabbitTemplate)
+        {
+            _logger = logger;
+            _rabbitTemplate = rabbitTemplate;
+        }
+  
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-				// ....
+                // ....
                 await _rabbitTemplate.ConvertAndSendAsync(FanoutExchangeName, string.Empty, message);
-			}
-		}
-	}
+            }
+        }
+    }
 }
-
 ```
 
 From now on the `fanout` exchange will append messages to our queues.
 
-Temporary Queues
-----------------
+## Temporary Queues
 
 As you may remember previously we were using queues that had
 specific names (remember `hello`). Being able to name
@@ -193,7 +189,6 @@ Secondly, once we disconnect the consumer, the queue should be
 automatically deleted. To do this with Steeltoe Messaging,
 we defined an**AnonymousQueue**, using the `DeclareAnonymousQueue` attribute
 which creates a non-durable, exclusive, auto-delete queue with a generated name.
-
 
 ```csharp
 using Microsoft.Extensions.Logging;
@@ -216,23 +211,21 @@ namespace Receiver
         {
             _logger = logger;
         } 
-		....
-	}
+        ....
+    }
 }
 ```
 
 At this point, our queues have random queue names. For example,
 it may look something like `spring.gen-1Rx9HOqvTAaHeeZrQWu8Pg`.
 
-Bindings
---------
+## Bindings
 
 ![Bindings](~/guides/images/messaging/bindings.png)
 
-
 We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
-between exchange and a queue is called a **binding**. 
+between exchange and a queue is called a **binding**.
 Below you can see that we have two bindings declared using the `DeclareQueueBinding` attribute , one for each `AnonymousQueue`.
 
 ```csharp
@@ -256,29 +249,28 @@ namespace Receiver
         {
             _logger = logger;
         } 
-		....
-	}
+        ....
+    }
 }
 ```
 
 > **Listing bindings**
 >
 > You can list existing bindings using, you guessed it,
+>
 > ```bash
 > rabbitmqctl list_bindings
 > ```
 
-Putting it all together
------------------------
+## Putting it all together
 
 ![overall](~/guides/images/messaging/python-three-overall.png)
-
 
 The producer program, which emits messages, doesn't look much
 different from the previous tutorial. The most important change is that
 we now want to publish messages to our `fanout` exchange instead of the
 nameless one. We need to supply a `routingKey` when sending, but its
-value is ignored for `fanout` exchanges. 
+value is ignored for `fanout` exchanges.
 
 Here goes the code for `Tut3Sender.cs` program:
 
@@ -303,7 +295,6 @@ namespace Sender
             _rabbitTemplate = rabbitTemplate;
         }
    
-
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -396,7 +387,6 @@ namespace Receiver
                     Thread.Sleep(1000);
             }
         }
-
     }
 }
 ```
@@ -429,7 +419,7 @@ dotnet run
 ```
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
-creates bindings and queues as we want. 
+creates bindings and queues as we want.
 
 To find out how to listen for a subset of messages, let's move on to
-[tutorial 4](~/guides/messaging/tutorials/tutorial4/Readme.html)
+[tutorial 4](../Tutorial4/Readme.md)

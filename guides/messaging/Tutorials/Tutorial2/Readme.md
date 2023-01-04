@@ -10,19 +10,19 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running 
-> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`). 
-> 
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running
+> on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
+>
 > In case you use a different host, port or credentials, connections settings would require adjusting.
 >
 > **Where to get help**
 >
 > If you're having trouble going through this tutorial you can contact us through Github issues on our
-> [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> [Steeltoe Documentation Repository](https://github.com/SteeltoeOSS/Documentation).
 
 ## Introduction
 
-In the [first tutorial](~/guides/messaging/tutorials/tutorial1/Readme.html) we
+In the [first tutorial](../Tutorial1/Readme.md) we
 wrote programs to send and receive messages from a named queue. In this
 tutorial we'll create a _Work Queue_ that will be used to distribute
 time-consuming tasks among multiple workers.
@@ -49,15 +49,15 @@ in the string as its complexity; every dot will account for one second
 of "work".  For example, a fake task described by `Hello...`
 will take three seconds.
 
-Please use the same VS2022 setup you used in [first tutorial](~/guides/messaging/tutorials/tutorial1/Readme.html). 
-We will follow the same pattern for this tutorial and for all of the rest of the tutorials in the series. 
+Please use the same VS2022 setup you used in [first tutorial](../Tutorial1/Readme.md).
+We will follow the same pattern for this tutorial and for all of the rest of the tutorials in the series.
 
 As a reminder you should:
 
- - Create a VS2022 solution with an initial `Console` application project which will become the `Receiver`. Add a `Tut2Receiver` class to the project.
- - Add a `Worker Service` project to the solution. Name the project `Sender` and rename the `Worker.cs` file to `Tut2Sender.cs`.
- - Update the `.csproj` files with the Steeltoe RabbitMQ messaging package reference.
- - Update both `Program.cs` files to use the `RabbitMQHost`.
+- Create a VS2022 solution with an initial `Console` application project which will become the `Receiver`. Add a `Tut2Receiver` class to the project.
+- Add a `Worker Service` project to the solution. Name the project `Sender` and rename the `Worker.cs` file to `Tut2Sender.cs`.
+- Update the `.csproj` files with the Steeltoe RabbitMQ messaging package reference.
+- Update both `Program.cs` files to use the `RabbitMQHost`.
 
 Here is what the `Program.cs` file for the receiver should look like when you're done:
 
@@ -177,17 +177,15 @@ namespace Sender
 }
 ```
 
-
 ## Receiver
 
 Our receiver, `Tut2Receiver`, simulates an arbitrary amount of time for
 a fake task in the `DoWork()` method where the number of dots
-translates into the number of seconds the work will take. 
+translates into the number of seconds the work will take.
 
 Again, we leverage a `RabbitListener` on a queue named `hello` just like in the first tutorial.
 
 Here is what the code for the `Tut2Receiver` looks like:
-
 
 ```csharp
 using Microsoft.Extensions.Logging;
@@ -241,7 +239,6 @@ You should notice a couple new changes in the receiver that you did not see in t
 The above is a declarative way in Steeltoe to add a queue to the service container.  In the first tutorial we used the `AddQueue()` method in `Program.cs`; in this tutorial we have switched to using the attribute mechanism instead.
 We will expand on this mechanism in upcoming tutorials when we need to declare exchanges, bindings, etc.
 
-
 The second change you should see is in how we reference the queue in the `RabbitListener` attribute:
 
 ```csharp
@@ -251,7 +248,6 @@ The second change you should see is in how we reference the queue in the `Rabbit
 This syntax uses a Steeltoe feature that leverages a built in `expression language` that is executed when the `Rabbit Container` is created. To use the language, you enclose the `expression` inside a `#{...}` as shown above. In this case the expression is `@hello`.  The `@` symbol is part of the language; it is used to specify a reference to a service from the service container. What follows the `@` symbol is interpreted as the name of the service in the container you wish to reference.  In this case, the service name `hello` is specified, and it is the name of the `Queue` that was added to the service container using the `[DeclareQueue(..)]` attribute we mentioned above.  
 
 This is how the `RabbitListener` attribute ties the `Receive(..)` method to the `hello` queue declared above.
-
 
 ## Putting it all together
 
@@ -284,7 +280,6 @@ dotnet run
 
 Notice how the work that is produced by the sender is distributed across both receivers.
 
-
 ## Message Acknowledgment
 
 Doing a task can take a few seconds, you may wonder what happens if a consumer starts a long task and it terminates before it completes. By default once RabbitMQ delivers a message to the consumer, it immediately marks it for deletion. In this case, if you terminate a worker, the message it was just processing is lost. The messages that were dispatched to this particular worker but were not yet handled are also lost.
@@ -303,7 +298,7 @@ channel.BasicReject(deliveryTag, requeue)
 
 Requeue is true by default.  This is the typical behavior you want as you don't want to lose any tasks.
 
-But, there are sometimes you want the message to be dropped (i.e. not requeued).  You have two ways to control this in Steeltoe. You can explicitly configure the `Container Factory` we mentioned in the first tutorial to default to false for `requeue` when it creates `Rabbit Containers`. Or, the other option is in the `RabbitListener` code you write, you throw a `RabbitRejectAndDoNotRequeueException` instead of some other exception. In this case Steeltoe will not requeue the message and instead just acknowledge it. 
+But, there are sometimes you want the message to be dropped (i.e. not requeued).  You have two ways to control this in Steeltoe. You can explicitly configure the `Container Factory` we mentioned in the first tutorial to default to false for `requeue` when it creates `Rabbit Containers`. Or, the other option is in the `RabbitListener` code you write, you throw a `RabbitRejectAndDoNotRequeueException` instead of some other exception. In this case Steeltoe will not requeue the message and instead just acknowledge it.
 
 Acknowledgements must be sent on the same channel the delivery
 was received on. Attempts to acknowledge using a different channel
@@ -313,7 +308,7 @@ that uses RabbitMQ .NET client directly, this is something to keep in mind.
 
 > **Forgotten acknowledgments**
 >
-> It's a common programming mistake to miss the `BasicAck` when using the .NET client directly. 
+> It's a common programming mistake to miss the `BasicAck` when using the .NET client directly.
 > Its an easy error, and the consequences can be serious. Messages will be redelivered
 > when your client quits (which may look like random redelivery), but
 > RabbitMQ will eat more and more memory as it won't be able to release
@@ -375,14 +370,14 @@ messages for a consumer. It just blindly dispatches every n-th message
 to the n-th consumer.
 
 One solution that is commonly recommended is to use a RabbitMQ feature called `prefetchCount` and to set the count to 1.
-This tells RabbitMQ not to give more than one message to a worker at a time. 
-Or, in other words, don't dispatch a new message to a worker until it has processed and acknowledged the previous one. 
+This tells RabbitMQ not to give more than one message to a worker at a time.
+Or, in other words, don't dispatch a new message to a worker until it has processed and acknowledged the previous one.
 Instead, it will dispatch any new message to the next worker that is not still busy.
 
 ![Producer -> Queue -> Consuming: RabbitMQ dispatching messages.](~/guides/images/messaging/prefetch-count.png)
 
 However in most of the cases using a `prefetchCount` equal to 1 would be too conservative and severely
-limit consumer throughput. 
+limit consumer throughput.
 
 Instead Steeltoe defaults the `prefetchCount` to 250. This tells RabbitMQ not to give more than 250 messages to a worker
 at a time. Or, in other words, don't dispatch a new message to a worker while the number of un-acked messages is 250.  This setting improves throughput while also enabling a `Fair Dispatching` of messages.
@@ -397,4 +392,4 @@ message acknowledgments and fair dispatching. The default durability
 for queues and persistence for messages provided by Steeltoe
 allow the messages to survive even if RabbitMQ is restarted.
 
-Now we can move on to [tutorial 3](~/guides/messaging/tutorials/tutorial3/Readme.html) and learn how to deliver the same message to many consumers.
+Now we can move on to [tutorial 3](../Tutorial3/Readme.md) and learn how to deliver the same message to many consumers.

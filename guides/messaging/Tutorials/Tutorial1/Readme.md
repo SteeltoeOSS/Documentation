@@ -10,15 +10,15 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html), installed and running 
-> on `localhost` and on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`). 
-> 
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html), installed and running
+> on `localhost` and on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
+>
 > In case you use a different host, port or credentials, connections settings would require adjusting.
 >
 > **Where to get help**
 >
 > If you're having trouble going through this tutorial you can contact us through Github issues on our
-> [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> [Steeltoe Documentation Repository](https://github.com/SteeltoeOSS/Documentation).
 
 ## Introduction
 
@@ -34,17 +34,16 @@ instead it accepts, stores, and forwards binary blobs of data ‒ **messages**.
 
 RabbitMQ, and messaging in general, use some jargon that you might not be familiar with:
 
- - **Producing** means nothing more than sending a message. A program that sends messages is a **producer**. In these tutorials we use the symbol ![Producer](~/guides/images/messaging/producer.png) to represent a **producer**.
+- **Producing** means nothing more than sending a message. A program that sends messages is a **producer**. In these tutorials we use the symbol ![Producer](~/guides/images/messaging/producer.png) to represent a **producer**.
 
- - **A queue** is the name for the post office box in RabbitMQ. Although messages flow through RabbitMQ and your applications, they can only be stored inside a **queue**.
+- **A queue** is the name for the post office box in RabbitMQ. Although messages flow through RabbitMQ and your applications, they can only be stored inside a **queue**.
     A **queue** size is only bound by the host's memory &amp; disk limits, it's essentially a large message buffer.
-    
+
     Many **producers** can send messages that go to a single queue, and many **consumers** can try to receive messages from a single **queue**.  We use the symbol ![Queue](~/guides/images/messaging/queue.png) to represent a **queue**.
 
- - **Consuming** has a similar meaning to receiving a message. A **consumer** is a program that mostly waits to receive messages.  We use the symbol ![Consumer](~/guides/images/messaging/consumer.png) to represent a **consumer**
+- **Consuming** has a similar meaning to receiving a message. A **consumer** is a program that mostly waits to receive messages.  We use the symbol ![Consumer](~/guides/images/messaging/consumer.png) to represent a **consumer**
 
 Note that the **producer**, **consumer**, and **broker** do not have to reside on the same host; indeed in most applications they don't.
-
 
 An application can be both a **producer** and **consumer**, at the same time.
 
@@ -62,15 +61,15 @@ on behalf of the **consumer**.
 
 ![Tutorial 1](~/guides/images/messaging/python-one.png)
 
- ## Steeltoe Messaging Framework
+## Steeltoe Messaging Framework
 
  RabbitMQ speaks multiple protocols and message formats. This tutorial and the others in this series use AMQP 0-9-1, which is an open, general-purpose protocol for messaging.
- 
+
  There are a number of different clients for RabbitMQ with each supporting
  [many different languages and libraries](http://rabbitmq.com/devtools.html).
 
 In this tutorial, we'll be using .NET Core and the C# language.  In addition we will be using the Steeltoe
-Messaging library to help simplify the code we write while creating our messaging applications in .NET. 
+Messaging library to help simplify the code we write while creating our messaging applications in .NET.
 
 We have also chosen to use Visual Studio 2022 to edit and build the project; but we could have just as easily chosen VSCode.
 
@@ -95,7 +94,7 @@ Name this project `Sender` and select the same directory location and solution n
 
 ![Configure Worker](~/guides/images/messaging/VS2022NewWorkServiceConfigure.png)
 
-When you are done with the above, add a new class to the `Receiver` project. 
+When you are done with the above, add a new class to the `Receiver` project.
 
 Name this class `Tut1Receiver`; this will be the class we use to receive messages from the sender.
 
@@ -115,16 +114,16 @@ After these changes your solution should look something like the following:
 
 Steeltoe Messaging offers numerous features you can use to tailor your messaging application. In this tutorial we only highlight a few that help us get our application up and running with a minimal amount of code.
 
-First, Steeltoe RabbitMQ Messaging applications have the option of using the `RabbitMQHost` to setup and configure the .NET `Host` used to run the application. The `RabbitMQHost` is a simple host that is configured and behaves just like the [.NET Core Generic Host](https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host) but also configures the service container with all the Steeltoe components required to send and receive messages with RabbitMQ. 
+First, Steeltoe RabbitMQ Messaging applications have the option of using the `RabbitMQHost` to setup and configure the .NET `Host` used to run the application. The `RabbitMQHost` is a simple host that is configured and behaves just like the [.NET Core Generic Host](https://learn.microsoft.com/dotnet/core/extensions/generic-host) but also configures the service container with all the Steeltoe components required to send and receive messages with RabbitMQ.
 
-Specifically it adds and configures the following Steeltoe services: 
+Specifically it adds and configures the following Steeltoe services:
 
-  - `RabbitTemplate` - used to send (i.e. **producer**) and receive (i.e. **consumer**) messages.  
-  - `RabbitAdmin` - used to administer (i.e. create, delete, update, etc.) RabbitMQ entities (i.e. Queues, Exchanges, Bindings, etc.).  At application startup the `RabbitAdmin` looks for any RabbitMQ entities that have been added in the service container and attempts to define them in the broker.
-  - `RabbitListener Attribute processor` - processes all `RabbitListener` attributes and creates `RabbitContainers` (i.e.**consumers**)  for each `RabbitListener`.
-  - `Rabbit Container Factory` - a component used to create and  manage all the `RabbitContainer`s (i.e.**consumers**) in the application
-  - `Rabbit Message Converter` - a component used to translate .NET objects to a byte streams to be sent and received.  Defaults to .NET serialization, but can be easily changed to use `json`.
-  - `Caching Connection Factory` - used to create and cache connections to the RabbitMQ broker. All of the above components use the factory when interacting with the broker. By default it is configured to connect to `localhost` and port (`5672`).
+- `RabbitTemplate` - used to send (i.e. **producer**) and receive (i.e. **consumer**) messages.  
+- `RabbitAdmin` - used to administer (i.e. create, delete, update, etc.) RabbitMQ entities (i.e. Queues, Exchanges, Bindings, etc.).  At application startup the `RabbitAdmin` looks for any RabbitMQ entities that have been added in the service container and attempts to define them in the broker.
+- `RabbitListener Attribute processor` - processes all `RabbitListener` attributes and creates `RabbitContainers` (i.e.**consumers**)  for each `RabbitListener`.
+- `Rabbit Container Factory` - a component used to create and  manage all the `RabbitContainer`s (i.e.**consumers**) in the application
+- `Rabbit Message Converter` - a component used to translate .NET objects to a byte streams to be sent and received.  Defaults to .NET serialization, but can be easily changed to use `json`.
+- `Caching Connection Factory` - used to create and cache connections to the RabbitMQ broker. All of the above components use the factory when interacting with the broker. By default it is configured to connect to `localhost` and port (`5672`).
 
 Throughout the tutorials we will explain how all the above components come into play when building and running a messaging application.
 
@@ -135,7 +134,7 @@ To get started lets change the `Program.cs` file for the `Receiver` project. Spe
 RabbitMQHost.CreateDefaultBuilder(args)
 ```
 
-Next use the `.ConfigureServices()` method on the returned builder to further configure the services in the host. 
+Next use the `.ConfigureServices()` method on the returned builder to further configure the services in the host.
 
 First use the Steeltoe extension method `.AddRabbitQueue(...)` to add a `Queue` in the service container.  We do this so that the `RabbitAdmin` will find it and at startup use it to create and configure the queue for us on the broker.  
 
@@ -157,9 +156,7 @@ services.AddSingleton<Tut1Receiver>();
 services.AddRabbitListeners<Tut1Receiver>();
 ```
 
-
 When your done, the `Program.cs` file for the `Receiver` project looks as follows:
-
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -193,12 +190,11 @@ namespace Receiver
 }
 ```
 
-Next change the `Program.cs` file for the `Sender` project. 
+Next change the `Program.cs` file for the `Sender` project.
 
 In the senders `Program.cs` file use the `RabbitMQHost.CreateDefaultBuilder(args)` method to create a RabbitMQ host. Also add the `Queue` into the service container so it gets declared in the broker; this allows us to start either the sender or the receiver and regardless of which one starts first, the queue gets declared in the broker.
 
 With these changes done, the `Program.cs` file for the `Sender` project looks as follows:
-
 
 ```csharp
 using Steeltoe.Messaging.RabbitMQ.Config;
@@ -229,16 +225,13 @@ namespace Sender
 }
 ```
 
-
 ## Sending
 
 ![Sending](~/guides/images/messaging/sending.png)
 
-
 Now there is very little code that needs to go into the `Tut1Sender` class.  The sender leverages the Steeltoe`RabbitTemplate`, which is automatically added by `RabbitMQHost` to the service container, to send messages.  We will inject it into the sender by adding it to the constructor of `Tut1Sender`.
 
 Here is the code for the sender:
-
 
 ```csharp
 using Steeltoe.Messaging.RabbitMQ.Core;
@@ -271,10 +264,10 @@ namespace Sender
 
 You'll notice that Steeltoe removes the typical boilerplate .NET code needed to send and receive messages
 leaving you with only the logic of the messaging application to be concerned
-about.   
+about.
 
 Steeltoe wraps the boilerplate RabbitMQ client classes with
-a `RabbitTemplate` which can easily be injected into the sender.  Also, the template has been 
+a `RabbitTemplate` which can easily be injected into the sender.  Also, the template has been
 pre-configured with a connection to the broker using the `Caching Connection Factory` mentioned earlier.
 
 All that is left is to create the .NET object we wish to send and invoke the template's
@@ -288,8 +281,8 @@ we defined earlier and the .NET object we wish to send.
 > be wrong. Maybe the broker was started without enough free disk space
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker log file to confirm and reduce the
-> limit if necessary. 
-> The <a href="https://www.rabbitmq.com/configure.html#config-items">configuration file documentation</a> will show you how to set <code>disk_free_limit</code>.
+> limit if necessary.
+> The [configuration file documentation](https://www.rabbitmq.com/configure.html#config-items) will show you how to set `disk_free_limit`.
 
 ## Receiving
 
@@ -298,7 +291,6 @@ The receiver is equally simple. We annotate our receiver class method with `Rabb
 In this case we will define and annotate a `void Receive(string input)` method which has a parameter that indicates the type of object from the message payload we expect to receive from the queue.  In our tutorial we will be sending and receiving strings via the queue.  Behind the scenes, Steeltoe will use the `Rabbit Message converter` mentioned earlier to convert the incoming message payload to the type you defined in the `Receive(..)` method.
 
 Here is the code for the receiver:
-
 
 ```csharp
 using Microsoft.Extensions.Logging;
@@ -361,8 +353,9 @@ dotnet run
 > ````
 >
 > On Windows, omit the sudo:
+>
 > ```bash
 > rabbitmqctl.bat list_queues
 > ```
 
-Time to move on to [tutorial 2](~/guides/messaging/tutorials/tutorial2/Readme.html) and build a simple **work queue**.
+Time to move on to [tutorial 2](../Tutorial2/Readme.md) and build a simple **work queue**.
