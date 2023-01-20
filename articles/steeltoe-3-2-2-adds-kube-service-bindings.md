@@ -3,7 +3,7 @@ _disableBreadcrumb: true
 _disableContribution: true
 _showBackToBlogs: true
 
-title: Steeltoe 3.2.2 Adds Experimental Kubernetes Service Bindings
+title: Announcing Steeltoe 3.2.2 with Experimental Kubernetes Service Bindings
 description: Kubernetes Service Bindings
 monikerRange: '== steeltoe-3.2.2'
 type: markdown
@@ -15,7 +15,7 @@ author.name: David Tillman
 
 # Steeltoe 3.2.2 Adds Experimental Kubernetes Service Bindings Support
 
-With the release of Steeltoe 3.2.2, the Steeltoe team has included experimental support for the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification.  
+We are delighted to announce the release of Steeltoe 3.2.2. In this release, the Steeltoe team has included experimental support for the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification.  
 The specification details a standard way in which Kubernetes platforms can expose secrets that enable application workloads to connect to external services.  
 You can review [version 1.0.0](https://servicebinding.io/spec/core/1.0.0/) of the specification to get more information.
 
@@ -93,9 +93,9 @@ namespace PostgreSql
 
 After this, if you run your application on a Kubernetes platform which supports the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification you should see configuration key/values appear in your applications configuration.
 
-As an added feature, the Steeltoe team has added integration with the Steeltoe Connectors library. This integration enables the Connectors library to pick up and use the configuration data built by the Kubernetes provider.
+As an added feature, the Steeltoe team has added integration with the [Steeltoe Connectors](https://github.com/SteeltoeOSS/Steeltoe/tree/main/src/Connectors) library. This integration enables the Steeltoe Connectors library to pick up and use the configuration data built by the Kubernetes provider.
 
- This feature is not enabled by default. To enable it you must edit your `appsettings.json` file and add the following configuration key/value.
+ This feature is not enabled by default. To enable it you must edit your `appsettings.json` file and add the following configuration.
 
 ```json
 {
@@ -109,5 +109,7 @@ As an added feature, the Steeltoe team has added integration with the Steeltoe C
 }
 ```
 
-Have a look at the Steeltoe [PostgreSql Connector sample](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSql) for more details.
+Take a look at the Steeltoe [PostgreSql Connector sample](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSql) for more details.
+
+The Steeltoe team is excited to hear your thoughts and opinions on this latest release. Remember you can join us on the Steeltoe Community call or reach out to the team directly on the [Steeltoe Slack](https://steeltoeteam.slack.com//).
 

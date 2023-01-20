@@ -11,7 +11,7 @@ uid: articles
     <ul class="blog-list">
             <li class="blog-item" onclick="location.href='steeltoe-3-2-2-adds-kube-service-bindings.html'">
             <span class="blog-date">January 10 2023</span>
-            <div class="blog-title">Steeltoe 3.2.2 Adds Experimental Kubernetes Service Bindings</div>
+            <div class="blog-title">Announcing Steeltoe 3.2.2 with Experimental Kubernetes Service Bindings</div>
         </li>
         <li class="blog-item" onclick="location.href='releases/steeltoe-3-2-whats-new.html'">
             <span class="blog-date">June 14 2022</span>
