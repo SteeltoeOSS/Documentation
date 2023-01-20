@@ -17,7 +17,7 @@ author.name: David Tillman
 
 We are delighted to announce the release of Steeltoe 3.2.2. In this release, the Steeltoe team has included experimental support for the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification.  
 The specification details a standard way in which Kubernetes platforms can expose secrets that enable application workloads to connect to external services.  
-You can review [version 1.0.0](https://servicebinding.io/spec/core/1.0.0/) of the specification to get more information.
+You can review [version 1.0.0](https://servicebinding.io/spec/core/1.0.0/) of the specification to learn more.
 
 The experimental implementation can be found in the [Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding](https://www.nuget.org/packages/Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding) package on [nuget.org](https://www.nuget.org/).
 Please keep in mind that this is an experimental version and is likely to go through several rounds of changes over the coming months. 
@@ -25,7 +25,7 @@ Please keep in mind that this is an experimental version and is likely to go thr
 The implementation consists of a standard .NET configuration provider.  The service provider reads the Kubernetes service bindings and translates the information into a set of key value pairs which it then adds to the applications configuration.
 Each of configuration keys is prefixed with `k8s:bindings:<binding-name>` where `<binding-name>` is the name associated with the Kubernetes service binding. The rest of the key represents the values associated with the binding. 
 
-Here is an example of the configuration keys associated with a PostgreSql service binding that are created by the Steeltoe configuration provider.
+Below is an example of the configuration keys associated with a PostgreSql service binding that are created by the Steeltoe configuration provider.
 
 ```csharp
     k8s:bindings:mypostgres:username=pgappuser
@@ -39,8 +39,8 @@ Here is an example of the configuration keys associated with a PostgreSql servic
 
 ```
 
-To use the experimental provider, you need to first add a reference to the [Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding](https://www.nuget.org/packages/Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding) NuGet package.
-Open your projects .csproj file and add a package reference resembling the following:
+To use the experimental provider, you need to add a reference to the [Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding](https://www.nuget.org/packages/Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding) NuGet package.
+You can do this via the NuGet Package Manager or by opening your project's csproj file and adding the package directly, as shown below.
 ```xml
 <ItemGroup>
 ...
@@ -49,10 +49,8 @@ Open your projects .csproj file and add a package reference resembling the follo
 </ItemGroup>
 ```
 
-To parse the Kubernetes service bindings and make them available in the application's configuration, you need to add the Steeltoe configuration provider to the ConfigurationBuilder. 
-This is done using the `ConfigurationBuilder` extension method `AddKubernetesServiceBindings()` shown below.
-
-Here is an example from our [PostgreSql Connector](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSql) sample:
+To parse the Kubernetes service bindings and make them available in the application's configuration, you will also need to add the Steeltoe configuration provider to the ConfigurationBuilder.
+This is done using the ConfigurationBuilder extension method AddKubernetesServiceBindings() shown below in an example from the Steeltoe PostgreSql Connector sample:
 
 ```csharp
 using Microsoft.AspNetCore;
@@ -91,7 +89,7 @@ namespace PostgreSql
 
 ```
 
-After this, if you run your application on a Kubernetes platform which supports the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification you should see configuration key/values appear in your applications configuration.
+Running your application on a Kubernetes platform which supports the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification you should see configuration key/values appear in your applications configuration.
 
 As an added feature, the Steeltoe team has added integration with the [Steeltoe Connectors](https://github.com/SteeltoeOSS/Steeltoe/tree/main/src/Connectors) library. This integration enables the Steeltoe Connectors library to pick up and use the configuration data built by the Kubernetes provider.
 
