@@ -13,7 +13,7 @@ tags: ["new-release"]
 author.name: David Tillman
 ---
 
-# Steeltoe 3.2.2 Adds Experimental Kubernetes Service Bindings Support
+# Announcing Steeltoe 3.2.2 with Experimental Kubernetes Service Bindings
 
 We are delighted to announce the release of Steeltoe 3.2.2. In this release, the Steeltoe team has included experimental support for the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification.  
 The specification details a standard way in which Kubernetes platforms can expose secrets that enable application workloads to connect to external services.  
