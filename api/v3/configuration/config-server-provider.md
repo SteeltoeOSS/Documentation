@@ -73,33 +73,42 @@ The following example shows some provider settings that have been put in a JSON 
 
 The following table describes all the settings that can be used to configure the behavior of the provider:
 
-| Key | Description | Default |
-| --- | --- | --- |
-| `Name` | Application name for which to request config. | `IHostingEnvironment.ApplicationName` |
-| `Enabled` | Enable or disable config server client. | `true` |
-| `Uri` | Comma-separated list of config server endpoints. | `http://localhost:8888` |
-| `Env` | Environment or profile used in the server request. | `IHostingEnvironment.EnvironmentName` |
-| `ValidateCertificates` | Enable or disable certificate validation. | `true` |
-| `Label` | Comma-separated list of labels to request. | master |
-| `Timeout` | Time to wait for response from server, in milliseconds. | 6000 |
-| `Username` | Username for basic authentication. | none |
-| `Password` | Password for basic authentication. | none |
-| `FailFast` | Enable or disable failure at startup. | `false` |
-| `Token` | HashiCorp Vault authentication token. | none |
-| `TokenTtl` | HashiCorp Vault token renewal TTL. Valid on Cloud Foundry only. | 300000ms |
-| `TokenRenewRate` | HashiCorp Vault token renewal rate. Valid on Cloud Foundry only. | 60000ms |
-| `Retry:Enabled` | Enable or disable retry logic. | false |
-| `Retry:MaxAttempts` | Max retries if retry enabled. | 6 |
-| `Retry:InitialInterval` | Starting interval. | 1000ms |
-| `Retry:MaxInterval` | Maximum retry interval. | 2000ms |
-| `Retry:Multiplier` | Retry interval multiplier. | 1.1 |
-| `ClientId` | OAuth2 client ID when using OAuth security. | none |
-| `ClientSecret` | OAuth2 client secret when using OAuth security. | none |
-| `AccessTokenUri` | URI to use to obtain OAuth access token. | none |
-| `Discovery:Enabled` | Enable or disable discovery first feature. | `false` |
-| `Discovery:ServiceId` | Config Server service ID to use in discovery first feature. | `configserver` |
-| `Health:Enabled` | Enable or disable config server health check contributor. | `true` |
-| `Health:TimeToLive` | Health check contributor cache time to live in ms. | 60*5ms |
+| Key                         | Description                                                                                                                                                                                                     | Default                               |
+|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+| `Name`                      | Application name for which to request config.                                                                                                                                                                   | `IHostingEnvironment.ApplicationName` |
+| `Enabled`                   | Enable or disable config server client.                                                                                                                                                                         | `true`                                |
+| `Uri`                       | Comma-separated list of config server endpoints.                                                                                                                                                                | `http://localhost:8888`               |
+| `Env`                       | Environment or profile used in the server request.                                                                                                                                                              | `IHostingEnvironment.EnvironmentName` |
+| `ValidateCertificates`      | Enable or disable certificate validation.                                                                                                                                                                       | `true`                                |
+| `Label`                     | Comma-separated list of labels to request.                                                                                                                                                                      | master                                |
+| `Timeout`                   | Time to wait for response from server, in milliseconds.                                                                                                                                                         | 6000                                  |
+| `Username`                  | Username for basic authentication.                                                                                                                                                                              | none                                  |
+| `Password`                  | Password for basic authentication.                                                                                                                                                                              | none                                  |
+| `FailFast`                  | Enable or disable failure at startup.                                                                                                                                                                           | `false`                               |
+| `Token`                     | HashiCorp Vault authentication token.                                                                                                                                                                           | none                                  |
+| `TokenTtl`                  | HashiCorp Vault token renewal TTL. Valid on Cloud Foundry only.                                                                                                                                                 | 300000ms                              |
+| `TokenRenewRate`            | HashiCorp Vault token renewal rate. Valid on Cloud Foundry only.                                                                                                                                                | 60000ms                               |
+| `Retry:Enabled`             | Enable or disable retry logic.                                                                                                                                                                                  | false                                 |
+| `Retry:MaxAttempts`         | Max retries if retry enabled.                                                                                                                                                                                   | 6                                     |
+| `Retry:InitialInterval`     | Starting interval.                                                                                                                                                                                              | 1000ms                                |
+| `Retry:MaxInterval`         | Maximum retry interval.                                                                                                                                                                                         | 2000ms                                |
+| `Retry:Multiplier`          | Retry interval multiplier.                                                                                                                                                                                      | 1.1                                   |
+| `ClientId`                  | OAuth2 client ID when using OAuth security.                                                                                                                                                                     | none                                  |
+| `ClientSecret`              | OAuth2 client secret when using OAuth security.                                                                                                                                                                 | none                                  |
+| `AccessTokenUri`            | URI to use to obtain OAuth access token.                                                                                                                                                                        | none                                  |
+| `Discovery:Enabled`         | Enable or disable discovery first feature.                                                                                                                                                                      | `false`                               |
+| `Discovery:ServiceId`       | Config Server service ID to use in discovery first feature.                                                                                                                                                     | `configserver`                        |
+| `Health:Enabled`            | Enable or disable config server health check contributor.                                                                                                                                                       | `true`                                |
+| `Health:TimeToLive`         | Health check contributor cache time to live in ms.                                                                                                                                                              | 60*5ms                                |
+| `Encrypt:Enabled`           | Enable decryption of encrypted {cipher} properties                                                                                                                                                              | false                                 |
+| `Encrypt:Rsa:Strong`        | Flag to indicate that "strong" AES encryption should be used internally. If true then the GCM algorithm is applied to the AES encrypted bytes. Default is false (in which case "standard" CBC is used instead). | false                                 |
+| `Encrypt:Rsa:Salt`          | Salt for the random secret used to encrypt cipher text.                                                                                                                                                         | deadbeef                              |
+| `Encrypt:Rsa:Algorithm`     | The RSA algorithm to use (DEFAULT or OAEP).                                                                                                                                                                     | DEFAULT                               |
+| `Encrypt:KeyStore:Location` | Location of the key store file. Only PKCS12 store is supported.                                                                                                                                                 |                                       |
+| `Encrypt:KeyStore:Password` | Password that locks the keystore.                                                                                                                                                                               |                                       |
+| `Encrypt:KeyStore:Alias`    | Alias for a key in the store.                                                                                                                                                                                   |                                       |
+| `Encrypt:Key`               | A symmetric key. As a stronger alternative consider using a keystore                                                                                                                                            |                                       |
+
 
 As mentioned earlier, all settings should start with `Spring:Cloud:Config:`
 
