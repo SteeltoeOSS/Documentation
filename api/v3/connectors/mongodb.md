@@ -25,6 +25,7 @@ This connector supports several settings for local interaction with MongoDB that
     "Client": {
       "Server": "localhost",
       "Port": 27017,
+      "Database": "SampleDb",
       "Options": {
         "ReplicaSet": "rs0"
       }
