@@ -54,16 +54,17 @@ Next, **create a .NET Core WebAPI** that registers itself as a service.
    > [!TIP]
    > Looking for additional params to use when connecting? Have a look at the [docs](/service-discovery/docs).
 
-1. Validate the port number the app will be served on, in **launchSettings.json**
+1. Change "applicationUrl" to "http://localhost:8080", in **launchSettings.json**
 
    ```json
-   "iisSettings": {
-     "windowsAuthentication": false,
-     "anonymousAuthentication": true,
-     "iisExpress": {
-       "applicationUrl": "http://localhost:8080",
-       "sslPort": 0
-     }
+   "EurekaRegisterExample": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:8080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
    }
    ```
 
@@ -75,12 +76,12 @@ Next, **create a .NET Core WebAPI** that registers itself as a service.
 dotnet run <PATH_TO>\EurekaRegisterExample.csproj
 ```
 
-Navigate to the endpoint (you may need to change the port number) [http://localhost:8080/api/values](http://localhost:8080/api/values)
+Navigate to the endpoint (you may need to change the port number) [http://localhost:8080/api/WeatherForecast](http://localhost:8080/api/WeatherForecast)
 
 # [Visual Studio](#tab/vs)
 
 1. Choose the top _Debug_ menu, then choose _Start Debugging (F5)_. This should bring up a browser with the app running
-1. Navigate to the endpoint (you may need to change the port number) [http://localhost:8080/api/values](http://localhost:8080/api/values)
+1. Navigate to the endpoint (you may need to change the port number) [http://localhost:8080/api/WeatherForecast](http://localhost:8080/api/WeatherForecast)
 
 ---
 
@@ -115,20 +116,21 @@ Now, **create another .NET Core WebAPI** that will discover the registered servi
    }
    ```
 
-1. Validate the port number the app will be served on, in **launchSettings.json**
+1. Change "applicationUrl" to "http://localhost:8081" and "launchBrowser" to false, in **launchSettings.json**
 
    ```json
-   "iisSettings": {
-     "windowsAuthentication": false,
-     "anonymousAuthentication": true,
-     "iisExpress": {
-       "applicationUrl": "http://localhost:8081",
-       "sslPort": 0
-     }
+   "EurekaDiscoverExample": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:8081",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
    }
    ```
 
-1. Change the values controller to make a request to the discovery service and return the result in **contollers\ValuesController.cs**
+1. Change the WeatherForecast controller to make a request to the discovery service and return the result in **contollers\WeatherForecastController.cs**
 
    ```csharp
    using System.Threading.Tasks;
@@ -139,10 +141,10 @@ Now, **create another .NET Core WebAPI** that will discover the registered servi
 
    [Route("api/[controller]")]
    [ApiController]
-   public class ValuesController : ControllerBase {
+   public class WeatherForecastController : ControllerBase {
      private readonly ILogger _logger;
      DiscoveryHttpClientHandler _handler;
-     public ValuesController(ILogger<ValuesController> logger, IDiscoveryClient client) {
+     public WeatherForecastController(ILogger<WeatherForecastController> logger, IDiscoveryClient client) {
        _logger = logger;
        _handler = new DiscoveryHttpClientHandler(client);
      }
@@ -151,7 +153,7 @@ Now, **create another .NET Core WebAPI** that will discover the registered servi
      [HttpGet]
      public async Task<string> Get() {
        var client = new HttpClient(_handler, false);
-       return await client.GetStringAsync("http://EurekaRegisterExample/api/values");
+       return await client.GetStringAsync("http://EurekaRegisterExample/api/WeatherForecast");
      }
    }
    ```
@@ -167,14 +169,45 @@ Now, **create another .NET Core WebAPI** that will discover the registered servi
 dotnet run <PATH_TO>\EurekaDiscoverExample.csproj
 ```
 
-Navigate to the endpoint (you may need to change the port number) [http://localhost:8081/api/values](http://localhost:8081/api/values)
+Navigate to the endpoint (you may need to change the port number) [http://localhost:8081/api/WeatherForecast](http://localhost:8081/api/WeatherForecast)
 
 # [Visual Studio](#tab/vs)
 
 1. Choose the top _Debug_ menu, then choose _Start Debugging (F5)_. This should bring up a browser with the app running
-1. Navigate to the endpoint (you may need to change the port number) [http://localhost:8081/api/values](http://localhost:8081/api/values)
+1. Navigate to the endpoint (you may need to change the port number) [http://localhost:8081/api/WeatherForecast](http://localhost:8081/api/WeatherForecast)
 
 ---
 
-Once the discovery app loads in the browser you will see the 2 values that were retrieved from the registered app.
-"["value1","value2"]"
+Once the discovery app loads in the browser you will see these values that were retrieved from the registered app.
+"[
+  {
+    "date": "2023-04-07T15:49:53.1328335+05:00",
+    "temperatureC": 46,
+    "temperatureF": 114,
+    "summary": "Hot"
+  },
+  {
+    "date": "2023-04-08T15:49:53.1332687+05:00",
+    "temperatureC": 11,
+    "temperatureF": 51,
+    "summary": "Hot"
+  },
+  {
+    "date": "2023-04-09T15:49:53.1332704+05:00",
+    "temperatureC": 49,
+    "temperatureF": 120,
+    "summary": "Hot"
+  },
+  {
+    "date": "2023-04-10T15:49:53.1332705+05:00",
+    "temperatureC": 41,
+    "temperatureF": 105,
+    "summary": "Balmy"
+  },
+  {
+    "date": "2023-04-11T15:49:53.1332706+05:00",
+    "temperatureC": -4,
+    "temperatureF": 25,
+    "summary": "Freezing"
+  }
+]"
