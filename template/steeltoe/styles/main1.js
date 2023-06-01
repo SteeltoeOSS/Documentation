@@ -150,6 +150,12 @@ $(function() {
         var a = $(this);
         a.html(a.html().replace(/%%/g, '#'));
     });
+    
+	try {
+		var themeSetting = localStorage.getItem('theme');
+		localStorage.clear();
+		localStorage.setItem('theme',themeSetting);
+	} catch(error) {}
 
     localStorage.clear();
 
@@ -195,6 +201,14 @@ $(function() {
         $('#docsNavLink').removeClass('active');
         $('#guidesNavLink').addClass('active');
     }
+
+	// Set theme
+	var themeToggle = document.getElementById("theme-toggler");
+	themeToggle.addEventListener("click", function() {
+		document.body.classList.toggle("dark");
+		var theme = document.body.classList.contains("dark") ? "dark" : "light";
+		localStorage.setItem("theme", theme);
+	});
 });
 
 var options = {
