@@ -36,6 +36,9 @@ html, body {
     font-weight: normal;
     scroll-behavior: smooth;
 }
+img {
+	max-width: 100%;
+}
 
 /* Bootstrap Override */
 
@@ -351,6 +354,13 @@ ul.breadcrumb > :first-child {
     flex: 0 0 75%;
     max-width: 75%;
 }
+@media(max-width: 1200px) {
+	#wrapper > .container-fluid .row > .col-xl-3 + .col-xl-7 {
+	    -ms-flex: 0 0 100%;
+	    flex: 0 0 100%;
+	    max-width: 100%;
+	}
+}
 .code-badge-copy-icon {
     color: black;
 }
@@ -496,6 +506,9 @@ img {
     .article.grid-right {
         margin-top: 0px !important;
     }
+	.article-wrapper.col-xl-7 {
+		margin-left: 10px;
+	}
 
     article h1, article h2, article h3, article h4 {
         margin-top: 0px;
@@ -948,3 +961,45 @@ body.dark .table thead {
 	background-color: transparent;
 	border-top: 1px solid white;
 }
+
+body.dark .alert-info {
+	color: white;
+	background-color: #000000;
+	border-color: #000000;
+}
+
+body.dark .tabGroup a[role="tab"] {
+	color: white;
+}
+
+body.dark .tabGroup a[role="tab"]:hover, 
+body.dark .tabGroup a[role="tab"]:focus, 
+body.dark .tabGroup a[role="tab"][aria-selected="true"] {
+	color: #ffd700;
+    border-bottom: 2px solid #ffd700;
+}
+
+body.dark .tabGroup a[role="tab"]:focus {
+	outline: 1px solid #ffd700;
+}
+
+body.dark .affix ul > li > a {
+	color: white;
+}
+
+body.dark .affix > ul > li.active > a:before,
+body.dark .affix > ul > li.active > a,
+body.dark .affix ul > li > a:hover {
+	color: #ffd700;
+}
+
+body.dark #blog-specs #name::before,
+body.dark #blog-specs #date::before,
+body.dark .blog-date {
+	color: white;
+}
+
+body.dark .blog-item:hover {
+	border-color: #ffd700;
+}
+
