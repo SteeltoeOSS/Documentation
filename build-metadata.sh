@@ -9,6 +9,7 @@ cd $base_dir
 git_sources_url=https://github.com/SteeltoeOSS/Steeltoe
 v2_sources=$(cat metadata.conf | grep '^2:' | cut -d: -f2)
 v3_sources=$(cat metadata.conf | grep '^3:' | cut -d: -f2)
+v4_sources=$(cat metadata.conf | grep '^4:' | cut -d: -f2)
 build_dir=build
 
 get_sources() {
@@ -21,10 +22,13 @@ get_sources() {
 
 get_sources sources/v2 $v2_sources
 get_sources sources/v3 $v3_sources
+get_sources sources/v4 $v4_sources
 
 echo "building v2 metadata"
 docfx metadata api-v2.json
 echo "building v3 metadata"
 docfx metadata api-v3.json
+echo "building v4 metadata"
+docfx metadata api-v4.json
 echo "building all metadata"
 docfx metadata api-all.json

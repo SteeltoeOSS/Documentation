@@ -34,9 +34,28 @@
     "disableDefaultFilter": false,
     "filter": "api-filter.yml",
     "properties": {
-      "TargetFramework": "net5.0"
+      "TargetFramework": "net6.0"
     },
     "version": "3.all"
+  },
+  {
+    "src": [
+      {
+        "files": [
+          "src/**/*.csproj"
+        ],
+        "exclude": [ "**/bin/**", "**/obj/**", "**/test/**" ],
+        "src": "sources/v4"
+      }
+    ],
+    "dest": "api/browser/v4/all",
+    "disableGitFeatures": false,
+    "disableDefaultFilter": false,
+    "filter": "api-filter.yml",
+    "properties": {
+      "TargetFramework": "net6.0"
+    },
+    "version": "4.all"
   }
 ]
 }
