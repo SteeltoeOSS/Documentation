@@ -18,14 +18,14 @@ To use the Steeltoe logging provider, you need to:
 
 To use the logging provider, you need to add a reference to the Steeltoe Dynamic Logging NuGet.
 
-The provider is found in the `Steeltoe.Extensions.Logging.DynamicLogger` package.
+The provider is found in the `Steeltoe.Logging.DynamicLogger` package.
 
 You can add the provider to your project by using the following `PackageReference`:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicLogger" Version="3.2.0"/>
+    <PackageReference Include="Steeltoe.Logging.DynamicLogger" Version="3.2.0"/>
 ...
 </ItemGroup>
 ```
@@ -39,7 +39,7 @@ As mentioned earlier, the Steeltoe Logging provider is a wrapper around the Micr
 To use the provider, you need to add it to the logging builder by using the `AddDynamicConsole()` extension method:
 
 ```csharp
-using Steeltoe.Extensions.Logging;
+using Steeltoe.Logging;
 public class Program
 {
     public static void Main(string[] args)

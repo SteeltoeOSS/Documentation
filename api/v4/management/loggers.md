@@ -32,7 +32,7 @@ Then, add the Loggers actuator middleware to the ASP.NET Core pipeline, using th
 To add the Steeltoe Logging provider to the `ILoggerFactory`, use the `AddDynamicConsole()` extension method and update the `Program.cs` class, as follows:
 
 ```csharp
-using Steeltoe.Extensions.Logging;
+using Steeltoe.Logging;
 public class Program
 {
     public static void Main(string[] args)

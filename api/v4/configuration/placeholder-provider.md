@@ -23,15 +23,15 @@ To use the provider, you need to add a reference to the appropriate Steeltoe NuG
 
 | Package | Description | .NET Target |
 | --- | --- | --- |
-| `Steeltoe.Extensions.Configuration.PlaceholderBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
-| `Steeltoe.Extensions.Configuration.PlaceholderCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
+| `Steeltoe.Configuration.PlaceholderBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
+| `Steeltoe.Configuration.PlaceholderCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version="3.2.0"/>
+    <PackageReference Include="Steeltoe.Configuration.PlaceholderCore" Version="3.2.0"/>
 ...
 </ItemGroup>
 ```
@@ -50,7 +50,7 @@ There are four different ways to do so:
 The following example shows how to add to the `ConfigurationBuilder`:
 
 ```csharp
-using Steeltoe.Extensions.Configuration.Placeholder;
+using Steeltoe.Configuration.Placeholder;
 ...
 
 var builder = new ConfigurationBuilder()
@@ -155,7 +155,7 @@ Next, add the placeholder resolver to the `IWebHostBuilder` in `Program.cs` (or 
 ```csharp
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Steeltoe.Extensions.Configuration.Placeholder;
+using Steeltoe.Configuration.Placeholder;
 public class Program
 {
     public static void Main(string[] args)

@@ -13,13 +13,13 @@ uid: api/browser/v4/all/index
 
 [Custom configuration providers](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/#custom-config-providers) for use with Microsoft's [application configuration](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/) for accessing configuration settings for an application.
 
-[view](/api/browser/v4/configuration/Steeltoe.Extensions.Configuration.html)
+[view](/api/browser/v4/configuration/Steeltoe.Configuration.html)
 
 ## Steeltoe Connectors
 
 Contains connectors for simplifying the process of connecting to backing services and setting up connection health monitoring.
 
-[view](/api/browser/v4/connectors/Steeltoe.Connector.html)
+[view](/api/browser/v4/connectors/Steeltoe.Connectors.html)
 
 ## Steeltoe Service Discovery & Registration
 
@@ -33,7 +33,7 @@ Logging extensions that, when used with Steeltoe Management, enable changing the
 
 Currently supporting the Microsoft Console Logger and Serilog.
 
-[view](/api/browser/v4/logging/Steeltoe.Extensions.Logging.html)
+[view](/api/browser/v4/logging/Steeltoe.Logging.html)
 
 ## Steeltoe Application Management
 

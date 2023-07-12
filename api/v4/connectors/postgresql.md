@@ -85,7 +85,7 @@ Once the service is bound to your application, the connector's settings are avai
 To use a `NpgsqlConnection` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class:
 
 ```csharp
-using Steeltoe.Connector.PostgreSql;
+using Steeltoe.Connectors.PostgreSql;
 
 public class Startup {
     ...
@@ -145,7 +145,7 @@ public class HomeController : Controller
 To use Entity Framework, inject and use a `DbContext` in your application instead of a `NpgsqlConnection` through the `AddDbContext<>()` method:
 
 ```csharp
-using Steeltoe.Connector.PostgreSql.EFCore;
+using Steeltoe.Connectors.PostgreSql.EFCore;
 
 public class Startup {
     public IConfiguration Configuration { get; private set; }
@@ -167,7 +167,7 @@ public class Startup {
 
 The `AddDbContext<TestContext>(options => options.UseNpgsql(Configuration));` method call configures the `TestContext` by using the configuration built by the application and adds the context to the service container.
 
-> This extension method will _NOT_ automatically configure an `IHealthContributor` to report the health of this database connection. The package Steeltoe.Connector.ConnectorCore provides an `IServiceCollection` extension method that will. Directly add the health contributor with the code `services.AddPostgresHealthContributor(Configuration)`
+> This extension method will _NOT_ automatically configure an `IHealthContributor` to report the health of this database connection. The package Steeltoe.Connectors.ConnectorCore provides an `IServiceCollection` extension method that will. Directly add the health contributor with the code `services.AddPostgresHealthContributor(Configuration)`
 
 The following example shows how you would define the `DbContext`:
 

@@ -48,7 +48,7 @@ To do so, add a `PackageReference` resembling the following:
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.RandomValueBase" Version="3.2.0"/>
+    <PackageReference Include="Steeltoe.Configuration.RandomValueBase" Version="3.2.0"/>
 ...
 </ItemGroup>
 ```
@@ -60,7 +60,7 @@ To have the ability to generate random values from the configuration, you need t
 The following example shows how to do so:
 
 ```csharp
-using Steeltoe.Extensions.Configuration.RandomValue;
+using Steeltoe.Configuration.RandomValue;
 ...
 
 var builder = new ConfigurationBuilder()

@@ -100,7 +100,7 @@ Once the service is bound to your application, the connector's settings are avai
 To use an `SqlConnection` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class:
 
 ```csharp
-using Steeltoe.Connector.SqlServer;
+using Steeltoe.Connectors.SqlServer;
 
 public class Startup {
     ...
@@ -163,7 +163,7 @@ public class HomeController : Controller
 To use the Microsoft SQL connector with Entity Framework 6, inject a DbContext into your application by using the `AddDbContext<>()` method (provided by Steeltoe) that takes an `IConfiguration` as a parameter:
 
 ```csharp
-using Steeltoe.Connector.SqlServer.EF6;
+using Steeltoe.Connectors.SqlServer.EF6;
 
 public class Startup {
     ...
@@ -206,7 +206,7 @@ public class TestContext : DbContext
 To use the Microsoft SQL Server connector with Entity Framework Core, inject a `DbContext` into your application with the standard `AddDbContext<>()` method, substituting Steeltoe's `UseSqlServer` method that takes an `IConfiguration` as a parameter in the options configuration for the standard `UseSqlServer` method. The following example demonstrates the basic usage:
 
 ```csharp
-using Steeltoe.Connector.SqlServer.EFCore;
+using Steeltoe.Connectors.SqlServer.EFCore;
 
 public class Startup {
     ...
@@ -228,7 +228,7 @@ public class Startup {
 }
 ```
 
-> This extension method will _NOT_ configure an `IHealthContributor` for this database connection. The NuGet package Steeltoe.Connector.ConnectorCore provides an `IServiceCollection` extension method that will. Directly add the health contributor with the code `services.AddSqlServerHealthContributor(Configuration)`
+> This extension method will _NOT_ configure an `IHealthContributor` for this database connection. The NuGet package Steeltoe.Connectors.ConnectorCore provides an `IServiceCollection` extension method that will. Directly add the health contributor with the code `services.AddSqlServerHealthContributor(Configuration)`
 
 Your `DbContext` does not need to be modified from a standard `DbContext` to work with Steeltoe:
 

@@ -74,7 +74,7 @@ cf restage myApp
 To use `MongoClient` and `MongoUrl` in your application, use the extension provided for Microsoft DI:
 
 ```csharp
-using Steeltoe.Connector.MongoDb;
+using Steeltoe.Connectors.MongoDb;
 public class Startup
 {
   ...

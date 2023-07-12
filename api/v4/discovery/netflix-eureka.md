@@ -108,7 +108,7 @@ For more information on using the Eureka Server on Cloud Foundry, see the [Sprin
 
 Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`.
 
->As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connector.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
+>As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connectors.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
 
 ## Configuring Health Contributors
 

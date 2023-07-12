@@ -44,13 +44,13 @@ namespace WebApplication1
 
 |  Feature Description | Steeltoe Package |Additional Package Required |
 | --- | --- | --- |
-| [Config Server Configuration](../configuration/config-server-provider.md) | `Steeltoe.Extensions.Configuration.ConfigServerBase` or `ConfigServerCore` | N/A |
-| [Cloud Foundry Configuration](../configuration/cloud-foundry-provider.md) |`Steeltoe.Extensions.Configuration.CloudFoundryBase` or `CloudFoundryCore` |  N/A |
-| [Kubernetes Configuration](../configuration/kubernetes-providers.md) |`Steeltoe.Extensions.Configuration.KubernetesBase` or `KubernetesCore` |  N/A |
-| [Random Value Provider](../configuration/random-value-provider.md) |`Steeltoe.Extensions.Configuration.RandomValueBase` |  N/A |
-| [Placeholder Resolver](../configuration/placeholder-provider.md) |`Steeltoe.Extensions.Configuration.PlaceholderBase` or `PlaceholderCore` |  N/A |
-| [Connectors*](../connectors/index.md) |`Steeltoe.Connector.ConnectorCore` |  Supported driver (MySQL, PostgreSQL, RabbitMQ, SQL Server, etc) |
-| [Dynamic Serilog](../logging/serilog-logger.md) | `Steeltoe.Extensions.Logging.DynamicSerilogCore` | N/A |
+| [Config Server Configuration](../configuration/config-server-provider.md) | `Steeltoe.Configuration.ConfigServerBase` or `ConfigServerCore` | N/A |
+| [Cloud Foundry Configuration](../configuration/cloud-foundry-provider.md) |`Steeltoe.Configuration.CloudFoundryBase` or `CloudFoundryCore` |  N/A |
+| [Kubernetes Configuration](../configuration/kubernetes-providers.md) |`Steeltoe.Configuration.KubernetesBase` or `KubernetesCore` |  N/A |
+| [Random Value Provider](../configuration/random-value-provider.md) |`Steeltoe.Configuration.RandomValueBase` |  N/A |
+| [Placeholder Resolver](../configuration/placeholder-provider.md) |`Steeltoe.Configuration.PlaceholderBase` or `PlaceholderCore` |  N/A |
+| [Connectors*](../connectors/index.md) |`Steeltoe.Connectors.ConnectorCore` |  Supported driver (MySQL, PostgreSQL, RabbitMQ, SQL Server, etc) |
+| [Dynamic Serilog](../logging/serilog-logger.md) | `Steeltoe.Logging.DynamicSerilogCore` | N/A |
 | [Service Discovery](../discovery/index.md) |`Steeltoe.Discovery.ClientBase` or `ClientCore` | Desired client (Eureka, Consul, Kubernetes)
 | [Actuators](../management/index.md) | `Steeltoe.Management.EndpointCore` | N/A |
 | [Actuators with Cloud Foundry support**](../management/cloud-foundry.md) |`Steeltoe.Management.CloudFoundryCore` |  N/A |

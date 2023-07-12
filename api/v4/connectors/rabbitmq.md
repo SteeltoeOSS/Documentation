@@ -82,7 +82,7 @@ Once the service is bound to your application, the connector's settings are avai
 To use a RabbitMQ `ConnectionFactory` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class:
 
 ```csharp
-using Steeltoe.Connector.RabbitMQ;
+using Steeltoe.Connectors.RabbitMQ;
 
 public class Startup {
     ...

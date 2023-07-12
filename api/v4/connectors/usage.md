@@ -15,18 +15,18 @@ Depending on what functionality you wish to use, you may need one or more packag
 
 | Package | Description | .NET Target |
 | --- | --- | --- |
-| `Steeltoe.Connector.Abstractions` | Interfaces and objects used for extensibility. | .NET Standard 2.0 |
-| `Steeltoe.Connector.ConnectorBase` | Includes abstractions. Connectors base package. | .NET Standard 2.0 |
-| `Steeltoe.Connector.ConnectorCore` | Includes base. Adds ServiceCollection compatibility. | .NET Core 3.1+ |
-| `Steeltoe.Connector.EFCore` | Includes base. Adds compatibility with Entity Framework Core | .NET Core 3.1+ |
-| `Steeltoe.Connector.EF6Core` | Includes base. Adds compatibility with Entity Framework 6 | .NET Core 3.1+ |
-| `Steeltoe.Connector.CloudFoundry` | Includes base. Adds Cloud Foundry compatibility | .NET Standard 2.0 |
+| `Steeltoe.Connectors.Abstractions` | Interfaces and objects used for extensibility. | .NET Standard 2.0 |
+| `Steeltoe.Connectors.ConnectorBase` | Includes abstractions. Connectors base package. | .NET Standard 2.0 |
+| `Steeltoe.Connectors.ConnectorCore` | Includes base. Adds ServiceCollection compatibility. | .NET Core 3.1+ |
+| `Steeltoe.Connectors.EFCore` | Includes base. Adds compatibility with Entity Framework Core | .NET Core 3.1+ |
+| `Steeltoe.Connectors.EF6Core` | Includes base. Adds compatibility with Entity Framework 6 | .NET Core 3.1+ |
+| `Steeltoe.Connectors.CloudFoundry` | Includes base. Adds Cloud Foundry compatibility | .NET Standard 2.0 |
 
->As of Steeltoe 3.0, an extra NuGet reference such as `Steeltoe.Connector.CloudFoundry` may be required for platform-specific support
+>As of Steeltoe 3.0, an extra NuGet reference such as `Steeltoe.Connectors.CloudFoundry` may be required for platform-specific support
 
 ## ServiceCollection Extensions
 
-`ServiceCollection` extensions are provided in `Steeltoe.Connector.ConnectorCore`, `Steeltoe.Connector.EFCore` and `Steeltoe.Connector.EF6Core`. These extensions will add all of the requirements for retrieving clients for the various supported technologies from a service container later on in your application. Additionally, they will typically add an `IHealthContributor` that will automatically include health checks for the connected service instance when used in conjunction with Steeltoe Management Actuators. These extensions are generally built on top of functionality provided by the underlying drivers for a given backing service and typically built the connection string for the underlying provider. As such, their usage will typically be quite similar to usage of the backing service without Steeltoe. For example, here's a comparison between adding an Entity Framework `IDbContext` with and without Steeltoe:
+`ServiceCollection` extensions are provided in `Steeltoe.Connectors.ConnectorCore`, `Steeltoe.Connectors.EFCore` and `Steeltoe.Connectors.EF6Core`. These extensions will add all of the requirements for retrieving clients for the various supported technologies from a service container later on in your application. Additionally, they will typically add an `IHealthContributor` that will automatically include health checks for the connected service instance when used in conjunction with Steeltoe Management Actuators. These extensions are generally built on top of functionality provided by the underlying drivers for a given backing service and typically built the connection string for the underlying provider. As such, their usage will typically be quite similar to usage of the backing service without Steeltoe. For example, here's a comparison between adding an Entity Framework `IDbContext` with and without Steeltoe:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -76,7 +76,7 @@ var mysqlInfo = connStringManager.Get<MySqlConnectionInfo>();
 
 ## Cloud Foundry
 
-Steeltoe Connectors were originally created to provide out-of-the-box support for discovering common services on Cloud Foundry, and as such they've historically had a pretty direct connection to each other. As of version 3.0, in preparation of support for other platforms, the Cloud Foundry specific pieces have been extracted to a separate NuGet package. No new code is required** to activate Cloud Foundry portion of Connectors (assuming the `CloudFoundryConfigurationProvider` has already been added), only the addition of a NuGet reference for `Steeltoe.Connector.CloudFoundry`.
+Steeltoe Connectors were originally created to provide out-of-the-box support for discovering common services on Cloud Foundry, and as such they've historically had a pretty direct connection to each other. As of version 3.0, in preparation of support for other platforms, the Cloud Foundry specific pieces have been extracted to a separate NuGet package. No new code is required** to activate Cloud Foundry portion of Connectors (assuming the `CloudFoundryConfigurationProvider` has already been added), only the addition of a NuGet reference for `Steeltoe.Connectors.CloudFoundry`.
 
 >** If you [publish your application as a single file](https://docs.microsoft.com/dotnet/core/deploying/single-file) prior to deployment, this assembly will not be included in the output unless there is a reference to it. Package version 3.0.2 adds the no-op method `CloudFoundryConnector.EnsureAssemblyIsLoaded()`, which can be called from anywhere in your application, to support this scenario.
 

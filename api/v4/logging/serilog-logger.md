@@ -18,14 +18,14 @@ In order to use the Serilog Dynamic Logger, you need to do the following:
 
 To use the logging provider, you need to add a package reference to a Steeltoe Dynamic Logging package.
 
-The provider is found in the `Steeltoe.Extensions.Logging.DynamicSerilogBase` package. If you wish to use the [WebHostBuilder extension](#webhostbuilder), use the package `Steeltoe.Extensions.Logging.DynamicSerilogCore`.
+The provider is found in the `Steeltoe.Logging.DynamicSerilogBase` package. If you wish to use the [WebHostBuilder extension](#webhostbuilder), use the package `Steeltoe.Logging.DynamicSerilogCore`.
 
 You can add the provider to your project by using the following `PackageReference`:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicSerilogBase" Version="3.2.0"/>
+    <PackageReference Include="Steeltoe.Logging.DynamicSerilogBase" Version="3.2.0"/>
 ...
 </ItemGroup>
 ```
@@ -66,7 +66,7 @@ In order to use this logging provider, you need to add it to the logging builder
 The following example shows usage of the `HostBuilder` extension:
 
 ```csharp
-using Steeltoe.Extensions.Logging.DynamicSerilog;
+using Steeltoe.Logging.DynamicSerilog;
 public class Program
 {
     public static void Main(string[] args)
@@ -86,7 +86,7 @@ public class Program
 The following example shows usage of the `ILoggingBuilder` extension:
 
 ```csharp
-using Steeltoe.Extensions.Logging.DynamicSerilog;
+using Steeltoe.Logging.DynamicSerilog;
 public class Program
 {
     public static void Main(string[] args)
@@ -110,7 +110,7 @@ public class Program
 The following example shows usage of the `WebHostBuilder` extension:
 
 ```csharp
-using Steeltoe.Extensions.Logging.DynamicSerilog;
+using Steeltoe.Logging.DynamicSerilog;
 public class Program
 {
     public static void Main(string[] args)
@@ -125,4 +125,4 @@ public class Program
 }
 ```
 
-> Please be aware this extension is provided in Steeltoe.Extensions.Logging.DynamicSerilogCore
+> Please be aware this extension is provided in Steeltoe.Logging.DynamicSerilogCore

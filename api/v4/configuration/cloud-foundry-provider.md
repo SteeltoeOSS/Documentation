@@ -23,15 +23,15 @@ To use the provider, you need to add a reference to the appropriate Steeltoe Clo
 
 | Package | Description | .NET Target |
 | --- | --- | --- |
-| `Steeltoe.Extensions.Configuration.CloudFoundryBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
-| `Steeltoe.Extensions.Configuration.CloudFoundryCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
+| `Steeltoe.Configuration.CloudFoundryBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
+| `Steeltoe.Configuration.CloudFoundryCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.2.0" />
+    <PackageReference Include="Steeltoe.Configuration.CloudFoundryCore" Version="3.2.0" />
 ...
 </ItemGroup>
 ```
@@ -43,7 +43,7 @@ To parse the Cloud Foundry environment variables and make them available in the 
 The following example shows how to do so:
 
 ```csharp
-using Steeltoe.Extensions.Configuration;
+using Steeltoe.Configuration;
 ...
 
 var builder = new ConfigurationBuilder()
@@ -117,7 +117,7 @@ The Cloud Foundry provider includes two additional classes, `CloudFoundryApplica
 To use it in an ASP.NET Core application, add the the following to the `ConfigureServices()` method in the `Startup` class:
 
 ```csharp
-using Steeltoe.Extensions.Configuration.CloudFoundry;
+using Steeltoe.Configuration.CloudFoundry;
 
 public void ConfigureServices(IServiceCollection services)
 {
@@ -136,7 +136,7 @@ Both of these method calls also add these objects to the service container as `I
 Once this is done, you can access these configuration objects in the controllers or views of an application by using normal Dependency Injection, as follows:
 
 ```csharp
-using Steeltoe.Extensions.Configuration.CloudFoundry;
+using Steeltoe.Configuration.CloudFoundry;
 
 public class HomeController : Controller
 {
@@ -177,7 +177,7 @@ To do this, you first need to create an `Options` class that derives from `Cloud
 The following example shows how to do this for a MySql service binding on PCF:
 
 ```csharp
-using Steeltoe.Extensions.Configuration.CloudFoundry;
+using Steeltoe.Configuration.CloudFoundry;
 
 public class MySqlServiceOption : CloudFoundryServicesOptions
 {
@@ -205,7 +205,7 @@ You can use the `ConfigureCloudFoundryService<TOption>()` method to select a spe
 The following listing shows some examples:
 
 ```csharp
-using Steeltoe.Extensions.Configuration.CloudFoundry;
+using Steeltoe.Configuration.CloudFoundry;
 
 public void ConfigureServices(IServiceCollection services)
 {

@@ -34,15 +34,15 @@ If you plan on only connecting to the open source version of [Spring Cloud Confi
 
 | Package | Description | .NET Target |
 | --- | --- | --- |
-| `Steeltoe.Extensions.Configuration.ConfigServerBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
-| `Steeltoe.Extensions.Configuration.ConfigServerCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
+| `Steeltoe.Configuration.ConfigServerBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
+| `Steeltoe.Configuration.ConfigServerCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
 
 To add this type of NuGet to your project, add a `PackageReference` that resembles the following:
 
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version="3.2.0"/>
+    <PackageReference Include="Steeltoe.Configuration.ConfigServerCore" Version="3.2.0"/>
 ...
 </ItemGroup>
 ```
@@ -120,7 +120,7 @@ You need to use the `Add*()` methods to add the source of the config server clie
 The following sample shows how to add a configuration provider:
 
 ```csharp
-using Steeltoe.Extensions.Configuration;
+using Steeltoe.Configuration;
 ...
 
 var builder = new ConfigurationBuilder()
@@ -178,7 +178,7 @@ Then, when you push the application, the Steeltoe provider takes the settings fr
 
 If there are any merge conflicts, the last provider added to the configuration takes precedence and overrides all others.
 
->As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connector.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
+>As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connectors.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
 
 ### Access Configuration Data
 
@@ -266,7 +266,7 @@ Once that is done, pass the `ILoggerFactory` to the Steeltoe configuration provi
 The following example shows how to enable Debug-level logging:
 
 ```csharp
-using Steeltoe.Extensions.Configuration;
+using Steeltoe.Configuration;
 
     LoggerFactory logFactory = new LoggerFactory();
     logFactory.AddConsole(minLevel: LogLevel.Debug);
