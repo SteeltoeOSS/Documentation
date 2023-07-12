@@ -17,11 +17,22 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <a class="dropdown-item" href="/api/v2/welcome">Version 2</a>
           <a class="dropdown-item" href="/api/v3/welcome">Version 3</a>
-          <a class="dropdown-item" href="/api/v4/welcome">Version 4 (pre-release)</a>
+          <a class="dropdown-item" href="/api/v4/welcome">Version 4</a>
         </div>
       </div>
       <div id="api-navigation" class="hide">
         <div id="api-selection">
+            <select id="api-namespace-v4" class="form-control api-namespace">
+              <option value="/api/browser/v4/all/Steeltoe.CircuitBreaker.html">All Namespaces</option>
+              <option value="/api/browser/v4/circuitbreaker/Steeltoe.CircuitBreaker.html">Steeltoe.CircuitBreaker</option>
+              <option value="/api/browser/v4/configuration/Steeltoe.Extensions.Configuration.html">Steeltoe.Extensions.Configuration</option>
+              <option value="/api/browser/v4/connectors/Steeltoe.Connector.html">Steeltoe.Connector</option>
+              <option value="/api/browser/v4/discovery/Steeltoe.Discovery.html">Steeltoe.Discovery</option>
+              <option value="/api/browser/v4/logging/Steeltoe.Extensions.Logging.html">Steeltoe.Extensions.Logging</option>
+              <option value="/api/browser/v4/management/Steeltoe.Management.html">Steeltoe.Management</option>
+              <option value="/api/browser/v4/messaging/Steeltoe.Messaging.html">Steeltoe.Messaging</option>
+              <option value="/api/browser/v4/security/Steeltoe.Security.Authentication.CloudFoundry.html">Steeltoe.Security</option>
+            </select>
             <select id="api-namespace-v3" class="form-control api-namespace">
               <option value="/api/browser/v3/all/Steeltoe.CircuitBreaker.html">All Namespaces</option>
               <option value="/api/browser/v3/circuitbreaker/Steeltoe.CircuitBreaker.html">Steeltoe.CircuitBreaker</option>

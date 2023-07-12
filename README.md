@@ -13,6 +13,8 @@ If you are using [VS Code](https://code.visualstudio.com/) as your editor, you c
     - /all: this holds generated API docs from doc-comments in source code
   - /v3: version 3 documentation
     - /all: this holds generated API docs from doc-comments in source code
+  - /v4: version 4 documentation
+    - /all: this holds generated API docs from doc-comments in source code
 - /articles: holds the markdown for blog posts
 - /images: the images
 - /template/steeltoe: odd files that overwrite the default DocFX theme
@@ -53,7 +55,7 @@ Let's talk about something really cool...
 
 ## Creating a new API document
 
-Similar to the blog post, you're going to create a new markdown file, but in the `api` folder. The name needs to be URL-safe. Notice in the api folder, there is a `v2` and `v3` subfolder. Within each of those are folders for each component. Place your content accordingly. To include the file in the table of contents, add it in `api/(version)/toc.yml`. Notice in the example below that the `topicHref` values are not absolute paths. DocFX will calculate everything at build time.
+Similar to the blog post, you're going to create a new markdown file, but in the `api` folder. The name needs to be URL-safe. Notice in the api folder, there is a `v2`, `v3` and `v4` subfolder. Within each of those are folders for each component. Place your content accordingly. To include the file in the table of contents, add it in `api/(version)/toc.yml`. Notice in the example below that the `topicHref` values are not absolute paths. DocFX will calculate everything at build time.
 
 An example API doc:
 

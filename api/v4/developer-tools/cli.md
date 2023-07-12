@@ -23,7 +23,7 @@ See [docker-compose](https://docs.docker.com/compose/)
 Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
 
 ```sh
-$ dotnet tool install -g Steeltoe.Cli --version 0.7.1-2785 --add-source https://www.myget.org/F/steeltoedev/api/v3/index.json
+$ dotnet tool install -g Steeltoe.Cli --version 0.7.1-2785 --add-source https://www.myget.org/F/steeltoedev/api/v4/index.json
 ```
 
 <a name="steeltoe-dev-tools-add-dotnet-global-tools-path-variable"></a>

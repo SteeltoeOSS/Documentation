@@ -410,11 +410,11 @@ dotnet build && dotnet run --framework net5.0
 
 When this application is running, you can see that the `usage-detail` RabbitMQ exchange is created and a queue named `usage-detail.usage-cost-consumer` is bound to this exchange, as the following example shows:
 
-<img src="~/api/v3/stream/images/standalone-rabbitmq-usage-detail-sender.png" alt="Standalone Usage Detail" width="100%">
+<img src="~/api/v4/stream/images/standalone-rabbitmq-usage-detail-sender.png" alt="Standalone Usage Detail" width="100%">
 
 Also, if you click on the `Queues` and check the queue `usage-detail.usage-cost-consumer`, you can see the messages being consumed and stored in this durable queue, as the following example shows:
 
-<img src="~/api/v3/stream/images/standalone-rabbitmq-usage-detail-sender-message-guarantee.png" alt="Standalone Usage Detail Sender RabbitMQ Message Guarantee" width="100%">
+<img src="~/api/v4/stream/images/standalone-rabbitmq-usage-detail-sender-message-guarantee.png" alt="Standalone Usage Detail Sender RabbitMQ Message Guarantee" width="100%">
 
 When configuring the consumer applications for this `Source` application, you can set the `group` binding property to connect to the corresponding queue.
 
@@ -437,11 +437,11 @@ From the RabbitMQ console, you can see:
 
 When this application is running, you can see that the `usage-cost` RabbitMQ exchange is created and the queue named `usage-cost.logger` is bound to this exchange, as the following image shows:
 
-<img src="~/api/v3/stream/images/standalone-rabbitmq-usage-cost-processor.png" alt="Standalone Usage Cost Processor RabbitMQ Required Groups"  width="100%">
+<img src="~/api/v4/stream/images/standalone-rabbitmq-usage-cost-processor.png" alt="Standalone Usage Cost Processor RabbitMQ Required Groups"  width="100%">
 
 Also, if you click on the `Queues` and check the `usage-cost.logger` queue, you can see the messages being consumed and stored in this queue, as the following image shows:
 
-<img src="~/api/v3/stream/images/standalone-rabbitmq-usage-cost-processor-message-guarantee.png" alt="Standalone Usage Cost Processor RabbitMQ Message Guarantee" width="100%">
+<img src="~/api/v4/stream/images/standalone-rabbitmq-usage-cost-processor-message-guarantee.png" alt="Standalone Usage Cost Processor RabbitMQ Message Guarantee" width="100%">
 
 #### Running the Sink
 

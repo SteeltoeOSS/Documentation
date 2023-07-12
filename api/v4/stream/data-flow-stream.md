@@ -86,7 +86,7 @@ The URI conforms to a [schema](https://docs.spring.io/spring-cloud-dataflow/docs
 
 The Data Flow Dashboard lands on the Application Registration view, where we can register the source, processor, and sink applications, as follows:
 
-   <img src="~/api/v3/stream/images/SCDF-add-applications.png" alt="Add an application" width="100%">
+   <img src="~/api/v4/stream/images/SCDF-add-applications.png" alt="Add an application" width="100%">
 
 In this step, we register the applications we previously created.
 When you register an application, you provide its:
@@ -136,22 +136,22 @@ In addition to the samples, register the pre-packaged `HttpSource` source applic
 
    > (uri = `docker://projects.registry.vmware.com/steeltoe/basicstreamprocessor:latest`)
 
-   <img src="~/api/v3/stream/images/SCDF-register-apps.png" alt="Register source application " width="100%">
+   <img src="~/api/v4/stream/images/SCDF-register-apps.png" alt="Register source application " width="100%">
 
 1. Click on **IMPORT APPLICATION(S)** to complete the registration. Doing so takes you back to the Applications view, which lists your applications. The following image shows an example:
 
-   <img src="~/api/v3/stream/images/SCDF-registered-apps.png" alt="Registered application " width="100%">
+   <img src="~/api/v4/stream/images/SCDF-registered-apps.png" alt="Registered application " width="100%">
 ### Creating the Stream Definition
 
 To create the stream definition:
 
 1. Select **Streams** from the left navigation bar. This shows the main Streams view, as follows:
 
- <img src="~/api/v3/stream/images/SCDF-create-streams.png" alt="Create Streams" width="100%">
+ <img src="~/api/v4/stream/images/SCDF-create-streams.png" alt="Create Streams" width="100%">
 
 1. Select **Create stream(s)** to display a graphical editor to create the stream definition, as the following image shows:
 
- <img src="~/api/v3/stream/images/SCDF-create-steeltoe-stream.png" alt="Create Steeltoe Stream" width="100%">
+ <img src="~/api/v4/stream/images/SCDF-create-steeltoe-stream.png" alt="Create Steeltoe Stream" width="100%">
 
    You can see the `Source`, `Processor` and `Sink` applications, as registered above, in the left panel.
 
@@ -169,17 +169,17 @@ To deploy your stream,
 
 1. Select `Deploy`, as follows:
 
- <img src="~/api/v3/stream/images/SCDF-stream-created.png" alt="Stream created" width="100%">
+ <img src="~/api/v4/stream/images/SCDF-stream-created.png" alt="Stream created" width="100%">
 
 1. When deploying the stream, choose the target platform accounts from local, Kubernetes, or Cloud Foundry. This is based on the Spring Cloud Skipper server deployer platform account setup.
 
 >**NOTE:** When deploying on K8s, .NET applications should have the application properties for the [entrypoint-style](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#_entry_point_style) set to `boot`
 
- <img src="~/api/v3/stream/images/SCDF-deploy-stream.png" alt="Deploy Stream" width="100%">
+ <img src="~/api/v4/stream/images/SCDF-deploy-stream.png" alt="Deploy Stream" width="100%">
 
    When all the applications are running, the stream is successfully deployed.
 
- <img src="~/api/v3/stream/images/SCDF-stream-deployed.png" alt="Stream deployed" width="100%">
+ <img src="~/api/v4/stream/images/SCDF-stream-deployed.png" alt="Stream deployed" width="100%">
   The preceding process is basically the same for all platforms. The following sections address platform-specific details for deploying on Data Flow on Cloud Foundry and Kubernetes.
 
 <!--
@@ -222,7 +222,7 @@ Before registering and deploying stream applications to Cloud Foundry by using t
 
 Once you have followed the steps shown earlier in this chapter and have registered the applications as well as deployed the stream, you can see the successfully deployed applications in your in your Org and Space in Cloud Foundry.
 
- <img src="~/api/v3/stream/images/SCDF-CF-dashboard.png" alt="Cloud Foundry Apps Manager with the deployed Stream Application" width="100%">
+ <img src="~/api/v4/stream/images/SCDF-CF-dashboard.png" alt="Cloud Foundry Apps Manager with the deployed Stream Application" width="100%">
 
 You can access the runtime information of your stream applications in the Spring Cloud Data Flow dashboard as well.
 
@@ -236,7 +236,7 @@ To run data through the stream, POST data to the HttpSource application using a 
 
  The logging statements should look like the following:
 
- <img src="~/api/v3/stream/images/SCDF-CF-dashboard-logging.png" alt="Data Flow Runtime Information" width="100%">
+ <img src="~/api/v4/stream/images/SCDF-CF-dashboard-logging.png" alt="Data Flow Runtime Information" width="100%">
 
 ### Kubernetes
 

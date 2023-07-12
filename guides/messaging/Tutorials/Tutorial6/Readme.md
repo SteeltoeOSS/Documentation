@@ -76,7 +76,7 @@ request. Steeltoe's `RabbitTemplate` handles the callback queue for
 us when we use the above `ConvertSendAndReceiveAsync()` method.  There is
 no need to do any other setup when using the `RabbitTemplate`.
 For a thorough explanation please see
-[Request/Reply Message](https://docs.steeltoe.io/api/v3/messaging/rabbitmq-reference.html#request-and-reply-messaging).
+[Request/Reply Message](https://docs.steeltoe.io/api/v4/messaging/rabbitmq-reference.html#request-and-reply-messaging).
 
 > **Message properties**
 >

@@ -8,12 +8,14 @@ trigger:
     - Dockerfile-metadata
 
 variables:
+- name: tagv4
+  value: 4.0.0
 - name: tagv3
   value: 3.2.3
 - name: tagv2
   value: 2.5.5
 
-name: $(tagv3)-$(tagv2)-$(Rev:r)
+name: $(tagv4)-$(tagv3)-$(tagv2)-$(Rev:r)
 
 stages:
 - stage: Deploy
@@ -29,6 +31,7 @@ stages:
     - bash: |
         echo '2:'$(tagv2) > metadata.conf
         echo '3:'$(tagv3) >> metadata.conf
+        echo '4:'$(tagv4) >> metadata.conf
       displayName: Set Version
     - task: Docker@2
       displayName: Build and Push
