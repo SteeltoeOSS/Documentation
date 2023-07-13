@@ -1,194 +1,213 @@
 {
   "metadata": [
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Common/src"
-      }
-    ],
-    "dest": "api/browser/v4/common",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Bootstrap/src"
+        }
+      ],
+      "dest": "api/browser/v4/bootstrap",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Configuration/src"
-      }
-    ],
-    "dest": "api/browser/v4/configuration",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Common/src"
+        }
+      ],
+      "dest": "api/browser/v4/common",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Connectors/src"
-      }
-    ],
-    "dest": "api/browser/v4/connectors",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Configuration/src"
+        }
+      ],
+      "dest": "api/browser/v4/configuration",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Discovery/src"
-      }
-    ],
-    "dest": "api/browser/v4/discovery",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Connectors/src"
+        }
+      ],
+      "dest": "api/browser/v4/connectors",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Integration/src"
-      }
-    ],
-    "dest": "api/browser/v4/integration",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Discovery/src"
+        }
+      ],
+      "dest": "api/browser/v4/discovery",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Logging/src"
-      }
-    ],
-    "dest": "api/browser/v4/logging",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Integration/src"
+        }
+      ],
+      "dest": "api/browser/v4/integration",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Management/src"
-      }
-    ],
-    "dest": "api/browser/v4/management",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Logging/src"
+        }
+      ],
+      "dest": "api/browser/v4/logging",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Messaging/src"
-      }
-    ],
-    "dest": "api/browser/v4/messaging",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Management/src"
+        }
+      ],
+      "dest": "api/browser/v4/management",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Security/src"
-      }
-    ],
-    "dest": "api/browser/v4/security",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Messaging/src"
+        }
+      ],
+      "dest": "api/browser/v4/messaging",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v4/src/Stream/src"
-      }
-    ],
-    "dest": "api/browser/v4/stream",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "net6.0"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Security/src"
+        }
+      ],
+      "dest": "api/browser/v4/security",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
     },
-    "version": "4.x"
-  }
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v4/src/Stream/src"
+        }
+      ],
+      "dest": "api/browser/v4/stream",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "net6.0"
+      },
+      "version": "4.x"
+    }
   ]
 }
