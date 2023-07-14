@@ -1,211 +1,139 @@
 # Redis
 
-This connector simplifies using a Microsoft [`RedisCache`](https://docs.microsoft.com/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/).
+This connector simplifies accessing [Redis](https://redis.io/) databases.
+It supports the next .NET drivers:
+- [StackExchange.Redis](https://www.nuget.org/packages/StackExchange.Redis), which provides an `IConnectionMultiplexer`.
+- [Microsoft.Extensions.Caching.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis), which provides an `IDistributedCache`.
 
-The following Steeltoe sample applications are available to help you understand how to use this connector:
-
-* [DataProtection](https://github.com/SteeltoeOSS/Samples/tree/master/Security/src/RedisDataProtectionKeyStore): A sample application showing how to use the Steeltoe DataProtection Key Storage Provider for Redis.
-* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a microservices-based application built from the  MusicStore ASP.NET Core reference application provided by Microsoft.
-
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](../management/health.md) check endpoint.
+The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
 ## Usage
 
-You should know how the .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder.
-
-You should also know how the ASP.NET Core [`Startup`](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
-
-You probably want some understanding of how to use the [`RedisCache`](https://docs.microsoft.com/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/) before starting to use this connector.
-
 To use this connector:
 
-1. Create a Redis Service instance and bind it to your application.
-1. Optionally, configure any Redis client settings (for example, in `appsettings.json`).
-1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
-1. Add `DistributedRedisCache` or `ConnectionMultiplexer` to your `ServiceCollection`.
+1. Create a Redis server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#redis).
+1. Add NuGet references to your project.
+1. Configure your connection string in `appsettings.json`.
+1. Initialize the Steeltoe Connector at startup.
+1. Use the driver-specific connection/client instance.
 
->The Microsoft wrapper for the Stack Exchange Redis client depends on Lua commands `EVAL` and/or `EVALSHA`. Lua scripting is disabled by default in many Redis tile installations on the TAS Platform. If you encounter a message similar to `StackExchange.Redis.RedisServerException: ERR unknown command EVALSHA`, you need to either have Lua scripting enabled by a platform operator or try using the `ConnectionMultiplexer` instead of the `IDistributedCache` or `RedisCache` interfaces provided by Microsoft.
+### Add NuGet References
 
-### Add NuGet Reference
+To use this connector, add a NuGet reference to `Steeltoe.Connectors`.
 
-To use the Redis connector, you need to [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references) and a reference to `Microsoft.Extensions.Caching.Redis`, `Microsoft.Extensions.Caching.StackExchangeRedis`, `StackExchange.Redis`, or `StackExchange.Redis.StrongName`.
+Also add a NuGet reference to one of the .NET drivers listed above, as you would if you were not using Steeltoe.
 
->Because `Microsoft.Extensions.Caching.Redis` depends on `StackExchange.Redis.StrongName`, adding a reference to the Microsoft library also enables access to the StackExchange classes, as seen in the sample application.
+### Configure connection string
 
-### Configure Settings
+The available connection string parameters for Redis are documented [here](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).
 
-The connector supports several settings for the Redis connection that can be useful when you are developing and testing an application locally and you need to have the connector configure the connection for non-default settings.
-
-The following example of the connector's configuration in JSON shows how to set up a connection to a Redis server at `https://foo.bar:1111`:
+The following example `appsettings.json` uses the docker container from above:
 
 ```json
 {
-  ...
-  "Redis": {
+  "Steeltoe": {
     "Client": {
-      "Host": "https://foo.bar",
-      "Port": 1111
+      "Redis": {
+        "Default": {
+          "ConnectionString": "localhost"
+        }
+      }
     }
   }
-  ...
 }
 ```
 
-The following table table describes all possible settings for the connector
+### Initialize Steeltoe Connector
 
-| Key | Description | Default |
-| --- | --- | --- |
-| `Host` | Hostname or IP Address of the server. | `localhost` |
-| `Port` | Port number of the server. |6379|
-| `EndPoints` |Comma-separated list of host:port pairs. | not set |
-| `ClientName` | Identification for the connection within Redis. | not set |
-| `ConnectRetry` | Times to repeat initial connect attempts. | 3 |
-| `ConnectTimeout` | Timeout (ms) for connect operations. | 5000 |
-| `AbortOnConnectFail` | Does not create a connection while no servers are available. | `true` |
-| `KeepAlive` | Time (seconds) at which to send a message to help keep sockets alive. | -1 |
-| `ResolveDns` | Whether DNS resolution should be explicit and eager, rather than implicit. | `false` |
-| `Ssl` | Whether SSL encryption should be used. | `false` |
-| `SslHost` | Enforces a particular SSL host identity on the server's certificate. | not set |
-| `WriteBuffer` | Size of the output buffer. | 4096 |
-| `ConnectionString` | Full connection string. | Built from settings |
-| `InstanceId` | Cache ID. Used only with `IDistributedCache`. | not set |
+Update your `Program.cs` as below to initialize the Connector:
 
->IMPORTANT: All of these settings should be prefixed with `Redis:Client:`.
+```c#
+using Steeltoe.Connectors.Redis;
 
-The samples and most templates are already set up to read from `appsettings.json`.
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.AddRedis();
+```
 
->If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
+### Use IConnectionMultiplexer
 
-### Cloud Foundry
+To obtain an `IConnectionMultiplexer` instance in your application, inject the Steeltoe factory in a controller or view:
 
-To use Redis on Cloud Foundry, create and bind an instance to your application by using the Cloud Foundry CLI:
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using StackExchange.Redis;
+using Steeltoe.Connectors;
+using Steeltoe.Connectors.Redis;
+
+public class HomeController : Controller
+{
+    public async Task<IActionResult> Index(
+        [FromServices] ConnectorFactory<RedisOptions, IConnectionMultiplexer> connectorFactory)
+    {
+        var connector = connectorFactory.Get();
+        IConnectionMultiplexer client = connector.GetConnection();
+
+        IDatabase database = client.GetDatabase();
+        database.StringSet("myKey", DateTime.UtcNow.ToString());
+
+        ViewData["Result"] = database.StringGet("myKey");
+        return View();
+    }
+}
+```
+
+A complete sample app that uses `IConnectionMultiplexer` is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/Redis.
+
+### Use IDistributedCache
+
+To obtain an `IDistributedCache` instance in your application, inject the Steeltoe factory in a controller or view:
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Steeltoe.Connectors;
+using Steeltoe.Connectors.Redis;
+
+public class HomeController : Controller
+{
+    public async Task<IActionResult> Index(
+        [FromServices] ConnectorFactory<RedisOptions, IDistributedCache> connectorFactory)
+    {
+        var connector = connectorFactory.Get();
+        IDistributedCache client = connector.GetConnection();
+
+        await client.SetStringAsync("myKey", DateTime.UtcNow.ToString());
+
+        ViewData["Result"] = await client.GetStringAsync("myKey");
+        return View();
+    }
+}
+```
+
+A complete sample app that uses `IDistributedCache` is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/Redis.
+
+## Cloud Foundry
+
+This Connector supports the next CloudFoundry tiles:
+- [Redis for VMware Tanzu Application Service](https://docs.vmware.com/en/Redis-for-VMware-Tanzu-Application-Service/3.1/redis-tanzu-application-service/GUID-index.html)
+- [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
+- [VMware Tanzu Cloud Service Broker for GCP](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)
+
+You can create and bind an instance to your application by using the Cloud Foundry CLI:
 
 ```bash
 # Create Redis service
-cf create-service p-redis shared-vm myRedisCache
+cf create-service p-redis shared-vm myRedisService
 
-# Bind service to `myApp`
-cf bind-service myApp myRedisCache
+# Bind service to your app
+cf bind-service myApp myRedisService
 
 # Restage the app to pick up change
 cf restage myApp
 ```
 
->The preceding commands assume you use the Redis service provided by TAS. If you use a different service, you have to adjust the `create-service` command to fit your environment.
+## Kubernetes
 
-This connector also works with the [Cloud Service Broker](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.2/csb-azure/GUID-index.html).
+This Connectors supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
+It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
 
-Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
-
-### Add IDistributedCache
-
-To use Microsoft's `IDistributedCache` in your application, add it to the service container:
-
-```csharp
-using Steeltoe.Connectors.Redis;
-public class Startup {
-    public IConfiguration Configuration { get; private set; }
-    public Startup()
-    {
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add Microsoft Redis Cache (IDistributedCache)
-        services.AddDistributedRedisCache(Configuration);
-
-        // Add framework services
-        services.AddMvc();
-    }
-}
-```
-
-The `AddDistributedRedisCache(Configuration)` method call configures the `IDistributedCache` by using the configuration built by the application earlier and adds the connection to the service container.
-
-### Use IDistributedCache
-
-The following example shows how to inject and use the `IDistributedCache` in a controller once it has been added to the service container:
-
- ```csharp
- using Microsoft.Extensions.Caching.Distributed;
- ...
- public class HomeController : Controller
- {
-     private IDistributedCache _cache;
-     public HomeController(IDistributedCache cache)
-     {
-         _cache = cache;
-     }
-     ...
-     public IActionResult CacheData()
-     {
-         string key1 = Encoding.Default.GetString(_cache.Get("Key1"));
-         string key2 = Encoding.Default.GetString(_cache.Get("Key2"));
-
-         ViewData["Key1"] = key1;
-         ViewData["Key2"] = key2;
-
-         return View();
-     }
- }
- ```
-
-### Add IConnectionMultiplexer
-
-To use a StackExchange `IConnectionMultiplexer` in your application directly, add it to the service container in the `ConfigureServices()` method of the `Startup` class:
-
- ```csharp
-using Steeltoe.Connectors.Redis;
-
-public class Startup {
-    ...
-    public IConfiguration Configuration { get; private set; }
-    public Startup(...)
-    {
-      ...
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add StackExchange IConnectionMultiplexer
-        services.AddRedisConnectionMultiplexer(Configuration);
-
-        // Add framework services
-        services.AddMvc();
-        ...
-    }
-    ...
-}
-```
-
-The `AddRedisConnectionMultiplexer(Configuration)` method call configures the `IConnectionMultiplexer` by using the configuration built by the application and adds the connection to the service container.
-
->If necessary, you can use both `IDistributedCache` and `IConnectionMultiplexer` in your application.
-
-### Use IConnectionMultiplexer
-
-Once you have configured and added the `IConnectionMultiplexer` to the service container, you can inject it and use it in a controller or a view:
-
-```csharp
-using Microsoft.Extensions.Caching.Distributed;
-...
-public class HomeController : Controller
-{
-    private IConnectionMultiplexer _conn;
-    public HomeController(IConnectionMultiplexer conn)
-    {
-        _conn = conn;
-    }
-    ...
-    public IActionResult ConnData()
-    {
-        IDatabase db = _conn.GetDatabase();
-
-        string key1 = db.StringGet("ConnectionMultiplexerKey1");
-        string key2 = db.StringGet("ConnectionMultiplexerKey2");
-
-        ViewData["ConnectionMultiplexerKey1"] = key1;
-        ViewData["ConnectionMultiplexerKey2"] = key2;
-
-        return View();
-    }
-}
-```
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/Redis#running-on-tanzu-application-platform-tap.

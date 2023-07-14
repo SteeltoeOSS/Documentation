@@ -49,7 +49,7 @@ _hideTocVersionToggle: true
 - @guides/security-providers/sso-openid-framework
 - @guides/security-providers/sso-openid-netcore
 
-## Service Connectors
+## Connectors
 
 - @guides/service-connectors/mongo
 - @guides/service-connectors/mssql

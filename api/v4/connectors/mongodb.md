@@ -1,106 +1,117 @@
 # MongoDB
 
-This connector simplifies using MongoDB with the [.NET MongoDB Driver](https://docs.mongodb.com/ecosystem/drivers/csharp/).
+This connector simplifies accessing [MongoDB](https://www.mongodb.com/) databases.
+It supports the next .NET drivers:
+- [MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver), which provides an `IMongoClient`.
+
+The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
 ## Usage
 
 To use this connector:
 
-1. Create a MongoDB service instance and bind it to your application.
-1. Optionally, configure any MongoDB client settings.
-1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
-1. Add MongoDB classes to your DI container.
+1. Create a MongoDB server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#mongodb).
+1. Add NuGet references to your project.
+1. Configure your connection string in `appsettings.json`.
+1. Initialize the Steeltoe Connector at startup.
+1. Use the driver-specific connection/client instance.
 
-### Add NuGet Reference
+### Add NuGet References
 
-To use the MongoDB connector, add the official [MongoDB.Driver NuGet package](https://www.nuget.org/packages/MongoDB.Driver/) as you would if you were not using Steeltoe. Then [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references).
+To use this connector, add a NuGet reference to `Steeltoe.Connectors`.
 
-### Configure Settings
+Also add a NuGet reference to one of the .NET drivers listed above, as you would if you were not using Steeltoe.
 
-This connector supports several settings for local interaction with MongoDB that are overridden by service bindings on deployment:
+### Configure connection string
+
+The available connection string parameters for MongoDB are documented [here](https://www.mongodb.com/docs/manual/reference/connection-string/).
+
+The following example `appsettings.json` uses the docker container from above:
 
 ```json
 {
-  "MongoDb": {
+  "Steeltoe": {
     "Client": {
-      "Server": "localhost",
-      "Port": 27017,
-      "Database": "SampleDb",
-      "Options": {
-        "ReplicaSet": "rs0"
+      "MongoDb": {
+        "Default": {
+          "ConnectionString": "mongodb://localhost:27017",
+          "Database": "TestCollection"
+        }
       }
     }
   }
 }
 ```
 
-The following table table describes all possible settings for the connector
+Notice this configuration file contains the database name, in addition to the connection string. This value is exposed
+as `MongoDbOptions.Database`.
 
-| Key | Description | Default |
-| --- | --- | --- |
-| `Server` | Hostname or IP Address of the server. | `localhost` |
-| `Port` | Port number of the server. | 27017 |
-| `Username` | Username for authentication. | not set |
-| `Password` | Password for authentication. | not set |
-| `Database` | Name of the database to use. | not set |
-| `Options` | Any additional [options](https://mongodb.github.io/mongo-csharp-driver/2.7/apidocs/html/T_MongoDB_Driver_MongoClientSettings.htm), passed through as provided. | not set |
-| `ConnectionString` | Full connection string. | Built from settings |
+### Initialize Steeltoe Connector
 
->IMPORTANT: All of these settings should be prefixed with `MongoDb:Client:`.
+Update your `Program.cs` as below to initialize the Connector:
 
-The samples and most templates are already set up to read from `appsettings.json`.
+```c#
+using Steeltoe.Connectors.MongoDb;
 
->If a ConnectionString is provided and VCAP_SERVICES are not detected (a typical scenario for local app development), the ConnectionString will be used exactly as provided.
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.AddMongoDb();
+```
 
-### Cloud Foundry
+### Use IMongoClient
 
-To use MongoDB on Cloud Foundry, create and bind an instance to your application by using the Cloud Foundry CLI, as shown in the following example:
+Start by defining a class that contains collection data:
+```c#
+using MongoDB.Bson;
+
+public class SampleObject
+{
+    public ObjectId Id { get; set; }
+    public string? Text { get; set; }
+}
+```
+
+To obtain an `IMongoClient` instance in your application, inject the Steeltoe factory in a controller or view:
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using MongoDb.Data;
+using MongoDB.Driver;
+using Steeltoe.Connectors;
+using Steeltoe.Connectors.MongoDb;
+
+public class HomeController : Controller
+{
+    public async Task<IActionResult> Index(
+        [FromServices] ConnectorFactory<MongoDbOptions, IMongoClient> connectorFactory)
+    {
+        var connector = connectorFactory.Get();
+        IMongoClient client = connector.GetConnection();
+
+        IMongoDatabase database = client.GetDatabase(connector.Options.Database);
+        IMongoCollection<SampleObject> collection = database.GetCollection<SampleObject>("SampleObjects");
+        List<SampleObject> sampleObjects = await collection.Find(obj => true).ToListAsync();
+
+        return View(sampleObjects);
+    }
+}
+```
+
+A complete sample app that uses `IMongoClient` is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/MongoDb.
+
+## Cloud Foundry
+
+This Connector supports the next CloudFoundry tiles:
+- [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
+
+You can create and bind an instance to your application by using the Cloud Foundry CLI:
 
 ```bash
 # Create MongoDB service
-cf create-service mongodb-odb standalone_small myMongoDb
+cf create-service csb-azure-mongodb small myMongoDbService
 
-# Bind service to `myApp`
-cf bind-service myApp myMongoDb
+# Bind service to your app
+cf bind-service myApp myMongoDbService
 
 # Restage the app to pick up change
 cf restage myApp
-```
-
->The preceding commands assume you use the MongoDB Enterprise Service for PCF. If you use a different service, you may have to adjust the `create-service` command to fit your environment.
-
-### Add Mongo Client
-
-To use `MongoClient` and `MongoUrl` in your application, use the extension provided for Microsoft DI:
-
-```csharp
-using Steeltoe.Connectors.MongoDb;
-public class Startup
-{
-  ...
-  public IServiceProvider ConfigureServices(IServiceCollection services)
-  {
-      services.AddMongoClient(Configuration);
-  }
-  ...
-}
-```
-
-### Use Mongo Client
-
-The following example shows how to inject and use an `IMongoClient` and a `MongoUrl` in order to get an `IMongoDatabase` object:
-
-```csharp
-public class SomeClass
-{
-  private readonly IMongoDatabase _database = null;
-  public SomeClass(IMongoClient mongoClient, MongoUrl mongoUrl)
-  {
-    _database = mongoClient.GetDatabase(mongoUrl.DatabaseName);
-  }
-  public IMongoCollection<SomeObject> MyObjects
-  {
-      get { return _database.GetCollection<SomeObject>("MyObjects"); }
-  }
-}
 ```

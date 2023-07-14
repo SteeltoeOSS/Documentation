@@ -1,218 +1,166 @@
 # PostgreSQL
 
-This connector simplifies using PostgreSQL. Currently, the connector supports the [Npgsql](https://www.npgsql.org/) provider.
+This connector simplifies accessing [PostgreSQL](https://www.postgresql.org/) databases.
+It supports the next .NET drivers:
+- [Npgsql](https://www.nuget.org/packages/Npgsql), which provides an ADO.NET `DbConnection`.
+- [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL), which provides [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) support.
 
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](../management/health.md) check endpoint.
+The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
 ## Usage
 
-You should know how the .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
-
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used to configure the application services for the app. Pay particular attention to the `ConfigureServices()` method.
-
 To use this connector:
 
-1. Create a PostgreSQL Service instance and bind it to your application.
-1. Optionally, Configure any PostgreSQL client settings (such as `appsettings.json`).
-1. Optionally, add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
-1. Add `NpgsqlConnection` or `DbContext` to your `IServiceCollection`.
+1. Create a PostgreSQL server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#postgresql).
+1. Add NuGet references to your project.
+1. Configure your connection string in `appsettings.json`.
+1. Initialize the Steeltoe Connector at startup.
+1. Use the driver-specific connection/client instance.
 
-### Add NuGet Reference
+### Add NuGet References
 
-To use the PostgreSQL connector, add your choice of PostgreSQL package between [Npgsql](https://www.nuget.org/packages/Npgsql/) and [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/) as you would if you were not using Steeltoe. Then [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references).
+To use this connector, add a NuGet reference to `Steeltoe.Connectors`. If you're using Entity Framework Core, add a
+NuGet reference to `Steeltoe.Connectors.EntityFrameworkCore` instead.
 
->Steeltoe does not currently include direct support for PostgreSQL with Entity Framework 6.
+Also add a NuGet reference to one of the .NET drivers listed above, as you would if you were not using Steeltoe.
 
-### Configure Settings
+### Configure connection string
 
-The PostgreSQL connector supports several settings for creating the `NpgsqlConnection` to a database. This can be useful when you develop and test an application locally and need to configure the connector for non-default settings.
+The available connection string parameters for PostgreSQL are documented [here](https://www.npgsql.org/doc/connection-string-parameters.html).
 
-The following example shows a PostgreSQL connector configuration (in JSON) to set up a connection to a database at `myserver:5432`:
+The following example `appsettings.json` uses the docker container from above:
 
 ```json
 {
-  ...
-  "Postgres": {
+  "Steeltoe": {
     "Client": {
-      "Host": "myserver",
-      "Port": 5432
+      "PostgreSql": {
+        "Default": {
+          "ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+        }
+      }
     }
   }
-  ...
 }
 ```
 
-The following table describes all of the possible settings for the connector:
+### Initialize Steeltoe Connector
 
-|Key|Description |Default
-| --- | --- | --- |
-| `Host` | Hostname or IP Address of server. | `localhost` |
-| `Port` | Port number of server. | 5432 |
-| `Username` | Username for authentication. | not set |
-| `Password` | Password for authentication. | not set |
-| `Database` | Schema to which to connect. | not set |
-| `ConnectionString` | Full connection string. | Built from settings |
+Update your `Program.cs` as below to initialize the Connector:
 
->IMPORTANT: All of these settings should be prefixed with `Postgres:Client:`.
-
-The samples and most templates are already set up to read from `appsettings.json`.
-
->If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
-
-### Cloud Foundry
-
-To use PostgreSQL on Cloud Foundry, after a PostgreSQL service is installed, you can create and bind an instance of it to your application by using the Cloud Foundry CLI:
-
-```bash
-# Create PostgreSQL service
-cf create-service EDB-Shared-PostgreSQL "Basic PostgreSQL Plan" myPostgres
-
-# Bind service to `myApp`
-cf bind-service myApp myPostgres
-
-# Restage the app to pick up change
-cf restage myApp
-```
-
->The preceding commands work for the PostgreSQL service provided by EDB on Cloud Foundry. For another service, adjust the `create-service` command to fit your environment.
-
-This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
-
-Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
-
-### Add NpgsqlConnection
-
-To use a `NpgsqlConnection` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class:
-
-```csharp
+```c#
 using Steeltoe.Connectors.PostgreSql;
 
-public class Startup {
-    ...
-    public IConfiguration Configuration { get; private set; }
-    public Startup(...)
-    {
-      ...
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add NpgsqlConnection
-        services.AddPostgresConnection(Configuration);
-
-        // Add framework services.
-        services.AddMvc();
-        ...
-    }
-    ...
-}
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.AddPostgreSql();
 ```
-
-The `AddPostgresConnection(Configuration)` method call configures the `NpgsqlConnection` by using the configuration built by the application and adds the connection to the service container.
-
-> By default, this extension method will automatically configure an `IHealthContributor` to report the health of this database connection. This behavior can be turned off by passing `false` for the parameter `addSteeltoeHealthChecks`
 
 ### Use NpgsqlConnection
 
-Once the connection is configured and added to the service container, you can inject it and use it in a controller or a view:
+To obtain an `NpgsqlConnection` instance in your application, inject the Steeltoe factory in a controller or view:
 
 ```csharp
+using Microsoft.AspNetCore.Mvc;
 using Npgsql;
-...
+using Steeltoe.Connectors;
+using Steeltoe.Connectors.PostgreSql;
+
 public class HomeController : Controller
 {
-    public IActionResult PostgresData([FromServices] NpgsqlConnection dbConnection)
+    public async Task<IActionResult> Index(
+        [FromServices] ConnectorFactory<PostgreSqlOptions, NpgsqlConnection> connectorFactory)
     {
-        dbConnection.Open();
+        var connector = connectorFactory.Get();
+        await using NpgsqlConnection connection = connector.GetConnection();
+        await connection.OpenAsync();
 
-        NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM TestData;", dbConnection);
-        var rdr = cmd.ExecuteReader();
+        NpgsqlCommand command = connection.CreateCommand();
+        command.CommandText = "SELECT 1";
+        object? result = await command.ExecuteScalarAsync();
 
-        while (rdr.Read())
-        {
-            ViewData["Key" + rdr[0]] = rdr[1];
-        }
-
-        rdr.Close();
-        dbConnection.Close();
-
+        ViewData["Result"] = result;
         return View();
     }
 }
 ```
 
-### Add DbContext
+A complete sample app that uses `NpgsqlConnection` is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/PostgreSql.
 
-To use Entity Framework, inject and use a `DbContext` in your application instead of a `NpgsqlConnection` through the `AddDbContext<>()` method:
+### Use Entity Framework Core
 
-```csharp
-using Steeltoe.Connectors.PostgreSql.EFCore;
+Start by defining your `DbContext` class:
+```c#
+public class AppDbContext : DbContext
+{
+    public DbSet<SampleEntity> SampleEntities => Set<SampleEntity>();
 
-public class Startup {
-    public IConfiguration Configuration { get; private set; }
-    public Startup(...)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
-      ...
     }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add EFCore TestContext configured with a PostgreSQL configuration
-        services.AddDbContext<TestContext>(options => options.UseNpgsql(Configuration));
+}
 
-        // see note below explaining AddPostgresHealthContributor
-        services.AddPostgresHealthContributor(Configuration);
-        ...
-    }
+public class SampleEntity
+{
+    public long Id { get; set; }
+    public string? Text { get; set; }
 }
 ```
 
-The `AddDbContext<TestContext>(options => options.UseNpgsql(Configuration));` method call configures the `TestContext` by using the configuration built by the application and adds the context to the service container.
+Next, call the `UseNpgsql()` Steeltoe extension method from `Program.cs` to initialize Entity Framework Core:
 
-> This extension method will _NOT_ automatically configure an `IHealthContributor` to report the health of this database connection. The package Steeltoe.Connectors.ConnectorCore provides an `IServiceCollection` extension method that will. Directly add the health contributor with the code `services.AddPostgresHealthContributor(Configuration)`
+```c#
+using Steeltoe.Connectors.EntityFrameworkCore.PostgreSql;
+using Steeltoe.Connectors.PostgreSql;
 
-The following example shows how you would define the `DbContext`:
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.AddPostgreSql();
+
+builder.Services.AddDbContext<AppDbContext>(
+    (serviceProvider, options) => options.UseNpgsql(serviceProvider));
+```
+
+Once you have configured and added your `DbContext` to the service container,
+you can inject it and use it in a controller or view:
 
 ```csharp
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-...
 
-public class TestContext : DbContext
-{
-    public TestContext(DbContextOptions options) : base(options)
-    {
-    }
-    public DbSet<TestData> TestData { get; set; }
-}
-```
-
-If you need to set additional properties for the `DbContext` like `MigrationsAssembly` or connection retry settings, create an `Action<NpgsqlDbContextOptionsBuilder>`:
-
-```csharp
-Action<NpgsqlDbContextOptionsBuilder> npgsqlOptionsAction = (o) =>
-{
-  o.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-  // Configuring Connection Resiliency: https://docs.microsoft.com/ef/core/miscellaneous/connection-resiliency
-  o.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-};
-```
-
-Pass your new options action into the AddDbContext method:
-
-```csharp
-services.AddDbContext<TestContext>(options => options.UseNpgsql(Configuration, npgsqlOptionsAction));
-```
-
-### Use DbContext
-
-Once you have configured and added the context to the service container, you can inject it and use it in a controller or a view:
-
-```csharp
-using Project.Models;
-...
 public class HomeController : Controller
 {
-    public IActionResult PostgresData([FromServices] TestContext context)
+    public async Task<IActionResult> Index([FromServices] AppDbContext appDbContext)
     {
-        return View(context.TestData.ToList());
+        List<SampleEntity> entities = await appDbContext.SampleEntities.ToListAsync();
+        return View(entities);
     }
 }
 ```
+
+A complete sample app that uses Entity Framework Core with PostgreSQL is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/PostgreSqlEFCore.
+
+## Cloud Foundry
+
+This Connector supports the next CloudFoundry tiles:
+- [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
+- [VMware Tanzu Cloud Service Broker for GCP](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)
+
+You can create and bind an instance to your application by using the Cloud Foundry CLI:
+
+```bash
+# Create PostgreSQL service
+cf create-service csb-azure-postgresql small myPostgreSqlService
+
+# Bind service to your app
+cf bind-service myApp myPostgreSqlService
+
+# Restage the app to pick up change
+cf restage myApp
+```
+
+## Kubernetes
+
+This Connectors supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
+It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
+
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/PostgreSql#running-on-tanzu-application-platform-tap.

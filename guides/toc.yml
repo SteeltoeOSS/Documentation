@@ -30,7 +30,7 @@
     - topicUid: guides/security-providers/sso-oauth
     - topicUid: guides/security-providers/sso-openid-framework
     - topicUid: guides/security-providers/sso-openid-netcore
-- name: Service Connectors
+- name: Connectors
   items:
     - topicUid: guides/service-connectors/mongo
     - topicUid: guides/service-connectors/mssql
