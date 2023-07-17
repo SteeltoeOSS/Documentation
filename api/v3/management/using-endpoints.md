@@ -189,13 +189,10 @@ public class Startup
 
 Endpoints now support customizing them with `IEndpointConventionBuilder` from `Microsoft.AspNetCore.Builder`. This allows calling `RequireAuthorization()` to run Authorization Middleware on them.
 
-For the `IEndpointRouteBuilder` extensions, it can be added as shown:
+For the `IEndpointRouteBuilder` extensions, it can be added as shown to the `WebApplication app`:
 
 ```csharp
-    app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapAllActuators().RequireAuthorization();
-            ...
+    app.MapAllActuators(ep => ep.RequireAuthorization("actuators.read"));
 ```
 
 When using the `IHostBuilder` extensions, it can be added as shown:
