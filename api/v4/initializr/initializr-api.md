@@ -84,7 +84,6 @@ $ http https://start.steeltoe.io/api/config/dependencies | jq '.[] .values[] .id
 "actuator"
 "amqp"
 "azure-spring-cloud"
-"circuit-breaker"
 "cloud-foundry"
 "config-server"
 "data-mongodb"

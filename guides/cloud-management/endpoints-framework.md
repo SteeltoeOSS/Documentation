@@ -37,14 +37,14 @@ Next, **install packages** needed
 1. Install NuGet distributed packages
 
    ```powershell
-   Install-Package -Id Microsoft.Extensions.Configuration -Version 2.2
-   Install-Package -Id Microsoft.Extensions.Logging -Version 2.2
-   Install-Package -Id Microsoft.Extensions.Logging.Console -Version 2.2
-   Install-Package -Id OpenCensus -IncludePrerelease
-   Install-Package -Id Steeltoe.Extensions.Logging.DynamicLogger -Version 2.4
-   Install-Package -Id Steeltoe.Management.EndpointBase -Version 2.4
-   Install-Package -Id Steeltoe.Extensions.Configuration.CloudFoundryBase -Version 2.4
-   Install-Package -Id Steeltoe.Management.EndpointWeb -Version 2.4
+   Install-Package Microsoft.Extensions.Configuration
+   Install-Package Microsoft.Extensions.Logging
+   Install-Package Microsoft.Extensions.Logging.Console
+   Install-Package OpenCensus -IncludePrerelease
+   Install-Package Steeltoe.Logging.DynamicLogger
+   Install-Package Steeltoe.Management.Endpoint
+   Install-Package Steeltoe.Configuration.CloudFoundry
+   Install-Package Steeltoe.Management.EndpointWeb
    ```
 
 Next, **add actuators** support classes
@@ -84,7 +84,7 @@ Next, **add actuators** support classes
    using System;
    using System.IO;
    using Microsoft.Extensions.Configuration;
-   using Steeltoe.Extensions.Configuration.CloudFoundry;
+   using Steeltoe.Configuration.CloudFoundry;
 
    public class ApplicationConfig {
      public static CloudFoundryApplicationOptions CloudFoundryApplication {
@@ -192,7 +192,7 @@ Next, **add actuators** support classes
    using Microsoft.Extensions.Configuration;
    using Microsoft.Extensions.DependencyInjection;
    using Microsoft.Extensions.Logging;
-   using Steeltoe.Extensions.Logging;
+   using Steeltoe.Logging;
 
    public static class LoggingConfig
    {

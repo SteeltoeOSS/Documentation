@@ -4,15 +4,7 @@ Steeltoe Spring Boot Admin client provides a way to integrate with [Spring Boot 
 
 ## Add NuGet Reference
 
-Add the following PackageReference to your .csproj file.
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Management.EndpointBase" Version="3.2.0" />
-...
-</ItemGroup>
-```
+Add a reference to the `Steeltoe.Management.Endpoint` NuGet package.
 
 ## Add Spring Boot Admin Client
 

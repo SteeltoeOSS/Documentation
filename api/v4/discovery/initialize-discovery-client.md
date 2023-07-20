@@ -12,26 +12,13 @@ Fundamentally, three things need to happen to use the clients:
 
 The simplest way to get started with Steeltoe Discovery is to add a reference to the package(s) containing the client technology you may wish to use. Any client package also includes all the relevant dependencies.
 
-| Package | Description | .NET Target |
-| --- | --- | --- |
-| `Steeltoe.Discovery.Abstractions` | Interfaces and objects used for extensibility. | .NET Standard 2.0 |
-| `Steeltoe.Discovery.ClientBase` |  Service Discovery base package. | .NET Standard 2.0 |
-| `Steeltoe.Discovery.ClientCore` | Includes base. Adds WebHost compatibility. | ASP.NET Core 3.1+ |
-| `Steeltoe.Discovery.Eureka` | Eureka Client functionality. Depends on ClientBase. | .NET Core 3.1+ |
-| `Steeltoe.Discovery.Consul` | Consul Client functionality. Depends on ClientBase. | .NET Core 3.1+ |
-| `Steeltoe.Discovery.Kubernetes` | Kubernetes Client functionality. Depends on ClientBase. | .NET Core 3.1+ |
-
-To add this type of NuGet to your project, add an element resembling the following `PackageReference`:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Discovery.Consul" Version="3.2.0" />
-...
-</ItemGroup>
-```
-
-If you are using `WebHost` to run your application, you will need to also add a reference to `Steeltoe.Discovery.ClientCore`. If you would like the option of switching between clients using configuration, add a reference for each client you may wish to use.
+| Package | Description |
+| --- | --- |
+| `Steeltoe.Discovery.Abstractions` | Interfaces and objects used for extensibility. |
+| `Steeltoe.Discovery.Client` |  Service Discovery package. |
+| `Steeltoe.Discovery.Eureka` | Eureka Client functionality. Depends on Client. |
+| `Steeltoe.Discovery.Consul` | Consul Client functionality. Depends on Client. |
+| `Steeltoe.Discovery.Kubernetes` | Kubernetes Client functionality. Depends on Client. |
 
 >As of version 3.0, a direct reference to any applicable discovery client is required. If you find log messages saying `No discovery client has been configured...`, this is why.
 
@@ -57,7 +44,7 @@ public class Program
 
 The `AddDiscoveryClient` extension shown above uses reflection to find assemblies containing a discovery client. Specifically, assemblies are located by the presence of the attribute `DiscoveryClientAssembly`, which contains a reference to an `IDiscoveryClientExtension` that does the work in configuring options and injecting the required service for the `IDiscoveryClient` to operate.
 
->If no discovery client package is found a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/ClientBase/SimpleClients/NoOpDiscoveryClient.cs) will be used. This will happen when no client has been added or if you publish your application with [`/p:PublishSingleFile=true`](https://docs.microsoft.com/dotnet/core/deploying/single-file))
+>If no discovery client package is found a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/Client/SimpleClients/NoOpDiscoveryClient.cs) will be used. This will happen when no client has been added or if you publish your application with [`/p:PublishSingleFile=true`](https://docs.microsoft.com/dotnet/core/deploying/single-file))
 
 To avoid this reflection-based approach, use declarative configuration of the client(s) you plan to use, like this:
 
@@ -77,7 +64,7 @@ public class Program
 
 As of version 3.0.2, you may add multiple `Usexxx()` statements to this options builder, so long as only one is configured at runtime.
 
->If no extension is supplied for `AddServiceDiscovery`, a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/ClientBase/SimpleClients/NoOpDiscoveryClient.cs) will be used.
+>If no extension is supplied for `AddServiceDiscovery`, a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/Client/SimpleClients/NoOpDiscoveryClient.cs) will be used.
 
 ## Other Extensions
 

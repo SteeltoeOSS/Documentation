@@ -100,11 +100,7 @@ Name this class `Tut1Receiver`; this will be the class we use to receive message
 
 Next, in the `Sender` project, rename the `Worker.cs` file to `Tut1Sender.cs`.  
 
-Finally, in both of the projects `.csproj` files add the Steeltoe RabbitMQ Messaging package reference.  Below is an example of the reference.
-
-```xml
-<PackageReference Include="Steeltoe.Messaging.RabbitMQ" Version="3.2.1" />
-```
+Finally, in both of the projects `.csproj` files add the `Steeltoe.Messaging.RabbitMQ` NuGet package reference.
 
 After these changes your solution should look something like the following:
 

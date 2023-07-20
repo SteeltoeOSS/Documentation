@@ -37,14 +37,14 @@ To communicate with an external config server, we're going to need to add a clie
 
 # [Visual Studio](#tab/visual-studio)
 
-Right-click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manager window, choose "Browse", then search for `Steeltoe.Extensions.Configuration.ConfigServerCore`, and install.
+Right-click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manager window, choose "Browse", then search for `Steeltoe.Configuration.ConfigServer`, and install.
 
 ![Add configuration server library](../images/vs-add-configserver.png)
 
 # [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
-dotnet add package Steeltoe.Extensions.Configuration.ConfigServerCore
+dotnet add package Steeltoe.Configuration.ConfigServer
 ```
 
 ---
@@ -54,7 +54,7 @@ dotnet add package Steeltoe.Extensions.Configuration.ConfigServerCore
 Open "Program.cs" and register a configuration provider for Spring Config Server client in the application builder.
 
 ```csharp
-using Steeltoe.Extensions.Configuration.ConfigServer;
+using Steeltoe.Configuration.ConfigServer;
 ```
 
 ```csharp

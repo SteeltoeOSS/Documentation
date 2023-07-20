@@ -32,20 +32,10 @@ In this step, we create the `UsageDetailSender` Source project. Create a new .NE
 
 In order to make each of the three projects Steeltoe Stream applications,  you need to add references to the following packages:
 
-| Package | Description | .NET Target |
-| --- | --- | --- |
-| `Steeltoe.Stream.StreamBase` | Provides StreamHost extensions, base functionality and dependency injection support | ASP.NET Core 3.1+ |
-| `Steeltoe.Stream.Binder.RabbitMQ` | Binder that connects Steeltoe abstractions with RabbitMQ  | ASP.NET Core 3.1+ |
-
-To add this type of NuGet to your project, add a `PackageReference` resembling the following:
-
-```xml
-<ItemGroup>
-    <PackageReference Include="Steeltoe.Stream.StreamBase" Version="3.2.0"/>
-</ItemGroup>
-```
-
-<!-- TODO: Initializr Instructions-->
+| Package | Description |
+| --- | --- |
+| `Steeltoe.Stream` | Provides StreamHost extensions, base functionality and dependency injection support |
+| `Steeltoe.Stream.Binder.RabbitMQ` | Binder that connects Steeltoe abstractions with RabbitMQ  |
 
 #### Business Logic
 

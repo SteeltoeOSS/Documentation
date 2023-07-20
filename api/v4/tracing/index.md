@@ -26,30 +26,7 @@ Steeltoe distributed tracing automatically applies instrumentation at key ingres
 
 ### Add NuGet References
 
-To use the distributed tracing exporters, you need to add a reference to the appropriate Steeltoe NuGet based on the type of the application you are building and what dependency injector you have chosen (if any).
-
-The following table describes the available packages:
-
-| Package | Description | .NET Target |
-| --- | --- | --- |
-| `Steeltoe.Management.TracingBase` | Base functionality. | .NET Standard 2.0 |
-| `Steeltoe.Management.TracingCore` | Includes `TracingBase`, adds ASP.NET Core instrumentation. | ASP.NET Core 3.1+ |
-
-To add this type of NuGet to your project, add a `PackageReference` resembling the following:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Management.TracingCore" Version="3.2.0"/>
-...
-</ItemGroup>
-```
-
-Alternative, you can add it with PowerShell:
-
-```powershell
-PM>Install-Package Steeltoe.Management.TracingCore
-```
+To use the distributed tracing exporters, you need to add a reference to the `Steeltoe.Management.Tracing` NuGet package.
 
 ### Configure Settings
 
@@ -84,11 +61,10 @@ When working with distributed tracing systems, you will find that a trace contex
 
 Steeltoe makes this easy by automatically configuring some of the instrumentation packages provided by Open Telemetry.
 
-* TracingBase configures [instrumentation on outbound requests](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.Http/README.md)
-* TracingCore builds on top of TracingBase, also configuring [instrumentation on inbound requests through ASP.NET Core and Grpc.AspNetCore](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md)
+* Tracing configures [instrumentation on outbound requests](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.Http/README.md) and [instrumentation on inbound requests through ASP.NET Core and Grpc.AspNetCore](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md)
 * Additional instrumentation libraries can be added with the [`Action<TracerProviderBuilder>` parameter](#adding-to-tracerproviderbuilder)
 
- Steeltoe currently uses [Zipkin B3 Propagation](https://github.com/openzipkin/b3-propagation) by default, but can be configured to use [W3C trace context](https://www.w3.org/TR/trace-context/). As a result, you will find that Steeltoe tracing is interoperable with several other instrumentation libraries, such as [Spring Cloud Sleuth](https://spring.io/projects/spring-cloud-sleuth).
+Steeltoe currently uses [Zipkin B3 Propagation](https://github.com/openzipkin/b3-propagation) by default, but can be configured to use [W3C trace context](https://www.w3.org/TR/trace-context/). As a result, you will find that Steeltoe tracing is interoperable with several other instrumentation libraries, such as [Spring Cloud Sleuth](https://spring.io/projects/spring-cloud-sleuth).
 
 ### Add Distributed Tracing
 
@@ -104,8 +80,8 @@ var host = Host.CreateDefaultBuilder(args)
     })
 ```
 
-`AddDistributedTracing()` is included in `Steeltoe.Management.TracingBase`, configures OpenTelemetry, `HttpClient` instrumentation and [exporters](./distributed-tracing-exporting.md).
-`AddDistributedTracingAspNetCore()` is included in `Steeltoe.Management.TracingCore`, and calls `AddDistributedTracing()` with the addition of `ASP.NET Core` and `Grpc.AspNetCore` instrumentation.
+`AddDistributedTracing()` is included in `Steeltoe.Management.Tracing`, configures OpenTelemetry, `HttpClient` instrumentation and [exporters](./distributed-tracing-exporting.md).
+`AddDistributedTracingAspNetCore()` is included in `Steeltoe.Management.Tracing`, and calls `AddDistributedTracing()` with the addition of `ASP.NET Core` and `Grpc.AspNetCore` instrumentation.
 
 ### Code-based Instrumentation Configuration
 

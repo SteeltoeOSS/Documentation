@@ -15,7 +15,7 @@ _hideTocVersionToggle: true
 
 # Workshop summary
 
-The previous labs were meant to give you an introduction to the power available when you use Steeltoe with microservices. If you feel like you didn't get to write much code or this was too simple, then we've done our job! The purpose of Steeltoe is to make developing microservices easier. If you had a bunch of convoluted steps and classes to create, just to get some supporting framework going, that wouldn't be much value added to your day. We've visited actuators, cloud connectors, and external configuration in this workshop. You can continue the learning and exploration of Steeltoe with the below resources. If this is the first time you've used Steeltoe, you're missing out on circuit breakers, service discovery, Kubernetes things, messaging, and oAuth security goodness. Keep the love going and the .NET learning strong!
+The previous labs were meant to give you an introduction to the power available when you use Steeltoe with microservices. If you feel like you didn't get to write much code or this was too simple, then we've done our job! The purpose of Steeltoe is to make developing microservices easier. If you had a bunch of convoluted steps and classes to create, just to get some supporting framework going, that wouldn't be much value added to your day. We've visited actuators, cloud connectors, and external configuration in this workshop. You can continue the learning and exploration of Steeltoe with the below resources. If this is the first time you've used Steeltoe, you're missing out on service discovery, Kubernetes things, messaging, and oAuth security goodness. Keep the love going and the .NET learning strong!
 
 ---
 

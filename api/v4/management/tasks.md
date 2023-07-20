@@ -6,21 +6,7 @@ Steeltoe management tasks provide a way to run administrative tasks for ASP.NET 
 
 This package provides an extension for `Microsoft.AspNetCore.Hosting.IWebHost`.
 
-Add the following PackageReference to your .csproj file.
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Management.TaskCore" Version="3.2.0"/>
-...
-</ItemGroup>
-```
-
-Alternatively, you can use PowerShell:
-
-```powershell
-PM>Install-Package  Steeltoe.Management.TaskCore
-```
+Add a reference to the `Steeltoe.Management.Task` NuGet package.
 
 ## Implement Task Interface
 

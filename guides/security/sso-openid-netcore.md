@@ -34,10 +34,10 @@ Next, **create a .NET Core WebAPI** that interacts with SSO
 1. Extract the zipped project and open in your IDE of choice
 1. Open the package manager console
    <img src="~/guides/images/open-package-manager-console.png" alt="Visual Studio - Package Manager Console" width="100%">
-1. Install NuGet distributed packages
+1. Install NuGet packages
 
    ```powershell
-   Install-Package -Id Steeltoe.Security.Authentication.CloudFoundryCore -Version 2.4
+   Install-Package Steeltoe.Security.Authentication.CloudFoundry
    ```
 
 1. Set the instance address in **appsettings.json**

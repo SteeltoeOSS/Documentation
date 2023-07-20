@@ -19,10 +19,6 @@ _hideTocVersionToggle: true
 - @guides/application-configuration/placeholder
 - @guides/application-configuration/random-value
 
-## Circuit Breakers
-
-- @guides/circuit-breakers/circuit-breaker
-
 ## Cloud Management
 
 - @guides/cloud-management/distributed-tracing

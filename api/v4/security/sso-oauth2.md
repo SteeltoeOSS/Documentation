@@ -28,19 +28,7 @@ In order to use the security provider:
 
 ### Add NuGet Reference
 
-To use the provider, add a reference to the Steeltoe Cloud Foundry Security NuGet.
-
-The provider can be found in the `Steeltoe.Security.Authentication.CloudFoundryCore` package.
-
-You can add the provider to your project by using the following `PackageReference`:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.2.0"/>
-...
-</ItemGroup>
-```
+To use the provider, you need to add a reference to the `Steeltoe.Security.Authentication.CloudFoundry` NuGet package.
 
 ### Configure Settings
 

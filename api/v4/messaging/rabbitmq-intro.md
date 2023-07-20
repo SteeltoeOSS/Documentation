@@ -18,9 +18,9 @@ For example, simply add the following to your `.csproj` file:
 
 ### Compatibility
 
-The minimum .NET Core version dependency is 3.1.
+The minimum .NET version dependency is 6.0.
 
-The  `RabbitMQ.Client` .NET client library version is 5.1.2.
+The `RabbitMQ.Client` .NET client library version is 5.1.2.
 
 ### Very, Very Quick
 
@@ -30,9 +30,9 @@ First, add the following `using` statements:
 
 ```csharp
 using System;
+using Steeltoe.Messaging.RabbitMQ;
 using Steeltoe.Messaging.RabbitMQ.Config;
 using Steeltoe.Messaging.RabbitMQ.Connection;
-using Steeltoe.Messaging.RabbitMQ.Core;
 ```
 
 The following example uses a simple console application to send and receive a message:
@@ -248,8 +248,8 @@ See [`RabbitOptions`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Me
 Steeltoe `RabbitTemplate` and `RabbitAdmin` can be used to send and receive messages to a broker and are auto-configured when you add them to the .NET service container. You can inject them directly into your own services as follows:
 
 ```csharp
-using Steeltoe.RabbitMQ.Core.RabbitAdmin;
-using Steeltoe.RabbitMQ.Core..RabbitTemplate;
+using Steeltoe.RabbitMQ.RabbitAdmin;
+using Steeltoe.RabbitMQ.RabbitTemplate;
 
 public class MyService
 {

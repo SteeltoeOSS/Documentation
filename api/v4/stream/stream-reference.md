@@ -976,11 +976,7 @@ Each Binder implementation typically connects to one type of messaging system.
 
 By default, the Stream infrastructure will auto-configure the binder by searching for the assembly `BinderAttribute` in each assembly located in the directory from which the application is started.
 If a single Binder implementation is found, Steeltoe Stream automatically uses it and configures it using the `ConfigureServices()` method illustrated above.
-For example, a Stream project that aims to bind only to RabbitMQ can add the following dependency to the project.
-
-```xml
-    <PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.2.0" />
-```
+For example, a Stream project that aims to bind only to RabbitMQ can add the `Steeltoe.Stream.Binder.RabbitMQ` NuGet package dependency to the project.
 
 ### Multiple Binders
 

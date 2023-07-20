@@ -126,7 +126,7 @@ Next, **create a .NET Core WebAPI** with the correct Steeltoe dependencies.
 1. Add the Cloud Foundry configuration provider in **Program.cs**
 
    ```csharp
-   using Steeltoe.Extensions.Configuration.CloudFoundry;
+   using Steeltoe.Configuration.CloudFoundry;
    ...
    var builder = WebHost.CreateDefaultBuilder(args)
      ...

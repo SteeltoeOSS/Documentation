@@ -33,4 +33,4 @@ Using native Kubernetes service discovery ensures compatibility with additional 
 
 The calling service then need only refer to names resolvable in a particular Kubernetes cluster. This may be as simple as using the service name as the host name, or it may require a fully qualified domain name (FQDN), such as `{service-name}.{namespace}.svc.{cluster}.local:{service-port}` depending on your environment.
 
-In order to use both the discovery client programming model and the platform's native capabilities, a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/ClientBase/SimpleClients/NoOpDiscoveryClient.cs) can be used by either disabling other discovery clients, or not including them in the first place.
+In order to use both the discovery client programming model and the platform's native capabilities, a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/Client/SimpleClients/NoOpDiscoveryClient.cs) can be used by either disabling other discovery clients, or not including them in the first place.
