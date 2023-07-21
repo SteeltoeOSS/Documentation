@@ -36,7 +36,7 @@ For symmetric encryption a shared key is used to decrypt the secrets:
 >NOTE: This shared key should not be part of any repository but should be passed in some other way to
 the application.
 
-For assymetric configuration the configuration should be as follows:
+For asymmetric encryption, the configuration should be as follows:
 ```json
 {
   "Encrypt": {
