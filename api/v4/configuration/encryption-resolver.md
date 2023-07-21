@@ -52,7 +52,7 @@ For asymmetric encryption, the configuration should be as follows:
 >NOTE: This password and the keystore file should not be part of any repository but should be passed in some other way to
 the application.
 
-Below are all the configuration options of the EncryptionResolver.
+The following table describes the settings that you can apply to the EncryptionResolver:
 
 | Key | Description | Default |
 | --- | --- | --- |
