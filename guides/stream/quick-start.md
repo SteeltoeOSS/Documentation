@@ -22,7 +22,7 @@ First, **start a rabbitmq server** locally using Docker:
 1. [Creating a Sample Application by Using Steeltoe Initializr](https://start.steeltoe.io)
 1. Name the project `LoggingConsumer`
 1. Add the "Steeltoe.Stream.Binder.RabbitMQ" dependency
-1. Add the "Steeltoe.Stream.StreamBase" dependency
+1. Add the "Steeltoe.Stream.Stream" dependency
 1. [Adding a Message Handler](#adding-a-message-handler)
 1. [Building, and Running](#building-and-running)
 

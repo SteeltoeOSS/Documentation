@@ -34,22 +34,7 @@ The steps to use both Steeltoe Kubernetes configuration providers are the same:
 
 ### Add NuGet Reference
 
-You can choose one of two Kubernetes Configuration NuGet packages, depending on your needs. Both configuration providers are included in the base package.
-
-| Package | Description | .NET Target |
-| --- | --- | --- |
-| `Steeltoe.Configuration.KubernetesBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
-| `Steeltoe.Configuration.KubernetesCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
-
-To add this type of NuGet to your project, add a `PackageReference` that resembles the following:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Configuration.KubernetesCore" Version="3.2.0"/>
-...
-</ItemGroup>
-```
+To use the provider, you need to add a reference to the `Steeltoe.Configuration.Kubernetes` NuGet package.
 
 ### Add Configuration Providers to HostBuilder
 
@@ -72,7 +57,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         .AddKubernetesConfiguration()
 ```
 
->This functionality is included in the `Steeltoe.Configuration.KubernetesCore`. Beyond adding the configuration providers, `KubernetesApplicationOptions` is added to the `IServiceCollection` for use by these configuration providers and other Steeltoe components.
+>This functionality is included in the `Steeltoe.Configuration.Kubernetes` package. Beyond adding the configuration providers, `KubernetesApplicationOptions` is added to the `IServiceCollection` for use by these configuration providers and other Steeltoe components.
 
 #### Add Configuration Providers to ILoggingBuilder
 

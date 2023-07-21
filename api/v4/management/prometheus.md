@@ -40,18 +40,5 @@ Then, add the Prometheus actuator middleware to the ASP.NET Core pipeline, use t
 
 ### Add NuGet References
 
-To use the Prometheus endpoint, you need to add a reference to `Steeltoe.Management.EndpointCore`. To add this NuGet to your project, add a `PackageReference` resembling the following:
+To use the Prometheus endpoint, you need to add a reference to the `Steeltoe.Management.Endpoint` NuGet package.
 
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.2.0"/>
-...
-</ItemGroup>
-```
-
-Alternatively, you can use PowerShell:
-
-```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore
-```

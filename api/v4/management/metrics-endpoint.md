@@ -42,23 +42,7 @@ Then add the metrics actuator middleware to the ASP.NET Core pipeline using the 
 
 ## Add NuGet References
 
-To use the metrics actuator, you need to add a reference to the `Steeltoe.Management.EndpointCore` NuGet package.
-
-To add this type of NuGet to your project, add a `PackageReference` resembling the following:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.2.0"/>
-...
-</ItemGroup>
-```
-
-Alternatively, you can add the package through PowerShell:
-
-```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore
-```
+To use the metrics actuator, you need to add a reference to the `Steeltoe.Management.Endpoint` NuGet package.
 
 ## ASP NET Core Example
 

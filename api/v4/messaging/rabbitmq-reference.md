@@ -6,8 +6,8 @@ This section explores the interfaces and classes that are the essential componen
 
 ## Messaging Abstractions
 
-Steeltoe RabbitMQ consists of two packages (each represented by a nuget in the distribution): `Steeltoe.Messaging.MessagingBase` and `Steeltoe.Messaging.RabbitMQ`.
-The `Steeltoe.Messaging.MessagingBase` package contains the `Steeltoe.Messaging` namespace.
+Steeltoe RabbitMQ consists of two packages (each represented by a NuGet package): `Steeltoe.Messaging` and `Steeltoe.Messaging.RabbitMQ`.
+The `Steeltoe.Messaging` package contains the `Steeltoe.Messaging` namespace.
 Within that package you can find the classes that represent the core messaging functionality that pertains to any messaging system.
 Our intention is to provide generic abstractions that do not rely on any particular messaging implementation or client library.
 End-user code can be more portable across vendor implementations, as much of it can be developed against the abstraction layer only.

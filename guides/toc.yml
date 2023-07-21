@@ -4,9 +4,6 @@
     - topicUid: guides/application-configuration/cloud-foundry
     - topicUid: guides/application-configuration/placeholder
     - topicUid: guides/application-configuration/random-value
-- name: Circuit Breakers
-  items:
-    - topicUid: guides/circuit-breakers/circuit-breaker
 - name: Cloud Management
   items:
     - topicUid: guides/cloud-management/distributed-tracing

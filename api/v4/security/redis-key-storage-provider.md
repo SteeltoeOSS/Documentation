@@ -13,31 +13,9 @@ To use this provider:
 
 ### Add NuGet Reference
 
-To use the provider, add a reference to the Steeltoe data protection Redis NuGet.
+To use the provider, you need to add a reference to the `Steeltoe.Security.DataProtection.Redis` NuGet package.
 
-The provider can be found in the `Steeltoe.Security.DataProtection.RedisCore` package.
-
-You can add the provider to your project by using the following `PackageReference` in your project file:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Security.DataProtection.RedisCore" Version="3.2.0"/>
-...
-</ItemGroup>
-```
-
-You also need the Steeltoe Redis connector. Add the `Steeltoe.ConnectorCore` package to get the Redis connector and helpers for setting it up.
-
-You can use the NuGet package manager tools or directly add the following package reference to your .csproj file:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.ConnectorCore" Version="3.2.0"/>
-...
-</ItemGroup>
-```
+You also need the Steeltoe Redis connector. Add the `Steeltoe.Connectors` package to get the Redis connector and helpers for setting it up.
 
 ### Cloud Foundry
 

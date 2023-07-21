@@ -16,19 +16,7 @@ In order to use the Serilog Dynamic Logger, you need to do the following:
 
 ### Add NuGet References
 
-To use the logging provider, you need to add a package reference to a Steeltoe Dynamic Logging package.
-
-The provider is found in the `Steeltoe.Logging.DynamicSerilogBase` package. If you wish to use the [WebHostBuilder extension](#webhostbuilder), use the package `Steeltoe.Logging.DynamicSerilogCore`.
-
-You can add the provider to your project by using the following `PackageReference`:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Logging.DynamicSerilogBase" Version="3.2.0"/>
-...
-</ItemGroup>
-```
+To use the logging provider, you need to add a reference to the `Steeltoe.Logging.DynamicSerilog` NuGet package.
 
 ### Configure Settings
 
@@ -124,5 +112,3 @@ public class Program
     }
 }
 ```
-
-> Please be aware this extension is provided in Steeltoe.Logging.DynamicSerilogCore

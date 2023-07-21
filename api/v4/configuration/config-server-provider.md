@@ -28,24 +28,7 @@ To use the Steeltoe provider, you need to do the following:
 
 ### Add NuGet Reference
 
-You can choose one of two Config Server client NuGets, depending on your needs.
-
-If you plan on only connecting to the open source version of [Spring Cloud Config Server](https://projects.spring.io/spring-cloud/), you should use one of the packages described by the following table, depending on your application type and needs:
-
-| Package | Description | .NET Target |
-| --- | --- | --- |
-| `Steeltoe.Configuration.ConfigServerBase` | Base functionality. No dependency injection. | .NET Standard 2.0 |
-| `Steeltoe.Configuration.ConfigServerCore` | Includes base. Adds ASP.NET Core dependency injection. | ASP.NET Core 3.1+ |
-
-To add this type of NuGet to your project, add a `PackageReference` that resembles the following:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Configuration.ConfigServerCore" Version="3.2.0"/>
-...
-</ItemGroup>
-```
+To use the provider, you need to add a reference to the `Steeltoe.Configuration.ConfigServer` NuGet package.
 
 ### Configure Settings
 

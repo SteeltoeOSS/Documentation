@@ -35,7 +35,6 @@
 				</a>
 				<div class="dropdown-menu" aria-labelledby="projects">
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/app-configuration" onClick="$(this).removeAttr('target')">Steeltoe Application Configuration</a>
-					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/circuit-breakers" onClick="$(this).removeAttr('target')">Steeltoe Circuit Breakers</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/docs/logging" onClick="$(this).removeAttr('target')">Steeltoe Dynamic Logging</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/cloud-management" onClick="$(this).removeAttr('target')">Steeltoe Management</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/messaging" onClick="$(this).removeAttr('target')">Steeltoe Messaging</a>

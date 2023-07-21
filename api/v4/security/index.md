@@ -14,4 +14,3 @@ You can choose from the following providers when adding Cloud Foundry security i
 In addition to authentication and authorization providers, Steeltoe security offers:
 
 * [A security provider for using Redis on Cloud Foundry with ASP.NET Core Data Protection Key Ring storage](redis-key-storage-provider.md)
-* [A CredHub API Client for .NET applications to perform credential storage, retrieval, and generation](credhub-api-client.md)

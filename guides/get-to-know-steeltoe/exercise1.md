@@ -67,17 +67,17 @@ Once the project is created and opened in your IDE, the first action is to bring
 
 # [Visual Studio](#tab/visual-studio)
 
-Right-click on the project name in the solution explorer and choose "Manage NuGet packages...." In the package manager window, choose "Browse", then search for `Steeltoe.Management.EndpointCore`, and install.
-![EndpointCore NuGet dependency](../images/vs-add-endpointcore.png)
+Right-click on the project name in the solution explorer and choose "Manage NuGet packages...." In the package manager window, choose "Browse", then search for `Steeltoe.Management.Endpoint`, and install.
+![Endpoint NuGet dependency](../images/vs-add-endpointcore.png)
 
-Finally the `Steeltoe.Management.TracingCore` package and install.
-![TracingCore NuGet dependency](../images/vs-add-tracingcore.png)
+Finally the `Steeltoe.Management.Tracing` package and install.
+![Tracing NuGet dependency](../images/vs-add-tracingcore.png)
 
 # [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
-dotnet add package Steeltoe.Management.EndpointCore
-dotnet add package Steeltoe.Management.TracingCore
+dotnet add package Steeltoe.Management.Endpoint
+dotnet add package Steeltoe.Management.Tracing
 ```
 
 ---

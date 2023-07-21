@@ -41,17 +41,7 @@ In order to use the Steeltoe RandomValue provider, you need to:
 
 ### Add NuGet Reference
 
-To use the provider, you need to add a reference to the appropriate Steeltoe NuGet.
-
-To do so, add a `PackageReference` resembling the following:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Configuration.RandomValueBase" Version="3.2.0"/>
-...
-</ItemGroup>
-```
+To use the provider, you need to add a reference to the `Steeltoe.Configuration.RandomValue` NuGet package.
 
 ### Add Configuration Provider
 

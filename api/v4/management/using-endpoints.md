@@ -38,23 +38,14 @@ To use the management endpoints, you need to add a reference to the appropriate 
 
 The following table describes the available packages:
 
-| Package | Description | .NET Target |
-| --- | --- | --- |
-| `Steeltoe.Management.Abstractions` | Interfaces and objects used for extensibility. | .NET Standard 2.0 |
-| `Steeltoe.Management.EndpointBase` | Base functionality and dependency injection support, and no HTTP middleware. | .NET Standard 2.0 |
-| `Steeltoe.Management.EndpointCore` | Includes `EndpointBase` and includes HTTP middleware. | ASP.NET Core 3.1+ |
-| `Steeltoe.Management.CloudFoundryCore`* | Includes `EndpointCore` and Cloud Foundry related functionality. | ASP.NET Core 3.1+ |
-| `Steeltoe.Management.KubernetesCore` | Includes `EndpointCore` and Kubernetes related functionality. | ASP.NET Core 3.1+ |
+| Package | Description |
+| --- | --- |
+| `Steeltoe.Management.Abstractions` | Interfaces and objects used for extensibility. |
+| `Steeltoe.Management.Endpoint` | Base functionality and dependency injection support, including HTTP middleware. |
+| `Steeltoe.Management.CloudFoundry`* | Includes `Endpoint` and Cloud Foundry related functionality. |
+| `Steeltoe.Management.Kubernetes` | Includes `Endpoint` and Kubernetes related functionality. |
 
-To add this type of NuGet to your project, add a `PackageReference` resembling the following:
-
-```xml
-<ItemGroup>
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.2.0"/>
-</ItemGroup>
-```
-
->\* as of Steeltoe 3.1.0, all functionality provided in `Steeltoe.Management.CloudFoundryCore` is  available from within `Steeltoe.Management.EndpointCore` and is automatically activated when an application is deployed to Cloud Foundry.
+>\* as of Steeltoe 3.1.0, all functionality provided in `Steeltoe.Management.CloudFoundry` is  available from within `Steeltoe.Management.Endpoint` and is automatically activated when an application is deployed to Cloud Foundry.
 
 ## Configure Global Settings
 
@@ -124,7 +115,7 @@ The sections that follow show the settings that you can apply to specific endpoi
 
 To expose any of the management endpoints over HTTP in an ASP.NET Core application:
 
-1. Add a reference to `Steeltoe.Management.EndpointCore` or `Steeltoe.Management.KubernetesCore`.
+1. Add a reference to `Steeltoe.Management.Endpoint` or `Steeltoe.Management.Kubernetes`.
 1. Configure endpoint settings, as needed (for example, `appsettings.json`).
 1. Add any additional "contributors" to the service container (for example, `AddSingleton<IHealthContributor, CustomHealthContributor>()`).
 1. `Add` the actuator endpoint to the service container (for example, `AddHealthActuator()`).

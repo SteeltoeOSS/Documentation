@@ -16,19 +16,7 @@ To use the Steeltoe logging provider, you need to:
 
 ### Add NuGet References
 
-To use the logging provider, you need to add a reference to the Steeltoe Dynamic Logging NuGet.
-
-The provider is found in the `Steeltoe.Logging.DynamicLogger` package.
-
-You can add the provider to your project by using the following `PackageReference`:
-
-```xml
-<ItemGroup>
-...
-    <PackageReference Include="Steeltoe.Logging.DynamicLogger" Version="3.2.0"/>
-...
-</ItemGroup>
-```
+To use the logging provider, you need to add a reference to the `Steeltoe.Logging.DynamicLogger` NuGet package.
 
 ### Configure Settings
 
