@@ -41,9 +41,9 @@ To add this type of NuGet to your project, add a `PackageReference` that resembl
 
 ```xml
 <ItemGroup>
-...
+    ...
     <PackageReference Include="Steeltoe.Configuration.ConfigServerCore" Version="3.2.0"/>
-...
+    ...
 </ItemGroup>
 ```
 
@@ -74,7 +74,7 @@ The following example shows some provider settings that have been put in a JSON 
 The following table describes all the settings that can be used to configure the behavior of the provider:
 
 | Key | Description | Default |
-| --- | --- | - |
+| --- | --- | --- |
 | `Name` | Application name for which to request config. | `IHostingEnvironment.ApplicationName` |
 | `Enabled` | Enable or disable config server client. | `true` |
 | `Uri` | Comma-separated list of config server endpoints. | `http://localhost:8888` |
@@ -100,14 +100,6 @@ The following table describes all the settings that can be used to configure the
 | `Discovery:ServiceId` | Config Server service ID to use in discovery first feature. | `configserver` |
 | `Health:Enabled` | Enable or disable config server health check contributor. | `true` |
 | `Health:TimeToLive` | Health check contributor cache time to live in ms. | 60*5ms |
-| `Encrypt:Enabled` | Enable decryption of encrypted {cipher} properties | false |
-| `Encrypt:Rsa:Strong` | Flag to indicate that "strong" AES encryption should be used internally. If true then the GCM algorithm is applied to the AES encrypted bytes. Default is false (in which case "standard" CBC is used instead). | false |
-| `Encrypt:Rsa:Salt` | Salt for the random secret used to encrypt cipher text. | deadbeef |
-| `Encrypt:Rsa:Algorithm` | The RSA algorithm to use (DEFAULT or OAEP). | DEFAULT |
-| `Encrypt:KeyStore:Location` | Location of the key store file. Only PKCS12 store is supported. |   |
-| `Encrypt:KeyStore:Password` | Password that locks the keystore. |   |
-| `Encrypt:KeyStore:Alias` | Alias for a key in the store. |   |
-| `Encrypt:Key` | A symmetric key. As a stronger alternative consider using a keystore |   |
 
 As mentioned earlier, all settings should start with `Spring:Cloud:Config:`
 
