@@ -57,7 +57,7 @@ Below are all the configuration options of the EncryptionResolver.
 | Key | Description | Default |
 | --- | --- | --- |
 | `Encrypt:Enabled` | Enable decryption of encrypted {cipher} properties | false |
-| `Encrypt:Rsa:Strong` | Flag to indicate that "strong" AES encryption should be used internally. If true then the GCM algorithm is applied to the AES encrypted bytes. Default is false (in which case "standard" CBC is used instead). | false |
+| `Encrypt:Rsa:Strong` |  When set to true, the "strong" GCM AES algorithm is used. When false, the standard CBC algorithm is used. | false |
 | `Encrypt:Rsa:Salt` | Salt for the random secret used to encrypt cipher text. | deadbeef |
 | `Encrypt:Rsa:Algorithm` | The RSA algorithm to use (DEFAULT or OAEP). | DEFAULT |
 | `Encrypt:KeyStore:Location` | Location of the key store file. Only PKCS12 store is supported. |       |
