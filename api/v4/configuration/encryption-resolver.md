@@ -86,6 +86,6 @@ public class MyDecryption: ITextDecryptor
 ```
 Registration is done using the overloaded ConfigureEncryptionResolver method:
 ```csharp
-builder.Host.ConfigureServices((context, services) => services.ConfigureEncryptionResolver(context.Configuration, new MyEncryption()));
+builder.Host.ConfigureServices((context, services) => services.ConfigureEncryptionResolver(context.Configuration, new MyDecryption()));
 ```
 NOTE: Creating encryption algorithms is notoriously difficult. Only use this if you know what you are doing.
