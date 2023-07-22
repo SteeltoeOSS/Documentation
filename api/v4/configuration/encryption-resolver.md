@@ -88,4 +88,4 @@ Registration is done using the overloaded ConfigureEncryptionResolver method:
 ```csharp
 builder.Host.ConfigureServices((context, services) => services.ConfigureEncryptionResolver(context.Configuration, new MyEncryption()));
 ```
-NOTE: creating encryption algorithms is notoriously difficult. Only use this if you know wat you are doing.
+NOTE: Creating encryption algorithms is notoriously difficult. Only use this if you know what you are doing.
