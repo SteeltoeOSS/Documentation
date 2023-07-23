@@ -68,7 +68,7 @@ The following table describes the settings that you can apply to the EncryptionR
 
 ## Custom encryption
 
-You can use your own Encryption algorithm by implementing the ITextDecryptor interface:
+You can use your own encryption algorithm by implementing the ITextDecryptor interface:
 
 ```csharp
 public class MyDecryption: ITextDecryptor
