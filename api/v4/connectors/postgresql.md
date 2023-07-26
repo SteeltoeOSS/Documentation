@@ -1,7 +1,7 @@
 # PostgreSQL
 
 This connector simplifies accessing [PostgreSQL](https://www.postgresql.org/) databases.
-It supports the next .NET drivers:
+It supports the following .NET drivers:
 - [Npgsql](https://www.nuget.org/packages/Npgsql), which provides an ADO.NET `DbConnection`.
 - [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL), which provides [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) support.
 
@@ -141,7 +141,7 @@ A complete sample app that uses Entity Framework Core with PostgreSQL is provide
 
 ## Cloud Foundry
 
-This Connector supports the next CloudFoundry tiles:
+This Connector supports the following service brokers:
 - [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
 - [VMware Tanzu Cloud Service Broker for GCP](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)
 

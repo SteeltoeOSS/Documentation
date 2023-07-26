@@ -1,7 +1,7 @@
 # Microsoft SQL Server
 
 This connector simplifies accessing [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server) databases.
-It supports the next .NET drivers:
+It supports the following .NET drivers:
 - [Microsoft.Data.SqlClient](https://www.nuget.org/packages/Microsoft.Data.SqlClient), which provides an ADO.NET `DbConnection`.
 - [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient), which provides an ADO.NET `DbConnection`.
 - [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer), which provides [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) support.
@@ -139,7 +139,7 @@ A complete sample app that uses Entity Framework Core with SQL Server is provide
 
 ## Cloud Foundry
 
-This Connector supports the next CloudFoundry tiles:
+This Connector supports the following service brokers:
 - [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:

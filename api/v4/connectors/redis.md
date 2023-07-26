@@ -1,7 +1,7 @@
 # Redis
 
 This connector simplifies accessing [Redis](https://redis.io/) databases.
-It supports the next .NET drivers:
+It supports the following .NET drivers:
 - [StackExchange.Redis](https://www.nuget.org/packages/StackExchange.Redis), which provides an `IConnectionMultiplexer`.
 - [Microsoft.Extensions.Caching.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis), which provides an `IDistributedCache`.
 
@@ -113,7 +113,7 @@ A complete sample app that uses `IDistributedCache` is provided at https://githu
 
 ## Cloud Foundry
 
-This Connector supports the next CloudFoundry tiles:
+This Connector supports the following service brokers:
 - [Redis for VMware Tanzu Application Service](https://docs.vmware.com/en/Redis-for-VMware-Tanzu-Application-Service/3.1/redis-tanzu-application-service/GUID-index.html)
 - [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
 - [VMware Tanzu Cloud Service Broker for GCP](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)

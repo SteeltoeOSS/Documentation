@@ -1,7 +1,7 @@
 # MongoDB
 
 This connector simplifies accessing [MongoDB](https://www.mongodb.com/) databases.
-It supports the next .NET drivers:
+It supports the following .NET drivers:
 - [MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver), which provides an `IMongoClient`.
 
 The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
@@ -100,7 +100,7 @@ A complete sample app that uses `IMongoClient` is provided at https://github.com
 
 ## Cloud Foundry
 
-This Connector supports the next CloudFoundry tiles:
+This Connector supports the following service brokers:
 - [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:

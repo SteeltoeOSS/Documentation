@@ -1,7 +1,7 @@
 # MySQL
 
 This connector simplifies accessing [MySQL](https://www.mysql.com/) databases.
-It supports the next .NET drivers:
+It supports the following .NET drivers:
 - [MySqlConnector](https://www.nuget.org/packages/MySqlConnector), which provides an ADO.NET `DbConnection`.
 - [MySql.Data](https://www.nuget.org/packages/MySql.Data), which provides an ADO.NET `DbConnection`.
 - [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql), which provides [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) support.
@@ -143,7 +143,7 @@ A complete sample app that uses Entity Framework Core with MySQL is provided at 
 
 ## Cloud Foundry
 
-This Connector supports the next CloudFoundry tiles:
+This Connector supports the following service brokers:
 - [VMware SQL with MySQL for Tanzu Application Service](https://docs.vmware.com/en/VMware-SQL-with-MySQL-for-Tanzu-Application-Service/3.0/mysql-for-tas/index.html)
 - [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
 - [VMware Tanzu Cloud Service Broker for GCP](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)

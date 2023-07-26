@@ -1,7 +1,7 @@
 # RabbitMQ
 
 This connector simplifies accessing [RabbitMQ](https://www.rabbitmq.com/) message brokers.
-It supports the next .NET drivers:
+It supports the following .NET drivers:
 - [RabbitMQ.Client](https://www.nuget.org/packages/RabbitMQ.Client), which provides an `IConnection`.
 
 The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
@@ -86,7 +86,7 @@ A complete sample app that uses `IConnection` is provided at https://github.com/
 
 ## Cloud Foundry
 
-This Connector supports the next CloudFoundry tiles:
+This Connector supports the following service brokers:
 - [VMware RabbitMQ for Tanzu Application Service](https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/2.2/tanzu-rmq/GUID-index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:

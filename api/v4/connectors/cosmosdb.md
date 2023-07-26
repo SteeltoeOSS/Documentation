@@ -1,7 +1,7 @@
 # CosmosDB
 
 This connector simplifies accessing [Azure CosmosDB](https://azure.microsoft.com/en-us/products/cosmos-db/) databases.
-It supports the next .NET drivers:
+It supports the following .NET drivers:
 - [Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Microsoft.Azure.Cosmos), which provides a `CosmosClient`.
 
 The remainder of this page assume you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
@@ -122,7 +122,7 @@ A complete sample app that uses `CosmosClient` is provided at https://github.com
 
 ## Cloud Foundry
 
-This Connector supports the next CloudFoundry tiles:
+This Connector supports the following service brokers:
 - [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:
