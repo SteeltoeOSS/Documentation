@@ -1,82 +1,139 @@
 # CosmosDB
 
-This connector simplifies using Azure Cosmos DB. The connector is built to work with Azure Cosmos DB from either `Microsoft.Azure.Cosmos` or the newer package `Azure.Cosmos`.
+This connector simplifies accessing [Azure CosmosDB](https://azure.microsoft.com/en-us/products/cosmos-db/) databases.
+It supports the following .NET drivers:
+- [Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Microsoft.Azure.Cosmos), which provides a `CosmosClient`.
+
+The remainder of this page assume you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
 ## Usage
 
 To use this connector:
 
-1. Create a Cosmos DB Service instance and bind it to your application.
-1. Optionally, configure any CosmosDB client settings.
-1. Optionally, add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
+1. Create a CosmosDB server instance or use the [emulator](https://learn.microsoft.com/en-us/azure/cosmos-db/local-emulator).
+1. Add NuGet references to your project.
+1. Configure your connection string in `appsettings.json`.
+1. Initialize the Steeltoe Connector at startup.
+1. Use the driver-specific connection/client instance.
 
 ### Add NuGet References
 
-To use the CosmosDB connector, add either [Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Microsoft.Azure.Cosmos) or [Azure.Cosmos](https://www.nuget.org/packages/Azure.Cosmos/) (pre-release only as of this writing) as you would if you were not using Steeltoe. Then [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references).
+To use this connector, add a NuGet reference to `Steeltoe.Connectors`.
 
-### Configure Settings
+Also add a NuGet reference to one of the .NET drivers listed above, as you would if you were not using Steeltoe.
 
-This connector supports several settings for local interaction with CosmosDB that are overridden by service bindings on deployment:
+### Configure connection string
+
+The CosmosDB connection string can be obtained as described [here](https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-get-started#retrieve-your-account-connection-string).
+
+The following example `appsettings.json` uses the emulator:
 
 ```json
 {
-  "Cosmosdb": {
+  "Steeltoe": {
     "Client": {
-      "Host": "https://localhost:8081",
-      "MasterKey": "<yourMasterKeyHere>"
+      "CosmosDb": {
+        "Default": {
+          "ConnectionString": "AccountEndpoint=https://localhost:8081;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+          "Database": "TestDatabase"
+        }
+      }
     }
   }
 }
 ```
 
-The following table table describes all possible settings for the connector
+Notice this configuration file contains the database name, in addition to the connection string. This value is exposed
+as `CosmosDbOptions.Database`.
 
-| Key | Description | Default |
-| --- | --- | --- |
-| `Host` | Protocol, hostname or IP Address and port of the server. | not set |
-| `MasterKey` | Authentication for read/write access. | not set |
-| `ReadOnlyKey` | Authentication for read-only access. | not set |
-| `DatabaseId` | Name of the database to use. | not set |
-| `UseReadOnlyCredentials` | Designate that the read-only key should be used. | `false` |
-| `ConnectionString` | Full connection string. | Built from settings |
+### Initialize Steeltoe Connector
 
->IMPORTANT: All of these settings should be prefixed with `CosmosDb:Client:`.
+Update your `Program.cs` as below to initialize the Connector:
 
-The samples and most templates are already set up to read from `appsettings.json`.
+```c#
+using Steeltoe.Connectors.CosmosDb;
 
->If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
-
-### Cloud Foundry
-
-To use CosmosDB on Cloud Foundry, create and bind an instance to your application by using the Cloud Foundry CLI:
-
-```bash
-# Create CosmosDB service
-cf create-service azure-cosmosdb standard myCosmosDb
-
-# Bind service to `myApp`
-cf bind-service myApp myCosmosDb
-
-# Restage the app to pick up change
-cf restage myApp
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.AddCosmosDb();
 ```
-
->The connector is built to work with Azure Cosmos DB service instances that have been provisioned with the [Microsoft Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html).
 
 ### Use CosmosClient
 
-Use Steeltoe's `ConnectionStringManager` to access connection information built by combining your `cosmosdb:client` settings with credentials from service bindings (when present) and create a new `CosmosClient`:
+Start by defining a class that contains container data:
+```c#
+using Newtonsoft.Json;
+
+public class SampleObject
+{
+    [JsonProperty(PropertyName = "id")]
+    public string Id { get; set; }
+
+    public string? Text { get; set; }
+}
+```
+
+To obtain a `CosmosClient` instance in your application, inject the Steeltoe factory in a controller or view:
 
 ```csharp
-// read settings from "cosmosdb:client" and VCAP:services or services:
-var configMgr = new ConnectionStringManager(configuration);
-var cosmosInfo = configMgr.Get<CosmosDbConnectionInfo>();
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Azure.Cosmos.Linq;
+using Steeltoe.Connectors;
+using Steeltoe.Connectors.CosmosDb;
 
-// these are mapped into the properties dictionary
-var databaseName = cosmosInfo.Properties["DatabaseId"];
-var databaseLink = cosmosInfo.Properties["DatabaseLink"];
+public class HomeController : Controller
+{
+    public async Task<IActionResult> Index(
+        [FromServices] ConnectorFactory<CosmosDbOptions, CosmosClient> connectorFactory)
+    {
+        var connector = connectorFactory.Get();
+        CosmosClient client = connector.GetConnection();
 
-// container is not provided by a service binding, use your own config value to store it:
-var containerName = configuration.GetValue<string>("CosmosDb:Container");
-var cosmosClient = new CosmosClient(cosmosInfo.ConnectionString);
+        Container container = client.GetContainer(connector.Options.Database, "TestContainer");
+        List<SampleObject> sampleObjects = new();
+
+        await foreach (SampleObject sampleObject in GetAllAsync(container))
+        {
+            sampleObjects.Add(sampleObject);
+        }
+
+        return View(sampleObjects);
+    }
+
+    private async IAsyncEnumerable<SampleObject> GetAllAsync(Container container)
+    {
+        using FeedIterator<SampleObject> iterator =
+            container.GetItemLinqQueryable<SampleObject>().ToFeedIterator();
+
+        while (iterator.HasMoreResults)
+        {
+            FeedResponse<SampleObject> response = await iterator.ReadNextAsync();
+
+            foreach (SampleObject sampleObject in response)
+            {
+                yield return sampleObject;
+            }
+        }
+    }
+}
+```
+
+A complete sample app that uses `CosmosClient` is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/CosmosDb.
+
+## Cloud Foundry
+
+This Connector supports the following service brokers:
+- [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
+
+You can create and bind an instance to your application by using the Cloud Foundry CLI:
+
+```bash
+# Create CosmosDB service
+cf create-service csb-azure-cosmosdb-sql mini myCosmosDbService
+
+# Bind service to your app
+cf bind-service myApp myCosmosDbService
+
+# Restage the app to pick up change
+cf restage myApp
 ```

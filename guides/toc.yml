@@ -30,15 +30,6 @@
     - topicUid: guides/security-providers/sso-oauth
     - topicUid: guides/security-providers/sso-openid-framework
     - topicUid: guides/security-providers/sso-openid-netcore
-- name: Service Connectors
-  items:
-    - topicUid: guides/service-connectors/mongo
-    - topicUid: guides/service-connectors/mssql
-    - topicUid: guides/service-connectors/mysql
-    - topicUid: guides/service-connectors/oauth
-    - topicUid: guides/service-connectors/postgresql
-    - topicUid: guides/service-connectors/rabbitmq
-    - topicUid: guides/service-connectors/redis
 - name: Service Discovery
   items:
     - topicUid: guides/service-discovery/eureka

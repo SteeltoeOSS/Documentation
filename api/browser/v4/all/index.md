@@ -29,7 +29,7 @@ Contains several packages that are common to other Steeltoe components.
 
 ## Steeltoe Connectors
 
-Contains connectors for simplifying the process of connecting to backing services and setting up connection health monitoring.
+Contains connectors for simplifying the process of connecting to backing services (databases, message brokers and distributed caches) and setting up connection health monitoring.
 
 [view](/api/browser/v4/connectors/Steeltoe.Connectors.html)
 
