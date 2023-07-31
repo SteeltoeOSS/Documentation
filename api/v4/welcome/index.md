@@ -41,7 +41,7 @@ Steeltoe's WindowsNetworkFileShare provides a simplified experience for interact
 Steeltoe lets you integrate ASP.NET authentication and authorization features in your app, no matter what platform you use.
 [read more](../security/index.md)
 
-## [Service Connectors](../connectors/index.md)
+## [Connectors](../connectors/index.md)
 
 Steeltoe lets you automatically configure and manage connections to common cloud services like databases, caches, and more.
 [read more](../connectors/index.md)

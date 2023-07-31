@@ -49,16 +49,6 @@ _hideTocVersionToggle: true
 - @guides/security-providers/sso-openid-framework
 - @guides/security-providers/sso-openid-netcore
 
-## Service Connectors
-
-- @guides/service-connectors/mongo
-- @guides/service-connectors/mssql
-- @guides/service-connectors/mysql
-- @guides/service-connectors/oauth
-- @guides/service-connectors/postgresql
-- @guides/service-connectors/rabbitmq
-- @guides/service-connectors/redis
-
 ## Service Discovery
 
 - @guides/service-discovery/eureka

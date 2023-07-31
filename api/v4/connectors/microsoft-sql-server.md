@@ -1,280 +1,156 @@
 # Microsoft SQL Server
 
-This connector simplifies using Microsoft SQL Server. The connector is built to work with `System.Data.SqlClient` and provides additional extension methods for using the Entity Framework.
+This connector simplifies accessing [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server) databases.
+It supports the following .NET drivers:
+- [Microsoft.Data.SqlClient](https://www.nuget.org/packages/Microsoft.Data.SqlClient), which provides an ADO.NET `DbConnection`.
+- [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient), which provides an ADO.NET `DbConnection`.
+- [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer), which provides [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) support.
 
-This connector provides an `IHealthContributor` that you can use in conjunction with the [Steeltoe Management Health](../management/health.md) check endpoint.
+The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
 ## Usage
 
-You should know how the .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
-
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services. Pay particular attention to the usage of the `ConfigureServices()` method.
-
 To use this connector:
+1. Create a SQL Server instance or use [SQL Server Express LocalDB](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb).
+1. Add NuGet references to your project.
+1. Configure your connection string in `appsettings.json`.
+1. Initialize the Steeltoe Connector at startup.
+1. Use the driver-specific connection/client instance.
 
-1. Create a Microsoft SQL Service instance and bind it to your application.
-1. Optionally, configure any Microsoft SQL Server client settings (such as `appsettings.json`) you need.
-1. Optionally, add the Steeltoe Cloud Foundry configuration provider to your `ConfigurationBuilder`.
-1. Add `SqlConnection` or `DbContext` to your `IServiceCollection`.
+### Add NuGet References
 
-### Add NuGet Reference
+To use this connector, add a NuGet reference to `Steeltoe.Connectors`. If you're using Entity Framework Core, add a
+NuGet reference to `Steeltoe.Connectors.EntityFrameworkCore` instead.
 
-To use the Microsoft SQL Server connector, add one of the following Microsoft SQL Server packages:
+Also add a NuGet reference to one of the .NET drivers listed above, as you would if you were not using Steeltoe.
 
-* [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient/)
-* [Entity Framework](https://www.nuget.org/packages/EntityFramework/)
-* [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/)
+### Configure connection string
 
-Add the package as you would if you were not using Steeltoe. Then [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references).
+The available connection string parameters for SQL Server are documented [here](https://learn.microsoft.com/en-us/dotnet/api/microsoft.data.sqlclient.sqlconnection.connectionstring#remarks).
 
-### Configure Settings
-
-The Microsoft SQL Server connector supports several configuration options. You can use these settings to develop or test an application locally and then override them during deployment.
-
-The following Microsoft SQL Server connector configuration shows how to connect to SQL Server 2016 Express LocalDB:
+The following example `appsettings.json` uses SQL Server Express LocalDB:
 
 ```json
 {
-  ...
-  "SqlServer": {
-    "Credentials": {
-        "ConnectionString": "Server=(localdb)\\mssqllocaldb;database=Steeltoe;Trusted_Connection=True;"
+  "Steeltoe": {
+    "Client": {
+      "SqlServer": {
+        "Default": {
+          "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=SampleDB"
+        }
+      }
     }
   }
-  ...
 }
 ```
 
-The following table shows the available settings for the connector:
+### Initialize Steeltoe Connector
 
-|Key|Description |Steeltoe Default|
-| --- | --- | --- |
-| `Server` | Hostname or IP Address of server. | `localhost` |
-| `Port` | Port number of server. | 1433 |
-| `Username` | Username for authentication. | not set |
-| `Password` | Password for authentication. | not set |
-| `Database` | Schema to which to connect. | not set |
-| `ConnectionString` | Full connection string. | Built from settings |
-| `IntegratedSecurity` | Enable Windows Authentication (For local use only). | not set |
+Update your `Program.cs` as below to initialize the Connector:
 
->IMPORTANT: All of the settings shown in the preceding table should be prefixed with `SqlServer:Credentials:`.
-
-The samples and most templates are already set up to read from `appsettings.json`.
-
->If a `ConnectionString` is provided and `VCAP_SERVICES` are not detected (a typical scenario for local application development), the `ConnectionString` is used exactly as provided.
-
-### Cloud Foundry
-
-To use Microsoft SQL Server on Cloud Foundry, you need a service instance bound to your application. If the [Microsoft SQL Server broker](https://github.com/cf-platform-eng/mssql-server-broker) is installed in your Cloud Foundry instance, use it to create a new service instance:
-
-```bash
-cf create-service SqlServer sharedVM mySqlServerService
-```
-
-An alternative to the broker is to use a user-provided service to explicitly provide connection information to the application:
-
-```bash
-cf cups mySqlServerService -p '{"pw": "|password|","uid": "|user id|","uri": "jdbc:sqlserver://|host|:|port|;databaseName=|database name|"}'
-```
-
-This connector works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
-
-If you are creating a service for an application that has already been deployed, you need to bind the service and restart or restage the application with the following commands:
-
-```bash
-# Bind service to `myApp`
-cf bind-service myApp mySqlServerService
-
-# Restage the app to pick up change
-cf restage myApp
-```
-
-If you have not already deployed the application, a reference in the `manifest.yml` file can take care of the binding for you.
-
->The commands shown in the preceding example may not exactly match the service or plan names available in your environment. You may have to adjust the `create-service` command to fit your environment. Use `cf marketplace` to see what is available.
-
-Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
-
-### Add SqlConnection
-
-To use an `SqlConnection` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class:
-
-```csharp
+```c#
 using Steeltoe.Connectors.SqlServer;
 
-public class Startup {
-    ...
-    public IConfiguration Configuration { get; private set; }
-    public Startup(...)
-    {
-      ...
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add SqlConnection configured from Configuration
-        services.AddSqlServerConnection(Configuration);
-
-        // Add framework services.
-        ...
-    }
-    ...
-}
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.AddSqlServer();
 ```
-
-The `AddSqlServerConnection(Configuration)` method call shown in the previous example configures the `SqlConnection` by using the configuration built by the application and adds the connection to the service container.
-
-> By default, this extension method will automatically configure an `IHealthContributor` to report the health of this database connection. This behavior can be turned off by passing `false` for the parameter `addSteeltoeHealthChecks`
 
 ### Use SqlConnection
 
-Once you have configured and added the connection to the service container, you can inject it and use it in a controller or a view:
+To obtain a `SqlConnection` instance in your application, inject the Steeltoe factory in a controller or view:
 
 ```csharp
-using System.Data.SqlClient;
-...
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Steeltoe.Connectors;
+using Steeltoe.Connectors.SqlServer;
+
 public class HomeController : Controller
 {
-    public IActionResult SqlData([FromServices] SqlConnection dbConnection)
+    public async Task<IActionResult> Index(
+        [FromServices] ConnectorFactory<SqlServerOptions, SqlConnection> connectorFactory)
     {
-        dbConnection.Open();
+        var connector = connectorFactory.Get();
+        await using SqlConnection connection = connector.GetConnection();
+        await connection.OpenAsync();
 
-        SqlCommand cmd = new SqlCommand("SELECT * FROM TestData;", dbConnection);
-        SqlDataReader rdr = cmd.ExecuteReader();
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "SELECT 1";
+        object? result = await command.ExecuteScalarAsync();
 
-        while (rdr.Read())
-        {
-            ViewData["Key" + rdr[0]] = rdr[1];
-        }
-
-        rdr.Close();
-        dbConnection.Close();
-
+        ViewData["Result"] = result;
         return View();
     }
 }
 ```
 
->The preceding code does not create a database or a table or insert data. As written, it fails unless you create the database, table, and data ahead of time.
+### Use Entity Framework Core
 
-### Add DbContext
-
-#### Entity Framework 6
-
-To use the Microsoft SQL connector with Entity Framework 6, inject a DbContext into your application by using the `AddDbContext<>()` method (provided by Steeltoe) that takes an `IConfiguration` as a parameter:
-
-```csharp
-using Steeltoe.Connectors.SqlServer.EF6;
-
-public class Startup {
-    ...
-    public IConfiguration Configuration { get; private set; }
-    public Startup(...)
-    {
-      ...
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        ...
-        services.AddDbContext<TestContext>(Configuration);
-        ...
-    }
-    ...
-}
-```
-
-The `AddDbContext<TestContext>(..)` method call configures `TestContext` by using the configuration built earlier and then adds the `DbContext` (`TestContext`) to the service container.
-
-> This extension method will automatically configure an `IHealthContributor` to report the health of this database connection.
-
-Your `DbContext` does not need to be modified from a standard EF6 `DbContext` to work with Steeltoe:
-
-```csharp
-using System.Data.Entity;
-...
-
-public class TestContext : DbContext
+Start by defining your `DbContext` class:
+```c#
+public class AppDbContext : DbContext
 {
-    public TestContext(string connectionString) : base(connectionString)
+    public DbSet<SampleEntity> SampleEntities => Set<SampleEntity>();
+
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
     }
-    public DbSet<TestData> TestData { get; set; }
+}
+
+public class SampleEntity
+{
+    public long Id { get; set; }
+    public string? Text { get; set; }
 }
 ```
 
-#### Entity Framework Core
+Next, call the `UseSqlServer()` Steeltoe extension method from `Program.cs` to initialize Entity Framework Core:
 
-To use the Microsoft SQL Server connector with Entity Framework Core, inject a `DbContext` into your application with the standard `AddDbContext<>()` method, substituting Steeltoe's `UseSqlServer` method that takes an `IConfiguration` as a parameter in the options configuration for the standard `UseSqlServer` method. The following example demonstrates the basic usage:
+```c#
+using Steeltoe.Connectors.EntityFrameworkCore.SqlServer;
+using Steeltoe.Connectors.SqlServer;
 
-```csharp
-using Steeltoe.Connectors.SqlServer.EFCore;
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.AddSqlServer();
 
-public class Startup {
-    ...
-    public IConfiguration Configuration { get; private set; }
-    public Startup(...)
-    {
-      ...
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        ...
-        services.AddDbContext<TestContext>(options => options.UseSqlServer(Configuration));
-
-        // see note below explaining AddSqlServerHealthContributor
-        services.AddSqlServerHealthContributor(Configuration);
-        ...
-    }
-    ...
-}
+builder.Services.AddDbContext<AppDbContext>(
+    (serviceProvider, options) => options.UseSqlServer(serviceProvider));
 ```
 
-> This extension method will _NOT_ configure an `IHealthContributor` for this database connection. The NuGet package Steeltoe.Connectors.ConnectorCore provides an `IServiceCollection` extension method that will. Directly add the health contributor with the code `services.AddSqlServerHealthContributor(Configuration)`
-
-Your `DbContext` does not need to be modified from a standard `DbContext` to work with Steeltoe:
+Once you have configured and added your `DbContext` to the service container,
+you can inject it and use it in a controller or view:
 
 ```csharp
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-...
 
-public class TestContext : DbContext
-{
-    public TestContext(DbContextOptions options) : base(options)
-    {
-
-    }
-    public DbSet<TestData> TestData { get; set; }
-}
-
-```
-
-If you need to set additional properties for the `DbContext` (such as `MigrationsAssembly` or connection retry settings), create an `Action<SqlServerDbContextOptionsBuilder>`:
-
-```csharp
-Action<SqlServerDbContextOptionsBuilder> sqlServerOptionsAction = (o) =>
-{
-  o.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-  // Configuring Connection Resiliency: https://docs.microsoft.com/ef/core/miscellaneous/connection-resiliency
-  o.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-};
-```
-
-Then pass your new options action into the `AddDbContext` method:
-
-```csharp
-services.AddDbContext<TestContext>(options => options.UseSqlServer(Configuration, sqlServerOptionsAction));
-```
-
-### Use DbContext
-
-Once you have configured and added the DbContext to the service container, you can inject it and use it in a controller or a view:
-
-```csharp
-using Project.Models;
-...
 public class HomeController : Controller
 {
-    public IActionResult SqlData([FromServices] TestContext context)
+    public async Task<IActionResult> Index([FromServices] AppDbContext appDbContext)
     {
-        return View(context.TestData.ToList());
+        List<SampleEntity> entities = await appDbContext.SampleEntities.ToListAsync();
+        return View(entities);
     }
+}
+```
+
+A complete sample app that uses Entity Framework Core with SQL Server is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/SqlServerEFCore.
+
+## Cloud Foundry
+
+This Connector supports the following service brokers:
+- [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
+
+You can create and bind an instance to your application by using the Cloud Foundry CLI:
+
+```bash
+# Create SQL Server service
+cf create-service csb-azure-mssql small-v2 mySqlServerService
+
+# Bind service to your app
+cf bind-service myApp mySqlServerService
+
+# Restage the app to pick up change
+cf restage myApp
 ```

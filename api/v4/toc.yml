@@ -102,7 +102,7 @@
       name: SSO OAuth2
     - topicHref: security/mtls.md
       name: Mutual TLS
-- name: Service Connectors
+- name: Connectors
   topicHref: connectors/
   items:
     - topicHref: connectors/usage.md
@@ -117,8 +117,6 @@
       name: PostgreSQL
     - topicHref: connectors/rabbitmq.md
       name: RabbitMQ
-    - topicHref: connectors/oauth.md
-      name: OAuth
     - topicHref: connectors/mongodb.md
       name: MongoDB
     - topicHref: connectors/cosmosdb.md

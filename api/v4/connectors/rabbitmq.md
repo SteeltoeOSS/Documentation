@@ -1,135 +1,110 @@
 # RabbitMQ
 
-This connector simplifies using the [RabbitMQ Client](https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html) in an application running on Cloud Foundry. We recommend following that tutorial, because you need to know how to use it before proceeding to use the connector.
+This connector simplifies accessing [RabbitMQ](https://www.rabbitmq.com/) message brokers.
+It supports the following .NET drivers:
+- [RabbitMQ.Client](https://www.nuget.org/packages/RabbitMQ.Client), which provides an `IConnection`.
 
-This connector provides an `IHealthContributor`, which you can use in conjunction with the [Steeltoe Management Health](../management/health.md) check endpoint.
+The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
 ## Usage
 
-You should know how the .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of `ConfigurationBuilder` and how to add providers to the builder.
+To use this connector:
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
+1. Create a RabbitMQ server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#rabbitmq).
+1. Add NuGet references to your project.
+1. Configure your connection string in `appsettings.json` (optional).
+1. Initialize the Steeltoe Connector at startup.
+1. Use the driver-specific connection/client instance.
 
-You also need some understanding of how to use the [RabbitMQ Client](https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html) before starting to use this connector.
+### Add NuGet References
 
-To use this Connector:
+To use this connector, add a NuGet reference to `Steeltoe.Connectors`.
 
-1. Create and bind a RabbitMQ service instance to your application.
-1. (Optionally) Configure any RabbitMQ client settings (such as in `appsettings.json`).
-1. Add the Steeltoe Cloud Foundry config provider to your `ConfigurationBuilder`.
-1. Add the RabbitMQ `ConnectionFactory` to your `ServiceCollection`.
+Also add a NuGet reference to one of the .NET drivers listed above, as you would if you were not using Steeltoe.
 
-### Add NuGet Reference
+### Configure connection string
 
-To use the RabbitMQ connector, you need to [add a reference to the appropriate Steeltoe Connector NuGet package](usage.md#add-nuget-references) and `RabbitMQ.Client`.
+The available connection string parameters for RabbitMQ are documented [here](https://www.rabbitmq.com/uri-spec.html).
 
-### Configure Settings
-
-The connector supports several settings for the RabbitMQ `ConnectionFactory` that can be useful when you are developing and testing an application locally and you need to have the connector configure the connection for non-default settings.
-
-The following example of the connectors configuration in JSON shows how to setup a connection to a RabbitMQ server at `amqp://guest:guest@127.0.0.1/`:
+The following example `appsettings.json` uses the docker container from above:
 
 ```json
 {
-  ...
-  "RabbitMq": {
+  "Steeltoe": {
     "Client": {
-      "Uri": "amqp://guest:guest@127.0.0.1/"
+      "RabbitMQ": {
+        "Default": {
+          "ConnectionString": "amqp://localhost"
+        }
+      }
     }
   }
-  ...
 }
 ```
 
-The following table describes all the possible settings for the connector:
+### Initialize Steeltoe Connector
 
-| Key | Description | Default |
-| --- | --- | --- |
-| `Server` | Hostname or IP Address of the server. | 127.0.0.1 |
-| `Port` | Port number of the server. | 5672 |
-| `Username` | Username for authentication. | not set |
-| `Password` | Password for authentication. | not set |
-| `VirtualHost` | Virtual host to which to connect. | not set |
-| `SslEnabled` | Should SSL be enabled. | `false` |
-| `SslPort` | SSL Port number of server. | 5671 |
-| `Uri` | Full connection string. | Built from settings |
+Update your `Program.cs` as below to initialize the Connector:
 
->IMPORTANT: All of these settings should be prefixed with `RabbitMq:Client:`.
+```c#
+using Steeltoe.Connectors.RabbitMQ;
 
-The samples and most templates are already set up to read from `appsettings.json`.
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.AddRabbitMQ();
+```
 
-### Cloud Foundry
+### Use IConnection
 
-To use RabbitMQ on Cloud Foundry, you can create and bind an instance to your application using the Cloud Foundry CLI, as follows:
+To obtain an `IConnection` instance in your application, inject the Steeltoe factory in a controller or view:
+
+```csharp
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using RabbitMQ.Client;
+using Steeltoe.Connectors;
+using Steeltoe.Connectors.RabbitMQ;
+
+public class HomeController : Controller
+{
+    public IActionResult Index(
+        [FromServices] ConnectorFactory<RabbitMQOptions, IConnection> connectorFactory)
+    {
+        var connector = connectorFactory.Get();
+        IConnection connection = connector.GetConnection();
+
+        using IModel channel = connection.CreateModel();
+        BasicGetResult? result = channel.BasicGet("ExampleQueue", true);
+        string? message = result != null ? Encoding.UTF8.GetString(result.Body.ToArray()) : null;
+
+        ViewData["Result"] = message;
+        return View();
+    }
+}
+```
+
+A complete sample app that uses `IConnection` is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/RabbitMQ.
+
+## Cloud Foundry
+
+This Connector supports the following service brokers:
+- [VMware RabbitMQ for Tanzu Application Service](https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/2.2/tanzu-rmq/GUID-index.html)
+
+You can create and bind an instance to your application by using the Cloud Foundry CLI:
 
 ```bash
 # Create RabbitMQ service
-cf create-service p-rabbitmq standard myRabbitMQService
+cf create-service p.rabbitmq single-node myRabbitMQService
 
-# Bind the service to `myApp`
+# Bind service to your app
 cf bind-service myApp myRabbitMQService
 
-# Restage the app to pick up changes
+# Restage the app to pick up change
 cf restage myApp
 ```
 
->The preceding commands assume you use the RabbitMQ service provided by TAS. If you use a different service, adjust the `create-service` command to fit your environment.
+## Kubernetes
 
-Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
+This Connectors supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
+It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
 
-### Add RabbitMQ ConnectionFactory
-
-To use a RabbitMQ `ConnectionFactory` in your application, add it to the service container in the `ConfigureServices()` method of the `Startup` class:
-
-```csharp
-using Steeltoe.Connectors.RabbitMQ;
-
-public class Startup {
-    ...
-    public IConfiguration Configuration { get; private set; }
-    public Startup(...)
-    {
-      ...
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add RabbitMQ ConnectionFactory
-        services.AddRabbitMQConnection(Configuration);
-
-        // Add framework services.
-        services.AddMvc();
-        ...
-    }
-    ...
-}
-```
-
-### Use RabbitMQ ConnectionFactory
-
-Once you have configured and added the RabbitMQ `ConnectionFactory` to the service container, you can inject it and use it in a controller or a view:
-
-```csharp
-using RabbitMQ.Client;
-...
-public class HomeController : Controller
-{
-    ...
-    public IActionResult RabbitMQData([FromServices] ConnectionFactory factory)
-    {
-
-        using (var connection = factory.CreateConnection())
-        using (var channel = connection.CreateModel())
-        {
-            CreateQueue(channel);
-            var body = Encoding.UTF8.GetBytes("a message");
-            channel.BasicPublish(exchange: "",
-                                  routingKey: "a-topic",
-                                  basicProperties: null,
-                                  body: body);
-
-        }
-        return View();
-    }
-
-}
-```
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/RabbitMQ#running-on-tanzu-application-platform-tap.
