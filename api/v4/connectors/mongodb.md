@@ -115,3 +115,10 @@ cf bind-service myApp myMongoDbService
 # Restage the app to pick up change
 cf restage myApp
 ```
+
+## Kubernetes
+
+This Connectors supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
+It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
+
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/MongoDb#running-on-tanzu-application-platform-tap.
