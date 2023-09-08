@@ -112,7 +112,7 @@ By default the following metadata are added:
 | Key | Value |
 | - | - |
 | `group` | `ConsulDiscoveryOptions.InstanceGroup` |
-| `options.DefaultZoneMetadataName` | `ConsulDiscoveryOptions.InstanceZone` |
+| `ConsulDiscoveryOptions.DefaultZoneMetadataName` | `ConsulDiscoveryOptions.InstanceZone` |
 | `secure` | `ConsulDiscoveryOptions.Scheme == "https"` |
 
 ## Configuring InstanceId
