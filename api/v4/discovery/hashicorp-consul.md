@@ -39,6 +39,7 @@ The second set of settings you may need to specify pertain to service registrati
 | `InstanceId` | The instance id registered for service. | computed |
 | `Tags` | The list of tags used when registering a service. | none |
 | `DefaultQueryTag` | Tag to query for in service list if one is not listed in serverListQueryTags. | none |
+| `Meta` | The metadata used when registering a service. | none |
 | `QueryPassing` | Enable or disable whether to add the 'passing' parameter to health requests. This pushes health check passing to the server. | `false` |
 | `RegisterHealthCheck` | Enable or disable health check registration. | `true` |
 | `HealthCheckUrl` | The health check URL override. | none |
@@ -89,31 +90,30 @@ The health check for a Consul service instance defaults to `/actuator/health`, w
 
 ## Configuring Metadata
 
-Steeltoe `IServiceInstance` has an `IDictionary<string, string> Metadata` property that is used to obtain metadata settings for an instance. Consul previously did not support including metadata with service instance registrations. The Steeltoe Consul client currently uses the Consul tags feature to approximate metadata registration.
+Consul supports including metadata with service instance registrations. Steeltoe `ConsulServiceInstance` has an `IDictionary<string, string> Metadata` property that is used to obtain metadata settings for an instance.
 
-Tags with the form of `key=value` are split and used as `IDictionary` keys and values, respectively. Tags without the equal sign are used as both the key and the value. You can add metadata with the `consul:discovery:tags` string array:
+Metadata are in the form of `key: value`. You can add metadata in the `consul:discovery:meta` object:
 
 ```json
 {
-  "Consul": {
-    "Discovery": {
-      "Tags": [
-        "somekey=somevalue",
-        "someothervalue"
-      ]
+  "consul": {
+    "discovery": {
+      "meta": {
+        "somekey": "somevalue",
+        "someotherkey": "someothervalue"
+      }
     }
   }
 }
 ```
 
-The preceding tag list results in metadata that looks like this:
+By default the following metadata are added:
 
-```json
-{
-  "somekey": "somevalue",
-  "someothervalue": "someothervalue"
-}
-```
+| Key | Value |
+| - | - |
+| `group` | `ConsulDiscoveryOptions.InstanceGroup` |
+| `options.DefaultZoneMetadataName` | `ConsulDiscoveryOptions.InstanceZone` |
+| `secure` | `ConsulDiscoveryOptions.Scheme == "https"` |
 
 ## Configuring InstanceId
 
