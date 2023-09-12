@@ -18,6 +18,8 @@
       name: Random Value Provider
     - topicHref: configuration/placeholder-provider.md
       name: Placeholder Provider
+    - topicHref: configuration/encryption-resolver.md
+      name: Encryption Resolver
     - topicHref: configuration/cloud-foundry-provider.md
       name: Cloud Foundry Provider
     - topicHref: configuration/kubernetes-providers.md
