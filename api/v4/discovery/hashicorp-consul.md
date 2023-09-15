@@ -39,7 +39,7 @@ The second set of settings you may need to specify pertain to service registrati
 | `InstanceId` | The instance id registered for service. | computed |
 | `Tags` | The list of tags used when registering a service. | none |
 | `DefaultQueryTag` | Tag to query for in service list if one is not listed in serverListQueryTags. | none |
-| `Meta` | The metadata used when registering a service. | none |
+| `Meta` | The metadata used when registering a service. | see [Configuring Metadata](#configuring-metadata)|
 | `QueryPassing` | Enable or disable whether to add the 'passing' parameter to health requests. This pushes health check passing to the server. | `false` |
 | `RegisterHealthCheck` | Enable or disable health check registration. | `true` |
 | `HealthCheckUrl` | The health check URL override. | none |
