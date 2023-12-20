@@ -82,6 +82,7 @@ The following table describes all the settings that can be used to configure the
 | `ValidateCertificates` | Enable or disable certificate validation. | `true` |
 | `Label` | Comma-separated list of labels to request. | master |
 | `Timeout` | Time to wait for response from server, in milliseconds. | 6000 |
+| `PollingInterval` | Time between requests for changed configuration values. | none |
 | `Username` | Username for basic authentication. | none |
 | `Password` | Password for basic authentication. | none |
 | `FailFast` | Enable or disable failure at startup. | `false` |
@@ -316,6 +317,10 @@ If you expect that the Config Server may occasionally be unavailable when your a
 First, you need to set `Spring:Cloud:Config:FailFast=true`. Then you need to enable retry by setting `Spring:Cloud:Config:Retry:Enabled=true`.
 
 The default behavior is to retry six times with an initial back-off interval of 1000ms and an exponential multiplier of 1.1 for subsequent back-offs. You can configure these settings (and others) by setting the `Spring:Cloud:Config:Retry:*` configuration settings described earlier.
+
+### Configuring Polling
+
+The Config Server Configuration Provider includes the ability to poll the server for changes at a defined interval. This feature can be enabled either in code or by setting `Spring:Cloud:Config:PollingInterval`. In either case, the value must be a `TimeSpan`. For details on providing a TimeSpan as a string, see the ["Standard TimeSpan format strings"](https://learn.microsoft.com/dotnet/standard/base-types/standard-timespan-format-strings).
 
 ### Configuring Multiple URLs
 
