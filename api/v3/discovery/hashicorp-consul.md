@@ -39,6 +39,8 @@ The second set of settings you may need to specify pertain to service registrati
 | `InstanceId` | The instance id registered for service. | computed |
 | `Tags` | The list of tags used when registering a service. | none |
 | `DefaultQueryTag` | Tag to query for in service list if one is not listed in serverListQueryTags. | none |
+| `Meta` | The metadata used when registering a service. | see [Configuring Metadata](#configuring-metadata)|
+| `TagsAsMetadata` |  Value indicating whether use tags as metadata. | `true` (see [Configuring Metadata](#configuring-metadata)) |
 | `QueryPassing` | Enable or disable whether to add the 'passing' parameter to health requests. This pushes health check passing to the server. | `false` |
 | `RegisterHealthCheck` | Enable or disable health check registration. | `true` |
 | `HealthCheckUrl` | The health check URL override. | none |
@@ -89,9 +91,13 @@ The health check for a Consul service instance defaults to `/actuator/health`, w
 
 ## Configuring Metadata
 
-Steeltoe `IServiceInstance` has an `IDictionary<string, string> Metadata` property that is used to obtain metadata settings for an instance. Consul previously did not support including metadata with service instance registrations. The Steeltoe Consul client currently uses the Consul tags feature to approximate metadata registration.
+Steeltoe `IServiceInstance` has an `IDictionary<string, string> Metadata` property that is used to obtain metadata settings for an instance. 
 
-Tags with the form of `key=value` are split and used as `IDictionary` keys and values, respectively. Tags without the equal sign are used as both the key and the value. You can add metadata with the `consul:discovery:tags` string array:
+Steeltoe `IServiceInstance` also has a `IEnumerable<string> Tags`, which can be used to approximate metadata registration.
+
+One of those two strategies can be configured by setting `Consul:Discovery:TagsAsMetadata` (defaults to true).
+
+When set to `true`, tags with the form of `key=value` are split and used as `IDictionary` keys and values, respectively. Tags without the equal sign are used as both the key and the value. You can add metadata with the `consul:discovery:tags` string array:
 
 ```json
 {
@@ -114,6 +120,29 @@ The preceding tag list results in metadata that looks like this:
   "someothervalue": "someothervalue"
 }
 ```
+
+When set to `false`, metadata are in the form of `key: value`. You can add metadata in the `consul:discovery:meta` object:
+
+```json
+{
+  "consul": {
+    "discovery": {
+      "meta": {
+        "somekey": "somevalue",
+        "someotherkey": "someothervalue"
+      }
+    }
+  }
+}
+```
+
+By default the following metadata are added:
+
+| Key | Value |
+| - | - |
+| `group` | `ConsulDiscoveryOptions.InstanceGroup` |
+| `ConsulDiscoveryOptions.DefaultZoneMetadataName` | `ConsulDiscoveryOptions.InstanceZone` |
+| `secure` | `ConsulDiscoveryOptions.Scheme == "https"` |
 
 ## Configuring InstanceId
 
