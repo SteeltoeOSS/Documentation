@@ -1,7 +1,7 @@
 function getMainSiteHost(){
 	var host = document.location.hostname;
 	if(document.location.hostname.indexOf('localhost') > -1){
-		return "http://localhost:8080";
+		return "https://localhost:8080";
 	}else if(host.indexOf('dev.steeltoe.io') > -1){//covering docs-dev.steeltoe.io
 		return "https://dev.steeltoe.io";
 	}
@@ -198,11 +198,7 @@ $(document).ready(function() {
 	}, "100")
 });
 
-	
-	
-
-
-	var options = {
+var options = {
 	contentSelector: "#wrapper",
 	loadDelay: 10,
 	// CSS class(es) used to render the copy icon.
