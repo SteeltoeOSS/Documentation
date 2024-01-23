@@ -79,7 +79,7 @@ Applications in Spring Cloud Data Flow are registered as named resources so that
 
 The URI conforms to a [schema](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#spring-cloud-dataflow-register-stream-apps).
 
->As of Steeltoe 3.1.0-rc1 only Docker images are supported.
+> Spring Cloud Data Flow  only supports running .NET applications in Docker images
 
 <!-- and may represent a Maven artifact, a Docker image, or an actual `http(s)` or `file` URL. -->
  Data Flow defines some logical application types to indicate its role as a streaming component, a task, or a standalone application. For streaming applications, as you might expect, we use `Source`,`Processor`, and `Sink` types.
@@ -240,29 +240,29 @@ To run data through the stream, POST data to the HttpSource application using a 
 
 ### Kubernetes
 
-Once you have the Spring Cloud Data Flow server running in Kubernetes (by following the instructions from the [installation guide](%currentPath%/installation/kubernetes/)), you can:
+Once you have the Spring Cloud Data Flow server running in Kubernetes (by following the instructions from the [installation guide](https://dataflow.spring.io/docs/installation/kubernetes/)), you can:
 
-- Register the stream applications
-- Create, deploy, and manage streams
+* Register the stream applications
+* Create, deploy, and manage streams
 
 #### Registering Applications with Spring Cloud Data Flow server
 
 For the `Http` source, use the following:
 
-```
+```text
 docker:springcloudstream/http-source-rabbit:3.0.1
 
 ```
 
 For the `BasicStreamProcessor` processor, use the following:
 
-```
+```text
 docker://projects.registry.vmware.com/steeltoe/basicstreamprocessor:latest
 ```
 
 For the `BasicStreamSink` sink, use the following:
 
-```
+```text
 docker://projects.registry.vmware.com/steeltoe/basicstreamprocessor:latest
 ```
 
@@ -280,7 +280,7 @@ To lists the pods (including the server components and the streaming application
  kubectl get pods
 ```
 
-```
+```text
 NAME                                                         READY   STATUS    RESTARTS   AGE
 scdf-release-mariadb-0                                        1/1     Running   0          4d
 scdf-release-rabbitmq-0                                       1/1     Running   0          4d
@@ -307,7 +307,7 @@ http --json POST http://localhost:8081 "test=data"
 kubectl logs steeltoestream-steeltoebasicsink-v2-5fd5c84448-f2w5b
 ```
 
-```
+```text
 info: Steeltoe.Stream.Binder.Rabbit.RabbitMessageChannelBinder[0]
       Channel 'steeltoestream.steeltoebasicprocessor.steeltoestream.errors' has 1 subscriber(s).
 info: Steeltoe.Stream.Binder.Rabbit.RabbitMessageChannelBinder[0]
@@ -326,7 +326,7 @@ info: CloudDataflowSink.Program[0]
 
 In this section, we deployed the stream by using Spring Cloud Data Flow with the stream DSL:
 
-```
+```text
 http | steeltoebasicprocessor | steeltoebasicsink
 ```
 

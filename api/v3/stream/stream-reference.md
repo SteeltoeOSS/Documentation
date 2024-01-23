@@ -93,7 +93,7 @@ Doing so prevents the service instances from receiving duplicate messages unless
 
 >Anonymous subscriptions are non-durable by nature. For some Binder implementations (such as RabbitMQ), it is possible to have non-durable group subscriptions as well.
 
-### Partitioning
+### Partitioning Data
 
 Stream provides support for partitioning data between multiple instances of a given service.
 In a partitioned scenario, the physical communication medium (such as the broker topic) is viewed as being structured into multiple partitions.
@@ -425,7 +425,6 @@ wire format, typically a `byte[]`, to the desired type exposed in the methods si
 <!--
 >At the moment, dispatching through `StreamListener` conditions is supported only for channel-based binders.  // TODO: Is this correct?????
 
-
   TODO: Keep this as we might need this when we support a functional approach to streams
 
 #### <a name="spring_cloud_function"></a>Spring Cloud Function support
@@ -732,7 +731,7 @@ For each input binding, Steeltoe Stream creates a dedicated error channel with t
 
 Consider the following:
 
-```
+```text
 spring:cloud:stream:bindings:input:group=myGroup
 ```
 
@@ -759,7 +758,7 @@ In the preceding example the destination name is `input.myGroup` and the dedicat
 handling scenarios, since you don't know what the name is going to be until the destination is created.
 
 If you have multiple bindings, you may want to have a single error handler for all of them. Steeltoe Stream automatically provides support for
-a _global error channel_ by bridging each individual error channel to the channel named `errorChannel`, allowing a single subscriber to handle all errors as shown in the following example:
+a *global error channel* by bridging each individual error channel to the channel named `errorChannel`, allowing a single subscriber to handle all errors as shown in the following example:
 
 ```csharp
 [ServiceActivator("errorChannel")]
@@ -778,7 +777,7 @@ System-level error handling implies that the errors are communicated back to the
 That said, in this section we explain the general idea behind system level error handling and using the RabbitMQ binder as an example.  For more details and configuration options, see the individual binder's documentation.
 
 If no internal error handlers are configured, the errors propagate to the binders, and the binders subsequently propagate those errors back to the messaging system.
-Depending on the capabilities of the messaging system, some may _drop_ the message, _re-queue_ the message for re-processing or _send the failed message to Dead Letter Queue (DLQ).
+Depending on the capabilities of the messaging system, some may *drop* the message, *re-queue* the message for re-processing or _send the failed message to Dead Letter Queue (DLQ).
 The RabbitMQ binder support these concepts. However, other binders may not, so refer to your individual binder’s documentation for details on supported system-level
 error-handling options.
 
@@ -789,13 +788,13 @@ While acceptable in some cases, for most cases, it is not, and we need some reco
 
 ##### Dead Letter Queue (DLQ)
 
-DLQ allows failed messages to be sent to a special destination: - _Dead Letter Queue_.
+DLQ allows failed messages to be sent to a special destination: - *Dead Letter Queue*.
 
 When configured, failed messages are sent to this destination for subsequent re-processing or auditing and/or reconciliation.
 
 For example, continuing on the previous example and to set up the DLQ with RabbitMQ binder, you need to set the following configuration setting:
 
-```
+```text
 spring:cloud:stream:rabbit:bindings:input:consumer:autoBindDlq=True
 ```
 
@@ -822,7 +821,7 @@ As you can see from the above, your original message is preserved for further ac
 However, one thing you may have noticed is that there is limited information on the original issue with the message processing. For example, you do not see a stack trace corresponding to the original error.
 To get more relevant information about the original error, you must set an additional configuration setting:
 
-```
+```text
 spring:cloud:stream:rabbit:bindings:input:consumer:republishToDlq=True
 ```
 
@@ -850,7 +849,7 @@ This configuration option may be feasible for cases where the nature of the erro
 
 To accomplish that, you must set the following configuration settings:
 
-```
+```text
 spring:cloud:stream:bindings:input:consumer:maxAttempts=1
 spring:cloud:stream:rabbit:bindings:input:consumer:requeueRejected=True
 ```
@@ -990,7 +989,7 @@ Each assembly `BinderAttribute` discovered contains the name of the binder that 
 Binder selection can either be performed globally, using the `spring:cloud:stream:defaultBinder` configuration key (for example, `spring:cloud:stream:defaultBinder=rabbit`) or individually, by configuring the binder on each channel binding.
 For instance, an application that has channels named `input` and `output` for read and write operations and needs to read from a binder with name `foo` and write to RabbitMQ can specify the following configuration:
 
-```
+```text
 spring:cloud:stream:bindings:input:binder=foo
 spring:cloud:stream:bindings:output:binder=rabbit
 ```
@@ -1050,7 +1049,8 @@ The following example shows a typical configuration for a processor application 
     }
   }
 }
-``` -->
+```
+-->
 
 ### Binder Configuration
 
@@ -1347,8 +1347,8 @@ If this property is not set, any destination can be bound dynamically.
 
 The `BinderAwareChannelResolver` can be used directly, as shown in the following example of a console application receiving messages from an input source and deciding the target channel based on the body of the message (see [Dynamic Destination Sample](https://github.com/SteeltoeOSS/Samples/tree/main/Stream/DynamicDestinationMessaging) for full solution):
 
-
 Program.cs
+
 ```csharp
 [EnableBinding(typeof(ISink))]
 class Program
@@ -1377,6 +1377,7 @@ class Program
 ```
 
 appsettings.json
+
 ```json
 {
   "spring": {
@@ -1588,6 +1589,7 @@ Consequently, custom `IMessageConverter` implementations take precedence over th
 The following example shows how to create a message converter bean to support a new content type called `application/bar`:
 
 Startup.cs
+
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
@@ -1598,6 +1600,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 MyCustomMessageConverter.cs
+
 ```csharp
 public class MyCustomMessageConverter : AbstractMessageConverter
 {
@@ -1625,7 +1628,7 @@ public class MyCustomMessageConverter : AbstractMessageConverter
         return $"{bar.Name} has been processed";
     }
 }
-``` 
+```
 
 ## Inter-Application Communication
 
@@ -1757,7 +1760,7 @@ public class CustomPartitionKeyExtractorClass : IPartitionSelectorStrategy
 
 An input binding (with the channel name `input`) is configured to receive partitioned data by configuring its `partitioned` setting, as well as the `instanceIndex` and `instanceCount` settings on the application itself, as shown in the following example:
 
-```
+```text
 spring:cloud:stream:bindings:input:consumer:partitioned=True
 spring:cloud:stream:instanceIndex=3
 spring:cloud:stream:instanceCount=5
