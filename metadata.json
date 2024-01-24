@@ -13,7 +13,7 @@
         "branch": "main",
         "apiSpecFolder": "docs-ref-overwrite"
     },
-    "_enableSearch": true,
+    "_enableSearch": false,
     "_noindex": false,
 
     "_disableContribution": false,

@@ -266,7 +266,7 @@ ul.breadcrumb > :first-child {
 	margin-top: 0 !important;
 }
 #affix {
-	margin-top: -10px;
+	margin-top: -15px;
 	padding-left: 10px;
 	overflow-wrap: break-word;
 }
@@ -318,7 +318,7 @@ ul.breadcrumb > :first-child {
 	margin: 0px 0 0 15px;
 }
 .level2 .active.in .active {
-	margin-bottom: 16px;
+	margin-bottom: 0;
 }
 .level2 .level2 li > a:before {
 	top: 0px !important;
@@ -331,6 +331,9 @@ ul.breadcrumb > :first-child {
 .nav.level2 > li,
 .toc > .level1 > li {
 	margin-bottom: 8px;
+}
+.active.in li:last-child, .bs-docs-sidenav > li.active a {
+    margin-bottom: 0;
 }
 #wrapper > .container-fluid .row > .col-xl-3 + .col-xl-7 + .col-2 {
 	display: none;
@@ -502,7 +505,7 @@ select.api-namespace option {
 
 	.sidetoc {
 		position: fixed;
-		overflow-y: scroll;
+		/*overflow-y: scroll;*/
 	}
 
 	.toc li::after {
@@ -568,8 +571,8 @@ select.api-namespace option {
 		display: none;
 	}
 
-	nav.bs-docs-sidbar.affix {
-		padding: 10px;
+	nav.bs-docs-sidebar.affix {
+		padding: 0 10px;
 	}
 
 	#close-sidebar {

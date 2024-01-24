@@ -6,7 +6,7 @@
 	<div class="collapse navbar-collapse" id="navbar">
 		<ul class=" navbar-nav text-center">
 			<li class="nav-item dropdown ml-xl-5 mr-xl-2">
-				<button class="btn nav-link dropdown-toggle" href="#" id="why" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button class="btn nav-link dropdown-toggle" id="why" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Why Steeltoe
 				</button>
 				<div class="dropdown-menu" aria-labelledby="why">

@@ -105,7 +105,7 @@ if (inIframe()) {
 	$("div[role=main].container-fluid.body-content").css({"margin-top":"0"})
 }
 
-$(document).ready(function() {
+$(function() {
 	if(document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('dev.steeltoe.io') > -1){
 		$("a[href^='https://steeltoe.io']").attr('href', function() { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
 	};
@@ -170,31 +170,29 @@ $(document).ready(function() {
 		$('#guidesNavLink').addClass('active');
 	}
 
-	// Add numbers to toc
 	setTimeout(() => {
-		let level1length = $('#sidetoc #toc .level1 > li').length;
+        // move right-side nav under selected item (if found)
+        var activeMenuItem = $('.active.in .active.in .active')
+        if (activeMenuItem)
+        {
+            activeMenuItem.append($('#affix'));
+        }
 
-		// Add chapter to level 1 li anchors
-		for( i = 0; i < level1length; i++) {
-			$("#sidetoc #toc .level1").children().eq(i).children('a').prepend(i+1 + ". ");
-			
-			// Add chapter to level 2 li anchors
-			let level2length = $("#sidetoc #toc .level1").children().eq(i).find("li").length;
-			
-			for( j = 0; j < level2length; j++) {
-				$("#sidetoc #toc .level1").children().eq(i).find("li").children().eq(j).prepend((i+1) + "." + (j+1) + " ");
-			}
-		}
-		document.querySelector('.active.in .active.in .active').appendChild(document.getElementById('affix'));
-
-		let level3length = $(".affix .level1").find("li").length;
-
-		for( k = 0; k < level3length; k++) {
-			console.log(k);
-			// $("affix .level1").children().eq(k).children('a').prepend(k+1 + ". ");
-
-			$("affix .level1").children().eq(1).children('a').prepend(". ");
-		}
+        // Add numbers to toc
+        $('#sidetoc #toc >.level1 > li').each(function(index1, level1){
+            $(level1).children('a').prepend((index1 + 1) + ". ");
+            $(level1).children('ul').children('li').each(function(index2, level2){
+                $(level2).children('a').prepend((index1 + 1) + "." + (index2 + 1) + " ");
+                $(level2).children('a').children('nav').children('ul').children('li').each(function(index3, level3){
+                    $(level3).children('a').prepend(''.concat(index1 + 1, ".", index2 + 1, ".", index3 + 1, " "));
+                // this code functions, but added value is questionable the lower down the tree we go
+                //     $(level3).children('ul').children('li').each(function(index4, level4){
+                //         $(level4).children('a').prepend(''.concat(index1 + 1, ".", index2 + 1, ".", index3 + 1, ".", index4 + 1, " "));
+                //         there is at least one more level below this, but readability suffers
+                //     });
+                });
+            });
+        });
 	}, "100")
 });
 
