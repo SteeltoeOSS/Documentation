@@ -10,7 +10,7 @@
 
     "_gitContribute": {
         "repo": "https://github.com/steeltoeoss/Documentation",
-        "branch": "dev",
+        "branch": "main",
         "apiSpecFolder": "docs-ref-overwrite"
     },
     "_enableSearch": true,
