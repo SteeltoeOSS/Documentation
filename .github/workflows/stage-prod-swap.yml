@@ -1,0 +1,22 @@
+name: Swap staging slot contents into production
+
+on:
+  workflow_dispatch:
+
+jobs:
+  promote-to-production:
+    name: Promote to production
+    runs-on: ubuntu-latest
+    environment:
+      name: 'Production'
+      url: 'https://${{ vars.AZURE_WEBAPP_NAME }}.azurewebsites.net/'
+
+    steps:
+    - name: Log into Azure CLI with service principal
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Swap slots
+      run: az webapp deployment slot swap -s ${{ vars.STAGING_SLOT_NAME }} -n ${{ vars.AZURE_WEBAPP_NAME }} -g ${{ vars.AZURE_RESOURCE_GROUP }}
+    

@@ -1,4 +1,4 @@
-name: Build Website
+name: build-website
 on:
 ### TEMPORARY
   workflow_run:
@@ -20,11 +20,17 @@ on:
   #   - "!Dockerfile-metadata"
   #   - "!metadata.conf"
 
+permissions:
+  contents: 'read'
+
 jobs:
   build-push:
     name: Build and push documentation image
     runs-on: ubuntu-latest
     steps:
+    - name: Lowercase the repository name
+      run: echo "REPOSITORY=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
     - name: checkout
       uses: actions/checkout@v4
 
@@ -36,7 +42,7 @@ jobs:
         password: "${{ secrets.DOCKER_PASSWORD }}"
 
     - name: Build image
-      run: docker build . --file "Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/documentation:${{ github.run_id }} -t ${{ vars.DOCKER_REGISTRY }}/documentation:ghlatest
+      run: docker build . --file "Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/${{ env.REPOSITORY }}:${{ github.run_id }} -t ${{ vars.DOCKER_REGISTRY }}/documentation:ghlatest
 
     - name: Push image
-      run: docker push ${{ vars.DOCKER_REGISTRY }}/documentation:${{ github.run_id }}
+      run: docker push ${{ vars.DOCKER_REGISTRY }}/${{ env.REPOSITORY }}:${{ github.run_id }}

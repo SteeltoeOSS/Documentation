@@ -14,6 +14,10 @@ on:
 
 env:
   docfxVersion: 2.57.2
+
+permissions:
+  contents: 'read'
+
 jobs:
   build-push:
     name: Build and push base layer
