@@ -1,10 +1,9 @@
 name: Deploy a preview environment
 
 on:
-  workflow_run:
-    workflows: [build-website]
-    branches: [main, v4]
-    types: [completed]
+  pull_request:
+    branches:
+    - main
 
 concurrency: ci-${{ github.event.number }}
 
@@ -39,9 +38,6 @@ jobs:
       pull-requests: write
 
     steps:
-    - name: Lowercase the repository name
-      run: echo "REPOSITORY=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
-
     - name: Log into Azure CLI with service principal
       uses: azure/login@v1
       with:
@@ -52,7 +48,7 @@ jobs:
       id: deploy-to-webapp
       with: 
         app-name: ${{ vars.AZURE_WEBAPP_NAME }}
-        images: ${{ vars.DOCKER_REGISTRY }}/${{ env.REPOSITORY }}:${{ github.run_id }}
+        images: ${{ vars.DOCKER_REGISTRY }}/documentation:${{ github.run_id }}
         slot-name:  ${{ env.SLOT_NAME }}
     
     - name: Comment on PR with the preview link

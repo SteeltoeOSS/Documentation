@@ -1,4 +1,4 @@
-FROM steeltoe.azurecr.io/docfx:ghlatest
+FROM steeltoe.azurecr.io/docfx:latest
 WORKDIR /docs
 COPY . .
 RUN ./build-metadata.sh

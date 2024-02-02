@@ -1,49 +1,53 @@
-name: build-api-docs
-on:
-### TEMPORARY
-  workflow_run:
-    workflows: [build-base-layer]
-    types: [completed]
-### TEMPORARY
+# name: build-api-docs
+# on:
+# ### TEMPORARY
+#   pull_request:
+#     branches:
+#     - main
+#     paths:
+#     - .github/workflows/build-site.yml
+#     - Dockerfile-metadata
+# ### TEMPORARY
 
-  # push:
-  #   branches:
-  #   - main
-  #   paths:
-  #   - Dockerfile-metadata
+#   push:
+#     branches:
+#     - main
+#     paths:
+#     - .github/workflows/build-site.yml
+#     - Dockerfile-metadata
 
-env:
-  tagv2: 2.5.5
-  tagv3: 3.2.6
+# env:
+#   tagv2: 2.5.5
+#   tagv3: 3.2.6
 
-permissions:
-  contents: 'read'
+# permissions:
+#   contents: 'read'
 
-jobs:
-  build-push:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: Build and push API docs layer
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+# jobs:
+#   build-push:
+#     name: Build and push API docs layer
+#     runs-on: ubuntu-latest
+#     if: !(github.event_name == 'PullRequest')
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v4
 
-    - name: Set Steeltoe versions to use
-      run: |-
-        echo '2:'${{ env.tagv2 }} > metadata.conf
-        echo '3:'${{ env.tagv3 }} >> metadata.conf
-        echo "STEELTOE_VERSIONS=${{ env.tagv2 }}-${{ env.tagv3 }}" >> $GITHUB_ENV
-      shell: bash
+#     - name: Set Steeltoe versions to use
+#       run: |-
+#         echo '2:'${{ env.tagv2 }} > metadata.conf
+#         echo '3:'${{ env.tagv3 }} >> metadata.conf
+#         echo "STEELTOE_VERSIONS=${{ env.tagv2 }}-${{ env.tagv3 }}" >> $GITHUB_ENV
+#       shell: bash
 
-    - name: Login to container registry
-      uses: docker/login-action@v3
-      with:
-        registry: "${{ vars.DOCKER_REGISTRY }}"
-        username: "${{ secrets.DOCKER_USERNAME }}"
-        password: "${{ secrets.DOCKER_PASSWORD }}"
+#     - name: Login to container registry
+#       uses: docker/login-action@v3
+#       with:
+#         registry: "${{ vars.DOCKER_REGISTRY }}"
+#         username: "${{ secrets.DOCKER_USERNAME }}"
+#         password: "${{ secrets.DOCKER_PASSWORD }}"
 
-    - name: Build image
-      run: docker build . --file "Dockerfile-metadata" -t ${{ vars.DOCKER_REGISTRY }}/documentation-metadata:${{ vars.STEELTOE_VERSIONS }}-${{ github.run_number }} -t ${{ vars.DOCKER_REGISTRY }}/documentation-metadata:ghlatest
+#     - name: Build image
+#       run: docker build . --file "Dockerfile-metadata" -t ${{ vars.DOCKER_REGISTRY }}/documentation-metadata:${{ env.STEELTOE_VERSIONS }} -t ${{ vars.DOCKER_REGISTRY }}/documentation-metadata:latest
 
-    - name: Push image
-      run: docker push ${{ vars.DOCKER_REGISTRY }}/documentation-metadata:${{ env.STEELTOE_VERSIONS }}-${{ github.run_number }}
+#     - name: Push image
+#       run: docker push ${{ vars.DOCKER_REGISTRY }}/documentation-metadata:${{ env.STEELTOE_VERSIONS }}

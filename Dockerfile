@@ -1,4 +1,4 @@
-FROM steeltoe.azurecr.io/documentation-metadata:ghlatest AS build
+FROM steeltoe.azurecr.io/documentation-metadata:3.2.0-2.5.5-6 AS build
 WORKDIR /docs
 COPY . .
 RUN docfx build -o build --globalMetadataFiles host.json

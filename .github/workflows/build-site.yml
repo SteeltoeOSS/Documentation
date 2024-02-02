@@ -1,24 +1,21 @@
 name: build-website
 on:
-### TEMPORARY
-  workflow_run:
-    workflows: [build-api-docs]
-    types: [completed]
-### TEMPORARY
-
-  # pull_request:
-  #   branches:
-  #   - main
-  # push:
-  #   branches:
-  #   - main
-  #   paths:
-  #   - "*"
-  #   - "!README.md"
-  #   - "!docfx/"
-  #   - "!build-metadata.sh"
-  #   - "!Dockerfile-metadata"
-  #   - "!metadata.conf"
+  # workflow_run:
+  #   workflows: [build-api-docs]
+  #   types: [completed]
+  pull_request:
+    branches:
+    - main
+  push:
+    branches:
+    - main
+    paths:
+    - "*"
+    - "!README.md"
+    - "!docfx/"
+    - "!build-metadata.sh"
+    - "!Dockerfile-metadata"
+    - "!metadata.conf"
 
 permissions:
   contents: 'read'
@@ -42,7 +39,9 @@ jobs:
         password: "${{ secrets.DOCKER_PASSWORD }}"
 
     - name: Build image
-      run: docker build . --file "Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/${{ env.REPOSITORY }}:${{ github.run_id }} -t ${{ vars.DOCKER_REGISTRY }}/documentation:ghlatest
+      run: docker build . --file "Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/${{ env.REPOSITORY }}:${{ github.run_id }}
+      # -t ${{ vars.DOCKER_REGISTRY }}/documentation:latest
 
     - name: Push image
+      # if: github.event_name != 'pull_request'
       run: docker push ${{ vars.DOCKER_REGISTRY }}/${{ env.REPOSITORY }}:${{ github.run_id }}
