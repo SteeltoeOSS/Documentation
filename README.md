@@ -83,17 +83,17 @@ Install DocFX using one of 2 options: download from DocFX or use Docker image.
 Download DocFX [distribution](https://github.com/dotnet/docfx/releases/).
 Unzip to directory of your choosing and add that directory to your `PATH`.
 If running on Linux or OS X, you will need to [install Mono](https://www.mono-project.com/docs/getting-started/install/) and use `mono` to execute the DoxFX binary.
-See [docfx/docfx](docfx/docfx) for an example wrapper script.
+See the script in this repository at path `docfx/docfx` for an example wrapper script.
 
 ### Docker Image
 
-You can build a Docker image with the DocFX binary and use the Powershell script `docfx.ps` to run the image.
+You can build a Docker image with the DocFX binary and use the Powershell script `docfx.ps1` to run the image.
 `docfx.ps1` mounts the project directory in the Docker container and passes any arguments to the `docfx` command in the container.
 
 To build the Docker image:
 
 ```
-$ docker build -t docfx doxfx
+$ docker build docfx --file "docfx/Dockerfile"
 ```
 
 Sample invocation:
@@ -104,11 +104,6 @@ docfx 2.59.2.0
 Copyright (C) 2022 ? Microsoft Corporation. All rights reserved.
 This is open-source software under MIT License.
 ```
-
-Download the DocFX [distribution](https://github.com/dotnet/docfx/releases/).
-Unzip to directory of your choosing and add that directory to your `PATH`.
-If running on Linux or OS X, you will need to [install Mono](https://www.mono-project.com/docs/getting-started/install/) and use `mono` to execute the DoxFX binary.
-See [docfx/docfx](docfx/docfx) for an example wrapper script.
 
 Build API docs for Steeltoe 2 and 3
 

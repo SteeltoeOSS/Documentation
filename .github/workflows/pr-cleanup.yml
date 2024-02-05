@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SLOT_NAME: preview-${{ github.event.number }}
+  SLOT_NAME: pr-${{ github.event.number }}
 
 jobs:
   delete-slot:
@@ -22,7 +22,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     - name: Delete slot on staging site
-      run: az webapp deployment slot delete --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WEBAPP_NAME}} --slot $SLOT_NAME
+      run: az webapp deployment slot delete --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WEBAPP_NAME}} --slot ${{ env.SLOT_NAME }}
 
   delete-deployment:
     runs-on: ubuntu-latest
@@ -31,6 +31,6 @@ jobs:
       - name: Delete Deployment Environment
         uses: strumwolf/delete-deployment-environment@v2
         with:
-          environment: "PR #${{ github.event.number }}"
+          environment: "pr-${{ github.event.number }}"
           token: ${{ secrets.GITHUB_TOKEN }}
           onlyRemoveDeployments: true

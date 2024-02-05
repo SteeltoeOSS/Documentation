@@ -12,8 +12,7 @@ RUN \
     dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb && \
     apt-get update && \
-    apt install -y \
-    dotnet-sdk-6.0
+    apt install -y dotnet-sdk-8.0
 COPY . .
 RUN \
     wget https://github.com/dotnet/docfx/releases/download/$(cat docfx_version)/docfx.zip && \
