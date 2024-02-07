@@ -69,7 +69,7 @@
       }
     ],
     "xref": [
-      "build/_site/xrefmap.yml"
+      "_site/xrefmap.yml"
     ],
     "dest": "_site",
     "globalMetadataFiles": ["metadata.json"],

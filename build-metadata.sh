@@ -20,11 +20,12 @@ get_sources() {
 }
 
 get_sources sources/v2 $v2_sources
-get_sources sources/v3 $v3_sources
-
 echo "building v2 metadata"
 docfx metadata api-v2.json
+
+get_sources sources/v3 $v3_sources
 echo "building v3 metadata"
 docfx metadata api-v3.json
+
 echo "building all metadata"
 docfx metadata api-all.json
