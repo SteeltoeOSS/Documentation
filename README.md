@@ -25,6 +25,23 @@ As you get familiar with DocFX, you'll notice the addition of a YAML header in t
 
 **Note** it should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
 
+### Page display options
+
+In the YAML header of a page's markdown, you have options to turn page elements on or off. Below are those options.
+
+|Yaml label  |Default value  |Description   |
+|---------|---------|---------|
+|_disableToc     |false|Turn off the left hand table of contents         |
+|_disableAffix     |false|Turn off the right hand page navigation links         |
+|_disableContribution     |false|Turn off right hand link to "edit this page"         |
+|_disableFooter     |false|Don't show footer when guest scrolls to page bottom         |
+|_enableSearch     |true|Show the search icon         |
+|_enableNewTab     |true|All links on the page open in a new browser tab         |
+|_disableNav     |false|Do not show top navigation links         |
+|_hideTocVersionToggle|false     |Hide the version toggler in the table of contents         |
+|_noindex     |false|Do not let search engines index the page         |
+|_disableNavbar|false     |Do not show top bar of page         |
+
 ## Creating a new blog post
 
 Create a new `.md` file in the `articles` directory. Name the file something that is URL safe. In `/articles/index.md` add a shorthand link to the document as well as a short description. If the post should also be included in Steeltoe's RSS feed, add a link entry in `articles/rss.xml`.
@@ -114,6 +131,10 @@ This is open-source software under MIT License.
 
 For working on any non-trivial changes, there are several ways to build and run the site locally.
 
+### Basic build and run
+
+The easiest way to build and run the site is this command: `docfx build --serve --port 8082`.
+
 ### Build API docs for Steeltoe 2 and 3
 
 Building the API docs is not required for the site to run locally.
@@ -149,5 +170,3 @@ $ docfx build --globalMetadataFiles main-site.localhost.json
 ```
 $ docfx serve _site -p 9082
 ```
-
-> If you wish to build and start the site with a single command, you can also run `docfx build --serve --port 8082`
