@@ -19,6 +19,12 @@ DocFX offers an enhanced flavor of Markdown. To see examples and learn more, vie
 
 Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack) extension pack useful.
 
+### Links and Cross References
+
+As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/tutorial/links_and_cross_references.html).
+
+**Note** it should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
+
 ## Creating a new blog post
 
 Create a new `.md` file in the `articles` directory. Name the file something that is URL safe. In `/articles/index.md` add a shorthand link to the document as well as a short description. If the post should also be included in Steeltoe's RSS feed, add a link entry in `articles/rss.xml`.
