@@ -2,23 +2,22 @@
 
 ## Overview
 
-This is the home of Steeltoe documentation and blog articles. The site uses [DocFX](https://dotnet.github.io/docfx) to convert Markdown to HTML and generate site navigation.
-See [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) to learn more about DocFX's enhanced Markdown syntax.
+This is the home of Steeltoe documentation and blog articles. The site uses [DocFX](https://dotnet.github.io/docfx) to convert Markdown to HTML, generate API documentation from triple-slash comments in Steeltoe and generate site navigation.
+
+## Site Contents
 
 | Path | Description
 | --- | ---
 | `/api` | API documentation
 | `/articles` | blog posts
+| `/guides` | guides for getting started with Steeltoe
 | `/template` | theming
 
 ## DocFX Markdown
 
 DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) documentation.
-Visual Studio users may find the [Docs Authoring Pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack) extension pack useful.
 
-## Markdown parser
-
-DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) documentation.
+Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack) extension pack useful.
 
 ## Creating a new blog post
 
@@ -105,7 +104,15 @@ Copyright (C) 2022 ? Microsoft Corporation. All rights reserved.
 This is open-source software under MIT License.
 ```
 
-Build API docs for Steeltoe 2 and 3
+## Building and running the site
+
+For working on any non-trivial changes, there are several ways to build and run the site locally.
+
+### Build API docs for Steeltoe 2 and 3
+
+Building the API docs is not required for the site to run locally.
+
+If needed, these commands will download the Steeltoe source code and generate API documentation from the triple-slash comments in the codebase.
 
 ```
 $ git clone https://github.com/SteeltoeOSS/Steeltoe sources/v2 -b release/2.5
@@ -116,7 +123,9 @@ $ docfx metadata api-v3.json
 $ docfx metadata api-all.json
 ```
 
-Build the site docs
+### Build the site docs
+
+This documentation site is interconnected with Steeltoe's [main site](https://github.com/SteeltoeOSS/MainSite). In order to run the two together, the appropriate main-site.json file variant is used to identify where the main site is running.
 
 ```
 # main site -> https://steeltoe.io
@@ -129,8 +138,10 @@ $ docfx build --globalMetadataFiles main-site.dev.json
 $ docfx build --globalMetadataFiles main-site.localhost.json
 ```
 
-Run local HTTP server
+### Run local HTTP server
 
 ```
 $ docfx serve _site -p 9082
 ```
+
+> If you wish to build and start the site with a single command, you can also run `docfx build --serve --port 8082`
