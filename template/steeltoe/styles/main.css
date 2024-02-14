@@ -1,4 +1,4 @@
-@import url('../../../styles/open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('/styles/open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 @font-face {
   font-family:'Metropolis';
@@ -7,16 +7,16 @@
 	font-weight:300;
 	font-weight:200;
 	font-weight:100;
-	src:url("../../../fonts/Metropolis-Regular.woff2") format("woff2"),
-			url("../../../fonts/Metropolis-Regular.woff") format("woff");
+	src:url("/fonts/Metropolis-Regular.woff2") format("woff2"),
+			url("/fonts/Metropolis-Regular.woff") format("woff");
 
 }
 @font-face {
   font-family: 'Metropolis';
 	font-weight:450;
   font-style: normal;
-	src:url("../../../fonts/Metropolis-Medium.woff2") format("woff2"),
-			url("../../../fonts/Metropolis-Medium.woff") format("woff");
+	src:url("/fonts/Metropolis-Medium.woff2") format("woff2"),
+			url("/fonts/Metropolis-Medium.woff") format("woff");
 }
 @font-face {
   font-family: 'Metropolis';
@@ -24,8 +24,8 @@
 	font-weight:500;
 	font-weight: bold;
 	font-style: normal;
-	src:url("../../../fonts/Metropolis-Bold.woff2") format("woff2"),
-			url("../../../fonts/Metropolis-Bold.woff") format("woff");
+	src:url("/fonts/Metropolis-Bold.woff2") format("woff2"),
+			url("/fonts/Metropolis-Bold.woff") format("woff");
 }
 
 /* DEVELOP WIDTH = 1400px */
@@ -317,12 +317,12 @@ ul.breadcrumb > :first-child {
 .toc .level2 {
 	margin: 0px 0 0 15px;
 }
-.level2 .active.in .active {
-	margin-bottom: 0;
-}
 .level2 .level2 li > a:before {
 	top: 0px !important;
 	left: -14px !important;
+}
+.level2 li:last-child {
+	margin-bottom: 0;
 }
 .level1 .in > a,
 .affix li.active > a,

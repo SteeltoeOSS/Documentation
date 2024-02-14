@@ -1,194 +1,156 @@
 {
   "metadata": [
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/CircuitBreaker/src"
-      }
-    ],
-    "dest": "api/browser/v2/circuitbreaker",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v2/src/CircuitBreaker/src"
+        }
+      ],
+      "dest": "api/browser/v2/circuitbreaker",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "netcoreapp3.1"
+      },
+      "version": "2.x"
     },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Common/src"
-      }
-    ],
-    "dest": "api/browser/v2/common",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v2/src/Common/src"
+        }
+      ],
+      "dest": "api/browser/v2/common",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "netcoreapp3.1"
+      },
+      "version": "2.x"
     },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Configuration/src"
-      }
-    ],
-    "dest": "api/browser/v2/configuration",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v2/src/Configuration/src"
+        }
+      ],
+      "dest": "api/browser/v2/configuration",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "netcoreapp3.1"
+      },
+      "version": "2.x"
     },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Connectors/src"
-      }
-    ],
-    "dest": "api/browser/v2/connectors",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v2/src/Connectors/src"
+        }
+      ],
+      "dest": "api/browser/v2/connectors",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "netcoreapp3.1"
+      },
+      "version": "2.x"
     },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Discovery/src"
-      }
-    ],
-    "dest": "api/browser/v2/discovery",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v2/src/Discovery/src"
+        }
+      ],
+      "dest": "api/browser/v2/discovery",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "netcoreapp3.1"
+      },
+      "version": "2.x"
     },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Integration/src"
-      }
-    ],
-    "dest": "api/browser/v2/integration",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v2/src/Logging/src"
+        }
+      ],
+      "dest": "api/browser/v2/logging",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "netcoreapp3.1"
+      },
+      "version": "2.x"
     },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Logging/src"
-      }
-    ],
-    "dest": "api/browser/v2/logging",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v2/src/Management/src"
+        }
+      ],
+      "dest": "api/browser/v2/management",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "netcoreapp3.1"
+      },
+      "version": "2.x"
     },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Management/src"
-      }
-    ],
-    "dest": "api/browser/v2/management",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
-    },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Security/src"
-      }
-    ],
-    "dest": "api/browser/v2/security",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
-    },
-    "version": "2.x"
-  },
-  {
-    "src": [
-      {
-        "files": [
-          "**/*.csproj"
-        ],
-        "exclude": [ "**/bin/**", "**/obj/**" ],
-        "src": "sources/v2/src/Stream/src"
-      }
-    ],
-    "dest": "api/browser/v2/stream",
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "filter": "api-filter.yml",
-    "properties": {
-      "TargetFramework": "netcoreapp3.1"
-    },
-    "version": "2.x"
-  }
-]
+    {
+      "src": [
+        {
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "sources/v2/src/Security/src"
+        }
+      ],
+      "dest": "api/browser/v2/security",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "filter": "api-filter.yml",
+      "properties": {
+        "TargetFramework": "netcoreapp3.1"
+      },
+      "version": "2.x"
+    }
+  ]
 }

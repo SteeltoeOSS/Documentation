@@ -9,7 +9,7 @@
     "__global.improveThisDoc": "Edit this page",
 
     "_gitContribute": {
-        "repo": "https://github.com/steeltoeoss/Documentation",
+        "repo": "https://github.com/SteeltoeOSS/Documentation",
         "branch": "main",
         "apiSpecFolder": "docs-ref-overwrite"
     },

@@ -6,9 +6,9 @@
 	<div class="collapse navbar-collapse" id="navbar">
 		<ul class=" navbar-nav text-center">
 			<li class="nav-item dropdown ml-xl-5 mr-xl-2">
-				<button class="btn nav-link dropdown-toggle" id="why" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="btn nav-link dropdown-toggle" href="#" id="why" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Why Steeltoe
-				</button>
+				</a>
 				<div class="dropdown-menu" aria-labelledby="why">
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/why-steeltoe" onClick="$(this).removeAttr('target')">Overview</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/microservices" onClick="$(this).removeAttr('target')">Microservices</a>
@@ -18,9 +18,9 @@
 				</div>
 			</li>
 			<li class="nav-item dropdown mx-xl-2">
-				<button class="btn nav-link dropdown-toggle" href="#" id="learn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="btn nav-link dropdown-toggle" href="#" id="learn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Get Started
-				</button>
+				</a>
 				<div class="dropdown-menu" aria-labelledby="learn">
 					<a class="dropdown-item" href="https://start.steeltoe.io" target="_blank">Steeltoe Initializr</a>
 					<a class="dropdown-item" id="guidesNavLink" href="~/guides" onClick="$(this).removeAttr('target')">Guides</a>
@@ -30,9 +30,9 @@
 				</div>
 			</li>
 			<li class="nav-item dropdown mx-xl-2">
-				<button class="btn nav-link dropdown-toggle" href="#" id="projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="btn nav-link dropdown-toggle" href="#" id="projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Projects
-				</button>
+				</a>
 				<div class="dropdown-menu" aria-labelledby="projects">
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/app-configuration" onClick="$(this).removeAttr('target')">Steeltoe Application Configuration</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/circuit-breakers" onClick="$(this).removeAttr('target')">Steeltoe Circuit Breakers</a>
