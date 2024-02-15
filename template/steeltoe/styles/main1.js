@@ -13,6 +13,10 @@ function isApiBrowserPage() {
     return window.location.href.indexOf("/api/browser/") > -1;
 }
 
+function isGuidePage() {
+    return window.location.href.indexOf("/guides/") > -1;
+}
+
 function isApiVersion3() {
     return window.location.href.indexOf("/api/browser/v3/") > -1;
 }
@@ -186,15 +190,15 @@ $(function() {
         $('#guidesNavLink').addClass('active');
     }
 
-    if (!isApiBrowserPage()) {
-        setTimeout(() => {
-            // move right-side nav under selected item (if found)
-            var activeMenuItem = $('.active.in .active.in .active')
-            if (activeMenuItem && $('#affix').children())
-            {
-                activeMenuItem.append($('#affix'));
-            }
+    setTimeout(() => {
+        // move right-side nav under selected item (if found)
+        var activeMenuItem = $('.active.in .active.in .active');
+        if (activeMenuItem && $('#affix').children())
+        {
+            activeMenuItem.append($('#affix'));
+        }
 
+        if (!isApiBrowserPage() && !isGuidePage()) {
             // Add numbers to toc
             $('#sidetoc #toc >.level1 > li').each(function(index1, level1) {
                 $(level1).children('a').prepend((index1 + 1) + ". ");
@@ -205,8 +209,8 @@ $(function() {
                     });
                 });
             });
-        }, "100");
-    }
+        }
+    }, "100");
 });
 
 
