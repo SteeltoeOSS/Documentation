@@ -68,6 +68,9 @@ jobs:
       if: ${{ github.event_name == 'pull_request' }}
       run: az webapp deployment slot create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WEBAPP_NAME}} --slot ${{ env.SLOT_NAME }} --configuration-source ${{ vars.STAGING_SLOT_NAME }}
 
+      # Need to pair a PR slot with a custom MainSite address?
+      # az webapp config appsettings set -g steeltoe --name docs-steeltoe --slot pr-310 --settings mainsite_host=https://www-steeltoe-pr-141.azurewebsites.net
+
     - name: Deploy to staging slot
       uses: azure/webapps-deploy@v3
       id: deploy-to-webapp

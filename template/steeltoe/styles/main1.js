@@ -93,9 +93,11 @@ function showApiBrowserElements() {
     } else*/ if (isApiVersion3()) {
         $("#api-v3").prop("checked", true);
         $("#api-v3").parent().addClass('active');
+        $("#api-namespace-v3").removeClass('hide');
     } else {
         $("#api-v2").prop("checked", true);
         $("#api-v2").parent().addClass('active');
+        $("#api-namespace-v2").removeClass('hide');
     }
 }
 
@@ -193,7 +195,7 @@ $(function() {
     setTimeout(() => {
         // move right-side nav under selected item (if found)
         var activeMenuItem = $('.active.in .active.in .active');
-        if (activeMenuItem && $('#affix').children())
+        if (activeMenuItem && $('#affix').children().length > 0)
         {
             activeMenuItem.append($('#affix'));
         }

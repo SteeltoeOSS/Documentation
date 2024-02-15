@@ -466,6 +466,10 @@ select.api-namespace option {
     display: none;
 }
 
+img {
+    max-width: 100%;
+}
+
 /**** Mobile Nav & TOC Adjustments ****/
 
 @media only screen and (max-width: 1200px) {
