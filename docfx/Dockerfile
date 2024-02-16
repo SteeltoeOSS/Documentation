@@ -6,7 +6,8 @@ RUN \
         git \
         unzip \
         vim \
-        wget
+        wget \
+        dos2unix
 RUN \
     wget https://packages.microsoft.com/config/debian/$(cat /etc/issue | awk '{print $3}')/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
@@ -15,7 +16,7 @@ RUN \
     apt install -y dotnet-sdk-8.0
 COPY . .
 RUN \
-    wget https://github.com/dotnet/docfx/releases/download/$(cat docfx_version)/docfx.zip && \
+    wget https://github.com/dotnet/docfx/releases/download/$(cat docfx_version | dos2unix)/docfx.zip && \
     mkdir -p /usr/local/libexec && \
     unzip docfx.zip -d /usr/local/libexec/docfx && \
     install docfx /usr/local/bin && \
