@@ -470,7 +470,7 @@ img {
     max-width: 100%;
 }
 
-/**** Mobile Nav & TOC Adjustments ****/
+/**** Responsive Adjustments ****/
 
 @media only screen and (max-width: 1200px) {
     .navbar-collapse.collapse:not(.in) {
@@ -593,6 +593,12 @@ img {
     /** Fix "Back to top covering text **/
     .doc-wrapper article.content.wrap {
         margin-bottom: 10%;
+    }
+}
+
+@media (max-width:767px) {
+    .navbar-nav .open .dropdown-menu {
+        border: 1px solid rgba(0,0,0,.15);
     }
 }
 

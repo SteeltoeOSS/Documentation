@@ -65,6 +65,7 @@ function showMobileSidebar() {
 
         if (anchorOnclick !== sidebarFunction) {
             $(anchor).attr('onclick', sidebarFunction);
+        }
     });
 }
 
@@ -214,5 +215,6 @@ var options = {
     onBeforeTextCopied: function (text, codeElement) {
         // you can fix up the text here
         return text;
+    }
 };
 window.highlightJsBadge(options);
