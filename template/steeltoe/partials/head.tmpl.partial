@@ -1,8 +1,8 @@
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <!-- OneTrust Cookie Consent -->
     <meta content='3ab34b71-7023-4e93-90e8-12dd544a5179' name='onetrust-data-domain'>
     <meta content='https://tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.js' name='microsites-utag'>
-    <script src="//code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src='//www.vmware.com/files/templates/inc/utag_data.js'></script>
     <script src='//tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.sync.js'></script>
     <script>function OptanonWrapper() { { window.dataLayer.push({ event: 'OneTrustGroupsUpdated' }); } }</script>
@@ -32,18 +32,18 @@
   <meta name="generator" content="docfx {{_docfxVersion}}">
   {{#_description}}<meta name="description" content="{{_description}}">{{/_description}}
   <link rel="shortcut icon" href="{{{_appFaviconPath}}}{{^_appFaviconPath}}favicon.ico{{/_appFaviconPath}}">
-  <link rel="stylesheet" href="{{_rel}}styles/docfx.vendor.css">
 
-	<link rel="stylesheet" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}//steeltoe.io{{/_rootHost}}/css/bootstrap/bootstrap.min.css" />
-  <link rel="stylesheet" href="{{_rel}}styles/docfx.css">
-	<link href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}//steeltoe.io{{/_rootHost}}/css/site.css" rel="stylesheet" />
-	<link rel="stylesheet" href="{{_rel}}styles/main.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/a11y-light.min.css">
+  <link rel="stylesheet" href="/styles/docfx.vendor.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/styles/frommainsite.css" />
+  <link rel="stylesheet" href="/styles/docfx.css">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/a11y-light.min.css">
 
   <meta property="docfx:navrel" content="{{_navRel}}">
   <meta property="docfx:tocrel" content="{{_tocRel}}">
   {{#_noindex}}<meta name="searchOption" content="noindex">{{/_noindex}}
-  {{#_enableSearch}}<meta property="docfx:rel" content="{{_rel}}">{{/_enableSearch}}
+  {{#_enableSearch}}<meta property="docfx:rel" content="/">{{/_enableSearch}}
   {{#_enableNewTab}}<meta property="docfx:newtab" content="true">{{/_enableNewTab}}
   {{#_disableNav}}<meta property="docfx:shownav" content="false">{{/_disableNav}}
 </head>

@@ -1,0 +1,380 @@
+/* Copied from Steeltoe MainSite 2/14/24 with intent to merge relevant bits into ./main.css */
+/*=====================CONTAINER SIZING===================== */
+.width-90 {
+    max-width: 90%;
+}
+
+.width-80 {
+    max-width: 80%;
+}
+
+.width-75 {
+    max-width: 75%;
+}
+
+.width-70 {
+    max-width: 70%;
+}
+
+.width-60 {
+    max-width: 60%;
+}
+
+.width-55 {
+    max-width: 55%;
+}
+
+.width-50 {
+    max-width: 50%;
+}
+
+.width-all {
+    max-width: 100%;
+}
+
+@media (min-width: 1400px) {
+    .width-90 {
+        max-width: 1260px;
+    }
+
+    .width-80 {
+        max-width: 1120px;
+    }
+
+    .width-75 {
+        max-width: 1050px;
+    }
+
+    .width-70 {
+        max-width: 980px;
+    }
+
+    .width-60 {
+        max-width: 840px;
+    }
+
+    .width-55 {
+        max-width: 770px;
+    }
+
+    .width-50 {
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 768px) {
+    .width-90,
+    .width-80,
+    .width-80,
+    .width-75,
+    .width-70,
+    .width-60,
+    .width-55,
+    .width-50 {
+        max-width: unset;
+    }
+}
+
+/*===================== BACKGROUND COLORS===================== */
+.bg-midnight-blue {
+    background-color: #00376e;
+}
+
+/*=====================FONT COLORS===================== */
+.yellow {
+    color: #ffd700;
+}
+
+.midnight-blue {
+    color: #00376e;
+}
+
+
+/* =====================BOOTSTRAP OVERRIDE===================== */
+.row {
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+.container {
+    padding: 0;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #0066cc;
+    text-decoration: none;
+    background-color: #eeeeee;
+}
+
+/* =====================HTML ELEMENT OVERRIDE===================== */
+code.language-bash:before,
+code.bash:before {
+    content: "$ ";
+}
+
+code.language-powershell:before,
+code.powershell:before {
+    content: "PS C:\\> ";
+}
+
+.code-badge {
+    background: none !important;
+    border-radius: 0 !important;
+}
+
+code {
+    tab-size: 2;
+}
+
+h1 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3rem;
+    line-height: 1em;
+}
+
+h2 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 2.375rem;
+}
+
+h3 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-style: normal;
+    font-weight: bold;
+}
+
+a,
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .show>.nav-link {
+    text-decoration: none;
+    color: #0066cc;
+}
+
+/* =====================PAGE ITEMS===================== */
+
+#footer {
+    padding-top: 5%;
+}
+
+.bottom-bar .col,
+.bottom-bar .col .nav-link {
+    color: white;
+}
+
+.bottom-bar .col .nav-link {
+    color: white;
+}
+
+.btn:hover {
+    box-shadow: 2px 2px 7px 0px #eeeeee;
+}
+
+.banner {
+    background-color: #001f3f;
+    font-size: 114%;
+}
+
+.get-started-button {
+    text-transform: uppercase;
+    border-color: #ffd700;
+    border-width: 3px;
+    border-style: solid;
+    text-align: center;
+    font-size: 83%;
+}
+
+.banner .sign {
+    border-color: #ffd700;
+    border-width: 2px;
+    border-style: solid;
+    text-align: center;
+}
+
+.banner .desc {
+    color: white;
+}
+
+.nav-tabs {
+    margin: 10px 0 0 0;
+}
+
+.nav-link {
+    padding: unset;
+    display: unset;
+}
+
+.nav-item {
+    padding: 15px;
+}
+
+
+.nav-item.active {
+    font-weight: bold;
+    border-bottom: 0;
+}
+
+.nav-tabs-body {
+    box-shadow: 0 0 20px 4px #eeeeee;
+    padding: 20px 20px 20px 40px;
+}
+
+.nav-tabs-body ol li {
+    color: #373737;
+}
+
+.nav-tabs-body ol li:nth-child(even) {
+    margin: 15px 0 15px 0;
+}
+
+.dropdown-item {
+    padding: .25rem 1.5rem !important;
+    display: block !important;
+    color: #0066cc;
+}
+
+.note .row,
+.note .col {
+    margin: 0 !important;
+}
+
+.docs h1 {
+    font-display: auto;
+    font-size: 180%;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.docs h2 {
+    font-display: auto;
+    font-size: 120%;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.docs h3 {
+    font-display: auto;
+    font-size: 100%;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.docs h4 {
+    font-display: auto;
+    font-size: 100%;
+    font-style: normal;
+    font-weight: bold;
+}
+
+#iframe {
+    width: 100%;
+    height: 1200px;
+    border: 0;
+    margin: 25px 0 0 0;
+}
+
+/* =========================DOCS======================== */
+.table {
+    margin: 2% 0 3% 0;
+}
+
+.table thead {
+    background-color: #e4f1ff;
+    color: #00376e;
+}
+
+.table thead th,
+.table td,
+.table th {
+    border: 0;
+    color: #00376e;
+}
+
+.table tbody tr:nth-child(2n) {
+    background-color: #f7f7f7;
+}
+
+.blockquote {
+    font-size: inherit;
+    margin-top: 5%;
+}
+
+.blockquote::before {
+    content: '! Note';
+    width: 100%;
+    background-color: #1abc9c;
+    text-transform: capitalize;
+    color: white;
+    padding: 8px 0 8px 14px;
+    display: block;
+    margin: 0;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.blockquote p {
+    background-color: #dbfaf4;
+    padding: 1.5% 2% 1.5% 2%;
+}
+
+.docs-nav-col {
+    position: fixed;
+    top: 126px;
+    width: 23%;
+    overflow-y: auto;
+    max-height: 78%;
+}
+
+@media (min-width: 1400px) {
+    .docs-nav-col {
+        width: 332px;
+    }
+}
+
+.docs-content-col {
+    flex: 0 0 72%;
+    max-width: 72%;
+    position: relative;
+    left: 30%;
+    top: 44px;
+    min-height: 200px;
+}
+
+.docs-content-col p,
+.docs-content-col h1,
+.docs-content-col h2,
+.docs-content-col h3,
+.docs-content-col h4 {
+    color: #373737;
+}
+
+.docs-content-col ul {
+    padding-left: 2%;
+}
+
+/* =========================DOCS NAVIGATION======================== */
+.docs-nav-col .row:last-child {
+    border: 2px solid #0066cc;
+    padding: 4% 0 4% 0;
+}
+
+.nav-version {
+    padding: 3% 0 3% 0;
+}
+
+.nav-version.selected {
+    border-top: 5px solid #ffd700;
+	border-right: 1px solid #0066cc;*/
+    background-color: #00376e;
+    color: white;
+}

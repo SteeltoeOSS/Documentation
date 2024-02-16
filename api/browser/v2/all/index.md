@@ -13,7 +13,13 @@ uid: api/browser/v2/all/index
 
 Steeltoe's port of [Netflix Hystrix](https://github.com/Netflix/Hystrix) to .NET.
 
-[view](/api/browser/v2/all/Steeltoe.CircuitBreaker.Hystrix.html)
+[view](/api/browser/v2/circuitbreaker/Steeltoe.CircuitBreaker.Hystrix.html)
+
+## Steeltoe Common
+
+Contains several packages that are common to other Steeltoe components.
+
+[view](/api/browser/v2/common/Steeltoe.Common.html)
 
 ## Steeltoe Configuration Providers
 
@@ -37,7 +43,7 @@ Contains packages for interacting with service registries.
 
 Logging extensions that, when used with Steeltoe Management, enable changing the Logging levels for a running application at run-time, without restarting the app.
 
-Currently supporting the Microsoft Console Logger and Serilog.
+Currently supports the Microsoft Console Logger and Serilog.
 
 [view](/api/browser/v2/logging/Steeltoe.Extensions.Logging.html)
 

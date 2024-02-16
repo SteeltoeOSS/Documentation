@@ -42,7 +42,11 @@ h6 mark {
 .inheritance .level2:before,
 .inheritance .level3:before,
 .inheritance .level4:before,
-.inheritance .level5:before {
+.inheritance .level5:before,
+.inheritance .level6:before,
+.inheritance .level7:before,
+.inheritance .level8:before,
+.inheritance .level9:before {
     content: '↳';
     margin-right: 5px;
 }
@@ -69,6 +73,21 @@ h6 mark {
 
 .inheritance .level5 {
     margin-left: 5em;
+}
+.inheritance .level6 {
+    margin-left: 6em;
+}
+
+.inheritance .level7 {
+    margin-left: 7em;
+}
+
+.inheritance .level8 {
+    margin-left: 8em;
+}
+
+.inheritance .level9 {
+    margin-left: 9em;
 }
 
 .level0.summary {
@@ -139,6 +158,9 @@ h6,
   margin-top: 10px;
   margin-bottom: 5px;
 }
+.navbar {
+  margin-bottom: 0;
+}
 #wrapper {
   min-height: 100%;
   position: relative;
@@ -173,6 +195,17 @@ header {
   left: 0;
   right: 0;
   z-index: 1000;
+}
+header .navbar {
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+.navbar-brand {
+  font-size: inherit;
+  padding: 0;
+}
+.navbar-collapse {
+  margin: 0 -15px;
 }
 .subnav {
   min-height: 40px;
@@ -213,7 +246,6 @@ article section {
 .breadcrumb > li + li:before {
   content: "\00a0/";
 }
-
 
 .docs-search {
   background: white;
