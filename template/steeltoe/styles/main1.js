@@ -87,17 +87,12 @@ function showApiBrowserElements() {
     $('.sideaffix .contribution .nav li a').attr('href', '#');
 
     // Select correct version radio button, activate parent label
-    /*if (isApiVersion4()) {
-        $("#api-v4").prop("checked", true);
-        $("#api-v4").parent().addClass('active');
-    } else*/ if (isApiVersion3()) {
+    if (isApiVersion3()) {
         $("#api-v3").prop("checked", true);
         $("#api-v3").parent().addClass('active');
-        $("#api-namespace-v3").removeClass('hide');
     } else {
         $("#api-v2").prop("checked", true);
         $("#api-v2").parent().addClass('active');
-        $("#api-namespace-v2").removeClass('hide');
     }
 }
 
@@ -112,7 +107,7 @@ function inIframe () {
 
 if (inIframe()) {
     $(".hidewhenembedded").hide();
-    $("div[role=main].container-fluid.body-content").css({"margin-top":"0"})
+    $("div[role=main].container-fluid.body-content").css({ "margin-top": "0" })
 }
 
 $(function() {
@@ -157,12 +152,7 @@ $(function() {
     if (isApiBrowserPage()) {
         showApiBrowserElements();
 
-        /*if (isApiVersion4()) {
-            setActiveNamespace('v4');
-            bindNavigationChangeEvent('v4');
-        }
-        else*/
-		if (isApiVersion3()) {
+        if (isApiVersion3()) {
             setActiveNamespace('v3');
             bindNavigationChangeEvent('v3');
         }
@@ -214,7 +204,6 @@ $(function() {
         }
     }, "100");
 });
-
 
 var options = {
     contentSelector: "#wrapper",

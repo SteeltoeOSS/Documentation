@@ -474,11 +474,11 @@ img {
 
 @media only screen and (max-width: 1200px) {
     .navbar-collapse.collapse:not(.in) {
-        display: none!important;
+        display: none !important;
     }
 
     .article.grid-right {
-        margin-top: 0px!important;
+        margin-top: 0px !important;
     }
 
     article h1, article h2, article h3, article h4 {
@@ -512,7 +512,6 @@ img {
 
     .sidetoc {
         position: fixed;
-        /*overflow-y: scroll;*/
     }
 
     .toc li::after {

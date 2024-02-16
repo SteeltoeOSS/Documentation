@@ -79,7 +79,7 @@ Applications in Spring Cloud Data Flow are registered as named resources so that
 
 The URI conforms to a [schema](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#spring-cloud-dataflow-register-stream-apps).
 
-> Spring Cloud Data Flow  only supports running .NET applications in Docker images
+> Spring Cloud Data Flow only supports running .NET applications in Docker images
 
 <!-- and may represent a Maven artifact, a Docker image, or an actual `http(s)` or `file` URL. -->
  Data Flow defines some logical application types to indicate its role as a streaming component, a task, or a standalone application. For streaming applications, as you might expect, we use `Source`,`Processor`, and `Sink` types.

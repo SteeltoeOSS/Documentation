@@ -225,7 +225,6 @@ a,
 }
 
 .nav-tabs-body {
-    /*min-height: 200px;*/
     box-shadow: 0 0 20px 4px #eeeeee;
     padding: 20px 20px 20px 40px;
 }
@@ -375,7 +374,6 @@ a,
 
 .nav-version.selected {
     border-top: 5px solid #ffd700;
-    /*border-left: 1px solid #0066cc;
 	border-right: 1px solid #0066cc;*/
     background-color: #00376e;
     color: white;
