@@ -28,7 +28,6 @@ function getNamespaceFolder(url) {
 
 function setActiveNamespace(version) {
     var urlNamespace = getNamespaceFolder(window.location.href);
-    
     $(`#api-namespace-${version} option`).each((index, option) => {
         var optionNamespace = getNamespaceFolder(option.value);
 
@@ -36,6 +35,8 @@ function setActiveNamespace(version) {
             $(option).prop('selected', true);
         }
     });
+
+    $(`#api-namespace-${version}`).removeClass('hide');
 }
 
 function bindNavigationChangeEvent(version) {
@@ -63,8 +64,7 @@ function showMobileSidebar() {
         var anchorOnclick = $(anchor).attr('onclick');
 
         if (anchorOnclick !== sidebarFunction) {
-            $(anchor).attr('onclick',sidebarFunction);
-        }
+            $(anchor).attr('onclick', sidebarFunction);
     });
 }
 
@@ -97,7 +97,6 @@ function showApiBrowserElements() {
 }
 
 function inIframe () {
-    try {
         return window.self !== window.top;
     }
     catch (e) {
@@ -112,31 +111,31 @@ if (inIframe()) {
 
 $(function() {
     if(document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('staging.steeltoe.io') > -1) {
-        $("a[href^='https://steeltoe.io']").attr('href', function() { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
+        $("a[href^='https://steeltoe.io']").attr('href', function () { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
     };
 
-    //GLOBAL REPLACE ALL VALUES FROM LOCALSTORAGE
+    // GLOBAL REPLACE ALL VALUES FROM LOCALSTORAGE
     for (var i = 0; i < localStorage.length; i++) {
         var val = localStorage.getItem(localStorage.key(i));
-        
-        switch(val){
-            case("null"):
-            case("true"):
-            case("false"):
+
+        switch (val) {
+            case ("null"):
+            case ("true"):
+            case ("false"):
                 break;
             default:
-                val = "\""+val+"\"";
+                val = "\"" + val + "\"";
                 break;
         };
 
-        $("pre").each(function(idx) {
-            var a=$(this);
-            a.html(a.html().replace('%%'+localStorage.key(i)+'%%',val));
+        $("pre").each(function (idx) {
+            var a = $(this);
+            a.html(a.html().replace('%%' + localStorage.key(i) + '%%', val));
         });
     }
 
-    //Clean up missed placeholders
-    $("pre").each(function(idx) {
+    // Clean up missed placeholders
+    $("pre").each(function (idx) {
         var a = $(this);
         a.html(a.html().replace(/%%/g, '#'));
     });
@@ -146,8 +145,7 @@ $(function() {
     var urlParams = new URLSearchParams(window.location.search);
     //console.log(urlParams);
 
-    urlParams.forEach(function(value,key){localStorage[key] = value;});
-
+    urlParams.forEach(function (value, key) { localStorage[key] = value; });
     // Toggle api browser vs docs
     if (isApiBrowserPage()) {
         showApiBrowserElements();
@@ -214,7 +212,7 @@ var options = {
     checkIconClass: "oi oi-check text-success",
     // hook to allow modifying the text before it's pasted
     onBeforeTextCopied: function (text, codeElement) {
-        return text;   //  you can fix up the text here
-    }
+        // you can fix up the text here
+        return text;
 };
 window.highlightJsBadge(options);
