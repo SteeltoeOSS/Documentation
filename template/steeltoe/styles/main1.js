@@ -28,6 +28,7 @@ function getNamespaceFolder(url) {
 
 function setActiveNamespace(version) {
     var urlNamespace = getNamespaceFolder(window.location.href);
+
     $(`#api-namespace-${version} option`).each((index, option) => {
         var optionNamespace = getNamespaceFolder(option.value);
 
@@ -97,7 +98,8 @@ function showApiBrowserElements() {
     }
 }
 
-function inIframe () {
+function inIframe() {
+    try {
         return window.self !== window.top;
     }
     catch (e) {
@@ -111,7 +113,7 @@ if (inIframe()) {
 }
 
 $(function() {
-    if(document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('staging.steeltoe.io') > -1) {
+    if (document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('staging.steeltoe.io') > -1) {
         $("a[href^='https://steeltoe.io']").attr('href', function () { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
     };
 
@@ -147,6 +149,7 @@ $(function() {
     //console.log(urlParams);
 
     urlParams.forEach(function (value, key) { localStorage[key] = value; });
+
     // Toggle api browser vs docs
     if (isApiBrowserPage()) {
         showApiBrowserElements();
