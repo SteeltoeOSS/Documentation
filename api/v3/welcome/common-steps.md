@@ -13,8 +13,8 @@ This section describes how to deploy the publish sample on either Linux or Windo
 
 You can use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/dotnet/core/tools/dotnet-publish) the application for the framework and runtime to which you want to deploy the application:
 
-* Linux with .NET Core: `dotnet publish -f netcoreapp3.1 -r linux-x64`
-* Windows with .NET Core: `dotnet publish -f netcoreapp3.1 -r win10-x64`
+* Linux with .NET Core: `dotnet publish -f net6.0 -r linux-x64`
+* Windows with .NET Core: `dotnet publish -f net6.0 -r win10-x64`
 
 >Starting with .NET Core 2.0, the `dotnet publish` command automatically restores dependencies for you. Running `dotnet restore` explicitly is not generally required.
 
@@ -24,10 +24,10 @@ This section describes how to use the Cloud Foundry CLI to push the published ap
 
 ```bash
 # Push to Linux cell
-cf push -f manifest.yml -p bin/Debug/netcoreapp3.1/linux-x64/publish
+cf push -f manifest.yml -p bin/Debug/net6.0/linux-x64/publish
 
 # Push to Windows cell, .NET Core
-cf push -f manifest-windows.yml -p bin/Debug/netcoreapp3.1/win10-x64/publish
+cf push -f manifest-windows.yml -p bin/Debug/net6.0/win10-x64/publish
 ```
 
 >All sample manifests have been defined to bind their application to the services as created earlier.
