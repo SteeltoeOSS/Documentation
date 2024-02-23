@@ -23,7 +23,8 @@ Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.
 
 As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/tutorial/links_and_cross_references.html).
 
-**Note** it should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
+> [!NOTE]
+> It should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
 
 ### Page display options
 
@@ -44,7 +45,7 @@ In the YAML header of a page's markdown, you have options to turn page elements 
 
 ## Creating a new blog post
 
-Create a new `.md` file in the `articles` directory. Name the file something that is URL safe. In `/articles/index.md` add a shorthand link to the document as well as a short description. If the post should also be included in Steeltoe's RSS feed, add a link entry in `articles/rss.xml`.
+Create a new `.md` file in the `articles` directory. Name the file something that is URL safe. In `/articles/index.md` add a shorthand link to the document as well as a short description.
 
 Here is a starter blog post:
 
@@ -147,15 +148,15 @@ This documentation site is interconnected with Steeltoe's [main site](https://gi
 # main site -> https://steeltoe.io
 docfx build --globalMetadataFiles main-site.json
 
-# main site -> https://dev.steeltoe.io
-docfx build --globalMetadataFiles main-site.dev.json
+# main site -> https://staging.steeltoe.io
+docfx build --globalMetadataFiles main-site.staging.json
 
-# main site -> http://localhost:9081
+# main site -> http://localhost:8080
 docfx build --globalMetadataFiles main-site.localhost.json
 ```
 
 ### Run local HTTP server
 
 ```bash
-docfx serve _site -p 9082
+docfx serve _site -p 8082
 ```
