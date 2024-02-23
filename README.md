@@ -98,15 +98,17 @@ Corresponding entry in `api/v2/toc.yml`:
 
 ## Installing DocFX
 
-> Please note: This project currently expects DocFX version 2.59.2 to be available.
+> [!NOTE]
+> This project currently expects DocFX version 2.59.2 to be available.
 
 ### Install with Chocolatey
 
-If you are using Windows, this is the easiest method. Run this command: `choco install docfx -y --version 2.59.2`
+If you are using Windows, this is the easiest method. Run this command from an elevated shell: `choco install docfx -y --version 2.59.2`
 
 ### Download from DocFX
 
->If running on Linux or OS X, you will need to [install Mono](https://www.mono-project.com/docs/getting-started/install/) and use `mono` to execute the DocFX binary.
+> [!IMPORTANT]
+> If running on Linux or OS X, you will need to [install Mono](https://www.mono-project.com/docs/getting-started/install/) and use `mono` to execute the DocFX binary.
 
 - Download DocFX [distribution](https://github.com/dotnet/docfx/releases/v2.59.2).
 - Unzip to directory of your choosing and add that directory to your `PATH`.
