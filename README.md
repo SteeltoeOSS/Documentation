@@ -142,7 +142,7 @@ docfx metadata api-all.json
 
 ### Build the site docs
 
-This documentation site is interconnected with Steeltoe's [main site](https://github.com/SteeltoeOSS/MainSite). In order to run the two together, the appropriate main-site.json file variant is used to identify where the main site is running.
+This documentation site is expected to run alongside Steeltoe's [main site](https://github.com/SteeltoeOSS/MainSite). In order to run the two together, first use the instructions from the MainSite project to start that site, then use the appropriate main-site.json file variant described below to identify where the main site is running.
 
 ```bash
 # main site -> https://steeltoe.io

@@ -1,4 +1,4 @@
-FROM steeltoe.azurecr.io/docfx:2.59.2
+FROM steeltoe.azurecr.io/docfx:2.59.4
 WORKDIR /docs
 COPY . .
 RUN ["chmod", "+x", "./build-metadata.sh"]
