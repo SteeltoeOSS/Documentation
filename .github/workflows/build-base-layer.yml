@@ -5,14 +5,14 @@ on:
     - main
     paths:
     - .github/workflows/build-base-layer.yml
-    - docfx/
+    - 'docfx/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 env:
-  docfxVersion: 2.59.2
+  docfxVersion: 2.59.4
 
 permissions:
   contents: 'read'
