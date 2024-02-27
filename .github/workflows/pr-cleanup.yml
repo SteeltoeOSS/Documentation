@@ -16,7 +16,7 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
+
     - name: Delete slot on staging site
       run: az webapp deployment slot delete --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WEBAPP_NAME}} --slot ${{ env.SLOT_NAME }}
 
@@ -29,4 +29,3 @@ jobs:
         with:
           environment: "pr-${{ github.event.number }}"
           token: ${{ secrets.GITHUB_TOKEN }}
-          onlyRemoveDeployments: true
