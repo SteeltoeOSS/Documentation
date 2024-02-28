@@ -3,22 +3,9 @@ on:
   pull_request:
     branches:
     - main
-    paths:
-    - "*"
-    - "!README.md"
-    - "!docfx/"
-    - "!build-metadata.sh"
-    - "!metadata.conf"
   push:
     branches:
     - main
-    paths:
-    - "*"
-    - "!README.md"
-    - "!docfx/"
-    - "!build-metadata.sh"
-    - "!Dockerfile-metadata"
-    - "!metadata.conf"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -29,11 +16,110 @@ permissions:
   pull-requests: 'write'
 
 env:
-  IMAGE_TAG: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.run_id }}
+  DOCFX_VERSION: 2.59.4
+  STEELTOE_V2_VERSION: 2.5.5
+  STEELTOE_V3_VERSION: 3.2.6
+  SITE_IMAGE_VERSION: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.run_id }}
 
 jobs:
+  change-detection:
+    name: Detect which layers need to be built, set image versions
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step
+    outputs:
+      docfx-layer-changed: ${{ steps.filter.outputs.docfx-layer-changed }}
+      docfx-image-version: ${{ steps.version.outputs.docfx-image-version }}
+      metadata-layer-changed: ${{ steps.filter.outputs.metadata-layer-changed }}
+      metadata-image-version: ${{ steps.version.outputs.metadata-image-version }}
+    steps:
+    - uses: dorny/paths-filter@v3
+      id: filter
+      with:
+        filters: |
+          docfx-layer-changed:
+            - .github/workflows/build-and-stage.yml
+            - 'docfx/**'
+          metadata-layer-changed:
+            - .github/workflows/build-and-stage.yml
+            - Dockerfile-metadata
+            - /api-*.json
+            - build-metadata.sh
+    - name: Declare image versions
+      id: version
+      run: |
+        if [${{ steps.filter.outputs.docfx-layer-changed }}]
+        then
+          echo "docfx-image-version=${{ github.event_name == 'pull_request' && format('{0}-pr{1}', env.DOCFX_VERSION, github.event.number) || env.DOCFX_VERSION }}" >> "$GITHUB_OUTPUT"
+        else
+          echo "docfx-image-version=${{ env.DOCFX_VERSION }}" >> "$GITHUB_OUTPUT"
+        fi
+        if [${{ steps.filter.outputs.metadata-layer-changed }}]
+        then
+          echo "metadata-image-version=${{ github.event_name == 'pull_request' && format('{0}-pr{1}', env.STEELTOE_VERSIONS, github.event.number) || env.STEELTOE_VERSIONS }}" >> "$GITHUB_OUTPUT"
+        else
+          echo "metadata-image-version=${{ env.STEELTOE_VERSIONS }}" >> "$GITHUB_OUTPUT"
+        fi
+      env:
+        STEELTOE_VERSIONS: ${{ env.STEELTOE_V2_VERSION }}-${{ env.STEELTOE_V3_VERSION }}
+      shell: bash
+
+  build-push-docfx:
+    name: Build and push docfx layer
+    needs: change-detection
+    if: ${{ needs.change-detection.outputs.docfx-layer-changed }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set DocFX version to use
+      run: echo v${{ env.DOCFX_VERSION }} > docfx/version
+      shell: bash
+
+    - name: Login to container registry
+      uses: docker/login-action@v3
+      with:
+        registry: "${{ vars.DOCKER_REGISTRY }}"
+        username: "${{ secrets.DOCKER_USERNAME }}"
+        password: "${{ secrets.DOCKER_PASSWORD }}"
+
+    - name: Build image
+      run: docker build docfx --file "docfx/Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/docfx:${{ needs.change-detection.outputs.docfx-image-version }}
+
+    - name: Push image
+      run: docker push ${{ vars.DOCKER_REGISTRY }}/docfx --all-tags
+
+  build-push-metadata:
+    name: Build and push API docs layer
+    needs: [ change-detection, build-push-docfx ]
+    if: ${{ needs.change-detection.outputs.metadata-layer-changed }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set Steeltoe versions to use
+      run: |-
+        echo '2:'${{ env.STEELTOE_V2_VERSION }} > metadata.conf
+        echo '3:'${{ env.STEELTOE_V3_VERSION }} >> metadata.conf
+      shell: bash
+
+    - name: Login to container registry
+      uses: docker/login-action@v3
+      with:
+        registry: "${{ vars.DOCKER_REGISTRY }}"
+        username: "${{ secrets.DOCKER_USERNAME }}"
+        password: "${{ secrets.DOCKER_PASSWORD }}"
+
+    - name: Build image
+      run: docker build --build-arg="DOCFX_IMAGE_VERSION=${{ needs.change-detection.outputs.docfx-image-version }}" . --file "Dockerfile-metadata" -t ${{ vars.DOCKER_REGISTRY }}/documentation-metadata:${{ needs.change-detection.outputs.metadata-image-version }}
+
+    - name: Push image
+      run: docker push ${{ vars.DOCKER_REGISTRY }}/documentation-metadata --all-tags
+
   build-push-deploy:
     name: Build and push documentation image
+    needs: [ change-detection, build-push-docfx, build-push-metadata ]
     environment:
       name: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || vars.STAGING_SLOT_NAME }}
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -56,10 +142,10 @@ jobs:
         password: "${{ secrets.DOCKER_PASSWORD }}"
 
     - name: Build image
-      run: docker build . --file "Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/documentation:${{ env.IMAGE_TAG }}
+      run: docker build --build-arg="METADATA_IMAGE_VERSION=${{ needs.change-detection.outputs.metadata-image-version }}" . --file "Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/documentation:${{ env.SITE_IMAGE_VERSION }}
 
     - name: Push image
-      run: docker push ${{ vars.DOCKER_REGISTRY }}/documentation:${{ env.IMAGE_TAG }}
+      run: docker push ${{ vars.DOCKER_REGISTRY }}/documentation --all-tags
 
     - name: If PR, create a new staging slot
       if: ${{ github.event_name == 'pull_request' }}
@@ -73,7 +159,7 @@ jobs:
       id: deploy-to-webapp
       with:
         app-name: ${{ vars.AZURE_WEBAPP_NAME }}
-        images: ${{ vars.DOCKER_REGISTRY }}/documentation:${{ env.IMAGE_TAG }}
+        images: ${{ vars.DOCKER_REGISTRY }}/documentation:${{ env.SITE_IMAGE_VERSION }}
         slot-name:  ${{ env.SLOT_NAME }}
 
     - name: If PR, comment with the preview link

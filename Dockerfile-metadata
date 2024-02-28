@@ -1,4 +1,5 @@
-FROM steeltoe.azurecr.io/docfx:2.59.4
+ARG DOCFX_IMAGE_VERSION=2.59.4
+FROM steeltoe.azurecr.io/docfx:${DOCFX_IMAGE_VERSION}
 WORKDIR /docs
 COPY . .
 RUN ["chmod", "+x", "./build-metadata.sh"]
