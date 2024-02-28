@@ -47,13 +47,13 @@ jobs:
     - name: Declare image versions
       id: version
       run: |
-        if [ '${{ steps.filter.outputs.docfx-layer-changed }}' = 'true']
+        if '${{ steps.filter.outputs.docfx-layer-changed }}' = 'true'
         then
           echo "docfx-image-version=${{ github.event_name == 'pull_request' && format('{0}-pr{1}', env.DOCFX_VERSION, github.event.number) || env.DOCFX_VERSION }}" >> "$GITHUB_OUTPUT"
         else
           echo "docfx-image-version=${{ env.DOCFX_VERSION }}" >> "$GITHUB_OUTPUT"
         fi
-        if [ '${{ steps.filter.outputs.metadata-layer-changed }}' = 'true']
+        if '${{ steps.filter.outputs.metadata-layer-changed }}' = 'true'
         then
           echo "metadata-image-version=${{ github.event_name == 'pull_request' && format('{0}-pr{1}', env.STEELTOE_VERSIONS, github.event.number) || env.STEELTOE_VERSIONS }}" >> "$GITHUB_OUTPUT"
         else
