@@ -1,4 +1,5 @@
-ARG DOCFX_IMAGE_VERSION=2.59.4
+# example --build-arg="DOCFX_IMAGE_VERSION=2.59.4"
+ARG DOCFX_IMAGE_VERSION
 FROM steeltoe.azurecr.io/docfx:${DOCFX_IMAGE_VERSION}
 WORKDIR /docs
 COPY . .

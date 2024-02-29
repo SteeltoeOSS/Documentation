@@ -16,7 +16,7 @@ get_sources() {
   local branch=$2
   echo "$(basename $dest_dir) sources from $branch"
   [ -d $dest_dir ] && rm -rf $dest_dir
-  git clone $git_sources_url $dest_dir -b $branch
+  git clone $git_sources_url $dest_dir -b $branch --depth 1
 }
 
 get_sources sources/v2 $v2_sources
