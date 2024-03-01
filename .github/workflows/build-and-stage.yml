@@ -17,6 +17,7 @@ permissions:
 
 env:
   DOCFX_VERSION: 2.59.4
+  DOCFX_SOURCE_BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
   STEELTOE_V2_VERSION: 2.5.5
   STEELTOE_V3_VERSION: 3.2.6
   SITE_IMAGE_VERSION: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.run_id }}
