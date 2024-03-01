@@ -29,3 +29,4 @@ jobs:
         with:
           environment: "pr-${{ github.event.number }}"
           token: ${{ secrets.GITHUB_TOKEN }}
+          onlyRemoveDeployments: true

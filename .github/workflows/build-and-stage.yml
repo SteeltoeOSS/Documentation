@@ -42,7 +42,7 @@ jobs:
           metadata-layer-changed:
             - .github/workflows/build-and-stage.yml
             - Dockerfile-metadata
-            - /api-*.json
+            - '/api-*.*'
             - build-metadata.sh
     - name: Declare image versions
       id: version
