@@ -87,7 +87,7 @@ namespace UsageSender
         private readonly ISource _source;
         private readonly ILogger<UsageGenerator> _logger;
         private static readonly Random RANDOM = new Random();
-   
+
         public string ServiceName { get; set; } = "UsageGenerator";
         private string[] users = { "user1", "user2", "user3", "user4", "user5" };
 
@@ -103,7 +103,7 @@ namespace UsageSender
             {
                 var message = GenerateAndSend();
                 _source.Output.Send(message);
-            
+
                 await Task.Delay(5000, stoppingToken); // Wait 5 seconds before sending again
             }
         }
@@ -143,7 +143,7 @@ When configuring the `ISource` application, we need to set:
 In `appSettings.json`, you can add the following properties:
 
 ```json
-{ 
+{
     "Spring": {
       "Cloud": {
         "Stream": {
@@ -353,7 +353,7 @@ When configuring the `sink` application, we need to set:
 In `appsettings.json`, you can add the following properties:
 
 ```json
-{ 
+{
   "Spring": {
     "Cloud": {
       "Stream": {
@@ -405,7 +405,7 @@ By using the [pre-defined](#configuration-usage-detail-sender) configuration pro
 
 ```
 cd UsageSender
-dotnet build && dotnet run --framework net5.0
+dotnet build && dotnet run --framework net6.0
 ```
 
 When this application is running, you can see that the `usage-detail` RabbitMQ exchange is created and a queue named `usage-detail.usage-cost-consumer` is bound to this exchange, as the following example shows:
@@ -418,7 +418,7 @@ Also, if you click on the `Queues` and check the queue `usage-detail.usage-cost-
 
 When configuring the consumer applications for this `Source` application, you can set the `group` binding property to connect to the corresponding queue.
 
->NOTE: If you do not set the `requiredGroups` property, you can see that there is no `queue` for consuming the messages from the `usage-detail` exchange and, therefore, the messages are lost if the consumer is not up before this application is started. 
+>NOTE: If you do not set the `requiredGroups` property, you can see that there is no `queue` for consuming the messages from the `usage-detail` exchange and, therefore, the messages are lost if the consumer is not up before this application is started.
 
 #### Running the Processor
 
@@ -426,7 +426,7 @@ By using the [pre-defined](#configuration-usage-cost-processor) configuration pr
 
 ```
 cd UsageProcessor
-dotnet build && dotnet run --framework net5.0
+dotnet build && dotnet run --framework net6.0
 ```
 
 From the RabbitMQ console, you can see:
@@ -449,7 +449,7 @@ By using the [pre-defined](#configuration-usage-cost-logger) configuration prope
 
 ```bash
 cd UsageLogger
-dotnet build && dotnet run --framework net5.0
+dotnet build && dotnet run --framework net6.0
 ```
 
 Now you can see that this application logs the usage cost detail it receives from the `usage-cost` RabbitMQ exchange through the `usage-cost.logger` durable queue, as the following example shows:
@@ -512,8 +512,8 @@ Push the `UsageDetailSender` application by using its manifest YAML file, as fol
 
 ```bash
 cd UsageSender
-dotnet publish -f net5.0 -r linux-x64 -o publish
-cf push -f manifest.yml 
+dotnet publish -f net6.0 -r linux-x64 -o publish
+cf push -f manifest.yml
 ```
 
 Create a CF manifest YAML file for the `UsageProcessor` as follows:
@@ -536,7 +536,7 @@ Push the `UsageProcessor` application by using its manifest YAML file, as follow
 
 ```bash
 cd UsageProcessor
-dotnet publish -f net5.0 -r linux-x64 -o publish
+dotnet publish -f net6.0 -r linux-x64 -o publish
 cf push -f manifest.yml
 ```
 
@@ -560,8 +560,8 @@ Push the `UsageLogger` application by using its manifest YAML file, as follows:
 
 ```bash
 cd UsageLogger
-dotnet publish -f net5.0 -r linux-x64 -o publish
-cf push -f manifest.yml 
+dotnet publish -f net6.0 -r linux-x64 -o publish
+cf push -f manifest.yml
 ```
 
 You can see the applications running by using the `cf apps` command, as follows:
@@ -635,7 +635,7 @@ COPY *.csproj .
 RUN dotnet restore
 
 COPY . .
-RUN dotnet publish -f net5.0 -c release -o /app 
+RUN dotnet publish -f net6.0 -c release -o /app
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app

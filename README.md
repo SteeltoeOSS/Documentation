@@ -23,7 +23,8 @@ Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.
 
 As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/tutorial/links_and_cross_references.html).
 
-**Note** it should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
+> [!NOTE]
+> It should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
 
 ### Page display options
 
@@ -44,7 +45,7 @@ In the YAML header of a page's markdown, you have options to turn page elements 
 
 ## Creating a new blog post
 
-Create a new `.md` file in the `articles` directory. Name the file something that is URL safe. In `/articles/index.md` add a shorthand link to the document as well as a short description. If the post should also be included in Steeltoe's RSS feed, add a link entry in `articles/rss.xml`.
+Create a new `.md` file in the `articles` directory. Name the file something that is URL safe. In `/articles/index.md` add a shorthand link to the document as well as a short description.
 
 Here is a starter blog post:
 
@@ -98,34 +99,21 @@ Corresponding entry in `api/v2/toc.yml`:
 
 ## Installing DocFX
 
-Install DocFX using one of 2 options: download from DocFX or use Docker image.
+> [!NOTE]
+> This project currently expects DocFX version 2.59.4 to be available.
+
+### Install with Chocolatey
+
+If you are using Windows, this is the easiest method. Run this command from an elevated shell: `choco install docfx -y --version 2.59.4`
 
 ### Download from DocFX
 
-Download DocFX [distribution](https://github.com/dotnet/docfx/releases/).
-Unzip to directory of your choosing and add that directory to your `PATH`.
-If running on Linux or OS X, you will need to [install Mono](https://www.mono-project.com/docs/getting-started/install/) and use `mono` to execute the DoxFX binary.
-See the script in this repository at path `docfx/docfx` for an example wrapper script.
+> [!IMPORTANT]
+> If running on Linux or OS X, you will need to [install Mono](https://www.mono-project.com/docs/getting-started/install/) and use `mono` to execute the DocFX binary.
 
-### Docker Image
-
-You can build a Docker image with the DocFX binary and use the Powershell script `docfx.ps1` to run the image.
-`docfx.ps1` mounts the project directory in the Docker container and passes any arguments to the `docfx` command in the container.
-
-To build the Docker image:
-
-```
-$ docker build docfx --file "docfx/Dockerfile"
-```
-
-Sample invocation:
-
-```
-$ ./docfx.ps1 --version
-docfx 2.59.2.0
-Copyright (C) 2022 ? Microsoft Corporation. All rights reserved.
-This is open-source software under MIT License.
-```
+- Download DocFX [distribution](https://github.com/dotnet/docfx/releases/v2.59.4).
+- Unzip to directory of your choosing and add that directory to your `PATH`.
+- See the script in this repository at path `docfx/docfx` for an example wrapper script.
 
 ## Building and running the site
 
@@ -141,32 +129,34 @@ Building the API docs is not required for the site to run locally.
 
 If needed, these commands will download the Steeltoe source code and generate API documentation from the triple-slash comments in the codebase.
 
+```bash
+git clone https://github.com/SteeltoeOSS/Steeltoe sources/v2 -b release/2.5
+git clone https://github.com/SteeltoeOSS/Steeltoe sources/v3 -b release/3.2
+git clean -fX api
+docfx metadata api-v2.json
+docfx metadata api-v3.json
+docfx metadata api-all.json
 ```
-$ git clone https://github.com/SteeltoeOSS/Steeltoe sources/v2 -b release/2.5
-$ git clone https://github.com/SteeltoeOSS/Steeltoe sources/v3 -b release/3.2
-$ git clean -fX api
-$ docfx metadata api-v2.json
-$ docfx metadata api-v3.json
-$ docfx metadata api-all.json
-```
+
+> This process can take a while to complete, will display many warnings and may increase build time in subsequent runs of `docfx build`.
 
 ### Build the site docs
 
-This documentation site is interconnected with Steeltoe's [main site](https://github.com/SteeltoeOSS/MainSite). In order to run the two together, the appropriate main-site.json file variant is used to identify where the main site is running.
+This documentation site is expected to run alongside Steeltoe's [main site](https://github.com/SteeltoeOSS/MainSite). In order to run the two together, first use the instructions from the MainSite project to start that site, then use the appropriate main-site.json file variant described below to identify where the main site is running.
 
-```
+```bash
 # main site -> https://steeltoe.io
-$ docfx build --globalMetadataFiles main-site.json
+docfx build --globalMetadataFiles main-site.json
 
-# main site -> https://dev.steeltoe.io
-$ docfx build --globalMetadataFiles main-site.dev.json
+# main site -> https://staging.steeltoe.io
+docfx build --globalMetadataFiles main-site.staging.json
 
-# main site -> http://localhost:9081
-$ docfx build --globalMetadataFiles main-site.localhost.json
+# main site -> http://localhost:8080
+docfx build --globalMetadataFiles main-site.localhost.json
 ```
 
 ### Run local HTTP server
 
-```
-$ docfx serve _site -p 9082
+```bash
+docfx serve _site -p 8082
 ```

@@ -1,4 +1,6 @@
-FROM steeltoe.azurecr.io/documentation-metadata:2.5.5-3.2.6 AS build
+# example --build-arg="METADATA_IMAGE_VERSION=2.5.5-3.2.6"
+ARG METADATA_IMAGE_VERSION
+FROM steeltoe.azurecr.io/documentation-metadata:${METADATA_IMAGE_VERSION} AS build
 WORKDIR /docs
 COPY . .
 RUN docfx build -o /built-docs --globalMetadataFiles main-site.json
