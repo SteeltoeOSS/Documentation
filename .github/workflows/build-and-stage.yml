@@ -3,9 +3,11 @@ on:
   pull_request:
     branches:
     - main
+    - local_metadata
   push:
     branches:
     - main
+    - local_metadata
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
