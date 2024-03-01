@@ -44,6 +44,7 @@ jobs:
             - Dockerfile-metadata
             - '/api-*.*'
             - build-metadata.sh
+            - docfx.json
     - name: Declare image versions
       id: version
       run: |
