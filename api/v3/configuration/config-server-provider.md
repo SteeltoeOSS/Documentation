@@ -80,7 +80,7 @@ The following table describes all the settings that can be used to configure the
 | `Uri` | Comma-separated list of config server endpoints. | `http://localhost:8888` |
 | `Env` | Environment or profile used in the server request. | `IHostingEnvironment.EnvironmentName` |
 | `ValidateCertificates` | Enable or disable certificate validation. | `true` |
-| `Label` | Comma-separated list of labels to request. | master |
+| `Label` | An ordered Comma-separated list of labels to request until one returns successfully. | master |
 | `Timeout` | Time to wait for response from server, in milliseconds. | 6000 |
 | `PollingInterval` | Time between requests for changed configuration values. | none |
 | `Username` | Username for basic authentication. | none |
