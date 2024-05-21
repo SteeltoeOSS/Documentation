@@ -1,198 +1,257 @@
-# Netflix Eureka
+# Netflix Eureka discovery client
 
-The Eureka client implementation lets applications register services with a Eureka server and discover services registered by other applications.
+The Steeltoe Eureka discovery client lets an application register/unregister itself with a Eureka server
+and provides querying for service instances registered by other applications.
 
-In addition to the Quick Start below, the following Steeltoe sample applications may help you to understand how to use this client:
+Once activated, the client begins to operate in the background, both registering and renewing service registrations,
+sending periodic heartbeats to the Eureka server, and also periodically fetching the service registry from the server.
 
-* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices-based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and uses Spring Cloud Services.
+## Usage
 
-## Eureka Settings
+To use this discovery client, add a NuGet package reference to `Steeltoe.Discovery.Eureka` and initialize it from your `Program.cs`:
 
-To get the Steeltoe Discovery client to properly communicate with the Eureka server, you need to provide a few configuration settings to the client.
+```c#
+var builder = WebApplication.CreateBuilder(args);
 
-What you provide depends on whether you want your application to register a service and whether it also needs to discover services with which to communicate.
+// Steeltoe: Add service discovery client for Eureka.
+builder.Services.AddEurekaDiscoveryClient();
 
-General settings that control the behavior of the client are found under the prefix with a key of `Eureka:Client`. Settings that affect registering services are found under the `Eureka:Instance` prefix.
+var app = builder.Build();
+```
+
+## Configuration settings
+
+To get the Steeltoe discovery client to properly communicate with the Eureka server, you need to provide
+a few configuration settings. There are several sections you may need to configure.
+What you provide depends on whether you want your application to register the running app and/or
+whether it needs to query for other apps.
+
+For a complete understanding of the effects of many of these settings, we recommend that you review the documentation on the
+[Netflix Eureka Wiki](https://github.com/Netflix/eureka/wiki).
+In most cases, unless you are confident that you understand the effects of changing the values from their defaults,
+we recommend that you use the defaults.
+
+> [!TIP]
+> Since Steeltoe v4, most of these settings can be changed at runtime, which updates the Eureka server accordingly.
+
+### General
 
 The following table describes the settings that control the overall behavior of the client.
-
-All of these settings should start with `Eureka:Client:`
-
-| Key | Description | Default |
-| --- | --- | --- |
-| `ShouldRegisterWithEureka` | Enable or disable registering as a service. | `true` |
-| `ShouldFetchRegistry` | Enable or disable discovering services. | `true` |
-| `ShouldGZipContent` | Enable or disable GZip usage between the client and the Eureka server. | `true` |
-| `ServiceUrl` | Comma-delimited list of Eureka server endpoints. | `http://localhost:8761/eureka` |
-| `ValidateCertificates` | Enable certificate validation. | `true` |
-| `RegistryFetchIntervalSeconds` | Service fetch interval. | 30s |
-| `ShouldFilterOnlyUpInstances` | Whether to fetch only UP instances. | `true` |
-| `InstanceInfoReplicationIntervalSeconds` | How often to replicate instance changes. | 40s |
-| `ShouldDisableDelta` | Whether to disable fetching of delta and, instead, get the full registry. | `false` |
-| `RegistryRefreshSingleVipAddress` | Whether to be interested in only the registry information for a single VIP. | none |
-| `ShouldOnDemandUpdateStatusChange` | Whether status updates are trigger on-demand register/update. | `true` |
-| `AccessTokenUri` | URI to use to obtain OAuth2 access token. | none |
-| `ClientSecret` | Secret to use to obtain OAuth2 access token. | none |
-| `ClientId` | Client ID to use to obtain OAuth2 access token. | none |
-| `CacheTTL` | Time in seconds local cache entries are valid | 15 |
-| `EurekaServer:ProxyHost` | Proxy host to Eureka Server. | none |
-| `EurekaServer:ProxyPort` | Proxy port to Eureka Server. | none |
-| `EurekaServer:ProxyUserName` | Proxy user name to Eureka Server. | none |
-| `EurekaServer:ProxyPassword` | Proxy password to Eureka Server. | none |
-| `EurekaServer:ShouldGZipContent` | Whether to compress content. | `true` |
-| `EurekaServer:ConnectTimeoutSeconds` | Connection timeout. | 5s |
-| `EurekaServer:RetryCount` | Number of times to retry Eureka Server requests. | 3 |
-| `Health:Enabled` | Enable or disable management health contributor. | `true` |
-| `Health:CheckEnabled` | Enable or disable Eureka health check handler. | `true` |
-| `Health:MonitoredApps` | List of applications the management health contributor monitors. | All apps in registry |
-
-**NOTE**: **Some settings affect registering as a service as well.**
-
-The following table describes the settings you can use to configure the behavior of the client as it relates to registering services:
+All of these settings should start with `Eureka:Client:`.
 
 | Key | Description | Default |
 | --- | --- | --- |
-| `AppName` | Name of the application to be registered with Eureka. | `Spring:Application:Name` or `unknown` |
-| `Port` | Port on which the instance is registered. | 80 |
-| `HostName` | Address on which the instance is registered. | computed |
-| `InstanceId` | Unique ID (within the scope of the `AppName`) of the instance registered with Eureka. | computed |
-| `AppGroupName` | Name of the application group to be registered with Eureka. | none |
-| `InstanceEnabledOnInit` | Whether the instance should take traffic as soon as it is registered. | `false` |
-| `SecurePort` | Secure port on which the instance should receive traffic. | 443 |
-| `NonSecurePortEnabled` | Non-secure port enabled. | `true` |
-| `SecurePortEnabled` | Secure port enabled. | `false` |
-| `LeaseRenewalIntervalInSeconds` | How often client needs to send heartbeats. | 30s |
-| `LeaseExpirationDurationInSeconds` | Time the Eureka server waits before removing instance. | 90s |
-| `VipAddress` | Virtual host name. | `{HostName}:{Port}` |
-| `SecureVipAddress` | Secure virtual host name. | `{HostName}:{SecurePort}`|
-| `MetadataMap` | Name/value pairs associated with the instance. | none |
-| `StatusPageUrlPath` | Relative status page path for this instance. | `/Status` |
-| `StatusPageUrl` | Absolute status page for this instance. | computed |
-| `HomePageUrlPath` | | `/` |
-| `HomePageUrl` | Absolute home page for this instance. | computed |
-| `HealthCheckUrlPath` | | `/healthcheck` |
-| `HealthCheckUrl` | Absolute health check page for this instance. | computed |
-| `SecureHealthCheckUrl` | Secured absolute health check page for this instance. | computed |
-| `IpAddress` | IP address to register. | computed |
-| `PreferIpAddress` | Whether to register by using IpAddress instead of hostname. | `false` |
-| `RegistrationMethod` | How to register service on Cloud Foundry. Can be `route`, `direct`, or `hostname`. | `route` |
+| `Enabled` | Whether to enable the Eureka client. | `true` |
+| `ServiceUrl` | Comma-delimited list of Eureka server endpoints. | `http://localhost:8761/eureka/` |
+| `AccessTokenUri` | URL to obtain OAuth2 access token from, before connecting to the Eureka server. | |
+| `ClientId` | Client ID for obtaining access token. | |
+| `ClientSecret` | Secret for obtaining access token. | |
+| `Validate_Certificates` | Whether the client validates server certificates. | `true` |
+| `EurekaServer:ShouldGZipContent` | Whether to auto-decompress responses from Eureka server. | `true` |
+| `EurekaServer:RetryCount` | Number of times to retry Eureka server requests. | `2` |
+| `EurekaServer:ConnectTimeoutSeconds` | How long to wait (in seconds) before a connection to the Eureka server times out. | `5` |
+| `EurekaServer:ProxyHost` | Proxy hostname used in contacting the Eureka server. | |
+| `EurekaServer:ProxyPort` | Proxy port number used in contacting the Eureka server. | |
+| `EurekaServer:ProxyUserName` | Proxy username used in contacting the Eureka server. | |
+| `EurekaServer:ProxyPassword` | Proxy password used in contacting the Eureka server. | |
+| `Health:Enabled` | Whether to activate an `IHealthContributor` that verifies connectivity to the Eureka server. | `true` |
 
-All of the settings in the preceding table should start with `Eureka:Instance:`.
+### Registration
 
-> As of Steeltoe 3.1.1, `HealthCheckUrlPath` and `StatusPageUrlPath` will be automatically configured to be the `Health` and `Info` actuator paths (respectively) if those actuators are configured.
+The settings below pertain to registering the currently running app as a service instance in Eureka.
+All of these settings should start with `Eureka:Client:`.
 
-You should register by using the `direct` setting mentioned earlier when you want to use container-to-container networking on Cloud Foundry. You should use the `Hostname` setting on Cloud Foundry when you want the registration to use whatever value is configured or computed as `Eureka:Instance:HostName`.
+| Key | Description | Default |
+| --- | --- | --- |
+| `ShouldRegisterWithEureka` | Whether to register the running app as a service instance. | `true` |
+| `Health:CheckEnabled` | Whether to query ASP.NET health checks and `IHealthContributor`s during registration and renewals, in order to determine the status of the running app to report back to Eureka (see section below). | `true` |
 
-For a complete understanding of the effects of many of these settings, we recommend that you review the documentation on the [Netflix Eureka Wiki](https://github.com/Netflix/eureka/wiki). In most cases, unless you are confident that you understand the effects of changing the values from their defaults, we recommend that you use the defaults.
+Additionally, the table below lists the settings that control *how* to register the instance.
+All of these settings should start with `Eureka:Instance:`.
 
-## Bind to Cloud Foundry
+| Key | Description | Default |
+| --- | --- | --- |
+| `InstanceId` | Unique ID (within the scope of the app name) of the instance to be registered with Eureka. | computed |
+| `AppName` | Name of the application to be registered with Eureka. | computed |
+| `AppGroup` | Name of the application group to be registered with Eureka. | |
+| `MetadataMap` | Name/value pairs associated with the instance. | computed |
+| `HostName` | Hostname on which the instance is registered. | computed |
+| `IPAddress` | IP address on which the instance is registered. | computed |
+| `UseNetworkInterfaces` | Query the operating system for network interfaces to determine `HostName` and `IPAddress`. | `false` |
+| `PreferIPAddress` | Whether to register with `IPAddress` instead of `HostName`. | `false` |
+| `VipAddress` | Comma-delimited list of VIP addresses for the instance. | computed |
+| `SecureVipAddress` | Comma-delimited list of secure VIP addresses for the instance. | computed |
+| `Port` | Non-secure port number on which the instance should receive traffic. | computed |
+| `NonSecurePortEnabled` | Whether the non-secure port should be enabled. [^1] | computed |
+| `SecurePort` | Secure port on which the instance should receive traffic. | computed |
+| `SecurePortEnabled` | Whether the secure port should be enabled. [^1] | computed |
+| `RegistrationMethod` | How to register on Cloud Foundry. Can be `route`, `direct`, or `hostname`. [^2] | |
+| `InstanceEnabledOnInit` | Whether the instance should take traffic as soon as it is registered. [^3] | `true` |
+| `LeaseRenewalIntervalInSeconds` | How often (in seconds) the client sends heartbeats to Eureka to indicate that it is still alive. | `30` |
+| `LeaseExpirationDurationInSeconds` | Time (in seconds) that the Eureka server waits since it received the last heartbeat before it marks the instance as down. | `90` |
+| `StatusPageUrlPath` | Relative path to the status page for the instance. [^4] | `/info` |
+| `StatusPageUrl` | Absolute URL to the status page for the instance (overrides `StatusPageUrlPath`). | computed |
+| `HomePageUrlPath` | Relative path to the home page URL for the instance. | `/` |
+| `HomePageUrl` | Absolute URL to the home page for the instance (overrides `HomePageUrlPath`). | computed |
+| `HealthCheckUrlPath` | Relative path to the health check endpoint of the instance. [^4] | `/health` |
+| `HealthCheckUrl` | Absolute URL for health checks of the instance (overrides `HealthCheckUrlPath`). | computed |
+| `SecureHealthCheckUrl` | Secure absolute URL for health checks of the instance (overrides `HealthCheckUrlPath`). | computed |
+| `AsgName` | AWS auto-scaling group name associated with the instance. | |
+| `DataCenterInfo` | Data center the instance is deployed to (`Netflix`, `Amazon` or `MyOwn`). | MyOwn |
 
-When you want to use a Eureka Server on Cloud Foundry and you have installed [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/), you can create and bind an instance of the server to the application by using the Cloud Foundry CLI:
+[^1]: When both non-secure and secure ports are enabled, the secure port is preferred during service discovery.
+[^2]: Specify `direct` to use container-to-container networking on Cloud Foundry. Specify `hostname` to force using `HostName`.
+[^3]: When set to `false`, call `EurekaApplicationInfoManager.UpdateInstance()` after initialization to mark the instance as up.
+[^4]: Add a NuGet package reference to `Steeltoe.Management.Endpoint` to use its `health` and `info` actuator paths.
 
-```bash
-# Create eureka server instance named `myDiscoveryService`
-cf create-service p-service-registry standard myDiscoveryService
+The values for `Port` and `SecurePort`, and whether they are enabled, are automatically determined from the ASP.NET address bindings. [^1]
+See [8 ways to set the URLs for an ASP.NET Core app](https://andrewlock.net/8-ways-to-set-the-urls-for-an-aspnetcore-app/)
+for how to influence them using environment variables.
 
-# Wait for service to become ready
-cf services
+It is also possible to use dynamic port bindings (by setting the port number to `0` in ASP.NET).
+In that case, Steeltoe adds a random number (outside the valid port range) to the `InstanceId` to make it unique.
+Once the app has fully started, the assigned port numbers are updated in Eureka, but the `InstanceId` does not change.
 
-# Bind the service to `myApp`
-cf bind-service myApp myDiscoveryService
+### Querying
 
-# Restage the app to pick up change
-cf restage myApp
-```
+The settings that pertain to querying the Eureka registry for apps (used by the load balancers during service discovery) are listed below.
+All of these settings should start with `Eureka:Client:`.
 
-For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/) documentation.
+| Key | Description | Default |
+| --- | --- | --- |
+| `ShouldFetchRegistry` | Whether to periodically fetch registry information from the Eureka server. | `true` |
+| `RegistryFetchIntervalSeconds` | How often (in seconds) to fetch registry information from the Eureka server. | `30` |
+| `ShouldFilterOnlyUpInstances` | Whether to include only instances with UP status after fetching the list of applications. | `true` |
+| `ShouldDisableDelta` | Whether to fetch the full registry each time or fetch only deltas. | `false` |
+| `RegistryRefreshSingleVipAddress` | Whether to only fetch registry information for the specified VIP address. | `false` |
+| `Health:MonitoredApps` | Comma-delimited list of applications in Eureka this app depends on (see section below). | |
 
-Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`.
+## Configuring health contributors
 
->As of Steeltoe 3.0.0, an additional NuGet reference for `Steeltoe.Connectors.CloudFoundry` is required to read in service bindings. Just adding the reference will be enough for service bindings to be discoverable.
+The Steeltoe Eureka package provides two different health contributors that you can use to monitor Eureka server health.
 
-## Configuring Health Contributors
+The first one, `EurekaServerHealthContributor`, is used to determine and report the health of the connection to the Eureka
+servers. It looks at the status of the last good registry fetch and the last heartbeat attempt and uses that information to
+compute the health of the connection.
+This contributor is automatically activated, but can be turned off by setting `Eureka:Client:Health:Enabled` to `false`.
 
-The Eureka package provides two different Steeltoe Management Health contributors that you can use to monitor Eureka server health.
-
-The first one, `EurekaServerHealthContributor`, is used to determine and report the health of the connection to the Eureka servers. It looks at the status of last good registry fetch or the last heartbeat attempt and uses that information to compute the health of the connection.
-
-If you use the `AddDiscoveryClient()` extension method and you have configured Eureka as your service discovery choice, this contributor is automatically added to the container and is automatically used.
-
-By default, the contributor is enabled but can be disabled by setting `Eureka:Client:Health:Enabled=false`.
-
-The second contributor that you can enable is the `EurekaApplicationsHealthContributor`. By default, this contributor is not enabled, so you must add it to the service container yourself:
-
-```csharp
-    services.AddSingleton<IHealthContributor, EurekaApplicationsHealthContributor>();
-```
-
-You can use the `EurekaApplicationsHealthContributor` to report the health of a configurable list of registered services based on the status of the service in the registry. For each service it is configured to monitor, it looks at all of the instances of that service and, if all of the instances are marked `DOWN`, the service is reported as being in bad health.  You can configure the services that it monitors by using the `Eureka:Client:Health:MonitoredApps` configuration setting.  Typically you would set this to the list of external service names the application depends on and that, were they unavailable, would impact the operation of the app.
-
-## Configuring Health Checks
-
-By default, Eureka uses the client heartbeat to determine if a client is up. Unless specified otherwise, the Eureka client does not propagate the current health status of the application, as calculated by the health contributors configured for the application. Consequently, after successful registration, Eureka always announces that the application is in 'UP' state. You can alter this behavior by enabling Eureka health checks, which results in propagating application status to Eureka. As a consequence, every other application does not send traffic to applications in states other then 'UP'.
-
-To enable this behavior, you need to add the `IHealthCheckHandler` to your service container (the handler is not added to the container by default):
-
-```csharp
-    services.AddSingleton<IHealthCheckHandler, ScopedEurekaHealthCheckHandler>();
-```
-
-You can enable or disable the handler by using the `Eureka:Client:Health:CheckEnabled` configuration settings.  It is enabled by default.
-
-If you require more control over the health check, consider implementing your own `IHealthCheckHandler`.
-
-## Configuring Multiple Service Urls
-
-You can specify a comma-delimited list of Eureka server URLs that the client uses when registering or fetching the service registry. Those servers should be part of a properly configured Eureka server cluster and should be using peer-to-peer communications to keep in sync.
-
-The Eureka client automatically fails over to the other nodes in the cluster. When a failed Eureka server node comes back up, the Eureka client automatically reconnects back to the server at some point.
-
-## Configuring Metadata
-
-It is worth spending a bit of time understanding how the Eureka metadata works so that you can use it in a way that makes sense in your application.
-
-Standard metadata information (such as hostname, IP address, port numbers, status page, and health check endpoint) is associated with every service registration. These are published in the service registry and are used by clients to contact the services in a straightforward way.
-
-You can add additional metadata to instance registrations by using the configuration setting `Eureka:Instance:MetadataMap`. The metadata you supply by using this configuration is added to the service registration and becomes accessible in remote clients.
-
-In general, additional metadata does not change the behavior of the client, unless the client is made aware of the meaning of the metadata.
-
-## Configuring Mutual TLS
-
-In cases where customizations to communications with the Eureka Server are needed (for example: when using mutual TLS authentication), `IHttpClientHandlerProvider` is available. In order to simplify mTLS setup in applications, `Steeltoe.Common.Http.ClientCertificateHttpHandlerProvider` is automatically injected when `IHttpClientHandlerProvider` is not detected and `IOptions<CertificateOptions>` is available.
+The second contributor that you can enable is the `EurekaApplicationsHealthContributor`.
+By default, this contributor is not enabled, so you must add it to the service container yourself:
 
 ```csharp
-// Add an ICertificateSource to your configuration builder
-var configurationBuilder = new ConfigurationBuilder()
-        .AddPemFiles("instance.crt", "instance.key");
-        /* OR */
-        .AddCertificateFile("instance.p12");
-        /* OR */
-        config.Add(<YourCustomICertificateSourceHere>)
-
-var services = new ServiceCollection();
-// Add Options and configure CertificateOptions
-services.AddOptions();
-
-// generally configure CertificateOptions with certificate path information
-services.Configure<CertificateOptions>(config);
-
-// actually load the certificate into CertificateOptions
-services.AddSingleton<IConfigureOptions<CertificateOptions>, ConfigureCertificateOptions>();
-// or
-services.AddSingleton<IConfigureOptions<CertificateOptions>, PemConfigureCertificateOptions>();
-// or
-services.AddSingleton<IConfigureOptions<CertificateOptions>, {ConfigureYourCertificateOptions}>();
-
-services.AddDiscoveryClient(config);
+builder.Services.AddSingleton<IHealthContributor, EurekaApplicationsHealthContributor>();
 ```
 
-If you wish to supply your own `IHttpClientHandlerProvider`, add it into the service collection before calling `AddDiscoveryClient`:
+You can use the `EurekaApplicationsHealthContributor` to report the health of a configurable list of registered services
+based on their status in the registry. For each service it is configured to monitor, it looks at all of the instances
+of that service and, if all of the instances are marked `DOWN`, your app is reported as being in bad health.
+You can configure the services that it monitors by using the `Eureka:Client:Health:MonitoredApps` configuration setting.
+Typically you would set this to the list of external service names your app depends on and that, were they unavailable,
+would impact the operation of your app. If this setting is left empty, *all* apps in Eureka are monitored.
 
-```csharp
-services.AddSingleton<IHttpClientHandlerProvider>(new MyCustomHttpClientHandlerProvider());
-services.AddDiscoveryClient(config);
+## Configuring health checks
+
+If `Eureka:Client:ShouldRegisterWithEureka` is set to `true` (the default), the Eureka discovery client sends
+periodic heartbeats to inform the Eureka server that the currently running app is reachable.
+
+Unless specified otherwise, the client does not propagate the current health status of the application,
+as calculated from the ASP.NET health checks and active health contributors, to Eureka.
+Consequently, after successful registration, Eureka always announces that the application is in 'UP' state.
+You can alter this behavior by enabling `Eureka:Client:Health:CheckEnabled` (`false` by default),
+which results in propagating health status to Eureka.
+As a consequence, other applications won't send traffic to your app unless the health checks and contributors report 'UP'.
+
+If you require more control over the health checks, consider implementing your own `IHealthCheckHandler`.
+
+## Configuring multiple Eureka servers
+
+You can specify a comma-delimited list of Eureka server URLs that the client uses when registering or fetching
+the service registry. Those servers should be part of a properly configured Eureka server cluster and should be using
+peer-to-peer communications to keep in sync.
+
+The Eureka client automatically fails over to the other nodes in the cluster. When a failed Eureka server node comes
+back up, the Eureka client automatically reconnects back to the server at some point.
+
+## Using metadata
+
+It is worth spending a bit of time understanding how the Eureka metadata works so that you can use it in a way
+that makes sense in your application.
+
+Standard instance information (such as hostname, IP address, port numbers, status page, and health check endpoint)
+is associated with every service registration. These are published in the service registry and are used by clients
+to contact the services in a straightforward way.
+
+You can add additional metadata to instance registrations by using the configuration setting `Eureka:Instance:MetadataMap`.
+The key/value pairs you supply there are added to the service registration and become accessible in remote clients.
+
+When the metadata varies over time, depending on contextual information, it can be updated from code as well:
+```c#
+var appManager = app.Services.GetRequiredService<EurekaApplicationInfoManager>();
+appManager.UpdateInstance(newStatus: null, newOverriddenStatus: null,
+    newMetadata: new Dictionary<string, string?>(appManager.Instance.Metadata)
+    {
+        ["someNewKey"] = "someValue1",
+        ["someExistingKey"] = "someValue2"
+    });
 ```
 
->You can use a single `ICertificateSource` for both Eureka and [Config Server mTLS connections](../configuration/config-server-provider.md#configuring-mutual-tls).
+> [!WARN]
+> Once metadata has been updated from code, later metadata changes in configuration are ignored.
+
+In general, additional metadata does not change the behavior of applications, unless they are made aware of
+the meaning of the metadata.
+
+## Configuring mutual TLS
+
+To use mutual TLS authentication in the communication with the Eureka server, follow these steps:
+
+1. Add a NuGet package reference to `Steeltoe.Common.Security`
+1. From your `Program.cs`, load the client certificate into configuration:
+   ```c#
+   builder.Configuration.AddPemFiles("instance.crt", "instance.key");
+   ```
+   or:
+   ```c#
+   builder.Configuration.AddCertificateFile("instance.p12");
+   ```
+   or add your custom implementation of `ICertificateSource`
+1. Load the certificate into ASP.NET options:
+   ```c#
+   builder.Services.AddSingleton<IConfigureOptions<CertificateOptions>, PemConfigureCertificateOptions>();
+   ```
+
+> [!TIP]
+> You can use a single `ICertificateSource` for both Eureka and [Config Server mTLS connections](../configuration/config-server-provider.md#configuring-mutual-tls).
+
+### Using custom HTTP headers
+
+The communication with Eureka server uses the `HttpClientFactory` [pattern](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests),
+which makes it aware of DNS changes over time and enables to tweak the handler pipeline.
+
+To send a custom HTTP header with every request, create a `DelegatingHandler` and add it to the pipeline:
+```c#
+public sealed class ExtraRequestHeaderDelegatingHandler : DelegatingHandler
+{
+    protected override Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        request.Headers.Add("X-Example", "ExampleValue");
+        return base.SendAsync(request, cancellationToken);
+    }
+}
+
+// In Program.cs:
+builder.Services.AddEurekaDiscoveryClient();
+builder.Services.AddTransient<ExtraRequestHeaderDelegatingHandler>();
+
+builder.Services.Configure<HttpClientFactoryOptions>("Eureka", options =>
+{
+    options.HttpMessageHandlerBuilderActions.Add(handlerBuilder =>
+        handlerBuilder.AdditionalHandlers.Add(
+            handlerBuilder.Services.GetRequiredService<ExtraRequestHeadersDelegatingHandler>()));
+});
+
+```
+
+> [!NOTE]
+> To send an extra header to the OAuth2 endpoint, replace `"Eureka"` with `"AccessTokenForEureka"` in the example above.
