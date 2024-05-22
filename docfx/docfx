@@ -1,0 +1,3 @@
+#!/bin/sh
+
+mono /usr/local/libexec/docfx/docfx.exe $*

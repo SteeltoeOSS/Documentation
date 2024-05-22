@@ -17,7 +17,7 @@ get_sources() {
   local branch=$2
   echo "$(basename $dest_dir) sources from $branch"
   [ -d $dest_dir ] && rm -rf $dest_dir
-  git clone $git_sources_url $dest_dir -b $branch
+  git clone $git_sources_url $dest_dir -b $branch --depth 1
 }
 
 get_sources sources/v2 $v2_sources
@@ -26,6 +26,8 @@ get_sources sources/v4 $v4_sources
 
 echo "building v2 metadata"
 docfx metadata api-v2.json
+
+get_sources sources/v3 $v3_sources
 echo "building v3 metadata"
 docfx metadata api-v3.json
 echo "building v4 metadata"

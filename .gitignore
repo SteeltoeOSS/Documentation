@@ -1,8 +1,8 @@
 /api/browser/**/*.manifest
 /api/browser/**/*.yml
 /obj/
-/build/
 /sources/
+/_site/
 /tools/
 /.vscode/
 /.vs/
