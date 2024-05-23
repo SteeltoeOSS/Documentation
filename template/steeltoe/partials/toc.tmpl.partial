@@ -37,13 +37,10 @@
               <option value="/api/browser/v4/common/Steeltoe.Common.html">Steeltoe.Common</option>
               <option value="/api/browser/v4/configuration/Steeltoe.Configuration.html">Steeltoe.Configuration</option>
               <option value="/api/browser/v4/connectors/Steeltoe.Connectors.html">Steeltoe.Connectors</option>
-              <option value="/api/browser/v4/discovery/Steeltoe.Discovery.html">Steeltoe.Discovery</option>
-              <option value="/api/browser/v4/integration/Steeltoe.Integration.html">Steeltoe.Integration</option>
+              <option value="/api/browser/v4/discovery/Steeltoe.Discovery.HttpClients.html">Steeltoe.Discovery</option>
               <option value="/api/browser/v4/logging/Steeltoe.Logging.html">Steeltoe.Logging</option>
               <option value="/api/browser/v4/management/Steeltoe.Management.html">Steeltoe.Management</option>
-              <option value="/api/browser/v4/messaging/Steeltoe.Messaging.html">Steeltoe.Messaging</option>
               <option value="/api/browser/v4/security/Steeltoe.Security.Authentication.CloudFoundry.html">Steeltoe.Security</option>
-              <option value="/api/browser/v4/stream/Steeltoe.Stream.Extensions.html">Steeltoe.Stream</option>
             </select>
             <select id="api-namespace-v3" class="form-control api-namespace hide">
               <option value="/api/browser/v3/all/">All namespaces</option>

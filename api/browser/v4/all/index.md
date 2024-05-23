@@ -37,13 +37,7 @@ Contains connectors for simplifying the process of connecting to backing service
 
 Contains packages for interacting with service registries.
 
-[view](/api/browser/v4/discovery/Steeltoe.Discovery.html)
-
-## Steeltoe Integration
-
-Contains packages for messaging integrations.
-
-[view](/api/browser/v4/integration/Steeltoe.Integration.html)
+[view](/api/browser/v4/discovery/Steeltoe.Discovery.HttpClients.html)
 
 ## Steeltoe Logging Extensions
 
@@ -59,20 +53,8 @@ Management tools to help manage and monitor your applications.
 
 [view](/api/browser/v4/management/Steeltoe.Management.html)
 
-## Steeltoe Messaging
-
-Contains messaging support for RabbitMQ.
-
-[view](/api/browser/v4/messaging/Steeltoe.Messaging.html)
-
 ## Steeltoe Security
 
 Authentication and DataProtection libraries using security services on CloudFoundry.
 
 [view](/api/browser/v4/security/Steeltoe.Security.Authentication.CloudFoundry.html)
-
-## Steeltoe Stream
-
-Contains streaming support for RabbitMQ.
-
-[view](/api/browser/v4/stream/Steeltoe.Stream.Extensions.html)
