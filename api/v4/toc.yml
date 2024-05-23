@@ -127,17 +127,16 @@
   topicHref: discovery/
   items:
     - topicHref: discovery/initialize-discovery-client.md
-      name: Initialize Discovery Client
+      name: Discovery clients
+      items:
+      - topicHref: discovery/configuration-based.md
+        name: Configuration-based
+      - topicHref: discovery/hashicorp-consul.md
+        name: HashiCorp Consul
+      - topicHref: discovery/netflix-eureka.md
+        name: Netflix Eureka
     - topicHref: discovery/discovering-services.md
-      name: Discovering Services
-    - topicHref: discovery/netflix-eureka.md
-      name: Netflix Eureka
-    - topicHref: discovery/hashicorp-consul.md
-      name: HashiCorp Consul
-    - topicHref: discovery/kubernetes.md
-      name: Kubernetes
-    - topicHref: discovery/load-balancing.md
-      name: Load Balancing
+      name: Discovering services
 - name: Stream
   topicHref: stream/
   items:

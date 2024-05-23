@@ -324,14 +324,6 @@ ul.breadcrumb > :first-child {
 .level2 li:last-child {
     margin-bottom: 0;
 }
-.level1 .in > a,
-.affix li.active > a,
-.toc > .level1 > li.active > a,
-.level1 .affix .nav li,
-.nav.level2 > li,
-.toc > .level1 > li {
-    margin-bottom: 8px;
-}
 .active.in li:last-child, .active.in li:last-child>a, .bs-docs-sidenav > li.active a {
     margin-bottom: 0;
 }

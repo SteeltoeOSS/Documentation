@@ -195,28 +195,6 @@ $(function() {
         $('#docsNavLink').removeClass('active');
         $('#guidesNavLink').addClass('active');
     }
-
-    setTimeout(() => {
-        // move right-side nav under selected item (if found)
-        var activeMenuItem = $('.active.in .active.in .active');
-        if (activeMenuItem && $('#affix').children().length > 0)
-        {
-            activeMenuItem.append($('#affix'));
-        }
-
-        if (!isApiBrowserPage() && !isGuidePage()) {
-            // Add numbers to toc
-            $('#sidetoc #toc >.level1 > li').each(function(index1, level1) {
-                $(level1).children('a').prepend((index1 + 1) + ". ");
-                $(level1).children('ul').children('li').each(function(index2, level2) {
-                    $(level2).children('a').prepend((index1 + 1) + "." + (index2 + 1) + " ");
-                    $(level2).children('a').children('nav').children('ul').children('li').each(function(index3, level3) {
-                        $(level3).children('a').prepend(''.concat(index1 + 1, ".", index2 + 1, ".", index3 + 1, " "));
-                    });
-                });
-            });
-        }
-    }, "100");
 });
 
 var options = {

@@ -1,129 +1,65 @@
-# Initialize Discovery Client
+# Discovery clients
 
-This section describes how to configure the Steeltoe discovery client.
+This section describes how to activate the Steeltoe discovery client(s), which is a prerequisite for resolving friendly names.
+Your app can use multiple clients but is limited to a single instance per type.
 
-Fundamentally, three things need to happen to use the clients:
+Fundamentally, several things need to happen:
 
-1. Add NuGet References
-1. Services need to be configured and added to the service collection
-1. Services need to be started
+1. Add NuGet package references to your project
+1. Register the desired discovery client(s) in the dependency container
+1. Configure the discovery client(s)
+1. Optional: enable debug logging
 
-## Add NuGet References
+## Add NuGet packages
 
-The simplest way to get started with Steeltoe Discovery is to add a reference to the package(s) containing the client technology you may wish to use. Any client package also includes all the relevant dependencies.
+To get started with Steeltoe Discovery, add a reference to the package(s) containing the discovery technology you may wish to use.
+Each package also includes all the relevant dependencies.
 
 | Package | Description |
 | --- | --- |
-| `Steeltoe.Discovery.Abstractions` | Interfaces and objects used for extensibility. |
-| `Steeltoe.Discovery.Client` |  Service Discovery package. |
-| `Steeltoe.Discovery.Eureka` | Eureka Client functionality. Depends on Client. |
-| `Steeltoe.Discovery.Consul` | Consul Client functionality. Depends on Client. |
-| `Steeltoe.Discovery.Kubernetes` | Kubernetes Client functionality. Depends on Client. |
+| `Steeltoe.Discovery.Configuration` | Register/query app instances stored in .NET configuration |
+| `Steeltoe.Discovery.Consul` | Use [HashiCorp Consul](https://www.consul.io/) server |
+| `Steeltoe.Discovery.Eureka` | Use [Spring Cloud Eureka](https://projects.spring.io/spring-cloud/docs/1.0.3/spring-cloud.html#spring-cloud-eureka-server) server |
 
->As of version 3.0, a direct reference to any applicable discovery client is required. If you find log messages saying `No discovery client has been configured...`, this is why.
+## ServiceCollection extensions
 
-## HostBuilder Extensions
+After installing the NuGet package(s), the next step is to add the Steeltoe discovery client(s) to the service container.
+Update your `Program.cs` as shown below:
 
-After installing the NuGet package(s), the next step is to add the Steeltoe Discovery client to the service container and use it to cause the client to start communicating with the server.
+```c#
+var builder = WebApplication.CreateBuilder(args);
 
-You can do both at once with the extension methods for `IHostBuilder` and `IWebHostBuilder`. The following example uses `IHostBuilder`, and the usage is the same for `IWebHostBuilder`:
+// Steeltoe: Add service discovery clients for Consul, Eureka, and/or configuration-based.
+builder.Services.AddConsulDiscoveryClient();
+builder.Services.AddEurekaDiscoveryClient();
+builder.Services.AddConfigurationDiscoveryClient();
 
-```csharp
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        BuildWebHost(args).Run();
-    }
-    public static IHost BuildHost(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .AddDiscoveryClient()
-            .Build();
-}
+var app = builder.Build();
 ```
 
-The `AddDiscoveryClient` extension shown above uses reflection to find assemblies containing a discovery client. Specifically, assemblies are located by the presence of the attribute `DiscoveryClientAssembly`, which contains a reference to an `IDiscoveryClientExtension` that does the work in configuring options and injecting the required service for the `IDiscoveryClient` to operate.
+> [!TIP]
+> Alternatively, `builder.AddSteeltoe();` (Steeltoe Bootstrap Auto Configuration) can be used, which uses reflection to determine
+> which discovery assemblies are loaded, adding the appropriate clients automatically.
 
->If no discovery client package is found a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/Client/SimpleClients/NoOpDiscoveryClient.cs) will be used. This will happen when no client has been added or if you publish your application with [`/p:PublishSingleFile=true`](https://docs.microsoft.com/dotnet/core/deploying/single-file))
+## Client configuration
 
-To avoid this reflection-based approach, use declarative configuration of the client(s) you plan to use, like this:
+Discovery clients need to be explicitly configured to fetch application instances and/or register your app with the discovery server.
+See the sub-page for the discovery technology of choice on how to setup.
 
-```csharp
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        BuildWebHost(args).Run();
-    }
-    public static IHost BuildHost(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .AddServiceDiscovery(options => options.UseEureka())
-            .Build();
-}
-```
+## Enable debug logging
 
-As of version 3.0.2, you may add multiple `Usexxx()` statements to this options builder, so long as only one is configured at runtime.
-
->If no extension is supplied for `AddServiceDiscovery`, a [NoOpDiscoveryClient](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Discovery/src/Client/SimpleClients/NoOpDiscoveryClient.cs) will be used.
-
-## Other Extensions
-
-Alternatively, you can register and activate the client in the `ConfigureServices()` and `Configure()` methods of the `Startup` class:
-
-```csharp
-using Steeltoe.Discovery.Client;
-
-public class Startup {
-    ...
-    public IConfiguration Configuration { get; private set; }
-    public Startup(...)
-    {
-      ...
-    }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add any NuGet-referenced Discovery Client services
-        services.AddDiscoveryClient();
-        // or add a specific Discovery Client
-        services.AddServiceDiscovery(options => options.UseConsul());
-
-        // Add framework services.
-        services.AddMvc();
-        ...
-    }
-    public void Configure(IApplicationBuilder app, ...)
-    {
-        ...
-        app.UseStaticFiles();
-        app.UseMvc();
-
-        // Activate the Steeltoe Discovery Client service background thread
-        // This line is not needed for Steeltoe 3.1.0 and above
-        app.UseDiscoveryClient();
-    }
-    ...
-}
-```
-
-## Registering Services
-
-If you configured the client settings to register services, the service is automatically registered when the `UseDiscoveryClient()` method is called in the `Configure()` method. You need not do anything else to cause service registration.
-
-## Enable Debug Logging
-
-Sometimes, you may want to turn on debug logging in the discovery client. To do so, you can modify the `appsettings.json` file and turn on Debug level logging for the Steeltoe components:
+Sometimes, you may want to turn on debug logging for service discovery.
+To do so, you can modify the `appsettings.json` file and turn on debug logging for the Steeltoe components.
 
 The following example shows a typical `appsettings.json` file:
 
 ```json
 {
   "Logging": {
-    "IncludeScopes": false,
     "LogLevel": {
       "Default": "Warning",
-      "Steeltoe": "Debug"
+      "Steeltoe.Discovery": "Debug"
     }
-  },
-  ...
+  }
 }
 ```

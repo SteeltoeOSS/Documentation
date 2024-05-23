@@ -1,115 +1,200 @@
-# Discovering Services
+# Discovering services
 
-Depending on which Discovery service technology (for example, Eureka or Consul) you use, the behavior of the client differs.
-
-With Eureka, once the application starts, the client begins to operate in the background, both registering and renewing service registrations and also periodically fetching the service registry from the server.
-
-With Consul, once the app starts, the client registers any services (if required) and (if configured to do so) starts a health thread to keep updating the health of the service registration. The Consul client fetches no service registrations until you ask to look up a service. At that point, a request is made to the Consul server. As a result, you probably want to use the Steeltoe caching load balancer with the Consul service discovery.
+Resolving friendly names happens through a load balancer, which queries `IDiscoveryClient`s for available service instances.
 
 ## Using HttpClientFactory
 
-The recommended approach for discovering services is to use `HttpClient` supplied through [HttpClientFactory](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests), augmented with the `DiscoveryHttpMessageHandler` (provided by Steeltoe).
+The recommended approach is to use a typed `HttpClient`, supplied through
+[HttpClientFactory](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests). Call the `.AddServiceDiscovery()`
+extension method from the `Steeltoe.Discovery.HttpClients` NuGet package to activate service discovery.
 
-`DiscoveryHttpMessageHandler` is a `DelegatingHandler` that you can use, to intercept requests and to evaluate the URL to see if the host portion of the URL can be resolved from the current service registry. The handler does this for any `HttpClient` created by the factory.
+> [!NOTE]
+> The `AddServiceDiscovery()` extension method takes an optional `ILoadBalancer` parameter.
+> If no load balancer is provided, the built-in `RandomLoadBalancer` is activated,
+> which uses randomized selection of service instances.
 
-After initializing the discovery client, you can configure `HttpClient` to include `DiscoveryHttpMessageHandler` with the extension `AddServiceDiscovery`:
-
-```csharp
-public class Startup
+For example, consider the following typed client:
+```c#
+public sealed class OrderService(HttpClient httpClient)
 {
-    ...
-    public void ConfigureServices(IServiceCollection services)
+    public async Task<OrderModel?> GetOrderByIdAsync(
+        string orderId, CancellationToken cancellationToken)
     {
-      ...
-      // Configure HttpClient
-      services.AddHttpClient("fortunes")
-        .AddServiceDiscovery()
-        .AddTypedClient<IFortuneService, FortuneService>();
-      ...
-    }
-    ...
-}
-```
-
-This `HttpClient` can be injected into `FortuneService` for a nice, clean experience:
-
-```csharp
-public class FortuneService : IFortuneService
-{
-    private const string RANDOM_FORTUNE_URL = "https://fortuneService/api/fortunes/random";
-    private HttpClient _client;
-    public FortuneService(HttpClient client)
-    {
-        _client = client;
-    }
-    public async Task<string> RandomFortuneAsync()
-    {
-        return await _client.GetStringAsync(RANDOM_FORTUNE_URL);
+        return await httpClient.GetFromJsonAsync<OrderModel?>(
+            $"https://ordering-api/orders/{orderId}", cancellationToken);
     }
 }
 ```
 
-Check out the Microsoft documentation on [`HttpClientFactory`](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests) to see all the various ways you can make use of message handlers.
+This typed client can be configured to use service discovery. Add the following code to `Program.cs`
+to rewrite the `https://ordering-api` part to a service instance obtained from Eureka.
 
->`DiscoveryHttpMessageHandler` has an optional `ILoadBalancer` parameter. If no `ILoadBalancer` is provided through dependency injection, a `RandomLoadBalancer` is used. To change this behavior, add an `ILoadBalancer` to the DI container or use a load-balancer first configuration, as described within section 1.4 on this page.
+```c#
+var builder = WebApplication.CreateBuilder(args);
 
-## DiscoveryHttpClientHandler
+builder.Services.AddEurekaDiscoveryClient();
+builder.Services.AddHttpClient<OrderService>().AddServiceDiscovery();
+```
 
-Another way to use the registry to look up services is to use the Steeltoe `DiscoveryHttpClientHandler` with `HttpClient`.
+With the above code in place, you can inject `OrderService` in your MVC controller, for example:
 
-This `FortuneService` class retrieves fortunes from the Fortune microservice, which is registered under a name of `fortuneService`:
-
-```csharp
-using Steeltoe.Discovery.Client;
-
-...
-public class FortuneService : IFortuneService
+```c#
+public sealed class OrdersController(OrderService orderService) : Controller
 {
-    DiscoveryHttpClientHandler _handler;
-    private const string RANDOM_FORTUNE_URL = "https://fortuneService/api/fortunes/random";
-    public FortuneService(IDiscoveryClient client)
+    [HttpGet("{orderId}")]
+    public async Task<IActionResult> Index(string orderId, CancellationToken cancellationToken)
     {
-        _handler = new DiscoveryHttpClientHandler(client);
-    }
-    public async Task<string> RandomFortuneAsync()
-    {
-        var client = GetClient();
-        return await client.GetStringAsync(RANDOM_FORTUNE_URL);
-    }
-    private HttpClient GetClient()
-    {
-        // WARNING: do NOT create a new HttpClient for every request in your code
-        // -- you may experience socket exhaustion if you do!
-        var client = new HttpClient(_handler, false);
-        return client;
+        var model = await orderService.GetOrderByIdAsync(orderId, cancellationToken);
+        return View(model);
     }
 }
 ```
 
-First, notice that the `FortuneService` constructor takes an `IDiscoveryClient` as a parameter. This is Steeltoe's interface for finding services in the service registry. The `IDiscoveryClient` implementation is registered with the service container for use in any controller, view, or service during initialization. The constructor code for this class uses the client to create an instance of Steeltoe's `DiscoveryHttpClientHandler`.
+When the MVC controller executes, `HttpClientFactory` returns an `HttpClient` that is configured for service discovery.
+Under the covers, Steeltoe adds `DiscoveryHttpDelegatingHandler<TLoadBalancer>` to the HTTP handler pipeline,
+which intercepts requests and rewrites the scheme/host/port with the values obtained from the registry (via its load balancer).
 
-Next, notice that when the `RandomFortuneAsync()` method is called, the `HttpClient` is created with the Steeltoe handler. The handler's role is to intercept any requests made with the `HttpClient` and to evaluate the URL to see if the host portion of the URL can be resolved from the service registry. In this example, the `fortuneService` name should be resolved into an actual `host:port` before letting the request continue.
+### Global service discovery
 
-If the name cannot be resolved, the handler ignores the request URL and lets the request continue unchanged.
+To use service discovery for *all* `HttpClient` instances, use the following code:
 
->By default, `DiscoveryHttpClientHandler` performs random load balancing. That is, if there are multiple instances registered under a particular service name, the handler randomly selects one of those instances each time the handler is invoked.
+```c#
+builder.Services.ConfigureHttpClientDefaults(clientBuilder => clientBuilder.AddServiceDiscovery());
+```
 
-## Using IDiscoveryClient
+## Using HttpClient
 
-In the event the handler options do not serve your needs, you can always make lookup requests directly on the `IDiscoveryClient` interface.
+Another way to use service discovery is to use the Steeltoe `DiscoveryHttpClientHandler` with `HttpClient`.
 
-The methods available on an `IDiscoveryClient` provide access to services and service instances available in the registry:
+The variant of `OrderService` below creates a new `HttpClient` from the injected handler:
 
-```csharp
-/// <summary>
-/// Gets all known service Ids
-/// </summary>
-IList<string> Services { get; }
+```c#
+public sealed class OrderService(DiscoveryHttpClientHandler handler)
+{
+    public async Task<OrderModel?> GetOrderByIdAsync(
+        string orderId, CancellationToken cancellationToken)
+    {
+        var httpClient = new HttpClient(handler, disposeHandler: false);
+        return await httpClient.GetFromJsonAsync<OrderModel?>(
+            $"https://ordering-api/orders/{orderId}", cancellationToken);
+    }
+}
+```
 
-/// <summary>
-/// Get all ServiceInstances associated with a particular serviceId
-/// </summary>
-/// <param name="serviceId">the serviceId to lookup</param>
-/// <returns>List of service instances</returns>
-IList<IServiceInstance> GetInstances(string serviceId);
+To register the handler, add the following code to `Program.cs`:
+
+```c#
+builder.Services.AddSingleton<ServiceInstancesResolver>();
+builder.Services.AddSingleton<ILoadBalancer, RandomLoadBalancer>();
+builder.Services.AddSingleton<DiscoveryHttpClientHandler>();
+builder.Services.AddSingleton<FortuneService>();
+```
+
+## Using IDiscoveryClient directly
+
+In the event the provided HTTP support does not serve your needs, you can always make lookups directly against
+the registered collection of `IDiscoveryClient`s, for example:
+
+```c#
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEurekaDiscoveryClient();
+
+var app = builder.Build();
+
+var clients = app.Services.GetRequiredService<IEnumerable<IDiscoveryClient>>();
+var instance = await ResolveAsync(clients);
+if (instance != null)
+{
+    Console.WriteLine($"Resolved '{instance.ServiceId}' to {instance.Host}:{instance.Port}");
+}
+
+static async Task<IServiceInstance?> ResolveAsync(IEnumerable<IDiscoveryClient> clients)
+{
+    foreach (var client in clients)
+    {
+        var instances = await client.GetInstancesAsync("ordering-api", default);
+        if (instances.Count > 0)
+        {
+            int randomIndex = Random.Shared.Next(0, instances.Count);
+            return instances[randomIndex];
+        }
+    }
+    return null;
+}
+```
+
+## Load balancing
+
+Service discovery relies on a load balancer to choose one from the available service instances.
+
+The built-in load balancers use `ServiceInstancesResolver` to find the matching service instances from the
+registered discovery clients. This resolver optionally supports caching them using `IDistributedCache`,
+which is useful for discovery clients that do not provide their own caching (such as the Consul client).
+
+To activate caching, use the code below:
+
+```c#
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSingleton(new DistributedCacheEntryOptions
+{
+    SlidingExpiration = TimeSpan.FromMinutes(5)
+});
+```
+
+> [!NOTE]
+> The built-in load balancers do not track statistics or exceptions.
+
+### Random load balancer
+
+The `RandomLoadBalancer`, as the name implies, randomly selects a service instance from all instances
+that are resolved for a given friendly name.
+
+### Round-robin load balancer
+
+The provided `RoundRobinLoadBalancer` selects service instances in sequential order, as they are provided
+by discovery clients for the given friendly name.
+
+To use this load balancer in service discovery, pass it to the `AddServiceDiscovery()` method:
+
+```c#
+builder.Services.AddHttpClient<OrderService>().AddServiceDiscovery<RoundRobinLoadBalancer>();
+```
+
+> [!TIP]
+> When caching is activated (see above), this load balancer stores the last-used instance index in the cache.
+> Combining it with a shared Redis cache ensures an even load distribution.
+
+### Custom load balancer
+
+If the provided load balancer implementations do not suit your needs, you can create your own implementation of `ILoadBalancer`.
+
+The following example shows a load balancer that always returns the first service instance:
+
+```c#
+public sealed class ChooseFirstLoadBalancer(ServiceInstancesResolver resolver) : ILoadBalancer
+{
+    public async Task<Uri> ResolveServiceInstanceAsync(Uri requestUri,
+        CancellationToken cancellationToken)
+    {
+        var instances = await resolver.ResolveInstancesAsync(requestUri.Host, cancellationToken);
+        return instances.Count > 0 ? new Uri(instances[0].Uri, requestUri.PathAndQuery) : requestUri;
+    }
+
+    public Task UpdateStatisticsAsync(Uri requestUri, Uri serviceInstanceUri, TimeSpan? responseTime,
+        Exception? exception,
+        CancellationToken cancellationToken)
+    {
+        return Task.CompletedTask;
+    }
+}
+```
+
+A custom load balancer needs to be added to the service container manually, because Steeltoe can't know its lifetime.
+Add the following code to `Program.cs` to activate the custom load balancer defined above:
+
+```c#
+builder.Services.AddSingleton<ServiceInstancesResolver>();
+builder.Services.AddSingleton<ChooseFirstLoadBalancer>();
+
+builder.Services.AddHttpClient<OrderService>().AddServiceDiscovery<ChooseFirstLoadBalancer>();
 ```
