@@ -21,13 +21,13 @@ public sealed class OrderService(HttpClient httpClient)
         string orderId, CancellationToken cancellationToken)
     {
         return await httpClient.GetFromJsonAsync<OrderModel?>(
-            $"https://ordering-api.company.com/orders/{orderId}", cancellationToken);
+            $"https://ordering-api/orders/{orderId}", cancellationToken);
     }
 }
 ```
 
 This typed client can be configured to use service discovery. Add the following code to `Program.cs`
-to rewrite the `https://ordering-api.company.com` part to a service instance obtained from Eureka.
+to rewrite the `https://ordering-api` part to a service instance obtained from Eureka.
 
 ```c#
 var builder = WebApplication.CreateBuilder(args);
@@ -76,7 +76,7 @@ public sealed class OrderService(DiscoveryHttpClientHandler handler)
     {
         var httpClient = new HttpClient(handler, disposeHandler: false);
         return await httpClient.GetFromJsonAsync<OrderModel?>(
-            $"https://ordering-api.company.com/orders/{orderId}", cancellationToken);
+            $"https://ordering-api/orders/{orderId}", cancellationToken);
     }
 }
 ```
@@ -112,7 +112,7 @@ static async Task<IServiceInstance?> ResolveAsync(IEnumerable<IDiscoveryClient> 
 {
     foreach (var client in clients)
     {
-        var instances = await client.GetInstancesAsync("ordering-api.company.com", default);
+        var instances = await client.GetInstancesAsync("ordering-api", default);
         if (instances.Count > 0)
         {
             int randomIndex = Random.Shared.Next(0, instances.Count);
