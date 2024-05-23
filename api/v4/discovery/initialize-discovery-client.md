@@ -1,7 +1,7 @@
 # Discovery clients
 
-This section describes how to activate the Steeltoe discovery client(s), which is a prerequite for resolving friendly names.
-Your app can use multiple clients, but only one per type.
+This section describes how to activate the Steeltoe discovery client(s), which is a prerequisite for resolving friendly names.
+Your app can use multiple clients but is limited to a single instance per type.
 
 Fundamentally, several things need to happen:
 

@@ -1,6 +1,6 @@
 # Service Discovery
 
-Service Discovery enables to use friendly names for the microservices your app depends on.
+Service Discovery enables the use of friendly names for the microservices your app depends on.
 These microservices typically register themselves at startup to a discovery server, which acts as a central registry.
 Each time your app connects to such a microservice, the friendly name is resolved to the actual scheme/host/port by querying the discovery server.
 
