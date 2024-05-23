@@ -1,0 +1,39 @@
+name: Swap staging slot contents into production
+
+on:
+  workflow_dispatch:
+
+jobs:
+  promote-to-production:
+    name: Promote to production
+    runs-on: ubuntu-latest
+    environment:
+      name: 'Production'
+      url: 'https://${{ vars.AZURE_WEBAPP_NAME }}.azurewebsites.net/'
+
+    steps:
+    - name: Log into Azure CLI with service principal
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Change mainsite link to prod and restart
+      shell: bash
+      run: |
+        az webapp config appsettings set --resource-group steeltoe --name docs-steeltoe --slot Staging --settings mainsite_host=https://steeltoe.io
+        az webapp restart --resource-group steeltoe --name docs-steeltoe --slot Staging
+        echo "Waiting 60 seconds until beginning to curl to see if the site is back up"
+        sleep 60
+        until $(curl --output /dev/null --silent --head --fail https://docs-staging.steeltoe.io); do
+          printf '.'
+          sleep 5
+        done
+
+    - name: Swap slots
+      run: az webapp deployment slot swap -s ${{ vars.STAGING_SLOT_NAME }} -n ${{ vars.AZURE_WEBAPP_NAME }} -g ${{ vars.AZURE_RESOURCE_GROUP }}
+
+    - name: Change mainsite link to staging and restart
+      run: |
+        az webapp config appsettings set --resource-group steeltoe --name docs-steeltoe --slot Staging --settings mainsite_host=https://staging.steeltoe.io
+        az webapp restart --resource-group steeltoe --name docs-steeltoe --slot Staging
+    

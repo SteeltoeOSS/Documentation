@@ -4,7 +4,7 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="navbar">
-		<ul class=" navbar-nav text-center">
+		<ul class="navbar-nav text-center">
 			<li class="nav-item dropdown ml-xl-5 mr-xl-2">
 				<button class="btn nav-link dropdown-toggle" href="#" id="why" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Why Steeltoe

@@ -2,9 +2,8 @@ function getMainSiteHost() {
     var host = document.location.hostname;
     if (document.location.hostname.indexOf('localhost') > -1) {
         return "https://localhost:8080";
-    } else if (host.indexOf('dev.steeltoe.io') > -1) {
-        //covering docs-dev.steeltoe.io
-        return "https://dev.steeltoe.io";
+    } else if (host.indexOf('staging.steeltoe.io') > -1) {
+        return "https://staging.steeltoe.io";
     }
 
     return "https://steeltoe.io";
@@ -12,6 +11,10 @@ function getMainSiteHost() {
 
 function isApiBrowserPage() {
     return window.location.href.indexOf("/api/browser/") > -1;
+}
+
+function isGuidePage() {
+    return window.location.href.indexOf("/guides/") > -1;
 }
 
 function isApiVersion3() {
@@ -117,8 +120,8 @@ if (inIframe()) {
     $("div[role=main].container-fluid.body-content").css({ "margin-top": "0" })
 }
 
-$(document).ready(function () {
-    if (document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('dev.steeltoe.io') > -1) {
+$(function() {
+    if (document.location.hostname.indexOf('localhost') > -1 || document.location.hostname.indexOf('staging.steeltoe.io') > -1) {
         $("a[href^='https://steeltoe.io']").attr('href', function () { return this.href.replace(/^https:\/\/steeltoe\.io/, getMainSiteHost()); });
     };
 
@@ -193,32 +196,27 @@ $(document).ready(function () {
         $('#guidesNavLink').addClass('active');
     }
 
-    if (!isApiBrowserPage()) {
-        // Add numbers to toc
-        setTimeout(() => {
-            let level1length = $('#sidetoc #toc .level1 > li').length;
+    setTimeout(() => {
+        // move right-side nav under selected item (if found)
+        var activeMenuItem = $('.active.in .active.in .active');
+        if (activeMenuItem && $('#affix').children().length > 0)
+        {
+            activeMenuItem.append($('#affix'));
+        }
 
-            // Add chapter to level 1 li anchors
-            for (i = 0; i < level1length; i++) {
-                $("#sidetoc #toc .level1").children().eq(i).children('a').prepend(i + 1 + ". ");
-
-                // Add chapter to level 2 li anchors
-                let level2length = $("#sidetoc #toc .level1").children().eq(i).find("li").length;
-
-                for (j = 0; j < level2length; j++) {
-                    $("#sidetoc #toc .level1").children().eq(i).find("li").children().eq(j).prepend((i + 1) + "." + (j + 1) + " ");
-                }
-            }
-            document.querySelector('.active.in .active.in .active').appendChild(document.getElementById('affix'));
-
-            let level3length = $(".affix .level1").find("li").length;
-
-            for (k = 0; k < level3length; k++) {
-                //console.log(k);
-                $("affix .level1").children().eq(1).children('a').prepend(". ");
-            }
-        }, "100")
-    }
+        if (!isApiBrowserPage() && !isGuidePage()) {
+            // Add numbers to toc
+            $('#sidetoc #toc >.level1 > li').each(function(index1, level1) {
+                $(level1).children('a').prepend((index1 + 1) + ". ");
+                $(level1).children('ul').children('li').each(function(index2, level2) {
+                    $(level2).children('a').prepend((index1 + 1) + "." + (index2 + 1) + " ");
+                    $(level2).children('a').children('nav').children('ul').children('li').each(function(index3, level3) {
+                        $(level3).children('a').prepend(''.concat(index1 + 1, ".", index2 + 1, ".", index3 + 1, " "));
+                    });
+                });
+            });
+        }
+    }, "100");
 });
 
 var options = {
