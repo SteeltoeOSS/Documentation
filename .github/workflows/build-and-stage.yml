@@ -22,6 +22,7 @@ env:
   DOCFX_SOURCE_BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
   STEELTOE_V2_VERSION: 2.5.5
   STEELTOE_V3_VERSION: 3.2.6
+  STEELTOE_V4_VERSION: main
   SITE_IMAGE_VERSION: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.run_id }}
 
 jobs:
@@ -67,7 +68,7 @@ jobs:
           echo "metadata-image-version=${{ env.STEELTOE_VERSIONS }}" >> "$GITHUB_OUTPUT"
         fi
       env:
-        STEELTOE_VERSIONS: ${{ env.STEELTOE_V2_VERSION }}-${{ env.STEELTOE_V3_VERSION }}
+        STEELTOE_VERSIONS: ${{ env.STEELTOE_V2_VERSION }}-${{ env.STEELTOE_V3_VERSION }}-${{ env.STEELTOE_V4_VERSION }}
       shell: bash
 
   build-push-docfx:
@@ -109,6 +110,7 @@ jobs:
       run: |-
         echo '2:'${{ env.STEELTOE_V2_VERSION }} > metadata.conf
         echo '3:'${{ env.STEELTOE_V3_VERSION }} >> metadata.conf
+        echo '4:'${{ env.STEELTOE_V4_VERSION }} >> metadata.conf
       shell: bash
 
     - name: Login to container registry
