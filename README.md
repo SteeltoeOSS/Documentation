@@ -13,16 +13,7 @@ This is the home of Steeltoe documentation and blog articles. The site uses [Doc
 | `/guides` | guides for getting started with Steeltoe
 | `/template` | theming
 
-- /api: holds the project documentation markdown and table of contents
-  - /v2: version 2 documentation
-    - /all: this holds generated API docs from doc-comments in source code
-  - /v3: version 3 documentation
-    - /all: this holds generated API docs from doc-comments in source code
-  - /v4: version 4 documentation
-    - /all: this holds generated API docs from doc-comments in source code
-- /articles: holds the markdown for blog posts
-- /images: the images
-- /template/steeltoe: odd files that overwrite the default DocFX theme
+## DocFX Markdown
 
 DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) documentation.
 
@@ -131,7 +122,7 @@ For working on any non-trivial changes, there are several ways to build and run 
 
 The easiest way to build and run the site is this command: `docfx build --serve --port 8082`.
 
-### Build API docs for Steeltoe 2 and 3
+### Build API docs for Steeltoe 2, 3 and 4
 
 Building the API docs is not required for the site to run locally.
 
@@ -140,9 +131,11 @@ If needed, these commands will download the Steeltoe source code and generate AP
 ```bash
 git clone https://github.com/SteeltoeOSS/Steeltoe sources/v2 -b release/2.5
 git clone https://github.com/SteeltoeOSS/Steeltoe sources/v3 -b release/3.2
+git clone https://github.com/SteeltoeOSS/Steeltoe sources/v4 -b release/main
 git clean -fX api
 docfx metadata api-v2.json
 docfx metadata api-v3.json
+docfx metadata api-v4.json
 docfx metadata api-all.json
 ```
 

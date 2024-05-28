@@ -35,12 +35,12 @@
 				</button>
 				<div class="dropdown-menu" aria-labelledby="projects">
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/app-configuration" onClick="$(this).removeAttr('target')">Steeltoe Application Configuration</a>
+					<a class="dropdown-item" href="/api/v4/logging/" onClick="$(this).removeAttr('target')">Steeltoe Dynamic Logging</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/cloud-management" onClick="$(this).removeAttr('target')">Steeltoe Management</a>
-					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/messaging" onClick="$(this).removeAttr('target')">Steeltoe Messaging</a>
-					<a class="dropdown-item" href="~/api/v4/fileshares" onClick="$(this).removeAttr('target')">Steeltoe Network File Shares</a>
+					<a class="dropdown-item" href="/api/v4/fileshares" onClick="$(this).removeAttr('target')">Steeltoe Network File Sharing</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/security-providers" onClick="$(this).removeAttr('target')">Steeltoe Security</a>
+					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/service-connectors" onClick="$(this).removeAttr('target')">Steeltoe Service Connectors</a>
 					<a class="dropdown-item" href="{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}/service-discovery" onClick="$(this).removeAttr('target')">Steeltoe Service Discovery</a>
-					<a class="dropdown-item" href="~/api/v4/stream" onClick="$(this).removeAttr('target')">Steeltoe Stream</a>
 				</div>
 			</li>
 			<li class="nav-item mx-xl-2">
