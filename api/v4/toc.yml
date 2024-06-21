@@ -97,9 +97,7 @@
     - topicHref: security/redis-key-storage-provider.md
       name: Redis Key Storage Provider
     - topicHref: security/sso-open-id.md
-      name: SSO OpenId
-    - topicHref: security/sso-oauth2.md
-      name: SSO OAuth2
+      name: SSO with Open ID Connect
     - topicHref: security/mtls.md
       name: Mutual TLS
 - name: Connectors
