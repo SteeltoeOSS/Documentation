@@ -28,7 +28,7 @@ Since Steeltoe's OpenID Connect library configures Microsoft's OpenID Connect im
 
 ```json
 {
-  // Configure OpenIdConnect to request specific scopes (permissions)
+  // Configure OpenID Connect to request specific scopes (permissions)
   "Authentication": {
     "Schemes": {
       "OpenIdConnect": {
@@ -41,7 +41,7 @@ Since Steeltoe's OpenID Connect library configures Microsoft's OpenID Connect im
 
 #### Cloud Foundry Service Bindings
 
-The Steeltoe package `Steeltoe.Configuration.CloudFoundry.ServiceBinding` reads Single SignOn credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's OpenIdConnect to read. Add the configuration provider to your application with this code:
+The Steeltoe package `Steeltoe.Configuration.CloudFoundry.ServiceBinding` reads Single SignOn credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's OpenID Connect to read. Add the configuration provider to your application with this code:
 
 ```csharp
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -70,7 +70,7 @@ A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/Steel
 }
 ```
 
-### Add and use OpenId Connect
+### Add and use OpenID Connect
 
 Since the majority of the OpenID Connect functionality is provided by Microsoft's libraries, the only difference when using Steeltoe will be the addition of calling `ConfigureOpenIdConnectForCloudFoundry` on the `AuthenticationBuilder`, as shown in the following example:
 
@@ -87,7 +87,7 @@ builder.Services
         options.AccessDeniedPath = new PathString("/Home/AccessDenied");
     })
     .AddOpenIdConnect()
-    // Steeltoe: configure OpenId Connect to work with UAA/Cloud Foundry
+    // Steeltoe: configure OpenID Connect to work with UAA/Cloud Foundry
     .ConfigureOpenIdConnectForCloudFoundry();
 
 // Register Microsoft Authorization services
@@ -103,7 +103,7 @@ Direct ASP.NET Core to activate authentication and authorization services after 
 ```csharp
 WebApplication app = builder.Build();
 
-// Direct ASP.NET Core to use forwarded header information in order to generate links correctly when behind a reverse-proxy (eg: when in Cloud Foundry)
+// Use forwarded headers so that links generate correctly behind a reverse-proxy (eg: when in Cloud Foundry)
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedProto });
 
 app.UseRouting();

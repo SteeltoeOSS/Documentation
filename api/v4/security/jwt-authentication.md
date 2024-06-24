@@ -95,12 +95,12 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy(Globals.RequiredJwtScope, policy => policy.RequireClaim("scope", Globals.RequiredJwtScope))
 ```
 
-Direct ASP.NET Core to activate authentication and authorization services after routing services, but before controller route registrations with the following code:
+Activate authentication and authorization services after routing services, but before controller route registrations with the following code:
 
 ```csharp
 WebApplication app = builder.Build();
 
-// Direct ASP.NET Core to use forwarded header information in order to generate links correctly when behind a reverse-proxy (eg: when in Cloud Foundry)
+// Use forwarded headers so that links generate correctly behind a reverse-proxy (eg: when in Cloud Foundry)
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedProto });
 
 app.UseRouting();
