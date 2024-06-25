@@ -98,7 +98,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy(Globals.RequiredJwtScope, policy => policy.RequireClaim("scope", Globals.RequiredJwtScope))
 ```
 
-Direct ASP.NET Core to activate authentication and authorization services after routing services, but before controller route registrations with the following code:
+Direct ASP.NET Core to activate authentication and authorization services after routing services, but before controller route registrations, with the following code:
 
 ```csharp
 WebApplication app = builder.Build();

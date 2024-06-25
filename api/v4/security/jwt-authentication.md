@@ -95,7 +95,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy(Globals.RequiredJwtScope, policy => policy.RequireClaim("scope", Globals.RequiredJwtScope))
 ```
 
-Activate authentication and authorization services after routing services, but before controller route registrations with the following code:
+Activate authentication and authorization services after routing services, but before controller route registrations, with the following code:
 
 ```csharp
 WebApplication app = builder.Build();

@@ -10,7 +10,7 @@ In order to use this provider, the following steps are required:
 1. Add identity certificates to configuration
 1. Configure authentication and authorization services
 1. Include services in ASP.NET Core pipeline
-1. Secure Endpoints
+1. Secure endpoints
 1. Attach certificate to requests to secured endpoints
 
 ### Add NuGet Reference
@@ -21,7 +21,7 @@ To use Certificate Authorization, you need to add a reference to the `Steeltoe.S
 
 ### Configure Settings
 
-In a Cloud Foundry setting, instance identity certificates are automatically provisioned (and rotated on a regular basis) for each application instance. Steeltoe provides the `AddAppInstanceIdentityCertificate` extension to find the location of the certificate files from the environment variables `CF_INSTANCE_CERT` and `CF_INSTANCE_KEY`. When running outside of Cloud Foundry, this extension will automatically generate similar certificates. Use the optional parameters to coordinate `organizationId` and/or `spaceId` between your applications to facilitate communication when running outside of Cloud Foundry.
+In a Cloud Foundry environment, instance identity certificates are automatically provisioned (and rotated on a regular basis) for each application instance. Steeltoe provides the `AddAppInstanceIdentityCertificate` extension method to find the location of the certificate files from the environment variables `CF_INSTANCE_CERT` and `CF_INSTANCE_KEY`. When running outside of Cloud Foundry, this method will automatically generate similar certificates. Use the optional parameters to coordinate `organizationId` and/or `spaceId` between your applications to facilitate communication when running outside of Cloud Foundry.
 
 This code adds the certificate paths to configuration for use later (and generates the instance identity certificate when running outside Cloud Foundry):
 
@@ -35,24 +35,24 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddAppInstanceIdentityCertificate(new Guid(organizationId), new Guid(spaceId));
 ```
 
-When running locally, the code show above will create a chain of self-signed certificates and the application instance identity certificate will have a subject containing an OrgId of `a8fef16f-94c0-49e3-aa0b-ced7c3da6229` and a SpaceId of `122b942a-d7b9-4839-b26e-836654b9785f`. A root certificate and intermediate certificate are created on disk one level above the current project in a directory named `GeneratedCertificates`. The root and intermediate certificates will automatically be shared between applications housed within the same solution so that the applications will be able to trust each other.
+When running locally, the code shown above will create a chain of self-signed certificates and the application instance identity certificate will have a subject containing an OrgId of `a8fef16f-94c0-49e3-aa0b-ced7c3da6229` and a SpaceId of `122b942a-d7b9-4839-b26e-836654b9785f`. A root certificate and intermediate certificate are created on disk one level above the current project in a directory named `GeneratedCertificates`. The root and intermediate certificates will automatically be shared between applications housed within the same solution, so that the applications will be able to trust each other.
 
 >This step is required on all applications that are participating in certificate authorization.
 
 ### Securing Endpoints
 
-In order to use identity certificates for authorization in a service application, services need to be configured and activated and polices need to be applied.
+In order to authorize incoming requests using an identity certificate, services need to be configured and activated, and polices need to be applied.
 
 #### Adding and using services
 
-Several steps need to happen before certificate authorization policies can used to secure resources:
+Several steps need to happen before certificate authorization policies can be used to secure resources:
 
 1. Configuration values need to be bound into named `CertificateOptions`
 1. Certificate files need to be monitored for changes (to stay up to date when certificates are rotated)
 1. Certificate forwarding needs to be configured (so that ASP.NET reads the certificate out of an HTTP Header)
 1. Authentication services need to be added
 1. Authorization services and policies need to be added
-1. Middlewares need to be activated
+1. Middleware need to be activated
 
 Fortunately, all of the requirements can be satisfied with a handful of extension methods:
 
@@ -74,7 +74,8 @@ To activate certificate-based authorization in the request pipeline, use the `IA
 
 ```csharp
 WebApplication app = builder.Build();
-// Steeltoe: Use certificate and header forwarding along with ASP.NET Core Authentication and Authorization middlewares
+
+// Steeltoe: Use certificate and header forwarding along with ASP.NET Core Authentication and Authorization middleware
 app.UseCertificateAuthorization();
 ```
 
@@ -124,7 +125,7 @@ public class HomeController : ControllerBase
 }
 ```
 
-In the preceding example, when an incoming request is made to the `SameOrgCheck` endpoint, the request is evaluated for the presence of a certificate. If a certificate is not present, the request is rejected. If a certificate is present, the subject is evaluated for the presence of an `org` value, which is then compared with the `org` value in the certificate found on disk where the service is deployed. If the values do not match, the request is rejected. The same process is applied for `SameSpaceCheck`, with the only difference being a check for the `space` value instead of the `org` value.
+In the preceding example, when an incoming request is made to the `SameOrgCheck` endpoint, the request is evaluated for the presence of a certificate. If a certificate is not present, the user is denied access. If a certificate is present, its subject is evaluated for the presence of an `org` value, which is then compared with the `org` value in the certificate found on disk where the service is deployed. If the values do not match, the user is denied access. The same process is applied for `SameSpaceCheck`, with the only difference being a check for the `space` value instead of the `org` value.
 
 >This step is only required on services that are receiving certificate-authorized requests
 
@@ -134,7 +135,7 @@ In order to use app instance identity certificates in a client application, serv
 
 #### IHttpClientFactory integration
 
-For applications that are only using identity certificates to make requests, Steeltoe provides a smooth experience through an `IHttpClientBuilder` extension method named `AddAppInstanceIdentityCertificate`. This extension invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes and attaches the certificate to all outbound requests using a named `HttpClient`.
+For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an `IHttpClientBuilder` extension method named `AddAppInstanceIdentityCertificate`. This method invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes, and attaches the certificate to all outbound requests using a named `HttpClient`.
 
 >If needed, see the Microsoft documentation on [IHttpClientFactory documentation](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests)
 
