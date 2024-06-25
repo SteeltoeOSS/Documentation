@@ -116,7 +116,8 @@ app.MapDefaultControllerRoute();
 app.Run();
 ```
 
->In the sample code above, app.UseForwardedHeaders is used so that any links generated within the application will be compatible with reverse-proxy scenarios, such as when running in Cloud Foundry.
+> [!TIP]
+> In the sample code above, app.UseForwardedHeaders is used so that any links generated within the application will be compatible with reverse-proxy scenarios, such as when running in Cloud Foundry.
 
 ### Securing Endpoints
 

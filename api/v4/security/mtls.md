@@ -17,7 +17,8 @@ In order to use this provider, the following steps are required:
 
 To use Certificate Authorization, you need to add a reference to the `Steeltoe.Security.Authorization.Certificate` NuGet package.
 
->This step is required on all applications that are participating in certificate authorization.
+> [!NOTE]
+> This step is required on all applications that are sending or receiving certificate-authorized requests.
 
 ### Configure Settings
 
@@ -37,7 +38,8 @@ builder.Configuration.AddAppInstanceIdentityCertificate(new Guid(organizationId)
 
 When running locally, the code shown above will create a chain of self-signed certificates and the application instance identity certificate will have a subject containing an OrgId of `a8fef16f-94c0-49e3-aa0b-ced7c3da6229` and a SpaceId of `122b942a-d7b9-4839-b26e-836654b9785f`. A root certificate and intermediate certificate are created on disk one level above the current project in a directory named `GeneratedCertificates`. The root and intermediate certificates will automatically be shared between applications housed within the same solution, so that the applications will be able to trust each other.
 
->This step is required on all applications that are participating in certificate authorization.
+> [!NOTE]
+> This step is required on all applications that are sending or receiving certificate-authorized requests.
 
 ### Securing Endpoints
 
@@ -70,6 +72,9 @@ builder.Services.AddAuthorizationBuilder()
     .AddOrgAndSpacePolicies();
 ```
 
+> [!TIP]
+> Steeltoe configures the certificate forwarding middleware to look for a certificate in the `X-Client-Cert` header.
+
 To activate certificate-based authorization in the request pipeline, use the `IApplicationBuilder` extension method `UseCertificateAuthorization`:
 
 ```csharp
@@ -88,20 +93,22 @@ builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies()
 
 // Requirement classes are public
 builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies()
-        .AddFallbackPolicy("sameOrgAndSpace",
+        .AddPolicy("sameOrgAndSpace",
             authorizationPolicyBuilder => authorizationPolicyBuilder.AddRequirements([
                 new SameOrgRequirement(),
                 new SameSpaceRequirement()
             ]));
 ```
 
->These steps are only required on services that are receiving certificate-authorized requests
+> [!NOTE]
+> These steps are only required on applications that are receiving certificate-authorized requests.
 
 #### Applying Authorization Polices
 
 As implied by the name of the extension method `AddOrgAndSpacePolicies` from the previous section on this page, Steeltoe provides policies for validating that a request came from an application in the same org or the same space. You can secure endpoints by using the standard ASP.NET Core `Authorize` attribute with one of these security policies.
 
->If needed, see the Microsoft documentation on [authorization in ASP.NET Core](https://learn.microsoft.com/aspnet/core/security/authorization/introduction) for a better understanding of how to use these attributes.
+> [!TIP]
+> If needed, see the Microsoft documentation on [authorization in ASP.NET Core](https://learn.microsoft.com/aspnet/core/security/authorization/introduction) for a better understanding of how to use these attributes.
 
 The following example shows a controller using the security attributes with the included policies:
 
@@ -122,12 +129,20 @@ public class HomeController : ControllerBase
     {
         return "Certificate is valid and both client and server are in the same space";
     }
+
+    [Authorize("sameOrgAndSpace")]
+    [HttpGet("[action]")]
+    public string SameOrgAndSpaceCheck()
+    {
+        return "Certificate is valid and both client and server are in the same org and space";
+    }
 }
 ```
 
 In the preceding example, when an incoming request is made to the `SameOrgCheck` endpoint, the request is evaluated for the presence of a certificate. If a certificate is not present, the user is denied access. If a certificate is present, its subject is evaluated for the presence of an `org` value, which is then compared with the `org` value in the certificate found on disk where the service is deployed. If the values do not match, the user is denied access. The same process is applied for `SameSpaceCheck`, with the only difference being a check for the `space` value instead of the `org` value.
 
->This step is only required on services that are receiving certificate-authorized requests
+> [!NOTE]
+> This step is only required on applications that are receiving certificate-authorized requests.
 
 ### Communicating with Secured Services
 
@@ -135,12 +150,14 @@ In order to use app instance identity certificates in a client application, serv
 
 #### IHttpClientFactory integration
 
-For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an `IHttpClientBuilder` extension method named `AddAppInstanceIdentityCertificate`. This method invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes, and attaches the certificate to all outbound requests using a named `HttpClient`.
+For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an `IHttpClientBuilder` extension method named `AddAppInstanceIdentityCertificate`. This method invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes, and places the certificate in a header named `X-Client-Cert` on all outbound requests.
 
->If needed, see the Microsoft documentation on [IHttpClientFactory documentation](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests)
+> [!TIP]
+> If needed, see the Microsoft documentation on [IHttpClientFactory documentation](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests)
 
 ```csharp
-builder.Services.AddHttpClient("AppInstanceIdentity", SetBaseAddress).AddAppInstanceIdentityCertificate();
+builder.Services.AddHttpClient("AppInstanceIdentity").AddAppInstanceIdentityCertificate();
 ```
 
->This step is only required on services that are sending certificate-authorized requests
+> [!NOTE]
+> This step is only required on applications that are sending certificate-authorized requests.
