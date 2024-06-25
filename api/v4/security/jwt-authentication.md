@@ -28,14 +28,14 @@ To use the provider, you need to add a reference to the `Steeltoe.Security.Authe
 
 Since Steeltoe's OpenID Connect library configures Microsoft's JWT Bearer implementation, all available settings can be found in [`Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions)
 
-`JwtBearerOptions` is bound to configuration values found under `Authentication:Schemes:Bearer`. The following example shows how to declare an additional audience for which tokens should be considered valid (such as when a token is issued to a web application and passed to backend services to perform actions on behalf of a user):
+`JwtBearerOptions` is bound to configuration values found under `Authentication:Schemes:Bearer`. The following example shows how to declare the audience for which tokens should be considered valid (such as when a token is issued to a specific web application and then passed to backend services to perform actions on behalf of a user):
 
 ```json
 {
   "Authentication": {
     "Schemes": {
       "Bearer": {
-        "ValidAudience": "sampleapi"
+        "Audience": "steeltoesamplesclient"
       }
     }
   }
