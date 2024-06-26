@@ -73,7 +73,7 @@ builder.Services.AddAuthorizationBuilder()
 ```
 
 > [!TIP]
-> Steeltoe configures the certificate forwarding middleware to look for a certificate in the `X-Client-Cert` header.
+> Steeltoe configures the certificate forwarding middleware to look for a certificate in the `X-Client-Cert` HTTP header.
 
 To activate certificate-based authorization in the request pipeline, use the `IApplicationBuilder` extension method `UseCertificateAuthorization`:
 
@@ -150,7 +150,7 @@ In order to use app instance identity certificates in a client application, serv
 
 #### IHttpClientFactory integration
 
-For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an `IHttpClientBuilder` extension method named `AddAppInstanceIdentityCertificate`. This method invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes, and places the certificate in a header named `X-Client-Cert` on all outbound requests.
+For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an `IHttpClientBuilder` extension method named `AddAppInstanceIdentityCertificate`. This method invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes, and places the certificate in an HTTP header named `X-Client-Cert` on all outbound requests.
 
 > [!TIP]
 > If needed, see the Microsoft documentation on [IHttpClientFactory documentation](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests)
