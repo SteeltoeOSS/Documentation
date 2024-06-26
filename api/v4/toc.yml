@@ -22,8 +22,6 @@
       name: Encryption Resolver
     - topicHref: configuration/cloud-foundry-provider.md
       name: Cloud Foundry Provider
-    - topicHref: configuration/kubernetes-providers.md
-      name: Kubernetes Providers
     - topicHref: configuration/hosting-extensions.md
       name: Hosting Extensions
 - name: Distributed Tracing
@@ -77,13 +75,6 @@
       name: /refresh
     - topicHref: management/threaddump.md
       name: /threaddump
-- name: Messaging
-  topicHref: messaging/
-  items:
-    - topicHref: messaging/rabbitmq-intro.md
-      name: RabbitMQ Introduction
-    - topicHref: messaging/rabbitmq-reference.md
-      name: RabbitMQ Reference
 - name: Network File Sharing
   topicHref: fileshares/
   items:
@@ -135,15 +126,6 @@
         name: Netflix Eureka
     - topicHref: discovery/discovering-services.md
       name: Discovering services
-- name: Stream
-  topicHref: stream/
-  items:
-    - topicHref: stream/stream-reference.md
-      name: Stream Reference
-    - topicHref: stream/rabbit-binder.md
-      name: RabbitMQ Binder
-    - topicHref: stream/data-flow-stream.md
-      name: Spring Cloud Dataflow
 - name: Initializr
   topicHref: initializr/
   items:
