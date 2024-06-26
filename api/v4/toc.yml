@@ -92,16 +92,14 @@
 - name: Security
   topicHref: security/
   items:
+    - topicHref: security/sso-open-id.md
+      name: SSO with Open ID Connect
     - topicHref: security/jwt-authentication.md
       name: JWT for ASP.NET Core
-    - topicHref: security/redis-key-storage-provider.md
-      name: Redis Key Storage Provider
-    - topicHref: security/sso-open-id.md
-      name: SSO OpenId
-    - topicHref: security/sso-oauth2.md
-      name: SSO OAuth2
     - topicHref: security/mtls.md
       name: Mutual TLS
+    - topicHref: security/redis-key-storage-provider.md
+      name: Redis Key Storage Provider
 - name: Connectors
   topicHref: connectors/
   items:
