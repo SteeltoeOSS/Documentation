@@ -46,21 +46,16 @@ namespace WebApplication1
 | --- | --- | --- |
 | [Config Server Configuration](../configuration/config-server-provider.md) | `Steeltoe.Configuration.ConfigServer` | N/A |
 | [Cloud Foundry Configuration](../configuration/cloud-foundry-provider.md) |`Steeltoe.Configuration.CloudFoundry` |  N/A |
-| [Kubernetes Configuration](../configuration/kubernetes-providers.md) |`Steeltoe.Configuration.Kubernetes` |  N/A |
 | [Random Value Provider](../configuration/random-value-provider.md) |`Steeltoe.Configuration.RandomValue` |  N/A |
 | [Placeholder Resolver](../configuration/placeholder-provider.md) |`Steeltoe.Configuration.Placeholder` |  N/A |
 | [Connectors*](../connectors/index.md) |`Steeltoe.Connectors` |  Supported driver (MySQL, PostgreSQL, RabbitMQ, SQL Server, etc) |
 | [Dynamic Serilog](../logging/serilog-logger.md) | `Steeltoe.Logging.DynamicSerilog` | N/A |
-| [Service Discovery](../discovery/index.md) |`Steeltoe.Discovery.Client` | Desired client (Eureka, Consul, Kubernetes)
+| [Service Discovery](../discovery/index.md) |`Steeltoe.Discovery.Client` | Desired client (Eureka, Consul, Configuration) |
 | [Actuators](../management/index.md) | `Steeltoe.Management.Endpoint` | N/A |
-| [Actuators with Cloud Foundry support**](../management/cloud-foundry.md) |`Steeltoe.Management.CloudFoundry` |  N/A |
-| [Actuators with Kubernetes support](../management/index.md) |`Steeltoe.Management.Kubernetes` |  N/A |
 | [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.Tracing` | OpenTelemetry Exporter (Zipkin, Jaeger, OTLP) |
 | [Cloud Foundry Container Identity](../security/mtls.md#configure-settings) | `Steeltoe.Security.Authentication.CloudFoundry` | N/A |
 
 >\* Individual connector clients will only be configured if a corresponding supported driver NuGet package reference is also included.
-
->\*\* Cloud Foundry support is now included in `Steeltoe.Management.Endpoint`. The Cloud Foundry Actuator package is not required and has been marked obsolete in 3.1.0.
 
 ## Excluding Components
 

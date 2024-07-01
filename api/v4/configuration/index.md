@@ -16,7 +16,6 @@ To better understand .NET configuration services, you should read the [ASP.NET C
 Steeltoe adds additional configuration providers to the preceding list:
 
 * Cloud Foundry
-* Kubernetes (Config Maps and Secrets)
 * Placeholder resolvers
 * RandomValue generator
 * Spring Cloud Config Server

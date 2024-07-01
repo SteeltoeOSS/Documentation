@@ -26,11 +26,6 @@ Steeltoe adds a Logging provider to the set of available logging packages, to su
 Steeltoe lets you monitor and manage your application while it runs in production with Steeltoe management.
 [read more](../management/index.md)
 
-## [Messaging](../messaging/index.md)
-
-Steeltoe allows you to automatically wire up and configure messaging in your application. Steeltoe messaging simplifies your configuration and significantly reduces boiler-plate code.
-[read more](../messaging/index.md)
-
 ## [Network File Sharing](../fileshares/index.md)
 
 Steeltoe's WindowsNetworkFileShare provides a simplified experience for interacting with SMB file shares by making P/Invoke calls to underlying Windows APIs, specifically to mpr.dll.
@@ -50,8 +45,3 @@ Steeltoe lets you automatically configure and manage connections to common cloud
 
 Steeltoe includes .NET clients to both register and discover microservices in your registry of choice.
 [read more](../discovery/index.md)
-
-## [Stream](../stream/index.md)
-
-Steeltoe Stream is a framework for building message-driven microservice applications.
-[read more](../stream/index.md)
