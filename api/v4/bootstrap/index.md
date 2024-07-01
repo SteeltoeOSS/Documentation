@@ -50,10 +50,8 @@ namespace WebApplication1
 | [Placeholder Resolver](../configuration/placeholder-provider.md) |`Steeltoe.Configuration.Placeholder` |  N/A |
 | [Connectors*](../connectors/index.md) |`Steeltoe.Connectors` |  Supported driver (MySQL, PostgreSQL, RabbitMQ, SQL Server, etc) |
 | [Dynamic Serilog](../logging/serilog-logger.md) | `Steeltoe.Logging.DynamicSerilog` | N/A |
-| [Service Discovery](../discovery/index.md) |`Steeltoe.Discovery.Client` | Desired client (Eureka, Consul, Kubernetes)
+| [Service Discovery](../discovery/index.md) |`Steeltoe.Discovery.Client` | Desired client (Eureka, Consul, Configuration) |
 | [Actuators](../management/index.md) | `Steeltoe.Management.Endpoint` | N/A |
-| [Actuators with Cloud Foundry support**](../management/cloud-foundry.md) |`Steeltoe.Management.CloudFoundry` |  N/A |
-| [Actuators with Kubernetes support](../management/index.md) |`Steeltoe.Management.Kubernetes` |  N/A |
 | [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.Tracing` | OpenTelemetry Exporter (Zipkin, Jaeger, OTLP) |
 | [Cloud Foundry Container Identity](../security/mtls.md#configure-settings) | `Steeltoe.Security.Authentication.CloudFoundry` | N/A |
 
