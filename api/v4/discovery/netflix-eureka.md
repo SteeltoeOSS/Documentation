@@ -203,25 +203,28 @@ the meaning of the metadata.
 
 ## Configuring mutual TLS
 
-To use mutual TLS authentication in the communication with the Eureka server, follow these steps:
+To use mutual TLS authentication in the communication with the Eureka server,
+add the path to your certificate file(s) to `appsettings.json`. For example:
 
-1. Add a NuGet package reference to `Steeltoe.Common.Security`
-1. From your `Program.cs`, load the client certificate into configuration:
-   ```c#
-   builder.Configuration.AddPemFiles("instance.crt", "instance.key");
-   ```
-   or:
-   ```c#
-   builder.Configuration.AddCertificateFile("instance.p12");
-   ```
-   or add your custom implementation of `ICertificateSource`
-1. Load the certificate into ASP.NET options:
-   ```c#
-   builder.Services.AddSingleton<IConfigureOptions<CertificateOptions>, PemConfigureCertificateOptions>();
-   ```
+```json
+"Certificates": {
+  "Eureka": {
+    "CertificateFilePath": "example.p12"
+  }
+}
+```
+or:
+```json
+"Certificates": {
+  "Eureka": {
+    "CertificateFilePath": "example.crt",
+    "PrivateKeyFilePath": "example.key"
+  }
+}
+```
 
-> [!TIP]
-> You can use a single `ICertificateSource` for both Eureka and [Config Server mTLS connections](../configuration/config-server-provider.md#configuring-mutual-tls).
+> [!NOTE]
+> To support certificate rotation, the configuration keys and the files on disk are automatically monitored for changes.
 
 ### Using custom HTTP headers
 
