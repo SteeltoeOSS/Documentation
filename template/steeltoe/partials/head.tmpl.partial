@@ -1,24 +1,10 @@
 <head>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <!-- OneTrust Cookie Consent -->
-    <meta content='018ee7f5-70e6-7787-8d98-05c8f935c75d' name='onetrust-data-domain'>
-    <meta content='https://tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.js' name='microsites-utag'>
-    <script src='//www.vmware.com/files/templates/inc/utag_data.js'></script>
-    <script src='//tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.sync.js'></script>
-    <script>function OptanonWrapper() { { window.dataLayer.push({ event: 'OneTrustGroupsUpdated' }); } }</script>
-    <script>
-        function setGTM(w,d,s,l,i){ w[l]=w[l]||[]; w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'}); var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:''; j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); }
-        if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) { setGTM(window,document,'script','dataLayer','GTM-MMDFJKF'); } else{ waitForOnetrustActiveGroups(); } var timer; function waitForOnetrustActiveGroups() { if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) { clearTimeout(timer); setGTM(window,document,'script','dataLayer','GTM-MMDFJKF'); } else{ timer=setTimeout(waitForOnetrustActiveGroups, 250); } }
-    </script>
-  <!-- End OneTrust Cookie Consent -->
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114912118-4"></script>
+  <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-domain-script="018ee7f5-70e6-7787-8d98-05c8f935c75d"></script>
+  <script>function OptanonWrapper() { }</script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-114912118-4');
+    function setGTM(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
+    if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){setGTM(window,document,'script','dataLayer','GTM-MMDFJKF');}else{waitForOnetrustActiveGroups();}var timer;function waitForOnetrustActiveGroups(){if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){clearTimeout(timer);setGTM(window,document,'script','dataLayer','GTM-MMDFJKF');}else{timer=setTimeout(waitForOnetrustActiveGroups,250);}}
   </script>
 
   <meta charset="utf-8">
