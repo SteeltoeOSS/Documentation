@@ -18,12 +18,12 @@
       name: Random Value Provider
     - topicHref: configuration/placeholder-provider.md
       name: Placeholder Provider
-    - topicHref: configuration/encryption-resolver.md
-      name: Encryption Resolver
+    - topicHref: configuration/decryption-provider.md
+      name: Decryption Provider
     - topicHref: configuration/cloud-foundry-provider.md
       name: Cloud Foundry Provider
-    - topicHref: configuration/hosting-extensions.md
-      name: Hosting Extensions
+    - topicHref: configuration/spring-boot-provider.md
+      name: Spring Boot Provider
 - name: Distributed Tracing
   topicHref: tracing/
   items:

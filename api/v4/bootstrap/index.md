@@ -28,7 +28,7 @@ builder.AddSteeltoe();
 | [Random Value Provider](../configuration/random-value-provider.md) |`Steeltoe.Configuration.RandomValue` |  N/A |
 | [Placeholder Resolver](../configuration/placeholder-provider.md) |`Steeltoe.Configuration.Placeholder` |  N/A |
 | [Encrypted Configuration](../configuration/decryption-provider.md) | `Steeltoe.Configuration.Encryption` | N/A |
-| Spring Boot Configuration | `Steeltoe.Configuration.SpringBoot` | N/A |
+| [Spring Boot Configuration](../configuration/spring-boot-provider.md) | `Steeltoe.Configuration.SpringBoot` | N/A |
 | [Connectors](../connectors/index.md) |`Steeltoe.Connectors` |  Required: Supported driver [^1] (MySQL, PostgreSQL, SQL Server, MongoDB, CosmosDB, Redis, RabbitMQ) |
 | [Eureka Service Discovery](../discovery/netflix-eureka.md) |`Steeltoe.Discovery.Eureka` | Optional: `Steeltoe.Management.Endpoint` for health checks |
 | [Consul Service Discovery](../discovery/hashicorp-consul.md) |`Steeltoe.Discovery.Consul` | N/A |

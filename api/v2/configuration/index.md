@@ -20,4 +20,4 @@ Steeltoe adds four additional configuration providers to the preceding list:
 * Placeholder resolvers
 * RandomValue generator
 
-The following sections provide more more detail on each of these new providers.
+The following sections provide more detail on each of these new providers.
