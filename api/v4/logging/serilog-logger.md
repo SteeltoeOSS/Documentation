@@ -1,16 +1,12 @@
 # Serilog Dynamic Logger
 
-This logging provider extends the dynamic logging provider with [Serilog](https://serilog.net/). This allows logger levels configured via Serilog to be queried and modified at runtime via the loggers endpoint.
-
-The source code for the Serilog Dynamic Logger can be found [here](https://github.com/SteeltoeOSS/steeltoe/tree/master/src/Logging/src/).
-
-A sample working project can be found [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/CloudFoundry).
+This logging provider extends the dynamic logging provider with [Serilog](https://serilog.net/). This allows logger minimum levels configured via Serilog to be queried and modified at runtime via the [loggers actuator](../management/loggers.md).
 
 ## Usage
 
-In order to use the Serilog Dynamic Logger, you need to do the following:
+To use the Serilog Dynamic Logger, you need to do the following:
 
-1. Add the Logging NuGet package references to your project.
+1. Add the appropriate NuGet package reference to your project.
 1. Configure Logging settings.
 1. Add the Serilog Dynamic Logger to the logging builder.
 
@@ -20,95 +16,114 @@ To use the logging provider, you need to add a reference to the `Steeltoe.Loggin
 
 ### Configure Settings
 
-As mentioned earlier, the Serilog Dynamic Logger provider extends Serilog. Consequently, you can configure it the same way you would Serilog. For more details on how this is done, see the section on [Serilog-Settings-Configuration](https://github.com/serilog/serilog-settings-configuration).
+As mentioned earlier, the Serilog Dynamic Logger provider extends Serilog. Consequently, you can configure it the same way you would Serilog. For more details on how this is done, see [Serilog-Settings-Configuration](https://github.com/serilog/serilog-settings-configuration).
 
 ```json
-...
-"Serilog": {
-    "IncludeScopes": false,
+{
+  "Serilog": {
     "MinimumLevel": {
-        "Default": "Warning",
-        "Override": {
-            "Microsoft": "Warning",
-            "Steeltoe": "Information",
-            "CloudFoundry.Controllers": "Verbose"
-        }
+      "Default": "Warning",
+      "Override": {
+        "Microsoft": "Warning",
+        "Steeltoe": "Information",
+        "MyApp": "Verbose"
+      }
     },
-    "WriteTo": [{
+    "WriteTo": [
+      {
         "Name": "Console",
         "Args": {
-            "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Properties} {NewLine} {EventId} {Message:lj}{NewLine}{Exception}"
+          "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Properties}{NewLine}  {Message:lj}{NewLine}{Exception}"
         }
-    }],
-    "Enrich": ["FromLogContext", "WithMachineName", "WithThreadId"]
-},
-...
+      }
+    ],
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ]
+  }
+}
+```
+
+Alternatively, configuration can be built from code using the Serilog API:
+
+```c#
+using Serilog;
+using Serilog.Events;
+
+var serilogConfiguration = new LoggerConfiguration()
+    .MinimumLevel.Warning()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+    .MinimumLevel.Override("Steeltoe", LogEventLevel.Information)
+    .MinimumLevel.Override("MyApp", LogEventLevel.Verbose)
+    .WriteTo.Console(outputTemplate:
+        "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Properties}{NewLine}  {Message:lj}{NewLine}{Exception}")
+    .Enrich.FromLogContext();
 ```
 
 ### Add Serilog Dynamic Logger
 
-In order to use this logging provider, you need to add it to the logging builder. Steeltoe provides methods to add directly to `ILoggingBuilder`, along with convenience methods for adding to `HostBuilder` and `WebHostBuilder`.
-
-#### HostBuilder
-
-The following example shows usage of the `HostBuilder` extension:
+To use this logging provider, you need to add it to the logging builder by using the `AddDynamicSerilog()` extension method:
 
 ```csharp
 using Steeltoe.Logging.DynamicSerilog;
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        var host = Host.CreateDefaultBuilder()
-            .UseStartup<Startup>()
-            .AddDynamicSerilog()
-            .Build();
 
-        host.Run();
-    }
-}
+var builder = WebApplication.CreateBuilder(args);
+builder.Logging.AddDynamicSerilog();
 ```
 
-#### LoggingBuilder
-
-The following example shows usage of the `ILoggingBuilder` extension:
-
-```csharp
-using Steeltoe.Logging.DynamicSerilog;
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        var host = WebHost.CreateDefaultBuilder()
-            .UseStartup<Startup>()
-            .ConfigureLogging((builderContext, loggingBuilder) =>
-            {
-                // Add Serilog Dynamic Logger
-                loggingBuilder.AddDynamicSerilog();
-            })
-            .Build();
-
-        host.Run();
-    }
-}
+If you built the Serilog configuration from code, use the appropriate overload instead:
+```c#
+builder.Logging.AddDynamicSerilog(serilogConfiguration);
 ```
 
-#### WebHostBuilder
+### Serilog API usage
 
-The following example shows usage of the `WebHostBuilder` extension:
+Because dynamic logging is built on the `Microsoft.Extensions.Logging` abstractions, changing log levels dynamically **won't work** if you're using Serilog's static `Log` class directly.
 
-```csharp
+```c#
+using Serilog;
+
+// Use ILogger instead.
+Log.Warning("DO NOT USE!");
+```
+
+Instead, use the injectable `ILogger` interface to log messages, and the `ILoggerFactory` interface to create loggers.
+
+```c#
 using Steeltoe.Logging.DynamicSerilog;
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        var host = WebHost.CreateDefaultBuilder()
-            .UseStartup<Startup>()
-            .AddDynamicSerilog()
-            .Build();
 
-        host.Run();
-    }
+var builder = WebApplication.CreateBuilder(args);
+builder.Logging.AddDynamicSerilog();
+
+var app = builder.Build();
+
+var programLogger = app.Services.GetRequiredService<ILogger<Program>>();
+programLogger.LogInformation("Hello from Program.");
+
+var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
+var exampleLogger = loggerFactory.CreateLogger("Example");
+exampleLogger.LogInformation("Hello from Example.");
+```
+
+The Serilog dynamic logger supports the use of logger scopes, as well as Serilog's enrichers and destructuring.
+
+```c#
+using Serilog.Context;
+using Steeltoe.Logging.DynamicSerilog;
+
+var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
+var logger = loggerFactory.CreateLogger("Example");
+
+// ILogger scopes.
+using (logger.BeginScope("ExampleScope"))
+{
+    logger.LogInformation("Hello from Example.");
 }
+
+// Serilog enrichers.
+using (LogContext.PushProperty("SerilogExampleScope", 123))
+{
+    logger.LogInformation("Hello from Example.");
+}
+
+// Serilog destructuring.
+logger.LogInformation("App started with {ArgCount} arguments.", args.Length);
 ```
