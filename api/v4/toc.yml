@@ -59,8 +59,8 @@
       name: /heapdump
     - topicHref: management/hypermedia.md
       name: /hypermedia
-    - topicHref: management/httptrace.md
-      name: /httptrace
+    - topicHref: management/httpexchanges.md
+      name: /httpexchanges
     - topicHref: management/info.md
       name: /info
     - topicHref: management/loggers.md
