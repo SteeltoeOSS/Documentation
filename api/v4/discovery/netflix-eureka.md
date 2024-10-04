@@ -10,7 +10,7 @@ sending periodic heartbeats to the Eureka server, and also periodically fetching
 
 To use this discovery client, add a NuGet package reference to `Steeltoe.Discovery.Eureka` and initialize it from your `Program.cs`:
 
-```c#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Steeltoe: Add service discovery client for Eureka.
@@ -185,7 +185,7 @@ You can add additional metadata to instance registrations by using the configura
 The key/value pairs you supply there are added to the service registration and become accessible in remote clients.
 
 When the metadata varies over time, depending on contextual information, it can be updated from code as well:
-```c#
+```csharp
 var appManager = app.Services.GetRequiredService<EurekaApplicationInfoManager>();
 appManager.UpdateInstance(newStatus: null, newOverriddenStatus: null,
     newMetadata: new Dictionary<string, string?>(appManager.Instance.Metadata)
@@ -226,24 +226,16 @@ or:
 > [!NOTE]
 > To support certificate rotation, the configuration keys and the files on disk are automatically monitored for changes.
 
+> [!TIP]
+> A single certificate can be shared with both Config Server and Eureka, by using the key "Certificates" instead of "Certificates:Eureka".
+
 ### Using custom HTTP headers
 
-The communication with Eureka server uses the `HttpClientFactory` [pattern](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests),
+The communication with Eureka server uses the `HttpClientFactory` [pattern](https://learn.microsoft.com/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests),
 which makes it aware of DNS changes over time and enables to tweak the handler pipeline.
 
 To send a custom HTTP header with every request, create a `DelegatingHandler` and add it to the pipeline:
-```c#
-public sealed class ExtraRequestHeaderDelegatingHandler : DelegatingHandler
-{
-    protected override Task<HttpResponseMessage> SendAsync(
-        HttpRequestMessage request, CancellationToken cancellationToken)
-    {
-        request.Headers.Add("X-Example", "ExampleValue");
-        return base.SendAsync(request, cancellationToken);
-    }
-}
-
-// In Program.cs:
+```csharp
 builder.Services.AddEurekaDiscoveryClient();
 builder.Services.AddTransient<ExtraRequestHeaderDelegatingHandler>();
 
@@ -254,6 +246,15 @@ builder.Services.Configure<HttpClientFactoryOptions>("Eureka", options =>
             handlerBuilder.Services.GetRequiredService<ExtraRequestHeadersDelegatingHandler>()));
 });
 
+public sealed class ExtraRequestHeaderDelegatingHandler : DelegatingHandler
+{
+    protected override Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        request.Headers.Add("X-Example", "ExampleValue");
+        return base.SendAsync(request, cancellationToken);
+    }
+}
 ```
 
 > [!NOTE]
