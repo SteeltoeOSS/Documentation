@@ -47,10 +47,10 @@ The following example `appsettings.json` uses the docker container from above:
 
 Update your `Program.cs` as below to initialize the Connector:
 
-```c#
+```csharp
 using Steeltoe.Connectors.Redis;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddRedis();
 ```
 
