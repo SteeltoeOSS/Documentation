@@ -11,7 +11,7 @@ The client fetches no service registrations until asked for, and doesn't cache t
 
 To use this discovery client, add a NuGet package reference to `Steeltoe.Discovery.Consul` and initialize it from your `Program.cs`:
 
-```c#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Steeltoe: Add service discovery client for Consul.

@@ -10,7 +10,7 @@ sending periodic heartbeats to the Eureka server, and also periodically fetching
 
 To use this discovery client, add a NuGet package reference to `Steeltoe.Discovery.Eureka` and initialize it from your `Program.cs`:
 
-```c#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Steeltoe: Add service discovery client for Eureka.
@@ -36,7 +36,7 @@ we recommend that you use the defaults.
 
 ### General
 
-The following table describes the settings that control the overall behavior of the client.
+The following table describes the configuration settings that control the overall behavior of the client.
 All of these settings should start with `Eureka:Client:`.
 
 | Key | Description | Default |
@@ -44,10 +44,10 @@ All of these settings should start with `Eureka:Client:`.
 | `Enabled` | Whether to enable the Eureka client. | `true` |
 | `ServiceUrl` | Comma-delimited list of Eureka server endpoints. | `http://localhost:8761/eureka/` |
 | `AccessTokenUri` | URL to obtain OAuth2 access token from, before connecting to the Eureka server. | |
-| `ClientId` | Client ID for obtaining access token. | |
-| `ClientSecret` | Secret for obtaining access token. | |
+| `ClientId` | Client ID for obtaining an access token. | |
+| `ClientSecret` | Secret for obtaining an access token. | |
 | `Validate_Certificates` | Whether the client validates server certificates. | `true` |
-| `EurekaServer:ShouldGZipContent` | Whether to auto-decompress responses from Eureka server. | `true` |
+| `EurekaServer:ShouldGZipContent` | Whether to auto-decompress responses from the Eureka server. | `true` |
 | `EurekaServer:RetryCount` | Number of times to retry Eureka server requests. | `2` |
 | `EurekaServer:ConnectTimeoutSeconds` | How long to wait (in seconds) before a connection to the Eureka server times out. | `5` |
 | `EurekaServer:ProxyHost` | Proxy hostname used in contacting the Eureka server. | |
@@ -58,7 +58,7 @@ All of these settings should start with `Eureka:Client:`.
 
 ### Registration
 
-The settings below pertain to registering the currently running app as a service instance in Eureka.
+The configuration settings below pertain to registering the currently running app as a service instance in Eureka.
 All of these settings should start with `Eureka:Client:`.
 
 | Key | Description | Default |
@@ -66,7 +66,7 @@ All of these settings should start with `Eureka:Client:`.
 | `ShouldRegisterWithEureka` | Whether to register the running app as a service instance. | `true` |
 | `Health:CheckEnabled` | Whether to query ASP.NET health checks and `IHealthContributor`s during registration and renewals, in order to determine the status of the running app to report back to Eureka (see section below). | `true` |
 
-Additionally, the table below lists the settings that control *how* to register the instance.
+Additionally, the table below lists the configuration settings that control *how* to register the instance.
 All of these settings should start with `Eureka:Instance:`.
 
 | Key | Description | Default |
@@ -114,7 +114,7 @@ Once the app has fully started, the assigned port numbers are updated in Eureka,
 
 ### Querying
 
-The settings that pertain to querying the Eureka registry for apps (used by the load balancers during service discovery) are listed below.
+The configuration settings that pertain to querying the Eureka registry for apps (used by the load balancers during service discovery) are listed below.
 All of these settings should start with `Eureka:Client:`.
 
 | Key | Description | Default |
@@ -182,10 +182,10 @@ is associated with every service registration. These are published in the servic
 to contact the services in a straightforward way.
 
 You can add additional metadata to instance registrations by using the configuration setting `Eureka:Instance:MetadataMap`.
-The key/value pairs you supply there are added to the service registration and become accessible in remote clients.
+The key/value pairs you supply there are added to the service registration and become accessible to remote clients.
 
 When the metadata varies over time, depending on contextual information, it can be updated from code as well:
-```c#
+```csharp
 var appManager = app.Services.GetRequiredService<EurekaApplicationInfoManager>();
 appManager.UpdateInstance(newStatus: null, newOverriddenStatus: null,
     newMetadata: new Dictionary<string, string?>(appManager.Instance.Metadata)
@@ -226,24 +226,16 @@ or:
 > [!NOTE]
 > To support certificate rotation, the configuration keys and the files on disk are automatically monitored for changes.
 
+> [!TIP]
+> A single certificate can be shared with both Config Server and Eureka, by using the key "Certificates" instead of "Certificates:Eureka".
+
 ### Using custom HTTP headers
 
-The communication with Eureka server uses the `HttpClientFactory` [pattern](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests),
+The communication with Eureka server uses the `HttpClientFactory` [pattern](https://learn.microsoft.com/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests),
 which makes it aware of DNS changes over time and enables to tweak the handler pipeline.
 
 To send a custom HTTP header with every request, create a `DelegatingHandler` and add it to the pipeline:
-```c#
-public sealed class ExtraRequestHeaderDelegatingHandler : DelegatingHandler
-{
-    protected override Task<HttpResponseMessage> SendAsync(
-        HttpRequestMessage request, CancellationToken cancellationToken)
-    {
-        request.Headers.Add("X-Example", "ExampleValue");
-        return base.SendAsync(request, cancellationToken);
-    }
-}
-
-// In Program.cs:
+```csharp
 builder.Services.AddEurekaDiscoveryClient();
 builder.Services.AddTransient<ExtraRequestHeaderDelegatingHandler>();
 
@@ -254,6 +246,15 @@ builder.Services.Configure<HttpClientFactoryOptions>("Eureka", options =>
             handlerBuilder.Services.GetRequiredService<ExtraRequestHeadersDelegatingHandler>()));
 });
 
+public sealed class ExtraRequestHeaderDelegatingHandler : DelegatingHandler
+{
+    protected override Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        request.Headers.Add("X-Example", "ExampleValue");
+        return base.SendAsync(request, cancellationToken);
+    }
+}
 ```
 
 > [!NOTE]
