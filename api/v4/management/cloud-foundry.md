@@ -5,108 +5,55 @@ Integration with Apps Manager is accomplished by adding the Cloud Foundry manage
 * Provides an alternate, secured route to the endpoints expected by Apps Manager and configured in your application.
 * Exposes an endpoint that can be queried to return the IDs of and links to the enabled management endpoints in the application.
 * Adds Cloud Foundry security middleware to the request pipeline, to secure access to the management endpoints by using security tokens acquired from the UAA.
-* Adds extension methods that simplify adding the Steeltoe management endpoints necessary for Apps Manager integration with HTTP access to the application.
 
->NOTE: The Cloud Foundry integration will not work unless the [Cloud Foundry Configuration Provider](../configuration/cloud-foundry-provider.md) has also been configured.
+> [!NOTE]
+> The Cloud Foundry integration will not work unless the [Cloud Foundry Configuration Provider](../configuration/cloud-foundry-provider.md) has also been configured.
 
 ## Security
 
-When adding this management endpoint to your application, the Cloud Foundry security middleware is added to the request processing pipeline of your application to enforce that, when a request is made of any of the management endpoints, a valid UAA access token is provided as part of that request. Additionally, the security middleware uses the token to determine whether the authenticated user has permission to access the management endpoint.
+When adding this management endpoint to your application, the Cloud Foundry security middleware is added to the request processing pipeline of your application to enforce that, when a request is made to any of the management endpoints, a valid UAA access token is provided as part of that request. Additionally, the security middleware uses the token to determine whether the authenticated user has permission to access the management endpoint.
 
->NOTE: The Cloud Foundry security middleware is automatically disabled when your application is not running on Cloud Foundry (for example, running locally on your desktop).
+> [!NOTE]
+> The Cloud Foundry security middleware is only active when your application is running on Cloud Foundry.
 
 ## External access
 
-When running in Cloud Foundry, it is possible to access the endpoints via the [hypermedia](./hypermedia.md) context path which defaults to `/actuator`. In other words you can also access all your endpoints from this global path. For example the [Info](./info.md) endpoint would be accessible at `/actuator/info`.
+When running in Cloud Foundry, it is possible to access the endpoints via the [hypermedia](./hypermedia.md) URL, which defaults to `/actuator`. In other words, you can also access all your endpoints from this URL prefix. For example, the [info](./info.md) endpoint would be accessible at `/actuator/info`.
 
-While the endpoints provided on the `/cloudfoundryapplication` path are secured as described above, the endpoints provided on the `/actuator` path are not. For this reason, only health and info are exposed by default and others would have to be exposed explicitly. In addition the endpoints may be secured by whatever security mechanism the application itself uses. For more details see [Securing Actuators](./using-endpoints.md#securing-endpoints)
+While the endpoints provided on the `/cloudfoundryapplication` path are secured as described above, the endpoints provided on the `/actuator` path are not. For this reason, only health and info are exposed by default and others must be exposed explicitly. In addition, the endpoints may be secured by whatever security mechanism the application itself uses. For more details, see [securing actuators](./using-endpoints.md#securing-endpoints).
 
 ## Configure Settings
 
-Typically, you need not do any additional configuration. However, the following table describes the additional settings that you could apply to the Cloud Foundry endpoint:
+Typically, no additional configuration is needed. However, the following table describes the configuration settings that you can apply to the Cloud Foundry endpoint.
+Each key must be prefixed with `Management:Endpoints:CloudFoundry`.
 
 | Key | Description | Default |
 | --- | --- | --- |
-| `Id` | The ID of the Cloud Foundry endpoint. | "" |
-| `Enabled` | Whether to enable Cloud Foundry management endpoint. | `true` |
+| `Enabled` | Whether the endpoint is enabled. | `true` |
+| `ID` | The unique ID of the endpoint. | `""` |
+| `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
+| `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
+| `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
 | `ValidateCertificates` | Whether to validate server certificates. | `true` |
-| `ApplicationId` | The ID of the application used in permissions check. | VCAP settings |
-| `CloudFoundryApi` | The URL of the Cloud Foundry API. | VCAP settings |
-
->Each setting in the preceding table must be prefixed with `Management:Endpoints:CloudFoundry`.
+| `ApplicationId` | The ID of the application used in permission checks. | |
+| `CloudFoundryApi` | The URL of the Cloud Foundry API. | |
 
 ## Enable HTTP Access
 
-The default path to the Cloud Foundry endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the table above. The global path is always set to `/cloudfoundryapplication`. Apps Manager expects this endpoint to be available at `/cloudfoundryapplication`.
+The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting together with the `Path` setting described in the preceding section.
+The default path is `/cloudfoundryapplication`.
 
-See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-The Cloud Foundry actuator, the actuator's security middleware, and the CORS policy can be added to the application in either `program.cs` or `startup.cs`. This can be done individually or in a grouping with all the other actuators. All of these options will function effectively the same way, so this is a style choice.
+To add the actuator to the service container, add a CORS policy, register security middleware and map its route, use the `AddCloudFoundryActuator` extension method.
 
->Of all the options provided, the approach of using `AddAllActuators()` on the `HostBuilder` is most recommended.
-
-### Program.cs
-
-If you prefer maximum convenience, extension methods for both `IHostBuilder` and `IWebHostBuilder` can configure all actuators at once with a single line of code:
+Add the following code to `Program.cs` to use the actuator endpoint:
 
 ```csharp
-using Steeltoe.Management.CloudFoundry; // for .AddCloudFoundryActuators()
-using Steeltoe.Management.Endpoint;     // for other options
-...
-    public static void Main(string[] args)
-    {
-        BuildWebHost(args).Run();
-    }
-    public static IHost BuildHost(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .AddAllActuators()            // add CF + security (when deployed to CF) and all others
-            //.AddCloudFoundryActuators() // add CF + security + others, deprecated in 3.1.0
-            //.AddCloudFoundryActuator()  // add just CF + security
-            .Build();
-```
+using Steeltoe.Configuration.CloudFoundry;
+using Steeltoe.Management.Endpoint.Actuators.CloudFoundry;
 
-### Startup.cs
-
-If you prefer to configure the services and activate the middleware separately, more code is required, but you may use these extensions methods for `IServiceCollection` and `IApplicationBuilder`:
-
-```csharp
-using Steeltoe.Management.Endpoint;
-using Steeltoe.Management.Endpoint.CloudFoundry;
-using Steeltoe.Management.Endpoint.Health;
-
-public class Startup
-{
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
-
-    public IConfiguration Configuration { get; }
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // for versions >= 3.1.0-rc1, add all actuators and Cloud Foundry integration pieces
-        services.AddAllActuators(Configuration);
-
-        // for versions < 3.1.0, add all actuators and Cloud Foundry integration pieces
-        //services.AddCloudFoundryActuators(Configuration);
-        // if you prefer to add individual actuators
-        //services.AddCloudFoundryActuator(Configuration);
-        ...    
-    }
-    public void Configure(IApplicationBuilder app)
-    {
-        // because Apps Manager interacts with actuators through your browser, CORS must be configured
-        app.UseCors("SteeltoeManagement");
-        // activate the CF security middleware
-        app.UseCloudFoundrySecurity();
-
-        app.UseRouting();
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapAllActuators()
-        }
-        // Initializes health readiness and liveness probes
-        app.ApplicationServices.InitializeAvailability();
-    }
-}
+var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddCloudFoundry();
+builder.Services.AddCloudFoundryActuator();
 ```

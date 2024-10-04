@@ -1,35 +1,84 @@
 # Hypermedia
 
-The purpose of this endpoint is to provide hypermedia for all the management endpoints configured in your application.
-
-## Base Context Path
-
-This actuator also creates a base context path from which the endpoints can be accessed. The hypermedia actuator enables the following functionality:
-
-* Exposes an endpoint that can be queried to return the IDs of and links to all of the enabled management endpoints in the application.
-* Adds extension methods that simplify adding all of the Steeltoe management endpoints with HTTP access to the application.
+The purpose of this endpoint is to list the available management endpoints configured in your application.
+It returns their IDs and the links to them in JSON format.
 
 ## Configure Settings
 
-The following table describes the additional settings that you could apply to the Hypermedia endpoint:
+The following table describes the configuration settings that you can apply to the endpoint.
+Each key must be prefixed with `Management:Endpoints:Actuator:`. Note this key differs from the convention used by other actuators.
 
 | Key | Description | Default |
 | --- | --- | --- |
-| `Id` | The ID of the Hypermedia endpoint. | "" |
-| `Enabled` | Whether to enable the Hypermedia endpoint. | `true` |
+| `Enabled` | Whether the endpoint is enabled. | `true` |
+| `ID` | The unique ID of the endpoint. | `""` |
+| `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
+| `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
+| `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
+
+> [!NOTE]
+> This endpoint is exposed automatically because its ID is empty. To reference this actuator in exposure settings,
+> first configure a non-empty ID. Because the Path is the same as ID unless specified, set it to empty explicitly:
+> ```json
+> {
+>   "Management": {
+>     "Endpoints": {
+>       "Actuator": {
+>         "Id": "hypermedia",
+>         "Path": "",
+>         "Exposure": {
+>           "Exclude": [ "hypermedia" ]
+>         }
+>       }
+>     }
+>   }
+> }
+> ```
 
 ## Enable HTTP Access
 
-The default path to the Hypermedia endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting described in the preceding section. The default path is `/actuator`.
+The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting together with the `Path` setting described in the preceding section.
+The default path is `/actuator`.
 
-See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+> [!NOTE]
+> When running on Cloud Foundry, the [Cloud Foundry Actuator](./cloud-foundry.md) should be used instead,
+> whose default path is `/cloudfoundryapplication`.
 
-To add the actuator to the service container and map its route, you can use the `AddHypermediaActuator` extension method from `ManagementHostBuilderExtensions`.
+See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-Alternatively, first, add the Hypermedia actuator to the service container, using the `AddHypermediaActuator()` extension method from `EndpointServiceCollectionExtensions`
+To add the actuator to the service container and map its route, use the `AddHypermediaActuator` extension method.
 
-Then, add the actuator to the ASP.NET Core pipeline, use the `Map<ActuatorEndpoint>()`  extension methods from `ActuatorRouteBuilderExtensions`.
+Add the following code to `Program.cs` to use the actuator endpoint:
 
-## Cloud Foundry
+```csharp
+using Steeltoe.Management.Endpoint.Actuators.Hypermedia;
 
-When running in Cloud Foundry, the [Cloud Foundry Actuator](./cloud-foundry.md) assumes the role of providing a base context path to requests originating inside cloudfoundry such as from Apps Manager. This path defaults to `/cloudfoundryapplication`. All other requests default to `/actuator` or the explicitly configured path.
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHypermediaActuator();
+```
+
+## Sample Output
+
+This endpoint returns a list of management endpoints, including itself.
+
+The response will always be returned as JSON, like this:
+
+```json
+{
+  "type": "steeltoe",
+  "_links": {
+    "info": {
+      "href": "https://localhost:7105/actuator/info",
+      "templated": false
+    },
+    "health": {
+      "href": "https://localhost:7105/actuator/health",
+      "templated": false
+    },
+    "self": {
+      "href": "https://localhost:7105/actuator",
+      "templated": false
+    }
+  }
+}
+```

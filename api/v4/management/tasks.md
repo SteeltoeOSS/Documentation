@@ -4,52 +4,118 @@ Steeltoe management tasks provide a way to run administrative tasks for ASP.NET 
 
 ## Add NuGet Reference
 
-This package provides an extension for `Microsoft.AspNetCore.Hosting.IWebHost`.
+To use application tasks, add a reference to the `Steeltoe.Management.Tasks` NuGet package.
 
-Add a reference to the `Steeltoe.Management.Task` NuGet package.
+## Registering Tasks
 
-## Implement Task Interface
-
-Management tasks for use with Steeltoe must implement `Steeltoe.Common.Tasks.IApplicationTask`. Two implementations are currently provided with Steeltoe:
-
-* `Steeltoe.Management.TaskCore.DelegatingTask`: Runs an arbitrary `Action`
-* `Steeltoe.Connector.EFCore.MigrateDbContextTask<T>`: Runs `DbContext` migrations with Entity Framework Core
-
-The interface is defined as follows:
+For simple cases, a code block containing the task logic can be specified inline:
 
 ```csharp
-/// <summary>
-/// A runnable task bundled with the assembly that can be executed on-demand
-/// </summary>
-public interface IApplicationTask
-{
-    /// <summary>
-    /// Gets globally unique name for the task
-    /// </summary>
-    string Name { get; }
+using Steeltoe.Management.Tasks;
 
-    /// <summary>
-    /// Action which to run
-    /// </summary>
-    void Run();
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddTask("ExampleTaskName", async (serviceProvider, cancellationToken) =>
+{
+    var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+    var logger = loggerFactory.CreateLogger("ExampleTask");
+
+    await Task.Yield();
+    cancellationToken.ThrowIfCancellationRequested();
+    logger.LogInformation("Running example task.");
+});
+```
+
+When the task logic is non-trivial, a class implementing the `IApplicationTask` interface can be defined:
+
+```csharp
+using Steeltoe.Common;
+using Steeltoe.Management.Tasks;
+
+public class ExampleTask(ILogger<ExampleTask> logger) : IApplicationTask
+{
+    public async Task RunAsync(CancellationToken cancellationToken)
+    {
+        await Task.Yield();
+        cancellationToken.ThrowIfCancellationRequested();
+        logger.LogInformation("Running example task.");
+    }
 }
 ```
 
-## Add Task to ServiceCollection
+> [!TIP]
+> Steeltoe includes the `MigrateDbContextTask<TDbContext>` task, which runs database migrations with Entity Framework Core.
+> It requires a reference to the `Steeltoe.Connectors.EntityFrameworkCore` NuGet package.
 
-Several extensions to `IServiceCollection` have been added to provide options for task registration. Add `using Steeltoe.Management.TaskCore` to gain access to the following extension signatures:
+To register the `ExampleTask` class defined above as a scoped service, use the `AddTask<>` extension method:
 
-* `AddTask<T>(ServiceLifetime lifetime = ServiceLifetime.Singleton)`
-* `AddTask(IApplicationTask task)`
-* `AddTask(Func<IServiceProvider, IApplicationTask> factory, ServiceLifetime lifetime = ServiceLifetime.Singleton)`
-* `AddTask(string name, Action<IServiceProvider> runAction, ServiceLifetime lifetime = ServiceLifetime.Singleton)`
+```csharp
+using Steeltoe.Management.Tasks;
 
-## Apply Extension Method
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddTask<ExampleTask>("ExampleTaskName");
+```
 
-Once your task has been defined and added to the service container, the last setup task is to enable a means of accessing the task. In your `program.cs` file, replace the call to `<your built IWebHost>.Run()` with `<your built IWebHost>.RunWithTasks()`.
+> [!NOTE]
+> To register as a singleton or transient service, use the overload that additionally takes a `ServiceLifetime` parameter.
 
-## Invoke Task
+In case task instantiation requires additional logic, a task instance can be specified as well:
 
-Once all the setup steps have been completed, any invocation of your application with a configuration value for the `runtask` key runs that task (and shut down) instead of following the normal web application flow. As a matter of best practice, we encouraged you to provide that value only over command-line parameters. However, due to the way .NET configuration works, it does not matter which configuration provider is used to provide the task name. Invoking the command on Cloud Foundry looks similar to this: `cf run-task actuator "./CloudFoundry runtask=migrate" --name migrate`. Deploy the Steeltoe sample to try it.
+```csharp
+using Steeltoe.Management.Tasks;
 
->The command line configuration provider is added by default with `IWebHostBuilder.CreateDefaultBuilder`. If the task does not fire when running from a command line with `runtask=<taskname>`, verify that it has been added for your application.
+var builder = WebApplication.CreateBuilder(args);
+
+var exampleTask = new ExampleTask(/* ... */);
+builder.Services.AddTask("ExampleTaskName", exampleTask);
+```
+
+Or an inline factory method can be used to instantiate the task:
+
+```csharp
+using Steeltoe.Management.Tasks;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddTask("ExampleTaskName", (serviceProvider, taskName) =>
+{
+    var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+    var logger = loggerFactory.CreateLogger<ExampleTask>();
+    return new ExampleTask(logger); // could pass the task name as a parameter
+});
+```
+
+## Executing a Task
+
+Once your task has been defined and added to the service container, the last step is to enable a means of executing the task.
+In your `Program.cs` file, replace the call to `app.Run()` with `await app.RunWithTasksAsync()`:
+
+```csharp
+using Steeltoe.Management.Tasks;
+
+var app = builder.Build();
+
+// ...
+
+await app.RunWithTasksAsync(CancellationToken.None);
+```
+
+## Specify Task to Execute
+
+Once all the setup steps have been completed, any invocation of your application with a configuration value for the `RunTask` key
+runs that task (and shuts down) instead of starting the web application:
+
+```
+dotnet run -- RunTask=ExampleTaskName
+```
+
+As a matter of best practice, we encourage you to provide the `RunTask` value only via a command-line parameter.
+However, due to the way .NET configuration works, it does not matter which configuration provider is used to provide the task name.
+Invoking the command on Cloud Foundry looks similar to this:
+
+```
+cf run-task YourAppName "dotnet run -- RunTask=ExampleTaskName" --name ExampleTaskName
+```
+
+> [!TIP]
+> The command line configuration provider is added by default when using `WebApplication.CreateBuilder(args)`.
+> If the task does not fire when running from the command line with the `RunTask=` parameter,
+> verify that the configuration provider has been added for your application.
