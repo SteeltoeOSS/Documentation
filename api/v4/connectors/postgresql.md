@@ -3,7 +3,7 @@
 This connector simplifies accessing [PostgreSQL](https://www.postgresql.org/) databases.
 It supports the following .NET drivers:
 - [Npgsql](https://www.nuget.org/packages/Npgsql), which provides an ADO.NET `DbConnection`.
-- [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL), which provides [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) support.
+- [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support.
 
 The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
@@ -48,10 +48,10 @@ The following example `appsettings.json` uses the docker container from above:
 
 Update your `Program.cs` as below to initialize the Connector:
 
-```c#
+```csharp
 using Steeltoe.Connectors.PostgreSql;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddPostgreSql();
 ```
 
@@ -89,7 +89,7 @@ A complete sample app that uses `NpgsqlConnection` is provided at https://github
 ### Use Entity Framework Core
 
 Start by defining your `DbContext` class:
-```c#
+```csharp
 public class AppDbContext : DbContext
 {
     public DbSet<SampleEntity> SampleEntities => Set<SampleEntity>();
@@ -109,11 +109,11 @@ public class SampleEntity
 
 Next, call the `UseNpgsql()` Steeltoe extension method from `Program.cs` to initialize Entity Framework Core:
 
-```c#
+```csharp
 using Steeltoe.Connectors.EntityFrameworkCore.PostgreSql;
 using Steeltoe.Connectors.PostgreSql;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddPostgreSql();
 
 builder.Services.AddDbContext<AppDbContext>(
@@ -160,7 +160,7 @@ cf restage myApp
 
 ## Kubernetes
 
-This Connectors supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
+This Connector supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
 It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
 
 For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/PostgreSql#running-on-tanzu-application-platform-tap.

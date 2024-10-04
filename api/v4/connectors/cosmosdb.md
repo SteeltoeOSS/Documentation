@@ -1,16 +1,16 @@
 # CosmosDB
 
-This connector simplifies accessing [Azure CosmosDB](https://azure.microsoft.com/en-us/products/cosmos-db/) databases.
+This connector simplifies accessing [Azure CosmosDB](https://azure.microsoft.com/products/cosmos-db/) databases.
 It supports the following .NET drivers:
 - [Microsoft.Azure.Cosmos](https://www.nuget.org/packages/Microsoft.Azure.Cosmos), which provides a `CosmosClient`.
 
-The remainder of this page assume you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
+The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
 ## Usage
 
 To use this connector:
 
-1. Create a CosmosDB server instance or use the [emulator](https://learn.microsoft.com/en-us/azure/cosmos-db/local-emulator).
+1. Create a CosmosDB server instance or use the [emulator](https://learn.microsoft.com/azure/cosmos-db/local-emulator).
 1. Add NuGet references to your project.
 1. Configure your connection string in `appsettings.json`.
 1. Initialize the Steeltoe Connector at startup.
@@ -24,7 +24,7 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 ### Configure connection string
 
-The CosmosDB connection string can be obtained as described [here](https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-get-started#retrieve-your-account-connection-string).
+The CosmosDB connection string can be obtained as described [here](https://learn.microsoft.com/azure/cosmos-db/nosql/how-to-dotnet-get-started#retrieve-your-account-connection-string).
 
 The following example `appsettings.json` uses the emulator:
 
@@ -50,17 +50,17 @@ as `CosmosDbOptions.Database`.
 
 Update your `Program.cs` as below to initialize the Connector:
 
-```c#
+```csharp
 using Steeltoe.Connectors.CosmosDb;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddCosmosDb();
 ```
 
 ### Use CosmosClient
 
 Start by defining a class that contains container data:
-```c#
+```csharp
 using Newtonsoft.Json;
 
 public class SampleObject

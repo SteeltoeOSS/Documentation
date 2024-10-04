@@ -1,7 +1,7 @@
 # Connectors
 
-Steeltoe Connectors simplify the process of connecting to, using and monitoring backing services
-(databases, message brokers and distributed caches).
+Steeltoe Connectors simplify the process of connecting to, using, and monitoring backing services
+(databases, message brokers, and distributed caches).
 Connectors are primarily a bonding layer between your infrastructure and your application.
 Connectors don't directly manipulate the connection to backing services, but do contain logic
 for turning raw credentials into formatted connection strings and also provide health monitoring tools.

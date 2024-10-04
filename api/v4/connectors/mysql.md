@@ -4,8 +4,8 @@ This connector simplifies accessing [MySQL](https://www.mysql.com/) databases.
 It supports the following .NET drivers:
 - [MySqlConnector](https://www.nuget.org/packages/MySqlConnector), which provides an ADO.NET `DbConnection`.
 - [MySql.Data](https://www.nuget.org/packages/MySql.Data), which provides an ADO.NET `DbConnection`.
-- [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql), which provides [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) support.
-- [MySql.EntityFrameworkCore](https://www.nuget.org/packages/MySql.EntityFrameworkCore), which provides [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) support.
+- [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support.
+- [MySql.EntityFrameworkCore](https://www.nuget.org/packages/MySql.EntityFrameworkCore), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support.
 
 The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
@@ -50,10 +50,10 @@ The following example `appsettings.json` uses the docker container from above:
 
 Update your `Program.cs` as below to initialize the Connector:
 
-```c#
+```csharp
 using Steeltoe.Connectors.MySql;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddMySql();
 ```
 
@@ -91,7 +91,7 @@ A complete sample app that uses `MySqlConnection` is provided at https://github.
 ### Use Entity Framework Core
 
 Start by defining your `DbContext` class:
-```c#
+```csharp
 public class AppDbContext : DbContext
 {
     public DbSet<SampleEntity> SampleEntities => Set<SampleEntity>();
@@ -111,11 +111,11 @@ public class SampleEntity
 
 Next, call the `UseMySql()` Steeltoe extension method from `Program.cs` to initialize Entity Framework Core:
 
-```c#
+```csharp
 using Steeltoe.Connectors.EntityFrameworkCore.MySql;
 using Steeltoe.Connectors.MySql;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddMySql();
 
 builder.Services.AddDbContext<AppDbContext>(
@@ -163,7 +163,7 @@ cf restage myApp
 
 ## Kubernetes
 
-This Connectors supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
+This Connector supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
 It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
 
 For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/MySql#running-on-tanzu-application-platform-tap.

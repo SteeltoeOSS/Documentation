@@ -1,17 +1,17 @@
 # Microsoft SQL Server
 
-This connector simplifies accessing [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server) databases.
+This connector simplifies accessing [Microsoft SQL Server](https://www.microsoft.com/sql-server) databases.
 It supports the following .NET drivers:
 - [Microsoft.Data.SqlClient](https://www.nuget.org/packages/Microsoft.Data.SqlClient), which provides an ADO.NET `DbConnection`.
 - [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient), which provides an ADO.NET `DbConnection`.
-- [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer), which provides [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) support.
+- [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support.
 
 The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
 ## Usage
 
 To use this connector:
-1. Create a SQL Server instance or use [SQL Server Express LocalDB](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb).
+1. Create a SQL Server instance or use [SQL Server Express LocalDB](https://learn.microsoft.com/sql/database-engine/configure-windows/sql-server-express-localdb).
 1. Add NuGet references to your project.
 1. Configure your connection string in `appsettings.json`.
 1. Initialize the Steeltoe Connector at startup.
@@ -26,7 +26,7 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 ### Configure connection string
 
-The available connection string parameters for SQL Server are documented [here](https://learn.microsoft.com/en-us/dotnet/api/microsoft.data.sqlclient.sqlconnection.connectionstring#remarks).
+The available connection string parameters for SQL Server are documented [here](https://learn.microsoft.com/dotnet/api/microsoft.data.sqlclient.sqlconnection.connectionstring#remarks).
 
 The following example `appsettings.json` uses SQL Server Express LocalDB:
 
@@ -48,10 +48,10 @@ The following example `appsettings.json` uses SQL Server Express LocalDB:
 
 Update your `Program.cs` as below to initialize the Connector:
 
-```c#
+```csharp
 using Steeltoe.Connectors.SqlServer;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddSqlServer();
 ```
 
@@ -87,7 +87,7 @@ public class HomeController : Controller
 ### Use Entity Framework Core
 
 Start by defining your `DbContext` class:
-```c#
+```csharp
 public class AppDbContext : DbContext
 {
     public DbSet<SampleEntity> SampleEntities => Set<SampleEntity>();
@@ -107,11 +107,11 @@ public class SampleEntity
 
 Next, call the `UseSqlServer()` Steeltoe extension method from `Program.cs` to initialize Entity Framework Core:
 
-```c#
+```csharp
 using Steeltoe.Connectors.EntityFrameworkCore.SqlServer;
 using Steeltoe.Connectors.SqlServer;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddSqlServer();
 
 builder.Services.AddDbContext<AppDbContext>(
