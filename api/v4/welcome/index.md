@@ -1,47 +1,41 @@
 # Steeltoe Documentation
 
-## [What's New in Steeltoe 4](./whats-new.md)
+## [What's New](./whats-new.md)
+
+Lists the new features and changes in Steeltoe v4.
 
 ## [Application Bootstrapping](../bootstrap/index.md)
 
-Automatically configure many Steeltoe components with a single line of code [read more](../bootstrap/index.md)
+Automatically configure many Steeltoe components with a single line of code.
 
 ## [Application Configuration](../configuration/index.md)
 
-Steeltoe lets you store external configuration values in Git, the filesystem, or HashiCorp Vault with Spring Cloud Config.
-[read more](../configuration/index.md)
+Access external configuration values from Git, the file system, or HashiCorp Vault with Spring Cloud Config.
 
 ## [Distributed Tracing](../tracing/index.md)
 
-Steeltoe allows you to capture trace data for your microservice application using logs, or by sending it to a remote collector service.
-[read more](../tracing/index.md)
+Capture trace data for your microservice application using logs, or by sending to a remote collector service.
 
 ## [Dynamic Logging](../logging/index.md)
 
-Steeltoe adds a Logging provider to the set of available logging packages, to support the Steeltoe Management Logger endpoint.
-[read more](../logging/index.md)
+List the active loggers and change their minimum log levels at runtime.
 
 ## [Management](../management/index.md)
 
-Steeltoe lets you monitor and manage your application while it runs in production with Steeltoe management.
-[read more](../management/index.md)
+Monitor and manage your application while it runs in production via various HTTP endpoints.
 
 ## [Network File Sharing](../fileshares/index.md)
 
-Steeltoe's WindowsNetworkFileShare provides a simplified experience for interacting with SMB file shares by making P/Invoke calls to underlying Windows APIs, specifically to mpr.dll.
-[read more](../fileshares/index.md)
+Provides a simplified experience for interacting with SMB file shares (Windows only).
 
 ## [Security](../security/index.md)
 
-Steeltoe lets you integrate ASP.NET authentication and authorization features in your app, no matter what platform you use.
-[read more](../security/index.md)
+Integrate ASP.NET authentication and authorization features in your app, no matter what cloud platform you use.
 
 ## [Connectors](../connectors/index.md)
 
-Steeltoe lets you automatically configure and manage connections to common cloud services like databases, caches, and more.
-[read more](../connectors/index.md)
+Automatically configure connections to common cloud services like databases, caches, and more.
 
 ## [Service Discovery](../discovery/index.md)
 
-Steeltoe includes .NET clients to both register and discover microservices in your registry of choice.
-[read more](../discovery/index.md)
+Register and discover microservices by interacting with popular service registries.
