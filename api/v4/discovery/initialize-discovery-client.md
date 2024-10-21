@@ -1,7 +1,7 @@
 # Discovery clients
 
 This section describes how to activate the Steeltoe discovery client(s), which is a prerequisite for resolving friendly names.
-Your app can use multiple clients but is limited to a single instance per type.
+Your app can use multiple clients, but is limited to a single instance per server type.
 
 Fundamentally, several things need to happen:
 
@@ -17,7 +17,7 @@ Each package also includes all the relevant dependencies.
 
 | Package | Description |
 | --- | --- |
-| `Steeltoe.Discovery.Configuration` | Register/query app instances stored in .NET configuration |
+| `Steeltoe.Discovery.Configuration` | Query app instances stored in .NET configuration |
 | `Steeltoe.Discovery.Consul` | Use [HashiCorp Consul](https://www.consul.io/) server |
 | `Steeltoe.Discovery.Eureka` | Use [Spring Cloud Eureka](https://projects.spring.io/spring-cloud/docs/1.0.3/spring-cloud.html#spring-cloud-eureka-server) server |
 
@@ -26,7 +26,7 @@ Each package also includes all the relevant dependencies.
 After installing the NuGet package(s), the next step is to add the Steeltoe discovery client(s) to the service container.
 Update your `Program.cs` as shown below:
 
-```c#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Steeltoe: Add service discovery clients for Consul, Eureka, and/or configuration-based.
@@ -38,7 +38,7 @@ var app = builder.Build();
 ```
 
 > [!TIP]
-> Alternatively, `builder.AddSteeltoe();` (Steeltoe Bootstrap Auto Configuration) can be used, which uses reflection to determine
+> Alternatively, `builder.AddSteeltoe()` (Steeltoe Bootstrap Auto Configuration) can be used, which uses reflection to determine
 > which discovery assemblies are loaded, adding the appropriate clients automatically.
 
 ## Client configuration

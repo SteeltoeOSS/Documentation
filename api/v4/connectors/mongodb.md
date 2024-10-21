@@ -50,17 +50,17 @@ as `MongoDbOptions.Database`.
 
 Update your `Program.cs` as below to initialize the Connector:
 
-```c#
+```csharp
 using Steeltoe.Connectors.MongoDb;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddMongoDb();
 ```
 
 ### Use IMongoClient
 
 Start by defining a class that contains collection data:
-```c#
+```csharp
 using MongoDB.Bson;
 
 public class SampleObject

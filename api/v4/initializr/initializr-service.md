@@ -1,6 +1,6 @@
-# InitializrApi
+# InitializrService
 
-The _InitializrApi_ provides 4 REST/HTTP endpoints:
+The _InitializrService_ provides 4 REST/HTTP endpoints:
 
 * `api/`
 * `api/about`
@@ -30,7 +30,7 @@ The URI templates take a set of parameters to customize the result of a request.
 
 ## `api/about`
 
-`api/about` accepts `GET` requests and returns the _InitialzrApi_ "About" information.
+`api/about` accepts `GET` requests and returns the _InitialzrService_ "About" information.
 
 ```bash
 # sample: view "About" document
@@ -46,7 +46,7 @@ $ http -p b https://start.steeltoe.io/api/about
 
 ## `api/config`
 
-`api/config` accepts `GET` requests and returns _InitializrApi_ configuration.
+`api/config` accepts `GET` requests and returns _InitializrService_ configuration.
 The returned document includes *all* configuration which can include superfluous details.
 Sub-endpoints are available allowing more targeted responses.
 

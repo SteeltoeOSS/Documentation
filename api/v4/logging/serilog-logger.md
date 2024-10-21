@@ -1,16 +1,12 @@
 # Serilog Dynamic Logger
 
-This logging provider extends the dynamic logging provider with [Serilog](https://serilog.net/). This allows logger levels configured via Serilog to be queried and modified at runtime via the loggers endpoint.
-
-The source code for the Serilog Dynamic Logger can be found [here](https://github.com/SteeltoeOSS/steeltoe/tree/master/src/Logging/src/).
-
-A sample working project can be found [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/CloudFoundry).
+This logging provider extends the dynamic logging provider with [Serilog](https://serilog.net/). This allows logger minimum levels configured via Serilog to be queried and modified at runtime via the loggers management endpoint.
 
 ## Usage
 
 In order to use the Serilog Dynamic Logger, you need to do the following:
 
-1. Add the Logging NuGet package references to your project.
+1. Add the appropriate NuGet package reference to your project.
 1. Configure Logging settings.
 1. Add the Serilog Dynamic Logger to the logging builder.
 
@@ -20,53 +16,45 @@ To use the logging provider, you need to add a reference to the `Steeltoe.Loggin
 
 ### Configure Settings
 
-As mentioned earlier, the Serilog Dynamic Logger provider extends Serilog. Consequently, you can configure it the same way you would Serilog. For more details on how this is done, see the section on [Serilog-Settings-Configuration](https://github.com/serilog/serilog-settings-configuration).
+As mentioned earlier, the Serilog Dynamic Logger provider extends Serilog. Consequently, you can configure it the same way you would Serilog. For more details on how this is done, see [Serilog-Settings-Configuration](https://github.com/serilog/serilog-settings-configuration).
 
 ```json
-...
-"Serilog": {
-    "IncludeScopes": false,
+{
+  "Serilog": {
     "MinimumLevel": {
-        "Default": "Warning",
-        "Override": {
-            "Microsoft": "Warning",
-            "Steeltoe": "Information",
-            "CloudFoundry.Controllers": "Verbose"
-        }
+      "Default": "Warning",
+      "Override": {
+        "Microsoft": "Warning",
+        "Steeltoe": "Information",
+        "MyApp": "Verbose"
+      }
     },
-    "WriteTo": [{
+    "WriteTo": [
+      {
         "Name": "Console",
         "Args": {
-            "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Properties} {NewLine} {EventId} {Message:lj}{NewLine}{Exception}"
+          "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Properties} {NewLine} {EventId} {Message:lj}{NewLine}{Exception}"
         }
-    }],
-    "Enrich": ["FromLogContext", "WithMachineName", "WithThreadId"]
-},
-...
+      }
+    ],
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ]
+  }
+}
 ```
 
 ### Add Serilog Dynamic Logger
 
-In order to use this logging provider, you need to add it to the logging builder. Steeltoe provides methods to add directly to `ILoggingBuilder`, along with convenience methods for adding to `HostBuilder` and `WebHostBuilder`.
+In order to use this logging provider, you need to add it to the logging builder. Steeltoe provides methods to add directly to `ILoggingBuilder`, along with convenience methods for adding to host builders.
 
-#### HostBuilder
+#### Host builder
 
-The following example shows usage of the `HostBuilder` extension:
+The following example shows usage of a host builder extension:
 
 ```csharp
 using Steeltoe.Logging.DynamicSerilog;
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        var host = Host.CreateDefaultBuilder()
-            .UseStartup<Startup>()
-            .AddDynamicSerilog()
-            .Build();
 
-        host.Run();
-    }
-}
+var builder = WebApplication.CreateBuilder(args);
+builder.AddDynamicSerilog();
 ```
 
 #### LoggingBuilder
@@ -75,40 +63,7 @@ The following example shows usage of the `ILoggingBuilder` extension:
 
 ```csharp
 using Steeltoe.Logging.DynamicSerilog;
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        var host = WebHost.CreateDefaultBuilder()
-            .UseStartup<Startup>()
-            .ConfigureLogging((builderContext, loggingBuilder) =>
-            {
-                // Add Serilog Dynamic Logger
-                loggingBuilder.AddDynamicSerilog();
-            })
-            .Build();
 
-        host.Run();
-    }
-}
-```
-
-#### WebHostBuilder
-
-The following example shows usage of the `WebHostBuilder` extension:
-
-```csharp
-using Steeltoe.Logging.DynamicSerilog;
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        var host = WebHost.CreateDefaultBuilder()
-            .UseStartup<Startup>()
-            .AddDynamicSerilog()
-            .Build();
-
-        host.Run();
-    }
-}
+var builder = WebApplication.CreateBuilder(args);
+builder.Logging.AddDynamicSerilog();
 ```

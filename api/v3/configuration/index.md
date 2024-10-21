@@ -21,4 +21,4 @@ Steeltoe adds additional configuration providers to the preceding list:
 * RandomValue generator
 * Spring Cloud Config Server
 
-The following sections provide more more detail on each of these new providers.
+The following sections provide more detail on each of these new providers.
