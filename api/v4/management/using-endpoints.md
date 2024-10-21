@@ -7,7 +7,7 @@ Steeltoe provides a basic set of HTTP endpoints (also known as actuators), which
 In this section, it is helpful to understand the following:
 
 * How the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works.
-* How the [the ASP.NET Core Startup](https://learn.microsoft.com/aspnet/core/fundamentals/startup) is used to register services and middleware.
+* How the [ASP.NET Core Startup](https://learn.microsoft.com/aspnet/core/fundamentals/startup) is used to register services and middleware.
 
 ## Endpoint Listing
 
@@ -31,7 +31,7 @@ The following table describes the available Steeltoe management endpoints that c
 | [services](./services.md) | Lists the contents of the .NET dependency injection service container. |
 | [threaddump](./threaddump.md)  | Generates and reports a snapshot of the application's threads (Windows only). |
 
-Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/actuator/health`.
+Each endpoint has an associated ID. When you want to expose an endpoint over HTTP, its ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/actuator/health`.
 
 
 ## Add NuGet Reference
@@ -44,7 +44,7 @@ Endpoints can be configured using the [.NET Configuration System](https://learn.
 
 All management endpoint settings should be placed under the configuration key prefix `Management:Endpoints`. Any settings found under this prefix apply to all endpoints globally.
 
-Settings that you want to apply to specific endpoints should be placed under the configuration key prefix `Management:Endpoints:`, followed by the ID of the endpoint (for example, `Management:Endpoints:Health`). Any settings you apply to a specific endpoint override the settings applied globally. Subsequent pages describe the actuator-specific settings.
+Settings that you want to apply to specific endpoints should be placed under the configuration key prefix `Management:Endpoints:<ID>`, where `<ID>` is the ID of the endpoint (for example, `Management:Endpoints:Health`). Any settings you apply to a specific endpoint override the settings applied globally.
 
 The following table describes the settings that you can apply globally:
 
@@ -60,6 +60,16 @@ The following table describes the settings that you can apply globally:
 
 > [!NOTE]
 > When running an application in IIS or with the HWC buildpack, response body content is automatically filtered out when the HTTP response code is 503. Some actuator responses intentionally return a code of 503 in failure scenarios. Setting `UseStatusCodeFromResponse` to `false` will return status code 200 instead. This switch does not affect the status code of responses outside of Steeltoe.
+
+The following tables describes the settings that are common to all endpoint-specific settings:
+
+| Key | Description | Default |
+| --- | --- | --- |
+| `Enabled` | Whether the endpoint is enabled. | `true` |
+| `ID` | The unique ID of the endpoint. | |
+| `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
+| `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
+| `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | |
 
 ### Custom JSON Serialization Options
 
@@ -113,21 +123,28 @@ To expose any of the management endpoints over HTTP in an ASP.NET Core applicati
 
 1. Add a NuGet package reference to `Steeltoe.Management.Endpoint`.
 1. Configure endpoint settings, as needed (typically in `appsettings.json`).
-1. Add the actuator endpoint(s) to the host builder.
-1. Optional: Add any additional "contributors" to the service container (for example, `builder.Services.AddHealthContributor<CustomHealthContributor>()` or `builder.Services.AddInfoContributor<CustomInfoContributor>()`).
+1. Add the actuator endpoint(s) to the service container.
+1. Optional: Add any additional health/info contributors to the service container.
+1. Optional: Customize the CORS policy.
+1. Optional: Secure endpoints.
+1. Optional: Override the middleware pipeline setup.
 
 > [!CAUTION]
 > By default, actuator endpoints are exposed on the same host(s) and port(s) as the application (which can be configured as described [here](https://learn.microsoft.com/aspnet/core/fundamentals/servers/kestrel/endpoints?view=aspnetcore-8.0) and [here](https://andrewlock.net/8-ways-to-set-the-urls-for-an-aspnetcore-app/)).
 > Use the `Port` and `SslEnabled` settings described above to isolate management endpoints from regular application endpoints.
 
-The example below adds all actuators to the host builder:
+The example below adds all actuators:
 
 ```csharp
 using Steeltoe.Management.Endpoint;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.AddAllActuators();
+builder.Services.AddAllActuators();
 ```
+
+> [!TIP]
+> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
+> which enables individually turning them on/off at runtime via configuration.
 
 Alternatively, individual actuators can be added:
 
@@ -135,37 +152,94 @@ Alternatively, individual actuators can be added:
 using Steeltoe.Management.Endpoint;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.AddHypermediaActuator().AddLoggersActuator().AddRefreshActuator();
+builder.Services.AddHypermediaActuator().AddLoggersActuator().AddRefreshActuator();
 ```
 
 > [!NOTE]
 > `AddAllActuators()` and `AddLoggingActuator()` automatically configure the [Dynamic Logging Provider](../logging/dynamic-logging-provider.md). To use the [Serilog Dynamic Logger](../logging/serilog-logger.md), be sure to do so *before* adding actuators. For example:
+>
 > ```csharp
 > using Steeltoe.Logging.DynamicSerilog;
 > using Steeltoe.Management.Endpoint;
 > 
 > var builder = WebApplication.CreateBuilder(args);
 > builder.Logging.AddDynamicSerilog();
-> builder.AddAllActuators();
+> builder.Services.AddAllActuators();
 > ```
 
-## Securing Endpoints
+## Adding additional contributors
 
-Endpoints can be customized with `IEndpointConventionBuilder`. This allows calling `RequireAuthorization()` to run Authorization middleware on them.
-
-When using the host builder extensions, it can be added in the following way:
+The `health` and `info` endpoints can be extended with custom contributors. For example:
 
 ```csharp
 using Steeltoe.Management.Endpoint;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.AddAllActuators(endpointConventionBuilder => endpointConventionBuilder.RequireAuthorization());
+builder.Services.AddHealthActuator();
+builder.Services.AddHealthContributor<CustomHealthContributor>();
+builder.Services.AddInfoActuator();
+builder.Services.AddInfoContributor<CustomInfoContributor>()
 ```
 
-For the `IEndpointRouteBuilder` extensions, it can be added as shown:
+## Customizing the CORS policy
+
+By default, any origin is allowed to access the actuator endpoints. To customize the CORS policy, use the `ConfigureActuatorsCorsPolicy` extension method:
 
 ```csharp
-app.MapAllActuators().RequireAuthorization();
+using Steeltoe.Management.Endpoint;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAllActuators();
+builder.Services.ConfigureActuatorsCorsPolicy(policy => policy.WithOrigins("http://www.example.com"));
 ```
 
-When called without arguments, the default profile is used. Other overloads allow passing a profile or a profile name.
+## Securing Endpoints
+
+Endpoints can be customized with `IEndpointConventionBuilder`. This allows calling `RequireAuthorization()` to configure the Authorization middleware:
+
+```csharp
+using Steeltoe.Management.Endpoint;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAllActuators();
+builder.Services.ConfigureActuatorEndpoints(endpoints => endpoints.RequireAuthorization());
+```
+
+When `RequireAuthorization()` is called without arguments, the default profile is used. Other overloads allow passing a profile or a profile name.
+
+## Overriding the middleware pipeline setup
+
+All `Add*Actuator` methods provide an overload that takes a boolean `configureMiddleware`, which enables to skip adding middleware to the ASP.NET Core pipeline.
+While this provides full control over the pipeline order, it requires manual addition of the appropriate middleware for actuators to work correctly.
+
+```csharp
+using Steeltoe.Management.Endpoint;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAllActuators(configureMiddleware: false);
+await using WebApplication app = builder.Build();
+
+app.UseManagementPort(); // required to block actuator requests on the app port
+app.UseCloudFoundrySecurity(); // required by AddCloudFoundryActuator()
+app.UseRouting();
+app.UseActuatorsCorsPolicy(); // required to activate the CORS policy for actuators
+app.UseActuatorEndpoints(); // maps the actuator endpoints
+
+await app.StartAsync();
+```
+
+While the order above must not be changed (and it's not recommended to leave out entries), additional middleware can be inserted as appropriate.
+
+### Legacy endpoint mapping
+
+Applications that still use [conventional routing](https://learn.microsoft.com/aspnet/core/mvc/controllers/routing#conventional-routing)
+are supported by the `Add*Actuator` methods. When configuring the ASP.NET Core pipeline manually, replace `app.UseActuatorEndpoints()` in the snippet above with:
+
+```csharp
+app.UseMvc(routes =>
+{
+    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+    routes.MapActuators().RequireAuthorization(); // required for actuators to work, optionally securing them
+    routes.AddRoutesToMappingsActuator(); // required for the route mappings actuator to show convention-based routes
+});
+```
