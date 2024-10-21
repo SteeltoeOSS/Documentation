@@ -1,6 +1,6 @@
-# InitializrApi
+# InitializrService
 
-The _InitializrApi_ provides 4 REST/HTTP endpoints:
+The _InitializrService_ provides 4 REST/HTTP endpoints:
 
 * `api/`
 * `api/about`
@@ -30,7 +30,7 @@ The URI templates take a set of parameters to customize the result of a request.
 
 ## `api/about`
 
-`api/about` accepts `GET` requests and returns the _InitialzrApi_ "About" information.
+`api/about` accepts `GET` requests and returns the _InitialzrService_ "About" information.
 
 ```bash
 # sample: view "About" document
@@ -46,7 +46,7 @@ $ http -p b https://start.steeltoe.io/api/about
 
 ## `api/config`
 
-`api/config` accepts `GET` requests and returns _InitializrApi_ configuration.
+`api/config` accepts `GET` requests and returns _InitializrService_ configuration.
 The returned document includes *all* configuration which can include superfluous details.
 Sub-endpoints are available allowing more targeted responses.
 
@@ -105,7 +105,7 @@ $ http https://start.steeltoe.io/api/config/dependencies | jq '.[] .values[] .id
 
 `api/project` accepts `GET` and `POST` requests and returns a project as an archive.
 
-Projects are configured by using HTTP parameters, such as `name` for project name and `steeltoeVersion` for Steeltoe version.
+Projects are configured by using HTTP parameters, such as `name` for the project name and `steeltoeVersion` for the Steeltoe version.
 The parameter `dependencies` is a little different than other parameters in that it is set to a comma-separated list of dependency IDs.
 
 _Note: to get a list of parameters and dependencies, send a `GET` request to `api/`._

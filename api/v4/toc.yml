@@ -132,7 +132,7 @@
 - name: Initializr
   topicHref: initializr/
   items:
-    - topicHref: initializr/initializr-api.md
-      name: InitializrApi
+    - topicHref: initializr/initializr-service.md
+      name: InitializrService
     - topicHref: initializr/initializr-web.md
       name: InitializrWeb
