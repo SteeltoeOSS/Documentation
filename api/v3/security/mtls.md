@@ -45,7 +45,7 @@ The above example will create self-signed certificates with an OrgId of `a8fef16
 
 ### Securing Endpoints
 
-In order to use identity certificates for authorization in a service application, services need to be configured and activated and polices need to be applied.
+In order to use identity certificates for authorization in a service application, services need to be configured and activated and policies need to be applied.
 
 #### Adding and using services
 
@@ -76,7 +76,7 @@ public void Configure(IApplicationBuilder app, ...)
 
 >These steps are only required on services that are receiving mTLS-secured requests
 
-#### Applying Authorization Polices
+#### Applying Authorization Policies
 
 Steeltoe includes policies for validating that a request came from an application in the same org or the space. Once you have done the work in the `Startup` class, you can secure endpoints by using the standard ASP.NET Core `Authorize` attribute with one of these security policies.
 

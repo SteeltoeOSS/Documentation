@@ -8,7 +8,7 @@ Many resources are available for understanding JWT (for example, see [JWT IO](ht
 
 ## Usage
 
-This library is an extension of ASP.NET Security. For the documentation from Microsoft, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security/).
+This library supplements ASP.NET Security. For the documentation from Microsoft, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
 
 This package uses JSON Web Tokens (JWT) and builds on JWT Security services provided by ASP.NET Core Security. You should take some time to understand both before proceeding to use this provider.
 
@@ -100,7 +100,7 @@ Activate authentication and authorization services after routing services, but b
 ```csharp
 WebApplication app = builder.Build();
 
-// Use forwarded headers so that links generate correctly behind a reverse-proxy (eg: when in Cloud Foundry)
+// Use forwarded headers so that links generate correctly behind a reverse proxy (eg: when in Cloud Foundry)
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedProto });
 
 app.UseRouting();
