@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 > [!TIP]
 > Looking for a .NET Framework example? Have a [look](./sso-openid-framework.md).
 
@@ -37,7 +40,7 @@ Next, **create a .NET Core WebAPI** that interacts with SSO
 1. Install NuGet packages
 
    ```powershell
-   Install-Package Steeltoe.Security.Authentication.CloudFoundry
+   Install-Package Steeltoe.Security.Authentication.CloudFoundryCore
    ```
 
 1. Set the instance address in **appsettings.json**

@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 ## Using Service Discovery with HashiCorp Consul server
 
 This tutorial takes you through setting up two .NET Core applications using services discovery. The first will register it's endpoints for discovery, and the second will discover the first's services.
@@ -109,7 +112,7 @@ Update `appsettings.json` with host, port and scheme as needed:
 ```
 
 > [!TIP]
-> Need to customize more settings when connecting to Consul? Have a look at the [Service Discovery with Consul docs](/api/v4/discovery/hashicorp-consul.md).
+> Need to customize more settings when connecting to Consul? Have a look at the [Service Discovery with Consul docs](/api/v3/discovery/hashicorp-consul.md).
 
 ---
 
@@ -201,7 +204,7 @@ public class WeatherForecastController : ControllerBase
 Some notes about the above code:
 
 * Steeltoe configures [`HttpClientFactory`](https://docs.microsoft.com/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) to provide named `HttpClient`s that are configured with Random or RoundRobin load balancers.
-  * There are several other ways to [discover services](/api/v4/discovery/discovering-services.html)
+  * There are several other ways to [discover services](/api/v3/discovery/discovering-services.html)
 * Inside the outbound HTTP request pipeline, Steeltoe replaces "http://Consul-Register-Example/" in the request Uri with a scheme + host + port returned from Consul
 
 Run the app to see discovery in action:
@@ -229,4 +232,4 @@ Now that there are two runnable projects in Visual Studio, the options to start 
 
 Once both applications are up and running and you've confirmed the Register example is listed in Consul, use Swagger UI or navigate to /WeatherForecast **in Consul_Discover_Example** to confirm that the discover sample is able to look up and contact Consul_Register_Example.
 
-Learn more in the [documentation for Steeltoe Service Discovery](/api/v4/discovery/index.md)
+Learn more in the [documentation for Steeltoe Service Discovery](/api/v3/discovery/index.md)

@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 ## App Configuration with Cloud Foundry
 
 This tutorial takes you through setting up a .NET Core application that retrieves environment variable values from Cloud Foundry.

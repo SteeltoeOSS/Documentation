@@ -8,6 +8,9 @@ _disableNav: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
@@ -36,7 +39,7 @@ We're going to add a database connection and context using Entity Framework Core
 
 # [Visual Studio](#tab/visual-studio)
 
-Right-click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manager window, choose "Browse", then search for `Steeltoe.Connectors.EntityFrameworkCore`, and install.
+Right-click on the project name in the solution explorer and choose "Manage NuGet packages...". In the package manager window, choose "Browse", then search for `Steeltoe.Connector.EFCore`, and install.
 ![Steeltoe EFCore NuGet dependency](../images/vs-add-efcore.png)
 
 Then search for the `Microsoft.EntityFrameworkCore.SqlServer` package and install.
@@ -45,7 +48,7 @@ Then search for the `Microsoft.EntityFrameworkCore.SqlServer` package and instal
 # [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
-dotnet add package Steeltoe.Connectors.EntityFrameworkCore
+dotnet add package Steeltoe.Connector.EFCore
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
@@ -126,7 +129,7 @@ Now that we have created the 'TodoDbContext', we need to add it to the service c
 Open "Program.cs" in your IDE and add the next using statement
 
 ```csharp
-using Steeltoe.Connectors.EntityFrameworkdCore.SqlServer;
+using Steeltoe.Connector.SqlServer.EFCore;
 ```
 
 Then append the 'add db' statement and save the changes
@@ -258,7 +261,7 @@ Add the below JSON to 'appsettings.json', just after the 'management' section. T
 
 ## Review what was done
 
-Before we see everything in action, let's review what has been done. With the Steeltoe Entity Framework Core package added, we created a definition of a database context and list item. Then we registered them at startup in the dependency injection container. Instead of bringing in the typical SqlClient packages to help define things, we used `Steeltoe.Connectors.EntityFrameworkCore.SqlServer`. This package not only has all the needed sub-packages included, but also introduces another way of configuring server settings. To learn more about what values can be customized, [have a look at the docs](/api/v4/connectors/microsoft-sql-server.html). In our example, we're using the default port of `1433` and a server name of `localhost`. If you wanted the app to connect to a SQL database hosted elsewhere you could provide different values, or rely on built-in support for [service bindings](/api/v4/connectors/usage.md#cloud-foundry). Also, we've provided the required credentials and server name in `appsettings.json`. The database name will be derived from our ToDo database context. The key is to give the Steeltoe connector a valid healthy connection to a SQL instance, it will do the rest.
+Before we see everything in action, let's review what has been done. With the Steeltoe EFCore package added, we created a definition of a database context and list item. Then we registered them at startup in the dependency injection container. Instead of bringing in the typical SqlClient packages to help define things, we used `Steeltoe.Connector.SqlServer.EFCore`. This package not only has all the needed sub-packages included, but also introduces another way of configuring server settings. To learn more about what values can be customized, [have a look at the docs](/api/v3/connectors/microsoft-sql-server.html). In our example, we're using the default port of `1433` and a server name of `localhost`. If you wanted the app to connect to a SQL database hosted elsewhere you could provide different values, or rely on built-in support for [service bindings](/api/v3/connectors/usage.md#cloud-foundry). Also, we've provided the required credentials and server name in `appsettings.json`. The database name will be derived from our ToDo database context. The key is to give the Steeltoe connector a valid healthy connection to a SQL instance, it will do the rest.
 
 ## Run the application
 

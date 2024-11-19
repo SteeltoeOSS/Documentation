@@ -6,6 +6,9 @@ _disableNav: true
 uid: guides/modernize-dotnet
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 [strigo-desktop-vs]: ~/guides/images/strigo-desktop-vs.png "Strigo windows placement with Visual Studio"
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md

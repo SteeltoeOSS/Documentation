@@ -8,6 +8,9 @@ _disableNav: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
 [exercise-3-link]: exercise3.md
@@ -67,17 +70,17 @@ Once the project is created and opened in your IDE, the first action is to bring
 
 # [Visual Studio](#tab/visual-studio)
 
-Right-click on the project name in the solution explorer and choose "Manage NuGet packages...." In the package manager window, choose "Browse", then search for `Steeltoe.Management.Endpoint`, and install.
-![Endpoint NuGet dependency](../images/vs-add-endpointcore.png)
+Right-click on the project name in the solution explorer and choose "Manage NuGet packages...." In the package manager window, choose "Browse", then search for `Steeltoe.Management.EndpointCore`, and install.
+![EndpointCore NuGet dependency](../images/vs-add-endpointcore.png)
 
-Finally the `Steeltoe.Management.Tracing` package and install.
-![Tracing NuGet dependency](../images/vs-add-tracingcore.png)
+Finally the `Steeltoe.Management.TracingCore` package and install.
+![TracingCore NuGet dependency](../images/vs-add-tracingcore.png)
 
 # [.NET CLI](#tab/dotnet-cli)
 
 ```powershell
-dotnet add package Steeltoe.Management.Endpoint
-dotnet add package Steeltoe.Management.Tracing
+dotnet add package Steeltoe.Management.EndpointCore
+dotnet add package Steeltoe.Management.TracingCore
 ```
 
 ---
@@ -105,9 +108,9 @@ builder.AddLoggersActuator();
 
 We've just included three features within the application by adding these actuators.
 
-- The [health actuator](/api/v4/management/health.md) adds a new endpoint at `/actuator/health`. This endpoint retrieves health contributors that have been registered in the application's service container with either Steeltoe's `IHealthContributor` or Microsoft's `IHealthRegistration` to aggregate the health checks of all the application's dependencies. This endpoint use the HTTP status code of [200](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200) when everything is OK and [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) when it isn't. Details of the health checks can be included in JSON-formatted responses, too.
-- The [info actuator](/api/v4/management/info.md) adds a new endpoint at `/actuator/info`. This function gathers all kinds of information like versioning information, select package information, and anything you'd like to include with your own custom `IInfoContributor`. Everything is formatted as JSON and included in the response.
-- The [logger actuator](/api/v4/management/loggers.md) enables dynamic log level management at runtime and enhanced log message details via `ILogger`.
+- The [health actuator](/api/v3/management/health.md) adds a new endpoint at `/actuator/health`. This endpoint retrieves health contributors that have been registered in the application's service container with either Steeltoe's `IHealthContributor` or Microsoft's `IHealthRegistration` to aggregate the health checks of all the application's dependencies. This endpoint use the HTTP status code of [200](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200) when everything is OK and [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) when it isn't. Details of the health checks can be included in JSON-formatted responses, too.
+- The [info actuator](/api/v3/management/info.md) adds a new endpoint at `/actuator/info`. This function gathers all kinds of information like versioning information, select package information, and anything you'd like to include with your own custom `IInfoContributor`. Everything is formatted as JSON and included in the response.
+- The [logger actuator](/api/v3/management/loggers.md) enables dynamic log level management at runtime and enhanced log message details via `ILogger`.
 
 ## Enable distributed tracing
 
@@ -126,7 +129,7 @@ Add the distributed tracing feature to the service container:
 builder.Services.AddDistributedTracingAspNetCore();
 ```
 
-With the addition of the distributed tracing option, under the covers, Steeltoe uses the OpenTelemetry specification to generate and propagate spans and traces throughout the application, as requests are received. No additional configuration is needed, but if you wanted to manipulate how traces and spans are created you could provide settings in "appsettings.json", [read the docs](/api/v4/tracing/index.html#configure-settings) for more information.
+With the addition of the distributed tracing option, under the covers, Steeltoe uses the OpenTelemetry specification to generate and propagate spans and traces throughout the application, as requests are received. No additional configuration is needed, but if you wanted to manipulate how traces and spans are created you could provide settings in "appsettings.json", [read the docs](/api/v3/tracing/index.html#configure-settings) for more information.
 
 > [!TIP]
 > Having the combination of the logging actuator and distributed tracing enabled, Steeltoe will automatically append the application name, span Id, and trace Id on log messages when possible. This can be very handy when debugging a specific happening or error in production.
@@ -179,7 +182,7 @@ Let's look at the health endpoint. Replace `WeatherForecast` with `actuator/heal
 
 ![Health endpoint](../images/health-endpoint.png)
 
-As we discussed above, the fact that the page loaded (status of 200) is the first communication to the application's platform that it is healthy. Secondarily, the application has output information to help certain platforms gain a deeper knowledge of app health. Learn more about the health endpoint [here](/api/v4/management/health.html).
+As we discussed above, the fact that the page loaded (status of 200) is the first communication to the application's platform that it is healthy. Secondarily, the application has output information to help certain platforms gain a deeper knowledge of app health. Learn more about the health endpoint [here](/api/v3/management/health.html).
 
 ## Discover the info endpoint
 
@@ -187,7 +190,7 @@ Now navigate to the info endpoint by replacing `health` with `info` in the addre
 
 ![Info endpoint](../images/info-endpoint.png)
 
-We have loaded the bare minimum application info for this example. You could build your own `IInfoContributor` and add all kinds of metadata and connection information. Learn more [here](/api/v4/management/info.html).
+We have loaded the bare minimum application info for this example. You could build your own `IInfoContributor` and add all kinds of metadata and connection information. Learn more [here](/api/v3/management/info.html).
 
 ## Observe trace and spans appended to logs
 

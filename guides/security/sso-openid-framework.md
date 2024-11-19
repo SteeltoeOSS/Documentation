@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 ## Using Cloud Foundry SSO with OAuth2 provider
 
 Please refer to our [sample app on GitHub](https://github.com/SteeltoeOSS/Samples/tree/2.x/Security/src/AspDotNet4/CloudFoundrySingleSignon) for detailed directions on using Single Sign-on with OAuth2 and Cloud Foundry in .NET Framework 4.

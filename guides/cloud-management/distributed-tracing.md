@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 ## Using Distributed Tracing for debugging with Zipkin
 
 This tutorial takes you through setting up a .NET Core application that sends tracing data to a Zipkin server.
@@ -31,7 +34,7 @@ Next, **create a .NET Core WebAPI** that interacts with Distributed Tracing
 1. No dependency needs to be added
 1. Click **Generate Project** to download a zip containing the new project
 1. Extract the zipped project and open in your IDE of choice
-1. Add `Steeltoe.Management.Tracing` NuGet package to your project
+1. Add `Steeltoe.Management.TracingCore` NuGet package to your project
 1. Add Distributed Tracing to your startup services
 
    ```csharp

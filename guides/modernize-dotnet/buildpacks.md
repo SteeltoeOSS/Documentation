@@ -7,6 +7,9 @@ _homePath: "./"
 _disableNav: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 [exercise-1-link]: exercise1.md
 [buildpacks-link]: buildpacks.md
 [exercise-2-link]: exercise2.md

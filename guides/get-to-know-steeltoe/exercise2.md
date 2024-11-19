@@ -8,6 +8,9 @@ _disableNav: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
@@ -86,7 +89,7 @@ With the application running and the weather forecast endpoint loaded, your brow
 
 Load the base actuator endpoint by replacing `WeatherForecast` with `actuator` in the browser address bar.
 
-What has happened? In the previous exercise, only select endpoints were implemented and we visited each in the browser to see their output. There was no need to expose those endpoints, because Steeltoe doesn't secure them by default ([you should use security in production environments](/api/v4/management/using-endpoints.html#securing-endpoints)). With the addition of all endpoints, most are secured by default. You pick and choose which should be exposed and with what roles. Here's a list of each endpoint that is available and its purpose. While the application is running, visit each one to learn more.
+What has happened? In the previous exercise, only select endpoints were implemented and we visited each in the browser to see their output. There was no need to expose those endpoints, because Steeltoe doesn't secure them by default ([you should use security in production environments](/api/v3/management/using-endpoints.html#securing-endpoints)). With the addition of all endpoints, most are secured by default. You pick and choose which should be exposed and with what roles. Here's a list of each endpoint that is available and its purpose. While the application is running, visit each one to learn more.
 
 - `/actuator`: A JSON structured list of all actuator endpoints that have been exposed.
 - `/actuator/env`: A listing of all environment variables that are available to the app.

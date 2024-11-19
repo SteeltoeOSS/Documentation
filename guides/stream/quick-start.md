@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+
 # Quick Start w/ RabbitMQ
 
 This guide will show you how to create a Steeltoe Stream service that receives messages coming from messaging middleware of your choice and logs the received message to the console.
@@ -22,7 +25,7 @@ First, **start a rabbitmq server** locally using Docker:
 1. [Creating a Sample Application by Using Steeltoe Initializr](https://start.steeltoe.io)
 1. Name the project `LoggingConsumer`
 1. Add the "Steeltoe.Stream.Binder.RabbitMQ" dependency
-1. Add the "Steeltoe.Stream.Stream" dependency
+1. Add the "Steeltoe.Stream.StreamBase" dependency
 1. [Adding a Message Handler](#adding-a-message-handler)
 1. [Building, and Running](#building-and-running)
 
