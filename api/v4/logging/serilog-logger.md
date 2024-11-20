@@ -44,7 +44,7 @@ As mentioned earlier, the Serilog Dynamic Logger provider extends Serilog. Conse
 
 Alternatively, configuration can be built from code using the Serilog API:
 
-```c#
+```csharp
 using Serilog;
 using Serilog.Events;
 
@@ -70,7 +70,7 @@ builder.Logging.AddDynamicSerilog();
 ```
 
 If you built the Serilog configuration from code, use the appropriate overload instead:
-```c#
+```csharp
 builder.Logging.AddDynamicSerilog(serilogConfiguration);
 ```
 
@@ -78,7 +78,7 @@ builder.Logging.AddDynamicSerilog(serilogConfiguration);
 
 Because dynamic logging is built on the `Microsoft.Extensions.Logging` abstractions, changing log levels dynamically **won't work** if you're using Serilog's static `Log` class directly.
 
-```c#
+```csharp
 using Serilog;
 
 // Use ILogger instead.
@@ -87,7 +87,7 @@ Log.Warning("DO NOT USE!");
 
 Instead, use the injectable `ILogger` interface to log messages, and the `ILoggerFactory` interface to create loggers.
 
-```c#
+```csharp
 using Steeltoe.Logging.DynamicSerilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -105,7 +105,7 @@ exampleLogger.LogInformation("Hello from Example.");
 
 The Serilog dynamic logger supports the use of logger scopes, as well as Serilog's enrichers and destructuring.
 
-```c#
+```csharp
 using Serilog.Context;
 using Steeltoe.Logging.DynamicSerilog;
 
