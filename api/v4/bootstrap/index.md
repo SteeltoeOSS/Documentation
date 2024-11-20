@@ -36,7 +36,7 @@ builder.AddSteeltoe();
 | [Dynamic Logging](../logging/dynamic-logging-provider.md) | `Steeltoe.Logging.DynamicLogger` | N/A |
 | [Dynamic Logging with Serilog](../logging/serilog-logger.md) | `Steeltoe.Logging.DynamicSerilog` | N/A |
 | [Actuators](../management/index.md) | `Steeltoe.Management.Endpoint` | N/A |
-| [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.Tracing` | Required: OpenTelemetry Exporter (Zipkin, Jaeger, OTLP) |
+| [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.Tracing` | Required: OpenTelemetry Exporter (Zipkin, OTLP) |
 
 [^1]: Individual connector clients will only be configured if a corresponding supported driver NuGet package reference is also included.
 
