@@ -34,9 +34,6 @@ using (new WindowsNetworkFileShare(@"\\server\path", new NetworkCredential("user
 }
 ```
 
-> [!WARNING]
-> Levels of support for accessing SMB shares on Tanzu for Windows may vary by installed version. Support for IP-based SMB shares was included with the initial 2.4 release and in patch releases for lower versions. Support for FQDN-based SMB shares was included in PASW 2.5 and in patch releases for lower versions.
-
 ### Managing Credentials
 
 Credentials are generally required for interacting with SMB shares. `WindowsNetworkFileShare` does not have an opinion on where those credentials are stored. However, as a general guideline, storing credentials with your application's code or standard configuration is not recommended. Consider using the [CredHub Service Broker](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/6.0/tas-for-vms/credhub-index.html) for storing and retrieving your credentials.
