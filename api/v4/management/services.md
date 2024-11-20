@@ -15,6 +15,9 @@ Each key must be prefixed with `Management:Endpoints:Services:`.
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
 
+> [!NOTE]
+> The `ID` of this endpoint defaults to `beans` for compatibility with the [beans actuator from Spring](https://docs.spring.io/spring-boot/api/rest/actuator/beans.html).
+
 ## Enable HTTP Access
 
 The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting together with the `Path` setting described in the preceding section.
