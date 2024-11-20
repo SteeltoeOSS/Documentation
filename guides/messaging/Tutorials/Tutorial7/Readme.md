@@ -7,7 +7,7 @@ _hideTocVersionToggle: true
 ---
 
 > [!NOTE]
-> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
 
 ## Publisher Confirms Tutorial (using Steeltoe)
 
