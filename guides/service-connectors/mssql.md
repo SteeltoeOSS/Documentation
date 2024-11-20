@@ -7,7 +7,7 @@ _hideTocVersionToggle: true
 ---
 
 > [!NOTE]
-> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
 
 ## Using Service Connectors with Microsoft SQL
 
