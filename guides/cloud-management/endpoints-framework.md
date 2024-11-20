@@ -7,7 +7,7 @@ _hideTocVersionToggle: true
 ---
 
 > [!NOTE]
-> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to contribute updating them for Steeltoe v4.
+> This guide applies to Steeltoe v2. Later Steeltoe versions do not support .NET Framework usage.
 
 > [!TIP]
 > Looking for a .NET Core example? [Have a look](endpoints-netcore.md).
