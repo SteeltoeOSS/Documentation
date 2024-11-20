@@ -2,9 +2,6 @@
 
 The Steeltoe Thread Dump endpoint can be used to generate a snapshot of information about all the threads in your application. That snapshot includes several bits of information for each thread, including the thread's state, a stack trace, any monitor locks held by the thread, any monitor locks the thread is waiting on, and other details.
 
-> [!NOTE]
-> At this time, thread dumps are only possible on the Windows operating system. When integrating with [Tanzu Apps Manager](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/6.0/tas-for-vms/using-actuators.html#view-thread-dump-3), you will not have the ability to obtain thread dumps from apps running on Linux cells.
-
 ## Configure Settings
 
 The following table describes the configuration settings that you can apply to the endpoint.
