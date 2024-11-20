@@ -120,9 +120,9 @@ To expose all endpoints, `*` can be used. For example, to expose everything exce
 ```
 
 > [!NOTE]
-> When running on Cloud Foundry, exposure settings have no effect and all actuators are exposed.
-> Use the [security features](./cloud-foundry.md#security) to control access.
-> Individual endpoints can be turned off by setting `Enabled` to `false`.
+> When running on Cloud Foundry, exposure settings *only* have an effect on requests starting with `/actuator`.
+> They are ignored for requests starting with `/cloudfoundryapplication`, where access control is [handled differently](./cloud-foundry.md#security).
+> Individual endpoints can be turned off by setting `Enabled` to `false`, which applies to both URLs.
 
 ## HTTP Access
 
