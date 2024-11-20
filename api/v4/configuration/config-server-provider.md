@@ -218,7 +218,7 @@ Alternatively, you can set up your Config Server to register with a discovery se
 
 However, with the default "Config First" mode of the Steeltoe client, you are not able to take advantage of the Config Server registration unless you change the clients' mode of operation to "Discovery First". To do so:
 
-1. If your application does not use a service discovery service, you need to configure your application to do so. See the Steeltoe Discovery documentation for the details on how. Note that, currently, Steeltoe supports only Netflix Eureka. At a minimum, you need to configure the Eureka Server address.
+1. If your application does not use a service discovery service, you need to configure your application to do so. See the [Steeltoe Discovery documentation](../discovery/initialize-discovery-client.md) for the details on how. At a minimum, you need to configure the Eureka Server address.
 1. Change the Steeltoe Config Server client setting `Spring:Cloud:Config:Discovery:Enabled` to `true` (the default is `false`).
 1. If your Config Server is registered with Eureka using a name other than "configserver", use `Spring:Cloud:Config:Discovery:ServiceId` to specify the name used by the client for lookup.
 
