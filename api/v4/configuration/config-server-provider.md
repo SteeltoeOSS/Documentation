@@ -159,6 +159,9 @@ When the `ConfigurationBuilder` builds the configuration, the Config Server clie
 
 If there are any errors or problems accessing the server, the application continues to initialize, but the values from the server are not retrieved. If this is not the behavior you want, you should set `Spring:Cloud:Config:FailFast` to `true`. Once that is done, the application fails to start if problems occur during the retrieval.
 
+> [!TIP]
+> To diagnose startup errors, activate bootstrap logging as described [here](../bootstrap/index.md#logging-inside-configuration-providers).
+
 After the configuration has been built, you can access the retrieved data directly by using `IConfiguration`. The following example shows how to do so:
 
 ```csharp
@@ -205,28 +208,6 @@ public class HomeController(IOptionsSnapshot<ExampleOptions> optionsSnapshot)
         return View();
     }
 }
-```
-
-### Enable Logging
-
-Sometimes, it is desirable to turn on debug logging in the provider.
-
-To do so, you need to create an `ILoggerFactory` and pass it to the Steeltoe configuration provider.
-The provider then uses it to create a logger with the debug-level logging turned on.
-
-The following example shows how to enable debug-level logging:
-
-```csharp
-using Steeltoe.Configuration.ConfigServer;
-
-var loggerFactory = LoggerFactory.Create(loggingBuilder =>
-{
-    loggingBuilder.AddConsole();
-    loggingBuilder.SetMinimumLevel(LogLevel.Debug);
-});
-
-var builder = WebApplication.CreateBuilder(args);
-builder.AddConfigServer(loggerFactory);
 ```
 
 ### Configuring Discovery First
