@@ -7,11 +7,11 @@ $(function () {
     var show = 'show';
     var hide = 'hide';
     var util = new utility();
-  
+
     workAroundFixedHeaderForAnchors();
     highlight();
     enableSearch();
-  
+
     renderTables();
     renderAlerts();
     renderLinks();
@@ -20,7 +20,7 @@ $(function () {
     renderAffix();
     renderFooter();
     //renderLogo();
-  
+
     breakText();
     renderTabs();
 
@@ -29,17 +29,17 @@ $(function () {
       if (typeof article == 'undefined' || typeof article.content == 'undefined')
         console.error("Null Argument");
       $("article.content").html(article.content);
-  
+
       highlight();
       renderTables();
       renderAlerts();
       renderAffix();
       renderTabs();
     }
-  
+
     // Add this event listener when needed
     // window.addEventListener('content-update', contentUpdate);
-  
+
     function breakText() {
       $(".xref").addClass("text-break");
       var texts = $(".text-break");
@@ -47,20 +47,20 @@ $(function () {
         $(this).breakWord();
       });
     }
-  
+
     // Styling for tables in conceptual documents using Bootstrap.
     // See http://getbootstrap.com/css/#tables
     function renderTables() {
       $('table').addClass('table table-bordered table-striped table-condensed').wrap('<div class=\"table-responsive\"></div>');
     }
-  
+
     // Styling for alerts.
     function renderAlerts() {
       $('.NOTE, .TIP').addClass('alert alert-info');
       $('.WARNING').addClass('alert alert-warning');
       $('.IMPORTANT, .CAUTION').addClass('alert alert-danger');
     }
-  
+
     // Enable anchors for headings.
     (function () {
       anchors.options = {
@@ -69,7 +69,7 @@ $(function () {
       };
       anchors.add('article h2:not(.no-anchor), article h3:not(.no-anchor), article h4:not(.no-anchor)');
     })();
-  
+
     // Open links to different host in a new window.
     function renderLinks() {
       if ($("meta[property='docfx:newtab']").attr("content") === "true") {
@@ -78,7 +78,7 @@ $(function () {
         }).attr('target', '_blank');
       }
     }
-  
+
     // Enable highlight.js
     function highlight() {
       $('pre code').each(function (i, block) {
@@ -87,10 +87,10 @@ $(function () {
       $('pre code[highlight-lines]').each(function (i, block) {
         if (block.innerHTML === "") return;
         var lines = block.innerHTML.split('\n');
-  
+
         queryString = block.getAttribute('highlight-lines');
         if (!queryString) return;
-  
+
         var ranges = queryString.split(',');
         for (var j = 0, range; range = ranges[j++];) {
           var found = range.match(/^(\d+)\-(\d+)?$/);
@@ -114,11 +114,11 @@ $(function () {
           lines[start - 1] = '<span class="line-highlight">' + lines[start - 1];
           lines[end - 1] = lines[end - 1] + '</span>';
         }
-  
+
         block.innerHTML = lines.join('\n');
       });
     }
-  
+
     // Support full-text-search
     function enableSearch() {
       var query;
@@ -127,21 +127,21 @@ $(function () {
         return;
       }
       try {
-        
+
         var worker = new Worker(relHref + 'styles/search-worker.js');
         if (!worker && !window.worker) {
           localSearch();
         } else {
           webWorkerSearch();
         }
-  
+
         renderSearchBox();
         highlightKeywords();
         addSearchEvent();
       } catch (e) {
         console.error(e);
       }
-  
+
       //Adjust the position of search box in navbar
       function renderSearchBox() {
         autoCollapse();
@@ -151,7 +151,7 @@ $(function () {
             $(this).collapse('hide');
           }
         });
-  
+
         function autoCollapse() {
           var navbar = $('#autocollapse');
           if (navbar.height() === null) {
@@ -163,7 +163,7 @@ $(function () {
           }
         }
       }
-  
+
       // Search factory
       function localSearch() {
         console.log("using local search");
@@ -175,9 +175,9 @@ $(function () {
         lunr.tokenizer.seperator = /[\s\-\.]+/;
         var searchData = {};
         var searchDataRequest = new XMLHttpRequest();
-  
+
         var indexPath = relHref + "index.json";
-        
+
         if (indexPath) {
           searchDataRequest.open('GET', indexPath);
           searchDataRequest.onload = function () {
@@ -193,7 +193,7 @@ $(function () {
           }
           searchDataRequest.send();
         }
-  
+
         $("body").bind("queryReady", function () {
           var hits = lunrIndex.search(query);
           var results = [];
@@ -204,11 +204,11 @@ $(function () {
           handleSearchResults(results);
         });
       }
-  
+
       function webWorkerSearch() {
         console.log("using Web Worker");
         var indexReady = $.Deferred();
-  
+
         worker.onmessage = function (oEvent) {
           switch (oEvent.data.e) {
             case 'index-ready':
@@ -220,7 +220,7 @@ $(function () {
               break;
           }
         }
-  
+
         indexReady.promise().done(function () {
           $("body").bind("queryReady", function () {
             worker.postMessage({ q: query });
@@ -230,7 +230,7 @@ $(function () {
           }
         });
       }
-  
+
       // Highlight the searching keywords
       function highlightKeywords() {
         var q = url('?q');
@@ -244,13 +244,13 @@ $(function () {
           });
         }
       }
-  
+
       function addSearchEvent() {
         $('body').bind("searchEvent", function () {
           $('#search-query').keypress(function (e) {
             return e.which !== 13;
           });
-  
+
           $('#search-query').keyup(function () {
             query = $(this).val();
             if (query.length < 3) {
@@ -263,7 +263,7 @@ $(function () {
           }).off("keydown");
         });
       }
-  
+
       function flipContents(action) {
         if (action === "show") {
           $('.hide-when-search').show();
@@ -273,7 +273,7 @@ $(function () {
           $('#search-results').show();
         }
       }
-  
+
       function relativeUrlToAbsoluteUrl(currentUrl, relativeUrl) {
         var currentItems = currentUrl.split(/\/+/);
         var relativeItems = relativeUrl.split(/\/+/);
@@ -288,7 +288,7 @@ $(function () {
         }
         return currentItems.slice(0, depth).concat(items).join('/');
       }
-  
+
       function extractContentBrief(content) {
         var briefOffset = 512;
         var words = query.split(/\s+/g);
@@ -300,7 +300,7 @@ $(function () {
           return content.slice(0, queryIndex + briefOffset) + "...";
         }
       }
-  
+
       function handleSearchResults(hits) {
         var numPerPage = 10;
         $('#pagination').empty();
@@ -321,7 +321,7 @@ $(function () {
                   var itemHref = relHref + hit.href + "?q=" + query;
                   var itemTitle = hit.title;
                   var itemBrief = extractContentBrief(hit.keywords);
-  
+
                   var itemNode = $('<div>').attr('class', 'sr-item');
                   var itemTitleNode = $('<div>').attr('class', 'item-title').append($('<a>').attr('href', itemHref).attr("target", "_blank").text(itemTitle));
                   var itemHrefNode = $('<div>').attr('class', 'item-href').text(itemRawHref);
@@ -340,7 +340,7 @@ $(function () {
         }
       }
     };
-  
+
     // Update href in navbar
     function renderNavbar() {
       var showNav = $("meta[property='docfx:shownav']").attr("content")
@@ -356,14 +356,14 @@ $(function () {
         renderBreadcrumb();
         showSearch();
       //}
-      
+
       function showSearch() {
         if ($('#search-results').length !== 0) {
             $('#search').show();
             $('body').trigger("searchEvent");
         }
       }
-  
+
       function loadNavbar() {
         var navbarPath = $("meta[property='docfx\\:navrel']").attr("content");
         if (!navbarPath) {
@@ -388,7 +388,7 @@ $(function () {
             if (util.isRelativePath(href)) {
               href = navrel + href;
               $(e).attr("href", href);
-  
+
               var isActive = false;
               var originalHref = e.name;
               if (originalHref) {
@@ -413,7 +413,7 @@ $(function () {
         });
       }
     }
-  
+
     function renderSidebar() {
       var sidetoc = $('#sidetoggle .sidetoc')[0];
       if (typeof (sidetoc) === 'undefined') {
@@ -423,7 +423,7 @@ $(function () {
         if ($('footer').is(':visible')) {
           $('.sidetoc').addClass('shiftup');
         }
-  
+
         // Scroll to active item
         var top = 0;
         $('#toc a.active').parents('li').each(function (i, e) {
@@ -434,18 +434,18 @@ $(function () {
           top += $(e).position().top;
         })
         $('.sidetoc').scrollTop(top - 50);
-  
+
         if ($('footer').is(':visible')) {
           $('.sidetoc').addClass('shiftup');
         }
-  
+
         renderBreadcrumb();
       }
-  
+
       function registerTocEvents() {
         var tocFilterInput = $('#toc_filter_input');
         var tocFilterClearButton = $('#toc_filter_clear');
-          
+
         $('.toc .nav > li > .expand-stub').click(function (e) {
           $(e.target).parent().toggleClass(expanded);
         });
@@ -469,7 +469,7 @@ $(function () {
             return;
           }
           tocFilterClearButton.fadeIn();
-  
+
           // set all parent nodes status
           $('#toc li>a').filter(function (i, e) {
             return $(e).siblings().length > 0
@@ -479,7 +479,7 @@ $(function () {
             parent.removeClass(show);
             parent.removeClass(filtered);
           })
-          
+
           // Get leaf nodes
           $('#toc li>a').filter(function (i, e) {
             return $(e).siblings().length === 0
@@ -513,14 +513,14 @@ $(function () {
               parent.removeClass(filtered);
             }
           })
-  
+
           function filterNavItem(name, text) {
             if (!text) return true;
             if (name && name.toLowerCase().indexOf(text.toLowerCase()) > -1) return true;
             return false;
           }
         });
-        
+
         // toc filter clear button
         tocFilterClearButton.hide();
         tocFilterClearButton.on("click", function(e){
@@ -534,7 +534,7 @@ $(function () {
               {}
           }
         });
-  
+
         //Set toc filter from local session storage on page load
         if (typeof(Storage) !== "undefined") {
           try {
@@ -545,7 +545,7 @@ $(function () {
             {}
         }
       }
-  
+
       function loadToc() {
         var tocPath = $("meta[property='docfx\\:tocrel']").attr("content");
         if (!tocPath) {
@@ -565,19 +565,19 @@ $(function () {
               href = tocrel + href;
               $(e).attr("href", href);
             }
-  
+
             if (util.getAbsolutePath(e.href) === currentHref) {
               $(e).addClass(active);
             }
-  
+
             $(e).breakWord();
           });
-  
+
           renderSidebar();
         });
       }
     }
-  
+
     function renderBreadcrumb() {
       var breadcrumb = [];
       $('#navbar a.active').each(function (i, e) {
@@ -592,11 +592,11 @@ $(function () {
           name: e.innerHTML
         });
       })
-      
+
       var html = util.formList(breadcrumb, 'breadcrumb');
       $('#breadcrumb').html(html);
     }
-  
+
     //Setup Affix
     function renderAffix() {
       var hierarchy = getHierarchy();
@@ -615,29 +615,29 @@ $(function () {
           }
         });
       }
-  
+
       function getHierarchy() {
         // supported headers are h1, h2, h3, and h4
         var $headers = $($.map(['h1', 'h2', 'h3', 'h4'], function (h) { return ".article-wrapper article " + h; }).join(", "));
-  
+
         // a stack of hierarchy items that are currently being built
         var stack = [];
         $headers.each(function (i, e) {
           if (!e.id) {
             return;
           }
-  
+
           var item = {
             name: htmlEncode($(e).text()),
             href: "#" + e.id,
             items: []
           };
-  
+
           if (!stack.length) {
             stack.push({ type: e.tagName, siblings: [item] });
             return;
           }
-  
+
           var frame = stack[stack.length - 1];
           if (e.tagName === frame.type) {
             frame.siblings.push(item);
@@ -662,7 +662,7 @@ $(function () {
         while (stack.length > 1) {
           buildParent();
         }
-  
+
         function buildParent() {
           var childrenToAttach = stack.pop();
           var parentFrame = stack[stack.length - 1];
@@ -672,7 +672,7 @@ $(function () {
           });
         }
         if (stack.length > 0) {
-  
+
           var topLevel = stack.pop().siblings;
           if (topLevel.length === 1) {  // if there's only one topmost header, dump it
             return topLevel[0].items;
@@ -681,7 +681,7 @@ $(function () {
         }
         return undefined;
       }
-  
+
       function htmlEncode(str) {
         if (!str) return str;
         return str
@@ -691,7 +691,7 @@ $(function () {
           .replace(/</g, '&lt;')
           .replace(/>/g, '&gt;');
       }
-  
+
       function htmlDecode(value) {
         if (!str) return str;
         return value
@@ -701,7 +701,7 @@ $(function () {
           .replace(/&gt;/g, '>')
           .replace(/&amp;/g, '&');
       }
-  
+
       function cssEscape(str) {
         // see: http://stackoverflow.com/questions/2786538/need-to-escape-a-special-character-in-a-jquery-selector-string#answer-2837646
         if (!str) return str;
@@ -709,12 +709,12 @@ $(function () {
           .replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&");
       }
     }
-  
+
     // Show footer
     function renderFooter() {
       initFooter();
       $(window).on("scroll", showFooterCore);
-  
+
       function initFooter() {
         if (needFooter()) {
           shiftUpBottomCss();
@@ -724,7 +724,7 @@ $(function () {
           $("footer").hide();
         }
       }
-  
+
       function showFooterCore() {
         if (needFooter()) {
           shiftUpBottomCss();
@@ -734,24 +734,24 @@ $(function () {
           $("footer").fadeOut();
         }
       }
-  
+
       function needFooter() {
         var scrollHeight = $(document).height();
         var scrollPosition = $(window).height() + $(window).scrollTop();
         return (scrollHeight - scrollPosition) < 1;
       }
-  
+
       function resetBottomCss() {
         $(".sidetoc").removeClass("shiftup");
         $(".sideaffix").removeClass("shiftup");
       }
-  
+
       function shiftUpBottomCss() {
         $(".sidetoc").addClass("shiftup");
         $(".sideaffix").addClass("shiftup");
       }
     }
-  
+
     function renderLogo() {
       // For LOGO SVG
       // Replace SVG with inline SVG
@@ -761,11 +761,11 @@ $(function () {
         var imgID = $img.attr('id');
         var imgClass = $img.attr('class');
         var imgURL = $img.attr('src');
-  
+
         jQuery.get(imgURL, function (data) {
           // Get the SVG tag, ignore the rest
           var $svg = jQuery(data).find('svg');
-  
+
           // Add replaced image's ID to the new SVG
           if (typeof imgID !== 'undefined') {
             $svg = $svg.attr('id', imgID);
@@ -774,24 +774,24 @@ $(function () {
           if (typeof imgClass !== 'undefined') {
             $svg = $svg.attr('class', imgClass + ' replaced-svg');
           }
-  
+
           // Remove any invalid XML tags as per http://validator.w3.org
           $svg = $svg.removeAttr('xmlns:a');
-  
+
           // Replace image with new SVG
           $img.replaceWith($svg);
-  
+
         }, 'xml');
       });
     }
-  
+
     function renderTabs() {
       var contentAttrs = {
         id: 'data-bi-id',
         name: 'data-bi-name',
         type: 'data-bi-type'
       };
-  
+
       var Tab = (function () {
         function Tab(li, a, section) {
           this.li = li;
@@ -847,9 +847,9 @@ $(function () {
         };
         return Tab;
       }());
-  
+
       initTabs(document.body);
-  
+
       function initTabs(container) {
         var queryStringTabs = readTabsQueryStringParam();
         var elements = container.querySelectorAll('.tabGroup');
@@ -870,7 +870,7 @@ $(function () {
         notifyContentUpdated();
         return state;
       }
-  
+
       function initTabGroup(element) {
         var group = {
           independent: element.hasAttribute('data-tab-group-independent'),
@@ -891,7 +891,7 @@ $(function () {
         element.tabGroup = group;
         return group;
       }
-  
+
       function updateVisibilityAndSelection(group, state) {
         var anySelected = false;
         var firstVisibleTab;
@@ -923,7 +923,7 @@ $(function () {
           state.selectedTabs.push(tab.tabIds[0]);
         }
       }
-  
+
       function getTabInfoFromEvent(event) {
         if (!(event.target instanceof HTMLElement)) {
           return null;
@@ -939,7 +939,7 @@ $(function () {
         }
         return { tabIds: tabIds, group: group, anchor: anchor };
       }
-  
+
       function handleClick(event, state) {
         var info = getTabInfoFromEvent(event);
         if (info === null) {
@@ -974,7 +974,7 @@ $(function () {
           window.scrollTo(0, window.pageYOffset + top - originalTop);
         }
       }
-  
+
       function selectTabs(tabIds) {
         for (var _i = 0, tabIds_1 = tabIds; _i < tabIds_1.length; _i++) {
           var tabId = tabIds_1[_i];
@@ -985,7 +985,7 @@ $(function () {
           a.dispatchEvent(new CustomEvent('click', { bubbles: true }));
         }
       }
-  
+
       function readTabsQueryStringParam() {
         var qs = parseQueryString();
         var t = qs.tabs;
@@ -994,7 +994,7 @@ $(function () {
         }
         return t.split(',');
       }
-  
+
       function updateTabsQueryStringParam(state) {
         var qs = parseQueryString();
         qs.tabs = state.selectedTabs.join();
@@ -1004,7 +1004,7 @@ $(function () {
         }
         history.replaceState({}, document.title, url);
       }
-  
+
       function toQueryString(args) {
         var parts = [];
         for (var name_1 in args) {
@@ -1014,7 +1014,7 @@ $(function () {
         }
         return parts.join('&');
       }
-  
+
       function parseQueryString(queryString) {
         var match;
         var pl = /\+/g;
@@ -1030,7 +1030,7 @@ $(function () {
         }
         return urlParams;
       }
-  
+
       function arraysIntersect(a, b) {
         for (var _i = 0, a_1 = a; _i < a_1.length; _i++) {
           var itemA = a_1[_i];
@@ -1043,38 +1043,38 @@ $(function () {
         }
         return false;
       }
-  
+
       function notifyContentUpdated() {
         // Dispatch this event when needed
         // window.dispatchEvent(new CustomEvent('content-update'));
       }
     }
-  
+
     function utility() {
       this.getAbsolutePath = getAbsolutePath;
       this.isRelativePath = isRelativePath;
       this.isAbsolutePath = isAbsolutePath;
       this.getDirectory = getDirectory;
       this.formList = formList;
-  
+
       function getAbsolutePath(href) {
         // Use anchor to normalize href
         var anchor = $('<a href="' + href + '"></a>')[0];
         // Ignore protocal, remove search and query
         return anchor.host + anchor.pathname;
       }
-  
+
       function isRelativePath(href) {
         if (href === undefined || href === '' || href[0] === '/') {
           return false;
         }
         return !isAbsolutePath(href);
       }
-  
+
       function isAbsolutePath(href) {
         return (/^(?:[a-z]+:)?\/\//i).test(href);
       }
-  
+
       function getDirectory(href) {
         if (!href) return '';
         var index = href.lastIndexOf('/');
@@ -1083,7 +1083,7 @@ $(function () {
           return href.substr(0, index);
         }
       }
-  
+
       function formList(item, classes) {
         var level = 1;
         var model = {
@@ -1091,7 +1091,7 @@ $(function () {
         };
         var cls = [].concat(classes).join(" ");
         return getList(model, cls);
-  
+
         function getList(model, cls) {
           if (!model || !model.items) return null;
           var l = model.items.length;
@@ -1111,7 +1111,7 @@ $(function () {
           return html;
         }
       }
-  
+
       /**
        * Add <wbr> into long word.
        * @param {String} text - The word to break. It should be in plain text without HTML tags.
@@ -1120,7 +1120,7 @@ $(function () {
         if (!text) return text;
         return text.replace(/([a-z])([A-Z])|(\.)(\w)/g, '$1$3<wbr>$2$4')
       }
-  
+
       /**
        * Add <wbr> into long word. The jQuery element should contain no html tags.
        * If the jQuery element contains tags, this function will not change the element.
@@ -1134,16 +1134,16 @@ $(function () {
         return this;
       }
     }
-  
+
     // adjusted from https://stackoverflow.com/a/13067009/1523776
     function workAroundFixedHeaderForAnchors() {
       var HISTORY_SUPPORT = !!(history && history.pushState);
       var ANCHOR_REGEX = /^#[^ ]+$/;
-  
+
       function getFixedOffset() {
         return $('header').first().height();
       }
-  
+
       /**
        * If the provided href is an anchor which resolves to an element on the
        * page, scroll to it.
@@ -1152,56 +1152,56 @@ $(function () {
        */
       function scrollIfAnchor(href, pushToHistory) {
         var match, rect, anchorOffset;
-  
+
         if (!ANCHOR_REGEX.test(href)) {
           return false;
         }
-  
+
         match = document.getElementById(href.slice(1));
-  
+
         if (match) {
           rect = match.getBoundingClientRect();
           anchorOffset = window.pageYOffset + rect.top - getFixedOffset();
           window.scrollTo(window.pageXOffset, anchorOffset);
-  
+
           // Add the state to history as-per normal anchor links
           if (HISTORY_SUPPORT && pushToHistory) {
             history.pushState({}, document.title, location.pathname + href);
           }
         }
-  
+
         return !!match;
       }
-  
+
       /**
        * Attempt to scroll to the current location's hash.
        */
       function scrollToCurrent() {
         scrollIfAnchor(window.location.hash);
       }
-  
+
       /**
        * If the click event's target was an anchor, fix the scroll position.
        */
       function delegateAnchors(e) {
         var elem = e.target;
-  
+
         if (scrollIfAnchor(elem.getAttribute('href'), true)) {
           e.preventDefault();
         }
       }
-  
+
       $(window).on('hashchange', scrollToCurrent);
-  
+
       $(window).on('load', function () {
           // scroll to the anchor if present, offset by the header
           scrollToCurrent();
       });
-  
+
       $(document).ready(function () {
           // Exclude tabbed content case
           $('a:not([data-tab])').click(function (e) { delegateAnchors(e); });
       });
     }
   });
-  
+

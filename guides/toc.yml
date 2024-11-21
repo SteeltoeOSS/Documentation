@@ -47,7 +47,7 @@
     - topicUid: guides/service-discovery/eureka
     - topicUid: guides/service-discovery/consul
 - name: Stream
-  items: 
+  items:
     - topicUid: guides/stream/quick-start
 - name: Steeltoe Workshop
   items:
