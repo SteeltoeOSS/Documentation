@@ -20,7 +20,12 @@ When adding this management endpoint to your application, the Cloud Foundry secu
 
 When running in Cloud Foundry, it is possible to access the endpoints via the [hypermedia](./hypermedia.md) URL, which defaults to `/actuator`. In other words, you can also access all your endpoints from this URL prefix. For example, the [info](./info.md) endpoint would be accessible at `/actuator/info`.
 
-While the endpoints provided on the `/cloudfoundryapplication` path are secured as described above, the endpoints provided on the `/actuator` path are not. For this reason, only health and info are exposed by default and others must be exposed explicitly. In addition, the endpoints may be secured by whatever security mechanism the application itself uses. For more details, see [securing actuators](./using-endpoints.md#securing-endpoints).
+While the endpoints provided on the `/cloudfoundryapplication` path are secured as described above, the endpoints provided on the `/actuator` path are not.
+For this reason, all endpoints are exposed by default at `/cloudfoundryapplication`, but only health and info are exposed by default at `/actuator`.
+In addition, the endpoints may be secured by whatever security mechanism the application itself uses. For more details, see [securing actuators](./using-endpoints.md#securing-endpoints).
+
+> [!CAUTION]
+> Applying an authorization policy on `/actuator` will also impact `/cloudfoundryapplication`, which will break the integration with Apps Manager.
 
 ## Configure Settings
 
