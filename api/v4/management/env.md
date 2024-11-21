@@ -14,6 +14,9 @@ Each key must be prefixed with `Management:Endpoints:Env:`.
 | `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
+| `KeysToSanitize` | An array of keys to sanitize. [^1] | `[ "password", "secret", "key", "token", ".*credentials.*", "vcap_services" ]` |
+
+[^1]: A key can be a simple string that the property must end with, or a regular expression. A case-insensitive match is always performed. Use a single-element empty string to disable sanitization.
 
 ## Enable HTTP Access
 
