@@ -40,3 +40,7 @@ using Steeltoe.Management.Prometheus;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPrometheusActuator();
 ```
+
+> [!TIP]
+> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
+> which enables individually turning them on/off at runtime via configuration.

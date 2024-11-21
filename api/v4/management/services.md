@@ -36,6 +36,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddServicesActuator();
 ```
 
+> [!TIP]
+> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
+> which enables individually turning them on/off at runtime via configuration.
+
 ## Sample Output
 
 This endpoint returns the contents of `IServiceCollection`.

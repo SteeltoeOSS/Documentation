@@ -75,6 +75,10 @@ builder.Services.AddHealthActuator();
 ```
 
 > [!TIP]
+> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
+> which enables individually turning them on/off at runtime via configuration.
+
+> [!TIP]
 > By default, health contributors for disk space, liveness, and readiness are activated. They can be turned off through configuration:
 > ```json
 > {

@@ -36,6 +36,10 @@ builder.Services.AddLoggersActuator();
 ```
 
 > [!TIP]
+> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
+> which enables individually turning them on/off at runtime via configuration.
+
+> [!TIP]
 > When `AddLoggersActuator` is called, it tries to register the [Dynamic Logging Provider](../logging/dynamic-logging-provider.md).
 > If you'd like to use Serilog instead, call `AddDynamicSerilog` *before* `AddLoggersActuator`.
 

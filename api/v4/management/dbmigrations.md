@@ -36,6 +36,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbMigrationsActuator();
 ```
 
+> [!TIP]
+> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
+> which enables individually turning them on/off at runtime via configuration.
+
 ## Sample Output
 
 This endpoint returns a list of objects representing each registered `DbContext` along with its migrations, grouped by status (pending or applied).

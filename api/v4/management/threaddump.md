@@ -34,6 +34,10 @@ builder.Services.AddThreadDumpActuator();
 ```
 
 > [!TIP]
+> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
+> which enables individually turning them on/off at runtime via configuration.
+
+> [!TIP]
 > The extension method takes an optional `MediaTypeVersion` argument, which defaults to `MediaTypeVersion.V2`. If you specify `MediaTypeVersion.V1`, the endpoint path defaults to `/actuator/dump`.
 
 ## Sample Output
