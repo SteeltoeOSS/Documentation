@@ -194,7 +194,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
 
 * [Dynamic logging](https://dev.steeltoe.io/docs/3/logging) can be implemented with a single statement in the `HostBuilder`
 
-	```csharp
+    ```csharp
     public static IHostBuilder CreateHostBuilder(string[] args) =>
       Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(webBuilder => {
@@ -238,10 +238,10 @@ Here are a few examples of new ways to implement things in the `HostBuilder`:
   ```csharp
   public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
-    	.ConfigureWebHostDefaults(webBuilder => {
-    		webBuilder.UseStartup<Startup>();
-    	})
-    	.AddHealthActuator();
+        .ConfigureWebHostDefaults(webBuilder => {
+            webBuilder.UseStartup<Startup>();
+        })
+        .AddHealthActuator();
     }
   ```
 
@@ -249,10 +249,10 @@ Here are a few examples of new ways to implement things in the `HostBuilder`:
   ```csharp
   public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
-    	.ConfigureWebHostDefaults(webBuilder => {
-    		webBuilder.UseStartup<Startup>();
-    	})
-    	.AddAllActuators(/*endpoints => endpoints.RequireAuthorization("actuators.read")*/);
+        .ConfigureWebHostDefaults(webBuilder => {
+            webBuilder.UseStartup<Startup>();
+        })
+        .AddAllActuators(/*endpoints => endpoints.RequireAuthorization("actuators.read")*/);
     }
   ```
 
@@ -260,11 +260,11 @@ Here are a few examples of new ways to implement things in the `HostBuilder`:
   ```csharp
   public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
-    	.ConfigureWebHostDefaults(webBuilder => {
-    		webBuilder.UseStartup<Startup>();
-    	})
-    	.UseCloudHosting(5000)
-    	.AddCloudFoundryActuators();
+        .ConfigureWebHostDefaults(webBuilder => {
+            webBuilder.UseStartup<Startup>();
+        })
+        .UseCloudHosting(5000)
+        .AddCloudFoundryActuators();
     }
   ```
 

@@ -441,14 +441,14 @@ Here is the example of the Processor application exposing message handler as `ja
 @EnableBinding(Processor.class)
 public class MyFunctionBootApp {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MyFunctionBootApp.class, "--spring.cloud.stream.function.definition=toUpperCase");
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MyFunctionBootApp.class, "--spring.cloud.stream.function.definition=toUpperCase");
+    }
 
-	@Bean
-	public Function<String, String> toUpperCase() {
-		return s -> s.toUpperCase();
-	}
+    @Bean
+    public Function<String, String> toUpperCase() {
+        return s -> s.toUpperCase();
+   }
 }
 ```
 In the above you we simply define a bean of type `java.util.function.Function` called _toUpperCase_ and identify it as a bean to be used as message handler
@@ -461,13 +461,13 @@ Here is the example of a Source application defined as `java.util.function.Suppl
 @SpringBootApplication
 @EnableBinding(Source.class)
 public static class SourceFromSupplier {
-	public static void main(String[] args) {
-		SpringApplication.run(SourceFromSupplier.class, "--spring.cloud.stream.function.definition=date");
-	}
-	@Bean
-	public Supplier<Date> date() {
-		return () -> new Date(12345L);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SourceFromSupplier.class, "--spring.cloud.stream.function.definition=date");
+    }
+    @Bean
+    public Supplier<Date> date() {
+        return () -> new Date(12345L);
+    }
 }
 ```
 
@@ -476,13 +476,13 @@ Here is the example of a Processor application defined as `java.util.function.Fu
 @SpringBootApplication
 @EnableBinding(Processor.class)
 public static class ProcessorFromFunction {
-	public static void main(String[] args) {
-		SpringApplication.run(ProcessorFromFunction.class, "--spring.cloud.stream.function.definition=toUpperCase");
-	}
-	@Bean
-	public Function<String, String> toUpperCase() {
-		return s -> s.toUpperCase();
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ProcessorFromFunction.class, "--spring.cloud.stream.function.definition=toUpperCase");
+    }
+    @Bean
+    public Function<String, String> toUpperCase() {
+        return s -> s.toUpperCase();
+    }
 }
 ```
 
@@ -491,13 +491,13 @@ Here is the example of a Sink application defined as `java.util.function.Consume
 @EnableAutoConfiguration
 @EnableBinding(Sink.class)
 public static class SinkFromConsumer {
-	public static void main(String[] args) {
-		SpringApplication.run(SinkFromConsumer.class, "--spring.cloud.stream.function.definition=sink");
-	}
-	@Bean
-	public Consumer<String> sink() {
-		return System.out::println;
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SinkFromConsumer.class, "--spring.cloud.stream.function.definition=sink");
+    }
+    @Bean
+    public Consumer<String> sink() {
+        return System.out::println;
+    }
 }
 ```
 
@@ -512,13 +512,13 @@ For example:
 @EnableAutoConfiguration
 @EnableBinding(Processor.class)
 public static class SinkFromConsumer {
-	public static void main(String[] args) {
-		SpringApplication.run(SinkFromConsumer.class, "--spring.cloud.stream.function.definition=reactiveUpperCase");
-	}
-	@Bean
-	public Function<Flux<String>, Flux<String>> reactiveUpperCase() {
-		return flux -> flux.map(val -> val.toUpperCase());
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SinkFromConsumer.class, "--spring.cloud.stream.function.definition=reactiveUpperCase");
+    }
+    @Bean
+    public Function<Flux<String>, Flux<String>> reactiveUpperCase() {
+        return flux -> flux.map(val -> val.toUpperCase());
+    }
 }
 ```
 ##### Functional Composition
@@ -528,7 +528,7 @@ As an example let's add the following function bean to the application defined a
 ```java
 @Bean
 public Function<String, String> wrapInQuotes() {
-	return s -> "\"" + s + "\"";
+    return s -> "\"" + s + "\"";
 }
 ```
 and modify the `spring.cloud.stream.function.definition` property to reflect your intention to compose a new function from both ‘toUpperCase’ and ‘wrapInQuotes’.

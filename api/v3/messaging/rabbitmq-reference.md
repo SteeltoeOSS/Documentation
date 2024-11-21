@@ -3247,10 +3247,10 @@ The following example shows how to set a `RepublishMessageRecoverer` as the reco
 ```Java
 @Bean
 RetryOperationsInterceptor interceptor() {
-	return RetryInterceptorBuilder.stateless()
-			.maxAttempts(5)
-			.recoverer(new RepublishMessageRecoverer(amqpTemplate(), "something", "somethingelse"))
-			.build();
+    return RetryInterceptorBuilder.stateless()
+            .maxAttempts(5)
+            .recoverer(new RepublishMessageRecoverer(amqpTemplate(), "something", "somethingelse"))
+            .build();
 }
 ```
 
