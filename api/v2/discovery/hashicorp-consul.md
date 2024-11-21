@@ -28,7 +28,7 @@ In order to use the Steeltoe Discovery client, you need to do the following:
 
 ### Consul Settings
 
-To get the Steeltoe Discovery client to properly communicate with the Consul server, you need to provide a few configuration settings to the client. There are two sections you may need to configure.  
+To get the Steeltoe Discovery client to properly communicate with the Consul server, you need to provide a few configuration settings to the client. There are two sections you may need to configure.
 
 The first pertains to configuring the information needed to connect to the Consul server. All of these settings should start with `consul:`
 

@@ -407,7 +407,7 @@ When using the WebApplication Builder, or if you prefer not to use the RabbitMQH
 
     // Add Steeltoe services for RabbitMQ
     builder.services.AddRabbitServices();
-    
+
     // Add the Steeltoe RabbitMQ admin client... will be used to declare queues below
     builder.services.AddRabbitAdmin();
 

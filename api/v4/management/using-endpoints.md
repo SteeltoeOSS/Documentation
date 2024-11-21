@@ -169,7 +169,7 @@ builder.Services.AddHypermediaActuator().AddLoggersActuator().AddRefreshActuator
 > ```csharp
 > using Steeltoe.Logging.DynamicSerilog;
 > using Steeltoe.Management.Endpoint.Actuators.All;
-> 
+>
 > var builder = WebApplication.CreateBuilder(args);
 > builder.Logging.AddDynamicSerilog();
 > builder.Services.AddAllActuators();

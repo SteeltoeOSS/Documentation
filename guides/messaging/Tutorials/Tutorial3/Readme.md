@@ -91,7 +91,7 @@ namespace Receiver
         public Tut3Receiver(ILogger<Tut3Receiver> logger)
         {
             _logger = logger;
-        } 
+        }
         ....
     }
 }
@@ -156,7 +156,7 @@ namespace Sender
             _logger = logger;
             _rabbitTemplate = rabbitTemplate;
         }
-  
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -213,7 +213,7 @@ namespace Receiver
         public Tut3Receiver(ILogger<Tut3Receiver> logger)
         {
             _logger = logger;
-        } 
+        }
         ....
     }
 }
@@ -251,7 +251,7 @@ namespace Receiver
         public Tut3Receiver(ILogger<Tut3Receiver> logger)
         {
             _logger = logger;
-        } 
+        }
         ....
     }
 }
@@ -297,7 +297,7 @@ namespace Sender
             _logger = logger;
             _rabbitTemplate = rabbitTemplate;
         }
-   
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)

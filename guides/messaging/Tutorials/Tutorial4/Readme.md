@@ -47,7 +47,7 @@ Remember, a binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
 exchange.
 
-Bindings can take an extra routing key parameter which we didn't use in the previous tutorial.  
+Bindings can take an extra routing key parameter which we didn't use in the previous tutorial.
 We can specify the key using the `RoutingKey` property on the `DeclareQueueBinding` attribute as shown below:
 
 ```csharp

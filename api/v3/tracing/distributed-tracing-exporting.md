@@ -92,7 +92,7 @@ Steeltoe will discover and automatically configure the Open Telemetry Protocol e
 
 ### Use Wavefront Exporter (Tanzu Observability)
 
-Steeltoe will automatically send traces to Wavefront if the following settings are provided. Note that these are shared between tracing and metrics and the Wavefront Trace exporter is activated by the presence of a valid `Uri` and `ApiToken` combination. 
+Steeltoe will automatically send traces to Wavefront if the following settings are provided. Note that these are shared between tracing and metrics and the Wavefront Trace exporter is activated by the presence of a valid `Uri` and `ApiToken` combination.
 
 | Key | Description | Default |
 | --- | --- | --- |
@@ -110,7 +110,7 @@ In addition, the following settings can be used to set the application and servi
 
 | Key | Description | Default |
 | --- | --- | --- |
-| `Source`| Unique identifier for the app instance that is publishing metrics to Wavefront | DNS name 
+| `Source`| Unique identifier for the app instance that is publishing metrics to Wavefront | DNS name
 | `Name` | Name of the application | SteeltoeApp |
 | `Service` | Name of the service | SteeltoeService |
 

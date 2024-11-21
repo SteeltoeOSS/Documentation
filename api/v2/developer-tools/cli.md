@@ -1,4 +1,4 @@
-# Steeltoe CLI 
+# Steeltoe CLI
 Steeltoe CLI simplifies the process of running and deploying Steeltoe applications.  With this tooling you can, with minimal commands, run your application locally while also being able to easily deploy to Kubernetes or Cloud Foundry.
 
 There are 3 basic steps when using Steeltoe Tooling:

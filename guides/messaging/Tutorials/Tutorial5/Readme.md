@@ -234,12 +234,12 @@ namespace Sender
         private int index = 0;
         private int count = 0;
 
-        private readonly string[] keys = new string[] { 
-            "quick.orange.rabbit", 
-            "lazy.orange.elephant", 
+        private readonly string[] keys = new string[] {
+            "quick.orange.rabbit",
+            "lazy.orange.elephant",
             "quick.orange.fox",
-            "lazy.brown.fox", 
-            "lazy.pink.rabbit", 
+            "lazy.brown.fox",
+            "lazy.pink.rabbit",
             "quick.brown.fox"};
 
         public Tut5Sender(ILogger<Tut5Sender> logger, RabbitTemplate rabbitTemplate)

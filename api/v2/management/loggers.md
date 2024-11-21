@@ -23,7 +23,7 @@ The default path to the Loggers endpoint is computed by combining the global `pa
 
 The coding steps you take to enable HTTP access to the Loggers endpoint together with how to use the Steeltoe Logging provider, differs depending on the type of .NET application your are developing.  The sections which follow describe the steps needed for each of the supported application types.
 
->NOTE: The Steeltoe logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider from Microsoft. This wrapper allows querying defined loggers and modifying the levels dynamically at runtime. 
+>NOTE: The Steeltoe logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider from Microsoft. This wrapper allows querying defined loggers and modifying the levels dynamically at runtime.
 
 ### ASP.NET Core App
 

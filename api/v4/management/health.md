@@ -338,7 +338,7 @@ The code above assumes the following `appsettings.json` configuration, combined 
       "MySql": {
         "Default": {
           "ConnectionString": "SERVER=localhost;Database=steeltoe;UID=steeltoe;PWD=steeltoe"
-        }        
+        }
       }
     }
   }

@@ -15,15 +15,15 @@ author.name: David Tillman
 
 # Announcing Steeltoe 3.2.2 with Experimental Kubernetes Service Bindings
 
-We are delighted to announce the release of Steeltoe 3.2.2. In this release, the Steeltoe team has included experimental support for the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification.  
-The specification details a standard way in which Kubernetes platforms can expose secrets that enable application workloads to connect to external services.  
+We are delighted to announce the release of Steeltoe 3.2.2. In this release, the Steeltoe team has included experimental support for the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification.
+The specification details a standard way in which Kubernetes platforms can expose secrets that enable application workloads to connect to external services.
 You can review [version 1.0.0](https://servicebinding.io/spec/core/1.0.0/) of the specification to learn more.
 
 The experimental implementation can be found in the [Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding](https://www.nuget.org/packages/Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding) package on [nuget.org](https://www.nuget.org/).
-Please keep in mind that this is an experimental version and is likely to go through several rounds of changes over the coming months. 
+Please keep in mind that this is an experimental version and is likely to go through several rounds of changes over the coming months.
 
 The implementation consists of a standard .NET configuration provider.  The service provider reads the Kubernetes service bindings and translates the information into a set of key value pairs which it then adds to the applications configuration.
-Each of configuration keys is prefixed with `k8s:bindings:<binding-name>` where `<binding-name>` is the name associated with the Kubernetes service binding. The rest of the key represents the values associated with the binding. 
+Each of configuration keys is prefixed with `k8s:bindings:<binding-name>` where `<binding-name>` is the name associated with the Kubernetes service binding. The rest of the key represents the values associated with the binding.
 
 Below is an example of the configuration keys associated with a PostgreSql service binding that are created by the Steeltoe configuration provider.
 

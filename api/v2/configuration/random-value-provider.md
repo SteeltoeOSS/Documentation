@@ -1,6 +1,6 @@
 # RandomValue Provider
 
-Sometimes you might find the need to generate random values as part of your applications configuration values.  
+Sometimes you might find the need to generate random values as part of your applications configuration values.
 
 The Steeltoe RandomValue generator is a configuration provider which you can use to do just that. It can produce integers, longs, uuids or strings as shown in the following examples:
 
@@ -65,7 +65,7 @@ To do this add a `PackageReference` resembling the following:
 
 ### Add Configuration Provider
 
-In order to have the ability to generate random values from the configuration, you need to add the RandomValue generatore provider to the `ConfigurationBuilder`.  
+In order to have the ability to generate random values from the configuration, you need to add the RandomValue generatore provider to the `ConfigurationBuilder`.
 
 The following example shows how to add to this:
 

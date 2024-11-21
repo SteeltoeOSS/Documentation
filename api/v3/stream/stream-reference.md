@@ -66,7 +66,7 @@ Two types of consumer are supported by the Stream infrastructure:
 * Message-driven (sometimes referred to as Asynchronous)
 * Polled (sometimes referred to as Synchronous)
 
-The default is to implement message driven consumers, but when you wish to control the rate at which messages are processed, you might want to use a synchronous consumer.  
+The default is to implement message driven consumers, but when you wish to control the rate at which messages are processed, you might want to use a synchronous consumer.
 
 ### Consumer Groups
 
@@ -169,7 +169,7 @@ Out of the box, Steeltoe provides the three bindings that are commonly used in m
 The following listing shows the definition of the various interfaces:
 
 ```csharp
-public interface ISink 
+public interface ISink
 {
   const string INPUT = "input";
 
@@ -255,7 +255,7 @@ In this case, an implementation of `IPollableMessageSource` is bound to the chan
 As mentioned earlier the `Input` and `Output` attributes allow you to specify a customized channel name for the channel, as shown in the following example:
 
 ```csharp
-public interface IBarista 
+public interface IBarista
 {
   [Input("InboundOrders")]
   ISubscribableChannel Orders { get; }
@@ -365,7 +365,7 @@ In the following example of a `StreamListener` with dispatching conditions, all 
         [EnableBinding(typeof(IProcessor))]
         public class CatsAndDogs
         {
-         
+
             [StreamListener(ISink.INPUT, "Headers['type']=='Dog'")]
             public void Handle(Dog dog)
             {
@@ -389,7 +389,7 @@ Consider the following example:
 The code below is perfectly valid. It compiles and deploys without any issues, yet it never produces the result you expect.
 
 ```csharp
-public class Program 
+public class Program
 {
   static async Task Main(string[] args)
   {
@@ -405,13 +405,13 @@ public class CatsAndDogs
  {
 
     [StreamListener(Target = Sink.INPUT, Condition = "Payload.GetType().Name=='Dog'")]
-    public void Bark(Dog dog) 
+    public void Bark(Dog dog)
     {
        // handle the message
     }
 
     [StreamListener(Target = Sink.INPUT, Condition = "Payload.GetType().Name=='Cat'")]
-    public void Purr(Cat cat) 
+    public void Purr(Cat cat)
     {
        // handle the message
     }
@@ -597,7 +597,7 @@ Given the polled consumer in the preceding example, you might use it as follows:
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await Task.Delay(5000, stoppingToken); // Wait for setup on first poll 
+            await Task.Delay(5000, stoppingToken); // Wait for setup on first poll
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
@@ -644,11 +644,11 @@ You can override that behavior by taking responsibility for the acknowledgment, 
 ```csharp
 public void HandleMessage(IMessage message)
 {
-  try 
+  try
   {
     StaticMessageHeaderAccessor.GetAcknowledgmentCallback(message).IsAutoAck = False;
     // e.g. hand off to another thread which can perform the ack or Acknowledge(Status.REQUEUE)
-  } 
+  }
   catch (Exception e)
   {
     // handle failure
@@ -675,7 +675,7 @@ protected override async Task ExecuteAsync(CancellationToken stoppingToken)
   while (!stoppingToken.IsCancellationRequested)
   {
       _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-      try 
+      try
       {
         if (!_binding.DestIn.Poll(this), typeof(Dictionary<string, Foo>))
         {
@@ -691,11 +691,11 @@ protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 
 public void HandleMessage(IMessage message)
 {
-  try 
+  try
   {
     var payload = ((Dictionary<string, Foo>) message.Payload);
     ....
-  } 
+  }
   catch (Exception e)
   {
     // handle failure
@@ -737,13 +737,13 @@ spring:cloud:stream:bindings:input:group=myGroup
 
 ```csharp
 [StreamListener(ISink.INPUT)]      // destination name 'input.myGroup'
-public void Handle(Person value) 
+public void Handle(Person value)
 {
     throw new Exception("BOOM!");
 }
 
 [ServiceActivator(IProcessor.INPUT + ".myGroup.errors")]     //channel name 'input.myGroup.errors'
-public void Error(IMessage message) 
+public void Error(IMessage message)
 {
     Console.WriteLine("Handling ERROR: " + message);
 }
@@ -762,7 +762,7 @@ a *global error channel* by bridging each individual error channel to the channe
 
 ```csharp
 [ServiceActivator("errorChannel")]
-public void Error(IMessage message) 
+public void Error(IMessage message)
 {
     Console.WriteLine("Handling ERROR: " + message);
 }
@@ -922,7 +922,7 @@ The Binder SPI consists of a number of interfaces, out-of-the box utility classe
 The key point of the SPI is the `IBinder` interface(s), which is a strategy for connecting inputs and outputs to external middleware. The following listing shows the definition of the `IBinder` interface:
 
 ```csharp
-public interface IBinder : IServiceNameAware 
+public interface IBinder : IServiceNameAware
 {
     Type TargetType { get; }
     IBinding BindConsumer(string name, string group, object inboundTarget, IConsumerOptions consumerOptions);
@@ -1336,7 +1336,7 @@ See [Error Handling](#error-handling) for more information.
 
   Default: `False`.
 
-### Dynamically Bound Destinations  
+### Dynamically Bound Destinations
 
 Besides the channels defined by using `EnableBinding` attribute, Stream lets applications send messages to dynamically bound destinations.
 This is useful, for example, when the target destination needs to be determined at runtime.
@@ -1359,7 +1359,7 @@ class Program
     {
         var host = StreamHost.CreateDefaultBuilder<Program>(args).Build();
 
-        binderAwareChannelResolver = 
+        binderAwareChannelResolver =
           host.Services.GetService<IDestinationResolver<IMessageChannel>>() as BinderAwareChannelResolver;
 
         await host.StartAsync();

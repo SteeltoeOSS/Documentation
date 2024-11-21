@@ -18,7 +18,7 @@ Each key must be prefixed with `Management:Endpoints:Refresh:`.
 | `ReturnConfiguration` | Whether to return the configuration after refresh. | `true` |
 
 > [!NOTE]
-> Despite being *possible* to configure this endpoint to respond to `GET` requests, 
+> Despite being *possible* to configure this endpoint to respond to `GET` requests,
 > this is discouraged because it is not a [Safe HTTP Method](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP).
 
 ## Enable HTTP Access
