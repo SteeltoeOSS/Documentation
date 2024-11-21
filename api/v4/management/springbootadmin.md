@@ -62,7 +62,7 @@ a few additional steps are needed:
 > [!TIP]
 > You can use the [Steeltoe docker image for SBA](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#spring-boot-admin) for testing purposes.
 
-Putting it all together, your `appsetings.json` file should look like this:
+Putting it all together, your `appsettings.Development.json` file should look like this:
 
 ```json
 {
@@ -125,7 +125,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Do not automatically redirect to https.
+// In order to avoid trust issues with self-signed certificates, do not automatically redirect to https.
 //app.UseHttpsRedirection();
 
 app.MapControllers();
@@ -134,4 +134,4 @@ app.Run();
 ```
 
 > [!TIP]
-> To see all the Spring Boot Admin features in action, replace the `Add*Actuator()` calls in `Program.cs` with `AddAllActuators()`.
+> To see all the Spring Boot Admin features in action, replace the `Add*Actuator()` calls in `Program.cs` with `AddAllActuators()` and [expose all endpoints](./using-endpoints.md#exposing-endpoints).

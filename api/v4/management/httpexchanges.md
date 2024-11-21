@@ -29,7 +29,7 @@ Each key must be prefixed with `Management:Endpoints:HttpExchanges:`.
 | `IncludeTimeTaken` | Whether to return the request duration. | `true` |
 | `Reverse` | Whether to return exchanges in reverse order (newest first). | `true` |
 
-All request and response headers are redacted by default, except for the whitelisted entries below.
+All request and response header values are redacted by default, except for the whitelisted entries below.
 To return additional headers unredacted, add them to the `RequestHeaders` or `ResponseHeaders` arrays.
 
 Whitelist of HTTP request headers:

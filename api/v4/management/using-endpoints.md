@@ -33,7 +33,6 @@ The following table describes the available Steeltoe management endpoints that c
 
 Each endpoint has an associated ID. When you want to expose an endpoint over HTTP, its ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/actuator/health`.
 
-
 ## Add NuGet Reference
 
 To use the management endpoints, you need to add a reference to the `Steeltoe.Management.Endpoints` NuGet package.
@@ -206,7 +205,7 @@ builder.Services.ConfigureActuatorsCorsPolicy(policy => policy.WithOrigins("http
 
 ## Securing Endpoints
 
-Endpoints can be customized with `IEndpointConventionBuilder`. This allows calling `RequireAuthorization()` to configure the Authorization middleware:
+Endpoints can be customized with `IEndpointConventionBuilder`. This allows calling [`RequireAuthorization()`](https://learn.microsoft.com/aspnet/core/security/authorization/policies?#apply-policies-to-endpoints) to configure the Authorization middleware:
 
 ```csharp
 using Steeltoe.Management.Endpoint;
