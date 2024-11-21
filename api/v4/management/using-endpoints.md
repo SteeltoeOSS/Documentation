@@ -51,11 +51,13 @@ The following table describes the configuration settings that you can apply glob
 | --- | --- | --- |
 | `Enabled` | Whether to enable management endpoints. | `true` |
 | `Path` | The HTTP route prefix applied to all endpoints. | `/actuator` |
-| `Port` | Expose management endpoints on an alternate HTTP port. | |
-| `SslEnabled` | Whether `Port` applies to HTTP or HTTPS requests. | `false` |
+| `Port` | Expose management endpoints on an alternate HTTP port. [^1] | |
+| `SslEnabled` | Whether `Port` applies to HTTP or HTTPS requests. [^1] | `false` |
 | `UseStatusCodeFromResponse` | Reflect the actuator outcome in the HTTP response status code.  | `true` |
 | `SerializerOptions` | Customize JSON serialization options. | use camelCase properties |
 | `CustomJsonConverters` | Additional [`JsonConverter`](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/converters-how-to)s to use (see below). | |
+
+[^1]: Using an alternate port does not apply to `/cloudfoundryapplication` endpoints.
 
 > [!NOTE]
 > When running an application in IIS or with the HWC buildpack, response body content is automatically filtered out when the HTTP response code is 503. Some actuator responses intentionally return a code of 503 in failure scenarios. Setting `UseStatusCodeFromResponse` to `false` will return status code 200 instead. This switch does not affect the status code of responses outside of Steeltoe.
