@@ -662,7 +662,7 @@ There are similar settings used when declaring a dead-letter exchange/queue, whe
 ## Retry With the RabbitMQ Binder
 
 When retry is enabled within the binder, the listener container thread is suspended for any back off periods that are configured.
-This might be important when strict ordering is required with a single consumer. However, for other use cases, it prevents other messages from being processed on that thread.  
+This might be important when strict ordering is required with a single consumer. However, for other use cases, it prevents other messages from being processed on that thread.
 An alternative to using binder retry is to set up dead lettering with time to live on the dead-letter queue (DLQ) as well as dead-letter configuration on the DLQ itself.
 See [RabbitMQ Binder Settings](#rabbitmq-binder-settings) for more information about the settings discussed here.
 You can use the following example configuration to enable this feature:
@@ -731,7 +731,7 @@ After 5 seconds, the message expires and is routed to the original queue by usin
         }
 
         [StreamListener(ISink.INPUT)]
-        public void Listen(string input, 
+        public void Listen(string input,
             [Header(Name ="x-death", Required = false)]
             IDictionary<string, object> death)
         {
@@ -800,7 +800,7 @@ The examples assume the original destination is `so8400in` and the consumer grou
 The first two examples are for when the destination is *not* partitioned:
 
 ```csharp
-public class Program 
+public class Program
 {
     private const string ORIGINAL_QUEUE = "so8400in.so8400";
     private const string DLQ = ORIGINAL_QUEUE + ".dlq";
@@ -836,7 +836,7 @@ public class Program
         [DeclareQueue(Name = PARKING_LOT)]
         [RabbitListener(DLQ)]
         public void RePublish(
-            string text, 
+            string text,
             [Header(Name = X_RETRIES_HEADER, Required = false)]
             int? retriesHeader)
         {
@@ -844,7 +844,7 @@ public class Program
                .WithPayload(Encoding.UTF8.GetBytes(text))
                .SetHeader(X_RETRIES_HEADER, (retriesHeader ?? 0) + 1)
                .Build();
-          
+
             if (!retriesHeader.HasValue || retriesHeader < 3)
             {
                 rabbitTemplate.Send(ORIGINAL_QUEUE, failedMessage);
@@ -1003,7 +1003,7 @@ When `republishToDlq` is `False`, RabbitMQ publishes the message to the DLX/DLQ 
                     else
                     {
                         throw new RabbitRejectAndDontRequeueException("failed");
-                    }    
+                    }
                 }
                 else
                 {
@@ -1144,7 +1144,7 @@ The following C# and JSON configuration examples show how to configure the produ
 
       protected override async Task ExecuteAsync(CancellationToken stoppingToken)
       {
-          await Task.Delay(5000, stoppingToken); // Wait for the Infrastructure to be setup correctly; 
+          await Task.Delay(5000, stoppingToken); // Wait for the Infrastructure to be setup correctly;
           while (!stoppingToken.IsCancellationRequested)
           {
               _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);

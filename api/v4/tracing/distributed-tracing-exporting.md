@@ -1,18 +1,18 @@
 # Exporting Distributed Traces
 
-Steeltoe is able to automatically configure several exporters provided by the [OpenTelemetry](https://opentelemetry.io) project, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [Jaeger](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Jaeger) and [OpenTelemetryProtocol](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol), if a NuGet reference to the desired exporter is included. In addition, Steeltoe supports exporting traces to [TanzuObservability](https://tanzu.vmware.com/observability) without any other NuGet references.
+Steeltoe is able to automatically configure several exporters provided by the [OpenTelemetry](https://opentelemetry.io) project, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [Jaeger](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Jaeger) and [OpenTelemetryProtocol](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol), if a NuGet reference to the desired exporter is included. In addition, Steeltoe supports exporting traces to [Tanzu Observability](https://www.broadcom.com/products/software/aiops-observability/tanzu-observability) without any other NuGet references.
 
 ## Common Settings
 
-As of version 3.1.0, the exporter settings class has been merged with [tracing settings](./index.md#configure-settings). This table includes settings that are only relevant to exporting traces:
+As of version 3.1.0, the exporter settings class has been merged with [tracing settings](./index.md#configure-settings).
+The table below includes settings that are only relevant to exporting traces.
+Each key must be prefixed with `Management:Tracing`.
 
 | Key | Description | Default |
 | --- | --- | --- |
 | `ExporterEndpoint` | Defines an endpoint traces should be sent to. | not set |
 | `MaxPayloadSizeInBytes` | Maximum payload size to export, in bytes. | 4096 |
-| `UseShortTraceIds` | Whether to truncate the IDs to 8 bytes instead of 16. Used for backwards compatibility. | `false` |
-
-**Note**: **Each setting above must be prefixed with `Management:Tracing`**
+| `UseShortTraceIds` | Whether to truncate the IDs to 8 bytes instead of 16. Used for backward compatibility. | `false` |
 
 ## Zipkin Server
 
@@ -68,7 +68,7 @@ The OTLP (OpenTelemetry Protocol) is a vendor-agnostic way to export traces. Ste
 
 ### Configure Open Telemetry Protocol Options
 
-In addition to the [common exporter settings](#common-settings), you may configure Headers, ExportProcessorType and BatchExportProcessorOptions in code:
+In addition to the [common exporter settings](#common-settings), you may configure Headers, ExportProcessorType, and BatchExportProcessorOptions in code:
 
 ```csharp
 services.PostConfigure<OtlpExporterOptions>(options =>
@@ -92,7 +92,8 @@ Steeltoe will discover and automatically configure the Open Telemetry Protocol e
 
 ### Use Wavefront Exporter (Tanzu Observability)
 
-Steeltoe will automatically send traces to Wavefront if the following settings are provided. Note that these are shared between tracing and metrics and the Wavefront Trace exporter is activated by the presence of a valid `Uri` and `ApiToken` combination. 
+Steeltoe will automatically send traces to Wavefront if the following settings are provided. Note that these are shared between tracing and metrics and the Wavefront Trace exporter is activated by the presence of a valid `Uri` and `ApiToken` combination.
+Each key must be prefixed with `Management:Metrics:Export:Wavefront`.
 
 | Key | Description | Default |
 | --- | --- | --- |
@@ -100,18 +101,15 @@ Steeltoe will automatically send traces to Wavefront if the following settings a
 | `Uri` | The Uri of your Wavefront Instance | not set |
 | `Step` | The interval between reporting to Wavefront  | 30000  |
 | `BatchSize` | The max batch of data sent per flush interval | 10000 |
-| `MaxQueueSize` |  the size of internal buffer beyond which data is dropped | 500000
+| `MaxQueueSize` |  the size of the internal buffer beyond which data is dropped | 500000
 
-**Note**: **Each setting above must be prefixed with `Management:Metrics:Export:Wavefront`**
+If using a proxy, the `ApiToken` is not needed and the `Uri` would be `proxy://<ProxyHost>:<ProxyPort>`
 
-If using the a proxy, the `apiToken` is not needed and the `uri` would be `proxy://<ProxyHost>:<ProxyPort>`
-
-In addition, the following settings can be used to set the application and service names:
+In addition, the following settings can be used to set the application and service names.
+Each key must be prefixed with `Wavefront:Application`.
 
 | Key | Description | Default |
 | --- | --- | --- |
-| `Source`| Unique identifier for the app instance that is publishing metrics to Wavefront | DNS name 
+| `Source`| Unique identifier for the app instance that is publishing metrics to Wavefront | DNS name
 | `Name` | Name of the application | SteeltoeApp |
 | `Service` | Name of the service | SteeltoeService |
-
-**Note**: **Each setting above must be prefixed with `Wavefront:Application`**

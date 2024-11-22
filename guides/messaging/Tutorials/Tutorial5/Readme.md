@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
+
 ## Topics Tutorial (using Steeltoe)
 
 > **Prerequisites**
@@ -231,12 +234,12 @@ namespace Sender
         private int index = 0;
         private int count = 0;
 
-        private readonly string[] keys = new string[] { 
-            "quick.orange.rabbit", 
-            "lazy.orange.elephant", 
+        private readonly string[] keys = new string[] {
+            "quick.orange.rabbit",
+            "lazy.orange.elephant",
             "quick.orange.fox",
-            "lazy.brown.fox", 
-            "lazy.pink.rabbit", 
+            "lazy.brown.fox",
+            "lazy.pink.rabbit",
             "quick.brown.fox"};
 
         public Tut5Sender(ILogger<Tut5Sender> logger, RabbitTemplate rabbitTemplate)

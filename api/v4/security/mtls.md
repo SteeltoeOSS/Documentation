@@ -1,15 +1,15 @@
 # Resource Protection using Mutual TLS in ASP.NET Core
 
-This component builds on top of [ASP.NET Core's Certificate Authentication](https://docs.microsoft.com/aspnet/core/security/authentication/certauth), with the addition of automatic configuration for [Cloud Foundry Instance Identity certificates](https://docs.cloudfoundry.org/devguide/deploy-apps/instance-identity.html) and authorization policies based on certificate data. Additionally, resources are included for automatically generating certificates for local development that resemble what is found on the platform.
+This component builds on top of [ASP.NET Core's Certificate Authentication](https://learn.microsoft.com/aspnet/core/security/authentication/certauth), with the addition of automatic configuration for [Cloud Foundry Instance Identity certificates](https://docs.cloudfoundry.org/devguide/deploy-apps/instance-identity.html) and authorization policies based on certificate data. Additionally, resources are included for automatically generating certificates for local development that resemble what is found on the platform.
 
 ## Usage
 
 In order to use this provider, the following steps are required:
 
 1. Add NuGet package reference
-1. Add identity certificates to configuration
+1. Add identity certificates to the configuration
 1. Configure authentication and authorization services
-1. Include services in ASP.NET Core pipeline
+1. Include services in the ASP.NET Core pipeline
 1. Secure endpoints
 1. Attach certificate to requests to secured endpoints
 
@@ -24,7 +24,7 @@ To use Certificate Authorization, you need to add a reference to the `Steeltoe.S
 
 In a Cloud Foundry environment, instance identity certificates are automatically provisioned (and rotated on a regular basis) for each application instance. Steeltoe provides the `AddAppInstanceIdentityCertificate` extension method to find the location of the certificate files from the environment variables `CF_INSTANCE_CERT` and `CF_INSTANCE_KEY`. When running outside of Cloud Foundry, this method will automatically generate similar certificates. Use the optional parameters to coordinate `organizationId` and/or `spaceId` between your applications to facilitate communication when running outside of Cloud Foundry.
 
-This code adds the certificate paths to configuration for use later (and generates the instance identity certificate when running outside Cloud Foundry):
+This code adds the certificate paths to the configuration for use later (and generates the instance identity certificate when running outside Cloud Foundry):
 
 ```csharp
 using Steeltoe.Common.Certificates;
@@ -43,7 +43,7 @@ When running locally, the code shown above will create a chain of self-signed ce
 
 ### Securing Endpoints
 
-In order to authorize incoming requests using an identity certificate, services need to be configured and activated, and polices need to be applied.
+In order to authorize incoming requests using an identity certificate, services need to be configured and activated, and policies need to be applied.
 
 #### Adding and using services
 
@@ -54,7 +54,7 @@ Several steps need to happen before certificate authorization policies can be us
 1. Certificate forwarding needs to be configured (so that ASP.NET reads the certificate out of an HTTP Header)
 1. Authentication services need to be added
 1. Authorization services and policies need to be added
-1. Middleware need to be activated
+1. Middleware needs to be activated
 
 Fortunately, all of the requirements can be satisfied with a handful of extension methods:
 
@@ -87,7 +87,7 @@ app.UseCertificateAuthorization();
 Steeltoe exposes some of the policy-related components directly if more customized scenarios are required:
 
 ```csharp
-// AuthorizationPolicyBuilder extensions
+// AuthorizationPolicyBuilder setup
 builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies()
         .AddDefaultPolicy("sameOrgAndSpace", authorizationPolicyBuilder => authorizationPolicyBuilder.RequireSameOrg().RequireSameSpace());
 
@@ -103,7 +103,7 @@ builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies()
 > [!NOTE]
 > These steps are only required on applications that are receiving certificate-authorized requests.
 
-#### Applying Authorization Polices
+#### Applying Authorization Policies
 
 As implied by the name of the extension method `AddOrgAndSpacePolicies` from the previous section on this page, Steeltoe provides policies for validating that a request came from an application in the same org or the same space. You can secure endpoints by using the standard ASP.NET Core `Authorize` attribute with one of these security policies.
 

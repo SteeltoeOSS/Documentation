@@ -5,7 +5,7 @@ Resolving friendly names happens through a load balancer, which queries `IDiscov
 ## Using HttpClientFactory
 
 The recommended approach is to use a typed `HttpClient`, supplied through
-[HttpClientFactory](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests). Call the `.AddServiceDiscovery()`
+[HttpClientFactory](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests). Call the `.AddServiceDiscovery()`
 extension method from the `Steeltoe.Discovery.HttpClients` NuGet package to activate service discovery.
 
 > [!NOTE]
@@ -14,7 +14,7 @@ extension method from the `Steeltoe.Discovery.HttpClients` NuGet package to acti
 > which uses randomized selection of service instances.
 
 For example, consider the following typed client:
-```c#
+```csharp
 public sealed class OrderService(HttpClient httpClient)
 {
     public async Task<OrderModel?> GetOrderByIdAsync(
@@ -29,7 +29,7 @@ public sealed class OrderService(HttpClient httpClient)
 This typed client can be configured to use service discovery. Add the following code to `Program.cs`
 to rewrite the `https://ordering-api` part to a service instance obtained from Eureka.
 
-```c#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEurekaDiscoveryClient();
@@ -38,7 +38,7 @@ builder.Services.AddHttpClient<OrderService>().AddServiceDiscovery();
 
 With the above code in place, you can inject `OrderService` in your MVC controller, for example:
 
-```c#
+```csharp
 public sealed class OrdersController(OrderService orderService) : Controller
 {
     [HttpGet("{orderId}")]
@@ -58,7 +58,7 @@ which intercepts requests and rewrites the scheme/host/port with the values obta
 
 To use service discovery for *all* `HttpClient` instances, use the following code:
 
-```c#
+```csharp
 builder.Services.ConfigureHttpClientDefaults(clientBuilder => clientBuilder.AddServiceDiscovery());
 ```
 
@@ -68,7 +68,7 @@ Another way to use service discovery is to use the Steeltoe `DiscoveryHttpClient
 
 The variant of `OrderService` below creates a new `HttpClient` from the injected handler:
 
-```c#
+```csharp
 public sealed class OrderService(DiscoveryHttpClientHandler handler)
 {
     public async Task<OrderModel?> GetOrderByIdAsync(
@@ -83,7 +83,7 @@ public sealed class OrderService(DiscoveryHttpClientHandler handler)
 
 To register the handler, add the following code to `Program.cs`:
 
-```c#
+```csharp
 builder.Services.AddSingleton<ServiceInstancesResolver>();
 builder.Services.AddSingleton<ILoadBalancer, RandomLoadBalancer>();
 builder.Services.AddSingleton<DiscoveryHttpClientHandler>();
@@ -95,7 +95,7 @@ builder.Services.AddSingleton<FortuneService>();
 In the event the provided HTTP support does not serve your needs, you can always make lookups directly against
 the registered collection of `IDiscoveryClient`s, for example:
 
-```c#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEurekaDiscoveryClient();
 
@@ -133,7 +133,7 @@ which is useful for discovery clients that do not provide their own caching (suc
 
 To activate caching, use the code below:
 
-```c#
+```csharp
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSingleton(new DistributedCacheEntryOptions
 {
@@ -156,7 +156,7 @@ by discovery clients for the given friendly name.
 
 To use this load balancer in service discovery, pass it to the `AddServiceDiscovery()` method:
 
-```c#
+```csharp
 builder.Services.AddHttpClient<OrderService>().AddServiceDiscovery<RoundRobinLoadBalancer>();
 ```
 
@@ -170,7 +170,7 @@ If the provided load balancer implementations do not suit your needs, you can cr
 
 The following example shows a load balancer that always returns the first service instance:
 
-```c#
+```csharp
 public sealed class ChooseFirstLoadBalancer(ServiceInstancesResolver resolver) : ILoadBalancer
 {
     public async Task<Uri> ResolveServiceInstanceAsync(Uri requestUri,
@@ -192,7 +192,7 @@ public sealed class ChooseFirstLoadBalancer(ServiceInstancesResolver resolver) :
 A custom load balancer needs to be added to the service container manually, because Steeltoe can't know its lifetime.
 Add the following code to `Program.cs` to activate the custom load balancer defined above:
 
-```c#
+```csharp
 builder.Services.AddSingleton<ServiceInstancesResolver>();
 builder.Services.AddSingleton<ChooseFirstLoadBalancer>();
 

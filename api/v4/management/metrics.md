@@ -1,6 +1,6 @@
 # Metrics
 
-The metrics functionality in Steeltoe is built on top of the OpenTelemetry project. Steeltoe extends its functionality by providing additional Instrumentation (via Metric Observers) and making it easy to exporting to additional destinations such as CloudFoundry, Spring Boot Admin, App Live View & Tanzu Observability.
+The metrics functionality in Steeltoe is built on top of the OpenTelemetry project. Steeltoe extends its functionality by providing additional instrumentation (via Metric Observers) and makes it easy to export to additional destinations, such as Cloud Foundry, Spring Boot Admin, App Live View & Tanzu Observability.
 
 ## Add NuGet References
 
@@ -8,7 +8,7 @@ To use any of the metrics functionality, you need to add a reference to the `Ste
 
 ## Metric Observers
 
-Adding either the [metrics](./metrics.md) or [prometheus](./prometheus.md) endpoints automatically configures built-in instrumentation of various aspects of the application.
+Adding either the [metrics](./metrics-endpoint.md) or [prometheus](./prometheus.md) endpoints automatically configures built-in instrumentation of various aspects of the application.
 
 The following instrumentation is available:
 
@@ -23,9 +23,8 @@ All of the above metrics are tagged with values specific to the requests being p
 
 ### Configure Settings
 
-The following table describes the settings that you can apply to the observers:
-
->Each setting below must be prefixed with `Management:Metrics:Observer`.
+The following table describes the configuration settings that you can apply to the observers.
+Each key must be prefixed with `Management:Metrics:Observer`.
 
 | Key | Description | Default |
 | --- | --- | --- |
@@ -39,11 +38,12 @@ The following table describes the settings that you can apply to the observers:
 | `HttpClientDesktop` | Enable Http Client Desktop Metrics. | `false` |
 | `ExcludedMetrics` | Specify a list of metrics that should not be captured | none |
 
-> The ExcludedMetrics option is new in 3.1.0 and only applies to [these events](https://docs.microsoft.com/dotnet/core/diagnostics/available-counters#systemruntime-counters), which are captured from counters in the runtime. Tne observer that reports these metrics is controlled by the `EventCounterEvents` setting above.
+> [!NOTE]
+> The ExcludedMetrics option only applies to [these events](https://learn.microsoft.com/dotnet/core/diagnostics/available-counters#systemruntime-counters), which are captured from counters in the runtime. The observer that reports these metrics is controlled by the `EventCounterEvents` setting above.
 
 ## Metric Exporters
 
-Steeltoe supports both pull and push-based configuration for exporting metrics. The pull-based mechanism is supported by the [metrics](./metrics.md) or [prometheus](./prometheus.md) endpoints. The push-based mechanism is supported by Wavefront Exporter.
+Steeltoe supports both pull and push-based configuration for exporting metrics. The pull-based mechanism is supported by the [metrics](./metrics-endpoint.md) or [prometheus](./prometheus.md) endpoints. The push-based mechanism is supported by Wavefront Exporter.
 
 ### Tanzu Observability (Wavefront)
 
@@ -55,7 +55,9 @@ To add the Wavefront metric exporter, you can use any of the available extension
 * `AddWavefrontMetrics()` extension method from `ManagementWebHostBuilderExtensions`.
 * `AddWavefrontMetrics()` extension method from `ManagementWebApplicationBuilderExtensions`.
 
-In addition the following settings are available to be configured. Note that these settings are shared between tracing and metrics.
+In addition, the following settings are available to be configured.
+Each key must be prefixed with `Management:Metrics:Export:Wavefront`.
+Note that these settings are shared between tracing and metrics.
 
 | Key | Description | Default |
 | --- | --- | --- |
@@ -63,13 +65,12 @@ In addition the following settings are available to be configured. Note that the
 | `Uri` | The Uri of your Wavefront Instance | not set |
 | `Step` | The interval between reporting to Wavefront  | 30000  |
 | `BatchSize` | The max batch of data sent per flush interval | 10000 |
-| `MaxQueueSize` |  the size of internal buffer beyond which data is dropped | 500000
+| `MaxQueueSize` |  the size of the internal buffer beyond which data is dropped | 500000
 
-**Note**: **Each setting above must be prefixed with `Management:Metrics:Export:Wavefront`**
+If using a proxy, the `ApiToken` is not needed and the `Uri` would be `proxy://<ProxyHost>:<ProxyPort>`
 
-If using the a proxy, the `apiToken` is not needed and the `uri` would be `proxy://<ProxyHost>:<ProxyPort>`
-
-In addition, the following settings can be used to set the application and service names:
+In addition, the following configuration settings can be used to set the application and service names.
+Each key must be prefixed with `Wavefront:Application`.
 
 | Key | Description | Default |
 | --- | --- | --- |
@@ -77,16 +78,16 @@ In addition, the following settings can be used to set the application and servi
 | `Name` | Name of the application | SteeltoeApp |
 | `Service` | Name of the service | SteeltoeService |
 
-**Note**: **Each setting above must be prefixed with `Wavefront:Application`**
 
-### Tanzu Application Service (TAS for VMs)
 
-To emit custom metrics on TAS for VMs v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/2-11/metric-registrar/index.html).
+### Tanzu Platform for Cloud Foundry
+
+To emit custom metrics on v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/2-11/metric-registrar/index.html).
 
 To register your endpoint for metrics collection, install the metrics-registrar plugin and use it to register your endpoint:
 
 ```bash
-cf install-plugin -r CF-Community "metric-registrar"`
+cf install-plugin -r CF-Community "metric-registrar"
 cf register-metrics-endpoint your-dotnet-app /actuator/prometheus
 ```
 
@@ -96,7 +97,7 @@ You can set up [Prometheus Server](https://prometheus.io/) to scrape this endpoi
 
 ```yml
 global:
-  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. The default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
 scrape_configs:
@@ -108,7 +109,7 @@ scrape_configs:
       - targets: ['host.docker.internal:8000']
 ```
 
-Running Prometheus server with this configuration lets you view metrics in the built-in UI. You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/), to use Prometheus as a datasource. The following example shows how to run Prometheus in Docker:
+Running the Prometheus server with this configuration lets you view metrics in the built-in UI. You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/), to use Prometheus as a data source. The following example shows how to run Prometheus in Docker:
 
 ```bash
 docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
@@ -116,8 +117,8 @@ docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:
 
 ### Tanzu App Live View
 
- [App Live View](https://docs.vmware.com/en/Application-Live-View-for-VMware-Tanzu/1.0/docs/GUID-index.html) has the ability to display and query metrics via the [Metrics endpoint](metrics-endpoint.md) in addition to other management endpoints.
+ [App Live View](https://docs.vmware.com/en/Application-Live-View-for-VMware-Tanzu/1.0/docs/GUID-index.html) has the ability to display and query metrics via the [metrics endpoint](metrics-endpoint.md) in addition to other management endpoints.
 
 ### Spring Boot Admin
 
- The [Metrics endpoint](metrics-endpoint.md) is also compatible with  [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin). See [Spring Boot Admin client](springbootadmin.md) for details.
+ The [metrics endpoint](metrics-endpoint.md) is also compatible with [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin). See [Spring Boot Admin client](springbootadmin.md) for details.

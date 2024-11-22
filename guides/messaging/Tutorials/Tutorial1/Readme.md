@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
+
 ## Hello World Tutorial (using Steeltoe)
 
 > **Prerequisites**
@@ -80,7 +83,7 @@ If you choose to start from scratch, open Visual Studio and create a new **Conso
 
 ![ConsoleApp](~/guides/images/messaging/VS2022NewConsoleApp.png)
 
-Name the project `Receiver` and select a directory location such as `c:\workspace\Tutorials`.  
+Name the project `Receiver` and select a directory location such as `c:\workspace\Tutorials`.
 
 Choose a solution name of `Tutorial1` and uncheck the `Place solution and project in the same directory` as you will be adding another project to this solution next.
 
@@ -98,7 +101,7 @@ When you are done with the above, add a new class to the `Receiver` project.
 
 Name this class `Tut1Receiver`; this will be the class we use to receive messages from the sender.
 
-Next, in the `Sender` project, rename the `Worker.cs` file to `Tut1Sender.cs`.  
+Next, in the `Sender` project, rename the `Worker.cs` file to `Tut1Sender.cs`.
 
 Finally, in both of the projects `.csproj` files add the `Steeltoe.Messaging.RabbitMQ` NuGet package reference.
 
@@ -114,7 +117,7 @@ First, Steeltoe RabbitMQ Messaging applications have the option of using the `Ra
 
 Specifically it adds and configures the following Steeltoe services:
 
-- `RabbitTemplate` - used to send (i.e. **producer**) and receive (i.e. **consumer**) messages.  
+- `RabbitTemplate` - used to send (i.e. **producer**) and receive (i.e. **consumer**) messages.
 - `RabbitAdmin` - used to administer (i.e. create, delete, update, etc.) RabbitMQ entities (i.e. Queues, Exchanges, Bindings, etc.).  At application startup the `RabbitAdmin` looks for any RabbitMQ entities that have been added in the service container and attempts to define them in the broker.
 - `RabbitListener Attribute processor` - processes all `RabbitListener` attributes and creates `RabbitContainers` (i.e.**consumers**)  for each `RabbitListener`.
 - `Rabbit Container Factory` - a component used to create and  manage all the `RabbitContainer`s (i.e.**consumers**) in the application
@@ -132,7 +135,7 @@ RabbitMQHost.CreateDefaultBuilder(args)
 
 Next use the `.ConfigureServices()` method on the returned builder to further configure the services in the host.
 
-First use the Steeltoe extension method `.AddRabbitQueue(...)` to add a `Queue` in the service container.  We do this so that the `RabbitAdmin` will find it and at startup use it to create and configure the queue for us on the broker.  
+First use the Steeltoe extension method `.AddRabbitQueue(...)` to add a `Queue` in the service container.  We do this so that the `RabbitAdmin` will find it and at startup use it to create and configure the queue for us on the broker.
 
 ```csharp
 // Add queue to service container to be declared at startup
@@ -255,7 +258,7 @@ namespace Sender
             }
         }
     }
-} 
+}
 ```
 
 You'll notice that Steeltoe removes the typical boilerplate .NET code needed to send and receive messages

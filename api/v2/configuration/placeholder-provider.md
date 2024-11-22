@@ -46,7 +46,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 
 ### Add Configuration Provider
 
-In order to have placeholders resolved when accessing your configuration data, you need to add the Placeholder resolver provider to the `ConfigurationBuilder`.  
+In order to have placeholders resolved when accessing your configuration data, you need to add the Placeholder resolver provider to the `ConfigurationBuilder`.
 
 There are four different ways in which you can do this.
 

@@ -79,7 +79,7 @@ Through either the web UI or the rest endpoints, Initializr will get your micros
 
 Initializr's API offers a few very helpful endpoints. It's how the web UI is able to create such a great experience and how the community could extend its capabilities into Visual Studio or other developer related tools.
 
-Below is a brief explanation of Initializr's top level endpoints. But the conversation doesn't stop there. Each of these endpoints offer all kinds of deeper sub-url's that drill down to specifics of Initializr's config. Read more about [them here](https://docs.steeltoe.io/api/v4/initializr).
+Below is a brief explanation of Initializr's top level endpoints. But the conversation doesn't stop there. Each of these endpoints offer all kinds of deeper sub-url's that drill down to specifics of Initializr's config. Read more about [them here](https://docs.steeltoe.io/api/v3/initializr).
 
   **Endpoint Home**
 
@@ -97,7 +97,7 @@ Below is a brief explanation of Initializr's top level endpoints. But the conver
 
 ## About dependencies
 
-Initializr's special sauce is the collection of dependencies. It's the reason the tool is so powerful. It's also worthy of an entire discussion - there's quite a few moving parts. We're not going to get too deep in Initializr's inner workings at this time. So, if you would like to get deeper the [project's documentation](https://docs.steeltoe.io/api/v4/initializr) is waiting just for you.
+Initializr's special sauce is the collection of dependencies. It's the reason the tool is so powerful. It's also worthy of an entire discussion - there's quite a few moving parts. We're not going to get too deep in Initializr's inner workings at this time. So, if you would like to get deeper the [project's documentation](https://docs.steeltoe.io/api/v3/initializr) is waiting just for you.
 
 When Initializr generates a new project that has added dependencies, the templating is used to “fill in the blanks”. Let see an example of this in action.
 

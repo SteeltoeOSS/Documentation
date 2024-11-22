@@ -19,7 +19,7 @@ author.twitter: dierufdavid
 
 As you make your way through cloud computing and (inevitably) microservices, there will be a never ending list of configuration choices and technical debt. Containerizing legacy code, best practices in new code, developing locally, debugging production apps. That's just a hint of the kinds of questions to be answered.
 
-Fortunately, you’re not the first to embark on this journey. Others have gone ahead and discovered realistic ways to do things. And don’t worry you’re also not the last, so don’t feel like you're playing catch up. 
+Fortunately, you’re not the first to embark on this journey. Others have gone ahead and discovered realistic ways to do things. And don’t worry you’re also not the last, so don’t feel like you're playing catch up.
 
 Running in the cloud means different things to different folks but at its heart, it’s containerization. You may run a container on your desktop, on an enterprise network, or on a public cloud. For Steeltoe, they are all the same.
 
@@ -108,7 +108,7 @@ public void ConfigureServices(IServiceCollection services) {
     })
     .AddServiceDiscovery()
     .AddTypedClient<IFortuneService, FortuneService>();
-	  
+
     ...
 }
 ```
@@ -177,7 +177,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
 
   ```csharp
   public void ConfigureServices(IServiceCollection services) {
-    
+
     services.AddDistributedTracing(Configuration, builder => builder.UseZipkinWithTraceOptions(services));
     ...
   }
@@ -194,7 +194,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
 
 * [Dynamic logging](https://dev.steeltoe.io/docs/3/logging) can be implemented with a single statement in the `HostBuilder`
 
-	```csharp
+    ```csharp
     public static IHostBuilder CreateHostBuilder(string[] args) =>
       Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(webBuilder => {
@@ -238,10 +238,10 @@ Here are a few examples of new ways to implement things in the `HostBuilder`:
   ```csharp
   public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
-    	.ConfigureWebHostDefaults(webBuilder => {
-    		webBuilder.UseStartup<Startup>();
-    	})
-    	.AddHealthActuator();
+        .ConfigureWebHostDefaults(webBuilder => {
+            webBuilder.UseStartup<Startup>();
+        })
+        .AddHealthActuator();
     }
   ```
 
@@ -249,10 +249,10 @@ Here are a few examples of new ways to implement things in the `HostBuilder`:
   ```csharp
   public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
-    	.ConfigureWebHostDefaults(webBuilder => {
-    		webBuilder.UseStartup<Startup>();
-    	})
-    	.AddAllActuators(/*endpoints => endpoints.RequireAuthorization("actuators.read")*/);
+        .ConfigureWebHostDefaults(webBuilder => {
+            webBuilder.UseStartup<Startup>();
+        })
+        .AddAllActuators(/*endpoints => endpoints.RequireAuthorization("actuators.read")*/);
     }
   ```
 
@@ -260,11 +260,11 @@ Here are a few examples of new ways to implement things in the `HostBuilder`:
   ```csharp
   public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
-    	.ConfigureWebHostDefaults(webBuilder => {
-    		webBuilder.UseStartup<Startup>();
-    	})
-    	.UseCloudHosting(5000)
-    	.AddCloudFoundryActuators();
+        .ConfigureWebHostDefaults(webBuilder => {
+            webBuilder.UseStartup<Startup>();
+        })
+        .UseCloudHosting(5000)
+        .AddCloudFoundryActuators();
     }
   ```
 

@@ -157,7 +157,7 @@ All Hystrix command settings should be prefixed with `hystrix:command:`.
 
 `hystrix:command:default:execution:isolation:thread:timeoutInMilliseconds=750`
 
-To configure the settings for a command in code, use `HystrixCommandOptions` from the `Steeltoe.CircuitBreaker.HystrixBase` package. 
+To configure the settings for a command in code, use `HystrixCommandOptions` from the `Steeltoe.CircuitBreaker.HystrixBase` package.
 
 All configured command-specific settings, as described earlier in #4, should be prefixed with `hystrix:command:HYSTRIX_COMMAND_KEY:`, where `HYSTRIX_COMMAND_KEY` is the `name` of the command. The following example configures the timeout for the Hystrix command with a name of `sample` to be 750 milliseconds:
 

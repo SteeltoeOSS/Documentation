@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> These guides apply to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 # Get Started with Steeltoe
 
 ## The Basics Workshop
@@ -18,6 +21,10 @@ _hideTocVersionToggle: true
 - @guides/application-configuration/cloud-foundry
 - @guides/application-configuration/placeholder
 - @guides/application-configuration/random-value
+
+## Circuit Breakers
+
+- @guides/circuit-breakers/circuit-breaker
 
 ## Cloud Management
 
@@ -48,6 +55,16 @@ _hideTocVersionToggle: true
 - @guides/security-providers/sso-oauth
 - @guides/security-providers/sso-openid-framework
 - @guides/security-providers/sso-openid-netcore
+
+## Service Connectors
+
+- @guides/service-connectors/mongo
+- @guides/service-connectors/mssql
+- @guides/service-connectors/mysql
+- @guides/service-connectors/oauth
+- @guides/service-connectors/postgresql
+- @guides/service-connectors/rabbitmq
+- @guides/service-connectors/redis
 
 ## Service Discovery
 

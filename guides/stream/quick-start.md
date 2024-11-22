@@ -1,10 +1,13 @@
 ---
 uid: guides/stream/quick-start
-title: Quick Start w/ RabbitMQ 
+title: Quick Start w/ RabbitMQ
 tags: []
 _disableFooter: true
 _hideTocVersionToggle: true
 ---
+
+> [!NOTE]
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
 
 # Quick Start w/ RabbitMQ
 
@@ -22,7 +25,7 @@ First, **start a rabbitmq server** locally using Docker:
 1. [Creating a Sample Application by Using Steeltoe Initializr](https://start.steeltoe.io)
 1. Name the project `LoggingConsumer`
 1. Add the "Steeltoe.Stream.Binder.RabbitMQ" dependency
-1. Add the "Steeltoe.Stream.Stream" dependency
+1. Add the "Steeltoe.Stream.StreamBase" dependency
 1. [Adding a Message Handler](#adding-a-message-handler)
 1. [Building, and Running](#building-and-running)
 
@@ -30,15 +33,15 @@ First, **start a rabbitmq server** locally using Docker:
 
 To get started, visit the [Steeltoe Initializr](https://start.steeltoe.io). From there, you can generate our `LoggingConsumer` application. To do so:
 
-<!-- TODO: initializr template for Stream 
+<!-- TODO: initializr template for Stream
 1. In the *Dependencies* section, start typing `stream`.
     When the "`Cloud Stream`" option should appears, select it.
 1. Start typing 'rabbit'.
 1. Select "`RabbitMQ`". -->
 
 1. In the *Name* field, type 'LoggingConsumer'.
-  
-    <!-- 
+
+    <!--
     TODO:  If you chose RabbitMQ for the middleware, your Spring Initializr should now be as follows:
     ![Spring Initializr](./images/spring-initializr.png)
     -->
@@ -125,7 +128,7 @@ We are using the StreamHost implementation that configures services required to 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddStreamServices<LoggingConsumer>();
-builder.Build().Run(); 
+builder.Build().Run();
 ```
 
 You now have a fully functional Steeltoe Stream application that listens for messages.

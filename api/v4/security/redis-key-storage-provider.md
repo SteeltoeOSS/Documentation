@@ -1,6 +1,6 @@
 # Redis Key Storage Provider
 
-By default, ASP.NET Core stores the key ring on the local file system. Local file system usage in a Cloud Foundry environment is unworkable and violates the [twelve-factor guidelines](https://12factor.net/) for developing cloud native applications. By using the Steeltoe Redis key storage provider, you can reconfigure the data protection service to use Redis on Cloud Foundry for storage.
+By default, ASP.NET Core stores the key ring on the local file system. Local file system usage in a Cloud Foundry environment is unworkable and violates the [twelve-factor guidelines](https://12factor.net/) for developing cloud-native applications. By using the Steeltoe Redis key storage provider, you can reconfigure the data protection service to use Redis on Cloud Foundry for storage.
 
 ## Usage
 
@@ -32,9 +32,10 @@ cf bind-service myApp myRedisCache
 cf restage myApp
 ```
 
->The preceding commands are for the Redis service provided by TAS. If you use a different service, you have to adjust the `create-service` command.
+> [!NOTE]
+> The preceding commands are for the Redis service provided by Tanzu Platform for Cloud Foundry. If you use a different service, you have to adjust the `create-service` command.
 
-Once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
+Once the service is bound to your application, the configuration settings are available in `VCAP_SERVICES`.
 
 ### Add Redis IConnectionMultiplexer
 

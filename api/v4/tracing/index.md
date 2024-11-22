@@ -1,6 +1,6 @@
 # Distributed Tracing
 
-Steeltoe distributed tracing implements a solution for .NET applications using the open source [OpenTelemetry](https://opentelemetry.io/) project. For most users, implementing and using distributed tracing should be invisible, and many of the interactions with external systems should be instrumented automatically. You can capture trace data in logs or by sending it to a remote collector service.
+Steeltoe distributed tracing implements a solution for .NET applications using the open-source [OpenTelemetry](https://opentelemetry.io/) project. For most users, implementing and using distributed tracing should be invisible, and many of the interactions with external systems should be instrumented automatically. You can capture trace data in logs or by sending it to a remote collector service.
 
 A "span" is the basic unit of work. For example, sending an RPC is a new span, as is sending a response to an RPC. Spans are identified by a unique 64-bit ID for the span and by another 64-bit ID for the trace of which the span is a part. Spans also have other data, such as descriptions, key-value annotations, the ID of the span that caused them, and process IDs (normally an IP address). Spans are started and stopped, and they keep track of their timing information. Once you create a span, you must stop it at some point in the future. A set of spans form a tree-like structure called a "trace". For example, if you run a distributed big-data store, a trace might be formed by a PUT request.
 
@@ -13,7 +13,8 @@ Steeltoe distributed tracing:
 
 ## Usage
 
-You should understand how the .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints. You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+You should have a good understanding of how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints.
+You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
 
 Steeltoe distributed tracing automatically applies instrumentation at key ingress and egress points in your ASP.NET Core application so that you are able to get meaningful traces without having to do any instrumentation yourself. These points include:
 
@@ -30,7 +31,7 @@ To use the distributed tracing exporters, you need to add a reference to the `St
 
 ### Configure Settings
 
-You can configure distributed tracing by using the normal .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration).
+You can configure distributed tracing by using the normal [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration).
 
 All settings should be placed under the prefix with a key of `Management:Tracing:`.
 The following table describes the available settings:
@@ -57,7 +58,7 @@ Once that is done, whenever your application issues any log statements, the Stee
 
 ### Propagating Trace Context
 
-When working with distributed tracing systems, you will find that a trace context (for example, trace state information) must get propagated to all child processes to ensure that child spans originating from a root trace get collected and correlated into a single trace in the end. The current trace and span IDs are just one piece of the required information that must get propagated.
+When working with distributed tracing systems, you will find that a trace context (for example, trace state information) must get propagated to all child processes to ensure that child spans originating from a root trace get collected and correlated into a single trace in the end. The current trace and span IDs are just one piece of the required information that must be propagated.
 
 Steeltoe makes this easy by automatically configuring some of the instrumentation packages provided by Open Telemetry.
 
@@ -85,7 +86,7 @@ var host = Host.CreateDefaultBuilder(args)
 
 ### Code-based Instrumentation Configuration
 
-Some of the options for HttpClient and ASP.NET Core instrumentation must be configured in code. These can be accessed using IOptions configuration methods like [`PostConfigure`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.optionsservicecollectionextensions.postconfigure):
+Some of the options for HttpClient and ASP.NET Core instrumentation must be configured in code. These can be accessed using IOptions configuration methods like [`PostConfigure`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.optionsservicecollectionextensions.postconfigure):
 
 ```csharp
 services.PostConfigure<AspNetCoreInstrumentationOptions>(options =>
@@ -124,4 +125,4 @@ var host = Host.CreateDefaultBuilder(args)
 
 ## Next Steps
 
-Once you've setup all the instrumentation, you'll want to [configure an exporter](./distributed-tracing-exporting.md)
+Once you've set up all the instrumentation, you'll want to [configure an exporter](./distributed-tracing-exporting.md).

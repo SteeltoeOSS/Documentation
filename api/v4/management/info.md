@@ -1,91 +1,155 @@
 # Info
 
-The Steeltoe `Info` management endpoint exposes various application information collected from all the `IInfoContributor` instances that have been provided to the `InfoEndpoint`.
+The Steeltoe Info endpoint exposes information about the running application, such as its version and the Steeltoe version in use.
 
-Steeltoe includes a couple `IInfoContributor` implementations out of the box that you can use. Most importantly, you can also write your own.
+Information is collected from all `IInfoContributor` implementations registered in the application.
+Steeltoe includes a couple contributor implementations out of the box that you can use.
+Also, and perhaps more importantly, you can write your own.
 
-## Info Contributors
+## Configure Settings
 
-The following table describes the `IInfoContributor` implementations provided by Steeltoe:
+The following table describes the configuration settings that you can apply to the endpoint.
+Each key must be prefixed with `Management:Endpoints:Info:`.
 
-| Name | Description |
-| --- | --- |
-| `AppSettingsInfoContributor` | Exposes any values under the `info` key (for example, `info:cat:hat=cathat`) that is in your apps configuration (for example, `appsettings.json`). |
-| `BuildInfoContributor` | Exposes file/version info for both the included version of Steeltoe and the application. |
-| `GitInfoContributor` | Exposes git information (if a `git.properties` file is available). |
+| Key | Description | Default |
+| --- | --- | --- |
+| `Enabled` | Whether the endpoint is enabled. | `true` |
+| `ID` | The unique ID of the endpoint. | `info` |
+| `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
+| `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
+| `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
 
-For an example of how to use the above `GitInfoContributor` within MSBuild using [GitInfo](https://github.com/kzu/GitInfo), see the [Steeltoe management sample](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/CloudFoundry) and the [CloudFoundry.csproj](https://github.com/SteeltoeOSS/Samples/blob/master/Management/src/AspDotNetCore/CloudFoundry/CloudFoundry.csproj) file.
+## Enable HTTP Access
 
-If you wish to provide custom information for your application, create a class that implements the `IInfoContributor` interface and then add that to the `InfoEndpoint`. Details on how to add a contributor to the endpoint is provided later in this section.
+The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting together with the `Path` setting described in the preceding section.
+The default path is `/actuator/info`.
 
-The following `IInfoContributor` example adds `someProperty=someValue` to the application's information.
+See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+
+To add the actuator to the service container and map its route, use the `AddInfoActuator` extension method.
+
+Add the following code to `Program.cs` to use the actuator endpoint:
 
 ```csharp
-public class ArbitraryInfoContributor : IInfoContributor
+using Steeltoe.Management.Endpoint.Actuators.Info;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddInfoActuator();
+```
+
+> [!TIP]
+> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
+> which enables individually turning them on/off at runtime via configuration.
+
+## Built-in Contributors
+
+### Build info
+
+This contributor exposes file/version info for both the application and the included version of Steeltoe.
+
+### Configuration
+
+This contributor exposes any values below the `Info` configuration key. For example:
+```json
 {
-    public void Contribute(IInfoBuilder builder)
+  "Info": {
+    "Some": {
+      "Example": {
+        "Key": "some-example-value"
+      }
+    }
+  }
+}
+```
+
+> [!TIP]
+> When combined with the [Placeholder Configuration Provider](../configuration/placeholder-provider.md),
+> compound configuration values can be exposed originating from other places in configuration.
+
+### Git properties
+
+Exposes information from the `git.properties` Spring Boot file, if available.
+Shows information from git, such as branch/tag name, commit hash, and remote.
+
+> [!TIP]
+> For an example of how to use this contributor within MSBuild using [GitInfo](https://github.com/devlooped/GitInfo), see the [Steeltoe Management sample](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src).
+
+## Sample Output
+
+Depending on the registered contributors, this endpoint returns JSON such as this:
+
+```json
+{
+  "git": {
+    "branch": "main",
+    "build": {
+      "host": "examplehost",
+      "time": "2024-10-11T18:44:28.9255701Z",
+      "user": {
+        "email": "user@email.com",
+        "name": "testuser"
+      },
+      "version": "2.1.0"
+    },
+    "commit": {
+      "id": "90d0870a363fafcb50981b7038608b763e527e05",
+      "time": "2024-10-08T17:30:57Z"
+    },
+    "remote": {
+      "origin": {
+        "url": "https://github.com/SteeltoeOSS/Samples"
+      }
+    },
+    "tags": "2.1.0-644-g90d0870a"
+  },
+  "Some": {
+    "Example": {
+      "Key": "some-example-value"
+    }
+  },
+  "applicationVersionInfo": {
+    "ProductName": "ExampleApp",
+    "FileVersion": "1.0.0.0",
+    "ProductVersion": "1.0.0+df774c38b734857909d54b796fffbb717eced4a4"
+  },
+  "steeltoeVersionInfo": {
+    "ProductName": "Steeltoe.Management.Endpoint",
+    "FileVersion": "4.0.519.27703",
+    "ProductVersion": "4.0.519-alpha+6c377e2ac3"
+  },
+  "build": {
+    "version": "1.0.0.0"
+  }
+}
+```
+
+## Custom Contributors
+
+If you wish to provide custom information for your application, create a class that implements the `IInfoContributor` interface and then add it to the service container.
+
+The following example contributor adds the local server time:
+
+```csharp
+using Steeltoe.Management.Endpoint.Actuators.Info;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddInfoActuator();
+builder.Services.AddInfoContributor<ServerTimeInfoContributor>();
+
+public class ServerTimeInfoContributor : IInfoContributor
+{
+    public Task ContributeAsync(InfoBuilder builder, CancellationToken cancellationToken)
     {
-        // pass in the info
-        builder.WithInfo("arbitraryInfo", new { someProperty = "someValue" });
+        builder.WithInfo("server-time", DateTime.Now.ToString("O"));
+        return Task.CompletedTask;
     }
 }
 ```
 
->Custom `IInfoContributor` implementations must be retrievable from the DI container by interface in order for Steeltoe to find them.
+Which returns the following JSON fragment in the response:
 
-## Configure Settings
-
-The following table describes the settings that you can apply to the endpoint:
-
-| Key | Description | Default |
-| --- | --- | --- |
-| `Id` | The ID of the info endpoint. | `info` |
-| `Enabled` | Whether to enable info management endpoint. | `true` |
-| `Sensitive` | Currently not used. | `false` |
-| `RequiredPermissions` | User permissions required on Cloud Foundry to access endpoint. | `RESTRICTED` |
-
->Each setting above must be prefixed with `Management:Endpoints:Info`.
-
-## Enable HTTP Access
-
-The default path to the Info endpoint is computed by combining the global `Path` prefix setting together with the `Id` setting from above. The default path is `/actuator/info`.
-
-See the [HTTP Access](./using-endpoints.md#http-access) section to see the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
-
-To add the actuator to the service container and map its route, use any of the `AddInfoActuator` extension methods from `ManagementHostBuilderExtensions`.
-
-Alternatively, first, add the Info actuator to the service container, use any of the `AddInfoActuator()` extension methods from `EndpointServiceCollectionExtensions`.
-
-Then add the Info actuator middleware to the ASP.NET Core pipeline, use the `Map<InfoEndpoint>()` extension method from `ActuatorRouteBuilderExtensions`.
-
-The following example shows how to enable the info endpoint and how to add a custom `IInfoContributor` to the service container by adding `ArbitraryInfoContributor` as a singleton. Once that is done, the info endpoint discovers and uses it during info requests.
-
-```csharp
-public class Startup
+```json
 {
-    ...
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add custom info contributor, specifying the interface type
-        services.AddSingleton<IInfoContributor, ArbitraryInfoContributor>();
-
-        // Add Info actuator
-        services.AddInfoActuator(Configuration);
-
-        // Add framework services.
-        services.AddMvc();
-    }
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-    {
-        app.UseStaticFiles();
-
-       app.UseEndpoints(endpoints =>
-            {
-                // Add management endpoints into pipeline like this
-                endpoints.Map<InfoEndpoint>();
-
-                // ... Other mappings
-            });
-    }
+  "server-time": "2024-11-01T17:03:05.3490351+01:00"
 }
 ```

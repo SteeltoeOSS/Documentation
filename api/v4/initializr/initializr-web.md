@@ -1,6 +1,6 @@
 # InitializrWeb
 
-The _InitializrWeb_ is a web frontend for an Initializr deployment.
+_InitializrWeb_ is a web frontend for an Initializr deployment.
 It uses _InitializrApi_-provided project metadata to populate its interface for easy perusal and selection by an end user.
 After selecting desired project parameters, an end user uses _InitializrWeb_ to submit project generation requests to the _InitializrApi_.
 
@@ -56,6 +56,6 @@ The resultant project archive is expanded in the UI so that the end user can exp
 
 Clicking "Share" displays a URL that represents the current project configuration.
 It can be shared with other developers or saved in a bookmark.
-Note that the URL is specific to the _InitializrWeb_ and cannot be used directly with the _InitializrApi_.
+Note that the URL is specific to _InitializrWeb_ and cannot be used directly with the _InitializrApi_.
 
 ![Steeltoe Initializr share](images/share.png)

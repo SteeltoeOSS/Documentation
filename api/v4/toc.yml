@@ -18,12 +18,12 @@
       name: Random Value Provider
     - topicHref: configuration/placeholder-provider.md
       name: Placeholder Provider
-    - topicHref: configuration/encryption-resolver.md
-      name: Encryption Resolver
+    - topicHref: configuration/decryption-provider.md
+      name: Decryption Provider
     - topicHref: configuration/cloud-foundry-provider.md
       name: Cloud Foundry Provider
-    - topicHref: configuration/hosting-extensions.md
-      name: Hosting Extensions
+    - topicHref: configuration/spring-boot-provider.md
+      name: Spring Boot Provider
 - name: Distributed Tracing
   topicHref: tracing/
   items:
@@ -40,7 +40,36 @@
   topicHref: management/
   items:
     - topicHref: management/using-endpoints.md
-      name: Using Endpoints
+      name: Endpoints
+      items:
+      - topicHref: management/dbmigrations.md
+        name: Database Migrations
+      - topicHref: management/env.md
+        name: Environment
+      - topicHref: management/health.md
+        name: Health
+      - topicHref: management/heapdump.md
+        name: Heap Dump
+      - topicHref: management/httpexchanges.md
+        name: HTTP Exchanges
+      - topicHref: management/hypermedia.md
+        name: Hypermedia
+      - topicHref: management/info.md
+        name: Info
+      - topicHref: management/loggers.md
+        name: Loggers
+      - topicHref: management/mappings.md
+        name: Route Mappings
+      - topicHref: management/metrics-endpoint.md
+        name: Metrics
+      - topicHref: management/prometheus.md
+        name: Prometheus
+      - topicHref: management/refresh.md
+        name: Refresh
+      - topicHref: management/services.md
+        name: Services
+      - topicHref: management/threaddump.md
+        name: Thread Dump
     - topicHref: management/tasks.md
       name: Tasks
     - topicHref: management/metrics.md
@@ -49,32 +78,6 @@
       name: Spring Boot Admin Client
     - topicHref: management/cloud-foundry.md
       name: Cloud Foundry Integration
-    - topicHref: management/dbmigrations.md
-      name: /dbmigrations
-    - topicHref: management/env.md
-      name: /env
-    - topicHref: management/health.md
-      name: /health
-    - topicHref: management/heapdump.md
-      name: /heapdump
-    - topicHref: management/hypermedia.md
-      name: /hypermedia
-    - topicHref: management/httptrace.md
-      name: /httptrace
-    - topicHref: management/info.md
-      name: /info
-    - topicHref: management/loggers.md
-      name: /loggers
-    - topicHref: management/mappings.md
-      name: /mappings
-    - topicHref: management/metrics-endpoint.md
-      name: /metrics
-    - topicHref: management/prometheus.md
-      name: /prometheus
-    - topicHref: management/refresh.md
-      name: /refresh
-    - topicHref: management/threaddump.md
-      name: /threaddump
 - name: Network File Sharing
   topicHref: fileshares/
   items:
@@ -129,7 +132,7 @@
 - name: Initializr
   topicHref: initializr/
   items:
-    - topicHref: initializr/initializr-api.md
-      name: InitializrApi
+    - topicHref: initializr/initializr-service.md
+      name: InitializrService
     - topicHref: initializr/initializr-web.md
       name: InitializrWeb

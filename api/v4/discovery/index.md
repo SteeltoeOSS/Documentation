@@ -14,7 +14,7 @@ And because they monitor the liveliness of your microservice instances, you can 
 Steeltoe facilitates both registration and querying of discovery servers by providing various implementations of `IDiscoveryClient`.
 To resolve friendly names, Steeltoe provides implementations of `ILoadBalancer`, which rely on `IDiscoveryClient`.
 
-In order to use service discovery, you need to:
+To use service discovery, you need to:
 
 - Add the appropriate NuGet package references to your project
 - Register the desired discovery client(s) in the dependency container

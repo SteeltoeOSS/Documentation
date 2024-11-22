@@ -91,7 +91,7 @@ The health check for a Consul service instance defaults to `/actuator/health`, w
 
 ## Configuring Metadata
 
-Steeltoe `IServiceInstance` has an `IDictionary<string, string> Metadata` property that is used to obtain metadata settings for an instance. 
+Steeltoe `IServiceInstance` has an `IDictionary<string, string> Metadata` property that is used to obtain metadata settings for an instance.
 
 Steeltoe `IServiceInstance` also has a `IEnumerable<string> Tags`, which can be used to approximate metadata registration.
 

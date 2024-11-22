@@ -4,8 +4,8 @@ The purpose of this endpoint is to provide hypermedia for all the management end
 
 ## Base Context Path
 
-This actuator also creates a base context path from which the endpoints can be accessed. The hypermedia actuator enables the following functionality:  
-  
+This actuator also creates a base context path from which the endpoints can be accessed. The hypermedia actuator enables the following functionality:
+
 * Exposes an endpoint that can be queried to return the IDs of and links to all of the enabled management endpoints in the application.
 * Adds extension methods that simplify adding all of the Steeltoe management endpoints with HTTP access to the application.
 

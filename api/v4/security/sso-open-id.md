@@ -4,7 +4,7 @@ Single Sign-on with OpenID Connect helps you use a [UAA Server](https://github.c
 
 ## Usage
 
-This library is an extension of ASP.NET Security. For the documentation from Microsoft, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security/).
+This library supplements ASP.NET Security. For the documentation from Microsoft, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
 
 Steps involved in using this library:
 
@@ -103,7 +103,7 @@ Direct ASP.NET Core to activate authentication and authorization services after 
 ```csharp
 WebApplication app = builder.Build();
 
-// Use forwarded headers so that links generate correctly behind a reverse-proxy (eg: when in Cloud Foundry)
+// Use forwarded headers so that links generate correctly behind a reverse proxy (eg: when in Cloud Foundry)
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedProto });
 
 app.UseRouting();
@@ -151,7 +151,7 @@ public class HomeController : Controller
 
 The preceding example establishes the following security rules:
 
-* If a user attempts to access the `About` action and the user is not authenticated, the user is redirected to the OAuth server (such as a UAA Server) to login.
+* If a user attempts to access the `About` action and the user is not authenticated, the user is redirected to the OAuth server (such as a UAA Server) to log in.
 * If an authenticated user attempts to access the `TestGroup` action but does not meet the restrictions established by the referenced policy, the user is denied access.
 
 ### Cloud Foundry Single SignOn Service

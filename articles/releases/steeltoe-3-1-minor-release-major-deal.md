@@ -49,7 +49,7 @@ Very few developers enjoy locking their applications into one vendor. To keep po
 
 The goal of Steeltoe Messaging is to make interactions with a specific broker very easy. Steeltoe Streams builds on that, to abstract broker specifics and make them more pluggable. Streams offer features like:
 
-* Binder abstraction - a flexible programming model to dynamically choose message destinations at runtime  
+* Binder abstraction - a flexible programming model to dynamically choose message destinations at runtime
 * Persistent pub/sub semantics - makes sharing a topic easy for both producer and consumers
 * Consumer groups - scaling up consumer microservices while maintaining the integrity of the stream processing operation
 * Partitioning support - partition between multiple instances for stateful processing (even when the broker does not natively support it)

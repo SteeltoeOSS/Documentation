@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v2. Later Steeltoe versions do not support .NET Framework usage.
+
 > [!TIP]
 > Looking for a .NET Core example? [Have a look](endpoints-netcore.md).
 
@@ -41,9 +44,9 @@ Next, **install packages** needed
    Install-Package Microsoft.Extensions.Logging
    Install-Package Microsoft.Extensions.Logging.Console
    Install-Package OpenCensus -IncludePrerelease
-   Install-Package Steeltoe.Logging.DynamicLogger
-   Install-Package Steeltoe.Management.Endpoint
-   Install-Package Steeltoe.Configuration.CloudFoundry
+   Install-Package Steeltoe.Extensions.Logging.DynamicLogger
+   Install-Package Steeltoe.Management.EndpointBase
+   Install-Package Steeltoe.Extensions.Configuration.CloudFoundryBase
    Install-Package Steeltoe.Management.EndpointWeb
    ```
 
@@ -84,7 +87,7 @@ Next, **add actuators** support classes
    using System;
    using System.IO;
    using Microsoft.Extensions.Configuration;
-   using Steeltoe.Configuration.CloudFoundry;
+   using Steeltoe.Extensions.Configuration.CloudFoundry;
 
    public class ApplicationConfig {
      public static CloudFoundryApplicationOptions CloudFoundryApplication {
@@ -192,7 +195,7 @@ Next, **add actuators** support classes
    using Microsoft.Extensions.Configuration;
    using Microsoft.Extensions.DependencyInjection;
    using Microsoft.Extensions.Logging;
-   using Steeltoe.Logging;
+   using Steeltoe.Extensions.Logging;
 
    public static class LoggingConfig
    {
