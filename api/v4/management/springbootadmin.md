@@ -74,7 +74,7 @@ Putting it all together, your `appsettings.Development.json` file should look li
       "Admin": {
         "Client": {
           // This is the URL of the Spring Boot Admin Server.
-          "Url": "http://localhost:9090",
+          "Url": "http://localhost:9099",
           // This is what the Spring Boot Admin Server uses to connect to your app.
           "BasePath": "http://host.docker.internal:5258"
         }
