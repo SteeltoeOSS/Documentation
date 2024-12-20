@@ -78,6 +78,11 @@ builder.Services.AddHealthActuator();
 > It's recommended to use `AddAllActuators()` instead of adding individual actuators,
 > which enables individually turning them on/off at runtime via configuration.
 
+By default, the health status is reflected in the HTTP response status code.
+For example, when a health check fails, the response status code is `503 Service Unavailable`.
+The configuration key `Management:Endpoints:UseStatusCodeFromResponse` can be set to `false`, which makes the health response status code always be `200 OK`.
+Clients can overrule this per request by sending an `X-Use-Status-Code-From-Response` HTTP header with the value `true` or `false`.
+
 > [!TIP]
 > By default, health contributors for disk space, liveness, and readiness are activated. They can be turned off through configuration:
 > ```json
