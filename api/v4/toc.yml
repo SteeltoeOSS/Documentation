@@ -43,9 +43,6 @@
       name: Spring Boot Provider
 - name: Distributed Tracing
   topicHref: tracing/
-  items:
-    - topicHref: tracing/distributed-tracing-exporting.md
-      name: Using Trace Exporters
 - name: Dynamic Logging
   topicHref: logging/
   items:
