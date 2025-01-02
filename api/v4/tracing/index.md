@@ -1,128 +1,203 @@
 # Distributed Tracing
 
-Steeltoe distributed tracing implements a solution for .NET applications using the open-source [OpenTelemetry](https://opentelemetry.io/) project. For most users, implementing and using distributed tracing should be invisible, and many of the interactions with external systems should be instrumented automatically. You can capture trace data in logs or by sending it to a remote collector service.
+On the subject of distributed tracing for .NET applications, previous versions of Steeltoe offered either an implementation of OpenCensus or shortcuts for enabling distributed tracing with [OpenTelemetry](https://opentelemetry.io/).
+As of this writing, the Steeltoe team believe that OpenTelemetry has evolved to the point that a major Steeltoe component is no longer necessary, and we recommend using OpenTelemetry directly.
 
-A "span" is the basic unit of work. For example, sending an RPC is a new span, as is sending a response to an RPC. Spans are identified by a unique 64-bit ID for the span and by another 64-bit ID for the trace of which the span is a part. Spans also have other data, such as descriptions, key-value annotations, the ID of the span that caused them, and process IDs (normally an IP address). Spans are started and stopped, and they keep track of their timing information. Once you create a span, you must stop it at some point in the future. A set of spans form a tree-like structure called a "trace". For example, if you run a distributed big-data store, a trace might be formed by a PUT request.
+Steeltoe continues to directly offer an option for [log correlation](#log-correlation). This page also provides direction for developers looking to achieve the same outcomes Steeltoe has previously provided more directly.
 
-Steeltoe distributed tracing:
+## Introduction
 
-* Adds trace and span IDs to the application log messages, so you can extract all the logs from a given trace or span in a log aggregator.
-* Using the [OpenTelemetry](https://opentelemetry.io/) APIs, provides an abstraction over common distributed tracing data models: traces, spans (forming a DAG), annotations, and key-value annotations.
-* Automatically configures instrumentations of common ingress and egress points from .NET applications (such as ASP.NET Core and HTTP client).
-* Automatically configures trace exporters (when a relevant NuGet reference is included).
+As the name implies, distributed tracing is a way of tracing requests through distributed systems.
+Distributed tracing is typically accomplished by instrumenting components of the system to recognize and pass along metadata that is specific to a particular action or user request, and using another backend system to reconstruct the flow of the request through that metadata.
 
-## Usage
+In the parlance of distributed tracing, a "span" is the basic unit of work. For example, sending an RPC is a new span, as is sending a response to an RPC.
+Spans are identified by a unique ID for the span and by another ID for the "trace", which the span is part of.
+Spans also have other data like descriptions, key-value annotations, the ID of the span that caused them, and process IDs.
+Spans are started and stopped, and they keep track of their timing information. Once you create a span, you must stop it at some point in the future.
+A set of spans form a tree-like structure called a "trace". For example, a trace might be formed by a POST request that adds an item to a shopping cart.
 
-You should have a good understanding of how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints.
-You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+## Log correlation
 
-Steeltoe distributed tracing automatically applies instrumentation at key ingress and egress points in your ASP.NET Core application so that you are able to get meaningful traces without having to do any instrumentation yourself. These points include:
+Log correlation is all about taking log entries from disparate systems and bringing them together using some matching criteria (such as a distributed trace ID).
+The process can be easier when important pieces of data are logged in the same format across different systems (such as .NET and Java apps communicating with each other).
 
-* HTTP Server
-  * Request Start & Finish
-  * Unhandled and Handled exceptions
-* HTTP Client
-  * Outgoing Request Start & Finish
-  * Unhandled and Handled exceptions
+Steeltoe provides the class `TracingLogProcessor`, which is an `IDynamicMessageProcessor` for correlating logs. The processor is built for use with a [Steeltoe Dynamic Logging provider](../logging/index.md).
+The result is log entries that use the same trace format popularized by [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#log-correlation),
+that include `[<ApplicationName>,<TraceId>,<SpanId>,<ParentSpanId>,<IsAllDataRequested>]`.
 
-### Add NuGet References
+Consider this a pair of log entries from the [Steeltoe Management sample applications](https://github.com/SteeltoeOSS/Samples/blob/latest/Management/src/):
 
-To use the distributed tracing exporters, you need to add a reference to the `Steeltoe.Management.Tracing` NuGet package.
+```text
+info: System.Net.Http.HttpClient.ActuatorApiClient.LogicalHandler[100]
+       [ActuatorWeb,44ed2fe24a051bda2d1a56815448e9fb,8d51b985e3f0fd81,0000000000000000,true] Start processing HTTP request GET http://localhost:5140/weatherForecast?fromDate=2024-12-19&days=1
 
-### Configure Settings
-
-You can configure distributed tracing by using the normal [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration).
-
-All settings should be placed under the prefix with a key of `Management:Tracing:`.
-The following table describes the available settings:
-
-| Key | Description | Default |
-| --- | --- | --- |
-| `Name` | The name of the application. | `Spring:Application:Name`, Cloud Foundry name, or `Unknown` |
-| `IngressIgnorePattern` | Regex pattern describing what incoming requests to ignore. | See `TracingOptions` |
-| `EgressIgnorePattern` | Regex pattern describing what outgoing requests to ignore. | See `TracingOptions` |
-| `MaxPayloadSizeInBytes` | Maximum payload size to export, in bytes. | 4096 |
-| `AlwaysSample` | Whether to enable the OpenTelemetry `AlwaysOnSampler`. | OpenTelemetry `Sampler` |
-| `NeverSample` | Whether to enable the OpenTelemetry `AlwaysOffSampler`. | OpenTelemetry `Sampler` |
-| `UseShortTraceIds` | Whether to truncate the IDs to 8 bytes instead of 16. Use it for backwards compatibility with Spring Sleuth, PCF Metrics, and others. | `false` |
-| `PropagationType` | Propagation format that should be used. `B3` and `W3C` are supported. | `B3` |
-| `SingleB3Header` | Defines whether B3 information is sent in one or multiple headers. | `true` |
-| `EnableGrpcAspNetCoreSupport` | Defines if GRPC requests should participate in tracing. | `true` |
-| `ExporterEndpoint` | Defines an endpoint traces should be sent to. | not set |
-
-### Enabling Log Correlation
-
-To use distributed tracing together with log correlation, you can use a [Steeltoe Dynamic Logging provider](../logging/index.md) in your application.
-
-Once that is done, whenever your application issues any log statements, the Steeltoe logger adds additional trace information to each log message if there is an active trace context. The format of that information is of the form `[app name, trace id, span id, trace flags]` (for example, `[service1,2485ec27856c56f4,2485ec27856c56f4,true]`).
-
-### Propagating Trace Context
-
-When working with distributed tracing systems, you will find that a trace context (for example, trace state information) must get propagated to all child processes to ensure that child spans originating from a root trace get collected and correlated into a single trace in the end. The current trace and span IDs are just one piece of the required information that must be propagated.
-
-Steeltoe makes this easy by automatically configuring some of the instrumentation packages provided by Open Telemetry.
-
-* Tracing configures [instrumentation on outbound requests](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.Http/README.md) and [instrumentation on inbound requests through ASP.NET Core and Grpc.AspNetCore](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md)
-* Additional instrumentation libraries can be added with the [`Action<TracerProviderBuilder>` parameter](#adding-to-tracerproviderbuilder)
-
-Steeltoe currently uses [Zipkin B3 Propagation](https://github.com/openzipkin/b3-propagation) by default, but can be configured to use [W3C trace context](https://www.w3.org/TR/trace-context/). As a result, you will find that Steeltoe tracing is interoperable with several other instrumentation libraries, such as [Spring Cloud Sleuth](https://spring.io/projects/spring-cloud-sleuth).
-
-### Add Distributed Tracing
-
-To enable distributed tracing, add the service to the container. To do so, use either `AddDistributedTracing()` or `AddDistributedTracingAspNetCore()` from `TracingServiceCollectionExtensions`:
-
-```csharp
-var host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
-    {
-        // services.AddDistributedTracing();
-        //     or
-        services.AddDistributedTracingAspNetCore();
-    })
+dbug: Microsoft.EntityFrameworkCore.Database.Command[20104]
+       [ActuatorApi,44ed2fe24a051bda2d1a56815448e9fb,c32846ff227bed40,f315823f4c554816,true] Created DbCommand for 'ExecuteReader' (1ms).
 ```
 
-`AddDistributedTracing()` is included in `Steeltoe.Management.Tracing`, configures OpenTelemetry, `HttpClient` instrumentation and [exporters](./distributed-tracing-exporting.md).
-`AddDistributedTracingAspNetCore()` is included in `Steeltoe.Management.Tracing`, and calls `AddDistributedTracing()` with the addition of `ASP.NET Core` and `Grpc.AspNetCore` instrumentation.
+Log correlation is easiest with a tool such as [Splunk](https://www.splunk.com/en_us/solutions/isolate-cloud-native-problems.html), [SumoLogic](https://www.sumologic.com/lp/log-analytics/) or [DataDog](https://www.datadoghq.com/dg/enterprise/log-management-analytics-security) (this is not an endorsement of any tool, only a pointer to some popular options).
 
-### Code-based Instrumentation Configuration
+### Using TracingLogProcessor
 
-Some of the options for HttpClient and ASP.NET Core instrumentation must be configured in code. These can be accessed using IOptions configuration methods like [`PostConfigure`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.optionsservicecollectionextensions.postconfigure):
+To use the processor, first add a reference to the `Steeltoe.Management.Tracing` NuGet package.
+
+The only remaining step is to register the processor:
 
 ```csharp
-services.PostConfigure<AspNetCoreInstrumentationOptions>(options =>
+using Steeltoe.Management.Tracing;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.Services.AddTracingLogProcessor();
+```
+
+> [!NOTE]
+> This extension method also ensures that implementations of `IApplicationInstanceInfo` and `IDynamicLoggerProvider` have been registered.
+> If you wish to customize either of those or use non-default implementations, do so before calling `AddTracingLogProcessor`.
+
+## OpenTelemetry
+
+To use OpenTelemetry, you _can_ start by adding a reference to the `OpenTelemetry.Extensions.Hosting` NuGet package. This package provides access to `OpenTelemetryBuilder`, which is the main entrypoint to OpenTelemetry, but depending on which packages you add later you can probably skip this step. The rest of this section will include information on some core bits of information regarding OpenTelemetry that previous versions of Steeltoe configured.
+
+### Sampler configuration
+
+OpenTelemetry Provides the `Sampler` abstraction for configuring when traces should be recorded.
+The simplest options are `AlwaysOnSampler` and `AlwaysOffSampler`, with their names describing exactly which traces will be recorded
+
+To replace the Steeltoe configuration for using these samplers, set the environment variable `OTEL_TRACES_SAMPLER` to `always_on` or `always_off`.
+
+In order to use the Steeltoe name for your application with OpenTelemetry, call `SetResourceBuilder` and pass in a value from the registered `IApplicationInstanceInfo`:
+
+```csharp
+services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
 {
-    options.Enrich = (activity, eventName, rawObject) =>
-    {
-        if (eventName.Equals("OnStartActivity"))
-        {
-            if (rawObject is HttpRequest httpRequest)
-            {
-                activity.SetTag("requestProtocol", httpRequest.Protocol);
-            }
-        }
-    };
+    var appInfo = serviceProvider.GetRequiredService<IApplicationInstanceInfo>();
+    tracerProviderBuilder.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(appInfo.ApplicationName!));
 });
 ```
 
-### Adding to TracerProviderBuilder
+### Configuring with the options pattern
 
-There are additional instrumentation libraries for OpenTelemetry, and other settings you may wish to configure that Steeltoe does directly address. For these cases, an `Action<TracerProviderBuilder>` is available.
+OpenTelemetry is generally built to follow the [options pattern](https://learn.microsoft.com/dotnet/core/extensions/options), so there are more ways to configure options than what is demonstrated on this page, these are only examples of the potential.
 
-For example, if you wanted to add SQL Server instrumentation and a custom sampler, your code could look like this:
+## Instrumenting applications
+
+In order to maximize the benefit of collecting distributed traces, you'll want participation from the core components and frameworks of your application and some 3rd party components.
+Some packages in the .NET ecosystem automatically support OpenTelemetry, others can be supported by the [collection of instrumentation libraries](https://opentelemetry.io/ecosystem/registry/?language=dotnet&component=instrumentation).
+Steeltoe previously configured the instrumentation libraries for [HttpClient](#httpclient) and [ASP.NET Core](#aspnet-core).
+
+### ASP.NET Core
+
+To instrument requests coming into the application through ASP.NET Core, start by adding a reference to the `OpenTelemetry.Instrumentation.AspNetCore` NuGet package.
+
+Next, add the instrumentation to the `TracerProviderBuilder`:
 
 ```csharp
-var host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
-    {
-      services.AddDistributedTracingAspNetCore(trace =>
-      {
-          trace
-              .SetSampler(new MyCustomSampler())
-              .AddSqlClientInstrumentation();
-      });
-    })
+services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddAspNetCoreInstrumentation());
 ```
 
-## Next Steps
+In order to replicate the Steeltoe setting `IngressIgnorePattern` (a Regex pattern describing which incoming requests to ignore), configure the `AspNetCoreTraceInstrumentationOptions`:
 
-Once you've set up all the instrumentation, you'll want to [configure an exporter](./distributed-tracing-exporting.md).
+```csharp
+private const string DefaultIngressIgnorePattern = "/actuator/.*|/cloudfoundryapplication/.*|.*\\.png|.*\\.css|.*\\.js|.*\\.html|/favicon.ico|/hystrix.stream|.*\\.gif";
+private static readonly Regex IngressPathMatcher = new(DefaultIngressIgnorePattern, RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1));
+
+services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(aspNetCoreTraceInstrumentationOptions =>
+{
+    aspNetCoreTraceInstrumentationOptions.Filter += httpContext => !IngressPathMatcher.IsMatch(httpContext.Request.Path);
+});
+```
+
+As an alternative to Regex, you can list out the paths to ignore in the Filter property (`Filter` is a `Func<HttpContext, bool>?`):
+
+```csharp
+services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(aspNetCoreTraceInstrumentationOptions =>
+{
+    aspNetCoreTraceInstrumentationOptions.Filter += httpContext =>
+        !httpContext.Request.Path.StartsWithSegments("/actuator", StringComparison.OrdinalIgnoreCase) &&
+        !httpContext.Request.Path.StartsWithSegments("/cloudfoundryapplication", StringComparison.OrdinalIgnoreCase);
+});
+```
+
+> [!TIP]
+> By default, the ASP.NET Core instrumentation does not filter out any requests. The approach above may quickly prove unwieldy if there are many patterns to ignore, such as when listing many file types (notably missing from the example).
+
+### HttpClient
+
+To instrument requests leaving the application through `HttpClient`, start by adding a reference to the `OpenTelemetry.Instrumentation.Http` NuGet package.
+
+Next, add the instrumentation to the `TracerProviderBuilder`:
+
+```csharp
+services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddHttpClientInstrumentation());
+```
+
+In order to replicate the Steeltoe setting `EgressIgnorePattern` (a Regex pattern describing which outgoing HTTP requests to ignore), configure the `HttpClientTraceInstrumentationOptions`:
+
+```csharp
+private const string DefaultEgressIgnorePattern = "/api/v2/spans|/v2/apps/.*/permissions";
+private static readonly Regex EgressPathMatcher = new(DefaultEgressIgnorePattern, RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1));
+
+services.PostConfigure<HttpClientTraceInstrumentationOptions>(httpClientTraceInstrumentationOptions =>
+{
+    httpClientTraceInstrumentationOptions.FilterHttpRequestMessage += httpRequestMessage => !EgressPathMatcher.IsMatch(httpRequestMessage.RequestUri?.PathAndQuery ?? string.Empty);
+});
+```
+
+## Propagating Trace Context
+
+By default, OpenTelemetry uses the [W3C trace context](https://github.com/w3c/trace-context) for propagating traces.
+Some systems like Cloud Foundry may still be configured for the Zipkin standard of [B3 propagation](https://github.com/openzipkin/b3-propagation).
+
+In order to use B3 propagation, add a reference to the `OpenTelemetry.Extensions.Propagators` NuGet package.
+
+Next, let the compiler know you want to use the `OpenTelemetry.Context.Propagation` namespace, but that the `B3Propagator` should come from the package reference you just added (rather than the deprecated class found in `OpenTelemetry.Context.Propagation`):
+
+```csharp
+using OpenTelemetry.Context.Propagation;
+using B3Propagator = OpenTelemetry.Extensions.Propagators.B3Propagator;
+```
+
+Finally, register a `CompositeTextMapPropagator` that includes the `B3Propagator` and `BaggagePropagator`:
+
+```csharp
+services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
+{
+    List<TextMapPropagator> propagators =
+    [
+        new B3Propagator(),
+        new BaggagePropagator()
+    ];
+
+    Sdk.SetDefaultTextMapPropagator(new CompositeTextMapPropagator(propagators));
+});
+```
+
+By default, `B3Propagator` uses [multiple headers](https://github.com/openzipkin/b3-propagation?tab=readme-ov-file#multiple-headers). In order to use a [single B3 header](https://github.com/openzipkin/b3-propagation?tab=readme-ov-file#single-header), change the code above to pass `true` to the `B3Propagator` constructor.
+
+## Exporting Distributed Traces
+
+Steeltoe could previously automatically configure several different trace exporters, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [OpenTelemetryProtocol (OTLP)](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol) and Jaeger. Jaeger export has been deprecated in favor of OTLP, which was only minimally configured by Steeltoe and is better described by [the official OTLP exporter documentation](https://opentelemetry.io/docs/languages/net/exporters/#otlp).
+
+### Zipkin Server
+
+To use the Zipkin Exporter, add a reference to the `OpenTelemetry.Exporter.Zipkin` NuGet package.
+
+Next, use the extension `AddZipkinExporter`:
+
+```csharp
+services.AddOpenTelemetry().WithTracing(tracing => tracerProviderBuilder.AddZipkinExporter());
+```
+
+The Zipkin options class `ZipkinExporterOptions` works the same as Steeltoe settings with the same names in previous releases:
+
+```csharp
+services.PostConfigure<ZipkinExporterOptions>(options =>
+{
+    options.Endpoint = "http://localhost:9411";
+    options.MaxPayloadSizeInBytes = 4096;
+    options.UseShortTraceIds = true;
+});
+```
+
+> [!TIP]
+> The Zipkin endpoint can also be set with the environment variable "OTEL_EXPORTER_ZIPKIN_ENDPOINT".

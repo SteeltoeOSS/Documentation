@@ -4,7 +4,7 @@ To improve the Steeltoe developer experience, this feature allows the configurat
 
 Get started by adding a reference to the AutoConfiguration package (you may want to add other Steeltoe references at this point too, see [the table below](#supported-steeltoe-packages) for the full list of what's supported):
 
-```
+```shell
 dotnet add package Steeltoe.Bootstrap.AutoConfiguration
 ```
 
@@ -36,7 +36,7 @@ builder.AddSteeltoe();
 | [Dynamic Logging](../logging/dynamic-logging-provider.md) | `Steeltoe.Logging.DynamicLogger` | N/A |
 | [Dynamic Logging with Serilog](../logging/serilog-logger.md) | `Steeltoe.Logging.DynamicSerilog` | N/A |
 | [Actuators](../management/index.md) | `Steeltoe.Management.Endpoint` | N/A |
-| [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.Tracing` | Required: OpenTelemetry Exporter (Zipkin, OTLP) |
+| [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.Tracing` | N/A |
 
 [^1]: Individual connector clients will only be configured if a corresponding supported driver NuGet package reference is also included.
 
