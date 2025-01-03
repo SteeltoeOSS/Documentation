@@ -74,7 +74,7 @@
         name: Loggers
       - topicHref: management/mappings.md
         name: Route Mappings
-      - topicHref: management/metrics-endpoint.md
+      - topicHref: management/metrics.md
         name: Metrics
       - topicHref: management/prometheus.md
         name: Prometheus
@@ -86,8 +86,6 @@
         name: Thread Dump
     - topicHref: management/tasks.md
       name: Tasks
-    - topicHref: management/metrics.md
-      name: Metrics
     - topicHref: management/springbootadmin.md
       name: Spring Boot Admin Client
     - topicHref: management/cloud-foundry.md

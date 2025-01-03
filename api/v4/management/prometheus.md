@@ -1,10 +1,9 @@
 # Prometheus
 
-The Steeltoe Prometheus endpoint exposes metrics collected via built-in instrumentation of various aspects of the application in the Prometheus format.  Similar to the [metrics endpoint](./metrics-endpoint.md), it automatically configures built-in instrumentation of various aspects of the application.
+Steeltoe provides a way to configure the [OpenTelemetry Prometheus Exporter](https://opentelemetry.io/docs/languages/net/exporters/#prometheus) to work like the other Steeltoe management endpoints.
+The Prometheus endpoint is similar to the [metrics endpoint](./metrics.md) in that both expose metrics that have been collected by various aspects of the application, however the Prometheus endpoint does not automatically instrument your application.
 
-The metrics collected are the same as those collected by the [metrics endpoint](./metrics-endpoint.md).
-
-## Add NuGet References
+## Add NuGet Reference
 
 To use the Prometheus endpoint, you need to add a reference to the `Steeltoe.Management.Prometheus` NuGet package.
 
@@ -21,7 +20,8 @@ Each key must be prefixed with `Management:Endpoints:Prometheus:`.
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
 
-To configure Observers, see [metric observers](./metrics.md#metric-observers).
+> [!NOTE]
+> The `AllowedVerbs` setting is inherited from Steeltoe's `EndpointOptions`, but is not intended to work for the Prometheus exporter, which is only registered to respond to `GET` requests.
 
 ## Enable HTTP Access
 
@@ -41,6 +41,115 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPrometheusActuator();
 ```
 
-> [!TIP]
-> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
-> which enables individually turning them on/off at runtime via configuration.
+### Configuring the request pipeline for Prometheus
+
+In addition to the options described in [using endpoints](./using-endpoints.md), `AddPrometheusActuator` exposes an `Action<IApplicationBuilder>?` that can be used to configure the branched request pipeline that is used in the underlying OpenTelemetry package.
+This pipeline would need to be configured if, as an example, you are configuring an authorization policy.
+
+```csharp
+builder.Services.AddPrometheusActuator(true, configurePrometheusPipeline =>
+{
+    configurePrometheusPipeline.UseAuthorization();
+});
+```
+
+## Instrumentation
+
+In order for the Prometheus endpoint to return metrics, the application and relevant libraries need to be instrumented.
+This page will cover the basics that Steeltoe has previously configured automatically, and you should refer to the [OpenTelemetry documentation](https://opentelemetry.io/docs/languages/net/instrumentation/) for more information.
+
+### ASP.NET Core
+
+To instrument ASP.NET Core for metrics, start by adding a reference to the `OpenTelemetry.Instrumentation.AspNetCore` NuGet package.
+
+Next, add the instrumentation to the `MeterProviderBuilder`:
+
+```csharp
+services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
+{
+    meterProviderBuilder.AddAspNetCoreInstrumentation();
+})
+```
+
+### HttpClient
+
+To instrument `HttpClients` for metrics, start by adding a reference to the `OpenTelemetry.Instrumentation.Http` NuGet package.
+
+Next, add the instrumentation to the `MeterProviderBuilder`:
+
+```csharp
+services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
+{
+    meterProviderBuilder.AddHttpClientInstrumentation();
+})
+```
+
+### .NET Runtime
+
+To instrument the .NET Runtime for metrics, start by adding a reference to the `OpenTelemetry.Instrumentation.Runtime` NuGet package.
+
+Next, add the instrumentation to the `MeterProviderBuilder`:
+
+```csharp
+services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
+{
+    meterProviderBuilder.AddRuntimeInstrumentation();
+})
+```
+
+## Exporting Metrics
+
+For exporting in Spring metrics format, see the [Metrics endpoint](./metrics.md).
+
+### Prometheus Server
+
+You can set up [Prometheus Server](https://prometheus.io/) to scrape this endpoint by registering your application in the server's configuration. For example, the following `prometheus.yml` file expects a Steeltoe-enabled application to be running on port 8000 with the actuator management path at the default of `/actuator`:
+
+```yml
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. The default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'steeltoe-prometheus'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:8000']
+```
+
+Running the Prometheus server with this configuration lets you view metrics in the built-in UI. You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/), to use Prometheus as a data source. The following example shows how to run Prometheus in Docker:
+
+```shell
+docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
+```
+
+### Tanzu Platform for Cloud Foundry
+
+To emit custom metrics in Cloud Foundry, use [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/metric-registrar-index.html).
+
+> [!CAUTION]
+> Authenticated endpoints are not supported with Metric Registrar. For this scenario, consider configuring actuators to [use an alternate port](./using-endpoints.md#configure-global-settings) and use that private network port to offer the metrics.
+
+#### Metrics Registrar Plugin
+
+Install the metrics-registrar plugin and use it to register your endpoint:
+
+```shell
+cf install-plugin -r CF-Community "metric-registrar"
+cf register-metrics-endpoint APP-NAME /actuator/prometheus
+```
+
+> [!CAUTION]
+> Due to an issue with the cf cli plugin interface, some variations on this command do not work on Windows.
+> If you are a Windows user, you should either use the metric registrar plugin from WSL or use another method.
+
+#### Create User Provided Service
+
+The result of using the metrics registrar plugin is a user-provided service, which can also be created and bound manually.
+
+```shell
+cf create-user-provided-service APP-NAME -l secure-endpoint://:8091/actuator/prometheus
+cf bind-service APP-NAME SERVICE-NAME
+```
