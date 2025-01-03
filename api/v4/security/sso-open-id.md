@@ -1,6 +1,10 @@
-# Single Sign-on with OpenID Connect
+# Single Sign-On with OpenID Connect
 
-Single Sign-on with OpenID Connect helps you use a [UAA Server](https://github.com/cloudfoundry/uaa) or [Single-Sign-on for VMware Tanzu](https://docs.vmware.com/en/Single-Sign-On-for-VMware-Tanzu-Application-Service/index.html) for authentication and authorization in ASP.NET Core applications.
+This provider helps you use a [UAA Server](https://github.com/cloudfoundry/uaa) or [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) for authentication and authorization using OpenID Connect in ASP.NET Core applications.
+
+The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) can help you understand how to use this library. Another reference application is the [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/blob/latest/FreddysBBQ) sample, which is a polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
+
+General understanding of OpenID Connect is beyond the scope of this document, many other sources exist online (for example, see [OpenID](https://openid.net/developers/how-connect-works/)).
 
 ## Usage
 
@@ -8,17 +12,17 @@ This library supplements ASP.NET Security. For the documentation from Microsoft,
 
 Steps involved in using this library:
 
-1. Add NuGet reference(s)
+1. Add NuGet reference
 1. Configure settings for the security provider
 1. Add and use the security provider in the application
 1. Secure your endpoints
-1. Create an instance of a Cloud Foundry Single SignOn service and bind it to your application
+1. Create an instance of a Cloud Foundry Single Sign-On service and bind it to your application
 
 ### Add NuGet Reference
 
 To use this package, you will need to add a reference to the NuGet package `Steeltoe.Security.Authentication.OpenIdConnect`.
 
-If you are using Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry.ServiceBinding`.
+If you are using Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
 
 ### Configure Settings
 
@@ -41,7 +45,7 @@ Since Steeltoe's OpenID Connect library configures Microsoft's OpenID Connect im
 
 #### Cloud Foundry Service Bindings
 
-The Steeltoe package `Steeltoe.Configuration.CloudFoundry.ServiceBinding` reads Single SignOn credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's OpenID Connect to read. Add the configuration provider to your application with this code:
+The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Single Sign-On credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's OpenID Connect to read. Add the configuration provider to your application with this code:
 
 ```csharp
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -98,7 +102,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy(Globals.RequiredJwtScope, policy => policy.RequireClaim("scope", Globals.RequiredJwtScope))
 ```
 
-Direct ASP.NET Core to activate authentication and authorization services after routing services, but before controller route registrations, with the following code:
+Activate authentication and authorization services after routing services, but before controller route registrations, with the following code:
 
 ```csharp
 WebApplication app = builder.Build();
@@ -154,6 +158,6 @@ The preceding example establishes the following security rules:
 * If a user attempts to access the `About` action and the user is not authenticated, the user is redirected to the OAuth server (such as a UAA Server) to log in.
 * If an authenticated user attempts to access the `TestGroup` action but does not meet the restrictions established by the referenced policy, the user is denied access.
 
-### Cloud Foundry Single SignOn Service
+### Cloud Foundry Single Sign-On Service
 
-There are two services available on Cloud Foundry. We recommend you read the official documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [Single-Sign-on for VMware Tanzu](https://docs.vmware.com/en/Single-Sign-On-for-VMware-Tanzu-Application-Service/index.html)) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) for more information.
+There are two services available on Cloud Foundry. We recommend you read the official documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html)) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) for more information.

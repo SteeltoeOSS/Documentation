@@ -1,16 +1,16 @@
 # Resource Protection using JWT in ASP.NET Core
 
-This provider lets you control access to REST resources by using JSON Web Tokens (JWT) issued by Cloud Foundry Security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [Single-Sign-on for VMware Tanzu](https://docs.vmware.com/en/Single-Sign-On-for-VMware-Tanzu-Application-Service/index.html)) in ASP.NET Core.
+This provider lets you control access to REST resources by using JSON Web Tokens (JWT) issued by Cloud Foundry Security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html)) in ASP.NET Core.
 
 The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) can help you understand how to use this tool.
 
-Many resources are available for understanding JWT (for example, see [JWT IO](https://jwt.io/) or [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)).
+General understanding of JWT is beyond the scope of this document, many other sources exist online (for example, see [Wikipedia](https://en.wikipedia.org/wiki/JSON_Web_Token) or [JWT IO](https://jwt.io/)).
 
 ## Usage
 
-This library supplements ASP.NET Security. For the documentation from Microsoft, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
+This library supplements ASP.NET Core Security. For the documentation from Microsoft, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
 
-This package uses JSON Web Tokens (JWT) and builds on JWT Security services provided by ASP.NET Core Security. You should take some time to understand both before proceeding to use this provider.
+This package uses JSON Web Tokens (JWT) and builds on the JWT Security services provided by ASP.NET Core Security. You should understand both before proceeding to use this provider.
 
 Steps involved in using this library:
 
@@ -18,15 +18,17 @@ Steps involved in using this library:
 1. Configure settings for the security provider
 1. Add and use the security provider in the application
 1. Secure your endpoints
-1. Create an instance of a Cloud Foundry Single SignOn service and bind it to your application
+1. Create an instance of a Cloud Foundry Single Sign-On service and bind it to your application
 
 ### Add NuGet Reference
 
 To use the provider, you need to add a reference to the `Steeltoe.Security.Authentication.JwtBearer` NuGet package.
 
+If you are using Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
+
 ### Configure Settings
 
-Since Steeltoe's OpenID Connect library configures Microsoft's JWT Bearer implementation, all available settings can be found in [`Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions)
+Since Steeltoe's Jwt Bearer library configures Microsoft's JWT Bearer implementation, all available settings can be found in [`Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions)
 
 `JwtBearerOptions` is bound to configuration values found under `Authentication:Schemes:Bearer`. The following example shows how to declare the audience for which tokens should be considered valid (such as when a token is issued to a specific web application and then passed to backend services to perform actions on behalf of a user):
 
@@ -35,7 +37,7 @@ Since Steeltoe's OpenID Connect library configures Microsoft's JWT Bearer implem
   "Authentication": {
     "Schemes": {
       "Bearer": {
-        "Audience": "steeltoesamplesclient"
+        "ValidAudience": "sampleapi"
       }
     }
   }
@@ -44,7 +46,7 @@ Since Steeltoe's OpenID Connect library configures Microsoft's JWT Bearer implem
 
 #### Cloud Foundry Service Bindings
 
-The Steeltoe package `Steeltoe.Configuration.CloudFoundry.ServiceBinding` reads Single SignOn credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's JwtBearer to read. Add the configuration provider to your application with this code:
+The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Single Sign-On credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's JwtBearer library to read. Add the configuration provider to your application with this code:
 
 ```csharp
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -73,9 +75,9 @@ A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/Steel
 }
 ```
 
-#### Add and use JWT Bearer Authentication
+### Add and use JWT Bearer Authentication
 
-Since the majority of the JWT Bearer functionality is provided by Microsoft's libraries, the only difference when using Steeltoe will be the addition of calling `ConfigureOpenIdConnectForCloudFoundry` on the `AuthenticationBuilder`, as shown in the following example:
+Since the majority of the JWT Bearer functionality is provided by Microsoft's libraries, the only difference when using Steeltoe will be the addition of calling `ConfigureJwtBearerForCloudFoundry` on the `AuthenticationBuilder`, as shown in the following example:
 
 ```csharp
 using Steeltoe.Security.Authentication.CloudFoundry;
@@ -122,7 +124,6 @@ Once the services and middleware have been configured, you can secure endpoints 
 
 ```csharp
 using Microsoft.AspNetCore.Authentication;
-...
 
 [Route("api/[controller]")]
 public class ValuesController : Controller
@@ -139,6 +140,6 @@ public class ValuesController : Controller
 
 In the preceding example, if an incoming REST request is made to the `api/values` endpoint and the request does not contain a valid JWT bearer token with a `scope` claim equal to `sampleapi.read`, the request is rejected.
 
-### Cloud Foundry Single SignOn Service
+### Cloud Foundry Single Sign-On Service
 
-There are two services available on Cloud Foundry. We recommend you read the official documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [Single-Sign-on for VMware Tanzu](https://docs.vmware.com/en/Single-Sign-On-for-VMware-Tanzu-Application-Service/index.html)) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) for more information.
+There are two services available on Cloud Foundry. We recommend you read the official documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html)) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) for more information.
