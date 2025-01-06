@@ -1,6 +1,6 @@
 # Metrics
 
-Steeltoe provides two ways of collecting and exporting application metrics. The Steeltoe Metrics endpoint (described on this page) is built into in Steeltoe and does not require additional dependencies, while the [Prometheus endpoint](./prometheus.md) is built on top of [OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet).
+Steeltoe provides two ways of collecting and exporting application metrics. The Steeltoe Metrics endpoint (described on this page) is built into Steeltoe and does not require additional dependencies, while the [Prometheus endpoint](./prometheus.md) is built on top of [OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet).
 
 The Metrics endpoint uses [Metric Observers](#metric-observers) to automatically instrument the application for metric collection and makes it easy to export to destinations that accept the Spring metrics format such as [Tanzu Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/console-index.html[), [Tanzu App Live View](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/app-live-view-about-app-live-view.html) and [Spring Boot Admin](https://docs.spring-boot-admin.com/).
 
@@ -136,8 +136,8 @@ Each key must be prefixed with `Management:Metrics:Observer`.
 | `GCEvents` | Enable Garbage collector Metrics. | `true` |
 | `ThreadPoolEvents` | Enable Thread Pool Metrics. | `true` |
 | `EventCounterEvents` | Enable Event Counter Metrics. | `false` |
-| `HttpClient` | Enable Http Client Metrics. | `false` |
-| `ExcludedMetrics` | Specify a list of metrics that should not be captured | none |
+| `HttpClient` | Capture outgoing HTTP requests using [`HttpClient`](https://learn.microsoft.com//dotnet/api/system.net.http.httpclient). | `false` |
+| `ExcludedMetrics` | An array of metric names to exclude from capture (see note below). | |
 
 > [!NOTE]
 > The ExcludedMetrics option only applies to [these events](https://learn.microsoft.com/dotnet/core/diagnostics/available-counters#systemruntime-counters), which are captured from counters in the runtime. The observer that reports these metrics is controlled by the `EventCounterEvents` setting above.
