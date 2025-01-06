@@ -100,10 +100,10 @@
   items:
     - topicHref: security/sso-open-id.md
       name: SSO with Open ID Connect
-    - topicHref: security/jwt-authentication.md
-      name: JWT for ASP.NET Core
-    - topicHref: security/mtls.md
-      name: Mutual TLS
+    - topicHref: security/jwt-bearer.md
+      name: JWT Bearer Token
+    - topicHref: security/certificate.md
+      name: Certificate (Mutual TLS)
     - topicHref: security/redis-key-storage-provider.md
       name: Redis Key Storage Provider
 - name: Connectors

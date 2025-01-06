@@ -1,14 +1,13 @@
 # Single Sign-On with OpenID Connect
 
-This provider helps you use a [UAA Server](https://github.com/cloudfoundry/uaa) or [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) for authentication and authorization using OpenID Connect in ASP.NET Core applications.
+This library is a supplement to ASP.NET Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or [User Account and Authentication (UAA) Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using OpenID Connect in ASP.NET Core web applications.
 
-The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) can help you understand how to use this library. Another reference application is the [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/blob/latest/FreddysBBQ) sample, which is a polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
+The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthWeb/README.md) can help you understand how to use this library. Another reference application is the [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/blob/latest/FreddysBBQ) sample, which is a polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
 
-General understanding of OpenID Connect is beyond the scope of this document, many other sources exist online (for example, see [OpenID](https://openid.net/developers/how-connect-works/)).
+General guidance on OpenID Connect is beyond the scope of this document and can be found in many other sources (for example, see [OpenID](https://openid.net/developers/how-connect-works/)).
+For the documentation of the underlying Microsoft OpenID Connect library, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
 
 ## Usage
-
-This library supplements ASP.NET Security. For the documentation from Microsoft, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
 
 Steps involved in using this library:
 
@@ -107,7 +106,6 @@ Activate authentication and authorization services _after_ routing services, but
 ```csharp
 WebApplication app = builder.Build();
 
-// Use forwarded headers so that links generate correctly behind a reverse proxy (eg: when in Cloud Foundry)
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedProto });
 
 app.UseRouting();
@@ -158,6 +156,46 @@ The preceding example establishes the following security rules:
 * If a user attempts to access the `About` action and the user is not authenticated, the user is redirected to the OAuth server (such as a UAA Server) to log in.
 * If an authenticated user attempts to access the `TestGroup` action but does not meet the restrictions established by the referenced policy, the user is denied access.
 
-### Cloud Foundry Single Sign-On Service
+### Single Sign-On for VMware Tanzu
 
-There are two services available on Cloud Foundry. We recommend you read the official documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html)) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) for more information.
+When using Single Sign-On for VMware Tanzu, you will need to identify the service plan to be used before creating a service instance of that plan.
+If you do not have an existing service plan, a platform operator may need to create a new plan for you.
+The operator should refer to the [Single Sign-On for Tanzu operator guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/operator-index.html) for information on how to configure plans for developer use.
+
+Once you have identified the service plan that will be used, create a service instance:
+
+```shell
+cf create-service p-identity SERVICE_PLAN_NAME MY_SERVICE_INSTANCE
+```
+
+If using a manifest file, [add a service binding reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#services-block), otherwise bind the instance and restage the app with the cf cli:
+
+```shell
+# Bind service to your app
+cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
+
+# Restage the app to pick up change
+cf restage MY_APPLICATION
+```
+
+For further information, refer to the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthWeb/README.md).
+
+### UAA Server
+
+If Single Sign-On for Tanzu is not available or desired for your application, you can use UAA as an alternative.
+
+There is no service broker available to manage service instances or bindings for UAA, so a [user provided service instance](https://docs.cloudfoundry.org/devguide/services/user-provided.html) should be used to hold the credentials.
+
+This command is an example of how the binding could be created:
+
+```shell
+cf cups MY_SERVICE_INSTANCE -p '{"auth_domain": "https://uaa.login.sys.cf-app.com","grant_types": [ "authorization_code", "client_credentials" ],"client_secret": "SOME_CLIENT_SECRET","client_id": "SOME_CLIENT_ID"}'
+```
+
+And this command is an example of how to bind the service instance to the app:
+
+```shell
+cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
+```
+
+For additional information, refer to the [UAA documentation](https://docs.cloudfoundry.org/concepts/architecture/uaa.html).

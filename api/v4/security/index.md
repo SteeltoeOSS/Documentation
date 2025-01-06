@@ -5,8 +5,8 @@ Steeltoe provides several libraries that simplify using Cloud Foundry-based secu
 Choose from the following options when using Cloud Foundry security integration:
 
 * [Single Sign-on with OpenID Connect](sso-open-id.md)
-* [Resource protection with JWT Bearer tokens](jwt-authentication.md)
-* [Resource protection using Mutual TLS (Certificate Authorization)](mtls.md)
+* [Resource protection with JWT Bearer tokens](jwt-bearer.md)
+* [Resource protection using Mutual TLS (Certificate Authorization)](certificate.md)
 
 In addition to authentication and authorization providers, Steeltoe security offers:
 
