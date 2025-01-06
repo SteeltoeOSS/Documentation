@@ -73,7 +73,7 @@ services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
 
 ### HttpClient
 
-To instrument `HttpClients` for metrics, start by adding a reference to the `OpenTelemetry.Instrumentation.Http` NuGet package.
+To instrument `HttpClient`s for metrics, start by adding a reference to the `OpenTelemetry.Instrumentation.Http` NuGet package.
 
 Next, add the instrumentation to the `MeterProviderBuilder`:
 
