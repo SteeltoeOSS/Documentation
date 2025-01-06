@@ -103,7 +103,7 @@ For exporting in Spring metrics format, see the [Metrics endpoint](./metrics.md)
 
 ### Prometheus Server
 
-You can set up [Prometheus Server](https://prometheus.io/) to scrape this endpoint by registering your application in the server's configuration. For example, the following `prometheus.yml` file expects a Steeltoe-enabled application to be running on port 8000 with the actuator management path at the default of `/actuator`:
+You can set up [Prometheus Server](https://prometheus.io/) to scrape this endpoint by registering your application in the server's configuration. For example, the following `prometheus.yml` file expects a Steeltoe-enabled application to be running on port 8000 with the actuator management path at the default of `/actuator/prometheus`:
 
 ```yml
 global:
