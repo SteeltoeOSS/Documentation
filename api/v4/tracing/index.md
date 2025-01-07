@@ -25,7 +25,7 @@ Steeltoe provides the class `TracingLogProcessor`, which is an `IDynamicMessageP
 The result is log entries that use the same trace format popularized by [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#log-correlation),
 that include `[<ApplicationName>,<TraceId>,<SpanId>,<ParentSpanId>,<IsAllDataRequested>]`.
 
-Consider this a pair of log entries from the [Steeltoe Management sample applications](https://github.com/SteeltoeOSS/Samples/blob/latest/Management/src/):
+Consider this pair of log entries from the [Steeltoe Management sample applications](https://github.com/SteeltoeOSS/Samples/blob/latest/Management/src/):
 
 ```text
 info: System.Net.Http.HttpClient.ActuatorApiClient.LogicalHandler[100]
@@ -56,14 +56,22 @@ builder.Services.AddTracingLogProcessor();
 
 ## OpenTelemetry
 
-To use OpenTelemetry, you _can_ start by adding a reference to the `OpenTelemetry.Extensions.Hosting` NuGet package. This package provides access to `OpenTelemetryBuilder`, which is the main entrypoint to OpenTelemetry, but depending on which packages you add later you can probably skip this step. The rest of this section will include information on some core bits of information regarding OpenTelemetry that previous versions of Steeltoe configured.
+To use OpenTelemetry, you _can_ start by adding a reference to the `OpenTelemetry.Extensions.Hosting` NuGet package.
+This package provides access to `OpenTelemetryBuilder`, which is the main entrypoint to OpenTelemetry, but depending on which packages you add later you can probably skip this step.
+The rest of this section contains information on pieces of OpenTelemetry that could be configured by previous versions of Steeltoe.
 
 ### Sampler configuration
 
 OpenTelemetry Provides the `Sampler` abstraction for configuring when traces should be recorded.
-The simplest options are `AlwaysOnSampler` and `AlwaysOffSampler`, with their names describing exactly which traces will be recorded
+The simplest options are `AlwaysOnSampler` and `AlwaysOffSampler`, with their names describing exactly which traces will be recorded.
 
 To replace the Steeltoe configuration for using these samplers, set the environment variable `OTEL_TRACES_SAMPLER` to `always_on` or `always_off`.
+
+> [!TIP]
+> OpenTelemetry is generally built to follow the [options pattern](https://learn.microsoft.com/dotnet/core/extensions/options).
+> There are more ways to configure options than what is demonstrated on this page, these are only examples of the potential.
+
+### Set Application Name
 
 In order to use the Steeltoe name for your application with OpenTelemetry, call `SetResourceBuilder` and pass in a value from the registered `IApplicationInstanceInfo`:
 
@@ -74,10 +82,6 @@ services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBu
     tracerProviderBuilder.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(appInfo.ApplicationName!));
 });
 ```
-
-### Configuring with the options pattern
-
-OpenTelemetry is generally built to follow the [options pattern](https://learn.microsoft.com/dotnet/core/extensions/options), so there are more ways to configure options than what is demonstrated on this page, these are only examples of the potential.
 
 ## Instrumenting applications
 
@@ -119,7 +123,10 @@ services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(aspNetCoreTraceIns
 ```
 
 > [!TIP]
-> By default, the ASP.NET Core instrumentation does not filter out any requests. The approach above may quickly prove unwieldy if there are many patterns to ignore, such as when listing many file types (notably missing from the example).
+> By default, the ASP.NET Core instrumentation does not filter out any requests.
+> The latter approach above may quickly prove unwieldy if there are many patterns to ignore, such as when listing many file types (notably missing from the example).
+
+[Learn more about ASP.NET Core instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore)
 
 ### HttpClient
 
@@ -142,6 +149,8 @@ services.PostConfigure<HttpClientTraceInstrumentationOptions>(httpClientTraceIns
     httpClientTraceInstrumentationOptions.FilterHttpRequestMessage += httpRequestMessage => !EgressPathMatcher.IsMatch(httpRequestMessage.RequestUri?.PathAndQuery ?? string.Empty);
 });
 ```
+
+[Learn more about ASP.NET Core instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore)
 
 ## Propagating Trace Context
 
@@ -176,7 +185,8 @@ By default, `B3Propagator` uses [multiple headers](https://github.com/openzipkin
 
 ## Exporting Distributed Traces
 
-Steeltoe could previously automatically configure several different trace exporters, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [OpenTelemetryProtocol (OTLP)](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol) and Jaeger. Jaeger export has been deprecated in favor of OTLP, which was only minimally configured by Steeltoe and is better described by [the official OTLP exporter documentation](https://opentelemetry.io/docs/languages/net/exporters/#otlp).
+Previous versions of Steeltoe could automatically configure several different trace exporters, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [OpenTelemetryProtocol (OTLP)](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol) and Jaeger.
+The Jaeger exporter has been deprecated in favor of OTLP, which was only minimally configured by Steeltoe and is better described by [the official OTLP exporter documentation](https://opentelemetry.io/docs/languages/net/exporters/#otlp).
 
 ### Zipkin Server
 
