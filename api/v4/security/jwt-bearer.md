@@ -1,6 +1,6 @@
 # Resource Protection using JWT in ASP.NET Core
 
-This library is a supplement to ASP.NET Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or a [UAA Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using JSON Web Tokens (JWT) in ASP.NET Core web applications.
+This library is a supplement to ASP.NET Core Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or a [UAA Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using JSON Web Tokens (JWT) in ASP.NET Core web applications.
 
 The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) can help you understand how to use this tool.
 
@@ -149,7 +149,9 @@ Once you have identified the service plan that will be used, create a service in
 cf create-service p-identity SERVICE_PLAN_NAME MY_SERVICE_INSTANCE
 ```
 
-If using a manifest file, [add a service binding reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#services-block), otherwise bind the instance and restage the app with the cf cli:
+If you are using a manifest file when you deploy to Cloud Foundry, [add a service binding reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#services-block).
+
+Alternatively, bind the instance and restage the app with the cf cli:
 
 ```shell
 # Bind service to your app

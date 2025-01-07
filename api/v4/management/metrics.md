@@ -1,8 +1,9 @@
 # Metrics
 
-Steeltoe provides two ways of collecting and exporting application metrics. The Steeltoe Metrics endpoint (described on this page) is built into Steeltoe and does not require additional dependencies, while the [Prometheus endpoint](./prometheus.md) is built on top of [OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet).
+Steeltoe provides two ways of collecting and exporting application metrics.
+The Steeltoe Metrics endpoint (described on this page) is built into Steeltoe and does not require additional dependencies, while the [Prometheus endpoint](./prometheus.md) is built on top of [OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet).
 
-The Metrics endpoint uses [Metric Observers](#metric-observers) to automatically instrument the application for metric collection and makes it easy to export to destinations that accept the Spring metrics format such as [Tanzu Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/console-index.html[), [Tanzu App Live View](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/app-live-view-about-app-live-view.html) and [Spring Boot Admin](https://docs.spring-boot-admin.com/).
+The Metrics endpoint uses [Metric Observers](#metric-observers) to automatically instrument the application for metric collection and makes it easy to export to destinations that accept the Spring metrics format such as [Metric Registrar for Tanzu Platform for Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/metric-registrar-index.html), [Tanzu App Live View](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/app-live-view-about-app-live-view.html) and [Spring Boot Admin](https://docs.spring-boot-admin.com/).
 
 ## Configure Settings
 
@@ -150,6 +151,10 @@ For exporting to Prometheus server, see the [Prometheus endpoint](./prometheus.m
 
 To emit custom metrics in Cloud Foundry, use [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/metric-registrar-index.html).
 
+> [!CAUTION]
+> Authenticated endpoints are not supported with Metric Registrar.
+> For this scenario, consider configuring actuators to [use an alternate port](./using-endpoints.md#configure-global-settings) and use that private network port to offer the metrics.
+
 There are two methods available to register your endpoint for metrics collection
 
 #### Metrics Registrar Plugin
@@ -158,7 +163,7 @@ Install the metrics-registrar plugin and use it to register your endpoint:
 
 ```shell
 cf install-plugin -r CF-Community "metric-registrar"
-cf register-metrics-endpoint APP-NAME /actuator/metrics
+cf register-metrics-endpoint APP-NAME /actuator/metrics --internal-port 8091
 ```
 
 > [!CAUTION]
