@@ -11,13 +11,14 @@ For the documentation of the underlying Microsoft OpenID Connect library, visit 
 
 Steps involved in using this library:
 
-1. Add NuGet reference
-1. Configure settings for the security provider
-1. Add and use the security provider in the application
-1. Secure your endpoints
-1. Create an instance of a Cloud Foundry Single Sign-On service and bind it to your application
+1. Add NuGet references.
+1. Configure settings for the security provider.
+   1. Add the Steeltoe Cloud Foundry configuration provider and service binding post-processors to your `ConfigurationBuilder`.
+1. Add and use the security provider in the application.
+1. Secure your endpoints.
+1. Create an instance of a Cloud Foundry Single Sign-On service and bind it to your application.
 
-### Add NuGet Reference
+### Add NuGet References
 
 To use this package, you will need to add a reference to the NuGet package `Steeltoe.Security.Authentication.OpenIdConnect`.
 
@@ -49,7 +50,8 @@ The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Single Sign-On 
 ```csharp
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Steeltoe: Add Cloud Foundry service info to configuration
+// Steeltoe: Add Cloud Foundry application and service info to configuration.
+builder.AddCloudFoundryConfiguration();
 builder.Configuration.AddCloudFoundryServiceBindings();
 ```
 
