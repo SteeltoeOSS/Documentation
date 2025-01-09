@@ -136,7 +136,7 @@ You can then configure other visualization tools, such as [Grafana](https://graf
 The following example shows how to run Prometheus in Docker:
 
 ```shell
-docker run -d  --name=prometheus -p 9090:9090 -v ./prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
+docker run -d --name=prometheus -p 9090:9090 -v ./prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
 ```
 
 ### Tanzu Platform for Cloud Foundry
