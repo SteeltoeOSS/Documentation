@@ -27,7 +27,7 @@ Steeltoe 4 requires .NET 8 or higher.
 - Performance and scalability improvements
 - Numerous bugfixes
 - Cleanup of logging output
-- Way better documentation
+- Substantially improved documentation
 - Improved test coverage, including interaction between different Steeltoe components
 - All samples updated to .NET 8, fully tested and working
 - Automated code style validation (Resharper, StyleCop, Sonar, Microsoft CodeAnalysis)
@@ -35,23 +35,23 @@ Steeltoe 4 requires .NET 8 or higher.
 ### General
 
 - NuGet Packages
-  - The Core/Base suffix has been dropped from package names, which was used to distinguish between NET Standard and .NET Core
-  - Packages no longer have the ".Extensions" part in their name
+  - Dropped the Core/Base suffix from package names, which was used to distinguish between NET Standard and .NET Core
+  - Removed ".Extensions" from NuGet package names
 - Extension methods
-  - Most extension methods on host builders have been refactored to be extension methods on `IServiceCollection`, `IConfiguration`, `IConfigurationBuilder`, `ILoggingBuilder` etc.
+  - Refactored most extension methods on host builders to be extension methods on `IServiceCollection`, `IConfiguration`, `IConfigurationBuilder`, `ILoggingBuilder` etc.
     This enables easier reuse, because Steeltoe doesn't need to adapt each time a new host builder is introduced.
-  - The remaining host builder extension methods support the new `IHostApplicationBuilder` (which `WebApplicationBuilder` and `HostApplicationBuilder` implement)
-  - Extension methods have been moved to the appropriate Steeltoe namespaces to avoid clashes with other libraries
+  - Added support for the new `IHostApplicationBuilder` (which `WebApplicationBuilder` and `HostApplicationBuilder` implement) to the remaining host builder extension methods
+  - Moved extension methods to the appropriate Steeltoe namespaces to avoid clashes with other libraries
 - Public API surface
-  - Types not designed for inheritance are sealed, which improves runtime performance
-  - Various interfaces that weren't general-purpose have been removed, types not designed for inheritance/reuse made internal
-  - Change methods containing optional parameters with default values to overloaded methods
-  - Made several methods async, taking a `CancellationToken`
+  - Sealed types not designed for inheritance, which improves runtime performance
+  - Removed various interfaces that weren't general-purpose, types not designed for inheritance/reuse made internal
+  - Changed methods containing optional parameters with default values to overloaded methods
+  - Made more methods async and expanded usage of `CancellationToken`, both as a parameter and internally
   - Validate method inputs to prevent a `NullReferenceException` downstream
   - Apply C#/.NET naming conventions, for example: rename `HealthStatus.OUT_OF_SERVICE` to `HealthStatus.OutOfService`
 - Configuration
   - Steeltoe packages provide auto-completion in `appsettings.json` (only in Visual Studio for SDK-style web projects), global Steeltoe JSON schema updated
-  - Nearly all configuration settings are reloadable without app restart, settings usually exposed via ASP.NET Options pattern
+  - Changed nearly all configuration settings to be reloadable without app restart, now more consistently exposed via ASP.NET Options pattern
 - Up-to-date
   - Extensively tested with the latest versions of dependent packages, database drivers and third-party products
     (including Tanzu, Cloud Foundry, Config Server, Consul, Eureka, RabbitMQ, Redis, OpenTelemetry, Grafana, Prometheus, Zipkin, Spring Boot Admin)
@@ -64,7 +64,7 @@ Steeltoe 4 requires .NET 8 or higher.
 - CredHub client, because it's no longer needed since the introduction of the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html)
 - CircuitBreaker, because [Polly](https://github.com/App-vNext/Polly) provides similar features and is widely used in .NET apps
 - Messaging/Integration/Stream, because usage and implementation are too complicated and the adoption rate was very low
-- Spring Expression Language (SpEL), because it doesn't support many C# language features
+- Spring Expression Language (SpEL), because it was added for Stream and doesn't support many C# language features
 
 ### Package name changes
 
@@ -294,7 +294,7 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 - Added trace-level logging in placeholder provider to diagnose substitution
 - New configuration provider to decrypt settings in Config Server (should be added as late as possible)
 - Reduced noise in Config Server logging
-- Universal configuration of client certificates, using ASP.NET Options pattern (named with fallback to default)
+- Universal configuration of client certificates, using ASP.NET Options pattern (named, with fallback to default)
 - Added support for reading from [Application Configuration Service for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/application-configuration-service-for-tanzu/2-4/app-config-service/overview.html) on Kubernetes
 - Improved support for ASP.NET Options pattern, responding to configuration changes at runtime
 - Removed configuration provider that directly interacts with the Kubernetes API, which is a questionable practice from a security perspective
@@ -659,7 +659,7 @@ For more information, see the updated [Connectors documentation](../configuratio
 | `Steeltoe.Discovery.Client.SimpleClients.ConfigurationDiscoveryClient`                                         | Type             | Steeltoe.Discovery.Client [Base/Core] | Moved           | `ConfigurationDiscoveryClient` in Steeltoe.Discovery.Configuration package   |                                                                                             |
 | `Steeltoe.Discovery.Client.SimpleClients.ConfigurationDiscoveryClientBuilderExtensions.UseConfiguredInstances` | Extension method | Steeltoe.Discovery.Client [Base/Core] | Removed         | Call `IServiceCollection.AddConfigurationDiscoveryClient()` extension method | Refactored to simpler API                                                                   |
 | `Steeltoe.Discovery.Client.SimpleClients.ConfigurationDiscoveryClientExtension`                                | Type             | Steeltoe.Discovery.Client [Base/Core] | Removed         | Call `IServiceCollection.AddConfigurationDiscoveryClient()` extension method | Refactored to simpler API                                                                   |
-| `Steeltoe.Discovery.DiscoveryClientAssemblyAttribute`                                                          | Type             | Steeltoe.Discovery.Client [Base/Core] | Removed         | None                                                                         | Dynamically loading custom discovery clients is not longer possible                         |
+| `Steeltoe.Discovery.DiscoveryClientAssemblyAttribute`                                                          | Type             | Steeltoe.Discovery.Client [Base/Core] | Removed         | None                                                                         | Dynamically loading custom discovery clients is no longer possible                         |
 | `Steeltoe.Discovery.Configuration.ConfigurationDiscoveryClient`                                                | Type             | Steeltoe.Discovery.Configuration      | Added           |                                                                              | Reads service instances from configuration                                                  |
 | `Steeltoe.Discovery.Configuration.ConfigurationDiscoveryOptions`                                               | Type             | Steeltoe.Discovery.Configuration      | Added           |                                                                              | Options type for service instances in `IConfiguration`                                      |
 | `Steeltoe.Discovery.Configuration.ConfigurationServiceCollectionExtensions.AddConfigurationDiscoveryClient`    | Extension method | Steeltoe.Discovery.Configuration      | Added           |                                                                              | Activates configuration-based discovery client                                              |
