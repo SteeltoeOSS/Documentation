@@ -9,7 +9,7 @@ Steeltoe started as a C# port of Java Spring Boot parts, offering .NET interoper
 Over time, it has evolved and was marketed into a set of libraries that help .NET developers build cloud-native applications.
 The libraries became bloated with features that were not widely used, while their Spring-based architecture and conventions
 have always felt alien to .NET developers.
-Since the introduction of [.NET Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview) and the
+Since the introduction of [.NET Aspire](https://learn.microsoft.com/dotnet/aspire/get-started/aspire-overview) and the
 acquisition of VMware by Broadcom, Steeltoe is returning to its original purpose.
 
 Steeltoe 4 is a major release that brings many improvements and changes to the library.
@@ -20,7 +20,7 @@ Steeltoe 4 requires .NET 8 or higher.
 
 ### Quality of Life improvements
 
-- Annotated for nullable reference types
+- Annotated for [nullable reference types](https://learn.microsoft.com/dotnet/csharp/nullable-references)
 - Compatible with the latest versions of ASP.NET and third-party libraries
 - Compatible with recent versions of Tanzu Platform (Cloud Foundry and Kubernetes) and Spring Boot
 - Changes to align with .NET conventions and patterns, extensive review of the public API surface
@@ -38,8 +38,9 @@ Steeltoe 4 requires .NET 8 or higher.
   - Dropped the Core/Base suffix from package names, which was used to distinguish between NET Standard and .NET Core
   - Removed ".Extensions" from NuGet package names
 - Extension methods
-  - Refactored most extension methods on host builders to be extension methods on `IServiceCollection`, `IConfiguration`, `IConfigurationBuilder`, `ILoggingBuilder` etc.
-    This enables easier reuse, because Steeltoe doesn't need to adapt each time a new host builder is introduced.
+  - Removed host builder extension methods that could be substituted with a single extension method on
+    `IServiceCollection`, `IConfiguration`, `IConfigurationBuilder`, `ILoggingBuilder` etc.
+    Their redundancy led to confusion, and required Steeltoe to adapt each time a new host builder is introduced.
   - Added support for the new `IHostApplicationBuilder` (which `WebApplicationBuilder` and `HostApplicationBuilder` implement) to the remaining host builder extension methods
   - Moved extension methods to the appropriate Steeltoe namespaces to avoid clashes with other libraries
 - Public API surface
@@ -47,10 +48,10 @@ Steeltoe 4 requires .NET 8 or higher.
   - Removed various interfaces that weren't general-purpose, types not designed for inheritance/reuse made internal
   - Changed methods containing optional parameters with default values to overloaded methods
   - Made more methods async and expanded usage of `CancellationToken`, both as a parameter and internally
-  - Validate method inputs to prevent a `NullReferenceException` downstream
-  - Apply C#/.NET naming conventions, for example: rename `HealthStatus.OUT_OF_SERVICE` to `HealthStatus.OutOfService`
+  - Enhanced method input validation to prevent downstream `NullReferenceException`s
+  - Applied C#/.NET naming conventions, for example: renamed `HealthStatus.OUT_OF_SERVICE` to `HealthStatus.OutOfService`
 - Configuration
-  - Steeltoe packages provide auto-completion in `appsettings.json` (only in Visual Studio for SDK-style web projects), global Steeltoe JSON schema updated
+  - Added support in Steeltoe packages for auto-completion in `appsettings.json` (without needing a schema reference, which currently only works in Visual Studio for SDK-style web projects), updated global Steeltoe JSON schema
   - Changed nearly all configuration settings to be reloadable without app restart, now more consistently exposed via ASP.NET Options pattern
 - Up-to-date
   - Extensively tested with the latest versions of dependent packages, database drivers and third-party products
@@ -132,7 +133,7 @@ The following sections provide details on the changes per Steeltoe component, as
 - Added wire-up of Steeltoe.Configuration.SpringBoot, Steeltoe.Configuration.Encryption and Steeltoe.Logging.DynamicConsole
 - Removed wire-up of client certificate authentication, which was done only partly
 - When no `ILoggerFactory` is specified, `BootstrapLoggerFactory` is used by default (pass `NullLoggerFactory.Instance` to disable)
-- Fixed case-insensitive comparison of assembly names
+- Ignore casing when comparing assembly names (bugfix)
 
 ### NuGet Package changes
 
@@ -163,9 +164,9 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 - Removed various APIs that were used internally, but not designed for extensibility/reuse
 - Dynamically loading custom types for connectors/discovery is no longer possible
 - Removed Spring Expression Language (SpEL) support
-- Removed `UseCloudHosting` (impossible to reliably detect bound ports in all cases, while easy to specify directly on command line)
+- Removed `UseCloudHosting` (impossible to reliably detect bound ports in all cases, while Cloud Foundry usually[^1] sets the port automatically)
 - Greater flexibility in using Bootstrap logger, bugfixes
-- Certificates are no longer read from OS-specific store, which prove to not work reliably (store paths in configuration instead)
+- Certificates are no longer read from OS-specific store, which proved to not work reliably (store paths in configuration instead)
 
 ### NuGet Package changes
 
@@ -234,13 +235,13 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | `Steeltoe.Common.Certificates.CertificateOptions`                                                                                          | Type             | Steeltoe.Common.Certificates   | Added           |                                                                                            | Provides access to loaded certificate using ASP.NET Options pattern                   |
 | `Steeltoe.Common.Certificates.CertificateServiceCollectionExtensions.ConfigureCertificateOptions`                                          | Extension method | Steeltoe.Common.Certificates   | Added           |                                                                                            | Bind named certificate from `IConfiguration` and monitor for changes                  |
 | `Steeltoe.Common.Hosting.BootstrapLoggerHostedService`                                                                                     | Type             | Steeltoe.Common.Hosting        | Made internal   | None                                                                                       | Moved to Steeltoe.Common.Logging package                                              |
-| `Steeltoe.Common.Hosting.HostBuilderExtensions.UseCloudHosting`                                                                            | Extension method | Steeltoe.Common.Hosting        | Removed         | Specify ports on command-line: `--urls=http://0.0.0.0:%PORT%`                              | Feature dropped, impossible to reliably detect bound ports in all cases               |
+| `Steeltoe.Common.Hosting.HostBuilderExtensions.UseCloudHosting`                                                                            | Extension method | Steeltoe.Common.Hosting        | Removed         | Specify ports explicitly [^1]                                                              | Feature dropped, impossible to reliably detect bound ports in all cases               |
 | `Microsoft.Extensions.DependencyInjection.LoadBalancerHttpClientBuilderExtensions.AddLoadBalancer<T>`                                      | Extension method | Steeltoe.Common.Http           | Moved           | `AddServiceDiscovery<T>()` in Steeltoe.Discovery.HttpClients package                       |                                                                                       |
 | `Microsoft.Extensions.DependencyInjection.LoadBalancerHttpClientBuilderExtensions.AddRandomLoadBalancer`                                   | Extension method | Steeltoe.Common.Http           | Moved           | `AddServiceDiscovery<RandomLoadBalancer>()` in Steeltoe.Discovery.HttpClients package      |                                                                                       |
 | `Microsoft.Extensions.DependencyInjection.LoadBalancerHttpClientBuilderExtensions.AddRoundRobinLoadBalancer`                               | Extension method | Steeltoe.Common.Http           | Moved           | `AddServiceDiscovery<RoundRobinLoadBalancer>()` in Steeltoe.Discovery.HttpClients package  |                                                                                       |
 | `Steeltoe.Common.Discovery.DiscoveryHttpClientHandler`                                                                                     | Type             | Steeltoe.Common.Http           | Removed         | `DiscoveryHttpClientHandler` in Steeltoe.Discovery.HttpClients package                     |                                                                                       |
 | `Steeltoe.Common.Discovery.DiscoveryHttpClientHandlerBase`                                                                                 | Type             | Steeltoe.Common.Http           | Removed         | `DiscoveryHttpClientHandler` in Steeltoe.Discovery.HttpClients package                     |                                                                                       |
-| `Steeltoe.Common.Http.ClientCertificateHttpHandler`                                                                                        | Type             | Steeltoe.Common.Http           | Removed         | None                                                                                       | Rotating certificates in OS-level certificate store prove to be unreliable            |
+| `Steeltoe.Common.Http.ClientCertificateHttpHandler`                                                                                        | Type             | Steeltoe.Common.Http           | Removed         | None                                                                                       | Rotating certificates in OS-level certificate store proved to be unreliable           |
 | `Steeltoe.Common.Http.ClientCertificateHttpHandlerProvider`                                                                                | Type             | Steeltoe.Common.Http           | Removed         | None                                                                                       | Refactored to internal `ClientCertificateHttpClientHandlerConfigurer`                 |
 | `Steeltoe.Common.Http.Discovery.DiscoveryHttpClientBuilderExtensions.AddServiceDiscovery`                                                  | Extension method | Steeltoe.Common.Http           | Moved           | `AddServiceDiscovery()` in Steeltoe.Discovery.HttpClients package                          |                                                                                       |
 | `Steeltoe.Common.Http.Discovery.DiscoveryHttpMessageHandler`                                                                               | Type             | Steeltoe.Common.Http           | Removed         | `DiscoveryHttpDelegatingHandler<>` in Steeltoe.Discovery.HttpClients package               |                                                                                       |
@@ -252,23 +253,25 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | `Steeltoe.Common.Http.Serialization.LongStringJsonConverter`                                                                               | Type             | Steeltoe.Common.Http           | Removed         | None                                                                                       | Made internal, moved to Steeltoe.Discovery.Eureka package                             |
 | `Steeltoe.Common.Logging.BootstrapLoggerFactory`                                                                                           | Type             | Steeltoe.Common.Logging        | Added           |                                                                                            | Writes startup logs to console before logging has initialized                         |
 | `Steeltoe.Common.Logging.BootstrapLoggerServiceCollectionExtensions.UpgradeBootstrapLoggerFactory`                                         | Extension method | Steeltoe.Common.Logging        | Added           |                                                                                            | Upgrades existing loggers once app has started                                        |
-| `Steeltoe.Common.Net.IMPR`                                                                                                                 | Type             | Steeltoe.Common.Net            | Removed         | None                                                                                       | Abstraction existed for internal testing only                                         |
+| `Steeltoe.Common.Net.IMPR`                                                                                                                 | Type             | Steeltoe.Common.Net            | Removed         | None                                                                                       | Renamed to internal type `IMultipleProviderRouter` (existed for testing only)         |
 | `Steeltoe.Common.Net.WindowsNetworkFileShare.GetLastError`                                                                                 | Method           | Steeltoe.Common.Net            | Removed         | None                                                                                       | Now throws `IOException` on error                                                     |
 | `Steeltoe.Common.Net.WindowsNetworkFileShare.NetResource`                                                                                  | Type             | Steeltoe.Common.Net            | Removed         | None                                                                                       | Nested type used internally for P/Invoke, should not be public                        |
 | `Steeltoe.Common.Net.WindowsNetworkFileShare.ResourceDisplaytype`                                                                          | Type             | Steeltoe.Common.Net            | Removed         | None                                                                                       | Nested type used internally for P/Invoke, should not be public                        |
 | `Steeltoe.Common.Net.WindowsNetworkFileShare.ResourceScope`                                                                                | Type             | Steeltoe.Common.Net            | Removed         | None                                                                                       | Nested type used internally for P/Invoke, should not be public                        |
 | `Steeltoe.Common.Net.WindowsNetworkFileShare.ResourceType`                                                                                 | Type             | Steeltoe.Common.Net            | Removed         | None                                                                                       | Nested type used internally for P/Invoke, should not be public                        |
 | `Steeltoe.Common.Security.CertificateProvider`                                                                                             | Type             | Steeltoe.Common.Security       | Removed         | Store certificate paths in `IConfiguration`                                                | Refactored to use ASP.NET Options pattern                                             |
-| `Steeltoe.Common.Security.CertificateRotationService`                                                                                      | Type             | Steeltoe.Common.Security       | Removed         | None                                                                                       | Rotating certificates in OS-level certificate store prove to be unreliable            |
+| `Steeltoe.Common.Security.CertificateRotationService`                                                                                      | Type             | Steeltoe.Common.Security       | Removed         | None                                                                                       | Rotating certificates in OS-level certificate store proved to be unreliable           |
 | `Steeltoe.Common.Security.CertificateSource`                                                                                               | Type             | Steeltoe.Common.Security       | Removed         | Store certificate paths in `IConfiguration`                                                | Refactored to use ASP.NET Options pattern                                             |
 | `Steeltoe.Common.Security.ConfigurationExtensions.AddCertificateFile`                                                                      | Extension method | Steeltoe.Common.Security       | Removed         | `CertificateServiceCollectionExtensions.ConfigureCertificateOptions()`                     | Refactored to use ASP.NET Options pattern                                             |
 | `Steeltoe.Common.Security.ConfigurationExtensions.AddPemFiles`                                                                             | Extension method | Steeltoe.Common.Security       | Removed         | `CertificateServiceCollectionExtensions.ConfigureCertificateOptions()`                     | Refactored to use ASP.NET Options pattern                                             |
 | `Steeltoe.Common.Security.ConfigureCertificateOptions`                                                                                     | Type             | Steeltoe.Common.Security       | Removed         | Store certificate paths in `IConfiguration`                                                | Refactored to use ASP.NET Options pattern                                             |
-| `Steeltoe.Common.Security.ICertificateRotationService`                                                                                     | Type             | Steeltoe.Common.Security       | Removed         | None                                                                                       | Rotating certificates in OS-level certificate store prove to be unreliable            |
+| `Steeltoe.Common.Security.ICertificateRotationService`                                                                                     | Type             | Steeltoe.Common.Security       | Removed         | None                                                                                       | Rotating certificates in OS-level certificate store proved to be unreliable           |
 | `Steeltoe.Common.Security.LocalCertificateWriter`                                                                                          | Type             | Steeltoe.Common.Security       | Removed         | `CertificateConfigurationExtensions.AddAppInstanceIdentityCertificate()`                   | Refactored to use ASP.NET Options pattern                                             |
 | `Steeltoe.Common.Security.PemCertificateProvider`                                                                                          | Type             | Steeltoe.Common.Security       | Removed         | Store certificate paths in `IConfiguration`                                                | Refactored to use ASP.NET Options pattern                                             |
 | `Steeltoe.Common.Security.PemCertificateSource`                                                                                            | Type             | Steeltoe.Common.Security       | Removed         | Store certificate paths in `IConfiguration`                                                | Refactored to use ASP.NET Options pattern                                             |
 | `Steeltoe.Common.Security.PemConfigureCertificateOptions`                                                                                  | Type             | Steeltoe.Common.Security       | Removed         | Store certificate paths in `IConfiguration`                                                | Refactored to use ASP.NET Options pattern                                             |
+
+[^1]: When using the binary buildpack, specify port bindings in an [environment variable](https://learn.microsoft.com/aspnet/core/fundamentals/servers/kestrel/endpoints#specify-ports-only) or on the command-line: `--urls=http://0.0.0.0:%PORT%`.
 
 ### Notable PRs
 
@@ -287,10 +290,10 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 ### Behavior changes
 
 - Placeholder substitution changed internally (wrapping and taking ownership of sources), should be added as late as possible
-- To improve performance, Config Server provider doesn't substitute placeholders by default
-  - Call `AddPlaceholderResolver()` *before* `AddConfigServer()` to use placeholders in local appsettings.json
-  - Call `AddPlaceholderResolver()` *after* `AddConfigServer()` to use placeholders inside Config Server
-  - Call `AddPlaceholderResolver()` *before and after* `AddConfigServer()` to use placeholders in both sources
+- To improve performance, Config Server provider doesn't substitute placeholders by default anymore
+  - Call `AddPlaceholderResolver()` *before* `AddConfigServer()` to substitute placeholders from local appsettings.json
+  - Call `AddPlaceholderResolver()` *after* `AddConfigServer()` to substitute placeholders in settings returned from Config Server
+  - Call `AddPlaceholderResolver()` *before and after* `AddConfigServer()` to substitute placeholders in both sources
 - Added trace-level logging in placeholder provider to diagnose substitution
 - New configuration provider to decrypt settings in Config Server (should be added as late as possible)
 - Reduced noise in Config Server logging
@@ -437,7 +440,7 @@ For more information, see the updated [Configuration documentation](../configura
   - EF Core API: must call `builder.Add*()` first. Example: `builder.AddMySql(); builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) => options.UseMySql(serviceProvider));`
   - The structure of configuration has changed severely to accommodate multiple named service bindings in a unified way
 - Compatible with the latest versions of Tanzu, Cloud Foundry and .NET database drivers
-- Added connectors for MongoDB, MySQL, PostgreSQL, RabbitMQ, Redis on Tanzu Platform for Kubernetes (formerly TAP)
+- Added [Cloud Native Binding](https://github.com/servicebinding/spec) support (used by Tanzu Platform for Kubernetes, formerly TAP) for MongoDB, MySQL, PostgreSQL, RabbitMQ and Redis
 - Leverage .NET connection strings (agnostic to the driver-specific parameters) via
   [ASP.NET Options pattern](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/options)
 - Connection string from appsettings.json is preserved, replacing parameters from cloud bindings
@@ -610,7 +613,7 @@ For more information, see the updated [Connectors documentation](../configuratio
 - More reliable cross-platform detection of local hostname and IP address
 - Now supports global service discovery: `services.ConfigureHttpClientDefaults(builder => builder.AddServiceDiscovery())`
 - Config Server discovery-first can now query Consul, Eureka and Configuration-based
-- Improved detection of port bindings, including support for new ASP.NET environment variables
+- Improved detection of port bindings, including support for new ASP.NET [environment variables](https://learn.microsoft.com/aspnet/core/release-notes/aspnetcore-8.0#http_ports-and-https_ports-config-keys)
 - HTTP handlers now depend on a load balancer, which delegates to multiple discovery clients
 - Major improvements in documentation, samples cover more use cases
 - Eureka: API reduced to what Steeltoe needs for service discovery (too many unanswered questions to provide generic client)
@@ -1005,7 +1008,7 @@ Coming soon...
 | `Steeltoe.Security.Authentication.CloudFoundry.CloudFoundryScopeClaimAction`                                                        | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Refactored, no longer needed                                                 |
 | `Steeltoe.Security.Authentication.CloudFoundry.CloudFoundryTokenKeyResolver`                                                        | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Refactored to internal type `TokenKeyResolver`                               |
 | `Steeltoe.Security.Authentication.CloudFoundry.CloudFoundryTokenValidator`                                                          | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Refactored, no longer needed                                                 |
-| `Steeltoe.Security.Authentication.CloudFoundry.ConfigurationBuilderExtensions.AddCloudFoundryContainerIdentity`                     | Extension method | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Moved   | `builder.Configuration.AddAppInstanceIdentityCertificate()` in Steeltoe.Security.Authorization.Certificate package           | Now auto-generates local certificate if not running on Cloud Foundry         |
+| `Steeltoe.Security.Authentication.CloudFoundry.ConfigurationBuilderExtensions.AddCloudFoundryContainerIdentity`                     | Extension method | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Moved   | `builder.Configuration.AddAppInstanceIdentityCertificate()` in Steeltoe.Security.Authorization.Certificate package           |                                                                              |
 | `Steeltoe.Security.Authentication.CloudFoundry.MutualTlsAuthenticationOptionsPostConfigurer`                                        | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Refactored to internal type `PostConfigureCertificateAuthenticationOptions`  |
 | `Steeltoe.Security.Authentication.CloudFoundry.OpenIdTokenResponse`                                                                 | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Refactored, no longer needed                                                 |
 | `Steeltoe.Security.Authentication.CloudFoundry.SameOrgRequirement`                                                                  | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Moved   | `SameOrgRequirement` in Steeltoe.Security.Authorization.Certificate package                                                  |                                                                              |
@@ -1013,9 +1016,9 @@ Coming soon...
 | `Steeltoe.Security.Authentication.CloudFoundry.ServiceCollectionExtensions.AddCloudFoundryContainerIdentity`                        | Extension method | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | `builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies()` in Steeltoe.Security.Authorization.Certificate package |                                                                              |
 | `Steeltoe.Security.Authentication.CloudFoundry.TokenExchanger`                                                                      | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Refactored, no longer needed                                                 |
 | `Steeltoe.Security.Authentication.JwtBearer.JwtBearerAuthenticationBuilderExtensions.ConfigureJwtBearerForCloudFoundry`             | Extension method | Steeltoe.Security.Authentication.JwtBearer                | Added   |                                                                                                                              | Configure JWT for UAA-based systems like Cloud Foundry                       |
-| `Steeltoe.Security.Authentication.Mtls.CertificateApplicationBuilderExtensions.UseCertificateRotation`                              | Extension method | Steeltoe.Security.Authentication.MtlsCore                 | Removed | None                                                                                                                         | Rotating certificates in OS-level certificate store prove to be unreliable   |
+| `Steeltoe.Security.Authentication.Mtls.CertificateApplicationBuilderExtensions.UseCertificateRotation`                              | Extension method | Steeltoe.Security.Authentication.MtlsCore                 | Removed | None                                                                                                                         | Rotating certificates in OS-level certificate store proved to be unreliable  |
 | `Steeltoe.Security.Authentication.Mtls.CertificateAuthenticationBuilderExtensions.AddMutualTls`                                     | Extension method | Steeltoe.Security.Authentication.MtlsCore                 | Removed | `app.UseCertificateAuthorization()`                                                                                          |                                                                              |
-| `Steeltoe.Security.Authentication.Mtls.CertificateRotationHostedService`                                                            | Type             | Steeltoe.Security.Authentication.MtlsCore                 | Removed | None                                                                                                                         | Rotating certificates in OS-level certificate store prove to be unreliable   |
+| `Steeltoe.Security.Authentication.Mtls.CertificateRotationHostedService`                                                            | Type             | Steeltoe.Security.Authentication.MtlsCore                 | Removed | None                                                                                                                         | Rotating certificates in OS-level certificate store proved to be unreliable  |
 | `Steeltoe.Security.Authentication.Mtls.CloudFoundryInstanceCertificate`                                                             | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Moved to internal type `ApplicationInstanceCertificate`                      |
 | `Steeltoe.Security.Authentication.Mtls.MutualTlsAuthenticationOptions`                                                              | Type             | Steeltoe.Security.Authentication.MtlsCore                 | Removed | `Microsoft.AspNetCore.Authentication.Certificate.CertificateAuthenticationOptions`                                           |                                                                              |
 | `Steeltoe.Security.Authentication.Mtls.MutualTlsAuthenticationOptions.IssuerChain`                                                  | Property         | Steeltoe.Security.Authentication.MtlsCore                 | Removed | `CertificateOptions.IssuerChain` in Steeltoe.Common.Certificates package                                                     |                                                                              |
