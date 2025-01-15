@@ -2,22 +2,6 @@
 
 ## Overview
 
-### Introduction
-
-Steeltoe started as a C# port of Java Spring Boot parts, offering .NET interoperability with enterprises running
-[Spring Boot](https://spring.io/projects/spring-boot) applications on [Cloud Foundry](https://www.cloudfoundry.org/) and [Tanzu Platform](https://www.vmware.com/products/app-platform/tanzu).
-Over time, it has evolved and was marketed into a set of libraries that help .NET developers build cloud-native applications.
-The libraries became bloated with features that were not widely used, while their Spring-based architecture and conventions
-have always felt alien to .NET developers.
-Since the introduction of [.NET Aspire](https://learn.microsoft.com/dotnet/aspire/get-started/aspire-overview) and the
-acquisition of VMware by Broadcom, Steeltoe is returning to its original purpose.
-
-Steeltoe 4 is a major release that brings many improvements and changes to the library.
-The goal of this release is to make Steeltoe better integrated in the .NET ecosystem in a more developer-friendly way, compatible
-with the latest versions of .NET and third-party libraries/products, and to improve the overall quality of the library.
-This document provides an overview of the changes in Steeltoe 4 and the impact on existing applications.
-Steeltoe 4 requires .NET 8 or higher.
-
 ### Quality of Life improvements
 
 - Annotated for [nullable reference types](https://learn.microsoft.com/dotnet/csharp/nullable-references)
