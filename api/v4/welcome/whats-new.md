@@ -61,8 +61,9 @@ Steeltoe 4 requires .NET 8 or higher.
 
 ### Removed components
 
-- Everything that interacts with the Kubernetes API directly, because this is a questionable practice from a security perspective
-- CredHub client, because it's no longer needed since the introduction of the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html)
+The components that have been removed from Steeltoe v4 are not _expected_ to have a significant impact due to low adoption (based on NuGet package downloads). If the loss of any of this functionality _is_ a problem for you, please [open an issue](https://github.com/SteeltoeOSS/Steeltoe/issues/new) and tell us more.
+- Everything that interacts with the Kubernetes API directly. These packages were not actively integration-tested, the use cases for the features were not well defined and the Steeltoe team does not believe these packages are widely used.
+- CredHub client, because we have no _known_ use cases since the introduction of the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html)
 - CircuitBreaker, because [Polly](https://github.com/App-vNext/Polly) provides similar features and is widely used in .NET apps
 - Messaging/Integration/Stream, because usage and implementation are too complicated and the adoption rate was very low
 - Spring Expression Language (SpEL), because it was added for Stream and doesn't support many C# language features
@@ -162,7 +163,7 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 ### Behavior changes
 
 - Removed various APIs that were used internally, but not designed for extensibility/reuse
-- Dynamically loading custom types for connectors/discovery is no longer possible
+- Dynamically loading custom types for connectors and service discovery is no longer possible
 - Removed Spring Expression Language (SpEL) support
 - Removed `UseCloudHosting` (impossible to reliably detect bound ports in all cases, while Cloud Foundry usually[^1] sets the port automatically)
 - Greater flexibility in using Bootstrap logger, bugfixes
