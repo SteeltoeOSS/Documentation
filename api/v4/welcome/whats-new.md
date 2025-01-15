@@ -61,12 +61,16 @@ Steeltoe 4 requires .NET 8 or higher.
 
 ### Removed components
 
-The components that have been removed from Steeltoe v4 are not _expected_ to have a significant impact due to low adoption (based on NuGet package downloads). If the loss of any of this functionality _is_ a problem for you, please [open an issue](https://github.com/SteeltoeOSS/Steeltoe/issues/new) and tell us more.
-- Everything that interacts with the Kubernetes API directly. These packages were not actively integration-tested, the use cases for the features were not well defined and the Steeltoe team does not believe these packages are widely used.
+- Everything that interacts with the Kubernetes API directly, because the features were not well-defined,
+  test coverage was minimal, and the Steeltoe team believes these packages aren't widely used
 - CredHub client, because we have no _known_ use cases since the introduction of the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html)
 - CircuitBreaker, because [Polly](https://github.com/App-vNext/Polly) provides similar features and is widely used in .NET apps
-- Messaging/Integration/Stream, because usage and implementation are too complicated and the adoption rate was very low
+- Messaging/Integration/Stream, because usage and implementation are too complicated and the adoption rate is very low
 - Spring Expression Language (SpEL), because it was added for Stream and doesn't support many C# language features
+
+> [!NOTE]
+> The components that have been removed from Steeltoe 4 are not _expected_ to have a significant impact due to low adoption (based on NuGet package downloads).
+> If the loss of any of this functionality _is_ a problem for you, please [open an issue](https://github.com/SteeltoeOSS/Steeltoe/issues/new) and tell us more.
 
 ### Package name changes
 
@@ -171,16 +175,16 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 
 ### NuGet Package changes
 
-| Source                       | Change  | Replacement                  | Notes                                                                        |
-| ---------------------------- | ------- | ---------------------------- | ---------------------------------------------------------------------------- |
-| Steeltoe.Common.Abstractions | Moved   | Steeltoe.Common package      |                                                                              |
-| Steeltoe.Common.Certificates | Added   |                              | Support for handling X509 certificates                                       |
-| Steeltoe.Common.Expression   | Removed | None                         | Existed for SpEL support, which has been removed                             |
-| Steeltoe.Common.Kubernetes   | Removed | None                         | Direct interaction with Kubernetes API is a questionable security practice   |
-| Steeltoe.Common.Logging      | Added   |                              | Provides `BootstrapLoggerFactory`                                            |
-| Steeltoe.Common.Retry        | Removed | None                         | Existed for Messaging support, which has been removed                        |
-| Steeltoe.Common.Security     | Moved   | Steeltoe.Common.Certificates |                                                                              |
-| Steeltoe.Common.Utils        | Removed | None                         | Contained internal helpers not designed for external usage                   |
+| Source                       | Change  | Replacement                  | Notes                                                      |
+| ---------------------------- | ------- | ---------------------------- | ---------------------------------------------------------- |
+| Steeltoe.Common.Abstractions | Moved   | Steeltoe.Common package      |                                                            |
+| Steeltoe.Common.Certificates | Added   |                              | Support for handling X509 certificates                     |
+| Steeltoe.Common.Expression   | Removed | None                         | Existed for SpEL support, which has been removed           |
+| Steeltoe.Common.Kubernetes   | Removed | None                         |                                                            |
+| Steeltoe.Common.Logging      | Added   |                              | Provides `BootstrapLoggerFactory`                          |
+| Steeltoe.Common.Retry        | Removed | None                         | Existed for Messaging support, which has been removed      |
+| Steeltoe.Common.Security     | Moved   | Steeltoe.Common.Certificates |                                                            |
+| Steeltoe.Common.Utils        | Removed | None                         | Contained internal helpers not designed for external usage |
 
 ### API changes
 
@@ -301,7 +305,7 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 - Universal configuration of client certificates, using ASP.NET Options pattern (named, with fallback to default)
 - Added support for reading from [Application Configuration Service for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/application-configuration-service-for-tanzu/2-4/app-config-service/overview.html) on Kubernetes
 - Improved support for ASP.NET Options pattern, responding to configuration changes at runtime
-- Removed configuration provider that directly interacts with the Kubernetes API, which is a questionable practice from a security perspective
+- Removed configuration provider that directly interacts with the Kubernetes API
 
 ### NuGet Package changes
 
@@ -638,7 +642,7 @@ For more information, see the updated [Connectors documentation](../configuratio
 | Steeltoe.Discovery.ClientCore    | Removed | Steeltoe.Discovery.HttpClients package                                    |                                                                                              |
 | Steeltoe.Discovery.Configuration | Added   |                                                                           | Provides a configuration-based discovery client                                              |
 | Steeltoe.Discovery.HttpClients   | Added   |                                                                           | Provides consumption of `IDiscoveryClient`(s) in `HttpClient`/`HttpClientFactory` pipeline   |
-| Steeltoe.Discovery.Kubernetes    | Removed | None                                                                      | Direct interaction with Kubernetes API is a questionable security practice                   |
+| Steeltoe.Discovery.Kubernetes    | Removed | None                                                                      |                                                                                              |
 
 ### API changes
 
