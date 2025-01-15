@@ -154,7 +154,7 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 - Removed various APIs that were used internally, but not designed for extensibility/reuse
 - Dynamically loading custom types for connectors and service discovery is no longer possible
 - Removed Spring Expression Language (SpEL) support
-- Removed `UseCloudHosting` (impossible to reliably detect bound ports in all cases, while Cloud Foundry usually[^1] sets the port automatically)
+- Removed `UseCloudHosting` (impossible to reliably detect bound ports in all cases, while Cloud Foundry usually [^1] sets the port automatically)
 - Greater flexibility in using Bootstrap logger, bugfixes
 - Certificates are no longer read from OS-specific store, which proved to not work reliably (store paths in configuration instead)
 
@@ -294,22 +294,22 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 
 ### NuGet Package changes
 
-| Steeltoe.Extensions.Configuration.Abstractions              | Renamed | Steeltoe.Configuration.Abstractions               |                                                                              |
-| ----------------------------------------------------------- | ------- | ------------------------------------------------- | ---------------------------------------------------------------------------- |
-| Steeltoe.Extensions.Configuration.CloudFoundryBase          | Renamed | Steeltoe.Configuration.CloudFoundry               |                                                                              |
-| Steeltoe.Extensions.Configuration.CloudFoundryCore          | Renamed | Steeltoe.Configuration.CloudFoundry               |                                                                              |
-| Steeltoe.Extensions.Configuration.ConfigServerBase          | Renamed | Steeltoe.Configuration.ConfigServer               |                                                                              |
-| Steeltoe.Extensions.Configuration.ConfigServerCore          | Renamed | Steeltoe.Configuration.ConfigServer               |                                                                              |
-| Steeltoe.Configuration.Encryption                           | Added   |                                                   | Provides decryption of `IConfiguration` entries                              |
-| Steeltoe.Extensions.Configuration.KubernetesBase            | Removed | None                                              | Direct interaction with Kubernetes API is a questionable security practice   |
-| Steeltoe.Extensions.Configuration.KubernetesCore            | Removed | None                                              | Direct interaction with Kubernetes API is a questionable security practice   |
-| Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding | Renamed | Steeltoe.Configuration.Kubernetes.ServiceBindings |                                                                              |
-| Steeltoe.Extensions.Configuration.PlaceholderBase           | Renamed | Steeltoe.Configuration.Placeholder                |                                                                              |
-| Steeltoe.Extensions.Configuration.PlaceholderCore           | Renamed | Steeltoe.Configuration.Placeholder                |                                                                              |
-| Steeltoe.Extensions.Configuration.RandomValueBase           | Renamed | Steeltoe.Configuration.RandomValue                |                                                                              |
-| Steeltoe.Extensions.Configuration.RandomValueCore           | Renamed | Steeltoe.Configuration.RandomValue                |                                                                              |
-| Steeltoe.Extensions.Configuration.SpringBootBase            | Renamed | Steeltoe.Configuration.SpringBoot                 |                                                                              |
-| Steeltoe.Extensions.Configuration.SpringBootCore            | Renamed | Steeltoe.Configuration.SpringBoot                 |                                                                              |
+| Steeltoe.Extensions.Configuration.Abstractions              | Renamed | Steeltoe.Configuration.Abstractions               |                                                 |
+| ----------------------------------------------------------- | ------- | ------------------------------------------------- | ----------------------------------------------- |
+| Steeltoe.Extensions.Configuration.CloudFoundryBase          | Renamed | Steeltoe.Configuration.CloudFoundry               |                                                 |
+| Steeltoe.Extensions.Configuration.CloudFoundryCore          | Renamed | Steeltoe.Configuration.CloudFoundry               |                                                 |
+| Steeltoe.Extensions.Configuration.ConfigServerBase          | Renamed | Steeltoe.Configuration.ConfigServer               |                                                 |
+| Steeltoe.Extensions.Configuration.ConfigServerCore          | Renamed | Steeltoe.Configuration.ConfigServer               |                                                 |
+| Steeltoe.Configuration.Encryption                           | Added   |                                                   | Provides decryption of `IConfiguration` entries |
+| Steeltoe.Extensions.Configuration.KubernetesBase            | Removed | None                                              |                                                 |
+| Steeltoe.Extensions.Configuration.KubernetesCore            | Removed | None                                              |                                                 |
+| Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding | Renamed | Steeltoe.Configuration.Kubernetes.ServiceBindings |                                                 |
+| Steeltoe.Extensions.Configuration.PlaceholderBase           | Renamed | Steeltoe.Configuration.Placeholder                |                                                 |
+| Steeltoe.Extensions.Configuration.PlaceholderCore           | Renamed | Steeltoe.Configuration.Placeholder                |                                                 |
+| Steeltoe.Extensions.Configuration.RandomValueBase           | Renamed | Steeltoe.Configuration.RandomValue                |                                                 |
+| Steeltoe.Extensions.Configuration.RandomValueCore           | Renamed | Steeltoe.Configuration.RandomValue                |                                                 |
+| Steeltoe.Extensions.Configuration.SpringBootBase            | Renamed | Steeltoe.Configuration.SpringBoot                 |                                                 |
+| Steeltoe.Extensions.Configuration.SpringBootCore            | Renamed | Steeltoe.Configuration.SpringBoot                 |                                                 |
 
 ### API changes
 
