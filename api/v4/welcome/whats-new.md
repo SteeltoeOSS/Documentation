@@ -280,8 +280,8 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 
 - Placeholder substitution changed internally (wrapping and taking ownership of sources), should be added as late as possible
 - To improve performance, Config Server provider doesn't substitute placeholders by default anymore
-  - Call `AddPlaceholderResolver()` *before* `AddConfigServer()` to substitute placeholders from local appsettings.json
-  - Call `AddPlaceholderResolver()` *after* `AddConfigServer()` to substitute placeholders in settings returned from Config Server
+  - Call `AddPlaceholderResolver()` *before* `AddConfigServer()` to substitute info to connect to Config Server
+  - Call `AddPlaceholderResolver()` *after* `AddConfigServer()` to substitute placeholders in settings from all providers including Config Server
   - Call `AddPlaceholderResolver()` *before and after* `AddConfigServer()` to substitute placeholders in both sources
 - Added trace-level logging in placeholder provider to diagnose substitution
 - New configuration provider to decrypt settings in Config Server (should be added as late as possible)
