@@ -105,7 +105,8 @@
 | Steeltoe.Management.TracingBase | Steeltoe.Management.Tracing |
 | Steeltoe.Management.TracingCore | Steeltoe.Management.Tracing |
 | Steeltoe.Messaging.* | - |
-| Steeltoe.Security.Authentication.CloudFoundryBase, Steeltoe.Security.Authentication.CloudFoundryCore | Steeltoe.Security.Authentication.JwtBearer, Steeltoe.Security.Authentication.OpenIdConnect, Steeltoe.Security.Authorization.Certificate |
+| Steeltoe.Security.Authentication.CloudFoundryBase | Steeltoe.Security.Authentication.JwtBearer, Steeltoe.Security.Authentication.OpenIdConnect, Steeltoe.Security.Authorization.Certificate |
+| Steeltoe.Security.Authentication.CloudFoundryCore | Steeltoe.Security.Authentication.JwtBearer, Steeltoe.Security.Authentication.OpenIdConnect, Steeltoe.Security.Authorization.Certificate |
 | Steeltoe.Security.Authentication.MtlsCore | Steeltoe.Security.Authorization.Certificate |
 | Steeltoe.Security.DataProtection.CredHubBase | - |
 | Steeltoe.Security.DataProtection.CredHubCore | - |
