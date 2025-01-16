@@ -78,7 +78,7 @@ builder.Services.AddAuthorizationBuilder()
 
 > [!TIP]
 > Steeltoe configures the certificate forwarding middleware to look for a certificate in the `X-Client-Cert` HTTP header.
-> To change the header name used for authorization, pass your value in when registering the policy: `.AddOrgAndSpacePolicies("Custom-Certificate-Header")`.
+> To change the HTTP header name used for authorization, include it when registering the policy. For example: `.AddOrgAndSpacePolicies("X-Custom-Certificate-Header")`.
 
 To activate certificate-based authorization in the request pipeline, use the `IApplicationBuilder` extension method `UseCertificateAuthorization`:
 
@@ -152,11 +152,11 @@ In order to use app instance identity certificates in a client application, serv
 
 #### IHttpClientFactory integration
 
-For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an extension method for `IHttpClientBuilder` named `AddAppInstanceIdentityCertificate`.
+For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an extension method on `IHttpClientBuilder` named `AddAppInstanceIdentityCertificate`.
 This method invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes, and places the certificate in an HTTP header named `X-Client-Cert` on all outbound requests.
 
 > [!TIP]
-> If needed, see the Microsoft documentation on [IHttpClientFactory documentation](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests)
+> If needed, see the Microsoft documentation on [IHttpClientFactory documentation](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests) for details.
 
 ```csharp
 builder.Services.AddHttpClient("AppInstanceIdentity").AddAppInstanceIdentityCertificate();

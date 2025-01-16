@@ -48,7 +48,10 @@ Since Steeltoe's OpenID Connect library configures Microsoft's OpenID Connect im
 The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Single Sign-On credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's OpenID Connect to read. Add the configuration provider to your application with this code:
 
 ```csharp
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+using Steeltoe.Configuration.CloudFoundry;
+using Steeltoe.Configuration.CloudFoundry.ServiceBindings;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Steeltoe: Add Cloud Foundry application and service info to configuration.
 builder.AddCloudFoundryConfiguration();
@@ -172,7 +175,7 @@ cf create-service p-identity SERVICE_PLAN_NAME MY_SERVICE_INSTANCE
 
 If you are using a manifest file when you deploy to Cloud Foundry, [add a service binding reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#services-block).
 
-Alternatively, bind the instance and restage the app with the cf cli:
+Alternatively, bind the instance and restage the app with the Cloud Foundry CLI:
 
 ```shell
 # Bind service to your app
