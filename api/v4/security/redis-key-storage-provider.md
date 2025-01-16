@@ -29,7 +29,7 @@ Add the configuration provider to your application with this code:
 ```csharp
 using Steeltoe.Configuration.CloudFoundry;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.AddCloudFoundryConfiguration();
 ```
 

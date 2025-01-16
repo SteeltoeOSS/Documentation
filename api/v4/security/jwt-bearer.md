@@ -27,7 +27,7 @@ If you are using Cloud Foundry service bindings, you will also need to add a ref
 
 ### Configure Settings
 
-Since Steeltoe's Jwt Bearer library configures Microsoft's JWT Bearer implementation, all available settings can be found in [`Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions)
+Since Steeltoe's JWT Bearer library configures Microsoft's JWT Bearer implementation, all available settings can be found in [`Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions).
 
 `JwtBearerOptions` is bound to configuration values found under `Authentication:Schemes:Bearer`. The following example shows how to declare the audience for which tokens should be considered valid (such as when a token is issued to a specific web application and then passed to backend services to perform actions on behalf of a user):
 
@@ -48,7 +48,10 @@ Since Steeltoe's Jwt Bearer library configures Microsoft's JWT Bearer implementa
 The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Single Sign-On credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's JwtBearer library to read. Add the configuration provider to your application with this code:
 
 ```csharp
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+using Steeltoe.Configuration.CloudFoundry;
+using Steeltoe.Configuration.CloudFoundry.ServiceBindings;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Steeltoe: Add Cloud Foundry application and service info to configuration.
 builder.AddCloudFoundryConfiguration();
@@ -80,7 +83,8 @@ A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/Steel
 Since the majority of the JWT Bearer functionality is provided by Microsoft's libraries, the only difference when using Steeltoe will be the addition of calling `ConfigureJwtBearerForCloudFoundry` on the `AuthenticationBuilder`, as shown in the following example:
 
 ```csharp
-using Steeltoe.Security.Authentication.CloudFoundry;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Steeltoe.Security.Authentication.JwtBearer;
 
 // Add Microsoft Authentication services
 builder.Services
@@ -122,7 +126,8 @@ app.Run();
 Once the services and middleware have been configured, you can secure endpoints with the standard ASP.NET Core `Authorize` attribute, as follows:
 
 ```csharp
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 public class ValuesController : Controller
@@ -153,7 +158,7 @@ cf create-service p-identity SERVICE_PLAN_NAME MY_SERVICE_INSTANCE
 
 If you are using a manifest file when you deploy to Cloud Foundry, [add a service binding reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#services-block).
 
-Alternatively, bind the instance and restage the app with the cf cli:
+Alternatively, bind the instance and restage the app with the Cloud Foundry CLI:
 
 ```shell
 # Bind service to your app
@@ -171,13 +176,13 @@ If Single Sign-On for Tanzu is not available or desired for your application, yo
 
 There is no service broker available to manage service instances or bindings for UAA, so a [user provided service instance](https://docs.cloudfoundry.org/devguide/services/user-provided.html) should be used to hold the credentials.
 
-This command is an example of how the binding could be created:
+The following command is an example of how the binding could be created:
 
 ```shell
 cf cups MY_SERVICE_INSTANCE -p '{"auth_domain": "https://uaa.login.sys.cf-app.com","grant_types": [ "authorization_code", "client_credentials" ],"client_secret": "SOME_CLIENT_SECRET","client_id": "SOME_CLIENT_ID"}'
 ```
 
-And this command is an example of how to bind the service instance to the app:
+And the command below is an example of how to bind the service instance to the app:
 
 ```shell
 cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
