@@ -2,7 +2,24 @@
   topicHref: welcome/
   items:
     - topicHref: welcome/whats-new.md
-      name: What's New in Steeltoe 4
+      name: What's new in Steeltoe 4
+      items:
+      - topicHref: welcome/whats-new.md#bootstrap
+        name: Bootstrap
+      - topicHref: welcome/whats-new.md#common
+        name: Common
+      - topicHref: welcome/whats-new.md#configuration
+        name: Configuration
+      - topicHref: welcome/whats-new.md#connectors
+        name: Connectors
+      - topicHref: welcome/whats-new.md#discovery
+        name: Discovery
+      - topicHref: welcome/whats-new.md#logging
+        name: Logging
+      - topicHref: welcome/whats-new.md#management
+        name: Management
+      - topicHref: welcome/whats-new.md#security
+        name: Security
     - topicHref: welcome/prerequisites.md
       name: Prerequisites
     - topicHref: welcome/common-steps.md
