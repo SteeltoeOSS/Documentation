@@ -23,7 +23,7 @@ Each key must be prefixed with `Management:Endpoints:Health:`.
 | `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
-| `ShowDetails` | The level of detail included in the response. | `Always` |
+| `ShowDetails` | The level of detail included in the response. | `Never` |
 | `Claim` | The claim required in `HttpContext.User` when `ShowDetails` is set to `WhenAuthorized`. | |
 | `Role` | The role required in `HttpContext.User` when `ShowDetails` is set to `WhenAuthorized`. | |
 | `Groups` | Specify logical groupings of health contributors. | |
@@ -84,13 +84,17 @@ The configuration key `Management:Endpoints:UseStatusCodeFromResponse` can be se
 Clients can overrule this per request by sending an `X-Use-Status-Code-From-Response` HTTP header with the value `true` or `false`.
 
 > [!TIP]
-> By default, health contributors for disk space, liveness, and readiness are activated. They can be turned off through configuration:
+> By default, health contributors for disk space, ping, liveness, and readiness are activated. They can be turned off through configuration:
+>
 > ```json
 > {
 >   "Management": {
 >     "Endpoints": {
 >       "Health": {
 >         "DiskSpace": {
+>           "Enabled": "false"
+>         },
+>         "Ping": {
 >           "Enabled": "false"
 >         },
 >         "Liveness": {
@@ -115,16 +119,21 @@ The response will always be returned as JSON, like this:
 {
   "status": "UP",
   "details": {
-    "diskSpace": {
-      "total": 1020959649792,
-      "free": 813492727808,
-      "threshold": 10485760,
+    "ping": {
       "status": "UP"
     },
+    "diskSpace": {
+      "status": "UP",
+      "total": 1999599824896,
+      "free": 1349396418560,
+      "threshold": 10485760
+    },
     "readiness": {
+      "status": "UP",
       "ReadinessState": "ACCEPTING_TRAFFIC"
     },
     "liveness": {
+      "status": "UP",
       "LivenessState": "CORRECT"
     }
   }
