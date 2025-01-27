@@ -98,4 +98,46 @@ return Host.CreateDefaultBuilder(args)
 
 ## Kubernetes
 
-Kubernetes doesn't currently have any built-in tooling or conventions that is quite the same as `VCAP_SERVICES` on Cloud Foundry. As the ecosystem continues to develop, the Steeltoe team will be monitoring the progress of the [Service Catalog](https://kubernetes.io/docs/concepts/extend-kubernetes/service-catalog/) and [Service Bindings](https://github.com/k8s-service-bindings/spec) projects.
+While enhanced support will be provided in the next major version of Steeltoe, preliminary support for the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec) was [added in the 3.2.2 release](../../../articles/steeltoe-3-2-2-adds-kube-service-bindings.md) with a new `IConfigurationProvider`.
+
+The current version of `Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding` can read [many types of bindings](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Configuration/src/Kubernetes.ServiceBinding/PostProcessors.cs) into configuration and will transform the bindings for MongoDb, MySQL, PostgreSQL, RabbitMQ and Redis into the formats required to work automatically with Steeltoe Connectors.
+
+In order to use Steeltoe's Service Bindings for Kubernetes, you need to do the following:
+
+1. Add the NuGet package reference to your project.
+1. Enable service binding support in configuration.
+1. Add the provider to the configuration builder
+
+### Add NuGet Reference
+
+Add a `PackageReference` to `Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding`.
+
+### Configure Settings
+
+Due to the experimental nature of this feature, bindings must be enabled in the application's configuration before they are applied.
+
+```json
+{
+  "Steeltoe": {
+    "Kubernetes": {
+      "Bindings": {
+        "Enable": true
+      }
+    }
+  }
+}
+```
+
+### Add Configuration Provider
+
+```csharp
+using Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddKubernetesServiceBindings();
+```
+
+### Additional Resources
+
+To see the binding support in action, review the [Steeltoe PostgreSql EF Core Connector sample](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSqlEFCore).
