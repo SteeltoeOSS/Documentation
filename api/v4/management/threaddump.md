@@ -5,7 +5,7 @@ The Steeltoe Thread Dump endpoint can be used to generate a snapshot of informat
 ## Configure Settings
 
 The following table describes the configuration settings that you can apply to the endpoint.
-Each key must be prefixed with `Management:Endpoints:Dump:`.
+Each key must be prefixed with `Management:Endpoints:ThreadDump:`.
 
 | Key | Description | Default |
 | --- | --- | --- |
@@ -14,6 +14,9 @@ Each key must be prefixed with `Management:Endpoints:Dump:`.
 | `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
+
+> [!TIP]
+> In version 4, the configuration key prefix for this endpoint changed from `Management:Endpoints:Dump:` to `Management:Endpoints:ThreadDump:`
 
 ## Enable HTTP Access
 
@@ -36,9 +39,6 @@ builder.Services.AddThreadDumpActuator();
 > [!TIP]
 > It's recommended to use `AddAllActuators()` instead of adding individual actuators,
 > which enables individually turning them on/off at runtime via configuration.
-
-> [!TIP]
-> The extension method takes an optional `MediaTypeVersion` argument, which defaults to `MediaTypeVersion.V2`. If you specify `MediaTypeVersion.V1`, the endpoint path defaults to `/actuator/dump`.
 
 ## Sample Output
 
