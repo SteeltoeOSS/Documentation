@@ -174,7 +174,7 @@ For further information, refer to the [Single Sign-On for Tanzu developer guide]
 
 If Single Sign-On for Tanzu is not available or desired for your application, you can use UAA as an alternative.
 
-There is no service broker available to manage service instances or bindings for UAA, so a [user provided service instance](https://docs.cloudfoundry.org/devguide/services/user-provided.html) should be used to hold the credentials.
+There is no service broker available to manage service instances or bindings for UAA, so a [user provided service instance](https://docs.cloudfoundry.org/devguide/services/user-provided.html) must be used to hold the credentials.
 
 The following command is an example of how the binding could be created:
 
