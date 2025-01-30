@@ -23,18 +23,21 @@ Each key must be prefixed with `Management:Endpoints:Health:`.
 | `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
-| `ShowDetails` | The level of detail included in the response. | `Never` |
+| `ShowComponents` | When components of the health check should be shown. | `Never` |
+| `ShowDetails` | When details of the components should be included in the response. | `Never` |
 | `Claim` | The claim required in `HttpContext.User` when `ShowDetails` is set to `WhenAuthorized`. | |
 | `Role` | The role required in `HttpContext.User` when `ShowDetails` is set to `WhenAuthorized`. | |
-| `Groups` | Specify logical groupings of health contributors. | |
 
-The information exposed by the health endpoint depends on the `ShowDetails` property, which can be configured with one of the following values:
+The depth of information exposed by the health endpoint depends on the `ShowComponents` and `ShowDetails` properties, which can both be configured with one of the following values:
 
 | Name | Description |
 | --- | --- |
-| `Never` | Details are never shown. |
-| `WhenAuthorized` | Details are shown only to authorized users. |
-| `Always` | Details are always shown. |
+| `Never` | Never shown. |
+| `WhenAuthorized` | Shown only to authorized users. |
+| `Always` | Always shown. |
+
+The default value for both properties is `Never`.
+`ShowDetails` is only evaluated when `ShowComponents` is `Always` or `WhenAuthorized` and the request is authorized.
 
 Authorized users can be configured by setting `Claim` or `Role`.
 A user is considered to be authorized when they are in the given role or have the specified claim.
@@ -45,7 +48,7 @@ The following example uses `Management:Endpoints:Health:Claim`:
   "Management": {
     "Endpoints": {
       "Health": {
-        "ShowDetails": "WhenAuthorized",
+        "ShowComponents": "WhenAuthorized",
         "Claim": {
           "Type": "health_actuator",
           "Value": "see_details"
@@ -84,7 +87,7 @@ The configuration key `Management:Endpoints:UseStatusCodeFromResponse` can be se
 Clients can overrule this per request by sending an `X-Use-Status-Code-From-Response` HTTP header with the value `true` or `false`.
 
 > [!TIP]
-> By default, health contributors for disk space, ping, liveness, and readiness are activated. They can be turned off through configuration:
+> By default, health contributors for disk space and ping are activated. They can be turned off through configuration:
 >
 > ```json
 > {
@@ -95,12 +98,6 @@ Clients can overrule this per request by sending an `X-Use-Status-Code-From-Resp
 >           "Enabled": "false"
 >         },
 >         "Ping": {
->           "Enabled": "false"
->         },
->         "Liveness": {
->           "Enabled": "false"
->         },
->         "Readiness": {
 >           "Enabled": "false"
 >         }
 >       }
@@ -113,36 +110,40 @@ Clients can overrule this per request by sending an `X-Use-Status-Code-From-Resp
 
 This endpoint returns the top-level status, along with the details of the contributors and checks.
 
-The response will always be returned as JSON, like this:
+The response will always be returned as JSON, and this is the default value:
 
 ```json
 {
-  "status": "UP",
-  "details": {
-    "ping": {
-      "status": "UP"
-    },
-    "diskSpace": {
-      "status": "UP",
-      "total": 1999599824896,
-      "free": 1349396418560,
-      "threshold": 10485760
-    },
-    "readiness": {
-      "status": "UP",
-      "ReadinessState": "ACCEPTING_TRAFFIC"
-    },
-    "liveness": {
-      "status": "UP",
-      "LivenessState": "CORRECT"
-    }
-  }
+  "status": "UP"
 }
 ```
 
 > [!NOTE]
 > When using Steeltoe Connectors, Service Discovery, or Config Server in your application, the corresponding health contributors are automatically added to the service container.
 > See their corresponding documentation for how to turn them off.
+
+When `ShowComponents` and `ShowDetails` are set to `Always` or a request is authorized, the response is more detailed:
+
+```json
+{
+  "status": "UP",
+  "components": {
+    "ping": {
+      "status": "UP"
+    },
+    "diskSpace": {
+      "status": "UP",
+      "details": {
+        "total": 1999599824896,
+        "free": 1330717282304,
+        "threshold": 10485760,
+        "path": "C:\\source\\Repository\\src\\Project",
+        "exists": true
+      }
+    }
+  }
+}
+```
 
 ## Health Groups
 
@@ -190,6 +191,29 @@ While group names are case-sensitive, the entries in `Include` are case-insensit
 
 For any group that has been defined, you may access health information from the group by appending the group name to the HTTP request URL. For example: `/actuator/health/example-group`.
 
+`ShowComponents` and `ShowDetails` can also be set at the group level, overriding the settings found at the endpoint level.
+
+```json
+{
+  "Management": {
+    "Endpoints": {
+      "Health": {
+        "Claim": {
+          "Type": "health_actuator",
+          "Value": "see_details"
+        },
+        "Groups": {
+          "example-group": {
+            "Include": "Redis,RabbitMQ",
+            "ShowComponents": "Always"
+            "ShowDetails": "WhenAuthorized"
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ### Kubernetes Health Groups
 
@@ -206,10 +230,10 @@ To change the health contributors that are included in either of the two default
       "Health": {
         "Groups": {
           "liveness": {
-            "Include": "diskSPACE,liveness"
+            "Include": "diskSPACE,livenessState"
           },
           "readiness": {
-            "Include": "diskspace,readiness"
+            "Include": "diskspace,readinessState"
           }
         }
       }
