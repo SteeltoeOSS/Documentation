@@ -96,9 +96,7 @@ builder.Services
 // Register Microsoft Authorization services
 builder.Services.AddAuthorizationBuilder()
     // Create a named authorization policy that requires the user to have a scope with the same value
-    // In the Steeltoe sample application, Globals.RequiredJwtScope = "sampleapi.read",
-    // which represents the user's permission to read from the sample API
-    .AddPolicy(Globals.RequiredJwtScope, policy => policy.RequireClaim("scope", Globals.RequiredJwtScope))
+    .AddPolicy("sampleapi.read", policy => policy.RequireClaim("scope", "sampleapi.read"))
 ```
 
 Activate authentication and authorization services _after_ routing services, but _before_ controller route registrations, with the following code:
@@ -134,7 +132,7 @@ public class ValuesController : Controller
 {
     // GET api/values
     [HttpGet]
-    [Authorize(Policy = Globals.RequiredJwtScope)]
+    [Authorize(Policy = "sampleapi.read")]
     public IEnumerable<string> Get()
     {
         return new string[] { "value1", "value2" };
