@@ -23,10 +23,10 @@ Each key must be prefixed with `Management:Endpoints:Health:`.
 | `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
-| `ShowComponents` | When components of the health check should be shown. | `Never` |
-| `ShowDetails` | When details of the components should be included in the response. | `Never` |
-| `Claim` | The claim required in `HttpContext.User` when `ShowDetails` is set to `WhenAuthorized`. | |
-| `Role` | The role required in `HttpContext.User` when `ShowDetails` is set to `WhenAuthorized`. | |
+| `ShowComponents` | Whether health check components should be included in the response. | `Never` |
+| `ShowDetails` | Whether details of health check components should be included in the response. | `Never` |
+| `Claim` | The claim required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized`. | |
+| `Role` | The role required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized`. | |
 
 The depth of information exposed by the health endpoint depends on the `ShowComponents` and `ShowDetails` properties, which can both be configured with one of the following values:
 
@@ -36,8 +36,7 @@ The depth of information exposed by the health endpoint depends on the `ShowComp
 | `WhenAuthorized` | Shown only to authorized users. |
 | `Always` | Always shown. |
 
-The default value for both properties is `Never`.
-`ShowDetails` is only evaluated when `ShowComponents` is `Always` or `WhenAuthorized` and the request is authorized.
+`ShowDetails` only has an effect when `ShowComponents` is set to `Always`, or `WhenAuthorized` and the request is authorized.
 
 Authorized users can be configured by setting `Claim` or `Role`.
 A user is considered to be authorized when they are in the given role or have the specified claim.
@@ -49,9 +48,10 @@ The following example uses `Management:Endpoints:Health:Claim`:
     "Endpoints": {
       "Health": {
         "ShowComponents": "WhenAuthorized",
+        "ShowDetails": "WhenAuthorized",
         "Claim": {
           "Type": "health_actuator",
-          "Value": "see_details"
+          "Value": "see_all"
         }
       }
     }
@@ -122,7 +122,7 @@ The response will always be returned as JSON, and this is the default value:
 > When using Steeltoe Connectors, Service Discovery, or Config Server in your application, the corresponding health contributors are automatically added to the service container.
 > See their corresponding documentation for how to turn them off.
 
-When `ShowComponents` and `ShowDetails` are set to `Always` or a request is authorized, the response is more detailed:
+When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `WhenAuthorized` and the request is authorized, the response is more detailed:
 
 ```json
 {
@@ -200,7 +200,7 @@ For any group that has been defined, you may access health information from the 
       "Health": {
         "Claim": {
           "Type": "health_actuator",
-          "Value": "see_details"
+          "Value": "see_all"
         },
         "Groups": {
           "example-group": {
