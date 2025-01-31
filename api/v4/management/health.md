@@ -118,10 +118,6 @@ The response will always be returned as JSON, and this is the default value:
 }
 ```
 
-> [!NOTE]
-> When using Steeltoe Connectors, Service Discovery, or Config Server in your application, the corresponding health contributors are automatically added to the service container.
-> See their corresponding documentation for how to turn them off.
-
 When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `WhenAuthorized` and the request is authorized, the response is more detailed:
 
 ```json
@@ -145,6 +141,10 @@ When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `Whe
 }
 ```
 
+> [!NOTE]
+> When using Steeltoe Connectors, Service Discovery, or Config Server in your application, the corresponding health contributors are automatically added to the service container.
+> See their corresponding documentation for how to turn them off.
+
 ## Health Groups
 
 Should you need to check application health based on a subset of health contributors, you may specify the name of the grouping and a comma-separated list of contributors to include like this:
@@ -166,28 +166,6 @@ Should you need to check application health based on a subset of health contribu
 ```
 
 While group names are case-sensitive, the entries in `Include` are case-insensitive and will only activate health contributors with a matching `Id`.
-
-> [!NOTE]
-> Adding your own health groups implicitly turns off the built-in groups for liveness and readiness. If you want to keep them, you need to include them explictly.
->
-> To turn off the default liveness/readiness health groups without adding any of your own, configure a single-element empty group like this:
-> ```json
-> {
->   "Management": {
->     "Endpoints": {
->       "Health": {
->         "Groups": {
->           "": {
->             "Include": ""
->           }
->         }
->       }
->     }
->   }
-> }
-> ```
-> This clumsy format is used because there's no syntax in .NET Configuration to express an empty collection.
-> See https://github.com/dotnet/extensions/issues/1341#issuecomment-598310364 for details.
 
 For any group that has been defined, you may access health information from the group by appending the group name to the HTTP request URL. For example: `/actuator/health/example-group`.
 
@@ -221,19 +199,25 @@ Applications deployed on Kubernetes can provide information about their internal
 
 Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Management/src/Endpoint/Actuators/Health/Availability/ApplicationAvailability.cs) class for managing various types of application state. Out of the box, support is provided for Liveness and Readiness, where each is exposed in a corresponding `IHealthContributor` and health group.
 
-To change the health contributors that are included in either of the two default groups, use the same style of configuration described above. Please note that this will _replace_ the default groupings, so if you would like to _add_ an `IHealthContributor` you will need to include the original entry. These entries demonstrate including disk space in both groups:
+To change the health contributors that are included in either of the two built-in groups, use the same style of configuration described above. Please note that this will _replace_ these groupings, so if you would like to _add_ an `IHealthContributor` you will need to include the original entry. These entries demonstrate enabling the probes, their groups and including disk space in both groups:
 
 ```json
 {
   "Management": {
     "Endpoints": {
       "Health": {
+        "Liveness": {
+          "Enabled": "true"
+        },
+        "Readiness": {
+          "Enabled": "true"
+        },
         "Groups": {
           "liveness": {
-            "Include": "diskSPACE,livenessState"
+            "Include": "diskSpace,livenessState"
           },
           "readiness": {
-            "Include": "diskspace,readinessState"
+            "Include": "diskSpace,readinessState"
           }
         }
       }
