@@ -1,3 +1,28 @@
+<style>
+div.wide-table table {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+}
+
+div.wide-table thead {
+    flex: 0 0 auto;
+}
+
+div.wide-table tbody {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+div.wide-table tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+</style>
+
 # What's new in Steeltoe 4
 
 ## Overview
@@ -133,15 +158,20 @@ The following sections provide details on the changes per Steeltoe component, as
 
 ### API changes
 
+<div class="wide-table">
+
 | Source                                             | Kind      | Package                       | Change  | Replacement                                                  | Notes                                                     |
 | -------------------------------------------------- | --------- | ----------------------------- | ------- | ------------------------------------------------------------ | --------------------------------------------------------- |
 | `Steeltoe.Bootstrap.Autoconfig.SteeltoeAssemblies` | Type      | Steeltoe.Bootstrap.Autoconfig | Renamed | `Steeltoe.Bootstrap.AutoConfiguration.SteeltoeAssemblyNames` | Updated members to new/changed assembly names             |
 | `Steeltoe.Connector`                               | Namespace | Steeltoe.Bootstrap.Autoconfig | Removed | None                                                         | Type locators have been replaced with internal-only shims |
 
+</div>
+
 ### Notable PRs
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1352
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1325
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1223
+
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1352>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1325>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1223>
 
 ### Documentation
 
@@ -173,6 +203,8 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 
 ### API changes
 
+<div class="wide-table">
+
 | Source                                                                                                                                     | Kind             | Package                        | Change          | Replacement                                                                                | Notes                                                                                 |
 | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- | ------------------------------ | --------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
 | `Microsoft.Extensions.DependencyInjection.ConfigurationServiceInstanceProviderServiceCollectionExtensions.AddConfigurationDiscoveryClient` | Extension method | Steeltoe.Common [Abstractions] | Moved           | Steeltoe.Discovery.Configuration package                                                   |                                                                                       |
@@ -197,7 +229,7 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | `Steeltoe.Common.Discovery.IServiceRegistry<>`                                                                                             | Type             | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | This abstraction is no longer needed                                                  |
 | `Steeltoe.Common.Discovery.SerializableIServiceInstance`                                                                                   | Type             | Steeltoe.Common [Abstractions] | Removed         | `Steeltoe.Discovery.Configuration.ConfigurationServiceInstance`                            |                                                                                       |
 | `Steeltoe.Common.Expression`                                                                                                               | Namespace        | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Existed for SpEL support, which has been removed                                      |
-| `Steeltoe.Common.Extensions.UriExtensions`                                                                                                 | Type             | Steeltoe.Common [Abstractions] | Made internal   | None                                                                                       | Interally used to mask URIs in logs                                                   |
+| `Steeltoe.Common.Extensions.UriExtensions`                                                                                                 | Type             | Steeltoe.Common [Abstractions] | Made internal   | None                                                                                       | Internally used to mask URIs in logs                                                   |
 | `Steeltoe.Common.IApplicationInstanceInfo`                                                                                                 | Type             | Steeltoe.Common [Abstractions] | Members removed | Type-check for `CloudFoundryApplicationOptions` at runtime                                 | Removed members that only apply to Cloud Foundry                                      |
 | `Steeltoe.Common.IApplicationTask.Name`                                                                                                    | Property         | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Specify task name during registration                                                 |
 | `Steeltoe.Common.ICertificateSource`                                                                                                       | Type             | Steeltoe.Common [Abstractions] | Removed         | `IServiceCollection.ConfigureCertificateOptions()` in Steeltoe.Common.Certificates package | Certificate paths are now stored in `IConfiguration` to detect changes                |
@@ -264,19 +296,21 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | `Steeltoe.Common.Security.PemCertificateSource`                                                                                            | Type             | Steeltoe.Common.Security       | Removed         | Store certificate paths in `IConfiguration`                                                | Refactored to use ASP.NET Options pattern                                             |
 | `Steeltoe.Common.Security.PemConfigureCertificateOptions`                                                                                  | Type             | Steeltoe.Common.Security       | Removed         | Store certificate paths in `IConfiguration`                                                | Refactored to use ASP.NET Options pattern                                             |
 
+</div>
+
 [^1]: When using the binary buildpack, specify port bindings in an [environment variable](https://learn.microsoft.com/aspnet/core/fundamentals/servers/kestrel/endpoints#specify-ports-only) or on the command-line: `--urls=http://0.0.0.0:%PORT%`.
 
 ### Notable PRs
 
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1342
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1334
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1330
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1327
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1321
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1306
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1247
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1246
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1080
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1342>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1334>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1330>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1327>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1321>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1306>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1247>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1246>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1080>
 
 ## Configuration
 
@@ -315,6 +349,8 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | Steeltoe.Extensions.Configuration.SpringBootCore            | Renamed | Steeltoe.Configuration.SpringBoot                 |                                                 |
 
 ### API changes
+
+<div class="wide-table">
 
 | Source                                                                                                                    | Kind             | Package                                                    | Change  | Replacement                                                                                    | Notes                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
@@ -401,23 +437,25 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootEnvSource`                                                        | Type             | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core]   | Removed | None                                                                                           | Renamed to internal `SpringBootEnvironmentVariableSource`                |
 | `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootHostBuilderExtensions.AddSpringBootConfiguration`                 | Extension method | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core]   | Removed | `builder.Configuration.AddSpringBootFromCommandLine/EnvironmentVariable()`                     | Redundant                                                                |
 
+</div>
+
 ### Notable PRs
 
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1360
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1355
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1339
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1306
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1277
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1276
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1243
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1228
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1196
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1183
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1179
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1149
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1099
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1097
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1008
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1360>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1355>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1339>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1306>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1277>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1276>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1243>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1228>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1196>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1183>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1179>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1149>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1099>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1097>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1008>
 
 ### Documentation
 
@@ -445,7 +483,7 @@ For more information, see the updated [Configuration documentation](../configura
 - Reflection-based code replaced by internal-only shims
 - Various fixes in handling special characters in connection parameters
 - Removed support for Oracle databases (community-contributed, no way to test it, no Cloud Foundry support)
-- Further details at https://github.com/SteeltoeOSS/Steeltoe/issues/638#issuecomment-1584303824
+- Further details at <https://github.com/SteeltoeOSS/Steeltoe/issues/638#issuecomment-1584303824>
 
 ### NuGet Package changes
 
@@ -459,6 +497,8 @@ For more information, see the updated [Configuration documentation](../configura
 | Steeltoe.Connector.EFCore        | Renamed | Steeltoe.Connectors.EntityFrameworkCore |                                                 |
 
 ### API changes
+
+<div class="wide-table">
 
 | Source                                                                                             | Kind             | Package                                  | Change  | Replacement                                                                                      | Notes                                                                                                        |
 | -------------------------------------------------------------------------------------------------- | ---------------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
@@ -572,21 +612,23 @@ For more information, see the updated [Configuration documentation](../configura
 | `Steeltoe.Connector.SqlServer.EFCore.SqlServerDbContextOptionsExtensions.UseSqlServer`             | Extension method | Steeltoe.Connector.EFCore                | Moved   | `SqlServerDbContextOptionsBuilderExtensions.UseSqlServer`                                        | Takes an `IServiceProvider`, requires call to `builder.AddSqlServer()` first                                 |
 | `Steeltoe.Connector.SqlServer.EFCore.SqlServerDbContextOptionsExtensions.UseSqlServer<TContext>`   | Extension method | Steeltoe.Connector.EFCore                | Removed |                                                                                                  | Redundant                                                                                                    |
 
+</div>
+
 ### Notable PRs
 
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1325
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1172
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1143
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1139
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1131
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1128
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1124
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1121
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1119
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1117
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1112
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1110
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1089
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1325>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1172>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1143>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1139>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1131>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1128>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1124>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1121>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1119>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1117>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1112>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1110>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1089>
 
 ### Documentation
 
@@ -633,6 +675,8 @@ For more information, see the updated [Connectors documentation](../configuratio
 | Steeltoe.Discovery.Kubernetes    | Removed | None                                                                      |                                                                                              |
 
 ### API changes
+
+<div class="wide-table">
 
 | Source                                                                                                         | Kind             | Package                               | Change          | Replacement                                                                  | Notes                                                                                       |
 | -------------------------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------- | --------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
@@ -842,18 +886,20 @@ For more information, see the updated [Connectors documentation](../configuratio
 | `Steeltoe.Discovery.Eureka.Transport.IEurekaHttpClient`                                                        | Type             | Steeltoe.Discovery.Eureka             | Removed         | `Steeltoe.Discovery.Eureka.EurekaClient`                                     |                                                                                             |
 | `Steeltoe.Discovery.Eureka.Util.DateTimeConversions`                                                           | Type             | Steeltoe.Discovery.Eureka             | Removed         | None                                                                         | Made internal                                                                               |
 
+</div>
+
 ### Notable PRs
 
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1372
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1350
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1308
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1301
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1300
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1299
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1292
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1280
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1247
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1167
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1372>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1350>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1308>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1301>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1300>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1299>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1292>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1280>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1247>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1167>
 
 ### Documentation
 
@@ -888,6 +934,8 @@ For more information, see the updated [Discovery documentation](../discovery/ind
 | Steeltoe.Extensions.Logging.DynamicSerilogCore | Package |         | Renamed | Steeltoe.Logging.DynamicSerilog |       |
 
 ### API changes
+
+<div class="wide-table">
 
 | Source                                                                                              | Kind             | Package                                                | Change  | Replacement                                                     | Notes                                                               |
 | --------------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------ | ------- | --------------------------------------------------------------- | ------------------------------------------------------------------- |
@@ -931,13 +979,15 @@ For more information, see the updated [Discovery documentation](../discovery/ind
 | `Steeltoe.Extensions.Logging.DynamicSerilog.SerilogWebHostBuilderExtensions.UseSerilogDynamicConsole` | Extension method | Steeltoe.Extensions.Logging.DynamicSerilog [Base/Core] | Removed | `ILoggingBuilder.AddDynamicSerilog()`                         |                                                                     |
 | `Steeltoe.Logging.DynamicSerilog.SerilogMessageProcessingLogger`                                      | Type             | Steeltoe.Logging.DynamicSerilog                        | Added   |                                                               | Preserve structured logs with `IDynamicMessageProcessor` in Serilog |
 
+</div>
+
 ### Notable PRs
 
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1403
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1216
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1024
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1064
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1038
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1403>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1216>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1024>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1064>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1038>
 
 ### Documentation
 
@@ -976,6 +1026,8 @@ Coming soon...
 
 ### API changes
 
+<div class="wide-table">
+
 | Source                                                                                                                              | Kind             | Package                                                   | Change  | Replacement                                                                                                                  | Notes                                                                        |
 | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------- | --------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `Steeltoe.Security.Authentication.CloudFoundry.ApplicationBuilderExtensions.UseCloudFoundryCertificateAuth`                         | Extension method | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | `app.UseCertificateAuthorization()`                                                                                          |                                                                              |
@@ -988,7 +1040,7 @@ Coming soon...
 | `Steeltoe.Security.Authentication.CloudFoundry.AuthorizationPolicyBuilderExtensions.SameOrg`                                        | Extension method | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Moved   | `AuthorizationPolicyBuilder.RequireSameOrg()` in Steeltoe.Security.Authorization.Certificate package                         |                                                                              |
 | `Steeltoe.Security.Authentication.CloudFoundry.AuthorizationPolicyBuilderExtensions.SameSpace`                                      | Extension method | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Moved   | `AuthorizationPolicyBuilder.RequireSameSpace()` in Steeltoe.Security.Authorization.Certificate package                       |                                                                              |
 | `Steeltoe.Security.Authentication.CloudFoundry.AuthServerOptions`                                                                   | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | `JwtBearerOptions`, `OpenIdConnectOptions`                                                                                   | Now uses built-in ASP.NET option types                                       |
-| `Steeltoe.Security.Authentication.CloudFoundry.CloudFoundryCertificateIdentityAuthorizationHandler`                                 | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Reactored to internal type `CertificateAuthorizationHandler`                 |
+| `Steeltoe.Security.Authentication.CloudFoundry.CloudFoundryCertificateIdentityAuthorizationHandler`                                 | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Refactored to internal type `CertificateAuthorizationHandler`                 |
 | `Steeltoe.Security.Authentication.CloudFoundry.CloudFoundryClaimActionExtensions`                                                   | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Refactored, no longer needed                                                 |
 | `Steeltoe.Security.Authentication.CloudFoundry.CloudFoundryDefaults`                                                                | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Contained constants that are no longer needed                                |
 | `Steeltoe.Security.Authentication.CloudFoundry.CloudFoundryHelper`                                                                  | Type             | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | None                                                                                                                         | Refactored, no longer needed                                                 |
@@ -1030,14 +1082,16 @@ Coming soon...
 | `Steeltoe.Security.DataProtection.Redis.RedisDataProtectionBuilderExtensions.PersistKeysToRedis`                                    | Extension method | Steeltoe.Security.DataProtection.Redis                    | Added   |                                                                                                                              | Takes an optional service binding name                                       |
 | `Steeltoe.Security.DataProtection.RedisDataProtectionBuilderExtensions.PersistKeysToRedis`                                          | Extension method | Steeltoe.Security.DataProtection.RedisCore                | Moved   | `PersistKeysToRedis()` in Steeltoe.Security.DataProtection.Redis package                                                     |                                                                              |
 
+</div>
+
 ### Notable PRs
 
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1349
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1336
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1311
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1306
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1232
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1098
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1349>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1336>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1311>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1306>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1232>
+- <https://github.com/SteeltoeOSS/Steeltoe/pull/1098>
 
 ### Documentation
 
