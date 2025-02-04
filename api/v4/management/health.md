@@ -13,6 +13,8 @@ By default, the final application health state is computed by the registered `IH
 It is responsible for sorting out all of the returned statuses from each `IHealthContributor` and [`IHealthCheck`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.diagnostics.healthchecks.ihealthcheck) and deriving an overall application health state.
 The built-in aggregator returns the "worst" status returned from the contributors and checks.
 
+## Configure Settings
+
 The following table describes the configuration settings that you can apply to the endpoint.
 Each key must be prefixed with `Management:Endpoints:Health:`.
 
@@ -195,11 +197,16 @@ For any group that has been defined, you may access health information from the 
 
 ### Kubernetes Health Groups
 
-Applications deployed on Kubernetes can provide information about their internal state with [Container Probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes). Depending on your [Kubernetes configuration](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), the kubelet will call those probes and react to the result.
+Applications deployed on Kubernetes can provide information about their internal state with [Container Probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+Depending on your [Kubernetes configuration](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), the kubelet will call those probes and react to the result.
 
-Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Management/src/Endpoint/Actuators/Health/Availability/ApplicationAvailability.cs) class for managing various types of application state. Out of the box, support is provided for Liveness and Readiness, where each is exposed in a corresponding `IHealthContributor` and health group.
+Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Management/src/Endpoint/Actuators/Health/Availability/ApplicationAvailability.cs) class for managing various types of application state.
+Out of the box, support is provided for Liveness and Readiness, where each is exposed in a corresponding `IHealthContributor` and health group.
+While these health contributors are included, they are disabled by default and must be enabled in configuration (as demonstrated in the example below).
 
-To change the health contributors that are included in either of the two built-in groups, use the same style of configuration described above. Please note that this will _replace_ these groupings, so if you would like to _add_ an `IHealthContributor` you will need to include the original entry. These entries demonstrate enabling the probes, their groups and including disk space in both groups:
+To change the health contributors that are included in either of the two built-in groups, use the same style of configuration described above.
+Please note that this will _replace_ these groupings, so if you would like to _add_ an `IHealthContributor` you will need to include the original entry.
+These entries demonstrate enabling the probes, their groups and including disk space in both groups:
 
 ```json
 {
@@ -315,11 +322,32 @@ Sending a GET request to `/actuator/health` returns the following response:
 
 ```json
 {
+  "status":"WARNING"
+}
+```
+
+When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `WhenAuthorized` and the request is authorized, the response is more detailed:
+
+```json
+{
   "status": "WARNING",
-  "details": {
+  "components": {
     "ExampleHealthContributor": {
       "status": "WARNING",
       "description": "This health check does not check anything"
+    },
+    "ping": {
+      "status": "UP"
+    },
+    "diskSpace": {
+      "status": "UP",
+      "details": {
+        "total": 1999599824896,
+        "free": 1330717282304,
+        "threshold": 10485760,
+        "path": "C:\\source\\Repository\\src\\Project",
+        "exists": true
+      }
     }
   }
 }
