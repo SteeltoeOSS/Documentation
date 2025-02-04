@@ -76,7 +76,7 @@ jobs:
   build-push-docfx:
     name: Build and push docfx layer
     needs: change-detection
-    if: ${{ needs.change-detection.outputs.docfx-layer-changed }}
+    if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -102,7 +102,7 @@ jobs:
   build-push-metadata:
     name: Build and push API docs layer
     needs: [ change-detection, build-push-docfx ]
-    if: ${{ needs.change-detection.outputs.metadata-layer-changed }}
+    if: ${{ needs.change-detection.outputs.metadata-layer-changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
