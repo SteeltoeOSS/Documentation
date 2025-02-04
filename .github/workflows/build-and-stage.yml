@@ -44,7 +44,6 @@ jobs:
       with:
         filters: |
           docfx-layer-changed:
-            - .github/workflows/build-and-stage.yml
             - 'docfx/**'
           metadata-layer-changed:
             - .github/workflows/build-and-stage.yml
