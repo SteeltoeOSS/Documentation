@@ -165,7 +165,7 @@ Should you need to check application health based on a subset of health contribu
 }
 ```
 
-While group names are case-sensitive, the entries in `Include` are case-insensitive and will only activate health contributors with a matching `Id`.
+While group names are case-sensitive, the entries in `Include` are case-insensitive and will only activate health contributors with a matching `Id`, and/or ASP.NET health check registrations with a matching name.
 
 For any group that has been defined, you may access health information from the group by appending the group name to the HTTP request URL. For example: `/actuator/health/example-group`.
 
@@ -183,7 +183,7 @@ For any group that has been defined, you may access health information from the 
         "Groups": {
           "example-group": {
             "Include": "Redis,RabbitMQ",
-            "ShowComponents": "Always"
+            "ShowComponents": "Always",
             "ShowDetails": "WhenAuthorized"
           }
         }
