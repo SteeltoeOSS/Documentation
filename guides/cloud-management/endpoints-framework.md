@@ -17,7 +17,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a ASP.NET 4.x Framework application with cloud management endpoints and dynamic logging levels enabled.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
 **Create a .NET Framework Web API** project
 

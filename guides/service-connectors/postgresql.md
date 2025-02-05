@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application with the PostgreSQL service connector.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [PostgreSql](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSql) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [PostgreSql](https://github.com/SteeltoeOSS/Samples/tree/3.x/Connectors/src/PostgreSql) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
 First, **start a PostgreSQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 

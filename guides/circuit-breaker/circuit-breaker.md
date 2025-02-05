@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application that implements a circuit breaker pattern.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [FortuneTeller (Circuit Breaker)](https://github.com/SteeltoeOSS/Samples/tree/main/CircuitBreaker/src/FortuneTeller) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [FortuneTeller (Circuit Breaker)](https://github.com/SteeltoeOSS/Samples/tree/3.x/CircuitBreaker/src/FortuneTeller) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
 ### Start a instance of the Hystrix dashboard
 

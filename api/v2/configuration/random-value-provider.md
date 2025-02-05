@@ -47,7 +47,7 @@ In order to use the Steeltoe RandomValue provider you need to do the following:
 1. Add the provider to the Configuration Builder.
 1. Access random values from the `IConfiguration`.
 
->NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration) for example code you can use.
+>NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/2.x/Configuration) for example code you can use.
 
 ### Add NuGet Reference
 

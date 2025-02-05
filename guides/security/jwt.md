@@ -11,4 +11,4 @@ _hideTocVersionToggle: true
 
 ## Using JWT Bearer Tokens
 
-Please refer to our [sample app on GitHub](https://github.com/SteeltoeOSS/Samples/tree/main/Security/src/CloudFoundryJwtAuthentication) for detailed directions on using JWT and Cloud Foundry.
+Please refer to our [sample app on GitHub](https://github.com/SteeltoeOSS/Samples/tree/3.x/Security/src/CloudFoundryJwtAuthentication) for detailed directions on using JWT and Cloud Foundry.

@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application that retrieves environment variable values from Cloud Foundry.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [SimpleCloundFoundry](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/SimpleCloudFoundry) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [SimpleCloundFoundry](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/SimpleCloudFoundry) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
 First, **create a .NET Core WebAPI** that retrieves (configuration) environment variables from Cloud Foundry.
 

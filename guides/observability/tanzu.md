@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you creating a simple Steeltoe app with actuators, logging, and distributed tracing. With that app running you then export the data to a Tanzu Application Services foundation.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
 ### Prereq's
 

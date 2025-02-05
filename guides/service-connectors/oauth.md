@@ -11,4 +11,4 @@ _hideTocVersionToggle: true
 
 ## Using Service Connectors with an OAuth2 service
 
-Please refer to our [sample app on GitHub](https://github.com/SteeltoeOSS/Samples/tree/master/Security/src/CloudFoundrySingleSignon)
+Please refer to our [sample app on GitHub](https://github.com/SteeltoeOSS/Samples/tree/3.x/Security/src/CloudFoundrySingleSignon)

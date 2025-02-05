@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application that stores its master keys used to protect payloads in an external Redis cache. Learn more about ASP.NET data protection [here](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection).
 
 > [!NOTE]
-> For more detailed examples, please refer to the [RedisDataProtectionKeyStore](https://github.com/SteeltoeOSS/Samples/tree/main/Security/src/RedisDataProtectionKeyStore) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [RedisDataProtectionKeyStore](https://github.com/SteeltoeOSS/Samples/tree/3.x/Security/src/RedisDataProtectionKeyStore) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
 First, **start a Redis instance**. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of RedisStore.
 

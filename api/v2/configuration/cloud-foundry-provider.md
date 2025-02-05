@@ -23,7 +23,7 @@ In order to use the Steeltoe Cloud Foundry provider you need to do the following
 1. Configure Cloud Foundry options classes by binding configuration data to the classes.
 1. Inject and use the Cloud Foundry Options to access Cloud Foundry configuration data.
 
->NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration) for example code you can use.
+>NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/2.x/Configuration) for example code you can use.
 
 ### Add NuGet Reference
 

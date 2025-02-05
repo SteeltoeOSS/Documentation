@@ -205,4 +205,4 @@ When using the `IHostBuilder` extensions, it can be added as shown:
 
 When called without arguments, the default profile is used. Other overloads allow passing a profile or a profile name.
 
-A complete example is available here [here](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/SecureEndpoints).
+A complete example is available here [here](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src/SecureEndpoints).

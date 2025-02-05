@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application that gets configuration values from a Spring Config Server.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Simple (Config Server)](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/Simple) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Simple (Config Server)](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/Simple) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
 First, **create a GitHub repository** to hold config values.
 

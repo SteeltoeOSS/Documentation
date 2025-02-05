@@ -37,7 +37,7 @@ To use the Steeltoe framework:
 * Use Hystrix Command(s) and/or Collapser(s) to invoke dependent services
 * Add and Use the Hystrix metrics stream service
 
->NOTE: Most of the code in the following sections is based on using Hystrix in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/CircuitBreaker) for example code you can use.
+>NOTE: Most of the code in the following sections is based on using Hystrix in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/2.x/CircuitBreaker) for example code you can use.
 
 ### Add NuGet References
 

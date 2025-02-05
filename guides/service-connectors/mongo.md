@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application with the Mongo DB service connector.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [MongoDb](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/MongoDb) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [MongoDb](https://github.com/SteeltoeOSS/Samples/tree/3.x/Connectors/src/MongoDb) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
 
 First, **start a Mongo DB instance**. Depending on your hosting platform this is done in several ways.
 
