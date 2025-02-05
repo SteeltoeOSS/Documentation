@@ -58,7 +58,7 @@ builder.Services.AddPrometheusActuator(true, configurePrometheusPipeline =>
 
 In order for the Prometheus endpoint to return metrics, the application and relevant libraries need to be instrumented.
 This page will cover the basics for elements that previous versions of Steeltoe configured automatically.
-You should refer to the [OpenTelemetry documentation](https://opentelemetry.io/docs/languages/net/instrumentation/) for more detailed information.
+Please refer to the [OpenTelemetry documentation](https://opentelemetry.io/docs/languages/net/instrumentation/) for more detailed information.
 
 ### ASP.NET Core
 

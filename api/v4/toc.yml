@@ -74,8 +74,6 @@
         name: Loggers
       - topicHref: management/mappings.md
         name: Route Mappings
-      - topicHref: management/metrics.md
-        name: Metrics
       - topicHref: management/prometheus.md
         name: Prometheus
       - topicHref: management/refresh.md
