@@ -46,7 +46,7 @@ The only remaining step is to register the processor:
 ```csharp
 using Steeltoe.Management.Tracing;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTracingLogProcessor();
 ```
 
