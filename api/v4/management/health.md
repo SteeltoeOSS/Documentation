@@ -13,6 +13,8 @@ By default, the final application health state is computed by the registered `IH
 It is responsible for sorting out all of the returned statuses from each `IHealthContributor` and [`IHealthCheck`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.diagnostics.healthchecks.ihealthcheck) and deriving an overall application health state.
 The built-in aggregator returns the "worst" status returned from the contributors and checks.
 
+## Configure Settings
+
 The following table describes the configuration settings that you can apply to the endpoint.
 Each key must be prefixed with `Management:Endpoints:Health:`.
 
@@ -23,18 +25,20 @@ Each key must be prefixed with `Management:Endpoints:Health:`.
 | `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
-| `ShowDetails` | The level of detail included in the response. | `Never` |
-| `Claim` | The claim required in `HttpContext.User` when `ShowDetails` is set to `WhenAuthorized`. | |
-| `Role` | The role required in `HttpContext.User` when `ShowDetails` is set to `WhenAuthorized`. | |
-| `Groups` | Specify logical groupings of health contributors. | |
+| `ShowComponents` | Whether health check components should be included in the response. | `Never` |
+| `ShowDetails` | Whether details of health check components should be included in the response. | `Never` |
+| `Claim` | The claim required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized`. | |
+| `Role` | The role required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized`. | |
 
-The information exposed by the health endpoint depends on the `ShowDetails` property, which can be configured with one of the following values:
+The depth of information exposed by the health endpoint depends on the `ShowComponents` and `ShowDetails` properties, which can both be configured with one of the following values:
 
 | Name | Description |
 | --- | --- |
-| `Never` | Details are never shown. |
-| `WhenAuthorized` | Details are shown only to authorized users. |
-| `Always` | Details are always shown. |
+| `Never` | Never shown. |
+| `WhenAuthorized` | Shown only to authorized users. |
+| `Always` | Always shown. |
+
+`ShowDetails` only has an effect when `ShowComponents` is set to `Always`, or `WhenAuthorized` and the request is authorized.
 
 Authorized users can be configured by setting `Claim` or `Role`.
 A user is considered to be authorized when they are in the given role or have the specified claim.
@@ -45,10 +49,11 @@ The following example uses `Management:Endpoints:Health:Claim`:
   "Management": {
     "Endpoints": {
       "Health": {
+        "ShowComponents": "WhenAuthorized",
         "ShowDetails": "WhenAuthorized",
         "Claim": {
           "Type": "health_actuator",
-          "Value": "see_details"
+          "Value": "see_all"
         }
       }
     }
@@ -84,7 +89,7 @@ The configuration key `Management:Endpoints:UseStatusCodeFromResponse` can be se
 Clients can overrule this per request by sending an `X-Use-Status-Code-From-Response` HTTP header with the value `true` or `false`.
 
 > [!TIP]
-> By default, health contributors for disk space, ping, liveness, and readiness are activated. They can be turned off through configuration:
+> By default, health contributors for disk space and ping are activated. They can be turned off through configuration:
 >
 > ```json
 > {
@@ -95,12 +100,6 @@ Clients can overrule this per request by sending an `X-Use-Status-Code-From-Resp
 >           "Enabled": "false"
 >         },
 >         "Ping": {
->           "Enabled": "false"
->         },
->         "Liveness": {
->           "Enabled": "false"
->         },
->         "Readiness": {
 >           "Enabled": "false"
 >         }
 >       }
@@ -113,28 +112,32 @@ Clients can overrule this per request by sending an `X-Use-Status-Code-From-Resp
 
 This endpoint returns the top-level status, along with the details of the contributors and checks.
 
-The response will always be returned as JSON, like this:
+The response will always be returned as JSON, and this is the default value:
+
+```json
+{
+  "status": "UP"
+}
+```
+
+When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `WhenAuthorized` and the request is authorized, the response is more detailed:
 
 ```json
 {
   "status": "UP",
-  "details": {
+  "components": {
     "ping": {
       "status": "UP"
     },
     "diskSpace": {
       "status": "UP",
-      "total": 1999599824896,
-      "free": 1349396418560,
-      "threshold": 10485760
-    },
-    "readiness": {
-      "status": "UP",
-      "ReadinessState": "ACCEPTING_TRAFFIC"
-    },
-    "liveness": {
-      "status": "UP",
-      "LivenessState": "CORRECT"
+      "details": {
+        "total": 1999599824896,
+        "free": 1330717282304,
+        "threshold": 10485760,
+        "path": "C:\\source\\Repository\\src\\Project",
+        "exists": true
+      }
     }
   }
 }
@@ -164,52 +167,64 @@ Should you need to check application health based on a subset of health contribu
 }
 ```
 
-While group names are case-sensitive, the entries in `Include` are case-insensitive and will only activate health contributors with a matching `Id`.
-
-> [!NOTE]
-> Adding your own health groups implicitly turns off the built-in groups for liveness and readiness. If you want to keep them, you need to include them explictly.
->
-> To turn off the default liveness/readiness health groups without adding any of your own, configure a single-element empty group like this:
-> ```json
-> {
->   "Management": {
->     "Endpoints": {
->       "Health": {
->         "Groups": {
->           "": {
->             "Include": ""
->           }
->         }
->       }
->     }
->   }
-> }
-> ```
-> This clumsy format is used because there's no syntax in .NET Configuration to express an empty collection.
-> See https://github.com/dotnet/extensions/issues/1341#issuecomment-598310364 for details.
+While group names are case-sensitive, the entries in `Include` are case-insensitive and will only activate health contributors with a matching `Id`, and/or ASP.NET health check registrations with a matching name.
 
 For any group that has been defined, you may access health information from the group by appending the group name to the HTTP request URL. For example: `/actuator/health/example-group`.
 
-
-### Kubernetes Health Groups
-
-Applications deployed on Kubernetes can provide information about their internal state with [Container Probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes). Depending on your [Kubernetes configuration](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), the kubelet will call those probes and react to the result.
-
-Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Management/src/Endpoint/Actuators/Health/Availability/ApplicationAvailability.cs) class for managing various types of application state. Out of the box, support is provided for Liveness and Readiness, where each is exposed in a corresponding `IHealthContributor` and health group.
-
-To change the health contributors that are included in either of the two default groups, use the same style of configuration described above. Please note that this will _replace_ the default groupings, so if you would like to _add_ an `IHealthContributor` you will need to include the original entry. These entries demonstrate including disk space in both groups:
+`ShowComponents` and `ShowDetails` can also be set at the group level, overriding the settings found at the endpoint level.
 
 ```json
 {
   "Management": {
     "Endpoints": {
       "Health": {
+        "Claim": {
+          "Type": "health_actuator",
+          "Value": "see_all"
+        },
+        "Groups": {
+          "example-group": {
+            "Include": "Redis,RabbitMQ",
+            "ShowComponents": "Always",
+            "ShowDetails": "WhenAuthorized"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Kubernetes Health Groups
+
+Applications deployed on Kubernetes can provide information about their internal state with [Container Probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+Depending on your [Kubernetes configuration](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), the kubelet will call those probes and react to the result.
+
+Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Management/src/Endpoint/Actuators/Health/Availability/ApplicationAvailability.cs) class for managing various types of application state.
+Out of the box, support is provided for Liveness and Readiness, where each is exposed in a corresponding `IHealthContributor` and health group.
+While these health contributors are included, they are disabled by default and must be enabled in configuration (as demonstrated in the example below).
+
+To change the health contributors that are included in either of the two built-in groups, use the same style of configuration described above.
+Please note that this will _replace_ these groupings, so if you would like to _add_ an `IHealthContributor` you will need to include the original entry.
+These entries demonstrate enabling the probes, their groups and including disk space in both groups:
+
+```json
+{
+  "Management": {
+    "Endpoints": {
+      "Health": {
+        "Liveness": {
+          "Enabled": "true"
+        },
+        "Readiness": {
+          "Enabled": "true"
+        },
         "Groups": {
           "liveness": {
-            "Include": "diskSPACE,liveness"
+            "Include": "diskSpace,livenessState"
           },
           "readiness": {
-            "Include": "diskspace,readiness"
+            "Include": "diskSpace,readinessState"
           }
         }
       }
@@ -307,11 +322,32 @@ Sending a GET request to `/actuator/health` returns the following response:
 
 ```json
 {
+  "status":"WARNING"
+}
+```
+
+When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `WhenAuthorized` and the request is authorized, the response is more detailed:
+
+```json
+{
   "status": "WARNING",
-  "details": {
+  "components": {
     "ExampleHealthContributor": {
       "status": "WARNING",
       "description": "This health check does not check anything"
+    },
+    "ping": {
+      "status": "UP"
+    },
+    "diskSpace": {
+      "status": "UP",
+      "details": {
+        "total": 1999599824896,
+        "free": 1330717282304,
+        "threshold": 10485760,
+        "path": "C:\\source\\Repository\\src\\Project",
+        "exists": true
+      }
     }
   }
 }

@@ -44,7 +44,6 @@ jobs:
       with:
         filters: |
           docfx-layer-changed:
-            - .github/workflows/build-and-stage.yml
             - 'docfx/**'
           metadata-layer-changed:
             - .github/workflows/build-and-stage.yml
@@ -76,17 +75,19 @@ jobs:
   build-push-docfx:
     name: Build and push docfx layer
     needs: change-detection
-    if: ${{ needs.change-detection.outputs.docfx-layer-changed }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       uses: actions/checkout@v4
 
     - name: Set DocFX version to use
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       run: echo v${{ env.DOCFX_VERSION }} > docfx/version
       shell: bash
 
     - name: Login to container registry
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       uses: docker/login-action@v3
       with:
         registry: "${{ vars.DOCKER_REGISTRY }}"
@@ -94,15 +95,17 @@ jobs:
         password: "${{ secrets.DOCKER_PASSWORD }}"
 
     - name: Build image
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       run: docker build docfx --file "docfx/Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/docfx:${{ needs.change-detection.outputs.docfx-image-version }}
 
     - name: Push image
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       run: docker push ${{ vars.DOCKER_REGISTRY }}/docfx --all-tags
 
   build-push-metadata:
     name: Build and push API docs layer
     needs: [ change-detection, build-push-docfx ]
-    if: ${{ needs.change-detection.outputs.metadata-layer-changed }}
+    if: ${{ needs.change-detection.outputs.metadata-layer-changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
