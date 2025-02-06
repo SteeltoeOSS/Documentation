@@ -31,7 +31,7 @@ Steeltoe makes things like production ready database connections a single line o
 
 Steeltoe 3.0 is a product of years of learning. Small businesses and large enterprises have all been benefiting and contributing to this new release. It’s a fresh take on cloud opinions that seemingly never get answered. It’s the next evolution for your microservices to go to cloud ninja status.
 
-> If you’re moving from Steeltoe 2.x and would like a quick comparison with version 3.0, refer to [this page](https://docs.steeltoe.io/api/v3/welcome/whats-new.html).
+> If you’re moving from Steeltoe 2.x and would like a quick comparison with version 3.0, refer to [this page](../../api/v3/welcome/whats-new.md).
 
 Let's take a look at the new things included in Steeltoe 3.0. If you’re still wondering how the project fits in your new or existing .NET applications, [learn how here](https://steeltoe.io).
 
@@ -71,7 +71,7 @@ public void Listen(MyCustomObject myObj){
 }
 ```
 
-Once you’ve got the basics down, it’s time to extend and make the design better with things like custom factories. Steeltoe Messaging will take care of the conversion of a message into a structured type but sometimes you want to intercept that conversion and make decisions. You can create your own `DirectRabbitListenerContainer` and customize to your heart's content. Learn more about custom listener container factories [in the docs](https://docs.steeltoe.io/api/v3/messaging/rabbitmq-intro.html#basics).
+Once you’ve got the basics down, it’s time to extend and make the design better with things like custom factories. Steeltoe Messaging will take care of the conversion of a message into a structured type but sometimes you want to intercept that conversion and make decisions. You can create your own `DirectRabbitListenerContainer` and customize to your heart's content. Learn more about custom listener container factories [in the docs](../../api/v3/messaging/rabbitmq-intro.md#receiving-a-message).
 
 ## Legacy and Modern together in the cloud
 
@@ -172,7 +172,7 @@ One of the most shocking things to a developer that is new to working with conta
 
 Observability is typically a sum of logs, traces, and metrics. Sometimes you have them all and sometimes not. Sometimes the data is all on one dashboard and (most of the time) it’s distributed between 2 or more dashboards. Regardless of where the data is being observed, a developer should not have to bring in all kinds of custom dependencies to conform to each dashboard used. They should offer the information in a simple, neutral way with little time spent getting it all wired up.
 
-Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to a deeper place. Along with the following examples, you can also get started using Tanzu Observability with Wavefront or create a Grafana dashboard in our [observability guides](https://docs.steeltoe.io/guides/observability/grafana.html).
+Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to a deeper place. Along with the following examples, you can also get started using Tanzu Observability with Wavefront or create a Grafana dashboard in our [observability guides](../../guides/observability/grafana.md).
 
 * Originally OpenCensus was used for creating standard trace data and metrics. That has been superseded by the OpenTelemetry telemetric standard.
 * Creating tracing spans has been simplified to a single line in `startup.cs` ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src/Tracing))
@@ -185,7 +185,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
   }
   ```
 
-* In addition to the [metrics endpoint](https://docs.steeltoe.io/api/v3/management/metrics.html), there is a new Prometheus endpoint that offers a simple way for metrics to be scraped. Below is an example prometheus.yml configuration ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src)):
+* In addition to the [metrics endpoint](../../api/v3/management/metrics.md), there is a new Prometheus endpoint that offers a simple way for metrics to be scraped. Below is an example prometheus.yml configuration ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src)):
 
   ```yaml
   scrape_configs:
@@ -194,7 +194,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
       scrape_interval: 5s
   ```
 
-* [Dynamic logging](https://docs.steeltoe.io/api/v3/logging/) can be implemented with a single statement in the `HostBuilder`
+* [Dynamic logging](../../api/v3/logging/index.md) can be implemented with a single statement in the `HostBuilder`
 
     ```csharp
     public static IHostBuilder CreateHostBuilder(string[] args) =>

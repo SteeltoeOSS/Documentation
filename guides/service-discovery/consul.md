@@ -204,7 +204,7 @@ public class WeatherForecastController : ControllerBase
 Some notes about the above code:
 
 * Steeltoe configures [`HttpClientFactory`](https://docs.microsoft.com/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) to provide named `HttpClient`s that are configured with Random or RoundRobin load balancers.
-  * There are several other ways to [discover services](/api/v3/discovery/discovering-services.html)
+  * There are several other ways to [discover services](../../api/v3/discovery/discovering-services.md)
 * Inside the outbound HTTP request pipeline, Steeltoe replaces "http://Consul-Register-Example/" in the request Uri with a scheme + host + port returned from Consul
 
 Run the app to see discovery in action:

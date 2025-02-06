@@ -151,6 +151,6 @@ Project Tye solves a cloud-native developer’s biggest challenge, environment p
 
 ## Learn more and get started today
 
-To get started with any Steeltoe projects, head over to the [getting started guides](../guides/). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples), and you’ll have .NET microservices up and running before you know it!
+To get started with any Steeltoe projects, head over to the [getting started guides](../guides/index.md). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples), and you’ll have .NET microservices up and running before you know it!
 
 Want to get deeper into creating cloud-native .NET apps? Attend the VMware Pivotal Labs’s [4 -day .NET developer course](https://pivotal.io/platform-acceleration-lab/pal-for-developers-net). You’ll get hands-on cloud-native .NET training learn best practices when creating microservices and become a Steeltoe ninja!

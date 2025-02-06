@@ -13,7 +13,7 @@ Here are several Steeltoe sample applications to help you understand how to use 
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/2.x/MusicStore): A sample app showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a micro-services based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
 * [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/2.x/FreddysBBQ): A polyglot (Java and .NET) micro-services based sample application showing interoperability between Java and .NET based micro-services running on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
 
-This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](/../management/health.html) check endpoint.
+This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](../management/health.md) check endpoint.
 
 ## Usage
 
