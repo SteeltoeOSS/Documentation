@@ -2,7 +2,7 @@
 
 This provider lets you control access to REST resources by using JSON Web Tokens (JWT) issued by Cloud Foundry Security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [Single-Sign-on for VMware Tanzu](https://docs.vmware.com/en/Single-Sign-On-for-VMware-Tanzu-Application-Service/index.html)) in ASP.NET Core.
 
-The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) can help you understand how to use this tool, including `FreddysBBQ` (a polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services).
+The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) can help you understand how to use this tool.
 
 Many resources are available for understanding JWT (for example, see [JWT IO](https://jwt.io/) or [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)).
 
