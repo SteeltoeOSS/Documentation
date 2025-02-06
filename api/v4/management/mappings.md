@@ -1,6 +1,6 @@
 # Route Mappings
 
-You can use the Steeltoe Route Mappings endpoint to return the MVC and Web API routes and route templates that are used by the application.
+You can use the Steeltoe Route Mappings actuator to retrieve the HTTP endpoints in your app, originating from ASP.NET Minimal APIs, API/MVC Controllers, Razor Pages and Blazor.
 
 ## Configure Settings
 
@@ -14,6 +14,7 @@ Each key must be prefixed with `Management:Endpoints:Mappings:`.
 | `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
+| `IncludeActuators` | Whether to include actuator endpoints in the response. | `true` |
 
 ## Enable HTTP Access
 
@@ -49,11 +50,16 @@ The response will always be returned as JSON, like this:
     "application": {
       "mappings": {
         "dispatcherServlets": {
-          "SteeltoeTryoutWebApi.Controllers.WeatherForecastController": [
+          "dispatcherServlet": [
             {
-              "handler": "System.Collections.Generic.IEnumerable`1[SteeltoeTryoutWebApi.WeatherForecast] Get()",
-              "predicate": "{[WeatherForecast],methods=[GET],produces=[text/plain || application/json || text/json]}",
+              "handler": "SampleApp.Controllers.WeatherForecastController.Get (SampleApp)",
+              "predicate": "{GET [WeatherForecast], produces [text/plain || application/json || text/json]}",
               "details": {
+                "handlerMethod": {
+                  "className": "SampleApp.Controllers.WeatherForecastController",
+                  "name": "Get",
+                  "descriptor": "System.Collections.Generic.IEnumerable`1[SampleApp.WeatherForecast] Get()"
+                },
                 "requestMappingConditions": {
                   "patterns": [
                     "WeatherForecast"
