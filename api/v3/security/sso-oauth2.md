@@ -72,7 +72,7 @@ The Steeltoe OAuth2 security provider options are based on [`Microsoft.AspNetCor
 
 ### Cloud Foundry
 
-As mentioned earlier, there are two OAuth-compatible services available on Cloud Foundry. We recommend you read the official documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [TAS SSO](https://docs.pivotal.io/p-identity/1-5/getting-started.html)) or follow the instructions included in the samples for [UAA Server](https://github.com/SteeltoeOSS/Samples/blob/master/Security/src/AspDotNetCore/CloudFoundrySingleSignon/README.md) and [TAS SSO](https://github.com/SteeltoeOSS/Samples/blob/master/Security/src/AspDotNetCore/CloudFoundrySingleSignon/README-SSO.md) to quickly learn how to create and bind OAuth2 services.
+As mentioned earlier, there are two OAuth-compatible services available on Cloud Foundry. We recommend you read the official documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [TAS SSO](https://docs.pivotal.io/p-identity/1-5/getting-started.html)) or follow the instructions included in the samples for [UAA Server](https://github.com/SteeltoeOSS/Samples/blob/3.x/Security/src/CloudFoundrySingleSignon/README.md) and [TAS SSO](https://github.com/SteeltoeOSS/Samples/blob/3.x/Security/src/AspDotNetCore/CloudFoundrySingleSignon/README-SSO.md) to quickly learn how to create and bind OAuth2 services.
 
 Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
