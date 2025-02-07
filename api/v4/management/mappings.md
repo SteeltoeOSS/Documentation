@@ -1,6 +1,6 @@
 # Route Mappings
 
-You can use the Steeltoe Route Mappings actuator to retrieve the HTTP endpoints in your app, originating from ASP.NET Minimal APIs, API/MVC Controllers, Razor Pages and Blazor.
+You can use the Steeltoe Route Mappings actuator to retrieve the HTTP endpoints in your app that originate from ASP.NET Minimal APIs, API/MVC Controllers, Razor Pages and Blazor.
 
 ## Configure Settings
 
