@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application that uses placeholders for config values.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Placeholder](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/Placeholder) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Placeholder](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/Placeholder) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **create a .NET Core WebAPI** that has a placeholder implemented
 

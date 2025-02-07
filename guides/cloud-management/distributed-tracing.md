@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application that sends tracing data to a Zipkin server.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Tracing](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src/Tracing) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Tracing](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src/Tracing) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **start a Zipkin instance**. Depending on your hosting platform this is done in several ways.
 

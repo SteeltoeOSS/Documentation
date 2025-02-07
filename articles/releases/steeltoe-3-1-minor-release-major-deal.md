@@ -92,4 +92,4 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 ## Get Started Today
 
-To get started with any Steeltoe projects, head over to the [getting started guides](../../guides/index.md). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples), and you’ll have .NET microservices up and running before you know it!
+To get started with any Steeltoe projects, head over to the [getting started guides](../../guides/index.md). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples/tree/3.x), and you’ll have .NET microservices up and running before you know it!

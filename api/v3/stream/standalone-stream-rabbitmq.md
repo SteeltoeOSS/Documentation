@@ -5,7 +5,7 @@ In another guide, we [deploy these applications using Data Flow](./data-flow-str
 Taking the time to deploy the applications manually will provide you with a better understanding of the steps that Data Flow automates for you.
 
 The following sections describe how to build these applications from scratch.
-If you prefer, you can clone the Steeltoe [sample applications](https://github.com/SteeltoeOSS/Samples/blob/main/Stream/UsageCost), and proceed to the [deployment](#deployment) section.
+If you prefer, you can clone the Steeltoe [sample applications](https://github.com/SteeltoeOSS/Samples/blob/3.x/Stream/UsageCost), and proceed to the [deployment](#deployment) section.
 
 ## Development
 
@@ -309,7 +309,7 @@ Create a new .NET Console  project and add the NuGet packages as referred in the
 
 To create the business logic:
 
-1.  Create a `UsageCostDetail` class that looks like [UsageCostDetail.cs](https://github.com/SteeltoeOSS/Samples/blob/main/Stream/UsageCost/UsageLogger/UsageCostDetail.cs).
+1.  Create a `UsageCostDetail` class that looks like [UsageCostDetail.cs](https://github.com/SteeltoeOSS/Samples/blob/3.x/Stream/UsageCost/UsageLogger/UsageCostDetail.cs).
     The `UsageCostDetail` class contains `UserId`, `CallCost`, and `DataCost` properties.
 1.  Create the `UsageCostLogger` class, which receives the `UsageCostDetail` message and logs it. The following listing shows the source code:
 

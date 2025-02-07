@@ -365,7 +365,7 @@ The latter is the mechanism used when retries are enabled and the maximum number
 The Steeltoe RabbitMQHost extends the Microsoft Generic Host and provides for auto configuration of Steeltoe RabbitMQ services.
 
 > [!NOTE]
-> For more detailed examples of using the RabbitMQ Host, please refer to the [Messaging](https://github.com/SteeltoeOSS/Samples/tree/3.x/Messaging/src) solutions in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples of using the RabbitMQ Host, please refer to the [Messaging](https://github.com/SteeltoeOSS/Samples/tree/3.x/Messaging/src) solutions in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 Below are two code snippets within `Program.cs` and `Startup.cs` that demonstrate the usage of RabbitMQHost:
 
