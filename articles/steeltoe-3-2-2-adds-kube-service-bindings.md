@@ -91,7 +91,7 @@ namespace PostgreSql
 
 Running your application on a Kubernetes platform which supports the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification you should see configuration key/values appear in your applications configuration.
 
-As an added feature, the Steeltoe team has added integration with the [Steeltoe Connectors](https://github.com/SteeltoeOSS/Steeltoe/tree/main/src/Connectors) library. This integration enables the Steeltoe Connectors library to pick up and use the configuration data built by the Kubernetes provider.
+As an added feature, the Steeltoe team has added integration with the [Steeltoe Connectors](https://github.com/SteeltoeOSS/Steeltoe/tree/release/3.2/src/Connectors) library. This integration enables the Steeltoe Connectors library to pick up and use the configuration data built by the Kubernetes provider.
 
  This feature is not enabled by default. To enable it you must edit your `appsettings.json` file and add the following configuration.
 
@@ -107,7 +107,7 @@ As an added feature, the Steeltoe team has added integration with the [Steeltoe 
 }
 ```
 
-Take a look at the Steeltoe [PostgreSql Connector sample](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSql) for more details.
+Take a look at the Steeltoe [PostgreSql Connector sample](https://github.com/SteeltoeOSS/Samples/tree/3.x/Connectors/src/PostgreSql) for more details.
 
 The Steeltoe team is excited to hear your thoughts and opinions on this latest release. Remember you can join us on the Steeltoe Community call or reach out to the team directly on the [Steeltoe Slack](https://steeltoeteam.slack.com//).
 

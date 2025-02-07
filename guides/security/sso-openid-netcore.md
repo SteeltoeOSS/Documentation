@@ -17,7 +17,7 @@ _hideTocVersionToggle: true
 This is a guide to integrate a .Net Core API with the Cloud Foundry SSO identity provider service. The sample provides authentication to select entry points of an application. It is meant to provide authentication simiar to how IIS would when Windows authentication is enabled.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Security](https://github.com/SteeltoeOSS/Samples/tree/main/Security) section in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Security](https://github.com/SteeltoeOSS/Samples/tree/3.x/Security) section in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **establish an identity provider**. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of SSO.
 

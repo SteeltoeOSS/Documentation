@@ -1345,7 +1345,7 @@ Applications can do so by using the `BinderAwareChannelResolver` service (which 
 The `spring.cloud.stream.dynamicDestinations` setting can be used for restricting the dynamic destination names to a known set (whitelisting).
 If this property is not set, any destination can be bound dynamically.
 
-The `BinderAwareChannelResolver` can be used directly, as shown in the following example of a console application receiving messages from an input source and deciding the target channel based on the body of the message (see [Dynamic Destination Sample](https://github.com/SteeltoeOSS/Samples/tree/main/Stream/DynamicDestinationMessaging) for full solution):
+The `BinderAwareChannelResolver` can be used directly, as shown in the following example of a console application receiving messages from an input source and deciding the target channel based on the body of the message (see [Dynamic Destination Sample](https://github.com/SteeltoeOSS/Samples/tree/3.x/Stream/DynamicDestinationMessaging) for full solution):
 
 Program.cs
 

@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up two .NET Core applications using services discovery. The first will register it's endpoints for discovery, and the second will discover the first's services.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [FortuneTeller (Discovery)](https://github.com/SteeltoeOSS/Samples/tree/main/Discovery/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [FortuneTeller (Discovery)](https://github.com/SteeltoeOSS/Samples/tree/3.x/Discovery/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **start a Eureka Server** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Eureka.
 

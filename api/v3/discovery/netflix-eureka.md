@@ -4,8 +4,8 @@ The Eureka client implementation lets applications register services with a Eure
 
 In addition to the Quick Start below, the following Steeltoe sample applications may help you to understand how to use this client:
 
-* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices-based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and uses Spring Cloud Services.
+* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/3.x/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices-based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
+* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/3.x/FreddysBBQ): A polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and uses Spring Cloud Services.
 
 ## Eureka Settings
 

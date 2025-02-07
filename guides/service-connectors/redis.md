@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application with the Redis service connector.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Redis](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Redis](https://github.com/SteeltoeOSS/Samples/tree/3.x/Connectors/src/Redis) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **start a Redis instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 

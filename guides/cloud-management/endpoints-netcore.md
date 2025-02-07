@@ -17,7 +17,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application with cloud management endpoints automatically added in.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 **Create a .NET Core WebAPI** with Actuators enabled
 

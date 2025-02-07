@@ -31,9 +31,7 @@ Steeltoe makes things like production ready database connections a single line o
 
 Steeltoe 3.0 is a product of years of learning. Small businesses and large enterprises have all been benefiting and contributing to this new release. It’s a fresh take on cloud opinions that seemingly never get answered. It’s the next evolution for your microservices to go to cloud ninja status.
 
----
-##### If you’re moving from Steeltoe 2.x and would like a quick comparision with version 3.0, refer to [this page](https://steeltoe.io/docs/3/welcome/whats-new).
----
+> If you’re moving from Steeltoe 2.x and would like a quick comparison with version 3.0, refer to [this page](../../api/v3/welcome/whats-new.md).
 
 Let's take a look at the new things included in Steeltoe 3.0. If you’re still wondering how the project fits in your new or existing .NET applications, [learn how here](https://steeltoe.io).
 
@@ -43,7 +41,7 @@ You might know it as a few different things - eventing, event architecture, even
 
 To help developers use message based systems but not have to manage all the debt that typically comes along with such a thing, Steeltoe 3 introduces the new Messaging component. This component does all the work of resiliency, portability, and fault-tolerance. To implement it you provide the location of the message server and start reading & writing messages. Want to include a custom object in the message? Steeltoe Messaging will take care of converting the bytes. Should the queue be "ensured" when the application is starting up? Configure Steeltoe Messaging to create it, if nothing is present. Do you have potentially many instances of an application that all share the same queue? Steeltoe Messaging will handle everything appropriately for you.
 
-To get started using Messaging ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/master/Messaging)), provide the server address in `appsettings.json`:
+To get started using Messaging ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Messaging)), provide the server address in `appsettings.json`:
 
 ```json
 "Spring": {
@@ -55,13 +53,17 @@ To get started using Messaging ([here is a full example](https://github.com/Stee
   }
 }
 ```
+
 Then using dependency injection, send a message to the queue:
+
 ```csharp
 public MyService(RabbitTemplate amqpTemplate, MyCustomObject myObj) {
         amqpTemplate.ConvertAndSend("myqueue", myObj);
 }
 ```
+
 Receive messages in a registered callback, managed by Steeltoe and the Rabbit broker:
+
 ```csharp
 [RabbitListener("myqueue")]
 public void Listen(MyCustomObject myObj){
@@ -69,7 +71,7 @@ public void Listen(MyCustomObject myObj){
 }
 ```
 
-Once you’ve got the basics down, it’s time to extend and make the design better with things like custom factories. Steeltoe Messaging will take care of the conversion of a message into a structured type but sometimes you want to intercept that conversion and make decisions. You can create your own `DirectRabbitListenerContainer` and customize to your heart's content. Learn more about custom listener container factories [in the docs](https://dev.steeltoe.io/docs/3/messaging/rabbitmq-intro#basics).
+Once you’ve got the basics down, it’s time to extend and make the design better with things like custom factories. Steeltoe Messaging will take care of the conversion of a message into a structured type but sometimes you want to intercept that conversion and make decisions. You can create your own `DirectRabbitListenerContainer` and customize to your heart's content. Learn more about custom listener container factories [in the docs](../../api/v3/messaging/rabbitmq-intro.md#receiving-a-message).
 
 ## Legacy and Modern together in the cloud
 
@@ -87,7 +89,7 @@ The Steeltoe team has begun the journey of supporting K8s specific things with t
 
 Adding to the list of supported service registries, Steeltoe now offers developers the option of using native Kubernetes. The really amazing design of this is, there are no additional dependencies to be deployed. Registration and discovery can happen with the resources already provided in every cluster.
 
-In Kubernetes, when you want an application registered as discoverable, no work is required. To discover services, simply include the `Steeltoe.Discovery.ClientCore` and `Steeltoe.Discovery.Kubernetes` packages along with implementing the discovery client in the `HostBuilder` ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/master/Discovery/src)).
+In Kubernetes, when you want an application registered as discoverable, no work is required. To discover services, simply include the `Steeltoe.Discovery.ClientCore` and `Steeltoe.Discovery.Kubernetes` packages along with implementing the discovery client in the `HostBuilder` ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Discovery/src)).
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -117,7 +119,7 @@ Now when an new request is created using the http client `var result = await _ht
 
 Kubernetes also has powerful built in features when it comes to getting configuration settings into an application. Combine that with the power of .NET Core’s configuration provider hierarchy and you have one heck of a cloud-native application.
 
-Let's say we have the following ConfigMap ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/Kubernetes)):
+Let's say we have the following ConfigMap ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/Kubernetes)):
 
 ```yaml
 apiVersion: v1
@@ -139,14 +141,16 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
     })
     .AddKubernetesConfiguration();
 ```
+
 And then retrieve the configuration value through IConfiguration dependency injection:
+
 ```csharp
 public HomeController(IConfiguration config) {
   string myKey = config["someKey"];
 }
 ```
 
-If you'd like to see more visit the [samples repo](https://github.com/SteeltoeOSS/Samples), or have a look in the [docs](https://steeltoe.io/docs).
+If you'd like to see more visit the [samples repo](https://github.com/SteeltoeOSS/Samples/tree/3.x), or have a look in the [docs](../../api/v3/welcome/index.md).
 
 ## Generate production ready projects and get going fast
 
@@ -156,9 +160,7 @@ The Initializr project aims to solve a very common challenge in every organizati
 
 Not only does this save the developer from writing code to manage config server connections or health endpoints or any other essential of microservices, it also keeps their projects on the latest patched libraries.
 
----
-##### Learn more about Initializr [now](https://steeltoe.io/initializr)
----
+> Learn more about Initializr [now](https://steeltoe.io/initializr)
 
 When you review the available dependencies in Steeltoe’s hosted version of Initializr you are probably going to have the need to add your own custom dependencies or want to bring the whole tool in-house. That is one of Initializr’s super powers!
 
@@ -170,10 +172,10 @@ One of the most shocking things to a developer that is new to working with conta
 
 Observability is typically a sum of logs, traces, and metrics. Sometimes you have them all and sometimes not. Sometimes the data is all on one dashboard and (most of the time) it’s distributed between 2 or more dashboards. Regardless of where the data is being observed, a developer should not have to bring in all kinds of custom dependencies to conform to each dashboard used. They should offer the information in a simple, neutral way with little time spent getting it all wired up.
 
-Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to a deeper place. Along with the following examples, you can also get started using Tanzu Observability with Wavefront or create a Grafana dashboard in our [observability guides](https://dev.steeltoe.io/observability).
+Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to a deeper place. Along with the following examples, you can also get started using Tanzu Observability with Wavefront or create a Grafana dashboard in our [observability guides](../../guides/observability/grafana.md).
 
 * Originally OpenCensus was used for creating standard trace data and metrics. That has been superseded by the OpenTelemetry telemetric standard.
-* Creating tracing spans has been simplified to a single line in `startup.cs` ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/Tracing))
+* Creating tracing spans has been simplified to a single line in `startup.cs` ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src/Tracing))
 
   ```csharp
   public void ConfigureServices(IServiceCollection services) {
@@ -183,7 +185,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
   }
   ```
 
-* In addition to the [metrics endpoint](https://dev.steeltoe.io/docs/3/management/metrics-observers), there is a new prometheus endpoint that offers a simple way for metrics to be scraped. Below is an example prometheus.yml configuration ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src)):
+* In addition to the [metrics endpoint](../../api/v3/management/metrics.md), there is a new Prometheus endpoint that offers a simple way for metrics to be scraped. Below is an example prometheus.yml configuration ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src)):
 
   ```yaml
   scrape_configs:
@@ -192,7 +194,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
       scrape_interval: 5s
   ```
 
-* [Dynamic logging](https://dev.steeltoe.io/docs/3/logging) can be implemented with a single statement in the `HostBuilder`
+* [Dynamic logging](../../api/v3/logging/index.md) can be implemented with a single statement in the `HostBuilder`
 
     ```csharp
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -203,7 +205,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
         .AddDynamicLogging();
   ```
 
-* To use Spring Boot Admin as your management dashboard add the following to `appsettings.json` ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/SpringBootAdmin)):
+* To use Spring Boot Admin as your management dashboard add the following to `appsettings.json` ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src/SpringBootAdmin)):
 
   ```json
   "spring": {
@@ -216,7 +218,9 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
       }
     }
   ```
+
   And implement the client in Startup.cs
+
   ```csharp
   public void Configure(IApplicationBuilder app) {
     ...
@@ -235,6 +239,7 @@ Steeltoe still has much love for Cloud Foundry but you’re going to see a lot m
 Here are a few examples of new ways to implement things in the `HostBuilder`:
 
 * Initialize only the health and dynamic logging
+
   ```csharp
   public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -246,6 +251,7 @@ Here are a few examples of new ways to implement things in the `HostBuilder`:
   ```
 
 * Initialize all actuators and optionally secure them behind an authorization policy
+
   ```csharp
   public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -257,6 +263,7 @@ Here are a few examples of new ways to implement things in the `HostBuilder`:
   ```
 
 * To instantly enable the enhanced features of app manager in Tanzu Application Services
+
   ```csharp
   public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -270,6 +277,6 @@ Here are a few examples of new ways to implement things in the `HostBuilder`:
 
 ## Learn more and get started today
 
-To get started with any Steeltoe projects, head over to the [getting started guides](https://steeltoe.io/get-started). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples), and you’ll have .NET microservices up and running before you know it!
+To get started with any Steeltoe projects, head over to the [getting started guides](https://steeltoe.io/get-started). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples/tree/3.x), and you’ll have .NET microservices up and running before you know it!
 
 Want to get deeper into creating cloud-native .NET apps? Attend the VMware Pivotal Labs’s [4 -day .NET developer course](https://pivotal.io/platform-acceleration-lab/pal-for-developers-net). You’ll get hands-on cloud-native .NET training learn best practices when creating microservices and become a Steeltoe ninja!

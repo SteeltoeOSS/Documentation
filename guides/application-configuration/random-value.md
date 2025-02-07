@@ -14,7 +14,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application that gets a random value for a config setting.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [RandomValue](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/RandomValue) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [RandomValue](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/RandomValue) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **create a .NET Core WebAPI** that has a placeholder implemented.
 
