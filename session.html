@@ -6,7 +6,11 @@
     <script>
       //session.html?sql_ip=1234&one=1&two=2&3=three&redirect=/guides/get-to-know-steeltoe
       $(document).ready(function () {
-        localStorage.clear();
+        try {
+          var themeSetting = localStorage.getItem('theme');
+          localStorage.clear();
+          localStorage.setItem('theme',themeSetting);
+        } catch(error) {}
 
         var urlParams = new URLSearchParams(window.location.search);
         console.log(urlParams);
