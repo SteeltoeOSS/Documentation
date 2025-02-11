@@ -105,10 +105,6 @@ services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
 
 [Learn more about Runtime Instrumentation for OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Runtime)
 
-## Exporting Metrics
-
-For exporting in Spring metrics format, see the [Metrics endpoint](./metrics.md).
-
 ### Prometheus Server
 
 You can set up Prometheus to scrape this endpoint by registering your application in the server's configuration.
