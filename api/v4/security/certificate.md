@@ -123,7 +123,7 @@ using Steeltoe.Security.Authorization.Certificate;
 [Route("api")]
 public class HomeController : ControllerBase
 {
-    [Authorize(CertificateAuthorizationPolicies.SameOrganization)]
+    [Authorize(CertificateAuthorizationPolicies.SameOrg)]
     [HttpGet("[action]")]
     public string SameOrgCheck()
     {
@@ -137,7 +137,8 @@ public class HomeController : ControllerBase
         return "Certificate is valid and both client and server are in the same space";
     }
 
-    [Authorize("sameOrgAndSpace")]
+    [Authorize(CertificateAuthorizationPolicies.SameOrg)]
+    [Authorize(CertificateAuthorizationPolicies.SameSpace)]
     [HttpGet("[action]")]
     public string SameOrgAndSpaceCheck()
     {
