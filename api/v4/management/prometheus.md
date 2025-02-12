@@ -128,7 +128,7 @@ scrape_configs:
 Running the Prometheus server with this configuration lets you view metrics in the built-in UI.
 You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/), to use Prometheus as a data source.
 
-The following example shows how to run Prometheus in Docker:
+The following example shows how to run Prometheus in Docker, referencing the configuration file from above:
 
 ```shell
 docker run -d --name=prometheus -p 9090:9090 -v ./prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml

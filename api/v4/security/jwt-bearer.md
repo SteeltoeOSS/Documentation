@@ -45,7 +45,7 @@ Since Steeltoe's JWT Bearer library configures Microsoft's JWT Bearer implementa
 
 #### Cloud Foundry Service Bindings
 
-The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Single Sign-On credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's JwtBearer library to read. Add the configuration provider to your application with this code:
+The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Single Sign-On credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's JWT Bearer library to read. Add the configuration provider to your application with this code:
 
 ```csharp
 using Steeltoe.Configuration.CloudFoundry;
@@ -96,7 +96,7 @@ builder.Services
 // Register Microsoft Authorization services
 builder.Services.AddAuthorizationBuilder()
     // Create a named authorization policy that requires the user to have a scope with the same value
-    .AddPolicy("sampleapi.read", policy => policy.RequireClaim("scope", "sampleapi.read"))
+    .AddPolicy("sampleapi.read", policy => policy.RequireClaim("scope", "sampleapi.read"));
 ```
 
 Activate authentication and authorization services _after_ routing services, but _before_ controller route registrations, with the following code:

@@ -23,7 +23,7 @@ If you are using Cloud Foundry service bindings, you will also need to add a ref
 
 ### Add Cloud Foundry Configuration
 
-The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Redis credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and maps them into the application's configuration in format that the Redis connector can read.
+The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Redis credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and maps them into the application's configuration in a format that the Redis connector can read.
 Add the configuration provider to your application with this code:
 
 ```csharp
@@ -54,6 +54,7 @@ There are several steps required to configure key storage in Redis:
 These steps can be performed by chaining the method calls together:
 
 ```csharp
+using Microsoft.AspNetCore.DataProtection;
 using Steeltoe.Security.DataProtection.Redis;
 
 builder.Services.AddDataProtection().PersistKeysToRedis().SetApplicationName("redis-data-protection-sample");
