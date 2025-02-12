@@ -1,10 +1,11 @@
-# Single Sign-On with OpenID Connect
+# Resource Protection using JWT in ASP.NET Core
 
-This library is a supplement to ASP.NET Core Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or [User Account and Authentication (UAA) Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using OpenID Connect in ASP.NET Core web applications.
+This library is a supplement to ASP.NET Core Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or a [UAA Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using JSON Web Tokens (JWT) in ASP.NET Core web applications.
 
-The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthWeb/README.md) can help you understand how to use this library. Another reference application is the [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/blob/latest/FreddysBBQ) sample, which is a polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
+The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) can help you understand how to use this tool.
 
-General guidance on OpenID Connect is beyond the scope of this document and can be found in many other sources (for example, see [OpenID](https://openid.net/developers/how-connect-works/)).
+General guidance on JWT is beyond the scope of this document and can be found in many other sources (for example, see [Wikipedia](https://en.wikipedia.org/wiki/JSON_Web_Token) or [JWT IO](https://jwt.io/)).
+
 For the documentation of the underlying Microsoft OpenID Connect library, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
 
 ## Usage
@@ -20,23 +21,22 @@ Steps involved in using this library:
 
 ### Add NuGet References
 
-To use this package, you will need to add a reference to the NuGet package `Steeltoe.Security.Authentication.OpenIdConnect`.
+To use the provider, you need to add a reference to the `Steeltoe.Security.Authentication.JwtBearer` NuGet package.
 
 If you are using Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
 
 ### Configure Settings
 
-Since Steeltoe's OpenID Connect library configures Microsoft's OpenID Connect implementation, all available settings can be found in [`Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.openidconnect.openidconnectoptions)
+Since Steeltoe's JWT Bearer library configures Microsoft's JWT Bearer implementation, all available settings can be found in [`Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions).
 
-`OpenIdConnectOptions` is bound to configuration values found under `Authentication:Schemes:OpenIdConnect`. The following example shows how to declare a list of permissions that should be requested for users:
+`JwtBearerOptions` is bound to configuration values found under `Authentication:Schemes:Bearer`. The following example shows how to declare the audience for which tokens should be considered valid (such as when a token is issued to a specific web application and then passed to backend services to perform actions on behalf of a user):
 
 ```json
 {
-  // Configure OpenID Connect to request specific scopes (permissions)
   "Authentication": {
     "Schemes": {
-      "OpenIdConnect": {
-        "Scope": [ "openid", "sampleapi.read" ]
+      "Bearer": {
+        "ValidAudience": "sampleapi"
       }
     }
   }
@@ -45,7 +45,7 @@ Since Steeltoe's OpenID Connect library configures Microsoft's OpenID Connect im
 
 #### Cloud Foundry Service Bindings
 
-The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Single Sign-On credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's OpenID Connect to read. Add the configuration provider to your application with this code:
+The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Single Sign-On credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and re-maps them for Microsoft's JWT Bearer library to read. Add the configuration provider to your application with this code:
 
 ```csharp
 using Steeltoe.Configuration.CloudFoundry;
@@ -66,10 +66,10 @@ A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/Steel
 {
   "Authentication": {
     "Schemes": {
-      "OpenIdConnect": {
+      "Bearer": {
         "Authority": "http://localhost:8080/uaa",
-        "ClientId": "steeltoesamplesclient",
-        "ClientSecret": "client_secret",
+        "ClientId": "steeltoesamplesserver",
+        "ClientSecret": "server_secret",
         "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
         "RequireHttpsMetadata": false
       }
@@ -78,32 +78,25 @@ A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/Steel
 }
 ```
 
-### Add and use OpenID Connect
+### Add and use JWT Bearer Authentication
 
-Since the majority of the OpenID Connect functionality is provided by Microsoft's libraries, the only difference when using Steeltoe will be the addition of calling `ConfigureOpenIdConnectForCloudFoundry` on the `AuthenticationBuilder`, as shown in the following example:
+Since the majority of the JWT Bearer functionality is provided by Microsoft's libraries, the only difference when using Steeltoe will be the addition of calling `ConfigureJwtBearerForCloudFoundry` on the `AuthenticationBuilder`, as shown in the following example:
 
 ```csharp
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Steeltoe.Security.Authentication.JwtBearer;
+
 // Add Microsoft Authentication services
 builder.Services
-    .AddAuthentication(options =>
-    {
-        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-    })
-    .AddCookie(options =>
-    {
-        options.AccessDeniedPath = new PathString("/Home/AccessDenied");
-    })
-    .AddOpenIdConnect()
-    // Steeltoe: configure OpenID Connect to work with UAA/Cloud Foundry
-    .ConfigureOpenIdConnectForCloudFoundry();
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer()
+    // Steeltoe: configure JWT to work with UAA/Cloud Foundry
+    .ConfigureJwtBearerForCloudFoundry();
 
 // Register Microsoft Authorization services
 builder.Services.AddAuthorizationBuilder()
     // Create a named authorization policy that requires the user to have a scope with the same value
-    // In the Steeltoe sample application, Globals.RequiredJwtScope = "sampleapi.read",
-    // which represents the user's permission to read from the sample API
-    .AddPolicy(Globals.RequiredJwtScope, policy => policy.RequireClaim("scope", Globals.RequiredJwtScope))
+    .AddPolicy("sampleapi.read", policy => policy.RequireClaim("scope", "sampleapi.read"));
 ```
 
 Activate authentication and authorization services _after_ routing services, but _before_ controller route registrations, with the following code:
@@ -131,35 +124,23 @@ app.Run();
 Once the services and middleware have been configured, you can secure endpoints with the standard ASP.NET Core `Authorize` attribute, as follows:
 
 ```csharp
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-public class HomeController : Controller
+[Route("api/[controller]")]
+public class ValuesController : Controller
 {
-    public IActionResult Index()
+    // GET api/values
+    [HttpGet]
+    [Authorize(Policy = "sampleapi.read")]
+    public IEnumerable<string> Get()
     {
-        return View();
-    }
-
-    [Authorize]
-    public IActionResult About()
-    {
-        ViewData["Message"] = "Your About page.";
-        return View();
-    }
-
-    [Authorize(Policy = Globals.RequiredJwtScope)]
-    public IActionResult TestGroup()
-    {
-        ViewData["Message"] = $"You have the '{Globals.RequiredJwtScope}' permission.";
-        return View();
+        return new string[] { "value1", "value2" };
     }
 }
 ```
 
-The preceding example establishes the following security rules:
-
-* If a user attempts to access the `About` action and the user is not authenticated, the user is redirected to the OAuth server (such as a UAA Server) to log in.
-* If an authenticated user attempts to access the `TestGroup` action but does not meet the restrictions established by the referenced policy, the user is denied access.
+In the preceding example, if an incoming REST request is made to the `api/values` endpoint and the request does not contain a valid JWT bearer token with a `scope` claim equal to `sampleapi.read`, the request is rejected.
 
 ### Single Sign-On for VMware Tanzu
 
@@ -191,15 +172,15 @@ For further information, refer to the [Single Sign-On for Tanzu developer guide]
 
 If Single Sign-On for Tanzu is not available or desired for your application, you can use UAA as an alternative.
 
-There is no service broker available to manage service instances or bindings for UAA, so a [user provided service instance](https://docs.cloudfoundry.org/devguide/services/user-provided.html) should be used to hold the credentials.
+There is no service broker available to manage service instances or bindings for UAA, so a [user provided service instance](https://docs.cloudfoundry.org/devguide/services/user-provided.html) must be used to hold the credentials.
 
-This command is an example of how the binding could be created:
+The following command is an example of how the binding could be created:
 
 ```shell
 cf cups MY_SERVICE_INSTANCE -p '{"auth_domain": "https://uaa.login.sys.cf-app.com","grant_types": [ "authorization_code", "client_credentials" ],"client_secret": "SOME_CLIENT_SECRET","client_id": "SOME_CLIENT_ID"}'
 ```
 
-And this command is an example of how to bind the service instance to the app:
+And the command below is an example of how to bind the service instance to the app:
 
 ```shell
 cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
