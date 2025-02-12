@@ -1,7 +1,7 @@
 # Distributed Tracing
 
 On the subject of distributed tracing for .NET applications, previous versions of Steeltoe offered either an implementation of OpenCensus or shortcuts for enabling distributed tracing with [OpenTelemetry](https://opentelemetry.io/).
-As of this writing, the Steeltoe team believe that OpenTelemetry has evolved to the point that a major Steeltoe component is no longer necessary, and we recommend using OpenTelemetry directly.
+By now, OpenTelemetry has evolved to the point that a Steeltoe component is no longer necessary, and we recommend using OpenTelemetry directly.
 
 Steeltoe continues to directly offer an option for [log correlation](#log-correlation). This page also provides direction for developers looking to achieve the same outcomes Steeltoe has previously provided more directly.
 
@@ -10,11 +10,11 @@ Steeltoe continues to directly offer an option for [log correlation](#log-correl
 As the name implies, distributed tracing is a way of tracing requests through distributed systems.
 Distributed tracing is typically accomplished by instrumenting components of the system to recognize and pass along metadata that is specific to a particular action or user request, and using another backend system to reconstruct the flow of the request through that metadata.
 
-In the parlance of distributed tracing, a "span" is the basic unit of work. For example, sending an RPC is a new span, as is sending a response to an RPC.
-Spans are identified by a unique ID for the span and by another ID for the "trace", which the span is part of.
-Spans also have other data like descriptions, key-value annotations, the ID of the span that caused them, and process IDs.
+In the parlance of distributed tracing, a "span" is the basic unit of work. For example, sending an HTTP request creates a new span, as does sending a response.
+Spans are identified by a unique ID and contain the ID for the "trace" it is part of.
+Spans also have other data like descriptions, key-value annotations, the ID of the span that initiated the execution flow, and process IDs.
 Spans are started and stopped, and they keep track of their timing information. Once you create a span, you must stop it at some point in the future.
-A set of spans form a tree-like structure called a "trace". For example, a trace might be formed by a POST request that adds an item to a shopping cart.
+A set of spans form a tree-like structure called a "trace". For example, a trace might be formed by a POST request that adds an item to a shopping cart, which results in calling several backend services.
 
 ## Log correlation
 
@@ -22,7 +22,7 @@ Log correlation is all about taking log entries from disparate systems and bring
 The process can be easier when important pieces of data are logged in the same format across different systems (such as .NET and Java apps communicating with each other).
 
 Steeltoe provides the class `TracingLogProcessor`, which is an `IDynamicMessageProcessor` for correlating logs. The processor is built for use with a [Steeltoe Dynamic Logging provider](../logging/index.md).
-The result is log entries that use the same trace format popularized by [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#log-correlation),
+It enriches log entries with correlation data using the same trace format popularized by [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#log-correlation),
 that include `[<ApplicationName>,<TraceId>,<SpanId>,<ParentSpanId>,<IsAllDataRequested>]`.
 
 Consider this pair of log entries from the [Steeltoe Management sample applications](https://github.com/SteeltoeOSS/Samples/blob/latest/Management/src/):
@@ -65,11 +65,11 @@ The rest of this section contains information on pieces of OpenTelemetry that co
 OpenTelemetry Provides the `Sampler` abstraction for configuring when traces should be recorded.
 The simplest options are `AlwaysOnSampler` and `AlwaysOffSampler`, with their names describing exactly which traces will be recorded.
 
-To replace the Steeltoe configuration for using these samplers, set the environment variable `OTEL_TRACES_SAMPLER` to `always_on` or `always_off`.
+As a replacement for what Steeltoe used to provide for using these samplers, set the environment variable `OTEL_TRACES_SAMPLER` to `always_on` or `always_off`.
 
 > [!TIP]
 > OpenTelemetry is generally built to follow the [options pattern](https://learn.microsoft.com/dotnet/core/extensions/options).
-> There are more ways to configure options than what is demonstrated on this page, these are only examples of the potential.
+> There are more ways to configure options than demonstrated on this page, these are just examples to get started.
 
 ### Set Application Name
 
@@ -111,7 +111,7 @@ services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(aspNetCoreTraceIns
 });
 ```
 
-As an alternative to Regex, you can list out the paths to ignore in the Filter property (`Filter` is a `Func<HttpContext, bool>?`):
+As an alternative to using a regular expression, you can list out the paths to ignore in the Filter property (`Filter` is a `Func<HttpContext, bool>?`):
 
 ```csharp
 services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(aspNetCoreTraceInstrumentationOptions =>
