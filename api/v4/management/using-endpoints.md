@@ -245,16 +245,8 @@ await app.StartAsync();
 
 While the order above must not be changed (and it's not recommended to leave out entries), additional middleware can be inserted as appropriate.
 
-### Legacy endpoint mapping
+### Conventional routing
 
-Applications that still use [conventional routing](https://learn.microsoft.com/aspnet/core/mvc/controllers/routing#conventional-routing)
-are supported by the `Add*Actuator` methods. When configuring the ASP.NET Core pipeline manually, replace `app.UseActuatorEndpoints()` in the snippet above with:
-
-```csharp
-app.UseMvc(routes =>
-{
-    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-    routes.MapActuators(); // required for actuators to work
-    routes.AddRoutesToMappingsActuator(); // required for the route mappings actuator to show convention-based routes
-});
-```
+Applications that use the legacy [conventional routing](https://learn.microsoft.com/aspnet/core/mvc/controllers/routing#conventional-routing)
+are still supported by the `Add*Actuator` methods.
+However, they won't show up in the [route mappings actuator](./mappings.md) anymore.
