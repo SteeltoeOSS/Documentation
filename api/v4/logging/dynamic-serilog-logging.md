@@ -1,6 +1,6 @@
-# Serilog Dynamic Logger
+# Dynamic Serilog Logging
 
-This logging provider extends the dynamic logging provider with [Serilog](https://serilog.net/). This allows logger minimum levels configured via Serilog to be queried and modified at runtime via the [loggers actuator](../management/loggers.md).
+This logging provider integrates with [Serilog](https://serilog.net/). It enables logger minimum levels configured via Serilog to be queried and modified at runtime via the [loggers actuator](../management/loggers.md).
 
 ## Usage
 

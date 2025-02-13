@@ -1,6 +1,6 @@
 # Loggers
 
-The Steeltoe Loggers endpoint provides the ability to view and change the minimum logging levels in your application at runtime by using the Steeltoe dynamic logging provider.
+The Steeltoe Loggers endpoint provides the ability to view and change the minimum logging levels in your application at runtime by using Steeltoe dynamic logging.
 
 You can view a list of all active loggers in an application and their current minimum levels. Each entry contains the effective minimum level, and optionally the original minimum level if overridden.
 
@@ -40,7 +40,7 @@ builder.Services.AddLoggersActuator();
 > which enables individually turning them on/off at runtime via configuration.
 
 > [!TIP]
-> When `AddLoggersActuator` is called, it tries to register the [Dynamic Logging Provider](../logging/dynamic-logging-provider.md).
+> When `AddLoggersActuator` is called, it tries to register [Dynamic Console Logging](../logging/dynamic-console-logging.md).
 > If you'd like to use Serilog instead, call `AddDynamicSerilog` *before* `AddLoggersActuator`.
 
 ## Retrieving Minimum Log Levels

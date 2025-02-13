@@ -1,6 +1,6 @@
-# Dynamic Logging Provider
+# Dynamic Console Logging
 
-This logging provider is a wrapper around the [Microsoft Console Logger](https://learn.microsoft.com/dotnet/core/extensions/logging-providers#console). This wrapper allows for querying the active loggers and their minimum levels, as well as then modifying the levels dynamically at runtime via the [loggers actuator](../management/loggers.md).
+This logging provider is a wrapper around the [Microsoft Console Logger](https://learn.microsoft.com/dotnet/core/extensions/logging-providers#console). It allows for querying the active loggers and their minimum levels, as well as then modifying the levels dynamically at runtime via the [loggers actuator](../management/loggers.md).
 
 > [!CAUTION]
 > External tool integration involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP requests.
@@ -17,7 +17,7 @@ To use the Steeltoe logging provider, you need to:
 
 ### Add NuGet References
 
-To use the logging provider, you need to add a reference to the `Steeltoe.Logging.DynamicLogger` NuGet package.
+To use the logging provider, you need to add a reference to the `Steeltoe.Logging.DynamicConsole` NuGet package.
 
 ### Configure Settings
 
@@ -28,7 +28,7 @@ As mentioned earlier, the Steeltoe Logging provider is a wrapper around the Micr
 To use the provider, you need to add it to the logging builder by using the `AddDynamicConsole()` extension method:
 
 ```csharp
-using Steeltoe.Logging.DynamicLogger;
+using Steeltoe.Logging.DynamicConsole;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddDynamicConsole();

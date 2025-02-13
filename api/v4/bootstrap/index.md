@@ -33,8 +33,8 @@ builder.AddSteeltoe();
 | [Eureka Service Discovery](../discovery/netflix-eureka.md) |`Steeltoe.Discovery.Eureka` | Optional: `Steeltoe.Management.Endpoint` for health checks |
 | [Consul Service Discovery](../discovery/hashicorp-consul.md) |`Steeltoe.Discovery.Consul` | N/A |
 | [Configuration-based Service Discovery](../discovery/configuration-based.md) |`Steeltoe.Discovery.Configuration` | N/A |
-| [Dynamic Logging](../logging/dynamic-logging-provider.md) | `Steeltoe.Logging.DynamicLogger` | N/A |
-| [Dynamic Logging with Serilog](../logging/serilog-logger.md) | `Steeltoe.Logging.DynamicSerilog` | N/A |
+| [Dynamic Console Logging](../logging/dynamic-console-logging.md) | `Steeltoe.Logging.DynamicConsole` | N/A |
+| [Dynamic Serilog Logging](../logging/dynamic-serilog-logging.md) | `Steeltoe.Logging.DynamicSerilog` | N/A |
 | [Actuators](../management/index.md) | `Steeltoe.Management.Endpoint` | N/A |
 | [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.Tracing` | Required: OpenTelemetry Exporter (Zipkin, OTLP) |
 

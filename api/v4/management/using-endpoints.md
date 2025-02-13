@@ -23,7 +23,7 @@ The following table describes the available Steeltoe management endpoints that c
 | [httpexchanges](./httpexchanges.md) | Gathers recently processed HTTP requests. |
 | [hypermedia](./hypermedia.md) | Lists the active management endpoints and their links. |
 | [info](./info.md) | Customizable endpoint that gathers arbitrary application information (such as app version). |
-| [loggers](./loggers.md) | Gathers existing loggers and allows changing their minimum levels at runtime. |
+| [loggers](./loggers.md) | Gathers existing logger categories and allows changing their minimum levels at runtime. |
 | [mappings](./mappings.md) | Reports the configured ASP.NET routes and route templates. |
 | [metrics](./metrics.md) | Reports the collected metrics for the application. |
 | [prometheus](./prometheus.md) | Exposes metrics collected via built-in instrumentation of various aspects of the application in the Prometheus format. |
@@ -166,7 +166,7 @@ builder.Services.AddHypermediaActuator().AddLoggersActuator().AddRefreshActuator
 ```
 
 > [!NOTE]
-> `AddAllActuators()` and `AddLoggingActuator()` automatically configure the [Dynamic Logging Provider](../logging/dynamic-logging-provider.md). To use the [Serilog Dynamic Logger](../logging/serilog-logger.md), be sure to do so *before* adding actuators. For example:
+> `AddAllActuators()` and `AddLoggingActuator()` automatically configure [Dynamic Console Logging](../logging/dynamic-console-logging.md). To use [Dynamic Serilog Logging](../logging/dynamic-serilog-logging.md), be sure to do so *before* adding actuators. For example:
 >
 > ```csharp
 > using Steeltoe.Logging.DynamicSerilog;
