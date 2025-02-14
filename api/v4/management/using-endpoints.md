@@ -23,7 +23,7 @@ The following table describes the available Steeltoe management endpoints that c
 | [httpexchanges](./httpexchanges.md) | Gathers recently processed HTTP requests. |
 | [hypermedia](./hypermedia.md) | Lists the active management endpoints and their links. |
 | [info](./info.md) | Customizable endpoint that gathers arbitrary application information (such as app version). |
-| [loggers](./loggers.md) | Gathers existing loggers and allows changing their minimum levels at runtime. |
+| [loggers](./loggers.md) | Gathers existing logger categories and allows changing their minimum levels at runtime. |
 | [mappings](./mappings.md) | Reports the configured ASP.NET routes and route templates. |
 | [metrics](./metrics.md) | Reports the collected metrics for the application. |
 | [prometheus](./prometheus.md) | Exposes metrics collected via built-in instrumentation of various aspects of the application in the Prometheus format. |
@@ -166,7 +166,7 @@ builder.Services.AddHypermediaActuator().AddLoggersActuator().AddRefreshActuator
 ```
 
 > [!NOTE]
-> `AddAllActuators()` and `AddLoggingActuator()` automatically configure the [Dynamic Logging Provider](../logging/dynamic-logging-provider.md). To use the [Serilog Dynamic Logger](../logging/serilog-logger.md), be sure to do so *before* adding actuators. For example:
+> `AddAllActuators()` and `AddLoggingActuator()` automatically configure [Dynamic Console Logging](../logging/dynamic-console-logging.md). To use [Dynamic Serilog Logging](../logging/dynamic-serilog-logging.md), be sure to do so *before* adding actuators. For example:
 >
 > ```csharp
 > using Steeltoe.Logging.DynamicSerilog;
@@ -245,16 +245,8 @@ await app.StartAsync();
 
 While the order above must not be changed (and it's not recommended to leave out entries), additional middleware can be inserted as appropriate.
 
-### Legacy endpoint mapping
+### Conventional routing
 
-Applications that still use [conventional routing](https://learn.microsoft.com/aspnet/core/mvc/controllers/routing#conventional-routing)
-are supported by the `Add*Actuator` methods. When configuring the ASP.NET Core pipeline manually, replace `app.UseActuatorEndpoints()` in the snippet above with:
-
-```csharp
-app.UseMvc(routes =>
-{
-    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-    routes.MapActuators(); // required for actuators to work
-    routes.AddRoutesToMappingsActuator(); // required for the route mappings actuator to show convention-based routes
-});
-```
+Applications that use the legacy [conventional routing](https://learn.microsoft.com/aspnet/core/mvc/controllers/routing#conventional-routing)
+are still supported by the `Add*Actuator` methods.
+However, they won't show up in the [route mappings actuator](./mappings.md) anymore.

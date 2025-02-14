@@ -49,10 +49,10 @@
 - name: Dynamic Logging
   topicHref: logging/
   items:
-    - topicHref: logging/dynamic-logging-provider.md
-      name: Dynamic Provider
-    - topicHref: logging/serilog-logger.md
-      name: Serilog Dynamic Provider
+    - topicHref: logging/dynamic-console-logging.md
+      name: Console
+    - topicHref: logging/dynamic-serilog-logging.md
+      name: Serilog
 - name: Management
   topicHref: management/
   items:

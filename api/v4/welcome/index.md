@@ -34,7 +34,7 @@ Integrate ASP.NET authentication and authorization features in your app, no matt
 
 ## [Connectors](../connectors/index.md)
 
-Automatically configure connections to common cloud services like databases, caches, and more.
+Automatically configure connections to common cloud services like databases, message brokers, caches, and more.
 
 ## [Service Discovery](../discovery/index.md)
 

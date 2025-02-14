@@ -9,52 +9,52 @@ uid: api/browser/v4/all/index
 
 # Steeltoe Namespaces
 
-## Steeltoe Bootstrap
+## Steeltoe.Bootstrap.AutoConfiguration
 
-Extension methods on host-builders that automatically activate Steeltoe features, based on the assemblies used by your app.
+Extension methods on host builders that automatically activate Steeltoe features, based on the assemblies referenced by your app.
 
 [view](/api/browser/v4/bootstrap/Steeltoe.Bootstrap.AutoConfiguration.html)
 
-## Steeltoe Common
+## Steeltoe.Common
 
-Contains several packages that are common to other Steeltoe components.
+Various general-purpose facilities, often used by higher-level Steeltoe components.
 
 [view](/api/browser/v4/common/Steeltoe.Common.html)
 
-## Steeltoe Configuration Providers
+## Steeltoe.Configuration
 
 [Custom configuration providers](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/#custom-config-providers) for use with Microsoft's [application configuration](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/) for accessing configuration settings for an application.
 
 [view](/api/browser/v4/configuration/Steeltoe.Configuration.html)
 
-## Steeltoe Connectors
+## Steeltoe.Connectors
 
-Contains connectors for simplifying the process of connecting to backing services (databases, message brokers and distributed caches) and setting up connection health monitoring.
+Connectors simplify the process of connecting to backing services (databases, message brokers and distributed caches) and setting up connection health monitoring.
 
 [view](/api/browser/v4/connectors/Steeltoe.Connectors.html)
 
-## Steeltoe Service Discovery & Registration
+## Steeltoe.Discovery
 
-Contains packages for interacting with service registries.
+Service discovery entails registration with service registries and load-balanced instance lookups.
 
 [view](/api/browser/v4/discovery/Steeltoe.Discovery.HttpClients.html)
 
-## Steeltoe Logging Extensions
+## Steeltoe.Logging
 
-Logging extensions that, when used with Steeltoe Management, enable changing the Logging levels for a running application at run-time, without restarting the app.
+Enables changing the minimum log levels at runtime, without restarting the app.
 
 Currently supports the Microsoft Console Logger and Serilog.
 
 [view](/api/browser/v4/logging/Steeltoe.Logging.html)
 
-## Steeltoe Application Management
+## Steeltoe.Management
 
-Management tools to help manage and monitor your applications.
+Management tools to help manage and monitor your applications in production.
 
-[view](/api/browser/v4/management/Steeltoe.Management.html)
+[view](/api/browser/v4/management/Steeltoe.Management.Endpoint.html)
 
-## Steeltoe Security
+## Steeltoe.Security
 
-Authentication and DataProtection libraries using security services on CloudFoundry.
+Authentication, authorization and Data Protection support for secure services on CloudFoundry.
 
-[view](/api/browser/v4/security/Steeltoe.Security.Authentication.CloudFoundry.html)
+[view](/api/browser/v4/security/Steeltoe.Security.Authentication.JwtBearer.html)
