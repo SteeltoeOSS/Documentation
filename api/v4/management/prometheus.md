@@ -1,8 +1,12 @@
 # Prometheus
 
+You can use the Prometheus endpoint to expose application metrics for collection by an external process.
+
 The Steeltoe Prometheus endpoint configures the [OpenTelemetry Prometheus Exporter](https://opentelemetry.io/docs/languages/net/exporters/#prometheus) to behave like a Steeltoe management endpoint.
 
 The Prometheus endpoint does not automatically instrument your application, but does make it easy to export metrics in the Prometheus metrics format, which can be used by tools like [Prometheus Server](https://prometheus.io/) and the [Metric Registrar for Tanzu Platform for Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/metric-registrar-index.html).
+
+The [Steeltoe Management samples](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src/ActuatorWeb/README.md) can help you understand how to use this tool.
 
 ## Add NuGet Reference
 
@@ -48,9 +52,9 @@ In addition to the options described in [using endpoints](./using-endpoints.md),
 This pipeline would need to be configured if, as an example, you are configuring an authorization policy.
 
 ```csharp
-builder.Services.AddPrometheusActuator(true, configurePrometheusPipeline =>
+builder.Services.AddPrometheusActuator(true, applicationBuilder =>
 {
-    configurePrometheusPipeline.UseAuthorization();
+    applicationBuilder.UseAuthorization();
 });
 ```
 
@@ -67,7 +71,9 @@ To instrument ASP.NET Core for metrics, start by adding a reference to the `Open
 Next, add the instrumentation to the `MeterProviderBuilder`:
 
 ```csharp
-services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
+using OpenTelemetry.Metrics;
+
+builder.Services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
 {
     meterProviderBuilder.AddAspNetCoreInstrumentation();
 })
@@ -82,7 +88,9 @@ To instrument `HttpClient`s for metrics, start by adding a reference to the `Ope
 Next, add the instrumentation to the `MeterProviderBuilder`:
 
 ```csharp
-services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
+using OpenTelemetry.Metrics;
+
+builder.Services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
 {
     meterProviderBuilder.AddHttpClientInstrumentation();
 })
@@ -97,7 +105,9 @@ To instrument the .NET Runtime for metrics, start by adding a reference to the `
 Next, add the instrumentation to the `MeterProviderBuilder`:
 
 ```csharp
-services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
+using OpenTelemetry.Metrics;
+
+builder.Services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
 {
     meterProviderBuilder.AddRuntimeInstrumentation();
 })
@@ -140,7 +150,10 @@ To emit custom metrics in Cloud Foundry, use [Metric Registrar](https://techdocs
 
 > [!CAUTION]
 > Authenticated endpoints are not supported with Metric Registrar.
-> For this scenario, consider configuring actuators to [use an alternate port](./using-endpoints.md#configure-global-settings) and use that private network port to offer the metrics.
+> For this scenario, configure actuators to [use an alternate port](./using-endpoints.md#configure-global-settings) and use that private network port to offer the metrics.
+
+The examples below expect that actuators are mapped to an alternate port (8091 in this case).
+The specific port that is used is not important to Steeltoe, it only matters that the binding and Steeltoe configurations match.
 
 #### Metrics Registrar Plugin
 
