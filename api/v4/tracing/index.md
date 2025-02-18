@@ -56,9 +56,17 @@ builder.Services.AddTracingLogProcessor();
 
 ## OpenTelemetry
 
-To use OpenTelemetry, you _can_ start by adding a reference to the `OpenTelemetry.Extensions.Hosting` NuGet package.
-This package provides access to `OpenTelemetryBuilder`, which is the main entrypoint to OpenTelemetry, but depending on which packages you add later you can probably skip this step.
-The rest of this section contains information on pieces of OpenTelemetry that could be configured by previous versions of Steeltoe.
+To use OpenTelemetry, start by adding a reference to the `OpenTelemetry.Extensions.Hosting` NuGet package.
+Other package references will likely be necessary, but depend on your specific application needs.
+This package provides access to `OpenTelemetryBuilder`, which is the main entrypoint to OpenTelemetry.
+
+### Add Open Telemetry Tracing
+
+```csharp
+using OpenTelemetry.Trace;
+
+builder.Services.AddOpenTelemetry().WithTracing();
+```
 
 ### Sampler configuration
 
@@ -76,11 +84,24 @@ As a replacement for what Steeltoe used to provide for using these samplers, set
 In order to use the Steeltoe name for your application with OpenTelemetry, call `SetResourceBuilder` and pass in a value from the registered `IApplicationInstanceInfo`:
 
 ```csharp
-services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
+builder.Services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
 {
     var appInfo = serviceProvider.GetRequiredService<IApplicationInstanceInfo>();
     tracerProviderBuilder.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(appInfo.ApplicationName!));
 });
+```
+
+The above example assumes you are already using some other Steeltoe component which adds `IApplicationInstanceInfo` to the IoC container. If that is not the case, there are two steps to take to register the default implementation:
+
+1. Add a NuGet package reference to `Steeltoe.Common`
+1. Call `AddApplicationInstanceInfo`
+
+```csharp
+using Steeltoe.Common.Extensions;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddApplicationInstanceInfo();
 ```
 
 ## Instrumenting applications
@@ -96,18 +117,17 @@ To instrument requests coming into the application through ASP.NET Core, start b
 Next, add the instrumentation to the `TracerProviderBuilder`:
 
 ```csharp
-services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddAspNetCoreInstrumentation());
+builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddAspNetCoreInstrumentation());
 ```
 
 In order to replicate the Steeltoe setting `IngressIgnorePattern` (a Regex pattern describing which incoming requests to ignore), configure the `AspNetCoreTraceInstrumentationOptions`:
 
 ```csharp
-private const string DefaultIngressIgnorePattern = "/actuator/.*|/cloudfoundryapplication/.*|.*\\.png|.*\\.css|.*\\.js|.*\\.html|/favicon.ico|/hystrix.stream|.*\\.gif";
-private static readonly Regex IngressPathMatcher = new(DefaultIngressIgnorePattern, RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1));
-
-services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(aspNetCoreTraceInstrumentationOptions =>
+builder.Services.Configure<AspNetCoreTraceInstrumentationOptions>(options =>
 {
-    aspNetCoreTraceInstrumentationOptions.Filter += httpContext => !IngressPathMatcher.IsMatch(httpContext.Request.Path);
+    const string defaultIngressIgnorePattern = @"/actuator/.*|/cloudfoundryapplication/.*|.*\.png|.*\.css|.*\.js|.*\.html|/favicon.ico|.*\.gif";
+    Regex ingressPathMatcher = new(defaultIngressIgnorePattern, RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1));
+    options.Filter += httpContext => !ingressPathMatcher.IsMatch(httpContext.Request.Path);
 });
 ```
 
@@ -135,18 +155,18 @@ To instrument requests leaving the application through `HttpClient`, start by ad
 Next, add the instrumentation to the `TracerProviderBuilder`:
 
 ```csharp
+using OpenTelemetry.Trace;
 services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddHttpClientInstrumentation());
 ```
 
 In order to replicate the Steeltoe setting `EgressIgnorePattern` (a Regex pattern describing which outgoing HTTP requests to ignore), configure the `HttpClientTraceInstrumentationOptions`:
 
 ```csharp
-private const string DefaultEgressIgnorePattern = "/api/v2/spans|/v2/apps/.*/permissions";
-private static readonly Regex EgressPathMatcher = new(DefaultEgressIgnorePattern, RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1));
-
-services.PostConfigure<HttpClientTraceInstrumentationOptions>(httpClientTraceInstrumentationOptions =>
+builder.Services.Configure<HttpClientTraceInstrumentationOptions>(options =>
 {
-    httpClientTraceInstrumentationOptions.FilterHttpRequestMessage += httpRequestMessage => !EgressPathMatcher.IsMatch(httpRequestMessage.RequestUri?.PathAndQuery ?? string.Empty);
+    const string defaultEgressIgnorePattern = "/api/v2/spans|/v2/apps/.*/permissions";
+    Regex egressPathMatcher = new(defaultEgressIgnorePattern, RegexOptions.Compiled | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1));
+    options.FilterHttpRequestMessage += httpRequestMessage => !egressPathMatcher.IsMatch(httpRequestMessage.RequestUri?.PathAndQuery ?? string.Empty);
 });
 ```
 
@@ -159,17 +179,16 @@ Some systems like Cloud Foundry may still be configured for the Zipkin standard 
 
 In order to use B3 propagation, add a reference to the `OpenTelemetry.Extensions.Propagators` NuGet package.
 
-Next, let the compiler know you want to use the `OpenTelemetry.Context.Propagation` namespace, but that the `B3Propagator` should come from the package reference you just added (rather than the deprecated class found in `OpenTelemetry.Context.Propagation`):
+Next, let the compiler know that the `B3Propagator` should come from the package reference you just added (rather than the deprecated class found in `OpenTelemetry.Context.Propagation`):
 
 ```csharp
-using OpenTelemetry.Context.Propagation;
 using B3Propagator = OpenTelemetry.Extensions.Propagators.B3Propagator;
 ```
 
 Finally, register a `CompositeTextMapPropagator` that includes the `B3Propagator` and `BaggagePropagator`:
 
 ```csharp
-services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
+builder.Services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
 {
     List<TextMapPropagator> propagators =
     [
@@ -201,7 +220,7 @@ services.AddOpenTelemetry().WithTracing(tracing => tracerProviderBuilder.AddZipk
 The Zipkin options class `ZipkinExporterOptions` works the same as Steeltoe settings with the same names in previous releases:
 
 ```csharp
-services.PostConfigure<ZipkinExporterOptions>(options =>
+builder.Services.Configure<ZipkinExporterOptions>(options =>
 {
     options.Endpoint = "http://localhost:9411";
     options.MaxPayloadSizeInBytes = 4096;
