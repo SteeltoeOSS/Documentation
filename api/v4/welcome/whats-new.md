@@ -444,7 +444,7 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 ### Documentation
 
 For more information, see the updated [Configuration documentation](../configuration/index.md) and
-[Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration).
+[Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/latest/Configuration).
 
 ## Connectors
 
@@ -613,7 +613,7 @@ For more information, see the updated [Configuration documentation](../configura
 ### Documentation
 
 For more information, see the updated [Connectors documentation](../configuration/index.md) and
-[Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors).
+[Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors).
 
 ---
 
@@ -880,7 +880,7 @@ For more information, see the updated [Connectors documentation](../configuratio
 ### Documentation
 
 For more information, see the updated [Discovery documentation](../discovery/index.md) and
-[Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/main/Discovery).
+[Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/latest/Discovery).
 
 ## Logging
 
@@ -1489,7 +1489,7 @@ For more information, see the updated [Management documentation](../management/i
 ### Documentation
 
 For more information, see the updated [Security documentation](../security/index.md) and
-[Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/main/Security).
+[Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/latest/Security).
 
 ## Release Notes
 
