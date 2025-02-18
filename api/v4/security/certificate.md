@@ -1,5 +1,7 @@
 # Resource Protection using Mutual TLS in ASP.NET Core
 
+Certificate Authentication, also known as Mutual TLS, is a way for a client and server to validate each other's identity. This method is commonly used to secure service-to-service communications.
+
 This library is a supplement to [ASP.NET Core Certificate Authentication](https://learn.microsoft.com/aspnet/core/security/authentication/certauth), adding functionality that helps you use [Cloud Foundry Instance Identity certificates](https://docs.cloudfoundry.org/devguide/deploy-apps/instance-identity.html) and authorization policies based on certificate data.
 Additionally, resources are included for automatically generating certificates for local development that resemble what is found on the platform.
 
@@ -63,12 +65,11 @@ Several steps need to happen before certificate authorization policies can be us
 Fortunately, all of the requirements can be satisfied with a handful of extension methods:
 
 ```csharp
-using Microsoft.AspNetCore.Authentication.Certificate;
 using Steeltoe.Security.Authorization.Certificate;
 
 // Register Microsoft's Certificate Authentication library
 builder.Services
-    .AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
+    .AddAuthentication()
     .AddCertificate();
 
 // Register Microsoft authorization services
@@ -91,13 +92,13 @@ builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies()
 // Or the equivalent using different syntax
 builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies()
         .AddPolicy("sameOrgAndSpace",
-            authorizationPolicyBuilder => authorizationPolicyBuilder.AddRequirements([new SameOrgRequirement(), new SameSpaceRequirement()]));
+            authorizationPolicyBuilder => authorizationPolicyBuilder.AddRequirements(new SameOrgRequirement(), new SameSpaceRequirement()));
 ```
 
 To activate certificate-based authorization in the request pipeline, use the `UseCertificateAuthorization` extension method on `IApplicationBuilder`:
 
 ```csharp
-WebApplication app = builder.Build();
+var app = builder.Build();
 
 // Steeltoe: Use certificate and header forwarding along with ASP.NET Core Authentication and Authorization middleware
 app.UseCertificateAuthorization();

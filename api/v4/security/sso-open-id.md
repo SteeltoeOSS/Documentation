@@ -1,11 +1,13 @@
 # Single Sign-On with OpenID Connect
 
-This library is a supplement to ASP.NET Core Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or [User Account and Authentication (UAA) Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using OpenID Connect in ASP.NET Core web applications.
+OpenID Connect is commonly used when users should be able to interact with a collection of applications using a single set of credentials for authentication and authorization.
 
-The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthWeb/README.md) can help you understand how to use this library. Another reference application is the [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/blob/latest/FreddysBBQ) sample, which is a polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services.
+This library is a supplement to ASP.NET Core Security's OpenID Connect library (`Microsoft.AspNetCore.Authentication.OpenIdConnect`), adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or [User Account and Authentication (UAA) Server](https://github.com/cloudfoundry/uaa).
 
 General guidance on OpenID Connect is beyond the scope of this document and can be found in many other sources (for example, see [OpenID](https://openid.net/developers/how-connect-works/)).
 For the documentation of the underlying Microsoft OpenID Connect library, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
+
+The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md) can help you understand how to use this library.
 
 ## Usage
 
@@ -83,6 +85,10 @@ A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/Steel
 Since the majority of the OpenID Connect functionality is provided by Microsoft's libraries, the only difference when using Steeltoe will be the addition of calling `ConfigureOpenIdConnectForCloudFoundry` on the `AuthenticationBuilder`, as shown in the following example:
 
 ```csharp
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Steeltoe.Security.Authentication.OpenIdConnect;
+
 // Add Microsoft Authentication services
 builder.Services
     .AddAuthentication(options =>
@@ -101,15 +107,16 @@ builder.Services
 // Register Microsoft Authorization services
 builder.Services.AddAuthorizationBuilder()
     // Create a named authorization policy that requires the user to have a scope with the same value
-    // In the Steeltoe sample application, Globals.RequiredJwtScope = "sampleapi.read",
     // which represents the user's permission to read from the sample API
-    .AddPolicy(Globals.RequiredJwtScope, policy => policy.RequireClaim("scope", Globals.RequiredJwtScope))
+    .AddPolicy("sampleapi.read", policy => policy.RequireClaim("scope", "sampleapi.read"));
 ```
 
 Activate authentication and authorization services _after_ routing services, but _before_ controller route registrations, with the following code:
 
 ```csharp
-WebApplication app = builder.Build();
+using Microsoft.AspNetCore.HttpOverrides;
+
+var app = builder.Build();
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedProto });
 
@@ -185,7 +192,7 @@ cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
 cf restage MY_APPLICATION
 ```
 
-For further information, refer to the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthWeb/README.md).
+For further information, refer to the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md).
 
 ### UAA Server
 

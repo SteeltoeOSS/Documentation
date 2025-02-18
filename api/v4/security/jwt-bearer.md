@@ -1,12 +1,13 @@
 # Resource Protection using JWT in ASP.NET Core
 
-This library is a supplement to ASP.NET Core Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or a [UAA Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using JSON Web Tokens (JWT) in ASP.NET Core web applications.
+JSON Web Token (JWT) bearer authentication is commonly used for securing APIs.
 
-The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthClient/README.md) can help you understand how to use this tool.
+This library is a supplement to ASP.NET Core Security's JWT Bearer library (`Microsoft.AspNetCore.Authentication.JwtBearer`), adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or [User Account and Authentication (UAA) Server](https://github.com/cloudfoundry/uaa).
 
 General guidance on JWT is beyond the scope of this document and can be found in many other sources (for example, see [Wikipedia](https://en.wikipedia.org/wiki/JSON_Web_Token) or [JWT IO](https://jwt.io/)).
-
 For the documentation of the underlying Microsoft OpenID Connect library, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
+
+The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthClient/README.md) can help you understand how to use this tool.
 
 ## Usage
 
@@ -102,7 +103,7 @@ builder.Services.AddAuthorizationBuilder()
 Activate authentication and authorization services _after_ routing services, but _before_ controller route registrations, with the following code:
 
 ```csharp
-WebApplication app = builder.Build();
+var app = builder.Build();
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedProto });
 
@@ -166,7 +167,7 @@ cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
 cf restage MY_APPLICATION
 ```
 
-For further information, refer to the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthWeb/README.md).
+For further information, refer to the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md).
 
 ### UAA Server
 

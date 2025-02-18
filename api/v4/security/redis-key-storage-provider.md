@@ -1,18 +1,23 @@
 # Redis Key Storage Provider
 
+The Redis Key Storage Provider is commonly used when secured data needs to be shared between two or more instances of the same application.
+
 By default, the [data protection system in ASP.NET Core](https://learn.microsoft.com/aspnet/core/security/data-protection/introduction) stores cryptographic keys on the local file system.
-Even when not used by the application directly, these cryptographic keys are used for systems like session state storage.
-Local file system usage in a cloud environment, where application instances come and go at unpredictable intervals, is unworkable and violates the [twelve-factor guidelines](https://12factor.net/) for developing cloud-native applications.
-By using the Steeltoe Redis key storage provider, you can easily reconfigure the data protection service to use Redis instances that are accessible through the [Steeltoe Redis Connector](../connectors/redis.md).
+Even when not used by the application directly, these cryptographic keys are used for systems like [session state](https://learn.microsoft.com/aspnet/core/fundamentals/app-state#session-state) storage.
+
+By using the Steeltoe Redis key storage provider, you can easily reconfigure the data protection service to store these keys in Redis instances that are accessible through the [Steeltoe Redis Connector](../connectors/redis.md).
+
+The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/RedisDataProtection/README.md) can help you understand how and why to use this tool.
 
 ## Usage
 
 To use this provider:
 
 1. Add NuGet reference(s).
-1. (Optional) Add the Cloud Foundry configuration provider.
+1. Configure your connection string.
 1. Initialize the Steeltoe Connector at startup.
 1. Add `DataProtection` to your `ServiceCollection` and configure it to `PersistKeysToRedis`.
+1. Add the Cloud Foundry configuration provider.
 1. Create a Redis service instance and bind it to your application.
 
 ### Add NuGet References
@@ -21,16 +26,23 @@ To use the provider, you need to add a reference to the `Steeltoe.Security.DataP
 
 If you are using Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
 
-### Add Cloud Foundry Configuration
+### Configure connection string
 
-The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Redis credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and maps them into the application's configuration in a format that the Redis connector can read.
-Add the configuration provider to your application with this code:
+You must configure a connection string in order to use Redis.
+The following example `appsettings.Development.json` uses a local Redis server listening on the default Redis port:
 
-```csharp
-using Steeltoe.Configuration.CloudFoundry;
-
-var builder = WebApplication.CreateBuilder(args);
-builder.AddCloudFoundryConfiguration();
+```json
+{
+  "Steeltoe": {
+    "Client": {
+      "Redis": {
+        "Default": {
+          "ConnectionString": "localhost"
+        }
+      }
+    }
+  }
+}
 ```
 
 ### Initialize Steeltoe Connector
@@ -64,6 +76,18 @@ builder.Services.AddDataProtection().PersistKeysToRedis().SetApplicationName("re
 > At this point, the keys used by the `DataProtection` framework are stored in the bound Redis service.
 > No additional steps are _required_, but you can also [use data protection in your application](https://learn.microsoft.com/aspnet/core/security/data-protection/consumer-apis/overview).
 
+### Add Cloud Foundry Configuration
+
+The Steeltoe package `Steeltoe.Configuration.CloudFoundry` reads Redis credentials from Cloud Foundry service bindings (`VCAP_SERVICES`) and maps them into the application's configuration in a format that the Redis connector can read.
+Add the configuration provider to your application with this code:
+
+```csharp
+using Steeltoe.Configuration.CloudFoundry;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.AddCloudFoundryConfiguration();
+```
+
 ### Cloud Foundry
 
 To use the Redis data protection key ring provider on Cloud Foundry, [use a supported Redis service](../connectors/redis.md#cloud-foundry) to create and bind an instance of Redis to your application.
@@ -86,3 +110,6 @@ cf restage myApp
 > If you use a different service, you have to adjust the `create-service` command.
 
 Once the service is bound to your application, the configuration settings are available in `VCAP_SERVICES`.
+
+> [!TIP]
+> Explore the [Steeltoe sample application](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/RedisDataProtection/README.md) for a demonstration on why this provider is useful.
