@@ -25,7 +25,7 @@ Steeltoe provides the class `TracingLogProcessor`, which is an `IDynamicMessageP
 It enriches log entries with correlation data using the same trace format popularized by [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#log-correlation),
 that include `[<ApplicationName>,<TraceId>,<SpanId>,<ParentSpanId>,<IsAllDataRequested>]`.
 
-Consider this pair of log entries from the [Steeltoe Management sample applications](https://github.com/SteeltoeOSS/Samples/blob/latest/Management/src/):
+Consider this pair of log entries from the [Steeltoe Management sample applications](https://github.com/SteeltoeOSS/Samples/blob/main/Management/src/):
 
 ```text
 info: System.Net.Http.HttpClient.ActuatorApiClient.LogicalHandler[100]

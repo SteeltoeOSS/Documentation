@@ -135,7 +135,7 @@ public class HomeController : Controller
 }
 ```
 
-A complete sample app that uses Entity Framework Core with SQL Server is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/SqlServerEFCore.
+A complete sample app that uses Entity Framework Core with SQL Server is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/SqlServerEFCore.
 
 ## Cloud Foundry
 
