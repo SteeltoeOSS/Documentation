@@ -976,17 +976,15 @@ For more information, see the updated [Logging documentation](../logging/index.m
 - Cleaner extensibility model for third-party actuators
 - Fail at startup when actuators are used on Cloud Foundry without security
 - Improved security and redaction of sensitive data in responses and logs
-- Actuators can now be exposed on a different TCP port
 - Actuators can be turned on/off or bound to different verbs at runtime via configuration
 - Simplified content negotiation, updated all actuators to support latest Spring media type
 - New actuator `/beans` that lists the contents of the .NET dependency container, including support for keyed services
 - Update health checks and actuator to align with latest Spring, hide details by default, contributors can be turned on/off at runtime via configuration
 - Update `/mappings` actuator to include endpoints from Minimal APIs, Razor Pages and Blazor, with richer metadata and improved compatibility with Spring
-- Heap dumps now work on Linux and Cloud Foundry, fixed broken zip files
+- Heap dumps are enabled by default in Cloud Foundry on Linux
 - Improved Prometheus exporter that works with latest OpenTelemetry
 - Various fixes for interoperability with latest Spring Boot Admin
 - Unified `/traces` and `/httptraces` actuators to `/httpexchanges` to align with latest Spring
-- `UseCloudHosting` was removed, instead use: `--urls=http://0.0.0.0:%PORT%` on Cloud Foundry
 - WaveFront, Zipkin and Jaeger support was removed (use OpenTelemetry directly)
 - Metrics endpoint was removed (use OpenTelemetry directly)
 - Kubernetes actuator was removed
@@ -1379,7 +1377,6 @@ For more information, see the updated [Logging documentation](../logging/index.m
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1356
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1353
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1331
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1330
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1278
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1247
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1224
@@ -1394,10 +1391,8 @@ For more information, see the updated [Logging documentation](../logging/index.m
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1120
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1114
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1101
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1080
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1065
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1050
-- https://github.com/SteeltoeOSS/Steeltoe/pull/887
 
 ### Documentation
 
