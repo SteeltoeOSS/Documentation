@@ -2,6 +2,26 @@
 
 ## Overview
 
+### Introduction
+
+The Steeltoe project began all the way back in 2016 (before .NET Core 1.0.0 was released) at the request of enterprises experiencing great success with their [Spring Cloud](https://spring.io/cloud) powered applications on [Cloud Foundry](https://www.cloudfoundry.org/).
+These organizations were looking for similar outcomes (such as reduced developer toil, easy-to-implement observability, scaling and resiliency) for their .NET applications.
+Rather than starting from scratch, Steeltoe took the approach of building clients for Spring Cloud services and porting code from Spring as needed, adapting the codebase to fit with .NET while trying to stay close to the Spring origins.
+In order to deliver higher-level Spring project features, Steeltoe libraries grew rapidly with building-block components matching the architecture and conventions in Spring.
+
+All previous versions of Steeltoe had capability and feature expansion as the main goals, with moderate regard for how well Steeltoe "blends in" with the greater .NET ecosystem.
+As a result of this weighting of priorities, Steeltoe was built to land somewhere in between Spring and .NET, inconsistently favoring conventions from one camp or the other, sometimes with the weight of additional lower-level abstractions from Spring.
+Add to that the breaking changes needed to adapt to updates in the .NET ecosystem since some of the older Steeltoe components were written, and you can see why it was time for a major overhaul.
+
+The introduction of [.NET Aspire](https://learn.microsoft.com/dotnet/aspire/get-started/aspire-overview) and the acquisition of VMware by Broadcom
+underscored that this is the time to refocus on Steeltoe's core goals and re-evaluate how the desired outcomes are achieved.
+
+Steeltoe 4 is a major release that brings many improvements and changes to the library.
+The goal of this release is to make Steeltoe better integrated in the .NET ecosystem in a more developer-friendly way, compatible
+with the latest versions of .NET and third-party libraries/products, and to improve the overall quality of the library.
+This document provides an overview of the changes in Steeltoe 4, the impact on existing applications, and serves as the upgrade guide (with a searchable API diff and replacement notes).
+Steeltoe 4 requires .NET 8 or higher.
+
 ### Quality of Life improvements
 
 - Annotated for [nullable reference types](https://learn.microsoft.com/dotnet/csharp/nullable-references)
