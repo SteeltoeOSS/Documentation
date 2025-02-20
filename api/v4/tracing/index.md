@@ -141,13 +141,14 @@ builder.Services.Configure<AspNetCoreTraceInstrumentationOptions>(options =>
 As an alternative to using a regular expression, you can list out the paths to ignore in the Filter property (`Filter` is a `Func<HttpContext, bool>?`):
 
 ```csharp
-services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(aspNetCoreTraceInstrumentationOptions =>
+using OpenTelemetry.Instrumentation.AspNetCore;
+
+builder.Services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(options =>
 {
-    aspNetCoreTraceInstrumentationOptions.Filter += httpContext =>
+    options.Filter += httpContext =>
         !httpContext.Request.Path.StartsWithSegments("/actuator", StringComparison.OrdinalIgnoreCase) &&
         !httpContext.Request.Path.StartsWithSegments("/cloudfoundryapplication", StringComparison.OrdinalIgnoreCase);
 });
-```
 
 > [!TIP]
 > By default, the ASP.NET Core instrumentation does not filter out any requests.
