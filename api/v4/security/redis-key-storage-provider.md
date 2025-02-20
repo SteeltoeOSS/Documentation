@@ -16,7 +16,7 @@ To use this provider:
 1. Add NuGet reference(s).
 1. Configure your connection string.
 1. Initialize the Steeltoe Connector at startup.
-1. Add `DataProtection` to your `ServiceCollection` and configure it to `PersistKeysToRedis`.
+1. Configure the data protection system to persist keys in the Redis database.
 1. Add the Cloud Foundry configuration provider.
 1. Create a Redis service instance and bind it to your application.
 
@@ -52,6 +52,7 @@ Update your `Program.cs` as below to initialize the Connector:
 ```csharp
 using Steeltoe.Connectors.Redis;
 
+var builder = WebApplication.CreateBuilder(args);
 builder.AddRedis();
 ```
 
@@ -95,14 +96,17 @@ To use the Redis data protection key ring provider on Cloud Foundry, [use a supp
 You can complete these steps using the Cloud Foundry command line, as follows:
 
 ```bash
+# Push your app
+cf push sampleApp --buildpack dotnet_core_buildpack
+
 # Create Redis service
-cf create-service p-redis shared-vm myRedisService
+cf create-service p-redis shared-vm sampleRedisService
 
 # Bind service to your app
-cf bind-service myApp myRedisService
+cf bind-service sampleApp sampleRedisService
 
 # Restage the app to pick up change
-cf restage myApp
+cf restage sampleApp
 ```
 
 > [!NOTE]
