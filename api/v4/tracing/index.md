@@ -1,7 +1,8 @@
 # Distributed Tracing
 
-On the subject of distributed tracing for .NET applications, previous versions of Steeltoe offered either an implementation of OpenCensus or shortcuts for enabling distributed tracing with [OpenTelemetry](https://opentelemetry.io/).
-By now, OpenTelemetry has evolved to the point that a Steeltoe component is no longer necessary, and we recommend using OpenTelemetry directly.
+On the subject of distributed tracing for .NET applications, previous versions of Steeltoe offered either an implementation of OpenCensus or shortcuts for enabling distributed tracing with [OpenTelemetry](https://opentelemetry.io/) to integrate with the Tanzu platform. We painted ourselves into a corner with Steeltoe 3, which has a strong dependency on OpenTelemetry packages. New versions of OpenTelemetry contained breaking changes, which we couldn't adapt to without resorting to reflection. While we do that in other places, reflection is slow, and instrumentation is performance-sensitive.
+
+By now, OpenTelemetry has evolved to the point that only a few lines of code are needed. So instead of providing a Steeltoe component, the guidance below is offered to accomplish the same. The benefit of that is greater flexibility: when OpenTelemetry changes, there's no need to wait for a new Steeltoe version first.
 
 Steeltoe continues to directly offer an option for [log correlation](#log-correlation). This page also provides direction for developers looking to achieve the same outcomes Steeltoe has previously provided more directly.
 
@@ -84,6 +85,9 @@ As a replacement for what Steeltoe used to provide for using these samplers, set
 In order to use the Steeltoe name for your application with OpenTelemetry, call `SetResourceBuilder` and pass in a value from the registered `IApplicationInstanceInfo`:
 
 ```csharp
+using OpenTelemetry.Resources;
+using Steeltoe.Common;
+
 builder.Services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
 {
     var appInfo = serviceProvider.GetRequiredService<IApplicationInstanceInfo>();
@@ -114,7 +118,7 @@ Steeltoe previously configured the instrumentation libraries for [HttpClient](#h
 
 To instrument requests coming into the application through ASP.NET Core, start by adding a reference to the `OpenTelemetry.Instrumentation.AspNetCore` NuGet package.
 
-Next, add the instrumentation to the `TracerProviderBuilder`:
+Next, add the instrumentation to the `TracerProviderBuilder` by updating the existing call from above to:
 
 ```csharp
 builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddAspNetCoreInstrumentation());
@@ -123,6 +127,9 @@ builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerP
 In order to replicate the Steeltoe setting `IngressIgnorePattern` (a Regex pattern describing which incoming requests to ignore), configure the `AspNetCoreTraceInstrumentationOptions`:
 
 ```csharp
+using System.Text.RegularExpressions;
+using OpenTelemetry.Instrumentation.AspNetCore;
+
 builder.Services.Configure<AspNetCoreTraceInstrumentationOptions>(options =>
 {
     const string defaultIngressIgnorePattern = @"/actuator/.*|/cloudfoundryapplication/.*|.*\.png|.*\.css|.*\.js|.*\.html|/favicon.ico|.*\.gif";
@@ -144,7 +151,7 @@ services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(aspNetCoreTraceIns
 
 > [!TIP]
 > By default, the ASP.NET Core instrumentation does not filter out any requests.
-> The latter approach above may quickly prove unwieldy if there are many patterns to ignore, such as when listing many file types (notably missing from the example).
+> The latter approach above may quickly prove unwieldy if there are many patterns to ignore, such as when listing many file types.
 
 [Learn more about ASP.NET Core instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore)
 
@@ -188,7 +195,10 @@ using B3Propagator = OpenTelemetry.Extensions.Propagators.B3Propagator;
 Finally, register a `CompositeTextMapPropagator` that includes the `B3Propagator` and `BaggagePropagator`:
 
 ```csharp
-builder.Services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
+using OpenTelemetry;
+using OpenTelemetry.Context.Propagation;
+
+builder.Services.ConfigureOpenTelemetryTracerProvider((_, _) =>
 {
     List<TextMapPropagator> propagators =
     [
@@ -211,10 +221,10 @@ The Jaeger exporter has been deprecated in favor of OTLP, which was only minimal
 
 To use the Zipkin Exporter, add a reference to the `OpenTelemetry.Exporter.Zipkin` NuGet package.
 
-Next, use the extension `AddZipkinExporter`:
+Next, use the extension method `AddZipkinExporter`:
 
 ```csharp
-services.AddOpenTelemetry().WithTracing(tracing => tracerProviderBuilder.AddZipkinExporter());
+builder.Services.AddOpenTelemetry().WithTracing(tracing => tracing.AddZipkinExporter());
 ```
 
 The Zipkin options class `ZipkinExporterOptions` works the same as Steeltoe settings with the same names in previous releases:
