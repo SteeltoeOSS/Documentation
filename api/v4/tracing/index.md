@@ -108,13 +108,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationInstanceInfo();
 ```
 
-## Instrumenting applications
+### Instrumenting applications
 
 In order to maximize the benefit of collecting distributed traces, you'll want participation from the core components and frameworks of your application and some 3rd party components.
 Some packages in the .NET ecosystem automatically support OpenTelemetry, others can be supported by the [collection of instrumentation libraries](https://opentelemetry.io/ecosystem/registry/?language=dotnet&component=instrumentation).
 Steeltoe previously configured the instrumentation libraries for [HttpClient](#httpclient) and [ASP.NET Core](#aspnet-core).
 
-### ASP.NET Core
+#### ASP.NET Core
 
 To instrument requests coming into the application through ASP.NET Core, start by adding a reference to the `OpenTelemetry.Instrumentation.AspNetCore` NuGet package.
 
@@ -143,7 +143,7 @@ As an alternative to using a regular expression, you can list out the paths to i
 ```csharp
 using OpenTelemetry.Instrumentation.AspNetCore;
 
-builder.Services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(options =>
+builder.Services.Configure<AspNetCoreTraceInstrumentationOptions>(options =>
 {
     options.Filter += httpContext =>
         !httpContext.Request.Path.StartsWithSegments("/actuator", StringComparison.OrdinalIgnoreCase) &&
@@ -154,22 +154,24 @@ builder.Services.PostConfigure<AspNetCoreTraceInstrumentationOptions>(options =>
 > By default, the ASP.NET Core instrumentation does not filter out any requests.
 > The latter approach above may quickly prove unwieldy if there are many patterns to ignore, such as when listing many file types.
 
-[Learn more about ASP.NET Core instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore)
+To learn more about ASP.NET Core instrumentation for OpenTelemetry see [the documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore).
 
-### HttpClient
+#### HttpClient
 
 To instrument requests leaving the application through `HttpClient`, start by adding a reference to the `OpenTelemetry.Instrumentation.Http` NuGet package.
 
-Next, add the instrumentation to the `TracerProviderBuilder`:
+Next, add the instrumentation to the `TracerProviderBuilder` by updating the existing call from above to:
 
 ```csharp
-using OpenTelemetry.Trace;
-services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddHttpClientInstrumentation());
+builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddHttpClientInstrumentation());
 ```
 
 In order to replicate the Steeltoe setting `EgressIgnorePattern` (a Regex pattern describing which outgoing HTTP requests to ignore), configure the `HttpClientTraceInstrumentationOptions`:
 
 ```csharp
+using OpenTelemetry.Instrumentation.Http;
+using System.Text.RegularExpressions;
+
 builder.Services.Configure<HttpClientTraceInstrumentationOptions>(options =>
 {
     const string defaultEgressIgnorePattern = "/api/v2/spans|/v2/apps/.*/permissions";
@@ -178,9 +180,9 @@ builder.Services.Configure<HttpClientTraceInstrumentationOptions>(options =>
 });
 ```
 
-[Learn more about ASP.NET Core instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore)
+To learn more about HttpClient instrumentation for OpenTelemetry see [the documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.Http).
 
-## Propagating Trace Context
+### Propagating Trace Context
 
 By default, OpenTelemetry uses the [W3C trace context](https://github.com/w3c/trace-context) for propagating traces.
 Some systems like Cloud Foundry may still be configured for the Zipkin standard of [B3 propagation](https://github.com/openzipkin/b3-propagation).
@@ -211,29 +213,29 @@ builder.Services.ConfigureOpenTelemetryTracerProvider((_, _) =>
 });
 ```
 
-By default, `B3Propagator` uses [multiple headers](https://github.com/openzipkin/b3-propagation?tab=readme-ov-file#multiple-headers). In order to use a [single B3 header](https://github.com/openzipkin/b3-propagation?tab=readme-ov-file#single-header), change the code above to pass `true` to the `B3Propagator` constructor.
-
-## Exporting Distributed Traces
+### Exporting Distributed Traces
 
 Previous versions of Steeltoe could automatically configure several different trace exporters, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [OpenTelemetryProtocol (OTLP)](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol) and Jaeger.
 The Jaeger exporter has been deprecated in favor of OTLP, which was only minimally configured by Steeltoe and is better described by [the official OTLP exporter documentation](https://opentelemetry.io/docs/languages/net/exporters/#otlp).
 
-### Zipkin Server
+#### Zipkin Server
 
 To use the Zipkin Exporter, add a reference to the `OpenTelemetry.Exporter.Zipkin` NuGet package.
 
-Next, use the extension method `AddZipkinExporter`:
+Next, use the extension method `AddZipkinExporter` by updating the existing call from above to:
 
 ```csharp
-builder.Services.AddOpenTelemetry().WithTracing(tracing => tracing.AddZipkinExporter());
+builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddZipkinExporter());
 ```
 
-The Zipkin options class `ZipkinExporterOptions` works the same as Steeltoe settings with the same names in previous releases:
+The Zipkin options class `ZipkinExporterOptions` works nearly the same as Steeltoe settings with the same names in previous releases:
 
 ```csharp
+using OpenTelemetry.Exporter;
+
 builder.Services.Configure<ZipkinExporterOptions>(options =>
 {
-    options.Endpoint = "http://localhost:9411";
+    options.Endpoint = new Uri("http://localhost:9411");
     options.MaxPayloadSizeInBytes = 4096;
     options.UseShortTraceIds = true;
 });
