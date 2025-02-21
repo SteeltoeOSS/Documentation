@@ -1,13 +1,12 @@
 # Resource Protection using JWT in ASP.NET Core
 
-JSON Web Token (JWT) bearer authentication is commonly used for securing APIs.
+This library is a supplement to ASP.NET Core Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or a [UAA Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using JSON Web Tokens (JWT) in ASP.NET Core web applications.
 
-This library is a supplement to ASP.NET Core Security's JWT Bearer library (`Microsoft.AspNetCore.Authentication.JwtBearer`), adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or [User Account and Authentication (UAA) Server](https://github.com/cloudfoundry/uaa).
+The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md) can help you understand how to use this tool.
 
 General guidance on JWT is beyond the scope of this document and can be found in many other sources (for example, see [Wikipedia](https://en.wikipedia.org/wiki/JSON_Web_Token) or [JWT IO](https://jwt.io/)).
-For the documentation of the underlying Microsoft OpenID Connect library, visit [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security).
 
-The [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthClient/README.md) can help you understand how to use this tool.
+For the documentation of the underlying Microsoft Jwt Bearer Authentication library, visit the [official documentation](https://learn.microsoft.com/aspnet/core/security/authentication/configure-jwt-bearer-authentication).
 
 ## Usage
 
@@ -30,7 +29,7 @@ If you are using Cloud Foundry service bindings, you will also need to add a ref
 
 Since Steeltoe's JWT Bearer library configures Microsoft's JWT Bearer implementation, all available settings can be found in [`Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions).
 
-`JwtBearerOptions` is bound to configuration values found under `Authentication:Schemes:Bearer`. The following example shows how to declare the audience for which tokens should be considered valid (such as when a token is issued to a specific web application and then passed to backend services to perform actions on behalf of a user):
+`JwtBearerOptions` is bound to configuration values found under `Authentication:Schemes:Bearer`. The following example `appsettings.json` shows how to declare the audience for which tokens should be considered valid (such as when a token is issued to a specific web application and then passed to backend services to perform actions on behalf of a user):
 
 ```json
 {
@@ -61,7 +60,7 @@ builder.Configuration.AddCloudFoundryServiceBindings();
 
 #### Local UAA
 
-A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/SteeltoeOSS/Dockerfiles/tree/main/uaa-server)), can be used for local development of applications that will be deployed to Cloud Foundry. Configuration of UAA itself is beyond the scope of this documentation, but configuring your application to work with a local UAA server is possible with settings like these:
+A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/SteeltoeOSS/Dockerfiles/tree/main/uaa-server)), can be used for local development of applications that will be deployed to Cloud Foundry. Configuration of UAA itself is beyond the scope of this documentation, but configuring your `appsettings.Development.json` to work with a local UAA server is possible with the addition of settings like these:
 
 ```json
 {
@@ -78,6 +77,10 @@ A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/Steel
   }
 }
 ```
+
+> [!IMPORTANT]
+> If you wish to use the Steeltoe UAA server without modification, some application configuration options will be limited.
+> The Steeltoe UAA Server configuration can be found in [uaa.yml](https://github.com/SteeltoeOSS/Dockerfiles/blob/main/uaa-server/uaa.yml#L111).
 
 ### Add and use JWT Bearer Authentication
 
@@ -128,20 +131,33 @@ Once the services and middleware have been configured, you can secure endpoints 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-[Route("api/[controller]")]
-public class ValuesController : Controller
+[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
 {
-    // GET api/values
-    [HttpGet]
+
+    [HttpGet(Name = "GetWeatherForecast")]
     [Authorize(Policy = "sampleapi.read")]
-    public IEnumerable<string> Get()
+    public IEnumerable<WeatherForecast> Get()
     {
-        return new string[] { "value1", "value2" };
+        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        })
+        .ToArray();
     }
 }
 ```
 
-In the preceding example, if an incoming REST request is made to the `api/values` endpoint and the request does not contain a valid JWT bearer token with a `scope` claim equal to `sampleapi.read`, the request is rejected.
+In the preceding example, if an incoming REST request is made to the `/weatherforecast` endpoint and the request does not contain a valid JWT bearer token for a user with a `scope` claim equal to `sampleapi.read`, the request is rejected.
+
+Review the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md) for a demonstration of using a user's access token to interact with downstream APIs, focusing on these locations:
+
+- [Configure ASP.NET Core to save the user's token](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/appsettings.json#L15)
+- [Get the user's token](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/Controllers/HomeController.cs#L60)
+- [Include the token in a downstream request](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/ApiClients/JwtAuthorizationApiClient.cs#L24)
 
 ### Single Sign-On for VMware Tanzu
 
@@ -155,9 +171,29 @@ Once you have identified the service plan that will be used, create a service in
 cf create-service p-identity SERVICE_PLAN_NAME MY_SERVICE_INSTANCE
 ```
 
-If you are using a manifest file when you deploy to Cloud Foundry, [add a service binding reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#services-block).
+#### Bind and configure with app manifest
 
-Alternatively, bind the instance and restage the app with the Cloud Foundry CLI:
+Using a manifest file when you deploy to Cloud Foundry is recommended, and can save some work with the SSO configuration. Review the Single Sign-On documentation for [configuring an app manifest](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/config-apps.html#configure-app-manifest).
+
+Consider this example manifest that names the application, buildpack and configures several properties for the SSO binding:
+
+```yml
+applications:
+- name: steeltoesamplesserver
+  buildpacks:
+  - dotnet_core_buildpack
+  env:
+    GRANT_TYPE: client_credentials
+    SSO_AUTHORITIES: uaa.resource, sampleapi.read
+    SSO_RESOURCES: sampleapi.read
+    SSO_SHOW_ON_HOME_PAGE: "false"
+  services:
+  - sampleSSOService
+```
+
+#### Bind and configure manually
+
+Alternatively, you can manually bind the instance, restage the app with the Cloud Foundry CLI and later configure the SSO binding yourself with the web interface:
 
 ```shell
 # Bind service to your app
@@ -167,7 +203,7 @@ cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
 cf restage MY_APPLICATION
 ```
 
-For further information, refer to the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md).
+For further information, refer to the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html) or follow the instructions included in the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/latest/Security/src/AuthWeb/README.md).
 
 ### UAA Server
 
