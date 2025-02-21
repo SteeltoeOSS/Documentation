@@ -104,7 +104,6 @@ The above example assumes you are already using some other Steeltoe component wh
 using Steeltoe.Common.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddApplicationInstanceInfo();
 ```
 
