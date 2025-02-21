@@ -148,6 +148,7 @@ builder.Services.Configure<AspNetCoreTraceInstrumentationOptions>(options =>
         !httpContext.Request.Path.StartsWithSegments("/actuator", StringComparison.OrdinalIgnoreCase) &&
         !httpContext.Request.Path.StartsWithSegments("/cloudfoundryapplication", StringComparison.OrdinalIgnoreCase);
 });
+```
 
 > [!TIP]
 > By default, the ASP.NET Core instrumentation does not filter out any requests.

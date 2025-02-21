@@ -76,7 +76,7 @@ using OpenTelemetry.Metrics;
 builder.Services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
 {
     meterProviderBuilder.AddAspNetCoreInstrumentation();
-})
+});
 ```
 
 [Learn more about ASP.NET Core instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore)
@@ -93,7 +93,7 @@ using OpenTelemetry.Metrics;
 builder.Services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
 {
     meterProviderBuilder.AddHttpClientInstrumentation();
-})
+});
 ```
 
 [Learn more about HttpClient instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Http)
@@ -110,7 +110,7 @@ using OpenTelemetry.Metrics;
 builder.Services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
 {
     meterProviderBuilder.AddRuntimeInstrumentation();
-})
+});
 ```
 
 [Learn more about Runtime Instrumentation for OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Runtime)
@@ -175,4 +175,66 @@ The result of using the metrics registrar plugin is a user-provided service, whi
 ```shell
 cf create-user-provided-service APP-NAME -l secure-endpoint://:8091/actuator/prometheus
 cf bind-service APP-NAME SERVICE-NAME
+```
+
+## Sample Output
+
+This endpoint returns information about the instrumented application metrics and their values.
+
+If no instrumentation has been included, the response will be very short, like this:
+
+```text
+# EOF
+```
+
+With the addition of [.NET Runtime instrumentation](#net-runtime), the response will be like this:
+
+```text
+# TYPE process_runtime_dotnet_gc_collections_count_total counter
+# HELP process_runtime_dotnet_gc_collections_count_total Number of garbage collections that have occurred since process start.
+process_runtime_dotnet_gc_collections_count_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0",generation="gen2"} 0 1740147372796
+process_runtime_dotnet_gc_collections_count_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0",generation="gen1"} 0 1740147372796
+process_runtime_dotnet_gc_collections_count_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0",generation="gen0"} 0 1740147372796
+# TYPE process_runtime_dotnet_gc_objects_size_bytes gauge
+# UNIT process_runtime_dotnet_gc_objects_size_bytes bytes
+# HELP process_runtime_dotnet_gc_objects_size_bytes Count of bytes currently in use by objects in the GC heap that haven't been collected yet. Fragmentation and other GC committed memory pools are excluded.
+process_runtime_dotnet_gc_objects_size_bytes{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 8830400 1740147372797
+# TYPE process_runtime_dotnet_gc_allocations_size_bytes_total counter
+# UNIT process_runtime_dotnet_gc_allocations_size_bytes_total bytes
+# HELP process_runtime_dotnet_gc_allocations_size_bytes_total Count of bytes allocated on the managed GC heap since the process start. .NET objects are allocated from this heap. Object allocations from unmanaged languages such as C/C++ do not use this heap.
+process_runtime_dotnet_gc_allocations_size_bytes_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 8813792 1740147372797
+# TYPE process_runtime_dotnet_gc_duration_nanoseconds_total counter
+# UNIT process_runtime_dotnet_gc_duration_nanoseconds_total nanoseconds
+# HELP process_runtime_dotnet_gc_duration_nanoseconds_total The total amount of time paused in GC since the process start.
+process_runtime_dotnet_gc_duration_nanoseconds_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 0 1740147372797
+# TYPE process_runtime_dotnet_jit_il_compiled_size_bytes_total counter
+# UNIT process_runtime_dotnet_jit_il_compiled_size_bytes_total bytes
+# HELP process_runtime_dotnet_jit_il_compiled_size_bytes_total Count of bytes of intermediate language that have been compiled since the process start.
+process_runtime_dotnet_jit_il_compiled_size_bytes_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 272834 1740147372797
+# TYPE process_runtime_dotnet_jit_methods_compiled_count_total counter
+# HELP process_runtime_dotnet_jit_methods_compiled_count_total The number of times the JIT compiler compiled a method since the process start. The JIT compiler may be invoked multiple times for the same method to compile with different generic parameters, or because tiered compilation requested different optimization settings.
+process_runtime_dotnet_jit_methods_compiled_count_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 4597 1740147372797
+# TYPE process_runtime_dotnet_jit_compilation_time_nanoseconds_total counter
+# UNIT process_runtime_dotnet_jit_compilation_time_nanoseconds_total nanoseconds
+# HELP process_runtime_dotnet_jit_compilation_time_nanoseconds_total The amount of time the JIT compiler has spent compiling methods since the process start.
+process_runtime_dotnet_jit_compilation_time_nanoseconds_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 562297300 1740147372797
+# TYPE process_runtime_dotnet_monitor_lock_contention_count_total counter
+# HELP process_runtime_dotnet_monitor_lock_contention_count_total The number of times there was contention when trying to acquire a monitor lock since the process start. Monitor locks are commonly acquired by using the lock keyword in C#, or by calling Monitor.Enter() and Monitor.TryEnter().
+process_runtime_dotnet_monitor_lock_contention_count_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 0 1740147372797
+# TYPE process_runtime_dotnet_thread_pool_threads_count gauge
+# HELP process_runtime_dotnet_thread_pool_threads_count The number of thread pool threads that currently exist.
+process_runtime_dotnet_thread_pool_threads_count{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 5 1740147372797
+# TYPE process_runtime_dotnet_thread_pool_completed_items_count_total counter
+# HELP process_runtime_dotnet_thread_pool_completed_items_count_total The number of work items that have been processed by the thread pool since the process start.
+process_runtime_dotnet_thread_pool_completed_items_count_total{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 62 1740147372797
+# TYPE process_runtime_dotnet_thread_pool_queue_length gauge
+# HELP process_runtime_dotnet_thread_pool_queue_length The number of work items that are currently queued to be processed by the thread pool.
+process_runtime_dotnet_thread_pool_queue_length{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 0 1740147372797
+# TYPE process_runtime_dotnet_timer_count gauge
+# HELP process_runtime_dotnet_timer_count The number of timer instances that are currently active. Timers can be created by many sources such as System.Threading.Timer, Task.Delay, or the timeout in a CancellationSource. An active timer is registered to tick at some point in the future and has not yet been canceled.
+process_runtime_dotnet_timer_count{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 2 1740147372797
+# TYPE process_runtime_dotnet_assemblies_count gauge
+# HELP process_runtime_dotnet_assemblies_count The number of .NET assemblies that are currently loaded.
+process_runtime_dotnet_assemblies_count{otel_scope_name="OpenTelemetry.Instrumentation.Runtime",otel_scope_version="1.11.0"} 149 1740147372797
+# EOF
 ```
