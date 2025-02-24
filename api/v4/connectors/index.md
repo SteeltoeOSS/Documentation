@@ -8,7 +8,7 @@ for turning raw credentials into formatted connection strings and also provide h
 
 Get started with the [basic concepts](usage.md) or go directly to any supported technology:
 
-- [MySql](mysql.md)
+- [MySQL](mysql.md)
 - [Microsoft SQL Server](microsoft-sql-server.md)
 - [PostgreSQL](postgresql.md)
 - [RabbitMQ](rabbitmq.md)
