@@ -82,7 +82,7 @@ public class HomeController : Controller
 }
 ```
 
-A complete sample app that uses `IConnection` is provided at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/RabbitMQ.
+A complete sample app that uses `IConnection` is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/RabbitMQ.
 
 ## Cloud Foundry
 
@@ -107,4 +107,4 @@ cf restage myApp
 This Connector supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
 It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
 
-For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/latest/Connectors/src/RabbitMQ#running-on-tanzu-application-platform-tap.
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/RabbitMQ#running-on-tanzu-application-platform-tap.
