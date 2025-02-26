@@ -23,7 +23,7 @@ Steps involved in using this library:
 
 To use this package, you will need to add a reference to the NuGet package `Steeltoe.Security.Authentication.OpenIdConnect`.
 
-To include support for Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
+Also add a reference to `Steeltoe.Configuration.CloudFoundry`, so that Cloud Foundry service bindings can be read by Steeltoe.
 
 ### Configure Settings
 

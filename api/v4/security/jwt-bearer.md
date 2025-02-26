@@ -22,7 +22,7 @@ Steps involved in using this library:
 
 To use the provider, you need to add a reference to the `Steeltoe.Security.Authentication.JwtBearer` NuGet package.
 
-To include support for Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
+Also add a reference to `Steeltoe.Configuration.CloudFoundry`, so that Cloud Foundry service bindings can be read by Steeltoe.
 
 ### Configure Settings
 
