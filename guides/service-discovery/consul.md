@@ -100,7 +100,7 @@ Update `appsettings.json` with host, port and scheme as needed:
 
 ```json
 {
-  "$schema": "https://steeltoe.io/schema/latest/schema.json",
+  "$schema": "https://steeltoe.io/schema/v3/schema.json",
   "Consul": {
     "Discovery": {
       "HostName": "localhost",
@@ -166,7 +166,7 @@ Update the application's settings for Consul to prevent this application from re
 
 ```json
 {
-  "$schema": "https://steeltoe.io/schema/latest/schema.json",
+  "$schema": "https://steeltoe.io/schema/v3/schema.json",
   "Consul": {
     "Discovery": {
       "Register": false
