@@ -64,10 +64,12 @@ This package provides access to `OpenTelemetryBuilder`, which is the main entryp
 ### Add Open Telemetry Tracing
 
 ```csharp
-using OpenTelemetry.Trace;
-
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenTelemetry().WithTracing();
 ```
+
+> [!NOTE]
+> At this point, not much has changed for the application - you will need changes to this line to add [instrumentation](#instrumenting-applications) and [exporting of traces](#exporting-distributed-traces).
 
 ### Sampler configuration
 
@@ -86,6 +88,7 @@ In order to use the Steeltoe name for your application with OpenTelemetry, call 
 
 ```csharp
 using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Steeltoe.Common;
 
 builder.Services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
@@ -120,6 +123,8 @@ To instrument requests coming into the application through ASP.NET Core, start b
 Next, add the instrumentation to the `TracerProviderBuilder` by updating the existing call from above to:
 
 ```csharp
+using OpenTelemetry.Trace;
+
 builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddAspNetCoreInstrumentation());
 ```
 
@@ -163,6 +168,8 @@ To instrument requests leaving the application through `HttpClient`, start by ad
 Next, add the instrumentation to the `TracerProviderBuilder` by updating the existing call from above to:
 
 ```csharp
+using OpenTelemetry.Trace;
+
 builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddHttpClientInstrumentation());
 ```
 
