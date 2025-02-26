@@ -2,7 +2,7 @@
 
 Sometimes, you might need to generate random values as part of your application's configuration values.
 
-The Steeltoe random value generator is a configuration provider that you can use to do just that. It can produce integers, longs, GUIDs, or strings, as the following examples show:
+The Steeltoe random value generator is a configuration provider that you can use to produce integers, longs, GUIDs, or strings, as the following examples show:
 
 ```csharp
 string? randomValue = builder.Configuration["random:value"];
@@ -13,7 +13,7 @@ int randomNumberLessThanTen = builder.Configuration.GetValue<int>("random:int(10
 int randomNumberInRange = builder.Configuration.GetValue<int>("random:int[1024,65536]");
 ```
 
-You can also use the generator together with property placeholders. For example, consider the following `appsettings.json`:
+You can also use the generator with property placeholders. For example, consider the following `appsettings.json`:
 
 ```json
 {
@@ -32,7 +32,7 @@ You can also use the generator together with property placeholders. For example,
 
 You should have a good understanding of how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use this provider.
 
-To use the Steeltoe random value provider, you need to:
+To use the Steeltoe random value provider:
 
 1. Add the appropriate NuGet package reference to your project.
 1. Add the provider to the Configuration Builder.
@@ -40,13 +40,11 @@ To use the Steeltoe random value provider, you need to:
 
 ### Add NuGet Reference
 
-To use the provider, you need to add a reference to the `Steeltoe.Configuration.RandomValue` NuGet package.
+To use the provider, add a reference to the `Steeltoe.Configuration.RandomValue` NuGet package.
 
 ### Add Configuration Provider
 
-To have the ability to generate random values from the configuration, you need to add the random value provider to the `ConfigurationBuilder`.
-
-The following example shows how to do so:
+To have the ability to generate random values from the configuration, add the random value provider to the `ConfigurationBuilder`. See the following example:
 
 ```csharp
 using Steeltoe.Configuration.RandomValue;
@@ -56,11 +54,11 @@ builder.Configuration.AddRandomValueSource();
 ```
 
 > [!TIP]
-> If you wish to generate random values as part of using placeholders, you need to add the random value provider to the builder *before* you add the placeholder resolver.
+> To generate random values as part of using placeholders, add the random value provider to the builder *before* you add the placeholder resolver.
 
 ### Access Random Value Data
 
-Once the configuration has been built, the random value provider can be used to generate values. You can access the configuration data by using the appropriate `random` keys.
+After the configuration has been built, the random value provider can be used to generate values. You can access the configuration data by using the appropriate `random` keys.
 
 Consider the following `HomeController` example:
 
