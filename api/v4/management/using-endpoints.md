@@ -25,7 +25,6 @@ The following table describes the available Steeltoe management endpoints that c
 | [info](./info.md) | Customizable endpoint that gathers arbitrary application information (such as app version). |
 | [loggers](./loggers.md) | Gathers existing logger categories and allows changing their minimum levels at runtime. |
 | [mappings](./mappings.md) | Reports the configured ASP.NET routes and route templates. |
-| [metrics](./metrics.md) | Reports the collected metrics for the application. |
 | [prometheus](./prometheus.md) | Exposes metrics collected via built-in instrumentation of various aspects of the application in the Prometheus format. |
 | [refresh](./refresh.md) | Triggers a reload of the application configuration. |
 | [services](./services.md) | Lists the contents of the .NET dependency injection service container. |

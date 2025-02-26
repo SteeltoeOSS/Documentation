@@ -43,9 +43,6 @@
       name: Spring Boot Provider
 - name: Distributed Tracing
   topicHref: tracing/
-  items:
-    - topicHref: tracing/distributed-tracing-exporting.md
-      name: Using Trace Exporters
 - name: Dynamic Logging
   topicHref: logging/
   items:
@@ -77,8 +74,6 @@
         name: Loggers
       - topicHref: management/mappings.md
         name: Route Mappings
-      - topicHref: management/metrics-endpoint.md
-        name: Metrics
       - topicHref: management/prometheus.md
         name: Prometheus
       - topicHref: management/refresh.md
@@ -89,8 +84,6 @@
         name: Thread Dump
     - topicHref: management/tasks.md
       name: Tasks
-    - topicHref: management/metrics.md
-      name: Metrics
     - topicHref: management/springbootadmin.md
       name: Spring Boot Admin Client
     - topicHref: management/cloud-foundry.md
@@ -105,10 +98,10 @@
   items:
     - topicHref: security/sso-open-id.md
       name: SSO with Open ID Connect
-    - topicHref: security/jwt-authentication.md
-      name: JWT for ASP.NET Core
-    - topicHref: security/mtls.md
-      name: Mutual TLS
+    - topicHref: security/jwt-bearer.md
+      name: JWT Bearer Token
+    - topicHref: security/certificate.md
+      name: Certificate (Mutual TLS)
     - topicHref: security/redis-key-storage-provider.md
       name: Redis Key Storage Provider
 - name: Connectors

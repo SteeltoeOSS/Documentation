@@ -6,7 +6,7 @@ The Spring Cloud Config Server is an application configuration service that give
 
 To gain a better understanding of the Spring Cloud Config Server, you should read the [Spring Cloud Config documentation](https://spring.io/projects/spring-cloud-config).
 
-In addition to the Quick Start provided later, you can refer to the [Steeltoe ConfigurationProviders](https://github.com/SteeltoeOSS/Samples/tree/latest/Configuration/src/ConfigurationProviders) sample application when you need to understand how to use this provider.
+In addition to the Quick Start provided later, you can refer to the [Steeltoe ConfigurationProviders](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/ConfigurationProviders) sample application when you need to understand how to use this provider.
 
 ## Usage
 
