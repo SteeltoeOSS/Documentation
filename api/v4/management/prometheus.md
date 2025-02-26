@@ -52,10 +52,7 @@ In addition to the options described in [using endpoints](./using-endpoints.md),
 This pipeline would need to be configured if, as an example, you are configuring an authorization policy.
 
 ```csharp
-builder.Services.AddPrometheusActuator(true, applicationBuilder =>
-{
-    applicationBuilder.UseAuthorization();
-});
+builder.Services.AddPrometheusActuator(true, pipeline => pipeline.UseAuthorization());
 ```
 
 ## Instrumentation

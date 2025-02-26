@@ -62,7 +62,7 @@ builder.Configuration.AddCloudFoundryServiceBindings();
 
 #### Local UAA
 
-A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/SteeltoeOSS/Dockerfiles/tree/main/uaa-server)), can be used for local development of applications that will be deployed to Cloud Foundry. Configuration of UAA itself is beyond the scope of this documentation, but configuring your `appsettings.Development.json` to work with a local UAA server is possible with the addition of settings like these:
+A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/SteeltoeOSS/Dockerfiles/tree/main/uaa-server)) can be used for local development of applications that will be deployed to Cloud Foundry. Configuration of UAA itself is beyond the scope of this documentation, but configuring your `appsettings.Development.json` to work with a local UAA server is possible with the addition of settings like these:
 
 ```json
 {

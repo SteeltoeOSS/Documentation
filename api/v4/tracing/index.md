@@ -207,6 +207,7 @@ Finally, register a `CompositeTextMapPropagator` that includes the `B3Propagator
 ```csharp
 using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
+using OpenTelemetry.Trace;
 
 builder.Services.ConfigureOpenTelemetryTracerProvider((_, _) =>
 {
