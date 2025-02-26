@@ -135,7 +135,7 @@ using Microsoft.AspNetCore.Mvc;
 public class SampleController : ControllerBase
 {
 
-    [HttpGet(Name = "Get")]
+    [HttpGet]
     [Authorize(Policy = "sampleapi.read")]
     public string Get()
     {

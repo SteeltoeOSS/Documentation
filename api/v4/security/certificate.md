@@ -88,7 +88,7 @@ Steeltoe exposes some of the policy-related components directly if more customiz
 // AuthorizationPolicyBuilder setup
 builder.Services.AddAuthorizationBuilder()
     .AddOrgAndSpacePolicies()
-    .AddDefaultPolicy("sameOrgAndSpace", authorizationPolicyBuilder => authorizationPolicyBuilder.RequireSameOrg().RequireSameSpace());
+    .AddDefaultPolicy("sameOrgAndSpace", policy => policy.RequireSameOrg().RequireSameSpace());
 
 // Or the equivalent using different syntax
 builder.Services.AddAuthorizationBuilder()
