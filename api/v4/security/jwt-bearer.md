@@ -14,7 +14,6 @@ Steps involved in using this library:
 
 1. Add NuGet references.
 1. Configure settings for the security provider.
-   1. Add the Steeltoe Cloud Foundry configuration provider and service binding post-processors to your `ConfigurationBuilder`.
 1. Add and use the security provider in the application.
 1. Secure your endpoints.
 1. Create an instance of a Cloud Foundry Single Sign-On service and bind it to your application.
@@ -23,7 +22,7 @@ Steps involved in using this library:
 
 To use the provider, you need to add a reference to the `Steeltoe.Security.Authentication.JwtBearer` NuGet package.
 
-If you are using Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
+To include support for Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
 
 ### Configure Settings
 
@@ -131,27 +130,21 @@ Once the services and middleware have been configured, you can secure endpoints 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+[Route("api/[controller]")]
 [ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class SampleController : ControllerBase
 {
 
-    [HttpGet(Name = "GetWeatherForecast")]
+    [HttpGet(Name = "Get")]
     [Authorize(Policy = "sampleapi.read")]
-    public IEnumerable<WeatherForecast> Get()
+    public string Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        return "You have permission to read from the sample API.";
     }
 }
 ```
 
-In the preceding example, if an incoming REST request is made to the `/weatherforecast` endpoint and the request does not contain a valid JWT bearer token for a user with a `scope` claim equal to `sampleapi.read`, the request is rejected.
+In the preceding example, if an incoming GET request is made to the `/api/sample` endpoint and the request does not contain a valid JWT bearer token for a user with a `scope` claim equal to `sampleapi.read`, the request is rejected.
 
 Review the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md) for a demonstration of using a user's access token to interact with downstream APIs, focusing on these locations:
 

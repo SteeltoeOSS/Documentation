@@ -15,7 +15,6 @@ Steps involved in using this library:
 
 1. Add NuGet references.
 1. Configure settings for the security provider.
-   1. Add the Steeltoe Cloud Foundry configuration provider and service binding post-processors to your `ConfigurationBuilder`.
 1. Add and use the security provider in the application.
 1. Secure your endpoints.
 1. Create an instance of a Cloud Foundry Single Sign-On service and bind it to your application.
@@ -24,7 +23,7 @@ Steps involved in using this library:
 
 To use this package, you will need to add a reference to the NuGet package `Steeltoe.Security.Authentication.OpenIdConnect`.
 
-If you are using Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
+To include support for Cloud Foundry service bindings, you will also need to add a reference to `Steeltoe.Configuration.CloudFoundry`.
 
 ### Configure Settings
 

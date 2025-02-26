@@ -70,10 +70,7 @@ Next, add the instrumentation to the `MeterProviderBuilder`:
 ```csharp
 using OpenTelemetry.Metrics;
 
-builder.Services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
-{
-    meterProviderBuilder.AddAspNetCoreInstrumentation();
-});
+builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddAspNetCoreInstrumentation());
 ```
 
 [Learn more about ASP.NET Core instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore)
@@ -87,10 +84,7 @@ Next, add the instrumentation to the `MeterProviderBuilder`:
 ```csharp
 using OpenTelemetry.Metrics;
 
-builder.Services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
-{
-    meterProviderBuilder.AddHttpClientInstrumentation();
-});
+builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddHttpClientInstrumentation());
 ```
 
 [Learn more about HttpClient instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Http)
@@ -104,10 +98,7 @@ Next, add the instrumentation to the `MeterProviderBuilder`:
 ```csharp
 using OpenTelemetry.Metrics;
 
-builder.Services.AddOpenTelemetry().WithMetrics(meterProviderBuilder =>
-{
-    meterProviderBuilder.AddRuntimeInstrumentation();
-});
+builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddRuntimeInstrumentation());
 ```
 
 [Learn more about Runtime Instrumentation for OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Runtime)

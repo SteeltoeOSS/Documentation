@@ -86,13 +86,14 @@ Steeltoe exposes some of the policy-related components directly if more customiz
 
 ```csharp
 // AuthorizationPolicyBuilder setup
-builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies()
-        .AddDefaultPolicy("sameOrgAndSpace", authorizationPolicyBuilder => authorizationPolicyBuilder.RequireSameOrg().RequireSameSpace());
+builder.Services.AddAuthorizationBuilder()
+    .AddOrgAndSpacePolicies()
+    .AddDefaultPolicy("sameOrgAndSpace", authorizationPolicyBuilder => authorizationPolicyBuilder.RequireSameOrg().RequireSameSpace());
 
 // Or the equivalent using different syntax
-builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies()
-        .AddPolicy("sameOrgAndSpace",
-            authorizationPolicyBuilder => authorizationPolicyBuilder.AddRequirements(new SameOrgRequirement(), new SameSpaceRequirement()));
+builder.Services.AddAuthorizationBuilder()
+    .AddOrgAndSpacePolicies()
+    .AddPolicy("sameOrgAndSpace", policy => policy.AddRequirements(new SameOrgRequirement(), new SameSpaceRequirement()));
 ```
 
 To activate certificate-based authorization in the request pipeline, use the `UseCertificateAuthorization` extension method on `IApplicationBuilder`:
