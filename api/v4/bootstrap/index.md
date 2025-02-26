@@ -8,7 +8,7 @@ Get started by adding a reference to the AutoConfiguration package (you may want
 dotnet add package Steeltoe.Bootstrap.AutoConfiguration
 ```
 
-After adding the NuGet reference(s), simply include `.AddSteeltoe()` like you see in the code below and you're all set with the basic implementation.
+After adding the NuGet reference(s), include `.AddSteeltoe()` like you see in the code below and you're all set with the basic implementation.
 
 ```csharp
 using Steeltoe.Bootstrap.AutoConfiguration;
@@ -19,9 +19,9 @@ builder.AddSteeltoe();
 
 ## Supported Steeltoe Packages
 
-`Steeltoe.Bootstrap.AutoConfiguration` is not a meta-package. In order for a Steeltoe feature to be automatically bootstrapped in the application, the appropriate NuGet package must also be referenced. The following table describes the Steeltoe package that is required to light up a feature and any additional packages that may also be installed:
+`Steeltoe.Bootstrap.AutoConfiguration` is not a meta-package. For a Steeltoe feature to be automatically bootstrapped in the application, the appropriate NuGet package must also be referenced. The following table describes the Steeltoe package that is required to light up a feature, and any additional packages that may also be installed:
 
-|  Feature Description | Steeltoe Package | Additional Packages |
+| Feature Description | Steeltoe Package | Additional Packages |
 | --- | --- | --- |
 | [Config Server Configuration Provider](../configuration/config-server-provider.md) | `Steeltoe.Configuration.ConfigServer` | Optional: `Steeltoe.Discovery.Eureka` to use discovery-first |
 | [Cloud Foundry Configuration Provider](../configuration/cloud-foundry-provider.md) |`Steeltoe.Configuration.CloudFoundry` |  N/A |
@@ -29,7 +29,7 @@ builder.AddSteeltoe();
 | [Placeholder Configuration Provider](../configuration/placeholder-provider.md) |`Steeltoe.Configuration.Placeholder` |  N/A |
 | [Encrypted Configuration Provider](../configuration/decryption-provider.md) | `Steeltoe.Configuration.Encryption` | N/A |
 | [Spring Boot Configuration Provider](../configuration/spring-boot-provider.md) | `Steeltoe.Configuration.SpringBoot` | N/A |
-| [Connectors](../connectors/index.md) |`Steeltoe.Connectors` |  Required: Supported driver [^1] (MySQL, PostgreSQL, SQL Server, MongoDB, CosmosDB, Redis, RabbitMQ) |
+| [Connectors](../connectors/index.md) |`Steeltoe.Connectors` |  Required: Supported driver [^1] (MySQL, PostgreSQL, SQL Server, MongoDB, CosmosDB, Redis/Valkey, RabbitMQ) |
 | [Eureka Service Discovery](../discovery/netflix-eureka.md) |`Steeltoe.Discovery.Eureka` | Optional: `Steeltoe.Management.Endpoint` for health checks |
 | [Consul Service Discovery](../discovery/hashicorp-consul.md) |`Steeltoe.Discovery.Consul` | N/A |
 | [Configuration-based Service Discovery](../discovery/configuration-based.md) |`Steeltoe.Discovery.Configuration` | N/A |
@@ -38,7 +38,7 @@ builder.AddSteeltoe();
 | [Actuators](../management/index.md) | `Steeltoe.Management.Endpoint` | N/A |
 | [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.Tracing` | Required: OpenTelemetry Exporter (Zipkin, OTLP) |
 
-[^1]: Individual connector clients will only be configured if a corresponding supported driver NuGet package reference is also included.
+[^1]: Individual connector clients are only configured if a corresponding supported driver NuGet package reference is also included.
 
 ## Excluding Components
 
@@ -56,7 +56,7 @@ builder.AddSteeltoe(assemblyNamesToExclude);
 
 ## Logging inside Configuration Providers
 
-For some Steeltoe components, primarily configuration providers, providing a `LoggerFactory` is required to retrieve logs for debugging. Use the optional parameter to provide one as needed:
+For some Steeltoe components, primarily configuration providers, a `LoggerFactory` is required to retrieve logs for debugging. Use the optional parameter to provide one as needed:
 
 ```csharp
 using Microsoft.Extensions.Logging.Debug;
@@ -72,7 +72,7 @@ builder.AddSteeltoe(loggerFactory);
 ```
 
 Alternatively, you can use `BootstrapLoggerFactory`. It logs to the console until the service container has been built.
-Once the service container has become available, it automatically upgrades existing loggers to use the application configuration.
+After the service container has become available, it automatically upgrades existing loggers to use the application configuration.
 
 ```csharp
 using Steeltoe.Bootstrap.AutoConfiguration;
@@ -84,11 +84,11 @@ builder.AddSteeltoe(loggerFactory);
 
 ## Limitations
 
-At this time there is no support for:
+Currently unsupported:
 
 * Features that need to be configured directly in `IApplicationBuilder`, such as Cloud Foundry SSO and JWT.
 * Features that require a custom type (such as a `DbContext`) for setup.
 
 ## Feedback
 
-Love it? Hate it? Want to know more or make a suggestion? Let us know by [filing an issue](https://github.com/SteeltoeOSS/Steeltoe/issues/new/choose), [joining us on slack](https://slack.steeltoe.io/) or [Tweeting at us](https://twitter.com/steeltoeoss)
+Love it? Hate it? Want to know more or make a suggestion? Let us know by filing an [issue](https://github.com/SteeltoeOSS/Steeltoe/issues/new/choose), joining us on [Slack](https://slack.steeltoe.io/) or [Tweeting us](https://twitter.com/steeltoeoss)
