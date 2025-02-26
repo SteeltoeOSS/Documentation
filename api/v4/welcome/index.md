@@ -22,7 +22,7 @@ List the active loggers and change their minimum log levels at runtime.
 
 ## [Management](../management/index.md)
 
-Monitor and manage your application while it runs in production via various HTTP endpoints.
+Monitor and manage your application while it runs in production through various HTTP endpoints.
 
 ## [Network File Sharing](../fileshares/index.md)
 

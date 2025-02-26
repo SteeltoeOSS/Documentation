@@ -9,7 +9,7 @@
 - Compatible with recent versions of Tanzu Platform (Cloud Foundry and Kubernetes) and Spring Boot
 - Changes to align with .NET conventions and patterns, extensive review of the public API surface
 - Performance and scalability improvements
-- Numerous bugfixes
+- Numerous bug fixes
 - Cleanup of logging output
 - Substantially improved documentation
 - Improved test coverage, including interaction between different Steeltoe components
@@ -19,11 +19,11 @@
 ### General
 
 - NuGet Packages
-  - Dropped the Core/Base suffix from package names, which was used to distinguish between NET Standard and .NET Core
+  - Dropped the Core/Base suffix from package names, which was used to distinguish between .NET Standard and .NET Core
   - Removed ".Extensions" from NuGet package names
 - Extension methods
   - Removed host builder extension methods that could be substituted with a single extension method on
-    `IServiceCollection`, `IConfiguration`, `IConfigurationBuilder`, `ILoggingBuilder` etc.
+    `IServiceCollection`, `IConfiguration`, `IConfigurationBuilder`, `ILoggingBuilder`, etc.
     Their redundancy led to confusion, and required Steeltoe to adapt each time a new host builder is introduced.
   - Added support for the new `IHostApplicationBuilder` (which `WebApplicationBuilder` and `HostApplicationBuilder` implement) to the remaining host builder extension methods
   - Moved extension methods to the appropriate Steeltoe namespaces to avoid clashes with other libraries
@@ -32,14 +32,14 @@
   - Removed various interfaces that weren't general-purpose, types not designed for inheritance/reuse made internal
   - Changed methods containing optional parameters with default values to overloaded methods
   - Made more methods async and expanded usage of `CancellationToken`, both as a parameter and internally
-  - Enhanced method input validation to prevent downstream `NullReferenceException`s
+  - Enhanced method input validation to prevent downstream `NullReferenceException` exceptions
   - Applied C#/.NET naming conventions, for example: renamed `HealthStatus.OUT_OF_SERVICE` to `HealthStatus.OutOfService`
 - Configuration
   - Added support in Steeltoe packages for auto-completion in `appsettings.json` (without needing a schema reference, which currently only works in Visual Studio for SDK-style web projects), updated global Steeltoe JSON schema
   - Changed nearly all configuration settings to be reloadable without app restart, now more consistently exposed via ASP.NET Options pattern
 - Up-to-date
   - Extensively tested with the latest versions of dependent packages, database drivers and third-party products
-    (including Tanzu, Cloud Foundry, Config Server, Consul, Eureka, RabbitMQ, Redis, OpenTelemetry, Grafana, Prometheus, Zipkin, Spring Boot Admin)
+    (including Tanzu, Cloud Foundry, Config Server, Consul, Eureka, RabbitMQ, Redis/Valkey, OpenTelemetry, Grafana, Prometheus, Zipkin, Spring Boot Admin)
   - Refreshed dev-local Docker images for Config Server, Eureka, UAA and Spring Boot Admin
   - Steeltoe no longer depends on legacy technologies, such as binary serialization and Newtonsoft.Json
 
@@ -121,9 +121,9 @@ The following sections provide details on the changes per Steeltoe component, as
 
 - Unified handling for all host builder types (there were omissions in some cases, due to duplicate code not kept in sync)
 - Added wire-up of Steeltoe.Configuration.SpringBoot, Steeltoe.Configuration.Encryption and Steeltoe.Logging.DynamicConsole
-- Removed wire-up of client certificate authentication, which was done only partly
+- Removed wire-up of client certificate authentication, which was only partly done
 - When no `ILoggerFactory` is specified, `BootstrapLoggerFactory` is used by default (pass `NullLoggerFactory.Instance` to disable)
-- Ignore casing when comparing assembly names (bugfix)
+- Ignore casing when comparing assembly names (bug fix)
 
 ### NuGet Package changes
 
@@ -156,7 +156,7 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 - Dynamically loading custom types for connectors and service discovery is no longer possible
 - Removed Spring Expression Language (SpEL) support
 - Removed `UseCloudHosting` (impossible to reliably detect bound ports in all cases, while Cloud Foundry usually [^1] sets the port automatically)
-- Greater flexibility in using Bootstrap logger, bugfixes
+- Greater flexibility in using Bootstrap logger, bug fixes
 - Certificates are no longer read from OS-specific store, which proved to not work reliably (store paths in configuration instead)
 
 ### NuGet Package changes
@@ -164,8 +164,8 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | Source                       | Change  | Replacement                  | Notes                                                      |
 | ---------------------------- | ------- | ---------------------------- | ---------------------------------------------------------- |
 | Steeltoe.Common.Abstractions | Moved   | Steeltoe.Common package      |                                                            |
-| Steeltoe.Common.Certificates | Added   |                              | Support for handling X509 certificates                     |
-| Steeltoe.Common.Expression   | Removed | None                         | Existed for SpEL support, which has been removed           |
+| Steeltoe.Common.Certificates | Added   |                              | Support for handling X.509 certificates                    |
+| Steeltoe.Common.Expression   | Removed | None                         | Existed for Spring Extension Language (SpEL) support, which has been removed |
 | Steeltoe.Common.Kubernetes   | Removed | None                         |                                                            |
 | Steeltoe.Common.Logging      | Added   |                              | Provides `BootstrapLoggerFactory`                          |
 | Steeltoe.Common.Retry        | Removed | None                         | Existed for Messaging support, which has been removed      |
@@ -221,10 +221,10 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | `Steeltoe.Common.Reflection`                                                                                                               | Namespace        | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Existed to support Type Locators, which have been replaced with internal-only shims   |
 | `Steeltoe.Common.Retry`                                                                                                                    | Namespace        | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Existed for Messaging support, which has been removed                                 |
 | `Steeltoe.Common.SecurityUtilities`                                                                                                        | Type             | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Internally used to sanitize line breaks in logs                                       |
-| `Steeltoe.Common.Services`                                                                                                                 | Namespace        | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Existed to support components which have been removed                                 |
+| `Steeltoe.Common.Services`                                                                                                                 | Namespace        | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Existed to support components that have been removed                                 |
 | `Steeltoe.Common.SteeltoeComponent`                                                                                                        | Type             | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | This enum is no longer needed                                                         |
 | `Steeltoe.Common.Transaction`                                                                                                              | Namespace        | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Existed for Messaging support, which has been removed                                 |
-| `Steeltoe.Common.Util`                                                                                                                     | Namespace        | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Existed to support components which have been removed                                 |
+| `Steeltoe.Common.Util`                                                                                                                     | Namespace        | Steeltoe.Common [Abstractions] | Removed         | None                                                                                       | Existed to support components that have been removed                                 |
 | `Steeltoe.Common.Certificates.CertificateConfigurationExtensions.AddAppInstanceIdentityCertificate`                                        | Extension method | Steeltoe.Common.Certificates   | Added           |                                                                                            | Register/generate identity certificate for Cloud Foundry authentication               |
 | `Steeltoe.Common.Certificates.CertificateOptions`                                                                                          | Type             | Steeltoe.Common.Certificates   | Added           |                                                                                            | Provides access to loaded certificate using ASP.NET Options pattern                   |
 | `Steeltoe.Common.Certificates.CertificateServiceCollectionExtensions.ConfigureCertificateOptions`                                          | Extension method | Steeltoe.Common.Certificates   | Added           |                                                                                            | Bind named certificate from `IConfiguration` and monitor for changes                  |
@@ -433,9 +433,9 @@ For more information, see the updated [Configuration documentation](../configura
   - ADO.NET API: `builder.Add*()`, inject `ConnectorFactory<TOptions, TConnection>` (driver-specific connection/client instances are no longer registered)
   - EF Core API: must call `builder.Add*()` first. Example: `builder.AddMySql(); builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) => options.UseMySql(serviceProvider));`
   - The structure of configuration has changed severely to accommodate multiple named service bindings in a unified way
-- Compatible with the latest versions of Tanzu, Cloud Foundry and .NET database drivers
-- Added [Cloud Native Binding](https://github.com/servicebinding/spec) support (used by Tanzu Platform for Kubernetes, formerly TAP) for MongoDB, MySQL, PostgreSQL, RabbitMQ and Redis
-- Leverage .NET connection strings (agnostic to the driver-specific parameters) via
+- Compatible with the latest versions of Tanzu, Cloud Foundry, and .NET database drivers
+- Added [Cloud Native Binding](https://github.com/servicebinding/spec) support (used by Tanzu Application Platform and Tanzu Platform for Kubernetes) for MongoDB, MySQL, PostgreSQL, RabbitMQ, and Redis/Valkey
+- Leverage .NET connection strings (agnostic to the driver-specific parameters) using
   [ASP.NET Options pattern](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/options)
 - Connection string from appsettings.json is preserved, replacing parameters from cloud bindings
 - No more defaults for missing connection parameters that are required by drivers
@@ -556,7 +556,7 @@ For more information, see the updated [Configuration documentation](../configura
 | `Steeltoe.Connectors.RabbitMQ.RabbitMQOptions`                                                     | Type             | Steeltoe.Connectors                      | Added   |                                                                                                  | Provides connection string                                                                                   |
 | `Steeltoe.Connectors.RabbitMQ.RabbitMQServiceCollectionExtensions.AddRabbitMQ`                     | Extension method | Steeltoe.Connectors                      | Added   |                                                                                                  | To support legacy host builders                                                                              |
 | `Steeltoe.Connectors.Redis.RedisConfigurationBuilderExtensions.ConfigureRedis`                     | Extension method | Steeltoe.Connectors                      | Added   |                                                                                                  | To support legacy host builders                                                                              |
-| `Steeltoe.Connectors.Redis.RedisHostApplicationBuilderExtensions.AddRedis`                         | Extension method | Steeltoe.Connectors                      | Added   |                                                                                                  | Activates the Redis connector                                                                                |
+| `Steeltoe.Connectors.Redis.RedisHostApplicationBuilderExtensions.AddRedis`                         | Extension method | Steeltoe.Connectors                      | Added   |                                                                                                  | Activates the Redis/Valkey connector                                                                                |
 | `Steeltoe.Connectors.Redis.RedisOptions`                                                           | Type             | Steeltoe.Connectors                      | Added   |                                                                                                  | Provides connection string                                                                                   |
 | `Steeltoe.Connectors.Redis.RedisServiceCollectionExtensions.AddRedis`                              | Extension method | Steeltoe.Connectors                      | Added   |                                                                                                  | To support legacy host builders                                                                              |
 | `Steeltoe.Connectors.SqlServer.SqlServerConfigurationBuilderExtensions.ConfigureSqlServer`         | Extension method | Steeltoe.Connectors                      | Added   |                                                                                                  | To support legacy host builders                                                                              |
@@ -601,12 +601,12 @@ For more information, see the updated [Connectors documentation](../configuratio
 ### Behavior changes
 
 - Multiple discovery clients (one per type) can be active
-- Simplified API: Use `IServiceCollection.Add*DiscoveryClient()` to register, `IHttpClientBuilder.AddServiceDiscovery()` to consume
+- Simplified API: Use `IServiceCollection.Add*DiscoveryClient()` to register; `IHttpClientBuilder.AddServiceDiscovery()` to consume
 - Refactored configuration to use ASP.NET Options pattern, responding to changes at runtime nearly everywhere
 - Async all-the-way where possible
 - More reliable cross-platform detection of local hostname and IP address
 - Now supports global service discovery: `services.ConfigureHttpClientDefaults(builder => builder.AddServiceDiscovery())`
-- Config Server discovery-first can now query Consul, Eureka and Configuration-based
+- Config Server discovery-first can now query Consul, Eureka, and Configuration-based
 - Improved detection of port bindings, including support for new ASP.NET [environment variables](https://learn.microsoft.com/aspnet/core/release-notes/aspnetcore-8.0#http_ports-and-https_ports-config-keys)
 - HTTP handlers now depend on a load balancer, which delegates to multiple discovery clients
 - Major improvements in documentation, samples cover more use cases
@@ -767,7 +767,7 @@ For more information, see the updated [Connectors documentation](../configuratio
 | `Steeltoe.Discovery.Eureka.EurekaApplicationInfoManager.UpdateInstance`                                        | Method           | Steeltoe.Discovery.Eureka             | Added           |                                                                              | Enables to change local instance from code (synced with configuration)                      |
 | `Steeltoe.Discovery.Eureka.EurekaClientConfig`                                                                 | Type             | Steeltoe.Discovery.Eureka             | Removed         | `Steeltoe.Discovery.Eureka.Configuration.EurekaClientOptions`                |                                                                                             |
 | `Steeltoe.Discovery.Eureka.EurekaClientConfig.EurekaServerConnectTimeoutSeconds`                               | Property         | Steeltoe.Discovery.Eureka             | Removed         | `EurekaClientOptions.Server.ConnectTimeoutSeconds`                           |                                                                                             |
-| `Steeltoe.Discovery.Eureka.EurekaClientConfig.EurekaServerRetryCount`                                          | Property         | Steeltoe.Discovery.Eureka             | Removed         | `EurekaClientOptions.Server.RetryCount`                                      | Default changed from 3 attempts to 2 retries (bugfix)                                       |
+| `Steeltoe.Discovery.Eureka.EurekaClientConfig.EurekaServerRetryCount`                                          | Property         | Steeltoe.Discovery.Eureka             | Removed         | `EurekaClientOptions.Server.RetryCount`                                      | Default changed from 3 attempts to 2 retries (bug fix)                                       |
 | `Steeltoe.Discovery.Eureka.EurekaClientConfig.EurekaServerServiceUrls`                                         | Property         | Steeltoe.Discovery.Eureka             | Removed         | `EurekaClientOptions.EurekaServerServiceUrls`                                | Now supports comma-delimited list of URLs                                                   |
 | `Steeltoe.Discovery.Eureka.EurekaClientConfig.HealthCheckEnabled`                                              | Property         | Steeltoe.Discovery.Eureka             | Removed         | `EurekaClientOptions.Health.CheckEnabled`                                    |                                                                                             |
 | `Steeltoe.Discovery.Eureka.EurekaClientConfig.HealthContribEnabled`                                            | Property         | Steeltoe.Discovery.Eureka             | Removed         | `EurekaClientOptions.Health.ContributorEnabled`                              |                                                                                             |
@@ -890,8 +890,8 @@ For more information, see the updated [Discovery documentation](../discovery/ind
 
 ### API changes
 
-| Source                                                                                              | Kind             | Package                                                | Change  | Replacement                                                      | Notes                                                               |
-| --------------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------ | ------- | ---------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Source                                                                                                | Kind             | Package                                                | Change  | Replacement                                                    | Notes                                                               |
+| ----------------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------ | ------- | -------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `Steeltoe.Extensions.Logging.DynamicLoggerConfiguration`                                              | Type             | Steeltoe.Extensions.Logging.Abstractions               | Renamed | `Steeltoe.Logging.DynamicLoggerState`                          | Represents logger state, is unrelated to `IConfiguration`           |
 | `Steeltoe.Extensions.Logging.DynamicLoggerConfiguration.ConfiguredLevel`                              | Property         | Steeltoe.Extensions.Logging.Abstractions               | Renamed | `DynamicLoggerState.BackupMinLevel`                            | The minimum level before override                                   |
 | `Steeltoe.Extensions.Logging.DynamicLoggerConfiguration.EffectiveLevel`                               | Property         | Steeltoe.Extensions.Logging.Abstractions               | Renamed | `DynamicLoggerState.EffectiveMinLevel`                         | The active minimum level, taking overrides into account             |
