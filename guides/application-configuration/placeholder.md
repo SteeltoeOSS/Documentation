@@ -6,12 +6,15 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 ## Application Configuration Placeholders
 
 This tutorial takes you through setting up a .NET Core application that uses placeholders for config values.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Placeholder](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/Placeholder) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Placeholder](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/Placeholder) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **create a .NET Core WebAPI** that has a placeholder implemented
 

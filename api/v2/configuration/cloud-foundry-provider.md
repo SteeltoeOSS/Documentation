@@ -23,7 +23,7 @@ In order to use the Steeltoe Cloud Foundry provider you need to do the following
 1. Configure Cloud Foundry options classes by binding configuration data to the classes.
 1. Inject and use the Cloud Foundry Options to access Cloud Foundry configuration data.
 
->NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration) for example code you can use.
+>NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/2.x/Configuration) for example code you can use.
 
 ### Add NuGet Reference
 
@@ -179,11 +179,11 @@ public class HomeController : Controller
 
 #### ConfigureCloudFoundryService
 
-As an alternative to using `CloudFoundryServicesOptions` to access Cloud Foundry service data you can also use `ConfigureCloudFoundryService<TOption>()` or `ConfigureCloudFoundryServices<TOption>()` to easily gain access to service data.  
+As an alternative to using `CloudFoundryServicesOptions` to access Cloud Foundry service data you can also use `ConfigureCloudFoundryService<TOption>()` or `ConfigureCloudFoundryServices<TOption>()` to easily gain access to service data.
 
 These methods allow you to define an Option class which represents a particular type of Cloud Foundry service binding and then use either method to select that data from `VCAP_SERVICES` and bind the data to it.
 
-To do this, you first need to create a Options class that derives from `AbstractServiceOptions`. That class must match the data provided in `VCAP_SERVICES`.  
+To do this, you first need to create a Options class that derives from `AbstractServiceOptions`. That class must match the data provided in `VCAP_SERVICES`.
 
 Here is an example that illustrates how to do this for a MySql service binding on PCF:
 
@@ -210,7 +210,7 @@ public class MySqlCredentials
 
 Next in your `Startup` class you can use either `ConfigureCloudFoundryService<TOption>()` or `ConfigureCloudFoundryServices<TOption>()` to bind the service data from `VCAP_SERVICES` to your `TOption`.  There are multiple ways to do this depending on your needs.
 
-You can use `ConfigureCloudFoundryService<TOption>()` method to select a specific Cloud Foundry service binding from `VCAP_SERVICES` by specifying a service name. Or you can use `ConfigureCloudFoundryServices<TOption>()` to bind to all services of a particular type by specifying a Cloud Foundry service label.  
+You can use `ConfigureCloudFoundryService<TOption>()` method to select a specific Cloud Foundry service binding from `VCAP_SERVICES` by specifying a service name. Or you can use `ConfigureCloudFoundryServices<TOption>()` to bind to all services of a particular type by specifying a Cloud Foundry service label.
 
 Here are some examples:
 

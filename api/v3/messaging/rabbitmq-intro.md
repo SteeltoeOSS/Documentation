@@ -239,7 +239,7 @@ Alternatively, you could configure the same connection settings using the `Addre
 >When specifying addresses as shown above, the `host` and `port` properties are ignored.
 If the address uses the `amqps` protocol, SSL support is automatically enabled.
 
-See [`RabbitOptions`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Config/RabbitOptions.cs) for more of the supported options.
+See [`RabbitOptions`](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/src/RabbitMQ/Config/RabbitOptions.cs) for more of the supported options.
 
 >TIP: See [Understanding AMQP, the protocol used by RabbitMQ](https://www.rabbitmq.com/tutorials/amqp-concepts.html) for more details.
 
@@ -365,7 +365,7 @@ The latter is the mechanism used when retries are enabled and the maximum number
 The Steeltoe RabbitMQHost extends the Microsoft Generic Host and provides for auto configuration of Steeltoe RabbitMQ services.
 
 > [!NOTE]
-> For more detailed examples of using the RabbitMQ Host, please refer to the [Messaging](https://github.com/SteeltoeOSS/Samples/tree/main/Messaging/src) solutions in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples of using the RabbitMQ Host, please refer to the [Messaging](https://github.com/SteeltoeOSS/Samples/tree/3.x/Messaging/src) solutions in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 Below are two code snippets within `Program.cs` and `Startup.cs` that demonstrate the usage of RabbitMQHost:
 
@@ -407,7 +407,7 @@ When using the WebApplication Builder, or if you prefer not to use the RabbitMQH
 
     // Add Steeltoe services for RabbitMQ
     builder.services.AddRabbitServices();
-    
+
     // Add the Steeltoe RabbitMQ admin client... will be used to declare queues below
     builder.services.AddRabbitAdmin();
 

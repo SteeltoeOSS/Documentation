@@ -37,7 +37,7 @@ To use the Steeltoe framework:
 * Use Hystrix Command(s) and/or Collapser(s) to invoke dependent services
 * Add and Use the Hystrix metrics stream service
 
->NOTE: Most of the code in the following sections is based on using Hystrix in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/CircuitBreaker) for example code you can use.
+>NOTE: Most of the code in the following sections is based on using Hystrix in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/2.x/CircuitBreaker) for example code you can use.
 
 ### Add NuGet References
 
@@ -157,7 +157,7 @@ All Hystrix command settings should be prefixed with `hystrix:command:`.
 
 `hystrix:command:default:execution:isolation:thread:timeoutInMilliseconds=750`
 
-To configure the settings for a command in code, use `HystrixCommandOptions` from the `Steeltoe.CircuitBreaker.HystrixBase` package. 
+To configure the settings for a command in code, use `HystrixCommandOptions` from the `Steeltoe.CircuitBreaker.HystrixBase` package.
 
 All configured command-specific settings, as described earlier in #4, should be prefixed with `hystrix:command:HYSTRIX_COMMAND_KEY:`, where `HYSTRIX_COMMAND_KEY` is the `name` of the command. The following example configures the timeout for the Hystrix command with a name of `sample` to be 750 milliseconds:
 

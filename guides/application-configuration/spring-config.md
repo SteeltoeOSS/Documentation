@@ -6,12 +6,15 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 ## App Configuration with a Spring Config Server
 
 This tutorial takes you through setting up a .NET Core application that gets configuration values from a Spring Config Server.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Simple (Config Server)](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/Simple) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Simple (Config Server)](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/Simple) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **create a GitHub repository** to hold config values.
 

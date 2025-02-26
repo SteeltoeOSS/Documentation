@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v2. Later Steeltoe versions do not support .NET Framework usage.
+
 > [!TIP]
 > Looking for a .NET Core example? [Have a look](endpoints-netcore.md).
 
@@ -14,7 +17,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a ASP.NET 4.x Framework application with cloud management endpoints and dynamic logging levels enabled.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 **Create a .NET Framework Web API** project
 
@@ -37,14 +40,14 @@ Next, **install packages** needed
 1. Install NuGet distributed packages
 
    ```powershell
-   Install-Package -Id Microsoft.Extensions.Configuration -Version 2.2
-   Install-Package -Id Microsoft.Extensions.Logging -Version 2.2
-   Install-Package -Id Microsoft.Extensions.Logging.Console -Version 2.2
-   Install-Package -Id OpenCensus -IncludePrerelease
-   Install-Package -Id Steeltoe.Extensions.Logging.DynamicLogger -Version 2.4
-   Install-Package -Id Steeltoe.Management.EndpointBase -Version 2.4
-   Install-Package -Id Steeltoe.Extensions.Configuration.CloudFoundryBase -Version 2.4
-   Install-Package -Id Steeltoe.Management.EndpointWeb -Version 2.4
+   Install-Package Microsoft.Extensions.Configuration
+   Install-Package Microsoft.Extensions.Logging
+   Install-Package Microsoft.Extensions.Logging.Console
+   Install-Package OpenCensus -IncludePrerelease
+   Install-Package Steeltoe.Extensions.Logging.DynamicLogger
+   Install-Package Steeltoe.Management.EndpointBase
+   Install-Package Steeltoe.Extensions.Configuration.CloudFoundryBase
+   Install-Package Steeltoe.Management.EndpointWeb
    ```
 
 Next, **add actuators** support classes

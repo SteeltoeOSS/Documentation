@@ -14,12 +14,12 @@ The Steeltoe Config Server provider supports the following .NET application type
 
 In addition to the Quick Start below, there are several other Steeltoe sample applications that you can refer to when needing help in understanding how to use this provider:
 
-* [AspDotNetCore/Simple](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/AspDotNetCore/Simple): ASP.NET Core sample app showing how to use the open source Config Server.
-* [AspDotNet4/Simple](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/AspDotNet4/Simple): Same as AspDotNetCore/Simple but built for ASP.NET 4.x
-* [AspDotNet4/SimpleCloudFoundry](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/AspDotNet4/SimpleCloudFoundry): Same as the Quick Start sample mentioned later but built for ASP.NET 4.x.
-* [AspDotNet4/AutofacCloudFoundry](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/AspDotNet4/AutofacCloudFoundry): Same as AspDotNet4/SimpleCloudFoundry but built using the Autofac IOC container.
-* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a micro-services based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample app showing inter-operability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and using Spring Cloud Services.
+* [AspDotNetCore/Simple](https://github.com/SteeltoeOSS/Samples/tree/2.x/Configuration/src/AspDotNetCore/Simple): ASP.NET Core sample app showing how to use the open source Config Server.
+* [AspDotNet4/Simple](https://github.com/SteeltoeOSS/Samples/tree/2.x/Configuration/src/AspDotNet4/Simple): Same as AspDotNetCore/Simple but built for ASP.NET 4.x
+* [AspDotNet4/SimpleCloudFoundry](https://github.com/SteeltoeOSS/Samples/tree/2.x/Configuration/src/AspDotNet4/SimpleCloudFoundry): Same as the Quick Start sample mentioned later but built for ASP.NET 4.x.
+* [AspDotNet4/AutofacCloudFoundry](https://github.com/SteeltoeOSS/Samples/tree/2.x/Configuration/src/AspDotNet4/AutofacCloudFoundry): Same as AspDotNet4/SimpleCloudFoundry but built using the Autofac IOC container.
+* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/2.x/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a micro-services based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
+* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/2.x/FreddysBBQ): A polyglot microservices-based sample app showing inter-operability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and using Spring Cloud Services.
 
 >IMPORTANT: The `Pivotal.Extensions.Configuration.ConfigServer*` packages have been deprecated in Steeltoe 2.2 and are not included in future releases.  All functionality provided in those packages has been pushed into the corresponding `Steeltoe.Extensions.Configuration.ConfigServer*` packages.
 

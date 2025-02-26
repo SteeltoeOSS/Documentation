@@ -24,11 +24,11 @@ In order to use the Steeltoe Discovery client, you need to do the following:
 * Add and Use the Discovery client service in the application.
 * Use an injected `IDiscoveryClient` to lookup services.
 
->NOTE: Most of the example code in the following sections is based on using Discovery in a ASP.NET Core application. If you are developing a ASP.NET 4.x application or a console-based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Discovery) for example code you can use.
+>NOTE: Most of the example code in the following sections is based on using Discovery in a ASP.NET Core application. If you are developing a ASP.NET 4.x application or a console-based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/2.x/Discovery) for example code you can use.
 
 ### Consul Settings
 
-To get the Steeltoe Discovery client to properly communicate with the Consul server, you need to provide a few configuration settings to the client. There are two sections you may need to configure.  
+To get the Steeltoe Discovery client to properly communicate with the Consul server, you need to provide a few configuration settings to the client. There are two sections you may need to configure.
 
 The first pertains to configuring the information needed to connect to the Consul server. All of these settings should start with `consul:`
 

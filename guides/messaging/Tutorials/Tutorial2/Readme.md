@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
+
 ## Work Queues Tutorial (using Steeltoe)
 
 > **Prerequisites**
@@ -245,7 +248,7 @@ The second change you should see is in how we reference the queue in the `Rabbit
 [RabbitListener(Queue = "#{@hello}")]
 ```
 
-This syntax uses a Steeltoe feature that leverages a built in `expression language` that is executed when the `Rabbit Container` is created. To use the language, you enclose the `expression` inside a `#{...}` as shown above. In this case the expression is `@hello`.  The `@` symbol is part of the language; it is used to specify a reference to a service from the service container. What follows the `@` symbol is interpreted as the name of the service in the container you wish to reference.  In this case, the service name `hello` is specified, and it is the name of the `Queue` that was added to the service container using the `[DeclareQueue(..)]` attribute we mentioned above.  
+This syntax uses a Steeltoe feature that leverages a built in `expression language` that is executed when the `Rabbit Container` is created. To use the language, you enclose the `expression` inside a `#{...}` as shown above. In this case the expression is `@hello`.  The `@` symbol is part of the language; it is used to specify a reference to a service from the service container. What follows the `@` symbol is interpreted as the name of the service in the container you wish to reference.  In this case, the service name `hello` is specified, and it is the name of the `Queue` that was added to the service container using the `[DeclareQueue(..)]` attribute we mentioned above.
 
 This is how the `RabbitListener` attribute ties the `Receive(..)` method to the `hello` queue declared above.
 

@@ -8,6 +8,9 @@ _disableNav: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 [home-page-link]: index.md
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
@@ -181,7 +184,7 @@ Use the key combination "Ctrl+C" on Windows/Linux or "Cmd+C" on Mac.
 
 With an existing Spring Config server running that was configured to retrieve values from a YAML file, we added a Spring Config client to our application and output the retrieved values. With this architecture in place, you can now do things like update the YAML file and visit the `/actuator/refresh` management endpoint in the application. This will automatically refresh values within the application, without downtime (or restart). You could store a server's connection name in the YAML and have the application retrieve the value. As the application moves through different environments (dev, test, staging, prod) the connection value can change, but the original tested application stays unchanged.
 
-We've just begun to scratch the surface of what Spring Cloud Config Server can really do and all its many features. Learn more about [using Spring Cloud Config Server with Steeltoe](/api/v3/configuration/config-server-provider.html).
+We've just begun to scratch the surface of what Spring Cloud Config Server can really do and all its many features. Learn more about [using Spring Cloud Config Server with Steeltoe](../../api/v3/configuration/config-server-provider.md).
 
 | [<< Previous Exercise][exercise-3-link] | [Workshop Summary >>][summary-link] |
 | :-------------------------------------- | ----------------------------------: |

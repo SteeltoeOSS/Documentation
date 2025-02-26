@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Steeltoe.Extensions.Configuration.ConfigServer;
+using Steeltoe.Configuration.ConfigServer;
 
 namespace Simple
 {

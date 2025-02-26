@@ -516,7 +516,7 @@ We will explore message sending and reception, respectively, in [Sending Message
 ### Adding Retry Capabilities
 
 You can now configure the `RabbitTemplate` to use a `RetryTemplate` to help with handling problems with broker connectivity.
-See the [Steeltoe Retry](https://github.com/SteeltoeOSS/Steeltoe/tree/master/src/Common/src/Common/Retry) framework for complete information.
+See the [Steeltoe Retry](https://github.com/SteeltoeOSS/Steeltoe/tree/release/3.2/src/Common/src/Common/Retry) framework for complete information.
 The following is only one example that uses a [Polly](http://www.thepollyproject.org/) based retry policy, which makes three tries before throwing the exception to the caller.
 
 ```csharp
@@ -2355,11 +2355,11 @@ Those methods are quite useful for request-reply scenarios, since they handle th
 
 Similar request-reply methods are also available where the `IMessageConverter` is applied to both the request and reply.
 Those methods are named `ConvertSendAndReceive`.
-See the [`RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) code for more detail.
+See the [`RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) code for more detail.
 
 Each of the `SendAndReceive` method variants has an overloaded version that takes `CorrelationData`.
 Together with a properly configured connection factory, this enables the receipt of publisher confirms for the send side of the operation.
-See [Template Publisher Confirms and Returns](#template-publisher-confirms-and-returns) and the [`RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) code for more detail.
+See [Template Publisher Confirms and Returns](#template-publisher-confirms-and-returns) and the [`RabbitTemplate`](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/src/RabbitMQ/Core/RabbitTemplate.cs) code for more detail.
 
 You can configure the `RabbitTemplate` with the `NoLocalReplyConsumer` option to control a `noLocal` flag for the reply RabbitMQ Client `BasicConsume()` operation.
 This is `false` by default.
@@ -2480,7 +2480,7 @@ If the reply queue is configured to send rejected messages to a dead letter exch
 To do so, bind a queue to the configured dead letter exchange with a routing key equal to the reply queue's name.
 
 See the [RabbitMQ Dead Letter Documentation](https://www.rabbitmq.com/dlx.html) for more information about configuring dead lettering.
-You can also take a look at the [FixedReplyQueueDeadLetterTest](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/test/RabbitMQ.Test/Core/FixedReplyQueueDeadLetterTest.cs) test case for an example.
+You can also take a look at the [FixedReplyQueueDeadLetterTest](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/test/RabbitMQ.Test/Core/FixedReplyQueueDeadLetterTest.cs) test case for an example.
 
 ## Configuring the Broker
 
@@ -2696,7 +2696,7 @@ var fooExchange = ExchangeBuilder.DirectExchange("foo")
 
 ```
 
-See the code for [QueueBuilder](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Config/QueueBuilder.cs) and [ExchangeBuilder](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Config/ExchangeBuilder.cs) for more information.
+See the code for [QueueBuilder](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/src/RabbitMQ/Config/QueueBuilder.cs) and [ExchangeBuilder](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/src/RabbitMQ/Config/ExchangeBuilder.cs) for more information.
 
 The `ExchangeBuilder` creates durable exchanges by default, to be consistent with the simple constructors on the individual `AbstractExchange` classes.
 To make a non-durable exchange with the builder, use `.Durable(false)` before invoking `.Build()`.
@@ -3077,7 +3077,7 @@ Since 2.7.0, rejected messages go to the front of the queue, in a similar manner
 
 ### Using RabbitTransactionManager
 
-The [RabbitTransactionManager](https://github.com/SteeltoeOSS/Steeltoe/blob/master/src/Messaging/src/RabbitMQ/Transaction/RabbitTransactionManager.cs) is the only `IPlatformTransactionManager` supported at this point.
+The [RabbitTransactionManager](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/src/RabbitMQ/Transaction/RabbitTransactionManager.cs) is the only `IPlatformTransactionManager` supported at this point.
 This transaction manager is an implementation of the [`IPlatformTransactionManager`] interface and should be used with a single RabbitMQ `IConnectionFactory`.
 
 >IMPORTANT: This strategy is not able to provide XA transactions - for example, in order to share transactions between messaging and database access.
@@ -3247,10 +3247,10 @@ The following example shows how to set a `RepublishMessageRecoverer` as the reco
 ```Java
 @Bean
 RetryOperationsInterceptor interceptor() {
-	return RetryInterceptorBuilder.stateless()
-			.maxAttempts(5)
-			.recoverer(new RepublishMessageRecoverer(amqpTemplate(), "something", "somethingelse"))
-			.build();
+    return RetryInterceptorBuilder.stateless()
+            .maxAttempts(5)
+            .recoverer(new RepublishMessageRecoverer(amqpTemplate(), "something", "somethingelse"))
+            .build();
 }
 ```
 

@@ -111,7 +111,7 @@
       name: Apache Geode/GemFire
 - name: Service Discovery
   topicHref: discovery/
-  items: 
+  items:
     - topicHref: discovery/initialize-discovery-client.md
       name: Initialize Discovery Client
     - topicHref: discovery/discovering-services.md

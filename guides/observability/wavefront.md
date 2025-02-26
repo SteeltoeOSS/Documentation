@@ -6,12 +6,15 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
+
 ## Using Wavefront for app container metrics, distributed tracing, and observability
 
 This tutorial takes you creating a simple Steeltoe app with actuators, logging, and distributed tracing. With that app running you then export the data to a Wavefront account.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src) solution in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 ### Prereq's
 

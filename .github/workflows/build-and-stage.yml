@@ -20,6 +20,7 @@ env:
   DOCFX_SOURCE_BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
   STEELTOE_V2_VERSION: 2.5.5
   STEELTOE_V3_VERSION: 3.2.6
+  STEELTOE_V4_VERSION: main
   SITE_IMAGE_VERSION: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.run_id }}
 
 jobs:
@@ -41,12 +42,13 @@ jobs:
       with:
         filters: |
           docfx-layer-changed:
-            - .github/workflows/build-and-stage.yml
             - 'docfx/**'
           metadata-layer-changed:
             - .github/workflows/build-and-stage.yml
             - Dockerfile-metadata
-            - '/api-*.*'
+            - 'api/**'
+            - 'articles/**'
+            - 'guides/**'
             - build-metadata.sh
             - docfx.json
     - name: Declare image versions
@@ -65,23 +67,25 @@ jobs:
           echo "metadata-image-version=${{ env.STEELTOE_VERSIONS }}" >> "$GITHUB_OUTPUT"
         fi
       env:
-        STEELTOE_VERSIONS: ${{ env.STEELTOE_V2_VERSION }}-${{ env.STEELTOE_V3_VERSION }}
+        STEELTOE_VERSIONS: ${{ env.STEELTOE_V2_VERSION }}-${{ env.STEELTOE_V3_VERSION }}-${{ env.STEELTOE_V4_VERSION }}
       shell: bash
 
   build-push-docfx:
     name: Build and push docfx layer
     needs: change-detection
-    if: ${{ needs.change-detection.outputs.docfx-layer-changed }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       uses: actions/checkout@v4
 
     - name: Set DocFX version to use
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       run: echo v${{ env.DOCFX_VERSION }} > docfx/version
       shell: bash
 
     - name: Login to container registry
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       uses: docker/login-action@v3
       with:
         registry: "${{ vars.DOCKER_REGISTRY }}"
@@ -89,15 +93,17 @@ jobs:
         password: "${{ secrets.DOCKER_PASSWORD }}"
 
     - name: Build image
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       run: docker build docfx --file "docfx/Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/docfx:${{ needs.change-detection.outputs.docfx-image-version }}
 
     - name: Push image
+      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
       run: docker push ${{ vars.DOCKER_REGISTRY }}/docfx --all-tags
 
   build-push-metadata:
     name: Build and push API docs layer
     needs: [ change-detection, build-push-docfx ]
-    if: ${{ needs.change-detection.outputs.metadata-layer-changed }}
+    if: ${{ needs.change-detection.outputs.metadata-layer-changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -107,6 +113,7 @@ jobs:
       run: |-
         echo '2:'${{ env.STEELTOE_V2_VERSION }} > metadata.conf
         echo '3:'${{ env.STEELTOE_V3_VERSION }} >> metadata.conf
+        echo '4:'${{ env.STEELTOE_V4_VERSION }} >> metadata.conf
       shell: bash
 
     - name: Login to container registry

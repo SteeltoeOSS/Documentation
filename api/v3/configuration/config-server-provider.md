@@ -8,9 +8,9 @@ To gain a better understanding of the Spring Cloud Config Server, you should rea
 
 In addition to the Quick Start provided later, you can refer to several other Steeltoe sample applications when you need to understand how to use this provider:
 
-* [AspDotNetCore/Simple](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration/src/Simple): ASP.NET Core sample application showing how to use the open source Config Server.
-* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample application showing inter-operability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and uses Spring Cloud Services.
+* [AspDotNetCore/Simple](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/Simple): ASP.NET Core sample application showing how to use the open source Config Server.
+* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/3.x/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
+* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/3.x/FreddysBBQ): A polyglot microservices-based sample application showing inter-operability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and uses Spring Cloud Services.
 
 ## Usage
 

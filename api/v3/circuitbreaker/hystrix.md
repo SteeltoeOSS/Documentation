@@ -247,7 +247,7 @@ Each setting is prefixed with the key `RequestLog`, as shown in the following ex
 
 #### Thread Pool Settings
 
-Hystrix commands use thread pools to implement an underlying isolation pattern for resilience and fault tolerance features. By default each command will create its own 'named' thread pool and every time an instance of that command is executed, a thread from that thread pool will be chosen and used. 
+Hystrix commands use thread pools to implement an underlying isolation pattern for resilience and fault tolerance features. By default each command will create its own 'named' thread pool and every time an instance of that command is executed, a thread from that thread pool will be chosen and used.
 
 Optionally, you can configure your own 'named' thread pool (see next section) and in turn associate one or more commands to a specific thread pool. The describes the settings that control what thread pool a command uses when executing:
 

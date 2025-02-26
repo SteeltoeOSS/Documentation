@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
+
 ## Remote Procedure Call Tutorial (using Steeltoe)
 
 > **Prerequisites**
@@ -76,7 +79,7 @@ request. Steeltoe's `RabbitTemplate` handles the callback queue for
 us when we use the above `ConvertSendAndReceiveAsync()` method.  There is
 no need to do any other setup when using the `RabbitTemplate`.
 For a thorough explanation please see
-[Request/Reply Message](https://docs.steeltoe.io/api/v3/messaging/rabbitmq-reference.html#request-and-reply-messaging).
+[Request/Reply Message](../../../../api/v3/messaging/rabbitmq-reference.md#request-and-reply-messaging).
 
 > **Message properties**
 >

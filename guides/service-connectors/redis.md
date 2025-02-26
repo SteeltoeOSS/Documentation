@@ -6,12 +6,15 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 ## Using Service Connectors with Redis Cache
 
 This tutorial takes you through setting up a .NET Core application with the Redis service connector.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Redis](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Redis](https://github.com/SteeltoeOSS/Samples/tree/3.x/Connectors/src/Redis) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **start a Redis instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 

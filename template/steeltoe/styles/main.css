@@ -217,7 +217,7 @@ ul.breadcrumb > :first-child {
 .sideVersion{
     position: initial;
     /* top: 135px; */
-    width: 260px; 
+    width: 260px;
     z-index: 1;
 }
 
@@ -234,7 +234,7 @@ ul.breadcrumb > :first-child {
 }
 .sidetoc {
     top: 224px;
-    width: 260px; 
+    width: 260px;
 }
 .sidetoc a {
     -webkit-font-smoothing: antialiased;
@@ -323,14 +323,6 @@ ul.breadcrumb > :first-child {
 }
 .level2 li:last-child {
     margin-bottom: 0;
-}
-.level1 .in > a,
-.affix li.active > a,
-.toc > .level1 > li.active > a,
-.level1 .affix .nav li,
-.nav.level2 > li,
-.toc > .level1 > li {
-    margin-bottom: 8px;
 }
 .active.in li:last-child, .active.in li:last-child>a, .bs-docs-sidenav > li.active a {
     margin-bottom: 0;
@@ -507,7 +499,7 @@ img {
         padding: 20px 0;
         z-index: 500;
     }
-    
+
     .sideVersion {
         bottom: 0;
         left: 0;
@@ -545,7 +537,7 @@ img {
         padding: 10px;
         display: inline;
     }
-    
+
     #open-sidenav .mobile-toc-showhide {
         border: solid #0066cc 1px;
         display: inline;

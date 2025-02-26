@@ -10,10 +10,10 @@ The Eureka client implementation supports the following .NET application types:
 
 Here are several Steeltoe sample applications when looking for help in understanding how to use this client:
 
-* [AspDotNet4/Fortune-Teller-Service4](https://github.com/SteeltoeOSS/Samples/tree/master/Discovery/src/AspDotNet4/Fortune-Teller-Service4): Same as the Quick Start next but built for ASP.NET 4.x and using the Autofac IOC container.
-* [AspDotNet4/Fortune-Teller-UI4](https://github.com/SteeltoeOSS/Samples/tree/master/Discovery/src/AspDotNet4/Fortune-Teller-UI4): Same as the Quick Start next but built for ASP.NET 4.x and using the Autofac IOC container
-* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/master/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices-based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/master/FreddysBBQ): A polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and using Spring Cloud Services.
+* [AspDotNet4/Fortune-Teller-Service4](https://github.com/SteeltoeOSS/Samples/tree/2.x/Discovery/src/AspDotNet4/Fortune-Teller-Service4): Same as the Quick Start next but built for ASP.NET 4.x and using the Autofac IOC container.
+* [AspDotNet4/Fortune-Teller-UI4](https://github.com/SteeltoeOSS/Samples/tree/2.x/Discovery/src/AspDotNet4/Fortune-Teller-UI4): Same as the Quick Start next but built for ASP.NET 4.x and using the Autofac IOC container
+* [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/2.x/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices-based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
+* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/2.x/FreddysBBQ): A polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and using Spring Cloud Services.
 
 ## Usage
 
@@ -31,7 +31,7 @@ In order to use the Steeltoe Discovery client, you need to do the following:
 * Add and Use the Discovery client service in the application.
 * Use an injected `IDiscoveryClient` to lookup services.
 
->NOTE: Most of the example code in the following sections is based on using Discovery in a ASP.NET Core application. If you are developing a ASP.NET 4.x application or a console-based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Discovery) for example code you can use.
+>NOTE: Most of the example code in the following sections is based on using Discovery in a ASP.NET Core application. If you are developing a ASP.NET 4.x application or a console-based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/2.x/Discovery) for example code you can use.
 
 ### Eureka Settings
 

@@ -48,7 +48,7 @@ public void ConfigureServices(IServiceCollection services)
 {
     // Add Db Migration Actuator
     services.AddDbMigrationsActuator();
-    
+
     // Other registrations...
 }
 
@@ -73,7 +73,7 @@ The default path for this endpoint is `/actuator/dbmigrations` and the response 
 
 ```json
 {
-    "TestDataContext": 
+    "TestDataContext":
     {
         "pendingMigrations": [
             "2021078158434_AddNewTable"

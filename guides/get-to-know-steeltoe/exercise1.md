@@ -8,6 +8,9 @@ _disableNav: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 [exercise-1-link]: exercise1.md
 [exercise-2-link]: exercise2.md
 [exercise-3-link]: exercise3.md
@@ -126,7 +129,7 @@ Add the distributed tracing feature to the service container:
 builder.Services.AddDistributedTracingAspNetCore();
 ```
 
-With the addition of the distributed tracing option, under the covers, Steeltoe uses the OpenTelemetry specification to generate and propagate spans and traces throughout the application, as requests are received. No additional configuration is needed, but if you wanted to manipulate how traces and spans are created you could provide settings in "appsettings.json", [read the docs](/api/v3/tracing/index.html#configure-settings) for more information.
+With the addition of the distributed tracing option, under the covers, Steeltoe uses the OpenTelemetry specification to generate and propagate spans and traces throughout the application, as requests are received. No additional configuration is needed, but if you wanted to manipulate how traces and spans are created you could provide settings in "appsettings.json", [read the docs](/api/v3/tracing/index.md#configure-settings) for more information.
 
 > [!TIP]
 > Having the combination of the logging actuator and distributed tracing enabled, Steeltoe will automatically append the application name, span Id, and trace Id on log messages when possible. This can be very handy when debugging a specific happening or error in production.
@@ -179,7 +182,7 @@ Let's look at the health endpoint. Replace `WeatherForecast` with `actuator/heal
 
 ![Health endpoint](../images/health-endpoint.png)
 
-As we discussed above, the fact that the page loaded (status of 200) is the first communication to the application's platform that it is healthy. Secondarily, the application has output information to help certain platforms gain a deeper knowledge of app health. Learn more about the health endpoint [here](/api/v3/management/health.html).
+As we discussed above, the fact that the page loaded (status of 200) is the first communication to the application's platform that it is healthy. Secondarily, the application has output information to help certain platforms gain a deeper knowledge of app health. Learn more about the health endpoint [here](../../api/v3/management/health.md).
 
 ## Discover the info endpoint
 
@@ -187,7 +190,7 @@ Now navigate to the info endpoint by replacing `health` with `info` in the addre
 
 ![Info endpoint](../images/info-endpoint.png)
 
-We have loaded the bare minimum application info for this example. You could build your own `IInfoContributor` and add all kinds of metadata and connection information. Learn more [here](/api/v3/management/info.html).
+We have loaded the bare minimum application info for this example. You could build your own `IInfoContributor` and add all kinds of metadata and connection information. Learn more [here](../../api/v3/management/info.md).
 
 ## Observe trace and spans appended to logs
 

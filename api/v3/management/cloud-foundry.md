@@ -91,7 +91,7 @@ public class Startup
         //services.AddCloudFoundryActuators(Configuration);
         // if you prefer to add individual actuators
         //services.AddCloudFoundryActuator(Configuration);
-        ...    
+        ...
     }
     public void Configure(IApplicationBuilder app)
     {

@@ -10,11 +10,17 @@
         <a class="mobile-toc-showhide" onclick="showMobileToc(); return false;">X</a>
       </div>
       <div id="version-toggles" class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
+        <label class="btn btn-secondary versionLabel" onclick="location.href='/api/v4/welcome'">
+          <input type="radio" name="options" id="v4" autocomplete="off"> V4
+        </label>
         <label class="btn btn-secondary versionLabel" onclick="location.href='/api/v3/welcome'">
           <input type="radio" name="options" id="v3" autocomplete="off"> V3
         </label>
         <label class="btn btn-secondary versionLabel" onclick="location.href='/api/v2/welcome'">
           <input type="radio" name="options" id="v2" autocomplete="off"> V2
+        </label>
+        <label class="btn btn-secondary versionLabel hide" onclick="location.href='/api/browser/v4/all'">
+          <input type="radio" name="optionsApi" id="api-v4" autocomplete="off"> V4
         </label>
         <label class="btn btn-secondary versionLabel hide" onclick="location.href='/api/browser/v3/all'">
           <input type="radio" name="optionsApi" id="api-v3" autocomplete="off"> V3
@@ -25,6 +31,17 @@
       </div>
       <div id="api-navigation" class="hide">
         <div id="api-selection">
+            <select id="api-namespace-v4" class="form-control api-namespace hide">
+              <option value="/api/browser/v4/all/">All namespaces</option>
+              <option value="/api/browser/v4/bootstrap/Steeltoe.Bootstrap.AutoConfiguration.html">Steeltoe.Bootstrap</option>
+              <option value="/api/browser/v4/common/Steeltoe.Common.html">Steeltoe.Common</option>
+              <option value="/api/browser/v4/configuration/Steeltoe.Configuration.html">Steeltoe.Configuration</option>
+              <option value="/api/browser/v4/connectors/Steeltoe.Connectors.html">Steeltoe.Connectors</option>
+              <option value="/api/browser/v4/discovery/Steeltoe.Discovery.HttpClients.html">Steeltoe.Discovery</option>
+              <option value="/api/browser/v4/logging/Steeltoe.Logging.html">Steeltoe.Logging</option>
+              <option value="/api/browser/v4/management/Steeltoe.Management.html">Steeltoe.Management</option>
+              <option value="/api/browser/v4/security/Steeltoe.Security.Authentication.CloudFoundry.html">Steeltoe.Security</option>
+            </select>
             <select id="api-namespace-v3" class="form-control api-namespace hide">
               <option value="/api/browser/v3/all/">All namespaces</option>
               <option value="/api/browser/v3/bootstrap/Steeltoe.Bootstrap.AutoConfig.html">Steeltoe.Bootstrap</option>

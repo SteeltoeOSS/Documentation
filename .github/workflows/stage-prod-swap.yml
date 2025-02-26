@@ -36,4 +36,4 @@ jobs:
       run: |
         az webapp config appsettings set --resource-group steeltoe --name docs-steeltoe --slot Staging --settings mainsite_host=https://staging.steeltoe.io
         az webapp restart --resource-group steeltoe --name docs-steeltoe --slot Staging
-    
+

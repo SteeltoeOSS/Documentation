@@ -32,7 +32,7 @@ In this guide, we describe how you can register these Steeltoe based components 
 
 ## Development
 
-The [samples repo](https://github.com/SteeltoeOSS/Samples/tree/main/Stream) has a number of Steeltoe Stream sample applications. For this example we will be using the `CloudDataFlowLogToUpperProcessor` sample, which implements an `IProcessor` interface and the `CloudDataFlowLogSink` sample, which implements an `ISink` interface.
+The [samples repo](https://github.com/SteeltoeOSS/Samples/tree/3.x/Stream) has a number of Steeltoe Stream sample applications. For this example we will be using the `CloudDataFlowLogToUpperProcessor` sample, which implements an `IProcessor` interface and the `CloudDataFlowLogSink` sample, which implements an `ISink` interface.
 For an `ISource` use the `HttpSource` application available at `maven://org.springframework.cloud.stream.app:http-source-rabbit:3.0.1`
 
 Spring Cloud team publishes a number of sample applications as `maven` and `docker` artifacts at the `https://repo.spring.io` Maven repository. These pre-packaged applications can be used with Steeltoe Stream.

@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
+
 ## Publisher Confirms Tutorial (using Steeltoe)
 
 > **Prerequisites**

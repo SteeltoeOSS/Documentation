@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 > [!TIP]
 > Looking for a .NET Framework example? [Have a look](endpoints-framework.md).
 
@@ -14,7 +17,7 @@ _hideTocVersionToggle: true
 This tutorial takes you through setting up a .NET Core application with cloud management endpoints automatically added in.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Management](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src) projects in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 **Create a .NET Core WebAPI** with Actuators enabled
 

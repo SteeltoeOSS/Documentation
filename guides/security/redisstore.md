@@ -6,12 +6,15 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 ## Using Cloud Security with a Redis Cache for key ring store
 
 This tutorial takes you through setting up a .NET Core application that stores its master keys used to protect payloads in an external Redis cache. Learn more about ASP.NET data protection [here](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection).
 
 > [!NOTE]
-> For more detailed examples, please refer to the [RedisDataProtectionKeyStore](https://github.com/SteeltoeOSS/Samples/tree/main/Security/src/RedisDataProtectionKeyStore) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [RedisDataProtectionKeyStore](https://github.com/SteeltoeOSS/Samples/tree/3.x/Security/src/RedisDataProtectionKeyStore) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **start a Redis instance**. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of RedisStore.
 

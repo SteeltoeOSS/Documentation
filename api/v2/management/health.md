@@ -5,7 +5,7 @@ The Steeltoe health management endpoint can be used to check and return the stat
 |Name|Description|
 |---|---|
 |`never`|Details are never shown.|
-|`whenauthorized`|Details are only shown to authorized users. |  
+|`whenauthorized`|Details are only shown to authorized users. |
 |`always`|Details are always shown.|
 
 The default value is `always`. Authorized roles can be configured using `management:endpoints:health:claim or management:endpoints:health:role`. A user is considered to be authorized when they are in the given role or have the specified claim. For example:
@@ -202,7 +202,7 @@ public void ConfigureServices(IServiceCollection services)
     var connectionString = cm.Get<MySqlConnectionInfo>().ConnectionString;
 
     // Add microsoft community health checks from xabaril
-    services.AddHealthChecks().AddMySql(connectionString);  
+    services.AddHealthChecks().AddMySql(connectionString);
 
     // Add in a MySql connection (this method also adds an IHealthContributor for it)
     services.AddMySqlConnection(Configuration); // will now use community health check instead of Steeltoe health check
@@ -218,7 +218,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 >NOTE: AddMySqlConnection will default to the ASP.NET Core health check if found in the service container. This behavior can be toggled off by passing AddMySqlConnection(Configuration, addSteeltoeHealthChecks: true) which will add both health checks. Be warned that this will make the Health check endpoint slower by calling multiple health checks for the same service.
-  
+
   ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 {

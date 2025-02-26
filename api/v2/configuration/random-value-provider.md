@@ -1,6 +1,6 @@
 # RandomValue Provider
 
-Sometimes you might find the need to generate random values as part of your applications configuration values.  
+Sometimes you might find the need to generate random values as part of your applications configuration values.
 
 The Steeltoe RandomValue generator is a configuration provider which you can use to do just that. It can produce integers, longs, uuids or strings as shown in the following examples:
 
@@ -47,7 +47,7 @@ In order to use the Steeltoe RandomValue provider you need to do the following:
 1. Add the provider to the Configuration Builder.
 1. Access random values from the `IConfiguration`.
 
->NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration) for example code you can use.
+>NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/2.x/Configuration) for example code you can use.
 
 ### Add NuGet Reference
 
@@ -65,7 +65,7 @@ To do this add a `PackageReference` resembling the following:
 
 ### Add Configuration Provider
 
-In order to have the ability to generate random values from the configuration, you need to add the RandomValue generatore provider to the `ConfigurationBuilder`.  
+In order to have the ability to generate random values from the configuration, you need to add the RandomValue generatore provider to the `ConfigurationBuilder`.
 
 The following example shows how to add to this:
 

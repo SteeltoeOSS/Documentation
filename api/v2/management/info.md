@@ -13,7 +13,7 @@ The following table describes the `IInfoContributor` implementations provided by
 | `AppSettingsInfoContributor`|Exposes any values under the key `info` (for example, `info:foo:bar=foobar`) that is in your apps configuration (for example, `appsettings.json`)|
 | `GitInfoContributor`|Exposes git information (if a git.properties file is available)|
 
-For an example of how to use the above `GitInfoContributor` within MSBuild using [GitInfo](https://github.com/kzu/GitInfo), see the [Steeltoe management sample](https://github.com/SteeltoeOSS/Samples/tree/master/Management/src/AspDotNetCore/CloudFoundry) and the [CloudFoundry.csproj](https://github.com/SteeltoeOSS/Samples/blob/master/Management/src/AspDotNetCore/CloudFoundry/CloudFoundry.csproj) file.
+For an example of how to use the above `GitInfoContributor` within MSBuild using [GitInfo](https://github.com/kzu/GitInfo), see the [Steeltoe management sample](https://github.com/SteeltoeOSS/Samples/tree/2.x/Management/src/AspDotNetCore/CloudFoundry) and the [CloudFoundry.csproj](https://github.com/SteeltoeOSS/Samples/blob/2.x/Management/src/AspDotNetCore/CloudFoundry/CloudFoundry.csproj) file.
 
 If you wish to provide custom information for your application, create a class that implements the `IInfoContributor` interface and then add that to the `InfoEndpoint`. Details on how to add a contributor to the endpoint is provided below.
 

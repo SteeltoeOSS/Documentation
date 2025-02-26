@@ -46,7 +46,7 @@ The following table describes the settings that you can apply to the exporter:
 |serviceName|app name used in log messages|null|
 |useShortTraceIds|truncate the ids to 8 bytes instead of 16, use for backwards compatibility with Spring Sleuth, PCF Metrics, etc.|true|
 
-**Note**: **Each setting above must be prefixed with `management:tracing:exporter:zipkin`**. 
+**Note**: **Each setting above must be prefixed with `management:tracing:exporter:zipkin`**.
 
 #### Add and Use Zipkin Exporter
 

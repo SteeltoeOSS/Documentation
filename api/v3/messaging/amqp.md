@@ -1061,7 +1061,7 @@ public static MessageBuilder fromClonedMessage(Message message) <5>
 
 <1> The message created by the builder has a body that is a direct reference to the argument.
 <2> The message created by the builder has a body that is a new array containing a copy of bytes in the argument.
-<3>	The message created by the builder has a body that is a new array containing the range of bytes from the argument.
+<3> The message created by the builder has a body that is a new array containing the range of bytes from the argument.
 See https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html[`Arrays.copyOfRange()`] for more details.
 <4> The message created by the builder has a body that is a direct reference to the body of the argument.
 The argument's properties are copied to a new `MessageProperties`  object.
@@ -1127,11 +1127,11 @@ The following listing shows the `BatchingStrategy` interface definition:
 ```Java
 public interface BatchingStrategy {
 
-	MessageBatch addToBatch(String exchange, String routingKey, Message message);
+    MessageBatch addToBatch(String exchange, String routingKey, Message message);
 
-	Date nextRelease();
+    Date nextRelease();
 
-	Collection<MessageBatch> releaseBatches();
+    Collection<MessageBatch> releaseBatches();
 
 }
 ```
@@ -1215,22 +1215,22 @@ The following listing shows those method definitions:
 
 ```Java
 <R, S> boolean receiveAndReply(ReceiveAndReplyCallback<R, S> callback)
-	   throws AmqpException;
+    throws AmqpException;
 
 <R, S> boolean receiveAndReply(String queueName, ReceiveAndReplyCallback<R, S> callback)
- 	throws AmqpException;
+    throws AmqpException;
 
 <R, S> boolean receiveAndReply(ReceiveAndReplyCallback<R, S> callback,
-	String replyExchange, String replyRoutingKey) throws AmqpException;
+    String replyExchange, String replyRoutingKey) throws AmqpException;
 
 <R, S> boolean receiveAndReply(String queueName, ReceiveAndReplyCallback<R, S> callback,
-	String replyExchange, String replyRoutingKey) throws AmqpException;
+    String replyExchange, String replyRoutingKey) throws AmqpException;
 
 <R, S> boolean receiveAndReply(ReceiveAndReplyCallback<R, S> callback,
- 	ReplyToAddressCallback<S> replyToAddressCallback) throws AmqpException;
+    ReplyToAddressCallback<S> replyToAddressCallback) throws AmqpException;
 
 <R, S> boolean receiveAndReply(String queueName, ReceiveAndReplyCallback<R, S> callback,
-			ReplyToAddressCallback<S> replyToAddressCallback) throws AmqpException;
+    ReplyToAddressCallback<S> replyToAddressCallback) throws AmqpException;
 ```
 
 The `AmqpTemplate` implementation takes care of the `receive` and `reply` phases.
@@ -1341,7 +1341,7 @@ The following listing shows the definition of `FunctionalInterface`:
 @FunctionalInterface
 public interface ReplyingMessageListener<T, R> {
 
-	R handleMessage(T t);
+    R handleMessage(T t);
 
 }
 ```
@@ -3225,7 +3225,7 @@ The following listing shows examples of how to manually wire up the beans:
     }
 ```
 
-A complete example of a `RabbitTemplate` wired with a fixed reply queue, together with a "remote" listener container that handles the request and returns the reply is shown in [this test case](https://github.com/spring-projects/spring-amqp/tree/master/spring-rabbit/src/test/java/org/springframework/amqp/rabbit/listener/JavaConfigFixedReplyQueueTests.java).
+A complete example of a `RabbitTemplate` wired with a fixed reply queue, together with a "remote" listener container that handles the request and returns the reply is shown in [this test case](https://github.com/spring-projects/spring-amqp/tree/main/spring-rabbit/src/test/java/org/springframework/amqp/rabbit/listener/JavaConfigFixedReplyQueueTests.java).
 
 >IMPORTANT: When the reply times out (`replyTimeout`), the `sendAndReceive()` methods return null.
 
@@ -3697,17 +3697,17 @@ public static class Config {
 
     @Bean
     public DirectExchange e1() {
-    	return new DirectExchange("e1", false, true);
+        return new DirectExchange("e1", false, true);
     }
 
     @Bean
     public Queue q1() {
-    	return new Queue("q1", false, false, true);
+        return new Queue("q1", false, false, true);
     }
 
     @Bean
     public Binding b1() {
-    	return BindingBuilder.bind(q1()).to(e1()).with("k1");
+        return BindingBuilder.bind(q1()).to(e1()).with("k1");
     }
 
     @Bean
@@ -4383,10 +4383,10 @@ The following example shows how to do so:
 ```Java
 @Bean
 public StatefulRetryOperationsInterceptor interceptor() {
-	return RetryInterceptorBuilder.stateful()
-			.maxAttempts(5)
-			.backOffOptions(1000, 2.0, 10000) // initialInterval, multiplier, maxInterval
-			.build();
+    return RetryInterceptorBuilder.stateful()
+            .maxAttempts(5)
+            .backOffOptions(1000, 2.0, 10000) // initialInterval, multiplier, maxInterval
+            .build();
 }
 ```
 
@@ -4451,10 +4451,10 @@ The following example shows how to set a `RepublishMessageRecoverer` as the reco
 ```Java
 @Bean
 RetryOperationsInterceptor interceptor() {
-	return RetryInterceptorBuilder.stateless()
-			.maxAttempts(5)
-			.recoverer(new RepublishMessageRecoverer(amqpTemplate(), "something", "somethingelse"))
-			.build();
+    return RetryInterceptorBuilder.stateless()
+            .maxAttempts(5)
+            .recoverer(new RepublishMessageRecoverer(amqpTemplate(), "something", "somethingelse"))
+            .build();
 }
 ```
 

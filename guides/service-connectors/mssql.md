@@ -6,12 +6,15 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 ## Using Service Connectors with Microsoft SQL
 
 This tutorial takes you through setting up a .NET Core application with the Microsoft SQL service connector.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [SqlServerEFCore](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/SqlServerEFCore) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [SqlServerEFCore](https://github.com/SteeltoeOSS/Samples/tree/3.x/Connectors/src/SqlServerEFCore) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **start an MsSQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 

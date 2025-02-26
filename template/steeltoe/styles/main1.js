@@ -21,6 +21,10 @@ function isApiVersion3() {
     return window.location.href.indexOf("/api/browser/v3/") > -1;
 }
 
+function isApiVersion4() {
+    return window.location.href.indexOf("/api/browser/v4/") > -1;
+}
+
 function getNamespaceFolder(url) {
     var urlSegments = url.split('/');
     return urlSegments[urlSegments.length - 2];
@@ -89,10 +93,14 @@ function showApiBrowserElements() {
     $('.sideaffix .contribution .nav li a').attr('href', '#');
 
     // Select correct version radio button, activate parent label
-    if (isApiVersion3()) {
+    if (isApiVersion4()) {
+        $("#api-v4").prop("checked", true);
+        $("#api-v4").parent().addClass('active');
+    } else if (isApiVersion3()) {
         $("#api-v3").prop("checked", true);
         $("#api-v3").parent().addClass('active');
-    } else {
+    }
+    else {
         $("#api-v2").prop("checked", true);
         $("#api-v2").parent().addClass('active');
     }
@@ -154,7 +162,11 @@ $(function() {
     if (isApiBrowserPage()) {
         showApiBrowserElements();
 
-        if (isApiVersion3()) {
+        if (isApiVersion4()) {
+            setActiveNamespace('v4');
+            bindNavigationChangeEvent('v4');
+        }
+        else if (isApiVersion3()) {
             setActiveNamespace('v3');
             bindNavigationChangeEvent('v3');
         }
@@ -183,28 +195,6 @@ $(function() {
         $('#docsNavLink').removeClass('active');
         $('#guidesNavLink').addClass('active');
     }
-
-    setTimeout(() => {
-        // move right-side nav under selected item (if found)
-        var activeMenuItem = $('.active.in .active.in .active');
-        if (activeMenuItem && $('#affix').children().length > 0)
-        {
-            activeMenuItem.append($('#affix'));
-        }
-
-        if (!isApiBrowserPage() && !isGuidePage()) {
-            // Add numbers to toc
-            $('#sidetoc #toc >.level1 > li').each(function(index1, level1) {
-                $(level1).children('a').prepend((index1 + 1) + ". ");
-                $(level1).children('ul').children('li').each(function(index2, level2) {
-                    $(level2).children('a').prepend((index1 + 1) + "." + (index2 + 1) + " ");
-                    $(level2).children('a').children('nav').children('ul').children('li').each(function(index3, level3) {
-                        $(level3).children('a').prepend(''.concat(index1 + 1, ".", index2 + 1, ".", index3 + 1, " "));
-                    });
-                });
-            });
-        }
-    }, "100");
 });
 
 var options = {

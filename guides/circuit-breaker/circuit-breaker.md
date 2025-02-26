@@ -6,12 +6,15 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
+
 ## Implementing Circuit Breakers
 
 This tutorial takes you through setting up a .NET Core application that implements a circuit breaker pattern.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [FortuneTeller (Circuit Breaker)](https://github.com/SteeltoeOSS/Samples/tree/main/CircuitBreaker/src/FortuneTeller) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [FortuneTeller (Circuit Breaker)](https://github.com/SteeltoeOSS/Samples/tree/3.x/CircuitBreaker/src/FortuneTeller) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 ### Start a instance of the Hystrix dashboard
 
@@ -105,7 +108,7 @@ Navigate to the endpoint [http://localhost:5000/WeatherForecast](http://localhos
 1.  Navigate to the dashboard at [http://localhost:7979/hystrix](http://localhost:7979/hystrix) and enter the application stream url in the stream url text box (ex. [http://localhost:5000/hystrix/hystrix.stream](http://localhost:5000/hystrix/hystrix.stream))
     <img src="~/guides/images/circuit-breaker-dashboard.png" alt="Circuit Breaker Landing" width="100%">
 
-    
+
 > NOTE: The stream url `http://localhost:5000/hystrix/hystrix.stream` will only work if the Hystrix dashboard is running on your local host.  You will have to use a different URL, one that is accessible from Docker if you are running the dashboard using Docker.
 
 1.  Refresh the application in your browser a few times and go back to the dashboard to see it logging live activity.

@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
+
 > [!TIP]
 > Looking for a .NET Framework example? Have a [look](./sso-openid-framework.md).
 
@@ -14,7 +17,7 @@ _hideTocVersionToggle: true
 This is a guide to integrate a .Net Core API with the Cloud Foundry SSO identity provider service. The sample provides authentication to select entry points of an application. It is meant to provide authentication simiar to how IIS would when Windows authentication is enabled.
 
 > [!NOTE]
-> For more detailed examples, please refer to the [Security](https://github.com/SteeltoeOSS/Samples/tree/main/Security) section in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples).
+> For more detailed examples, please refer to the [Security](https://github.com/SteeltoeOSS/Samples/tree/3.x/Security) section in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).
 
 First, **establish an identity provider**. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of SSO.
 
@@ -34,10 +37,10 @@ Next, **create a .NET Core WebAPI** that interacts with SSO
 1. Extract the zipped project and open in your IDE of choice
 1. Open the package manager console
    <img src="~/guides/images/open-package-manager-console.png" alt="Visual Studio - Package Manager Console" width="100%">
-1. Install NuGet distributed packages
+1. Install NuGet packages
 
    ```powershell
-   Install-Package -Id Steeltoe.Security.Authentication.CloudFoundryCore -Version 2.4
+   Install-Package Steeltoe.Security.Authentication.CloudFoundryCore
    ```
 
 1. Set the instance address in **appsettings.json**

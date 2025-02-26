@@ -6,6 +6,9 @@ _disableFooter: true
 _hideTocVersionToggle: true
 ---
 
+> [!NOTE]
+> This guide applies to Steeltoe v3. [This component has been removed from v4](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
+
 ## Publish/Subscribe Tutorial (using Steeltoe)
 
 > **Prerequisites**
@@ -88,7 +91,7 @@ namespace Receiver
         public Tut3Receiver(ILogger<Tut3Receiver> logger)
         {
             _logger = logger;
-        } 
+        }
         ....
     }
 }
@@ -153,7 +156,7 @@ namespace Sender
             _logger = logger;
             _rabbitTemplate = rabbitTemplate;
         }
-  
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -210,7 +213,7 @@ namespace Receiver
         public Tut3Receiver(ILogger<Tut3Receiver> logger)
         {
             _logger = logger;
-        } 
+        }
         ....
     }
 }
@@ -248,7 +251,7 @@ namespace Receiver
         public Tut3Receiver(ILogger<Tut3Receiver> logger)
         {
             _logger = logger;
-        } 
+        }
         ....
     }
 }
@@ -294,7 +297,7 @@ namespace Sender
             _logger = logger;
             _rabbitTemplate = rabbitTemplate;
         }
-   
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)

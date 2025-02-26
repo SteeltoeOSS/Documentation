@@ -69,8 +69,7 @@ Let's talk about something really cool...
 
 ## Creating a new API document
 
-Create a new markdown file in the `api` directory. Name the file something URL safe. In the `api` directory there are `v2` and `v3` directories. Within each of those are directories for each component. Place your content accordingly. To include the document in the Table of Contents, add it to `api/(version)/toc.yml`.
-An example API document:
+Similar to the blog post, you're going to create a new markdown file, but in the `api` folder. The name needs to be URL-safe. Notice in the api folder, there is a `v2`, `v3` and `v4` subfolder. Within each of those are folders for each component. Place your content accordingly. To include the file in the table of contents, add it in `api/(version)/toc.yml`. Notice in the example below that the `topicHref` values are not absolute paths. DocFX will calculate everything at build time.
 
 An example API doc:
 
@@ -123,7 +122,7 @@ For working on any non-trivial changes, there are several ways to build and run 
 
 The easiest way to build and run the site is this command: `docfx build --serve --port 8082`.
 
-### Build API docs for Steeltoe 2 and 3
+### Build API docs for Steeltoe 2, 3 and 4
 
 Building the API docs is not required for the site to run locally.
 
@@ -132,9 +131,11 @@ If needed, these commands will download the Steeltoe source code and generate AP
 ```bash
 git clone https://github.com/SteeltoeOSS/Steeltoe sources/v2 -b release/2.5
 git clone https://github.com/SteeltoeOSS/Steeltoe sources/v3 -b release/3.2
+git clone https://github.com/SteeltoeOSS/Steeltoe sources/v4 -b release/main
 git clean -fX api
 docfx metadata api-v2.json
 docfx metadata api-v3.json
+docfx metadata api-v4.json
 docfx metadata api-all.json
 ```
 

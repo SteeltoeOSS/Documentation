@@ -33,7 +33,7 @@ Let’s look at all the new features of Steeltoe 3.1 and how it’s going to get
 
 ## Steeltoe Messaging with RabbitMQ
 
-[Steeltoe Messaging](https://docs.steeltoe.io/api/v3/messaging/) (which was introduced in 3.0) brought three main features to simplify developing event-driven microservices:
+[Steeltoe Messaging](../../api/v3/messaging/index.md) (which was introduced in 3.0) brought three main features to simplify developing event-driven microservices:
 
 * Listener container - a high-level abstraction for asynchronous processing of inbound messages
 * RabbitTemplate - an abstraction for sending and receiving messages
@@ -49,12 +49,12 @@ Very few developers enjoy locking their applications into one vendor. To keep po
 
 The goal of Steeltoe Messaging is to make interactions with a specific broker very easy. Steeltoe Streams builds on that, to abstract broker specifics and make them more pluggable. Streams offer features like:
 
-* Binder abstraction - a flexible programming model to dynamically choose message destinations at runtime  
+* Binder abstraction - a flexible programming model to dynamically choose message destinations at runtime
 * Persistent pub/sub semantics - makes sharing a topic easy for both producer and consumers
 * Consumer groups - scaling up consumer microservices while maintaining the integrity of the stream processing operation
 * Partitioning support - partition between multiple instances for stateful processing (even when the broker does not natively support it)
 
-All of these concepts are covered in depth in [the documentation](https://docs.steeltoe.io/api/v3/stream/) where you can get in-depth with each concept. The goal is to take the burden of learning message semantics away and help you focus on writing your microservice. Have a look at our [quick start guide](https://docs.steeltoe.io/guides/stream/quick-start.html) and get going with message streaming in a flash!
+All of these concepts are covered in depth in [the documentation](../../api/v3/stream/index.md) where you can get in-depth with each concept. The goal is to take the burden of learning message semantics away and help you focus on writing your microservice. Have a look at our [quick start guide](../../guides/stream/quick-start.md) and get going with message streaming in a flash!
 
 ## Support for Spring Cloud Data Flow
 
@@ -74,11 +74,11 @@ SCDF introduces the concept of sources, processors, and sinks. A source is how t
 
 That’s really just the beginning of SCDF. With data pipelines, you can have multiple sources, processors, or sinks. You can scale each microservice independently. And with the introduction of Steeltoe support, you can mix both Java and .NET services together in one pipeline!
 
-These microservices are a little more "micro" than your typical service. They could be a single .cs that does a small job. They have special attributes that take care of all the message bus management as well as the incoming and outgoing data. To learn more have a look at the [Steeltoe stream docs for SCDF](https://docs.steeltoe.io/api/v3/stream/data-flow-stream.html).
+These microservices are a little more "micro" than your typical service. They could be a single .cs that does a small job. They have special attributes that take care of all the message bus management as well as the incoming and outgoing data. To learn more have a look at the [Steeltoe stream docs for SCDF](../../api/v3/stream/data-flow-stream.md).
 
 ## Steeltoe Bootstrap
 
-Remember the days when you had multiple `using` statements  and a variety of extension methods to bring in all those Steeltoe libraries? Well, we have good news: those days are now behind you. Community member Andrew Stakhov contributed an idea to the incubator called bootstrap and we think it's pretty darn cool. He created a HostBuilder extension that looks for select Steeltoe packages your project references and automatically initializes them in the project. What 'select' packages are included, you might be asking? There is a [full table](https://docs.steeltoe.io/api/v3/bootstrap/index.html#supported-steeltoe-packages) in our documentation. Simply add a reference to any (or all) of those packages and then call `AddSteeltoe()` on the HostBuilder and your microservice will get the best of cloud-native practices. Here is an example of using the bootstrapper:
+Remember the days when you had multiple `using` statements  and a variety of extension methods to bring in all those Steeltoe libraries? Well, we have good news: those days are now behind you. Community member Andrew Stakhov contributed an idea to the incubator called bootstrap and we think it's pretty darn cool. He created a HostBuilder extension that looks for select Steeltoe packages your project references and automatically initializes them in the project. What 'select' packages are included, you might be asking? There is a [full table](../../api/v3/bootstrap/index.md#supported-steeltoe-packages) in our documentation. Simply add a reference to any (or all) of those packages and then call `AddSteeltoe()` on the HostBuilder and your microservice will get the best of cloud-native practices. Here is an example of using the bootstrapper:
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -92,4 +92,4 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 ## Get Started Today
 
-To get started with any Steeltoe projects, head over to the [getting started guides](https://docs.steeltoe.io/guides/). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples), and you’ll have .NET microservices up and running before you know it!
+To get started with any Steeltoe projects, head over to the [getting started guides](../../guides/index.md). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples/tree/3.x), and you’ll have .NET microservices up and running before you know it!

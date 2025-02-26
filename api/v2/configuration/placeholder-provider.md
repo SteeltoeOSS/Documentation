@@ -23,7 +23,7 @@ In order to use the Steeltoe Placeholder resolver provider you need to do the fo
 1. Optionally, configure Options classes by binding configuration data to the classes.
 1. Inject and use the Options classes or access configuration data directly.
 
->NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/master/Configuration) for example code you can use.
+>NOTE: Most of the example code in the following sections is based on using Steeltoe in an ASP.NET Core application. If you are developing an ASP.NET 4.x application or a Console based app, see the [other samples](https://github.com/SteeltoeOSS/Samples/tree/2.x/Configuration) for example code you can use.
 
 ### Add NuGet Reference
 
@@ -46,7 +46,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 
 ### Add Configuration Provider
 
-In order to have placeholders resolved when accessing your configuration data, you need to add the Placeholder resolver provider to the `ConfigurationBuilder`.  
+In order to have placeholders resolved when accessing your configuration data, you need to add the Placeholder resolver provider to the `ConfigurationBuilder`.
 
 There are four different ways in which you can do this.
 
