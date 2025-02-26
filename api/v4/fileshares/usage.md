@@ -40,7 +40,7 @@ Credentials are generally required for interacting with SMB shares. `WindowsNetw
 
 When used in conjunction with the Cloud Foundry Configuration Provider, you can access the values as follows:
 
-```
+```shell
 dotnet add package Steeltoe.Configuration.CloudFoundry
 dotnet add package Steeltoe.Common.Net
 ```
