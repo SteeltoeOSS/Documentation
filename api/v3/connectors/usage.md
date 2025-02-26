@@ -140,4 +140,4 @@ builder.Configuration.AddKubernetesServiceBindings();
 
 ### Additional Resources
 
-To see the binding support in action, review the [Steeltoe PostgreSql EF Core Connector sample](https://github.com/SteeltoeOSS/Samples/tree/3.x/Connectors/src/PostgreSqlEFCore).
+To see the binding support in action, review the [Steeltoe PostgreSql EF Core Connector sample](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSqlEFCore).
