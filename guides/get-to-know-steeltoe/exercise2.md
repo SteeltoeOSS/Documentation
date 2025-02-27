@@ -56,7 +56,7 @@ Expose all the actuator endpoints for debugging and demonstration purposes in "a
 ```
 
 > [!TIP]
-> Enable Intellisense for Steeltoe settings within `appsettings.json` by adding a schema reference inside the JSON like this: `"$schema": "https://steeltoe.io/schema/latest/schema.json"`
+> Enable Intellisense for Steeltoe settings within `appsettings.json` by adding a schema reference inside the JSON like this: `"$schema": "https://steeltoe.io/schema/v3/schema.json"`
 
 ## Run the application
 
