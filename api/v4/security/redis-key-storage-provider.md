@@ -115,5 +115,5 @@ cf restage sampleApp
 
 Once the service is bound to your application, the configuration settings are available in `VCAP_SERVICES`.
 
-> [!TIP]
-> Explore the [Steeltoe sample application](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/RedisDataProtection/README.md) for a demonstration on why this provider is useful.
+> [!NOTE]
+> Refer to the [Steeltoe sample application](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/RedisDataProtection/README.md) for a demonstration on why this provider is useful.

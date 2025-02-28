@@ -39,7 +39,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRefreshActuator();
 ```
 
-> [!TIP]
+> [!NOTE]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators,
 > which enables individually turning them on/off at runtime via configuration.
 

@@ -51,8 +51,8 @@ HashSet<string> assemblyNamesToExclude = [SteeltoeAssemblyNames.ConfigurationCon
 builder.AddSteeltoe(assemblyNamesToExclude);
 ```
 
-> [!TIP]
-> The static class `SteeltoeAssemblyNames` enables to easily find the name of any specific assembly to exclude.
+> [!NOTE]
+> The static class `SteeltoeAssemblyNames` enables you to easily find the name of any specific assembly to exclude.
 
 ## Logging inside Configuration Providers
 

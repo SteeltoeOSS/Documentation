@@ -134,7 +134,7 @@ app.MapDefaultControllerRoute();
 app.Run();
 ```
 
-> [!TIP]
+> [!NOTE]
 > In the sample code above, `app.UseForwardedHeaders` is used so that any links generated within the application will be compatible with reverse-proxy scenarios, such as when running in Cloud Foundry.
 
 ### Securing Endpoints
@@ -166,7 +166,7 @@ The preceding example establishes the following security rules:
 * If a user attempts to access the `Privacy` action and the user is not authenticated, the user is redirected to the OAuth server (such as a UAA Server) to log in.
 * If an authenticated user attempts to access the `TestGroup` action but does not meet the restrictions established by the referenced policy, the user is denied access.
 
-> [!TIP]
+> [!NOTE]
 > The Steeltoe UAA server has several pre-provisioned user accounts. Sign in with `testuser` and password `password` to access resources secured with `sampleapi.read`
 > To test with a user that does not have the permission `sampleapi.read`, sign in with the user `customer` and password `password`.
 >

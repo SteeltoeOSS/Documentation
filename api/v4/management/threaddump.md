@@ -15,7 +15,7 @@ Each key must be prefixed with `Management:Endpoints:ThreadDump:`.
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
 
-> [!TIP]
+> [!NOTE]
 > In version 4, the configuration key prefix for this endpoint changed from `Management:Endpoints:Dump:` to `Management:Endpoints:ThreadDump:`
 
 ## Enable HTTP Access

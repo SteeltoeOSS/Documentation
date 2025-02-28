@@ -53,7 +53,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddRandomValueSource();
 ```
 
-> [!TIP]
+> [!NOTE]
 > To generate random values as part of using placeholders, add the random value provider to the builder *before* you add the placeholder resolver.
 
 ### Access Random Value Data

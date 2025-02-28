@@ -35,7 +35,7 @@ The following example shows some provider settings that have been put in a JSON 
 * `Spring:Application:Name` configures the "application name" to be `sample`.
 * `Spring:Cloud:Config:Uri` configures the address of the Config Server.
 
-> [!TIP]
+> [!NOTE]
 > The `Spring:Application:Name` key is also used by various other Steeltoe components.
 
 ```json
@@ -88,7 +88,7 @@ As mentioned earlier, all settings should start with `Spring:Cloud:Config:`.
 | `Health:Enabled` | Enable or disable Config Server health check contributor | `true` |
 | `Health:TimeToLive` | Health check contributor cache time to live, in milliseconds | `300_000` (5 min) |
 
-> [!TIP]
+> [!NOTE]
 > If you use self-signed certificates on Cloud Foundry, you might run into certificate validation issues when pushing an application.
 > A quick way to work around this is to disable certificate validation until a proper solution can be put in place.
 
@@ -158,7 +158,7 @@ When the `ConfigurationBuilder` builds the configuration, the Config Server clie
 
 If there are any errors or problems accessing the server, the application continues to initialize, but the values from the server are not retrieved. If this is not the behavior you want, set `Spring:Cloud:Config:FailFast` to `true`. After that is done, the application fails to start if problems occur during the retrieval.
 
-> [!TIP]
+> [!NOTE]
 > To diagnose startup errors, activate bootstrap logging as described in [Application Bootstrapping](../bootstrap/index.md#logging-inside-configuration-providers).
 
 After the configuration has been built, you can access the retrieved data directly by using `IConfiguration`. See the following example:
@@ -284,5 +284,5 @@ Aside from PEM files, Steeltoe supports a single file in PKCS#12 format:
 }
 ```
 
-> [!TIP]
+> [!NOTE]
 > A single certificate can be shared with both Config Server and Eureka by using the key `Certificates` instead of `Certificates:ConfigServer`.

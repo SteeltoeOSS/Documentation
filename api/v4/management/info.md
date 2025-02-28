@@ -37,7 +37,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfoActuator();
 ```
 
-> [!TIP]
+> [!NOTE]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators,
 > which enables individually turning them on/off at runtime via configuration.
 
@@ -62,7 +62,7 @@ This contributor exposes any values below the `Info` configuration key. For exam
 }
 ```
 
-> [!TIP]
+> [!NOTE]
 > When combined with the [Placeholder Configuration Provider](../configuration/placeholder-provider.md),
 > compound configuration values can be exposed originating from other places in configuration.
 
@@ -71,7 +71,7 @@ This contributor exposes any values below the `Info` configuration key. For exam
 Exposes information from the `git.properties` Spring Boot file, if available.
 Shows information from git, such as branch/tag name, commit hash, and remote.
 
-> [!TIP]
+> [!NOTE]
 > For an example of how to use this contributor within MSBuild using [GitInfo](https://github.com/devlooped/GitInfo), see the [Steeltoe Management sample](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src).
 
 ## Sample Output

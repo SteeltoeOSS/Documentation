@@ -87,7 +87,7 @@ As a replacement for what Steeltoe used to provide for using these samplers, set
 * `always_on`
 * `always_off`
 
-> [!TIP]
+> [!NOTE]
 > OpenTelemetry is generally built to follow the [options pattern](https://learn.microsoft.com/dotnet/core/extensions/options).
 > There are more ways to configure options than demonstrated on this page; these are just examples to help you get started.
 
@@ -166,7 +166,7 @@ builder.Services.Configure<AspNetCoreTraceInstrumentationOptions>(options =>
 });
 ```
 
-> [!TIP]
+> [!NOTE]
 > By default, the ASP.NET Core instrumentation does not filter out any requests.
 > The alternative approach described can quickly prove unwieldy if there are many patterns to ignore, such as when listing many file types.
 

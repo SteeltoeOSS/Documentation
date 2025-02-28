@@ -82,7 +82,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHealthActuator();
 ```
 
-> [!TIP]
+> [!NOTE]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators,
 > which enables individually turning them on/off at runtime via configuration.
 
@@ -91,7 +91,7 @@ For example, when a health check fails, the response status code is `503 Service
 The configuration key `Management:Endpoints:UseStatusCodeFromResponse` can be set to `false`, which makes the health check always respond with status code `200 OK`.
 Clients can overrule this per request by sending an `X-Use-Status-Code-From-Response` HTTP header with the value `true` or `false`.
 
-> [!TIP]
+> [!NOTE]
 > By default, health contributors for disk space and ping are activated. They can be turned off through configuration:
 >
 > ```json

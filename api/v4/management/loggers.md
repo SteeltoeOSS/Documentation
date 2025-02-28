@@ -35,11 +35,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLoggersActuator();
 ```
 
-> [!TIP]
+> [!NOTE]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators,
 > which enables individually turning them on/off at runtime via configuration.
 
-> [!TIP]
+> [!NOTE]
 > When `AddLoggersActuator` is called, it tries to register [Dynamic Console Logging](../logging/dynamic-console-logging.md).
 > If you'd like to use Serilog instead, call `AddDynamicSerilog` *before* `AddLoggersActuator`.
 
@@ -135,7 +135,7 @@ by sending a POST request to `/actuator/loggers/Steeltoe.Management` with the fo
 }
 ```
 
-> [!TIP]
+> [!NOTE]
 > Because the logger category is part of the request URL, avoid using colons in the name to prevent invalid HTTP requests.
 
 To verify the change was applied, send a `GET` request to `/actuator/loggers` to see the updated loggers.
@@ -203,5 +203,5 @@ The returned `ILogger` instances are wrapped as well, so that the minimum level 
 When changes to `appsettings.json` are saved, existing loggers are updated with the new minimum levels, unless overridden.
 A reset of an overridden logger reverts to the updated level from `appsettings.json`.
 
-> [!TIP]
+> [!NOTE]
 > The Steeltoe dynamic logging provider can be combined with `BootstrapLoggerFactory` to upgrade loggers after startup.

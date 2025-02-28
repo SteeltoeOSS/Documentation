@@ -37,8 +37,8 @@ builder.Services.AddConfigurationDiscoveryClient();
 var app = builder.Build();
 ```
 
-> [!TIP]
-> Alternatively, `builder.AddSteeltoe()` (Steeltoe Bootstrap Auto Configuration) can be used, which uses reflection to determine
+> [!NOTE]
+> Alternatively, you can use `builder.AddSteeltoe()` (Steeltoe Bootstrap Auto Configuration), which uses reflection to determine
 > which discovery assemblies are loaded, adding the appropriate clients automatically.
 
 ## Client configuration

@@ -17,7 +17,7 @@ You can use the `dotnet` CLI to [build and locally publish](https://learn.micros
 * Linux: `dotnet publish --framework net8.0 --runtime linux-x64`
 * macOS: `dotnet publish --framework net8.0 --runtime osx-x64`
 
-> [!TIP]
+> [!NOTE]
 > Since .NET Core 2.0, the `dotnet publish` command automatically runs the NuGet package restore for you. Running `dotnet restore` explicitly is no longer required.
 
 ## Cloud Foundry Push Sample

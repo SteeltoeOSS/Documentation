@@ -31,7 +31,7 @@ For a complete understanding of the effects of many of these settings, we recomm
 In most cases, unless you are confident that you understand the effects of changing the values from their defaults,
 we recommend that you use the defaults.
 
-> [!TIP]
+> [!NOTE]
 > Since Steeltoe v4, most of these settings can be changed at runtime, which updates the Eureka server accordingly.
 
 ### General
@@ -226,8 +226,8 @@ or:
 > [!NOTE]
 > To support certificate rotation, the configuration keys and the files on disk are automatically monitored for changes.
 
-> [!TIP]
-> A single certificate can be shared with both Config Server and Eureka, by using the key "Certificates" instead of "Certificates:Eureka".
+> [!NOTE]
+> A single certificate can be shared with both Config Server and Eureka, by using the key `Certificates` instead of `Certificates:Eureka`.
 
 ### Using custom HTTP headers
 

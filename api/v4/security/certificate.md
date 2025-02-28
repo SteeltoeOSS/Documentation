@@ -78,7 +78,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddOrgAndSpacePolicies();
 ```
 
-> [!TIP]
+> [!NOTE]
 > Steeltoe configures the certificate forwarding middleware to look for a certificate in the `X-Client-Cert` HTTP header.
 > To change the HTTP header name used for authorization, include it when registering the policy. For example: `.AddOrgAndSpacePolicies("X-Custom-Certificate-Header")`.
 
@@ -112,8 +112,8 @@ app.UseCertificateAuthorization();
 
 As implied by the name of the extension method `AddOrgAndSpacePolicies` from the previous section on this page, Steeltoe provides policies for validating that a request came from an application in the same org and/or the same space. You can secure endpoints by using the standard ASP.NET Core `Authorize` attribute with these security policies.
 
-> [!TIP]
-> If needed, see the Microsoft documentation on [authorization in ASP.NET Core](https://learn.microsoft.com/aspnet/core/security/authorization/introduction) for a better understanding of how to use these attributes.
+> [!NOTE]
+> If needed, see the Microsoft documentation about [authorization in ASP.NET Core](https://learn.microsoft.com/aspnet/core/security/authorization/introduction) for a better understanding of how to use these attributes.
 
 The following example shows a controller using the security attributes with the included policies:
 
@@ -163,8 +163,8 @@ In order to use app instance identity certificates in a client application, serv
 For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an extension method on `IHttpClientBuilder` named `AddAppInstanceIdentityCertificate`.
 This method invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes, and places the certificate in an HTTP header named `X-Client-Cert` on all outbound requests.
 
-> [!TIP]
-> If needed, see the Microsoft documentation on [IHttpClientFactory documentation](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests) for details.
+> [!NOTE]
+> If needed, see the Microsoft documentation about [IHttpClientFactory](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests) for details.
 
 ```csharp
 using Steeltoe.Security.Authorization.Certificate;
