@@ -58,7 +58,7 @@ builder.Services.AddHypermediaActuator();
 ```
 
 > [!TIP]
-> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
+> It is recommended that you use `AddAllActuators()` instead of adding individual actuators,
 > which enables individually turning them on/off at runtime via configuration.
 
 ## Sample Output

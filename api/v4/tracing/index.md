@@ -269,5 +269,5 @@ builder.Services.Configure<ZipkinExporterOptions>(options =>
 });
 ```
 
-> [!TIP]
+> [!NOTE]
 > The Zipkin endpoint can also be set with the environment variable `OTEL_EXPORTER_ZIPKIN_ENDPOINT`.

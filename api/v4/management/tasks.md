@@ -42,7 +42,7 @@ public class ExampleTask(ILogger<ExampleTask> logger) : IApplicationTask
 }
 ```
 
-> [!TIP]
+> [!NOTE]
 > Steeltoe includes the `MigrateDbContextTask<TDbContext>` task, which runs database migrations with Entity Framework Core.
 > It requires a reference to the `Steeltoe.Connectors.EntityFrameworkCore` NuGet package.
 
