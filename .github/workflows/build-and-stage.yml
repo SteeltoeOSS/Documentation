@@ -175,9 +175,6 @@ jobs:
       if: ${{ github.event_name == 'pull_request' }}
       run: az webapp deployment slot create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WEBAPP_NAME}} --slot ${{ env.SLOT_NAME }} --configuration-source ${{ vars.STAGING_SLOT_NAME }}
 
-      # Need to pair with a custom MainSite address?
-      # az webapp config appsettings set --resource-group steeltoe --name docs-steeltoe --slot pr-310 --settings mainsite_host=https://www-steeltoe-pr-310.azurewebsites.net
-
     - name: Deploy to staging slot
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v3
@@ -195,6 +192,13 @@ jobs:
 
           - Your changes have been deployed to the preview site. The preview site will update as you add more commits to this branch.
           - The preview link is shareable, but will be deleted when the pull request is merged or closed.
+
+          ### Need to pair with a custom main site address?
+
+          A team member can use this az CLI command, replacing <this-PR-number> and <other-pr-number> for valid numbers:
+          ```bash
+          az webapp config appsettings set --resource-group steeltoe --name docs-steeltoe --slot pr-<this-PR-number> --settings mainsite_host=https://www-steeltoe-pr-<other-pr-number>.azurewebsites.net
+          ```
 
           > *This is an automated message.*
         repo-token: ${{ secrets.GITHUB_TOKEN }}
