@@ -151,8 +151,8 @@ builder.Services.AddAllActuators();
 ```
 
 > [!NOTE]
-> It is recommended that you use `AddAllActuators()` instead of adding individual actuators,
-> which enables individually turning them on/off at runtime using configuration.
+> It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
+> this enables individually turning them on/off at runtime using configuration.
 
 Alternatively, individual actuators can be added:
 

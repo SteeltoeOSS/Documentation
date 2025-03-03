@@ -48,8 +48,8 @@ builder.Services.AddCloudFoundryActuator();
 ```
 
 > [!NOTE]
-> It is recommended that you use `AddAllActuators()` instead of adding individual actuators,
-> which enables individually turning them on/off at runtime via configuration.
+> It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
+> this enables individually turning them on/off at runtime via configuration.
 
 ### Cross Origin Resource Sharing
 

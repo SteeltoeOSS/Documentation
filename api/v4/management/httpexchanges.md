@@ -1,8 +1,8 @@
 # HTTP Exchanges
 
-The Steeltoe HTTP Exchanges endpoint provides the ability to view the last several requests made of your application.
+The Steeltoe HTTP Exchanges endpoint provides the ability to view the last several requests sent to your application.
 
-When you activate this endpoint, an `IHttpExchangesRepository` implementation is registered that stores HTTP request/response information in memory, that can be retrieved by using the endpoint.
+When you activate this endpoint, an `IHttpExchangesRepository` implementation is registered; it stores HTTP request/response information in memory, and can be retrieved by using the endpoint.
 
 ## Configure Settings
 
@@ -10,29 +10,30 @@ The following table describes the configuration settings that you can apply to t
 Each key must be prefixed with `Management:Endpoints:HttpExchanges:`.
 
 | Key | Description | Default |
-| --- | --- | --- |
-| `Enabled` | Whether the endpoint is enabled. | `true` |
-| `ID` | The unique ID of the endpoint. | `httpexchanges` |
-| `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
-| `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
-| `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
-| `Capacity` | Size of the circular buffer of exchanges. | 100 |
-| `IncludeRequestHeaders` | Whether to return headers from the HTTP request. | `true` |
-| `RequestHeaders` | An array of HTTP request headers to return unredacted, in addition to the default set. | |
-| `IncludeResponseHeaders` | Whether to return headers from the HTTP response. | `true` |
-| `ResponseHeaders` | An array of HTTP response headers to return unredacted, in addition to the default set. | |
-| `IncludePathInfo` | Whether to return the path from the HTTP request URL. | `true` |
-| `IncludeQueryString` | Whether to return the query string parameters from the request URL. | `true` |
-| `IncludeUserPrincipal` | Whether to return the username from [`HttpContext.User`](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal). | `false` |
-| `IncludeRemoteAddress` | Whether to return the IP address from the sender. | `false` |
-| `IncludeSessionId` | Whether to return the user's session ID. | `false` |
-| `IncludeTimeTaken` | Whether to return the request duration. | `true` |
-| `Reverse` | Whether to return exchanges in reverse order (newest first). | `true` |
+| --- | ----------- | ------- |
+| `Enabled` | Whether the endpoint is enabled | `true` |
+| `ID` | The unique ID of the endpoint | `httpexchanges` |
+| `Path` | The relative path at which the endpoint is exposed | same as `ID` |
+| `RequiredPermissions` | Permissions required to access the endpoint when running on Cloud Foundry | `Restricted` |
+| `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
+| `Capacity` | Size of the circular buffer of exchanges | 100 |
+| `IncludeRequestHeaders` | Whether to return headers from the HTTP request | `true` |
+| `RequestHeaders` | An array of HTTP request headers to return unredacted, in addition to the default set | |
+| `IncludeResponseHeaders` | Whether to return headers from the HTTP response | `true` |
+| `ResponseHeaders` | An array of HTTP response headers to return unredacted, in addition to the default set | |
+| `IncludePathInfo` | Whether to return the path from the HTTP request URL | `true` |
+| `IncludeQueryString` | Whether to return the query string parameters from the request URL | `true` |
+| `IncludeUserPrincipal` | Whether to return the username from [`HttpContext.User`](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal) | `false` |
+| `IncludeRemoteAddress` | Whether to return the IP address from the sender | `false` |
+| `IncludeSessionId` | Whether to return the user's session ID | `false` |
+| `IncludeTimeTaken` | Whether to return the request duration | `true` |
+| `Reverse` | Whether to return exchanges in reverse order (newest first) | `true` |
 
 All request and response header values are redacted by default, except for the whitelisted entries below.
 To return additional headers unredacted, add them to the `RequestHeaders` or `ResponseHeaders` arrays.
 
 Whitelist of HTTP request headers:
+
 - Accept
 - Accept-Charset
 - Accept-Encoding
@@ -61,6 +62,7 @@ Whitelist of HTTP request headers:
 - X-UA-Compatible
 
 Whitelist of HTTP response headers:
+
 - Accept-Ranges
 - Age
 - Allow
@@ -86,10 +88,10 @@ Whitelist of HTTP response headers:
 
 ## Enable HTTP Access
 
-The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting together with the `Path` setting described in the preceding section.
+The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting with the `Path` setting described in the preceding section.
 The default path is `/actuator/httpexchanges`.
 
-See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, use the `AddHttpExchangesActuator` extension method.
 
@@ -103,14 +105,14 @@ builder.Services.AddHttpExchangesActuator();
 ```
 
 > [!NOTE]
-> It is recommended that you use `AddAllActuators()` instead of adding individual actuators,
-> which enables individually turning them on/off at runtime via configuration.
+> It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
+> this enables individually turning them on/off at runtime via configuration.
 
 ## Sample Output
 
 This endpoint returns an array of exchanges.
 
-The response is always returned as JSON, like this:
+The response is always returned as JSON:
 
 ```json
 {

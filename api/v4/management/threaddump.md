@@ -9,11 +9,11 @@ Each key must be prefixed with `Management:Endpoints:ThreadDump:`.
 
 | Key | Description | Default |
 | --- | --- | --- |
-| `Enabled` | Whether the endpoint is enabled. | `true` |
-| `ID` | The unique ID of the endpoint. | `threaddump` |
-| `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
-| `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
-| `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
+| `Enabled` | Whether the endpoint is enabled | `true` |
+| `ID` | The unique ID of the endpoint | `threaddump` |
+| `Path` | The relative path at which the endpoint is exposed | same as `ID` |
+| `RequiredPermissions` | Permissions required to access the endpoint when running on Cloud Foundry | `Restricted` |
+| `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
 
 > [!NOTE]
 > In version 4, the configuration key prefix for this endpoint changed from `Management:Endpoints:Dump:` to `Management:Endpoints:ThreadDump:`
@@ -37,8 +37,8 @@ builder.Services.AddThreadDumpActuator();
 ```
 
 > [!NOTE]
-> It is recommended that you use `AddAllActuators()` instead of adding individual actuators,
-> which enables individually turning them on/off at runtime via configuration.
+> It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
+> this enables individually turning them on/off at runtime via configuration.
 
 ## Sample Output
 
