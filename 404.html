@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+        data-domain-script="018ee7f5-70e6-7787-8d98-05c8f935c75d"></script>
+    <script>function OptanonWrapper() { }</script>
+    <script>
+        function setGTM(w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); }
+        if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) { setGTM(window, document, 'script', 'dataLayer', 'GTM-MMDFJKF'); } else { waitForOnetrustActiveGroups(); } var timer; function waitForOnetrustActiveGroups() { if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) { clearTimeout(timer); setGTM(window, document, 'script', 'dataLayer', 'GTM-MMDFJKF'); } else { timer = setTimeout(waitForOnetrustActiveGroups, 250); } }
+    </script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Page Not Found | Steeltoe </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Page Not Found | Steeltoe ">
+
+    <link rel="shortcut icon" href="https://steeltoe.io/images/favicon.png">
+
+    <link rel="stylesheet" href="/styles/docfx.vendor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
+        integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="/styles/frommainsite.css">
+    <link rel="stylesheet" href="/styles/docfx.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/a11y-light.min.css">
+
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="">
+
+    <meta property="docfx:newtab" content="true">
+
+</head>
+
+<body data-spy="scroll" data-target="#affix" data-offset="120">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMDFJKF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+        <header class="bg-white">
+            <nav class="bg-white navbar navbar-expand-xl container py-xl-2 navbar-light hidewhenembedded">
+                <a class="navbar-brand" href="https://steeltoe.io" onmouseover="$(this).removeAttr('target')">
+                    <img id="logo" class="svg" src="/images/logo.svg" alt="Steeltoe Documentation" style="width: 211px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+                    aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav text-center">
+                        <li class="nav-item dropdown ml-xl-5 mr-xl-2">
+                            <button class="btn nav-link dropdown-toggle" href="#" id="why" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Why Steeltoe
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="why">
+                                <a class="dropdown-item" href="https://steeltoe.io/why-steeltoe"
+                                    onclick="$(this).removeAttr('target')">Overview</a>
+                                <a class="dropdown-item" href="https://steeltoe.io/microservices"
+                                    onclick="$(this).removeAttr('target')">Microservices</a>
+                                <a class="dropdown-item" href="https://steeltoe.io/cloud"
+                                    onclick="$(this).removeAttr('target')">Cloud</a>
+                                <a class="dropdown-item" href="https://steeltoe.io/web-application"
+                                    onclick="$(this).removeAttr('target')">Web Applications</a>
+                                <a class="dropdown-item" href="https://steeltoe.io/event-driven"
+                                    onclick="$(this).removeAttr('target')">Event Driven</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown mx-xl-2">
+                            <button class="btn nav-link dropdown-toggle" href="#" id="learn" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Get Started
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="learn">
+                                <a class="dropdown-item" href="https://start.steeltoe.io" target="_blank">Steeltoe Initializr</a>
+                                <a class="dropdown-item" id="guidesNavLink" href="/guides" onclick="$(this).removeAttr('target')">Guides</a>
+                                <a class="dropdown-item active" id="docsNavLink" href="/api/v4/welcome/" onclick="$(this).removeAttr('target')">Documentation</a>
+                                <a class="dropdown-item" id="apiBrowserNavLink" href="/api/browser/v4/all" onclick="$(this).removeAttr('target')">API Browser</a>
+                                <a class="dropdown-item" id="blogNavLink" href="/articles/" onclick="$(this).removeAttr('target')">Blog</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown mx-xl-2">
+                            <button class="btn nav-link dropdown-toggle" href="#" id="projects" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Projects
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="projects">
+                                <a class="dropdown-item" href="https://steeltoe.io/app-configuration"
+                                    onclick="$(this).removeAttr('target')">Steeltoe Application Configuration</a>
+                                <a class="dropdown-item" href="/api/v4/logging/"
+                                    onclick="$(this).removeAttr('target')">Steeltoe Dynamic Logging</a>
+                                <a class="dropdown-item" href="https://steeltoe.io/cloud-management"
+                                    onclick="$(this).removeAttr('target')">Steeltoe Management</a>
+                                <a class="dropdown-item" href="/api/v4/fileshares"
+                                    onclick="$(this).removeAttr('target')">Steeltoe Network File Sharing</a>
+                                <a class="dropdown-item" href="https://steeltoe.io/security-providers"
+                                    onclick="$(this).removeAttr('target')">Steeltoe Security</a>
+                                <a class="dropdown-item" href="https://steeltoe.io/service-connectors"
+                                    onclick="$(this).removeAttr('target')">Steeltoe Service Connectors</a>
+                                <a class="dropdown-item" href="https://steeltoe.io/service-discovery"
+                                    onclick="$(this).removeAttr('target')">Steeltoe Service Discovery</a>
+                            </div>
+                        </li>
+                        <li class="nav-item mx-xl-2">
+                            <a class="btn nav-link" href="https://steeltoe.io/support"
+                                onclick="$(this).removeAttr('target')">Support</a>
+                        </li>
+                        <li class="nav-item mx-xl-2">
+                            <a class="btn nav-link" href="https://steeltoe.io/community"
+                                onclick="$(this).removeAttr('target')">Community</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="search-open" style="display: none;">
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="search-query" placeholder="Search"
+                                autocomplete="off">
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <div role="main" class="container-fluid body-content hide-when-search">
+            <div class="row justify-content-center">
+                <div class="col-xl-7 article-wrapper doc-wrapper">
+                    <article class="content wrap" id="_content" data-uid="">
+                        <h1 id="page-not-found">Page Not Found</h1>
+
+                        <p>We're sorry, but the page you're looking for cannot be found on the site.</p>
+                        <p>
+                            Feel free to <a href="https://github.com/SteeltoeOSS/Documentation/issues/new">open an issue in the Steeltoe Documentation GitHub Repository</a>
+                            with the URL or content you expected to exist, and we'll be happy to look into it.
+                        </p>
+
+                        <p>
+                            <a href="/api/v4/welcome/">Return to v4 documentation</a>
+                        </p>
+                    </article>
+                </div>
+            </div>
+            <footer>
+                <div class="width-all bg-midnight-blue">
+                    <div class="width-90 container p-2">
+                        <div class="row no-gutters">
+                            <div class="col-10 col-sm-8">
+                                <div class="row no-gutters">
+                                    <div class="col text-center small text-muted">
+                                        Copyright &copy; 2005-2024 Broadcom. All Rights Reserved. The term
+                                        &quot;Broadcom&quot; refers to Broadcom Inc. and/or its subsidiaries.<br>
+                                        &bull;&nbsp;<a target="_blank" role=""
+                                            href="https://www.vmware.com/help/privacy.html"
+                                            class="text-muted nav-link">Privacy&nbsp;Policy</a>
+                                        &bull;&nbsp;<a target="_blank" role="" class="text-muted"
+                                            href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your&nbsp;California&nbsp;Privacy&nbsp;Rights</a>
+                                        &bull;&nbsp;<a target="_blank" role=""
+                                            href="https://www.vmware.com/help/legal.html"
+                                            class="text-muted nav-link">Terms&nbsp;of&nbsp;Use</a>
+                                        &bull;&nbsp;<a target="_blank" role=""
+                                            href="https://steeltoe.io/SteeltoeTrademarkGuidelines.pdf"
+                                            class="text-muted nav-link">Trademark&nbsp;Guidelines</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-4">
+                                <div class="row no-gutters">
+                                    <div class="col">
+                                        <a target="_blank" role="" href="https://github.com/SteeltoeOSS"
+                                            title="Steeltoe on GitHub" class=" nav-link"><svg id="github-icon"
+                                                width="100px" height="50px" viewbox="0 0 1 75"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <defs>
+                                                    <style>
+                                                        #github-icon .cls-1 {
+                                                            fill: #ffffff;
+                                                        }
+
+                                                        #github-icon .cls-2 {
+                                                            fill: #000000;
+                                                            fill-rule: evenodd;
+                                                        }
+                                                    </style>
+                                                </defs>
+                                                <path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z">
+                                                </path>
+                                                <path class="cls-2"
+                                                    d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z">
+                                                </path>
+                                            </svg></a>
+                                    </div>
+                                    <div class="col">
+                                        <a target="_blank" role="" href="https://twitter.com/steeltoeoss"
+                                            title="Steeltoe on Twitter" class=" nav-link"><svg id="twitter-icon"
+                                                width="100px" height="50px" viewbox="0 0 115 75"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <defs>
+                                                    <style>
+                                                        #twitter-icon .cls-1 {
+                                                            fill: #ffffff;
+                                                        }
+
+                                                        #twitter-icon .cls-2 {
+                                                            fill: #000000;
+                                                        }
+                                                    </style>
+                                                </defs>
+                                                <circle class="cls-1" cx="37.97" cy="37.97" r="37.97"></circle>
+                                                <path class="cls-2"
+                                                    d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"
+                                                    data-name="Twitter" id="Twitter-2"></path>
+                                            </svg></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="/styles/docfx.vendor.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/highlight.min.js"
+        integrity="sha512-tL84mD+FR70jI7X8vYj5AfRqe0EifOaFUapjt1KvDaPLHgTlUZ2gQL/Tzvvn8HXuQm9oHYShJpNFdyJmH2yHrw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/languages/bash.min.js"
+        integrity="sha512-Hg0ufGEvn0AuzKMU0psJ1iH238iUN6THh7EI0CfA0n1sd3yu6PYet4SaDMpgzN9L1yQHxfB3yc5ezw3PwolIfA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/languages/csharp.min.js"
+        integrity="sha512-XEAR8fWA7XQhXnpFbCAngGSliIA99z3StbLuOlPa0XFp+WtVdSdgqPaPHF62W/DrhzFvCBmGIughaohXO0aDDA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/languages/json.min.js"
+        integrity="sha512-37sW1XqaJmseHAGNg4N4Y01u6g2do6LZL8tsziiL5CMXGy04Th65OXROw2jeDeXLo5+4Fsx7pmhEJJw77htBFg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/languages/powershell.min.js"
+        integrity="sha512-IC7cmpzlQ1USwqF55ri8lvo2jVDjtEOcWOHaqWZERWnmsf91v40WAE2eDWowLVBHuRg9K9WBQIcelaEOYciQ0w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/languages/xml.min.js"
+        integrity="sha512-0CjSoD/wLTBYgboRLU6i71o0LK21KZpkyu8bKCVUoP/2OFhYnPxYWqcATFpDtjikyuoxIhCYFgNJeh8w7rggTg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/languages/yaml.min.js"
+        integrity="sha512-w1UGeHQBy7zjHSSPA6To4w12xvKFANmA9yzShsF0k8wLoXYIVgDSTbGL+P8RwEW3ZFnibJsJsKcacTLOcyT7rQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"
+        integrity="sha512-7rusk8kGPFynZWu26OKbTeI+QPoYchtxsmPeBqkHIEXJxeun4yJ4ISYe7C6sz9wdxeE1Gk3VxsIWgCZTc+vX3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="/styles/highlightjs-badge.min.js"></script>
+    <script src="/styles/docfx.js"></script>
+    <script src="/styles/main1.js"></script>
+</body>
+
+</html>
