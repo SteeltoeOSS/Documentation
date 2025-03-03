@@ -8,12 +8,12 @@ jobs:
     name: Promote to production
     runs-on: ubuntu-latest
     environment:
-      name: 'Production'
+      name: Production
       url: 'https://${{ vars.AZURE_WEBAPP_NAME }}.azurewebsites.net/'
 
     steps:
     - name: Log into Azure CLI with service principal
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 

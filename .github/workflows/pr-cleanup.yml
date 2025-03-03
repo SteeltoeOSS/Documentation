@@ -2,7 +2,8 @@ name: Delete a preview environment
 
 on:
   pull_request:
-    types: [closed]
+    types:
+    - closed
 
 env:
   SLOT_NAME: pr-${{ github.event.number }}
@@ -13,7 +14,7 @@ jobs:
 
     steps:
     - name: Log into Azure CLI with service principal
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
