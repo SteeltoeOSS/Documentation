@@ -152,7 +152,7 @@ When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `Whe
 
 ## Health Groups
 
-If you need to check application health based on a subset of health contributors, you can specify the name of the grouping and a comma-separated list of contributors to include:
+If you want to check application health based on a subset of health contributors, you can specify the name of the grouping and a comma-separated list of contributors to include:
 
 ```json
 {

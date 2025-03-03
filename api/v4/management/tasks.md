@@ -58,7 +58,7 @@ builder.Services.AddTask<ExampleTask>("ExampleTaskName");
 > [!NOTE]
 > To register as a singleton or transient service, use the overload that additionally takes a `ServiceLifetime` parameter.
 
-In case task instantiation requires additional logic, a task instance can be specified as well:
+If task instantiation requires additional logic, a task instance can be specified as well:
 
 ```csharp
 using Steeltoe.Management.Tasks;
@@ -85,7 +85,7 @@ builder.Services.AddTask("ExampleTaskName", (serviceProvider, taskName) =>
 
 ## Executing a Task
 
-Once your task has been defined and added to the service container, the last step is to enable a means of executing the task.
+After your task has been defined and added to the service container, the last step is to enable a means of executing the task.
 In your `Program.cs` file, replace the call to `app.Run()` with `await app.RunWithTasksAsync()`:
 
 ```csharp
@@ -100,15 +100,15 @@ await app.RunWithTasksAsync(CancellationToken.None);
 
 ## Specify Task to Execute
 
-Once all the setup steps have been completed, any invocation of your application with a configuration value for the `RunTask` key
+After all the setup steps have been completed, any invocation of your application with a configuration value for the `RunTask` key
 runs that task (and shuts down) instead of starting the web application:
 
 ```
 dotnet run -- RunTask=ExampleTaskName
 ```
 
-As a matter of best practice, we encourage you to provide the `RunTask` value only via a command-line parameter.
-However, due to the way .NET configuration works, it does not matter which configuration provider is used to provide the task name.
+As a matter of best practice, it is recommended that you provide the `RunTask` value only using a command-line parameter.
+However, due to the way .NET configuration works, it doesn't matter which configuration provider is used to provide the task name.
 Invoking the command on Cloud Foundry looks similar to this:
 
 ```
