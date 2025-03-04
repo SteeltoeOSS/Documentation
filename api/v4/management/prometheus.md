@@ -153,7 +153,7 @@ The specific port is not important to Steeltoe, it only matters that the binding
 
 Install the metrics-registrar plugin and use it to register your endpoint:
 
-```shell
+```bash
 cf install-plugin -r CF-Community "metric-registrar"
 cf register-metrics-endpoint APP-NAME /actuator/prometheus --internal-port 8091
 ```
@@ -166,7 +166,7 @@ cf register-metrics-endpoint APP-NAME /actuator/prometheus --internal-port 8091
 
 The result of using the metrics registrar plugin is a user-provided service, which can also be created and bound manually.
 
-```shell
+```bash
 cf create-user-provided-service APP-NAME -l secure-endpoint://:8091/actuator/prometheus
 cf bind-service APP-NAME SERVICE-NAME
 ```

@@ -1,7 +1,12 @@
-# Redis
+# Redis/Valkey
 
 This connector simplifies accessing [Redis](https://redis.io/) databases.
+
+> [!NOTE]
+> Redis has been updated to [Valkey](https://valkey.io/topics/migration/).
+
 It supports the following .NET drivers:
+
 - [StackExchange.Redis](https://www.nuget.org/packages/StackExchange.Redis), which provides an `IConnectionMultiplexer`.
 - [Microsoft.Extensions.Caching.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis), which provides an `IDistributedCache`.
 

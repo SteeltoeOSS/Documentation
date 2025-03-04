@@ -111,7 +111,7 @@ As a matter of best practice, it is recommended that you provide the `RunTask` v
 However, due to the way .NET configuration works, it doesn't matter which configuration provider is used to provide the task name.
 Invoking the command on Cloud Foundry looks similar to this:
 
-```
+```bash
 cf run-task YourAppName "dotnet run -- RunTask=ExampleTaskName" --name ExampleTaskName
 ```
 
