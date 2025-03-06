@@ -18,5 +18,5 @@ To use service discovery:
 
 1. Add the appropriate NuGet package references to your project.
 1. Register the desired discovery client(s) in the dependency container.
-1.  Configure the chosen discovery client(s) for registration and/or consumption.
+1. Configure the chosen discovery client(s) for registration and/or consumption.
 1. Activate the provided `HttpClient`/`HttpClientFactory` facilities to resolve friendly names.

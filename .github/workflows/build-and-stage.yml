@@ -135,10 +135,10 @@ jobs:
     name: Build and push documentation image
     needs: [ change-detection, build-push-docfx, build-push-metadata ]
     environment:
-      name: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || (github.ref_name  == 'anita' && 'anita' || vars.STAGING_SLOT_NAME) }}
+      name: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || vars.STAGING_SLOT_NAME }}
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     env:
-      SLOT_NAME: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || (github.ref_name  == 'anita' && 'anita' || vars.STAGING_SLOT_NAME) }}
+      SLOT_NAME: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || vars.STAGING_SLOT_NAME }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4

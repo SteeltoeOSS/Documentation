@@ -188,7 +188,7 @@ Alternatively, you can create a class to hold your configuration data and then u
     builder.Services.AddOptions<ExampleOptions>().BindConfiguration("example");
     ```
 
-1, Now you can gain access to the data in your `Controller` or `View` through dependency injection. The following example shows how to do this:
+1. Now you can gain access to the data in your `Controller` or `View` through dependency injection. The following example shows how to do this:
 
     ```csharp
     using Microsoft.AspNetCore.Mvc;

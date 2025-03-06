@@ -1,6 +1,6 @@
 # HashiCorp Consul discovery client
 
-The Steeltoe Consul discovery client allows an application to register  and unregister itself with a Consul server
+The Steeltoe Consul discovery client allows an application to register and unregister itself with a Consul server
 and provides querying for service instances registered by other applications.
 
 After it is activated, the client registers the currently running app with Consul and starts a background thread that
