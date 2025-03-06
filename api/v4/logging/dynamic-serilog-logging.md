@@ -1,22 +1,22 @@
 # Dynamic Serilog Logging
 
-This logging provider integrates with [Serilog](https://serilog.net/). It enables logger minimum levels configured via Serilog to be queried and modified at runtime via the [loggers actuator](../management/loggers.md).
+This logging provider integrates with [Serilog](https://serilog.net/). It enables logger minimum levels configured through Serilog to be queried and modified at runtime using the [loggers actuator](../management/loggers.md).
 
 ## Usage
 
-To use the Serilog Dynamic Logger, you need to do the following:
+To use the Serilog Dynamic Logger, do the following:
 
 1. Add the appropriate NuGet package reference to your project.
-1. Configure Logging settings.
-1. Add the Serilog Dynamic Logger to the logging builder.
+2. Configure Logging settings.
+3. Add the Serilog Dynamic Logger to the logging builder.
 
 ### Add NuGet References
 
-To use the logging provider, you need to add a reference to the `Steeltoe.Logging.DynamicSerilog` NuGet package.
+To use the logging provider, add a reference to the `Steeltoe.Logging.DynamicSerilog` NuGet package.
 
 ### Configure Settings
 
-As mentioned earlier, the Serilog Dynamic Logger provider extends Serilog. Consequently, you can configure it the same way you would Serilog. For more details on how this is done, see [Serilog-Settings-Configuration](https://github.com/serilog/serilog-settings-configuration).
+The Serilog Dynamic Logger provider extends Serilog, so you can configure it the same way you would Serilog. For more information, see [Serilog-Settings-Configuration](https://github.com/serilog/serilog-settings-configuration).
 
 ```json
 {
@@ -60,7 +60,7 @@ var serilogConfiguration = new LoggerConfiguration()
 
 ### Add Serilog Dynamic Logger
 
-To use this logging provider, you need to add it to the logging builder by using the `AddDynamicSerilog()` extension method:
+To use this logging provider, add it to the logging builder by using the `AddDynamicSerilog()` extension method:
 
 ```csharp
 using Steeltoe.Logging.DynamicSerilog;
@@ -70,13 +70,14 @@ builder.Logging.AddDynamicSerilog();
 ```
 
 If you built the Serilog configuration from code, use the appropriate overload instead:
+
 ```csharp
 builder.Logging.AddDynamicSerilog(serilogConfiguration);
 ```
 
 ### Serilog API usage
 
-Because dynamic logging is built on the `Microsoft.Extensions.Logging` abstractions, changing log levels dynamically **won't work** if you're using Serilog's static `Log` class directly.
+Because dynamic logging is built on the `Microsoft.Extensions.Logging` abstractions, changing log levels dynamically **doesn't work** if you're using Serilog's static `Log` class directly.
 
 ```csharp
 using Serilog;
@@ -103,7 +104,7 @@ var exampleLogger = loggerFactory.CreateLogger("Example");
 exampleLogger.LogInformation("Hello from Example.");
 ```
 
-The Serilog dynamic logger supports the use of logger scopes, as well as Serilog's enrichers and destructuring.
+The Serilog dynamic logger supports the use of logger scopes, and also Serilog's enrichers and destructuring.
 
 ```csharp
 using Serilog.Context;

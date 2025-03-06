@@ -6,12 +6,12 @@ Connectors are primarily a bonding layer between your infrastructure and your ap
 Connectors don't directly manipulate the connection to backing services, but do contain logic
 for turning raw credentials into formatted connection strings and also provide health monitoring tools.
 
-Get started with the [basic concepts](usage.md) or go directly to any supported technology:
+Get started with the basic concepts in [Usage](usage.md) or go directly to any supported technology:
 
-- [MySql](mysql.md)
+- [MySQL](mysql.md)
 - [Microsoft SQL Server](microsoft-sql-server.md)
 - [PostgreSQL](postgresql.md)
 - [RabbitMQ](rabbitmq.md)
 - [MongoDB](mongodb.md)
 - [CosmosDB](cosmosdb.md)
-- [Redis](redis.md)
+- [Redis/Valkey](redis.md)
