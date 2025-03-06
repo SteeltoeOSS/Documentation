@@ -9,21 +9,21 @@ In both cases, any `.` delimiters in configuration keys are converted to `:`, wh
 
 You should have a good understanding of how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use this provider.
 
-To use the Steeltoe Spring Boot provider, you need to:
+To use the Steeltoe Spring Boot provider:
 
 1. Add the appropriate NuGet package reference to your project.
-1. Add the provider to the Configuration Builder.
-1. Access keys from the `IConfiguration`.
+2. Add the provider to the Configuration Builder.
+3. Access keys from the `IConfiguration`.
 
 ### Add NuGet Reference
 
-To use the provider, you need to add a reference to the `Steeltoe.Configuration.SpringBoot` NuGet package.
+To use the provider, add a reference to the `Steeltoe.Configuration.SpringBoot` NuGet package.
 
 ### Add Configuration Provider
 
-To access Spring Boot configuration data, you need to add the Spring Boot provider to the `ConfigurationBuilder`.
+To access Spring Boot configuration data, add the Spring Boot provider to the `ConfigurationBuilder`.
 
-The following example shows how to do so:
+See the following example:
 
 ```csharp
 using Steeltoe.Configuration.SpringBoot;
@@ -35,7 +35,7 @@ builder.Configuration.AddSpringBootFromCommandLine(args);
 
 ### Access Spring Boot Data
 
-Once the configuration has been built, the Spring Boot provider can be used to access Spring-style keys in .NET syntax.
+After the configuration has been built, you can use the Spring Boot provider to access Spring-style keys in .NET syntax.
 For example:
 
 ```csharp

@@ -2,11 +2,12 @@
 
 This connector simplifies accessing [RabbitMQ](https://www.rabbitmq.com/) message brokers.
 It supports the following .NET drivers:
+
 - [RabbitMQ.Client](https://www.nuget.org/packages/RabbitMQ.Client), which provides an `IConnection`.
 
-The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
+The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md) for more information.
 
-## Usage
+## Using the RabbitMQ connector
 
 To use this connector:
 
@@ -24,9 +25,9 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 ### Configure connection string
 
-The available connection string parameters for RabbitMQ are documented [here](https://www.rabbitmq.com/uri-spec.html).
+The available connection string parameters for RabbitMQ are described in the [RabbitMQ documentation](https://www.rabbitmq.com/uri-spec.html).
 
-The following example `appsettings.json` uses the docker container from above:
+The following example `appsettings.json` uses the docker container from earlier:
 
 ```json
 {
@@ -44,7 +45,7 @@ The following example `appsettings.json` uses the docker container from above:
 
 ### Initialize Steeltoe Connector
 
-Update your `Program.cs` as below to initialize the Connector:
+Update your `Program.cs` to initialize the Connector:
 
 ```csharp
 using Steeltoe.Connectors.RabbitMQ;
@@ -87,9 +88,10 @@ A complete sample app that uses `IConnection` is provided at https://github.com/
 ## Cloud Foundry
 
 This Connector supports the following service brokers:
-- [VMware RabbitMQ for Tanzu Application Service](https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/2.2/tanzu-rmq/GUID-index.html)
 
-You can create and bind an instance to your application by using the Cloud Foundry CLI:
+- [VMware Tanzu RabbitMQ on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-cloud-foundry/10-0/tanzu-rabbitmq-cloud-foundry/index.html)
+
+You can create and bind an instance to your application using the Cloud Foundry CLI:
 
 ```bash
 # Create RabbitMQ service
@@ -105,6 +107,6 @@ cf restage myApp
 ## Kubernetes
 
 This Connector supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
-It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
+It can be used through the [Services Toolkit](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/services-toolkit-install-services-toolkit.html).
 
-For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/RabbitMQ#running-on-tanzu-application-platform-tap.
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/RabbitMQ#running-on-tanzu-platform-for-kubernetes.

@@ -11,15 +11,15 @@ Each value contained in the configuration is tied to a string-typed key or name.
 * Environment variables
 * Custom providers
 
-To better understand .NET configuration services, you should read the [ASP.NET Core documentation](https://learn.microsoft.com/aspnet/core/fundamentals/configuration). Note that, while the documentation link suggests this service is tied to ASP.NET Core, it is not. It can be used in many different application types, including Console, ASP.NET 4.x., UWP, and others.
+To better understand .NET configuration services, see the [ASP.NET Core documentation](https://learn.microsoft.com/aspnet/core/fundamentals/configuration). Note that, while the documentation link suggests this service is tied to ASP.NET Core, it is not. It can be used in many different application types, including Console, ASP.NET 4.x., UWP, and others.
 
-Steeltoe adds additional configuration providers to the preceding list:
+Steeltoe adds the following configuration providers to the preceding list:
 
-* Cloud Foundry (JSON from the `VCAP_APPLICATION` and `VCAP_SERVICES` environment variables)
 * Spring Cloud Config Server
+* Random value generator
 * Placeholder resolvers
 * Decryption of encrypted values
-* Random value generator
+* Cloud Foundry (JSON from the `VCAP_APPLICATION` and `VCAP_SERVICES` environment variables)
 * Spring Boot configuration
 
-The following sections provide more detail on each of these Steeltoe providers.
+The following sections provide more detail about each of these Steeltoe providers.
