@@ -267,28 +267,21 @@ public class HomeController : Controller
 
 ### Enable Logging
 
-Sometimes, it is desirable to turn on debug logging in the provider.
+Out of the box, configuration providers in .NET do not have access to the same logging infrastructure that is available to the rest of the application.
 
-To do so, you need to inject the `ILoggerFactory` into the `Startup` class constructor by adding it as an argument to the constructor. Once you have access to it, you can add a console logger to the factory and also set its minimum logging level set to Debug.
-
-Once that is done, pass the `ILoggerFactory` to the Steeltoe configuration provider. The provider then uses it to establish a logger with the debug level logging turned on.
-
-The following example shows how to enable Debug-level logging:
+Logging in the Steeltoe Config Server Client is enabled when an `ILoggerFactory` has been provided.
+The following example shows how to create a `LoggerFactory` with Debug-level logging enabled:
 
 ```csharp
 using Steeltoe.Extensions.Configuration;
 
-    LoggerFactory logFactory = new LoggerFactory();
-    logFactory.AddConsole(minLevel: LogLevel.Debug);
+var logFactory = LoggerFactory.Create(logBuilder =>
+{
+    logBuilder.AddFilter(level => level >= LogLevel.Debug);
+    logBuilder.AddConsole();
+});
 
-    // Set up configuration sources.
-    var builder = new ConfigurationBuilder()
-        .SetBasePath(env.ContentRootPath)
-        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-        .AddEnvironmentVariables()
-        .AddConfigServer(env, logFactory);
-...
+var builder = new ConfigurationBuilder().AddConfigServer(logFactory);
 ```
 
 ### Configuring Discovery First
