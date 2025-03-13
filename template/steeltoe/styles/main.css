@@ -461,6 +461,14 @@ select.api-namespace option {
 img {
     max-width: 100%;
 }
+img.screenshot {
+    border: 1px solid lightsteelblue;
+    border-radius: 10px;
+    box-shadow: 4px 3px 9px steelblue;
+    margin-bottom: 15px;
+    margin-left: 2%;
+    width: 90%;
+}
 
 /**** Responsive Adjustments ****/
 
