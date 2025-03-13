@@ -9,7 +9,7 @@ General guidance for use of JWT is beyond the scope of this document. For inform
 * [JWT IO](https://jwt.io/)
 * [Wikipedia](https://en.wikipedia.org/wiki/JSON_Web_Token)
 
-For information about the underlying Microsoft Jwt Bearer Authentication library, see the [Microsoft documentation](https://learn.microsoft.com/aspnet/core/security/authentication/configure-jwt-bearer-authentication).
+For information about the underlying Microsoft JWT Bearer Authentication library, see the [Microsoft documentation](https://learn.microsoft.com/aspnet/core/security/authentication/configure-jwt-bearer-authentication).
 
 ## Using JWT in ASP.NET Core
 

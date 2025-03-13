@@ -12,8 +12,8 @@ You should have a good understanding of how the [.NET Configuration System](http
 To use the Steeltoe Spring Boot provider:
 
 1. Add the appropriate NuGet package reference to your project.
-2. Add the provider to the Configuration Builder.
-3. Access keys from the `IConfiguration`.
+1. Add the provider to the Configuration Builder.
+1. Access keys from the `IConfiguration`.
 
 ### Add NuGet Reference
 

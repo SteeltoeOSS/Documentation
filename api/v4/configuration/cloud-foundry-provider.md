@@ -13,9 +13,9 @@ You should have a good understanding of how the [.NET Configuration System](http
 To use the Steeltoe Cloud Foundry provider:
 
 1. Add the appropriate NuGet package reference to your project.
-2. Add the provider to the host builder or configuration builder.
-3. Configure Cloud Foundry option classes by binding configuration data to them.
-4. Inject and use `IConfiguration` or `IOptions<>` to access configuration data.
+1. Add the provider to the host builder or configuration builder.
+1. Configure Cloud Foundry option classes by binding configuration data to them.
+1. Inject and use `IConfiguration` or `IOptions<>` to access configuration data.
 
 ### Add NuGet Reference
 

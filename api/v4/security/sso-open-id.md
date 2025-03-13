@@ -23,9 +23,9 @@ To use the OpenID Connect Library:
 
 ### Add NuGet References
 
-To use this package, add references to:
+To use this package, add NuGet package references to:
 
-* the NuGet package `Steeltoe.Security.Authentication.OpenIdConnect`
+* `Steeltoe.Security.Authentication.OpenIdConnect`
 * `Steeltoe.Configuration.CloudFoundry` (so that Cloud Foundry service bindings can be read by Steeltoe)
 
 ### Configure Settings

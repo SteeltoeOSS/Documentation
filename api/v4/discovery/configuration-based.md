@@ -1,6 +1,6 @@
 # Configuration-based discovery client
 
-The simplest form of service discovery is implemented by storing the list of app instances in the .NET configuration.
+The simplest form of service discovery is implemented by storing the list of app instances in .NET configuration.
 
 ## Configuration settings
 
