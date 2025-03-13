@@ -1,19 +1,19 @@
-## Overview
+# Overview
 
-Steeltoe Connectors provide access to both low-level connection strings and higher-level driver-specific .NET
+Steeltoe Connectors provide access to both low-level connection strings and higher-level, driver-specific .NET
 connection/client instances. Local connection strings are merged with settings from the cloud.
 [Health checks](../management/health.md) are registered for use with Steeltoe Management Actuators.
 Additional extension methods are provided for integration with Entity Framework Core.
 
-This page covers the basic concepts of Connectors, how they work, and how to use them.
-The rest of the pages cover information that is specific to the various .NET drivers.
+This topic covers the basic concepts of Connectors, how they work, and how to use them.
+The remaining Connectors topics cover information specific to the various .NET drivers.
 
-### Connection strings
+## Connection strings
 
-At its core, a Steeltoe Connector reads a connection string from appsettings and exposes it via the
+A Steeltoe Connector reads a connection string from `appsettings` and exposes it through the
 [ASP.NET Options pattern](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/options).
 
-For example, given the next `appsettings.json`:
+For example, given the following `appsettings.json`:
 
 ```json
 {
@@ -30,8 +30,8 @@ For example, given the next `appsettings.json`:
 }
 ```
 
-and NuGet references to `Steeltoe.Connectors` and [Npgsql](https://www.nuget.org/packages/Npgsql),
-the code fragment below reads the PostgreSQL connection string and prints it.
+And NuGet references to `Steeltoe.Connectors` and [Npgsql](https://www.nuget.org/packages/Npgsql),
+the following code fragment reads the PostgreSQL connection string and prints it.
 
 ```csharp
 using Microsoft.Extensions.Options;
@@ -46,7 +46,7 @@ var options = app.Services.GetRequiredService<IOptions<PostgreSqlOptions>>();
 Console.WriteLine(options.Value.ConnectionString);
 ```
 
-This outputs:
+The output is:
 
 ```
 Host=localhost;Database=steeltoe;Username=steeltoe;Password=steeltoe;Log Parameters=True
@@ -55,32 +55,33 @@ Host=localhost;Database=steeltoe;Username=steeltoe;Password=steeltoe;Log Paramet
 Notice that the parameter names are slightly different in the printed output.
 This is because Steeltoe relies on the [DbConnectionStringBuilder](https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder)
 of the [PostgreSQL .NET driver](https://www.npgsql.org/doc/api/Npgsql.NpgsqlConnectionStringBuilder.html), which normalizes the parameter names.
-The advantage of this approach is that you're free to use any driver-specific connection string parameters,
+The advantage of this approach is that you can use any driver-specific connection string parameters,
 without the need for Steeltoe to understand them first.
 
 > [!NOTE]
 > Earlier versions of Steeltoe assigned default values (such as "localhost") for required connection string parameters that were not specified
-in configuration. This is no longer the case. In practice, this means you'll need to configure a connection string in most cases to run locally.
+in configuration. This is no longer the case. In practice, this means that to run locally, you must configure a connection string in most cases.
 
 ### Cloud-hosted applications
 
 When your app is running in Cloud Foundry or Kubernetes, the Connector enriches the local connection string from `appsettings.json`
-by merging any cloud-provided parameters into it. The resulting connection string is exposed via the Options pattern in the
-same way as described above.
+by merging any cloud-provided parameters into it. The resulting connection string is exposed through the Options pattern in the
+same way as described in the previous section.
 
 The Connector automatically detects when merging is needed:
+
 - When running in Cloud Foundry, it reads the connection parameters from the JSON in the `VCAP_SERVICES` environment variable.
   For more information on `VCAP_SERVICES`, see the [Cloud Foundry documentation](https://docs.cloudfoundry.org/services/binding-credentials.html).
 - When running in Kubernetes, it reads the secret files from the directory that the `SERVICE_BINDING_ROOT` environment variable points to.
   For more information on `SERVICE_BINDING_ROOT`, see the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
 
 
-### Named connection strings
+## Named connection strings
 
-Multiple service bindings can be accessed using named options. Just replace "Default" in your `appsettings.json` with the name
+Multiple service bindings can be accessed using named options. Replace `Default` in your `appsettings.json` with the name
 of the service binding.
 
-For example, the next `appsettings.json` file contains two named connection strings:
+For example, the following `appsettings.json` file contains two named connection strings that can be accessed in the code fragment that follows the `appsettings.json`:
 
 ```json
 {
@@ -101,8 +102,6 @@ For example, the next `appsettings.json` file contains two named connection stri
 }
 ```
 
-which can be accessed using the code fragment below.
-
 ```csharp
 using Microsoft.Extensions.Options;
 using Steeltoe.Connectors.PostgreSql;
@@ -117,22 +116,22 @@ Console.WriteLine(optionsMonitor.Get("MyServiceOne").ConnectionString);
 Console.WriteLine(optionsMonitor.Get("MyServiceTwo").ConnectionString);
 ```
 
-This outputs:
+This is the output:
 
 ```
 Host=host1;Database=db1;Username=user1;Password=pass1;Include Error Detail=True
 Host=host1;Database=db2;Username=user2;Password=pass2;Log Parameters=True
 ```
 
-When using cloud hosting, the local connection string names need to match the service binding names in the cloud for proper
+When using cloud hosting, the local connection string names must match the service binding names in the cloud for proper
 merging to take place.
 
-However, for convenience, if you have a single named service binding in the cloud, you can just use "Default" locally.
-This is useful if you don't know the cloud-hosted service binding name upfront while developing your application.
+However, for convenience, if you have a single named service binding in the cloud, you can use `Default` locally.
+This is useful if you don't know the cloud-hosted service binding name upfront as you are developing your application.
 
 ## Connection/client instances
 
-On top of the exposed connection string, a Steeltoe Connector provides a factory to obtain driver-specific connection/client instances.
+In addition to the exposed connection string, a Steeltoe Connector provides a factory to obtain driver-specific connection/client instances.
 
 The example below uses the same `appsettings.json` file from before, but obtains a connection from the factory:
 
@@ -162,7 +161,7 @@ using NpgsqlConnection connectionOne = connectorOne.GetConnection();
 connectionOne.Open();
 ```
 
-Per named service, `ConnectorFactory` either returns a new connection/client instance each time or caches the first one,
+`ConnectorFactory` either returns a new connection/client instance each time or caches the first one,
 based on documented best practices for the specific .NET driver.
 
 ## Legacy host builders
@@ -173,7 +172,8 @@ If you're using the legacy [IHostBuilder](https://learn.microsoft.com/aspnet/cor
 [IWebHostBuilder](https://learn.microsoft.com/aspnet/core/fundamentals/host/web-host), you need to call two methods instead.
 
 For example, when using MySQL with `IWebHostBuilder`, add a NuGet reference to
-[MySqlConnector](https://www.nuget.org/packages/MySqlConnector) and call both `ConfigureMySql()` and `AddMySql()`:
+[MySqlConnector](https://www.nuget.org/packages/MySqlConnector) and call both `ConfigureMySql()` and `AddMySql()`
+as shown in the following example:
 
 ```csharp
 using Microsoft.AspNetCore;
@@ -203,7 +203,7 @@ internal static class Program
 To use the merged connection string with Entity Framework Core, add a NuGet reference to `Steeltoe.Connectors.EntityFrameworkCore`
 and call the corresponding `Use*` Steeltoe method, in addition to adding the Connector to the host builder as shown before.
 
-For example, given the next `appsettings.json`:
+For example, given the following `appsettings.json` example:
 
 ```json
 {
@@ -249,7 +249,7 @@ public class AppDbContext : DbContext
 }
 ```
 
-This outputs:
+This is the output:
 
 ```
 Data Source=(localdb)\mssqllocaldb;Initial Catalog=ExampleDB;Pooling=True
@@ -271,7 +271,7 @@ builder.Services.AddDbContext<AppDbContextTwo>(
 
 ## Advanced settings
 
-Usage of the ASP.NET Options pattern by Steeltoe Connectors enables configuring them using custom code.
+Using the ASP.NET Options pattern by Steeltoe Connectors allows you to configure them using custom code.
 
 For example, the code below adds the application name to the MongoDB connection URL at runtime:
 
@@ -293,9 +293,9 @@ builder.Services.Configure<MongoDbOptions>(options =>
 });
 ```
 
-The Steeltoe Connector extension methods provide overloads to influence how they work. This enables to hook in custom logic
-to construct the connection/client instance and override its lifetime. Or override if and how health checks are registered.
-See the documentation on `ConnectorConfigureOptionsBuilder` and `ConnectorAddOptionsBuilder` for details.
+The Steeltoe Connector extension methods provide overloads to influence how they work. This allows you to hook in custom logic
+to construct the connection/client instance and override its lifetime, or to override whether and how health checks are registered.
+See the documentation about `ConnectorConfigureOptionsBuilder` and `ConnectorAddOptionsBuilder` for details.
 
 The example below overrides the creation of the Redis `ConnectionMultiplexer` instance and turns off health checks:
 
@@ -327,7 +327,7 @@ builder.AddRedis(null, addOptions =>
 ```
 
 The Steeltoe Connector extension methods for Entity Framework Core take an optional parameter to configure the driver-specific
-settings. But because Steeltoe has no compile-time reference to the drivers, you need to upcast its parameter first.
+settings. But because Steeltoe has no compile-time reference to the drivers, you must upcast its parameter first.
 
 The next example activates the retry policy on the SQL Server provider for Entity Framework Core:
 

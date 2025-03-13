@@ -2,15 +2,17 @@
 
 This connector simplifies accessing [Microsoft SQL Server](https://www.microsoft.com/sql-server) databases.
 It supports the following .NET drivers:
-- [Microsoft.Data.SqlClient](https://www.nuget.org/packages/Microsoft.Data.SqlClient), which provides an ADO.NET `DbConnection`.
-- [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient), which provides an ADO.NET `DbConnection`.
-- [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support.
 
-The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
+- [Microsoft.Data.SqlClient](https://www.nuget.org/packages/Microsoft.Data.SqlClient), which provides an ADO.NET `DbConnection`
+- [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient), which provides an ADO.NET `DbConnection`
+- [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support
 
-## Usage
+The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md).
+
+## Using the Microsoft SQL Server Connector
 
 To use this connector:
+
 1. Create a SQL Server instance or use [SQL Server Express LocalDB](https://learn.microsoft.com/sql/database-engine/configure-windows/sql-server-express-localdb).
 1. Add NuGet references to your project.
 1. Configure your connection string in `appsettings.json`.
@@ -26,7 +28,7 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 ### Configure connection string
 
-The available connection string parameters for SQL Server are documented [here](https://learn.microsoft.com/dotnet/api/microsoft.data.sqlclient.sqlconnection.connectionstring#remarks).
+The available connection string parameters for SQL Server are documented in the [Microsoft documentation](https://learn.microsoft.com/dotnet/api/microsoft.data.sqlclient.sqlconnection.connectionstring#remarks).
 
 The following example `appsettings.json` uses SQL Server Express LocalDB:
 
@@ -86,61 +88,65 @@ public class HomeController : Controller
 
 ### Use Entity Framework Core
 
-Start by defining your `DbContext` class:
-```csharp
-public class AppDbContext : DbContext
-{
-    public DbSet<SampleEntity> SampleEntities => Set<SampleEntity>();
+Follow this procedure:
 
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+1. Define your `DbContext` class:
+
+    ```csharp
+    public class AppDbContext : DbContext
     {
+        public DbSet<SampleEntity> SampleEntities => Set<SampleEntity>();
+
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
     }
-}
 
-public class SampleEntity
-{
-    public long Id { get; set; }
-    public string? Text { get; set; }
-}
-```
+    public class SampleEntity
+    {
+        public long Id { get; set; }
+        public string? Text { get; set; }
+    }
+    ```
 
-Next, call the `UseSqlServer()` Steeltoe extension method from `Program.cs` to initialize Entity Framework Core:
+1. Call the `UseSqlServer()` Steeltoe extension method from `Program.cs` to initialize Entity Framework Core:
 
-```csharp
-using Steeltoe.Connectors.EntityFrameworkCore.SqlServer;
-using Steeltoe.Connectors.SqlServer;
+    ```csharp
+    using Steeltoe.Connectors.EntityFrameworkCore.SqlServer;
+    using Steeltoe.Connectors.SqlServer;
 
-var builder = WebApplication.CreateBuilder(args);
-builder.AddSqlServer();
+    var builder = WebApplication.CreateBuilder(args);
+    builder.AddSqlServer();
 
-builder.Services.AddDbContext<AppDbContext>(
-    (serviceProvider, options) => options.UseSqlServer(serviceProvider));
-```
+    builder.Services.AddDbContext<AppDbContext>(
+        (serviceProvider, options) => options.UseSqlServer(serviceProvider));
+    ```
 
-Once you have configured and added your `DbContext` to the service container,
+1. After you have configured and added your `DbContext` to the service container,
 you can inject it and use it in a controller or view:
 
-```csharp
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+  ```csharp
+  using Microsoft.AspNetCore.Mvc;
+  using Microsoft.EntityFrameworkCore;
 
-public class HomeController : Controller
-{
-    public async Task<IActionResult> Index([FromServices] AppDbContext appDbContext)
-    {
-        List<SampleEntity> entities = await appDbContext.SampleEntities.ToListAsync();
-        return View(entities);
-    }
-}
-```
+  public class HomeController : Controller
+  {
+      public async Task<IActionResult> Index([FromServices] AppDbContext appDbContext)
+      {
+          List<SampleEntity> entities = await appDbContext.SampleEntities.ToListAsync();
+          return View(entities);
+      }
+  }
+  ```
 
 A complete sample app that uses Entity Framework Core with SQL Server is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/SqlServerEFCore.
 
 ## Cloud Foundry
 
 This Connector supports the following service brokers:
-- [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
+
+- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-12/csb-azure/index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:
 
