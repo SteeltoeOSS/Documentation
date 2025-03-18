@@ -160,7 +160,7 @@ To use this load balancer in service discovery, pass it to the `AddServiceDiscov
 builder.Services.AddHttpClient<OrderService>().AddServiceDiscovery<RoundRobinLoadBalancer>();
 ```
 
-> [!TIP]
+> [!NOTE]
 > When caching is activated (see above), this load balancer stores the last-used instance index in the cache.
 > Combining it with a shared Redis cache ensures an even load distribution.
 

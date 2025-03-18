@@ -2,11 +2,12 @@
 
 This connector simplifies accessing [MongoDB](https://www.mongodb.com/) databases.
 It supports the following .NET drivers:
-- [MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver), which provides an `IMongoClient`.
 
-The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
+- [MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver), which provides an `IMongoClient`
 
-## Usage
+The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md) for more information.
+
+## Using the MongoDB connector
 
 To use this connector:
 
@@ -24,9 +25,9 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 ### Configure connection string
 
-The available connection string parameters for MongoDB are documented [here](https://www.mongodb.com/docs/manual/reference/connection-string/).
+The available connection string parameters for MongoDB are described in the [MongoDB documentation](https://www.mongodb.com/docs/manual/reference/connection-string/).
 
-The following example `appsettings.json` uses the docker container from above:
+The following example `appsettings.json` uses the docker container used earlier:
 
 ```json
 {
@@ -43,12 +44,12 @@ The following example `appsettings.json` uses the docker container from above:
 }
 ```
 
-Notice this configuration file contains the database name, in addition to the connection string. This value is exposed
+Notice that this configuration file contains the database name, in addition to the connection string. This value is exposed
 as `MongoDbOptions.Database`.
 
 ### Initialize Steeltoe Connector
 
-Update your `Program.cs` as below to initialize the Connector:
+Update your `Program.cs` to initialize the Connector:
 
 ```csharp
 using Steeltoe.Connectors.MongoDb;
@@ -101,7 +102,8 @@ A complete sample app that uses `IMongoClient` is provided at https://github.com
 ## Cloud Foundry
 
 This Connector supports the following service brokers:
-- [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
+
+- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-12/csb-azure/index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:
 
@@ -119,6 +121,6 @@ cf restage myApp
 ## Kubernetes
 
 This Connector supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
-It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
+It can be used through the [Services Toolkit](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/services-toolkit-install-services-toolkit.html).
 
-For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/MongoDb#running-on-tanzu-application-platform-tap.
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/MongoDb#running-on-tanzu-platform-for-kubernetes.

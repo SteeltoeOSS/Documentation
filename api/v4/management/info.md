@@ -1,10 +1,10 @@
 # Info
 
-The Steeltoe Info endpoint exposes information about the running application, such as its version and the Steeltoe version in use.
+The Steeltoe Info endpoint exposes information about the running application, such as its version and the version of Steeltoe in use.
 
 Information is collected from all `IInfoContributor` implementations registered in the application.
-Steeltoe includes a couple contributor implementations out of the box that you can use.
-Also, and perhaps more importantly, you can write your own.
+Steeltoe includes a couple of contributor implementations out of the box that you can use.
+You can also write your own implementations.
 
 ## Configure Settings
 
@@ -12,19 +12,19 @@ The following table describes the configuration settings that you can apply to t
 Each key must be prefixed with `Management:Endpoints:Info:`.
 
 | Key | Description | Default |
-| --- | --- | --- |
-| `Enabled` | Whether the endpoint is enabled. | `true` |
-| `ID` | The unique ID of the endpoint. | `info` |
-| `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
-| `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
-| `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
+| --- | ----------- | ------- |
+| `Enabled` | Whether the endpoint is enabled | `true` |
+| `ID` | The unique ID of the endpoint | `info` |
+| `Path` | The relative path at which the endpoint is exposed | same as `ID` |
+| `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry | `Restricted` |
+| `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
 
 ## Enable HTTP Access
 
-The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting together with the `Path` setting described in the preceding section.
+The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting with the `Path` setting described in the preceding section.
 The default path is `/actuator/info`.
 
-See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, use the `AddInfoActuator` extension method.
 
@@ -37,9 +37,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfoActuator();
 ```
 
-> [!TIP]
-> It's recommended to use `AddAllActuators()` instead of adding individual actuators,
-> which enables individually turning them on/off at runtime via configuration.
+> [!NOTE]
+> It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
+> this enables individually turning them on/off at runtime via configuration.
 
 ## Built-in Contributors
 
@@ -50,6 +50,7 @@ This contributor exposes file/version info for both the application and the incl
 ### Configuration
 
 This contributor exposes any values below the `Info` configuration key. For example:
+
 ```json
 {
   "Info": {
@@ -62,21 +63,21 @@ This contributor exposes any values below the `Info` configuration key. For exam
 }
 ```
 
-> [!TIP]
+> [!NOTE]
 > When combined with the [Placeholder Configuration Provider](../configuration/placeholder-provider.md),
 > compound configuration values can be exposed originating from other places in configuration.
 
 ### Git properties
 
-Exposes information from the `git.properties` Spring Boot file, if available.
-Shows information from git, such as branch/tag name, commit hash, and remote.
+* Exposes information from the `git.properties` Spring Boot file, if available
+* Shows information from git, such as branch/tag name, commit hash, and remote
 
-> [!TIP]
+> [!NOTE]
 > For an example of how to use this contributor within MSBuild using [GitInfo](https://github.com/devlooped/GitInfo), see the [Steeltoe Management sample](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src).
 
 ## Sample Output
 
-Depending on the registered contributors, this endpoint returns JSON such as this:
+Depending on the registered contributors, this endpoint returns JSON similar to this:
 
 ```json
 {
