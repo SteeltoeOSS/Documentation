@@ -1,0 +1,112 @@
+@media (max-width: 576px) {
+    .width-90 {
+        max-width: 97%;
+    }
+
+    .width-80 {
+        max-width: 97%;
+    }
+
+    .width-75 {
+        max-width: 97%;
+    }
+
+    .width-70 {
+        max-width: 97%;
+    }
+
+    .width-60 {
+        max-width: 97%;
+    }
+
+    .width-55 {
+        max-width: 85%;
+    }
+
+    .width-50 {
+        max-width: 80%;
+    }
+
+    .drop-menu {
+        top: -31px;
+    }
+
+    .drop-target {
+        height: 38px;
+    }
+
+    #scope {
+        top: 26px;
+    }
+
+    #why-items {
+        right: 260px;
+    }
+
+    #scope.why-scope {
+        right: 154px;
+    }
+
+    #learn-items {
+        right: 149px;
+    }
+
+    #learn-items ul {
+        right: 73px;
+        position: relative;
+    }
+
+    #scope.learn-scope {
+        right: 70px;
+    }
+
+    #project-items {
+        right: 16px;
+    }
+
+    #project-items ul {
+        right: 127px;
+        position: relative;
+    }
+
+    #scope.project-scope {
+        right: 0px;
+    }
+
+    .component-title,
+    .get-started-title {
+        font-size: 200%;
+    }
+
+    .component-feature-title,
+    .component-whatis-title,
+    .component-whyuse-title {
+        font-size: 125%;
+    }
+
+    .component-feature-img,
+    .component-why-img {
+        display: none;
+    }
+
+    #footer-why-col div:not(:first-child),
+    #footer-learn-col div:not(:first-child),
+    #footer-projects-col div:not(:first-child) {
+        font-size: 60%;
+    }
+
+    #footer-others-col div {
+        display: inline-block;
+        padding-right: 15px;
+    }
+
+    .docs-nav-col {
+        top: 231px;
+        width: 180px;
+    }
+
+    .docs-content-col {
+        left: 193px;
+        min-height: unset;
+    }
+}

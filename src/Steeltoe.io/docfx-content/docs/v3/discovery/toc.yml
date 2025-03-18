@@ -1,0 +1,14 @@
+- name: Overview
+  href: index.md
+- name: Initialize Discovery Client
+  href: initialize-discovery-client.md
+- name: Discovering Services
+  href: discovering-services.md
+- name: Netflix Eureka
+  href: netflix-eureka.md
+- name: HashiCorp Consul
+  href: hashicorp-consul.md
+- name: Kubernetes
+  href: kubernetes.md
+- name: Load Balancing
+  href: load-balancing.md

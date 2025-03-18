@@ -1,0 +1,28 @@
+- name: Welcome - v3
+  href: welcome/toc.yml
+- name: Application Bootstrapping
+  href: bootstrap/index.md
+- name: Application Configuration
+  href: configuration/toc.yml
+- name: Circuit Breakers
+  href: circuitbreaker/toc.yml
+- name: Distributed Tracing
+  href: tracing/toc.yml
+- name: Dynamic Logging
+  href: logging/toc.yml
+- name: Management
+  href: management/toc.yml
+- name: Messaging
+  href: messaging/toc.yml
+- name: Network File Sharing
+  href: fileshares/usage.md
+- name: Security
+  href: security/toc.yml
+- name: Service Connectors
+  href: connectors/toc.yml
+- name: Service Discovery
+  href: discovery/toc.yml
+- name: Stream
+  href: stream/toc.yml
+- name: Initializr
+  href: ../initializr/toc.yml

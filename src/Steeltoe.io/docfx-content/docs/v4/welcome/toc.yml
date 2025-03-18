@@ -1,0 +1,23 @@
+- href: whats-new.md
+  name: What's new in Steeltoe 4
+  items:
+  - href: whats-new.md#bootstrap
+    name: Bootstrap
+  - href: whats-new.md#common
+    name: Common
+  - href: whats-new.md#configuration
+    name: Configuration
+  - href: whats-new.md#connectors
+    name: Connectors
+  - href: whats-new.md#discovery
+    name: Discovery
+  - href: whats-new.md#logging
+    name: Logging
+  - href: whats-new.md#management
+    name: Management
+  - href: whats-new.md#security
+    name: Security
+- href: prerequisites.md
+  name: Prerequisites
+- href: common-steps.md
+  name: Common Steps
