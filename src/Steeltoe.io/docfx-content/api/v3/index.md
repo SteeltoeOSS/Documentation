@@ -13,7 +13,7 @@ uid: api/browser/v3/all/index
 
 Extension methods on host-builders that automatically activate Steeltoe features, based on the assemblies used by your app.
 
-[view](Steeltoe.Bootstrap.AutoConfig.yml)
+[view](Steeltoe.Bootstrap.Autoconfig.yml)
 
 ## Steeltoe Circuit Breaker
 
