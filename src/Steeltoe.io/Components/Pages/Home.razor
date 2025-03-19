@@ -1,7 +1,7 @@
 @page "/"
 @page "/index"
 
-@inject IOptions<CalendarEventOptions> CalendarEventOptions
+@inject IOptionsSnapshot<CalendarEventOptions> CalendarEventOptions
 @inject NavigationManager Navigation
 
 <PageTitle>Steeltoe | Home</PageTitle>
@@ -89,31 +89,27 @@
 </div>
 <div class="left-yellow-slant bg-midnight-blue text-white width-all pb-4">
     <div class="width-70 container">
-        <div class="text-center width-all pb-3"><h2>News</h2></div>
-@if (CalendarEventOptions?.Value.Events == null)
+@if (CalendarEventOptions?.Value.Events?.Count == 0)
 {
-        <span>&nbsp;</span>
+        <!-- No News to display -->
 }
 else
 {
-    var i = 1;
+        <h2 class="text-center width-all pb-3">News</h2>
     @foreach (var calendarEvent in CalendarEventOptions?.Value.Events ?? [])
     {
-            <div class="row g-0">
-                <div class="col news">
-                    <div class="date">@((MarkupString)calendarEvent.Date)</div>
-                    <div class="title">@((MarkupString)calendarEvent.Title)</div>
-                    <div class="desc">@((MarkupString)calendarEvent.Description)</div>
-                    <div class=""><a class="special-link" href="@calendarEvent.Url" target="_blank">read more &gt;</a></div>
-                </div>
+        <div class="row g-0">
+            <div class="col news">
+                <div class="date">@((MarkupString)calendarEvent.Date)</div>
+                <div class="title">@((MarkupString)calendarEvent.Title)</div>
+                <div class="desc">@((MarkupString)calendarEvent.Description)</div>
+                <div class=""><a class="special-link" href="@calendarEvent.Url" target="_blank">read more &gt;</a></div>
             </div>
-        @if (i++ < CalendarEventOptions?.Value.Events.Count)
-        {
-            <div class="row g-0">
-                <div class="col"><hr class="border-steeltoe-blue" /></div>
-            </div>
-        }
+        </div>
     }
+        <div class="row g-0">
+            <div class="col"><hr class="border-steeltoe-blue" /></div>
+        </div>
 }
     </div>
 </div>
