@@ -78,6 +78,8 @@
     "postProcessors": [
       "ExtractSearchIndex"
     ]
-    "disableGitFeatures": false
+  },
+  "rules": {
+    "InvalidFileLink": "error"
   }
 }
