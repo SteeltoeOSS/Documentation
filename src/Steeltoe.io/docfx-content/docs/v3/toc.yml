@@ -25,4 +25,4 @@
 - name: Stream
   href: stream/toc.yml
 - name: Initializr
-  href: ../initializr/toc.yml
+  href: ../v4/initializr/toc.yml

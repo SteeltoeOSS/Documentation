@@ -19,4 +19,4 @@
 - name: Service Discovery
   href: discovery/toc.yml
 - name: Initializr
-  href: ../initializr/toc.yml
+  href: initializr/toc.yml

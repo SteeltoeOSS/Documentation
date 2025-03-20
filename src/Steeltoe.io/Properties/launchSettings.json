@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "blazor-site": {
+    "localhost": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:8080/"
+      "applicationUrl": "https://localhost:8080/;http://docs.steeltoe.io/"
     }
   }
 }

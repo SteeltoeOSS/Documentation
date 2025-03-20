@@ -1,14 +1,15 @@
-using Docfx.Dotnet;
+using Docfx;
+using Steeltoe.io;
 using Steeltoe.io.Components;
 using Steeltoe.io.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // run "docfx build" for local development
-#if DEBUG
-await DotnetApiCatalog.GenerateManagedReferenceYamlFiles("docfx.json");
-await Docfx.Docset.Build("docfx.json");
-#endif
+if (builder.Configuration["Docs:RunDocFXBuild"] == "true")
+{
+    await Docset.Build("docfx.json");
+}
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorComponents();
@@ -27,13 +28,16 @@ else
     app.UseHsts();
 }
 
+app.UseMiddleware<DocsRedirectMiddleware>(builder.Configuration);
+
 app.UseHttpsRedirection();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
-// UseStatusCodePagesWithReExecute must be added before Anti-forgery
+
+// UseStatusCodePagesWithReExecute must happen before anti-forgery to prevent errors
 app.UseStatusCodePagesWithReExecute("/404");
 app.UseAntiforgery();
 app.MapRazorComponents<App>();
