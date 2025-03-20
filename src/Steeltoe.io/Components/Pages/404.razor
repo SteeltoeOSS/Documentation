@@ -1,0 +1,26 @@
+@inject IHttpContextAccessor HttpContextAccessor
+@page "/404"
+@using Microsoft.AspNetCore.Diagnostics
+
+<Template Name="Path Not Found" MetaDescription="Sorry, no content could be found at this location.">
+    <Description>
+        Sorry, the content you're looking for cannot be found on the site.
+        <h6>
+            Feel free to <a href="https://github.com/SteeltoeOSS/Documentation/issues/new?title=@(OriginalPath)%20-%20not%20found" target="_blank">open an issue</a>
+            with the URL or content you expected to exist, and we'll be happy to look into it.
+        </h6>
+    </Description>
+</Template>
+
+@code {
+    private string OriginalPath { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var reExecuteFeature = HttpContextAccessor.HttpContext?.Features.Get<IStatusCodeReExecuteFeature>();
+        if (reExecuteFeature != null)
+        {
+            OriginalPath = reExecuteFeature.OriginalPath;
+        }
+    }
+}

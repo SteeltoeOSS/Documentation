@@ -1,0 +1,85 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "build": {
+    "content": [
+      {
+        "files": "**.{md|yml}",
+        "src": "docfx-content/docs/",
+        "dest": "docs/"
+      },
+      {
+        "files": "**.{md|yml}",
+        "src": "docfx-content/articles/",
+        "dest": "articles/"
+      },
+      {
+        "files": "**.{md|yml}",
+        "src": "docfx-content/guides/",
+        "dest": "guides/"
+      },
+      {
+        "files": "*.{md|yml}",
+        "src": "docfx-content/api/v4/",
+        "dest": "api/v4/",
+        "group": "v4"
+      },
+      {
+        "files": "*.{md|yml}",
+        "src": "docfx-content/api/v3/",
+        "dest": "api/v3/",
+        "group": "v3"
+      },
+      {
+        "files": "*.{md|yml}",
+        "src": "docfx-content/api/v2/",
+        "dest": "api/v2/",
+        "group": "v2"
+      }
+    ],
+    "resource": [
+      {
+        "files": "**.{png|jpg}",
+        "src": "docfx-content/docs/",
+        "dest": "docs/"
+      },
+      {
+        "files": "**.{png|jpg}",
+        "src": "docfx-content/articles/",
+        "dest": "articles/"
+      },
+      {
+        "files": "**.{png|jpg}",
+        "src": "docfx-content/guides/",
+        "dest": "guides/"
+      }
+    ],
+    "template": [
+      "default",
+      "modern",
+      "docfx-content/steeltoe-template"
+    ],
+    "xref": [
+      "wwwroot/xrefmap.yml",
+      "wwwroot/v2.xrefmap.yml",
+      "wwwroot/v3.xrefmap.yml",
+      "wwwroot/v4.xrefmap.yml"
+    ],
+    "globalMetadataFiles": [
+      "metadata.json"
+    ],
+    "disableGitFeatures": false,
+    "fileMetadataFiles": [],
+    "markdownEngineProperties": {
+      "markdigExtensions": [
+        "Footnotes"
+      ]
+    },
+    "output": "wwwroot",
+    "postProcessors": [
+      "ExtractSearchIndex"
+    ]
+  },
+  "rules": {
+    "InvalidFileLink": "error"
+  }
+}

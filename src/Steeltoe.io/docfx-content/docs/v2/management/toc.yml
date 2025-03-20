@@ -1,0 +1,33 @@
+- name: Overview
+  href: index.md
+- name: Using Endpoints
+  href: using-endpoints.md
+  items:
+    - name: Cloud Foundry Integration
+      href: cloud-foundry.md
+    - name: /dump
+      href: dump.md
+    - name: /env
+      href: env.md
+    - name: /health
+      href: health.md
+    - name: /heapdump
+      href: heapdump.md
+    - name: /hypermedia
+      href: hypermedia.md
+    - name: /info
+      href: info.md
+    - name: /loggers
+      href: loggers.md
+    - name: /mappings
+      href: mappings.md
+    - name: /metrics
+      href: metrics.md
+    - name: /prometheus
+      href: prometheus.md
+    - name: /refresh
+      href: refresh.md
+    - name: /trace
+      href: tracing.md
+- name: Tasks
+  href: tasks.md
