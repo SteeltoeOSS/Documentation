@@ -14,7 +14,8 @@ public class DocsRedirectMiddleware(
         var newRequestUri = new StringBuilder();
         newRequestUri.Append(Uri.UriSchemeHttps);
         newRequestUri.Append(Uri.SchemeDelimiter);
-        if (string.Equals(originalHost, configuration["Docs:OldHost"], StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(originalHost, "docs.steeltoe.io", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(originalHost, "docs-staging.steeltoe.io", StringComparison.OrdinalIgnoreCase))
         {
             logger.LogTrace("Received request for {originalHost}", originalHost);
             newRequestUri.Append(configuration["Docs:NewHost"]);
