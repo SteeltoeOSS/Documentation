@@ -46,9 +46,13 @@
         const theme = localStorage.getItem('theme') || 'auto'
         document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
       </script>
-
       {{#_googleAnalyticsTagId}}
-      <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-domain-script="018ee7f5-70e6-7787-8d98-05c8f935c75d"></script>
+      <script>
+        if (window.location.href.indexOf('localhost') === -1 && window.location.href.indexOf('azurewebsites.net') === -1)
+        {
+          document.write('<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-domain-script="018ee7f5-70e6-7787-8d98-05c8f935c75d"><\/script>');
+        }
+      </script>
       <script>function OptanonWrapper() { }</script>
       <script>
         function setGTM(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
