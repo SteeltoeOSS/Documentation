@@ -272,7 +272,7 @@ Starting with version 3.2.0, when no `ILoggerFactory` is provided, Steeltoe auto
     services.AddHostedService<BootstrapLoggerHostedService>();
     ```
 
-For older versions of Steeltoe, the following example shows how to enable Debug-level logging:
+For earlier releases of Steeltoe v3 or to define your own logging configuration, use the following example:
 
 ```csharp
 using Steeltoe.Extensions.Configuration.ConfigServer;
