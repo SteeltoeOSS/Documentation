@@ -277,11 +277,7 @@ For earlier releases of Steeltoe v3 or to define your own logging configuration,
 ```csharp
 using Steeltoe.Extensions.Configuration.ConfigServer;
 
-var logFactory = LoggerFactory.Create(logBuilder =>
-{
-    logBuilder.AddFilter(level => level >= LogLevel.Debug);
-    logBuilder.AddConsole();
-});
+var logFactory = LoggerFactory.Create(builder => builder.SetMinimumLevel(LogLevel.Debug).AddConsole());
 
 var builder = new ConfigurationBuilder().AddConfigServer(logFactory);
 ```
