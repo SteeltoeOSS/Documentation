@@ -1,0 +1,127 @@
+@page "/"
+@page "/index"
+
+@inject IOptionsSnapshot<CalendarEventOptions> CalendarEventOptions
+@inject NavigationManager Navigation
+
+<PageTitle>Steeltoe | Home</PageTitle>
+<HeadContent>
+    <meta name="description" content="Steeltoe is an open-source project providing a library collection that helps users build production-grade cloud-native applications using externalized configuration, database connectors, service discovery, logging and distributed tracing, application management, security, and more.">
+    <meta name="DC.Title" content="Create cloud-native .NET microservices with Steeltoe." xml:lang="EN" />
+    <meta property="og:title" content="Create cloud-native .NET microservices with Steeltoe." />
+    <meta property="og:description" content="Create .NET microservices for modern platforms with Steeltoe. It's a friend of Spring Cloud and can be used anywhere." />
+    <meta property="og:url" content="@_canonicalUrl" />
+    <link rel="canonical" href="@_canonicalUrl" />
+</HeadContent>
+
+<div class="bg-midnight-blue text-white width-all">
+    <div class="width-70 container">
+        <div class="row g-0 pt-5">
+            <div class="col text-center">
+                <h1>
+                    Creating .NET microservices? <br />Modernizing existing applications?<br />
+                    Moving apps to containers? <br /> <br />Steeltoe makes your life much easier.
+                </h1>
+            </div>
+        </div>
+        <div class="row g-0 mt-5">
+            <div class="col text-center">
+                <Href class="text-white border-white mr-4" href="/why-steeltoe" AsButton="true">WHY STEELTOE</Href>
+                <Href class="text-white border-white" href="/guides" AsButton="true">GET STARTED</Href>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="width-all blue-slant">
+    <div class="width-70 container">
+        <div class="width-all text-center"><h2>What Steeltoe can do</h2></div>
+        <div class="">
+            <div class="row g-0">
+                <div class="col component">
+                    <Href href="/microservices">
+                        <div class="text-center"><img class="img-fluid" src="/images/icon-microservices-dfc414fd79f67718216adaffb5d99947.svg" alt="Steeltoe helps you build .NET microservices." /></div>
+                        <div class="title"><h3>Microservices</h3></div>
+                        <div class="desc">Quickly deliver production‑grade features with independently evolvable microservices.</div>
+                    </Href>
+                </div>
+
+                <div class="col component">
+                    <Href href="/cloud">
+                        <div class="text-center"><img class="img-fluid" src="/images/icon-cloud-73c3f4c15437e8493b3d3124fc667a08.svg" alt="Use Steeltoe for .NET apps in the cloud." /></div>
+                        <div class="title"><h3>Cloud</h3></div>
+                        <div class="desc">Your code, any cloud—we&apos;ve got you covered. Connect and scale your services, whatever your platform.</div>
+                    </Href>
+                </div>
+
+                <div class="col component">
+                    <Href href="/web-applications">
+                        <div class="text-center">
+                            <img class="img-fluid" src="/images/icon-webapps-16f6e97a1447fefba82fbdfc302262af.svg" alt="Use Steeltoe in your web apps." />
+                        </div>
+                        <div class="title"><h3>Web Apps</h3></div>
+                        <div class="desc">A collection of libraries used for fast, secure, and responsive web applications connected to any data store.</div>
+                    </Href>
+                </div>
+                <div class="col component">
+                    <Href href="/event-driven">
+                        <div class="text-center"><img class="img-fluid" src="/images/icon-streams-825456b79c33345f5bf4a6ef73dc8cbd.svg" alt="Use Steeltoe for event-driven apps." /></div>
+                        <div class="title"><h3>Event Driven</h3></div>
+                        <div class="desc">Integrate with your enterprise. React to business events. Act on your streaming data in realtime.</div>
+                    </Href>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="width-all">
+    <div class="width-90 container py-5">
+        <div class="row g-0 text-center mt-3">
+            <div class="col stat">
+                Steeltoe has been downloaded over <span class="number">110 million</span> times on <a href="https://www.nuget.org/profiles/SteeltoeOSS">NuGet</a>!
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin: 0 0 0 51%;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid meet"viewBox="0 0 3517 363">
+        <path fill="#7f9bb6" d="M 0.00,362.00 C 0.00,362.00 28.00,363.00 28.00,363.00 28.00,363.00 89.00,363.00 89.00,363.00 89.00,363.00 301.00,363.00 301.00,363.00 301.00,363.00 1026.00,363.00 1026.00,363.00 1026.00,363.00 3517.00,363.00 3517.00,363.00 3517.00,363.00 3517.00,0.00 3517.00,0.00 3517.00,0.00 3495.00,0.00 3495.00,0.00 3495.00,0.00 3465.00,2.83 3465.00,2.83 3465.00,2.83 3388.00,10.83 3388.00,10.83 3388.00,10.83 3205.00,29.83 3205.00,29.83 3205.00,29.83 2718.00,80.17 2718.00,80.17 2718.00,80.17 2608.00,91.83 2608.00,91.83 2608.00,91.83 2319.00,121.83 2319.00,121.83 2319.00,121.83 1562.00,200.17 1562.00,200.17 1562.00,200.17 1196.00,238.17 1196.00,238.17 1196.00,238.17 753.00,284.17 753.00,284.17 753.00,284.17 252.00,336.17 252.00,336.17 252.00,336.17 79.00,354.17 79.00,354.17 79.00,354.17 0.00,362.00 0.00,362.00 Z" />
+    </svg>
+</div>
+<div class="left-yellow-slant bg-midnight-blue text-white width-all pb-4">
+    <div class="width-70 container">
+@if (CalendarEventOptions?.Value.Events?.Count == 0)
+{
+        <!-- No News to display -->
+}
+else
+{
+        <h2 class="text-center width-all pb-3">News</h2>
+    @foreach (var calendarEvent in CalendarEventOptions?.Value.Events ?? [])
+    {
+        <div class="row g-0">
+            <div class="col news">
+                <div class="date">@((MarkupString)calendarEvent.Date)</div>
+                <div class="title">@((MarkupString)calendarEvent.Title)</div>
+                <div class="desc">@((MarkupString)calendarEvent.Description)</div>
+                <div class=""><a class="special-link" href="@calendarEvent.Url" target="_blank">read more &gt;</a></div>
+            </div>
+        </div>
+    }
+        <div class="row g-0">
+            <div class="col"><hr class="border-steeltoe-blue" /></div>
+        </div>
+}
+    </div>
+</div>
+@code
+{
+    private string _canonicalUrl;
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        var requestUri = new Uri(Navigation.Uri);
+        _canonicalUrl = "https://steeltoe.io" + requestUri.PathAndQuery;
+
+        return base.SetParametersAsync(parameters);
+    }
+}

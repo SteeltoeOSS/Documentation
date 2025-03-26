@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Cloud Security
 
 Steeltoe provides a number of Security related services that simplify using Cloud Foundry based security services in ASP.NET applications.
@@ -13,4 +17,3 @@ In addition to Authentication and Authorization providers, Steeltoe Security off
 
 * A security provider for using Redis on Cloud Foundry with ASP.NET Core Data Protection Key Ring storage.
 * A CredHub API Client for .NET applications to perform credential storage, retrieval and generation.
-

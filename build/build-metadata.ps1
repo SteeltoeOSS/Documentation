@@ -1,9 +1,13 @@
 #!/usr/bin/env pwsh
 
+param (
+    [int]$SteeltoeVersion
+)
+
 set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-# Install dotnet tools (DocFX)
+# Restore docfx tool
 dotnet tool restore
 
 # Get the script's directory
@@ -13,32 +17,56 @@ Push-Location $baseDir
 # Repository information
 $gitSourcesUrl = "https://github.com/SteeltoeOSS/Steeltoe"
 
-# Read metadata configuration
-$v2Sources = (Select-String -Path "metadata.conf" -Pattern '^2:' -Raw | ForEach-Object { ($_ -split ':')[1].Trim() })
-$v3Sources = (Select-String -Path "metadata.conf" -Pattern '^3:' -Raw | ForEach-Object { ($_ -split ':')[1].Trim() })
-$v4Sources = (Select-String -Path "metadata.conf" -Pattern '^4:' -Raw | ForEach-Object { ($_ -split ':')[1].Trim() })
-
-# Function to clone sources
-function Get-Sources {
+function Clone-Source-Build-Metadata
+{
     param (
-        [string]$destDir,
-        [string]$branch
+        [int]$version
     )
 
-    Write-Output "$(Split-Path -Leaf $destDir) sources from $branch"
-    if (Test-Path $destDir) {
-        Remove-Item -Recurse -Force $destDir
+    $destination = Join-Path "sources" "v$version"
+    $pattern = "^$($version):"
+    $branch = (Select-String -Path "metadata.conf" -Pattern $pattern -Raw | ForEach-Object { ($_ -split ':')[1].Trim() })
+
+    Write-Output "$(Split-Path -Leaf $destination) sources from $branch"
+    if (Test-Path $destination)
+    {
+        Push-Location $destination
+        git pull
+        Pop-Location
     }
-    git clone $gitSourcesUrl $destDir -b $branch
+    else {
+        git clone $gitSourcesUrl $destination -b $branch
+    }
+
+    $apiFile = "api-v$version.json"
+    Write-Host "Running command: dotnet docfx metadata $apiFile"
+    dotnet docfx metadata $apiFile
 }
 
-Write-Output "Cloning Steeltoe repository at each version"
-Get-Sources (Join-Path "sources" "v2") $v2Sources
-Get-Sources (Join-Path "sources" "v3") $v3Sources
-Get-Sources (Join-Path "sources" "v4") $v4Sources
+$buildAll = $false;
+if($PSBoundParameters.ContainsKey("SteeltoeVersion"))
+{
+    Write-Output "Cloning Steeltoe repository at v$SteeltoeVersion"
+}
+else
+{
+    $buildAll = $true
+    Write-Output 'Cloning Steeltoe repository at each version'
+}
 
-Write-Host 'Running command: dotnet docfx metadata api-all.json'
-dotnet docfx metadata api-all.json
+if ($buildAll -or $SteeltoeVersion -ieq "2")
+{
+    Clone-Source-Build-Metadata 2
+}
+if ($buildAll -or $SteeltoeVersion -ieq "3")
+{
+    Clone-Source-Build-Metadata 3
+}
+if ($buildAll -or $SteeltoeVersion -ieq "4")
+{
+    Clone-Source-Build-Metadata 4
+}
+
 
 Write-Host 'Running command: dotnet docfx build (Join-Path ".." "docs" "docfx-all.json")'
 dotnet docfx build (Join-Path ".." "docs" "docfx-all.json")

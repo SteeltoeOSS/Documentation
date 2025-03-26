@@ -10,21 +10,21 @@ The directories below this one are used with DocFX to generate static HTML files
 | `/guides` | Guides for getting started with Steeltoe |
 | `/modern-steeltoe` | Customized copy of the modern DocFX template |
 
-If you are working with API Browser content, view [this README](../../api-browser-generation/README.md).
+If you are working with API Browser content, view [this README](../build/README.md).
 
 ## Installing DocFX
 
-DocFX is included in [the project file](../Steeltoe.io.csproj) and does not need to be directly installed unless you are working with the API Browser content.
+Install DocFX by running `dotnet tool restore`, which installs tools defined in [dotnet-tools.json](../.config/dotnet-tools.json).
 
 ## DocFX Markdown
 
-DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) documentation.
+DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/docs/markdown.html) documentation.
 
 Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack) extension pack useful.
 
 ### Links and Cross References
 
-As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/tutorial/links_and_cross_references.html).
+As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/docs/links-and-cross-references.html).
 
 > [!NOTE]
 > It should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
@@ -38,7 +38,6 @@ In the YAML header of a page's markdown, you have options to turn page elements 
 |_disableToc     |false|Turn off the left hand table of contents         |
 |_disableAffix     |false|Turn off the right hand page navigation links         |
 |_disableContribution     |false|Turn off right hand link to "edit this page"         |
-|_disableFooter     |false|Don't show footer when guest scrolls to page bottom         |
 |_enableSearch     |true|Show the search icon         |
 |_enableNewTab     |true|All links on the page open in a new browser tab         |
 |_disableNav     |false|Do not show top navigation links         |
@@ -78,19 +77,19 @@ An example API doc:
 
 ```markdown
 ---
-uid: api/v2/circuitbreaker/hystrix
+uid: docs/v2/circuitbreaker/hystrix
 ---
 
 # Netflix Hystrix
 
 Steeltoe's Hystrix implementation lets application developers isolate and manage back-end dependencies so that a single failing dependency does not take down the entire application. This is accomplished by wrapping all calls to external dependencies in a `HystrixCommand`, which runs in its own...
 
-Here is an example cross-reference link to config docs: @api/v2/configuration/cloud-foundry-provider
-Or you could link to the v3 version of this doc: @api/v3/circuitbreaker/hystrix
-Or do the same thing by providing custom link text: [view the v3 version](xref:api/v2/circuitbreaker/hystrix)
+Here is an example cross-reference link to config docs: @docs/v2/configuration/cloud-foundry-provider
+Or you could link to the v3 version of this doc: @docs/v3/circuitbreaker/hystrix
+Or do the same thing by providing custom link text: [view the v3 version](xref:docs/v2/circuitbreaker/hystrix)
 ```
 
-Corresponding entry in `api/v2/toc.yml`:
+Corresponding entry in `docs/v2/toc.yml`:
 
 ```yaml
 - name: Circuit Breakers

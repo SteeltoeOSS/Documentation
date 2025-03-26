@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Connectors
 
 Steeltoe Connectors simplify the process of connecting to, using, and monitoring backing services

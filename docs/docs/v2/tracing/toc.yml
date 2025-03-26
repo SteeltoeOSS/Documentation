@@ -1,4 +1,2 @@
-- name: Overview
-  href: index.md
 - name: Using Trace Exporters
   href: distributed-tracing-exporting.md

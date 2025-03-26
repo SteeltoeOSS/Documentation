@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Circuit Breakers
 
 The Steeltoe Circuit Breaker framework provides applications with an implementation of the Circuit Breaker pattern. Cloud-native architectures  typically consist of multiple layers of distributed services. End-user requests may require multiple calls to these services, and failures in lower-level services can spread to other dependent services and cascade up to the end user. Heavy traffic to a failing service can also make it difficult to repair. By using Circuit Breaker frameworks, you can prevent failures from cascading and provide fallback behavior until a failing service is restored to normal operation.

@@ -1,0 +1,12 @@
+@page "/fileshares"
+@page "/network-file-sharing"
+@page "/steeltoe-smb"
+@inject NavigationManager Navigation
+
+@code
+{
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo("/docs/v4/fileshares");
+    }
+}

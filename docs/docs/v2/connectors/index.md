@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Service Connectors
 
 Steeltoe Service Connectors simplify the process of connecting and using services on Cloud Foundry. Steeltoe Connectors provide a simple abstraction for .NET based applications running on Cloud Foundry, letting them discover bound services and deployment information at runtime. The connectors also provide support for registering the services as injectable service objects.

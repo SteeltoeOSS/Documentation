@@ -42,7 +42,7 @@
       <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script type="module" src="./{{_rel}}public/docfx.min.js" crossorigin="anonymous"></script>
 
-      <script>
+      <script data-cfasync="false">
         const theme = localStorage.getItem('theme') || 'auto'
         document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
       </script>
@@ -71,7 +71,7 @@
     {{#_googleAnalyticsTagId}}
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{_googleAnalyticsTagId}}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {{/_googleAnalyticsTagId}}
-    <header class="sticky-top">
+    <header class="bg-body border-bottom">
       {{^_disableNavbar}}
       {{>partials/navbar}}
       {{/_disableNavbar}}
@@ -86,7 +86,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
+            {{^_hideTocVersionToggle}}
             {{>partials/version-switch}}
+            {{/_hideTocVersionToggle}}
             <nav class="toc" id="toc"></nav>
           </div>
         </div>

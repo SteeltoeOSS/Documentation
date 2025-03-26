@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Initializr
 
 An Initializr jumpstarts .NET development by generating projects based on project metadata.

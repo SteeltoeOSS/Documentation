@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Steeltoe Documentation
 
 ## [Application Configuration](../configuration/index.md)

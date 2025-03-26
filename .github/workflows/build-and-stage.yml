@@ -1,10 +1,10 @@
-name: build-website
+name: Build and stage steeltoe.io
 
 on:
-  pull_request:
+  push:
     branches:
     - main
-  push:
+  pull_request:
     branches:
     - main
 
@@ -17,144 +17,38 @@ permissions:
   pull-requests: write
 
 env:
-  DOCFX_VERSION: 2.59.4
-  DOCFX_SOURCE_BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
-  STEELTOE_V2_VERSION: 2.5.5
-  STEELTOE_V3_VERSION: 3.2.6
-  STEELTOE_V4_VERSION: main
-  SITE_IMAGE_VERSION: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.run_id }}
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_NOLOGO: true
+  DOTNET_VERSION: '9.0'
 
 jobs:
-  change-detection:
-    name: Detect which layers need to be built, set image versions
-    runs-on: ubuntu-latest
-    # Set job outputs to values from filter step
-    outputs:
-      docfx-layer-changed: ${{ steps.filter.outputs.docfx-layer-changed }}
-      docfx-image-version: ${{ steps.version.outputs.docfx-image-version }}
-      metadata-layer-changed: ${{ steps.filter.outputs.metadata-layer-changed }}
-      metadata-image-version: ${{ steps.version.outputs.metadata-image-version }}
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - uses: dorny/paths-filter@v3
-      id: filter
-      with:
-        filters: |
-          docfx-layer-changed:
-            - 'docfx/**'
-          metadata-layer-changed:
-            - .github/workflows/build-and-stage.yml
-            - Dockerfile-metadata
-            - 'api/**'
-            - 'articles/**'
-            - 'guides/**'
-            - 404.html
-            - build-metadata.sh
-            - docfx.json
-    - name: Declare image versions
-      id: version
-      run: |
-        if '${{ steps.filter.outputs.docfx-layer-changed }}' == 'true'
-        then
-          echo "docfx-image-version=${{ github.event_name == 'pull_request' && github.run_id || env.DOCFX_VERSION }}" >> "$GITHUB_OUTPUT"
-        else
-          echo "docfx-image-version=${{ env.DOCFX_VERSION }}" >> "$GITHUB_OUTPUT"
-        fi
-        if '${{ steps.filter.outputs.metadata-layer-changed }}' == 'true'
-        then
-          echo "metadata-image-version=${{ github.event_name == 'pull_request' && github.run_id || env.STEELTOE_VERSIONS }}" >> "$GITHUB_OUTPUT"
-        else
-          echo "metadata-image-version=${{ env.STEELTOE_VERSIONS }}" >> "$GITHUB_OUTPUT"
-        fi
-      env:
-        STEELTOE_VERSIONS: ${{ env.STEELTOE_V2_VERSION }}-${{ env.STEELTOE_V3_VERSION }}-${{ env.STEELTOE_V4_VERSION }}
-      shell: bash
-
-  build-push-docfx:
-    name: Build and push docfx layer
-    needs: change-detection
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
-      uses: actions/checkout@v4
-
-    - name: Set DocFX version to use
-      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
-      run: echo v${{ env.DOCFX_VERSION }} > docfx/version
-      shell: bash
-
-    - name: Login to container registry
-      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
-      uses: docker/login-action@v3
-      with:
-        registry: "${{ vars.DOCKER_REGISTRY }}"
-        username: "${{ secrets.DOCKER_USERNAME }}"
-        password: "${{ secrets.DOCKER_PASSWORD }}"
-
-    - name: Build image
-      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
-      run: docker build docfx --file "docfx/Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/docfx:${{ needs.change-detection.outputs.docfx-image-version }}
-
-    - name: Push image
-      if: ${{ needs.change-detection.outputs.docfx-layer-changed == 'true' }}
-      run: docker push ${{ vars.DOCKER_REGISTRY }}/docfx --all-tags
-
-  build-push-metadata:
-    name: Build and push API docs layer
-    needs: [ change-detection, build-push-docfx ]
-    if: ${{ needs.change-detection.outputs.metadata-layer-changed == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Set Steeltoe versions to use
-      run: |-
-        echo '2:'${{ env.STEELTOE_V2_VERSION }} > metadata.conf
-        echo '3:'${{ env.STEELTOE_V3_VERSION }} >> metadata.conf
-        echo '4:'${{ env.STEELTOE_V4_VERSION }} >> metadata.conf
-      shell: bash
-
-    - name: Login to container registry
-      uses: docker/login-action@v3
-      with:
-        registry: "${{ vars.DOCKER_REGISTRY }}"
-        username: "${{ secrets.DOCKER_USERNAME }}"
-        password: "${{ secrets.DOCKER_PASSWORD }}"
-
-    - name: Build image
-      run: docker build --build-arg="DOCFX_IMAGE_VERSION=${{ needs.change-detection.outputs.docfx-image-version }}" . --file "Dockerfile-metadata" -t ${{ vars.DOCKER_REGISTRY }}/documentation-metadata:${{ needs.change-detection.outputs.metadata-image-version }}
-
-    - name: Push image
-      run: docker push ${{ vars.DOCKER_REGISTRY }}/documentation-metadata --all-tags
-
-  build-push-final:
-    name: Build and push documentation image
-    needs: [ change-detection, build-push-docfx, build-push-metadata ]
-    environment:
-      name: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || vars.STAGING_SLOT_NAME }}
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    env:
-      SLOT_NAME: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || vars.STAGING_SLOT_NAME }}
+  build:
+    name: Build and publish app
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
 
-    - name: Login to container registry
-      uses: azure/docker-login@v1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
       with:
-        login-server: "${{ vars.DOCKER_REGISTRY }}"
-        username: "${{ secrets.DOCKER_USERNAME }}"
-        password: "${{ secrets.DOCKER_PASSWORD }}"
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Build image
-      run: docker build --build-arg="METADATA_IMAGE_VERSION=${{ needs.change-detection.outputs.metadata-image-version }}" . --file "Dockerfile" -t ${{ vars.DOCKER_REGISTRY }}/documentation:${{ env.SITE_IMAGE_VERSION }}
+    - name: Generate API browser docs
+      shell: pwsh
+      run: build/build-metadata.ps1
 
-    - name: Push image
-      run: docker push ${{ vars.DOCKER_REGISTRY }}/documentation --all-tags
+    - name: dotnet build
+      run: dotnet build src/Steeltoe.io --configuration Release
+
+    - name: dotnet publish
+      run: dotnet publish src/Steeltoe.io --configuration Release --no-build --output ${{ env.DOTNET_ROOT }}/mainsite
+
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v4
+      with:
+        name: Steeltoe.io
+        path: ${{ env.DOTNET_ROOT }}/mainsite
 
   deploy:
     name: Deploy
@@ -164,9 +58,14 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     env:
       SLOT_NAME: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || vars.STAGING_SLOT_NAME }}
-    needs: build-push-final
+    needs: build
     runs-on: ubuntu-latest
     steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v4
+      with:
+        name: Steeltoe.io
+
     - name: Login to Azure
       uses: azure/login@v2
       with:
@@ -174,32 +73,26 @@ jobs:
 
     - name: If PR, create a new staging slot
       if: ${{ github.event_name == 'pull_request' }}
-      run: az webapp deployment slot create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WEBAPP_NAME}} --slot ${{ env.SLOT_NAME }} --configuration-source ${{ vars.STAGING_SLOT_NAME }}
+      run: az webapp deployment slot create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WWW_NAME}} --slot ${{ env.SLOT_NAME }} --configuration-source ${{ vars.STAGING_SLOT_NAME }}
 
-    - name: Deploy to staging slot
+    - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v3
       with:
-        app-name: ${{ vars.AZURE_WEBAPP_NAME }}
-        images: ${{ vars.DOCKER_REGISTRY }}/documentation:${{ env.SITE_IMAGE_VERSION }}
-        slot-name:  ${{ env.SLOT_NAME }}
+        app-name: ${{ vars.AZURE_WWW_NAME }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        slot-name: ${{ env.SLOT_NAME }}
+        clean: true
 
     - name: If PR, comment with the preview link
       if: ${{ github.event_name == 'pull_request' }}
       uses: mshick/add-pr-comment@v2
       with:
         message: |
-          ## Preview link: https://${{ vars.AZURE_WEBAPP_NAME }}-${{ env.SLOT_NAME }}.azurewebsites.net
+          ## Preview link: https://${{ vars.AZURE_WWW_NAME }}-${{ env.SLOT_NAME }}.azurewebsites.net
 
           - Your changes have been deployed to the preview site. The preview site will update as you add more commits to this branch.
           - The preview link is shareable, but will be deleted when the pull request is merged or closed.
-
-          ### Need to pair with a custom main site address?
-
-          A team member can use this az CLI command, replacing <this-PR-number> and <other-pr-number> for valid numbers:
-          ```bash
-          az webapp config appsettings set --resource-group steeltoe --name docs-steeltoe --slot pr-<this-PR-number> --settings mainsite_host=https://www-steeltoe-pr-<other-pr-number>.azurewebsites.net
-          ```
 
           > *This is an automated message.*
         repo-token: ${{ secrets.GITHUB_TOKEN }}

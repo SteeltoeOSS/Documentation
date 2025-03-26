@@ -1,0 +1,22 @@
+@inject NavigationManager NavigationManager
+
+@page "/blog"
+@page "/blogs"
+@page "/blog/{ArticleName}"
+@page "/blog/{Area}/{ArticleName}"
+
+@code
+{
+    [Parameter] public string ArticleName { get; set; } = "index";
+
+    [Parameter] public string Area { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        var uri = Area != null
+            ? $"/articles/{Area}/{ArticleName}.html"
+            : $"/articles/{ArticleName}.html";
+
+        NavigationManager.NavigateTo(uri);
+    }
+}

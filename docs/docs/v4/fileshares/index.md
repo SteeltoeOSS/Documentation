@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Windows Network File Shares
 
 The Steeltoe `WindowsNetworkFileShare` class provides a simplified experience for interacting with SMB file shares by making [P/Invoke calls](https://learn.microsoft.com/cpp/dotnet/how-to-call-native-dlls-from-managed-code-using-pinvoke) to underlying Windows APIs, specifically to `mpr.dll`. For more information about SMB, see the [Microsoft SMB Protocol documentation](https://learn.microsoft.com/windows/win32/fileio/microsoft-smb-protocol-and-cifs-protocol-overview).

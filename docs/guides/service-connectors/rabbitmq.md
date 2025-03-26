@@ -65,7 +65,7 @@ Next, **create a .NET Core WebAPI** that interacts with RabbitMQ
    ```
 
    > [!TIP]
-   > If you would like to see how to customize the connection have a look at the [docs](/api/v3/welcome/index.md)
+   > If you would like to see how to customize the connection have a look at the [docs](/docs/v3/welcome/index.md)
 
 **Run** the application
 

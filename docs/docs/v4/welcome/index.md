@@ -1,4 +1,8 @@
-# Steeltoe Documentation updated
+---
+_disableAffix: true
+---
+
+# Steeltoe Documentation
 
 ## [What's New](./whats-new.md)
 
