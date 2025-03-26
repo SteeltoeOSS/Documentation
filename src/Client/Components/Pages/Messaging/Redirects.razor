@@ -1,0 +1,12 @@
+@page "/messaging/get-started/rabbitmq"
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<DocsSiteOptions> DocsSiteOptions
+
+@code
+{
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo($"{DocsSiteOptions.Value.BaseAddress}/guides/messaging/rabbitmq.html");
+    }
+}

@@ -1,0 +1,12 @@
+@page "/circuit-breakers/get-started/breaker"
+@page "/circuit-breakers/get-started"
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<DocsSiteOptions> DocsSiteOptions
+
+@code
+{
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo($"{DocsSiteOptions.Value.BaseAddress}/guides/circuit-breaker/circuit-breaker.html");
+    }
+}

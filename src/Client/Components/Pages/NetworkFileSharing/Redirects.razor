@@ -1,0 +1,13 @@
+@page "/fileshares"
+@page "/network-file-sharing"
+@page "/steeltoe-smb"
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<DocsSiteOptions> DocsSiteOptions
+
+@code
+{
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo(DocsSiteOptions.Value.FileShareHome);
+    }
+}

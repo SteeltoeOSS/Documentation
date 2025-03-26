@@ -1,0 +1,23 @@
+@page "/app-configuration/get-started"
+@page "/cloud-management/get-started"
+@page "/cloud-management/get-started/logging"
+@page "/getstarted"
+@page "/get-started"
+@page "/observability"
+@page "/messaging/get-started"
+@page "/security-providers/get-started"
+@page "/security-providers/get-started/credhub"
+@page "/service-connectors/get-started"
+@page "/service-connectors/get-started/gemfire"
+@page "/service-discovery/get-started"
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<DocsSiteOptions> DocsSiteOptions
+
+@code
+{
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo($"{DocsSiteOptions.Value.BaseAddress}/guides/");
+    }
+}

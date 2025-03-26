@@ -1,0 +1,14 @@
+@page "/service-discovery/{Provider}"
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<DocsSiteOptions> DocsSiteOptions
+
+@code
+{
+    [Parameter] public string Provider { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo($"{DocsSiteOptions.Value.BaseAddress}/guides/service-discovery/{Provider}.html");
+    }
+}

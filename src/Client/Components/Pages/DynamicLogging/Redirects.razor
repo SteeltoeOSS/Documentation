@@ -1,0 +1,14 @@
+@page "/logging/get-started"
+@page "/dynamic-logging"
+@page "/steeltoe-logging"
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<DocsSiteOptions> DocsSiteOptions
+
+@code
+{
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo(DocsSiteOptions.Value.DynamicLoggingHome);
+    }
+}

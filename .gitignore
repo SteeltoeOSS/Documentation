@@ -1,10 +1,11 @@
 /api/browser/**/*.manifest
 /api/browser/**/*.yml
-/obj/
+bin/
+obj/
 /sources/
 /_site/
 /tools/
 /.vscode/
-/.vs/
+.vs/
 .DS_Store
 _site/
