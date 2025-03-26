@@ -283,7 +283,7 @@ var builder = new ConfigurationBuilder().AddConfigServer(logFactory);
 
 > [!NOTE]
 > This method of creating a `LoggerFactory` was removed in .NET Core 3.0.
-> Please refer to [migrating Microsoft.Extensions.Logging 2.1 to 2.2 or 3.0](https://learn.microsoft.com/aspnet/core/migration/logging-nonaspnetcore#21-to-30) for guidance as needed.
+> Please refer to [Migrate from Microsoft.Extensions.Logging 2.1 to 2.2 or 3.0](https://learn.microsoft.com/aspnet/core/migration/logging-nonaspnetcore#21-to-30) for guidance as needed.
 
 ### Configuring Discovery First
 
