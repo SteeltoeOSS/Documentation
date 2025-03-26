@@ -1,0 +1,54 @@
+@page "/support"
+
+<Template Name="Support" Features="@_features" MetaDescription="Get support for Steeltoe OSS.">
+	<Description>Contact the team directly to get answers about how to best implement every component and feature within Steeltoe, as well as the best cloud-native .NET practices.</Description>
+</Template>
+
+@code
+{
+	private readonly Feature[] _features =
+    [
+        new()
+        {
+			Title = (MarkupString)"Slack",
+			Description = b => {
+                b.AddMarkupContent(1,"Stay up to date with the latest announcements, open a direct conversation with the team, or ask a general question to the community.<br /><br />");
+                b.OpenComponent<Href>(2);
+                b.AddAttribute(3, "href","https://slack.steeltoe.io");
+                b.AddAttribute(4, "NewWindow",true);
+                b.AddAttribute(5, "AsButton",true);
+                b.AddAttribute(6, "ChildContent", (RenderFragment)(child => { child.AddContent(7, "GO NOW"); }));
+                b.CloseComponent();
+            },
+			Img = "https://assets.brandfolder.com/pl546j-7le8zk-838dm2/view@2x.png?v=1547165068"
+		},
+		new()
+        {
+			Title = (MarkupString)"GitHub",
+			Description = b => {
+                b.AddMarkupContent(1,"Search past issues and community questions, request a new feature, or donate your custom features to a project.<br /><br />");
+                b.OpenComponent<Href>(2);
+                b.AddAttribute(3, "href","https://github.com/SteeltoeOSS");
+                b.AddAttribute(4, "NewWindow",true);
+                b.AddAttribute(5, "AsButton",true);
+                b.AddAttribute(6, "ChildContent", (RenderFragment)(child => { child.AddContent(7, "GO NOW"); }));
+                b.CloseComponent();
+            },
+			Img = "https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png"
+		},
+		new()
+        {
+			Title = (MarkupString)"NuGet",
+			Description = b => {
+                b.AddMarkupContent(1,"Search and learn more about each Steeltoe package, its version history, statistics, and installation options.<br /><br />");
+                b.OpenComponent<Href>(2);
+                b.AddAttribute(3, "href","https://www.nuget.org/profiles/SteeltoeOSS");
+                b.AddAttribute(4, "NewWindow",true);
+                b.AddAttribute(5, "AsButton",true);
+                b.AddAttribute(6, "ChildContent", (RenderFragment)(child => {child.AddContent(7, "GO NOW");}));
+                b.CloseComponent();
+            },
+			Img = "https://miro.medium.com/max/700/1*OH_L2dLIKDl_n5QknfONqw.png"
+		}
+    ];
+}

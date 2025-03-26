@@ -32,7 +32,7 @@ Steeltoe makes things like production ready database connections a single line o
 
 Steeltoe 3.0 is a product of years of learning. Small businesses and large enterprises have all been benefiting and contributing to this new release. It’s a fresh take on cloud opinions that seemingly never get answered. It’s the next evolution for your microservices to go to cloud ninja status.
 
-> If you’re moving from Steeltoe 2.x and would like a quick comparison with version 3.0, refer to [this page](/api/v3/welcome/whats-new.md).
+> If you’re moving from Steeltoe 2.x and would like a quick comparison with version 3.0, refer to [this page](/docs/v3/welcome/whats-new.md).
 
 Let's take a look at the new things included in Steeltoe 3.0. If you’re still wondering how the project fits in your new or existing .NET applications, [learn how here](https://steeltoe.io).
 
@@ -72,7 +72,7 @@ public void Listen(MyCustomObject myObj){
 }
 ```
 
-Once you’ve got the basics down, it’s time to extend and make the design better with things like custom factories. Steeltoe Messaging will take care of the conversion of a message into a structured type but sometimes you want to intercept that conversion and make decisions. You can create your own `DirectRabbitListenerContainer` and customize to your heart's content. Learn more about custom listener container factories [in the docs](/api/v3/messaging/rabbitmq-intro.md#receiving-a-message).
+Once you’ve got the basics down, it’s time to extend and make the design better with things like custom factories. Steeltoe Messaging will take care of the conversion of a message into a structured type but sometimes you want to intercept that conversion and make decisions. You can create your own `DirectRabbitListenerContainer` and customize to your heart's content. Learn more about custom listener container factories [in the docs](/docs/v3/messaging/rabbitmq-intro.md#receiving-a-message).
 
 ## Legacy and Modern together in the cloud
 
@@ -151,7 +151,7 @@ public HomeController(IConfiguration config) {
 }
 ```
 
-If you'd like to see more visit the [samples repo](https://github.com/SteeltoeOSS/Samples/tree/3.x), or have a look in the [docs](/api/v3/welcome/index.md).
+If you'd like to see more visit the [samples repo](https://github.com/SteeltoeOSS/Samples/tree/3.x), or have a look in the [docs](/docs/v3/welcome/index.md).
 
 ## Generate production ready projects and get going fast
 
@@ -186,7 +186,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
   }
   ```
 
-* In addition to the [metrics endpoint](/api/v3/management/metrics.md), there is a new Prometheus endpoint that offers a simple way for metrics to be scraped. Below is an example prometheus.yml configuration ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src)):
+* In addition to the [metrics endpoint](/docs/v3/management/metrics.md), there is a new Prometheus endpoint that offers a simple way for metrics to be scraped. Below is an example prometheus.yml configuration ([here is a full example](https://github.com/SteeltoeOSS/Samples/tree/3.x/Management/src)):
 
   ```yaml
   scrape_configs:
@@ -195,7 +195,7 @@ Steeltoe 3.0 continues the management endpoints found in 2.x but takes things to
       scrape_interval: 5s
   ```
 
-* [Dynamic logging](/api/v3/logging/index.md) can be implemented with a single statement in the `HostBuilder`
+* [Dynamic logging](/docs/v3/logging/index.md) can be implemented with a single statement in the `HostBuilder`
 
     ```csharp
     public static IHostBuilder CreateHostBuilder(string[] args) =>

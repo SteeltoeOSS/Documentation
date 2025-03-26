@@ -47,7 +47,7 @@ Next, **create a .NET Core WebAPI** that interacts with Mongo DB
    ```
 
    > [!TIP]
-   > Looking for additional params to use when connecting? Have a look at the [docs](/api/v3/welcome/index.md)
+   > Looking for additional params to use when connecting? Have a look at the [docs](/docs/v3/welcome/index.md)
 
 **Run** the application
 
