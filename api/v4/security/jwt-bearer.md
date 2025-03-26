@@ -153,9 +153,9 @@ In the preceding example, if an incoming GET request is made to the `/api/sample
 
 See the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md) for examples using a user's access token to interact with downstream APIs, focusing on these locations:
 
-* [Configure ASP.NET Core to save the user's token](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/appsettings.json#L15)
-* [Get the user's token](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/Controllers/HomeController.cs#L60)
-* [Include the token in a downstream request](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/ApiClients/JwtAuthorizationApiClient.cs#L24)
+* [Configure ASP.NET Core to save the user's token](https://github.com/SteeltoeOSS/Samples/blob/4c0b222a8ea201240bb6b99aae46434864cf4dd1/Security/src/AuthWeb/appsettings.json#L15)
+* [Get the user's token](https://github.com/SteeltoeOSS/Samples/blob/4c0b222a8ea201240bb6b99aae46434864cf4dd1/Security/src/AuthWeb/Controllers/HomeController.cs#L60)
+* [Include the token in a downstream request](https://github.com/SteeltoeOSS/Samples/blob/4c0b222a8ea201240bb6b99aae46434864cf4dd1/Security/src/AuthWeb/ApiClients/JwtAuthorizationApiClient.cs#L24)
 
 ### Single Sign-On for VMware Tanzu
 
@@ -226,4 +226,4 @@ And to bind the service instance to the app:
 cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
 ```
 
-For additional information, refer to the [UAA documentation](https://docs.cloudfoundry.org/concepts/architecture/uaa.html).
+For additional information, see the [UAA documentation](https://docs.cloudfoundry.org/concepts/architecture/uaa.html).

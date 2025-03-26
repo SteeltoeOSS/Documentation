@@ -2,7 +2,7 @@
 
 Service Discovery enables the use of friendly names for the microservices your app depends on.
 These microservices typically register themselves at startup to a discovery server, which acts as a central registry.
-Each time your app connects to a microservice like this, the friendly name is resolved to the actual scheme/host/port by querying the discovery server.
+Each time your app connects to one of those microservices, the friendly name is resolved to the actual scheme/host/port by querying the discovery server.
 
 A discovery server can track multiple instances for a single friendly name, which enables your app to load-balance across instances.
 It also tracks whether your microservice instances are still alive, using health checks and/or keep-alives.

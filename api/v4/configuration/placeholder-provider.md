@@ -6,7 +6,7 @@ A placeholder takes the form of `${key:subkey1:subkey2?defaultValue}`, where `ke
 
 Note that placeholder defaults (for example, `defaultValue`) can also be defined to be placeholders, and they are resolved as well.
 
-## Usage
+## Using the Placeholder Provider
 
 You should have a good understanding of how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use this provider.
 

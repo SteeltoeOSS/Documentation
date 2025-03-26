@@ -8,15 +8,15 @@ This logging provider is a wrapper around the [Microsoft Console Logger](https:/
 > [!CAUTION]
 > External tool integration involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP requests.
 
-## Usage
+## Using Dynamic Console Logging
 
 Before starting to use Steeltoe provider, you should know how [Logging in .NET](https://learn.microsoft.com/aspnet/core/fundamentals/logging) works; Steeltoe provides nothing more than a wrapper around the existing Microsoft console logger.
 
 To use the Steeltoe logging provider:
 
 1. Add the appropriate NuGet package reference to your project.
-2. Configure logging settings.
-3. Add the dynamic logging provider to the logging builder.
+1. Configure logging settings.
+1. Add the dynamic logging provider to the logging builder.
 
 ### Add NuGet References
 

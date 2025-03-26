@@ -7,7 +7,7 @@ It supports the following .NET drivers:
 - [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient), which provides an ADO.NET `DbConnection`
 - [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support
 
-The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md).
+The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md) for more information.
 
 ## Using the Microsoft SQL Server Connector
 
@@ -126,19 +126,19 @@ To retrieve data from SQL Server in your app using Entity Framework Core, use th
 1. After you have configured and added your `DbContext` to the service container,
 you can inject it and use it in a controller or view:
 
-  ```csharp
-  using Microsoft.AspNetCore.Mvc;
-  using Microsoft.EntityFrameworkCore;
+    ```csharp
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
-  public class HomeController : Controller
-  {
-      public async Task<IActionResult> Index([FromServices] AppDbContext appDbContext)
-      {
-          List<SampleEntity> entities = await appDbContext.SampleEntities.ToListAsync();
-          return View(entities);
-      }
-  }
-  ```
+    public class HomeController : Controller
+    {
+        public async Task<IActionResult> Index([FromServices] AppDbContext appDbContext)
+        {
+            List<SampleEntity> entities = await appDbContext.SampleEntities.ToListAsync();
+            return View(entities);
+        }
+    }
+    ```
 
 A complete sample app that uses Entity Framework Core with SQL Server is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/SqlServerEFCore.
 

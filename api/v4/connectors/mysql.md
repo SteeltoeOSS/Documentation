@@ -8,7 +8,7 @@ It supports the following .NET drivers:
 - [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support
 - [MySql.EntityFrameworkCore](https://www.nuget.org/packages/MySql.EntityFrameworkCore), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support
 
-The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md).
+The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md) for more information.
 
 ## Using the MySQL connector
 

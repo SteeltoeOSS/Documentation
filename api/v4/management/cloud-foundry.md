@@ -34,7 +34,7 @@ The default path is `/cloudfoundryapplication`.
 
 See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
-To add the actuator to the service container, add a [CORS](#cross-origin-resource-sharing) policy, register security middleware and map its route, and use the `AddCloudFoundryActuator` extension method.
+To add the actuator to the service container, add a [CORS](#cross-origin-resource-sharing) policy, register security middleware and map its route, use the `AddCloudFoundryActuator` extension method.
 
 Add the following code to `Program.cs` to use the actuator endpoint:
 

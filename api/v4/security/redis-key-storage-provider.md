@@ -3,12 +3,12 @@
 The Redis Key Storage Provider is commonly used when secured data needs to be shared between two or more instances of the same application.
 
 > [!NOTE]
-> Redis has been updated to [Valkey](https://valkey.io/topics/migration/).
+> This connector simplifies accessing [Redis](https://redis.io/) and [Valkey](https://valkey.io/) databases.
 
 By default, the [data protection system in ASP.NET Core](https://learn.microsoft.com/aspnet/core/security/data-protection/introduction) stores cryptographic keys on the local file system.
 Even when not used by the application directly, these cryptographic keys are used for systems like [session state](https://learn.microsoft.com/aspnet/core/fundamentals/app-state#session-state) storage.
 
-By using the Steeltoe Redis Key Storage Provider, you can easily reconfigure the data protection service to store these keys in Redis instances that are accessible through the [Steeltoe Redis Connector](../connectors/redis.md).
+By using the Steeltoe Redis Key Storage Provider, you can easily reconfigure the data protection service to store these keys in Redis/Valkey instances that are accessible through the [Steeltoe Redis Connector](../connectors/redis.md).
 
 For more information, see the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/RedisDataProtection/README.md).
 
@@ -31,7 +31,7 @@ If you are using Cloud Foundry service bindings, you must also add a reference t
 
 ### Configure connection string
 
-You must configure a connection string to use Redis.
+You must configure a connection string to use Redis/Valkey.
 The following example `appsettings.Development.json` uses a local Redis server listening on the default Redis port:
 
 ```json

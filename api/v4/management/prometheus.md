@@ -83,7 +83,7 @@ To instrument `HttpClient`s for metrics:
 
 1. Add a reference to the `OpenTelemetry.Instrumentation.Http` NuGet package.
 
-2. Add the instrumentation to the `MeterProviderBuilder`:
+1. Add the instrumentation to the `MeterProviderBuilder`:
 
     ```csharp
     using OpenTelemetry.Metrics;
@@ -93,7 +93,7 @@ To instrument `HttpClient`s for metrics:
 
 For more information about HttpClient instrumentation for OpenTelemetry, see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Http).
 
-### .NET Runtime
+### .NET runtime
 
 To instrument the .NET runtime for metrics:
 

@@ -296,7 +296,7 @@ app.Run();
 If you want to provide custom health information for your application:
 
 1. Create a class that implements the `IHealthContributor` interface.
-2. Add the new class to the service container.
+1. Add the new class to the service container.
 
 The following example contributor always returns a `HealthStatus` of `WARNING`:
 

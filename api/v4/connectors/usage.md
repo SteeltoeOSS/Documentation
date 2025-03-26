@@ -163,6 +163,7 @@ connectionOne.Open();
 
 `ConnectorFactory` either returns a new connection/client instance each time or caches the first one,
 based on documented best practices for the specific .NET driver.
+The cached instance is per named service, so when both service1 and service2 exist, there are two cached instances.
 
 ## Legacy host builders
 

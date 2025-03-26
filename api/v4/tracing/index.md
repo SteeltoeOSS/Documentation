@@ -110,7 +110,7 @@ builder.Services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerPr
 The above example assumes you are already using some other Steeltoe component that adds `IApplicationInstanceInfo` to the IoC container. If that is not the case, follow these steps to register the default implementation:
 
 1. Add a NuGet package reference to `Steeltoe.Common`.
-2. Call `AddApplicationInstanceInfo`.
+1. Call `AddApplicationInstanceInfo`.
 
     ```csharp
     using Steeltoe.Common.Extensions;
@@ -136,7 +136,7 @@ To instrument requests coming into the application through ASP.NET Core:
     ```csharp
     using OpenTelemetry.Trace;
 
-    builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddAspNetCoreInstrumentation());
+    builder.Services.AddOpenTelemetry().WithTracing(tracing => tracing.AddAspNetCoreInstrumentation());
     ```
 
 1. To replicate the Steeltoe setting `IngressIgnorePattern` (a Regex pattern describing which incoming requests to ignore), configure the `AspNetCoreTraceInstrumentationOptions`:

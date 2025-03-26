@@ -28,7 +28,7 @@ You can also use the generator with property placeholders. For example, consider
 }
 ```
 
-## Usage
+## Using the Random Value Provider
 
 You should have a good understanding of how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use this provider.
 

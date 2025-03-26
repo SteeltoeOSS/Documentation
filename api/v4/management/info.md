@@ -125,7 +125,7 @@ Depending on the registered contributors, this endpoint returns JSON similar to 
 
 ## Custom Contributors
 
-If you wish to provide custom information for your application, create a class that implements the `IInfoContributor` interface and then add it to the service container.
+If you want to provide custom information for your application, create a class that implements the `IInfoContributor` interface and then add it to the service container.
 
 The following example contributor adds the local server time:
 

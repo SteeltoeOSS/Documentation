@@ -2,7 +2,7 @@
 
 The Steeltoe HTTP Exchanges endpoint provides the ability to view the last several requests sent to your application.
 
-When you activate this endpoint, an `IHttpExchangesRepository` implementation is registered; it stores HTTP request/response information in memory, and can be retrieved by using the endpoint.
+When you activate this endpoint, an `IHttpExchangesRepository` implementation is registered, which stores HTTP request/response information in memory. This endpoint provides access to that information.
 
 ## Configure Settings
 

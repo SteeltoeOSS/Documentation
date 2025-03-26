@@ -60,42 +60,43 @@ builder.AddMongoDb();
 
 ### Use IMongoClient
 
-Start by defining a class that contains collection data:
-```csharp
-using MongoDB.Bson;
+1. Start by defining a class that contains collection data:
 
-public class SampleObject
-{
-    public ObjectId Id { get; set; }
-    public string? Text { get; set; }
-}
-```
+    ```csharp
+    using MongoDB.Bson;
 
-To obtain an `IMongoClient` instance in your application, inject the Steeltoe factory in a controller or view:
-
-```csharp
-using Microsoft.AspNetCore.Mvc;
-using MongoDb.Data;
-using MongoDB.Driver;
-using Steeltoe.Connectors;
-using Steeltoe.Connectors.MongoDb;
-
-public class HomeController : Controller
-{
-    public async Task<IActionResult> Index(
-        [FromServices] ConnectorFactory<MongoDbOptions, IMongoClient> connectorFactory)
+    public class SampleObject
     {
-        var connector = connectorFactory.Get();
-        IMongoClient client = connector.GetConnection();
-
-        IMongoDatabase database = client.GetDatabase(connector.Options.Database);
-        IMongoCollection<SampleObject> collection = database.GetCollection<SampleObject>("SampleObjects");
-        List<SampleObject> sampleObjects = await collection.Find(obj => true).ToListAsync();
-
-        return View(sampleObjects);
+        public ObjectId Id { get; set; }
+        public string? Text { get; set; }
     }
-}
-```
+    ```
+
+1. Obtain an `IMongoClient` instance in your application by injecting the Steeltoe factory in a controller or view:
+
+    ```csharp
+    using Microsoft.AspNetCore.Mvc;
+    using MongoDb.Data;
+    using MongoDB.Driver;
+    using Steeltoe.Connectors;
+    using Steeltoe.Connectors.MongoDb;
+
+    public class HomeController : Controller
+    {
+        public async Task<IActionResult> Index(
+            [FromServices] ConnectorFactory<MongoDbOptions, IMongoClient> connectorFactory)
+        {
+            var connector = connectorFactory.Get();
+            IMongoClient client = connector.GetConnection();
+
+            IMongoDatabase database = client.GetDatabase(connector.Options.Database);
+            IMongoCollection<SampleObject> collection = database.GetCollection<SampleObject>("SampleObjects");
+            List<SampleObject> sampleObjects = await collection.Find(obj => true).ToListAsync();
+
+            return View(sampleObjects);
+        }
+    }
+    ```
 
 A complete sample app that uses `IMongoClient` is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/MongoDb.
 

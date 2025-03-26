@@ -5,7 +5,7 @@ This provider exists for interoperability with Spring Boot environment variables
 The Steeltoe Spring Boot configuration provider reads the JSON in the `SPRING_BOOT_APPLICATION` environment variable and adds its contents to the configuration. It does the same for command-line arguments.
 In both cases, any `.` delimiters in configuration keys are converted to `:`, which is the configuration key separator used by .NET. Likewise, Spring array syntax, such as `[1]`, is converted to .NET array syntax `:1`.
 
-## Usage
+## Using the Spring Boot Provider
 
 You should have a good understanding of how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use this provider.
 

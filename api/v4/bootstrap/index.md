@@ -42,7 +42,7 @@ builder.AddSteeltoe();
 
 ## Excluding Components
 
-If you wish to exclude a component from the automatic bootstrap process, you may add the feature's assembly name to the exclusions list. One example where this feature would be desired is if you want to control the order in which configuration providers are added. This example shows how to provide exclusions:
+If you want to exclude a component from the automatic bootstrap process, you may add the feature's assembly name to the exclusions list. One example where this feature would be desired is if you want to control the order in which configuration providers are added. This example shows how to provide exclusions:
 
 ```csharp
 using Steeltoe.Bootstrap.AutoConfiguration;

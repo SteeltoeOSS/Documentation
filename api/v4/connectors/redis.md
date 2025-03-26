@@ -3,7 +3,7 @@
 This connector simplifies accessing [Redis](https://redis.io/) databases.
 
 > [!NOTE]
-> Redis has been updated to [Valkey](https://valkey.io/topics/migration/).
+> This connector simplifies accessing [Redis](https://redis.io/) and [Valkey](https://valkey.io/) databases..
 
 It supports the following .NET drivers:
 

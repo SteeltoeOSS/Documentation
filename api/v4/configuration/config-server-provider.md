@@ -8,7 +8,7 @@ To gain a better understanding of the Spring Cloud Config Server, you should rea
 
 In addition to the Quick Start provided later, you can refer to the [Steeltoe ConfigurationProviders](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/ConfigurationProviders) sample application when you need to understand how to use this provider.
 
-## Usage
+## Using the Config Server Provider
 
 You should know how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use this provider. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary.
 
@@ -53,9 +53,8 @@ The following example shows some provider settings that have been put in a JSON 
 }
 ```
 
-The following table describes all the settings that can be used to configure the behavior of the provider:
-
-As mentioned earlier, all settings should start with `Spring:Cloud:Config:`.
+The following table describes all the settings that can be used to configure the behavior of the provider.
+All settings should start with `Spring:Cloud:Config:`.
 
 | Key | Description | Default |
 | --- | ----------- | ------- |

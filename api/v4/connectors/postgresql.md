@@ -2,10 +2,11 @@
 
 This connector simplifies accessing [PostgreSQL](https://www.postgresql.org/) databases.
 It supports the following .NET drivers:
+
 - [Npgsql](https://www.nuget.org/packages/Npgsql), which provides an ADO.NET `DbConnection`.
 - [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support.
 
-The remainder of this topic assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
+The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md) for more information.
 
 ## Using the PostgreSQL connector
 

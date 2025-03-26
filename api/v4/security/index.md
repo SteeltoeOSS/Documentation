@@ -13,4 +13,4 @@ In addition to authentication and authorization providers, Steeltoe security off
 * [A security provider for using Redis/Valkey on Cloud Foundry with ASP.NET Core Data Protection Key Ring storage](redis-key-storage-provider.md)
 
 > [!NOTE]
-> Redis has been updated to [Valkey](https://valkey.io/topics/migration/).
+> This connector simplifies accessing [Redis](https://redis.io/) and [Valkey](https://valkey.io/) databases..

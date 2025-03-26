@@ -56,11 +56,11 @@ The root and intermediate certificates are automatically shared between applicat
 Several steps need to happen before certificate authorization policies can be used to secure resources:
 
 1. Bind configuration values into named `CertificateOptions`.
-2. Monitor certificate files for changes (to stay up to date when certificates are rotated).
-3. Configure certificate forwarding (so that ASP.NET reads the certificate from an HTTP Header).
-4. Add authentication services.
-5. Add authorization services and policies.
-6. Activate middleware.
+1. Monitor certificate files for changes (to stay up to date when certificates are rotated).
+1. Configure certificate forwarding (so that ASP.NET reads the certificate from an HTTP Header).
+1. Add authentication services.
+1. Add authorization services and policies.
+1. Activate middleware.
 
 Fortunately, all of these requirements can be satisfied with a handful of extension methods:
 

@@ -6,7 +6,7 @@ Cloud Foundry creates and uses these environment variables to communicate an app
 
 For more information about the Cloud Foundry environment variables, see the [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html).
 
-## Usage
+## Using the Cloud Foundry Provider
 
 You should have a good understanding of how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use this provider.
 
@@ -34,7 +34,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddCloudFoundryConfiguration();
 ```
 
-#### Add Configuration Provider without using the host builder extension method
+#### Add Configuration Provider without options
 
 If you don't want to use the host builder extension method, the following code shows how to add the Cloud Foundry configuration provider to the `ConfigurationBuilder`:
 

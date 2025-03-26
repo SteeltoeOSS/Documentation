@@ -2,13 +2,13 @@
 
 This logging provider integrates with [Serilog](https://serilog.net/). It enables logger minimum levels configured through Serilog to be queried and modified at runtime using the [loggers actuator](../management/loggers.md).
 
-## Usage
+## Using Dynamic Serilog Logging
 
 To use the Serilog logging provider:
 
 1. Add the appropriate NuGet package reference to your project.
-2. Configure Logging settings.
-3. Add the Serilog Dynamic Logger to the logging builder.
+1. Configure Logging settings.
+1. Add the Serilog Dynamic Logger to the logging builder.
 
 ### Add NuGet References
 
