@@ -1,4 +1,4 @@
-# Using Network File Share
+# Using Network File Shares
 
 Before starting with Steeltoe's Windows Network File Share library, you should already have a plan for interacting with the file system. Steeltoe only manages the connection to the file share.
 

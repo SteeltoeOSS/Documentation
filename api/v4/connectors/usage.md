@@ -271,7 +271,7 @@ builder.Services.AddDbContext<AppDbContextTwo>(
 
 ## Advanced settings
 
-Using the ASP.NET Options pattern by Steeltoe Connectors allows you to configure them using custom code.
+Steeltoe Connectors use the ASP.NET Options pattern, which allows you to configure connections using custom code.
 
 For example, the code below adds the application name to the MongoDB connection URL at runtime:
 

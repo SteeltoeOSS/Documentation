@@ -112,7 +112,7 @@ After the app has fully started, the assigned port numbers are updated in Eureka
 
 ### Querying
 
-The configuration settings that pertain to querying the Eureka registry for apps (used by the load balancers during service discovery) are shown in the table.
+The configuration settings that pertain to querying the Eureka registry for apps (used by the load balancers during service discovery) are shown in the following table.
 All of these settings must start with `Eureka:Client:`.
 
 | Key | Description | Default |
@@ -194,8 +194,8 @@ appManager.UpdateInstance(newStatus: null, newOverriddenStatus: null,
 
 > [!CAUTION]
 > After metadata has been updated from code, later metadata changes in configuration are ignored.
->
-> In general, additional metadata does not change the behavior of applications, unless the apps are made aware of
+
+In general, additional metadata does not change the behavior of applications, unless they are made aware of
 the meaning of the metadata.
 
 ## Configuring mutual TLS

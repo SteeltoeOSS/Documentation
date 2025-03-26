@@ -4,7 +4,7 @@ This logging provider integrates with [Serilog](https://serilog.net/). It enable
 
 ## Usage
 
-To use the Serilog Dynamic Logger, do the following:
+To use the Serilog logging provider:
 
 1. Add the appropriate NuGet package reference to your project.
 2. Configure Logging settings.

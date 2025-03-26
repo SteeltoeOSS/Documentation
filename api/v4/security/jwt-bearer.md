@@ -23,16 +23,16 @@ To use this library:
 
 ### Add NuGet References
 
-To use the provider, add:
+To use this package, add NuGet package references to:
 
-* a reference to the `Steeltoe.Security.Authentication.JwtBearer` NuGet package
-* a reference to `Steeltoe.Configuration.CloudFoundry` (so that Cloud Foundry service bindings can be read by Steeltoe)
+* `Steeltoe.Security.Authentication.JwtBearer`
+* `Steeltoe.Configuration.CloudFoundry` (so that Cloud Foundry service bindings can be read by Steeltoe)
 
 ### Configure Settings
 
 The Steeltoe JWT Bearer library configures the Microsoft JWT Bearer implementation, so all supported settings are available in [`Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions).
 
-`JwtBearerOptions` is bound to configuration values available in `Authentication:Schemes:Bearer`. The following example `appsettings.json` shows how to declare the audience for which tokens should be considered valid (such as when a token is issued to a specific web application and then passed to backend services to perform actions on behalf of a user):
+`JwtBearerOptions` is bound to configuration values at the key `Authentication:Schemes:Bearer`. The following example `appsettings.json` shows how to declare the audience for which tokens should be considered valid (such as when a token is issued to a specific web application and then passed to backend services to perform actions on behalf of a user):
 
 ```json
 {
@@ -63,7 +63,7 @@ builder.Configuration.AddCloudFoundryServiceBindings();
 
 #### Local UAA
 
-A UAA server, (such as [UAA Server for Steeltoe](https://github.com/SteeltoeOSS/Dockerfiles/tree/main/uaa-server)), can be used for local development of applications that will be deployed to Cloud Foundry. Configuration of UAA itself is beyond the scope of this documentation, but configuring your `appsettings.Development.json` to work with a local UAA server is possible with the addition of settings like these:
+A UAA server, such as [UAA Server for Steeltoe](https://github.com/SteeltoeOSS/Dockerfiles/tree/main/uaa-server), can be used for local development of applications that will be deployed to Cloud Foundry. Configuration of UAA itself is beyond the scope of this topic, but configuring your `appsettings.Development.json` to work with a local UAA server is possible with the addition of settings like these:
 
 ```json
 {
@@ -106,7 +106,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("sampleapi.read", policy => policy.RequireClaim("scope", "sampleapi.read"));
 ```
 
-The order of operations is important:
+The middleware pipeline order is important:
 Activate authentication and authorization services _after_ routing services, but _before_ controller route registrations, as shown in the following example.
 
 ```csharp
@@ -159,7 +159,7 @@ See the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/
 
 ### Single Sign-On for VMware Tanzu
 
-When using Single Sign-On for VMware Tanzu, you must identify the service plan to be used before you create a service instance of that plan.
+When using Single Sign-On for VMware Tanzu, you must choose a service plan before you create a service instance.
 If you do not have an existing service plan, a platform operator might need to create a new plan for you.
 For information about service plans for use by developers, see the [Single Sign-On for Tanzu operator guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/operator-index.html).
 
@@ -203,9 +203,9 @@ cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
 cf restage MY_APPLICATION
 ```
 
-For details and instructions, see:
+For more information, see:
 
-* the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html) or
+* the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html)
 * the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md)
 
 ### UAA Server

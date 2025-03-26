@@ -5,7 +5,7 @@ It supports the following .NET drivers:
 - [Npgsql](https://www.nuget.org/packages/Npgsql), which provides an ADO.NET `DbConnection`.
 - [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support.
 
-The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
+The remainder of this topic assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
 
 ## Using the PostgreSQL connector
 
@@ -88,7 +88,7 @@ A complete sample app that uses `NpgsqlConnection` is provided at https://github
 
 ### Use Entity Framework Core
 
-Follow these instructions:
+To retrieve data from PostgreSQL in your app using Entity Framework Core, use the following steps:
 
 1. Define your `DbContext` class:
 
@@ -146,7 +146,7 @@ A complete sample app that uses Entity Framework Core with PostgreSQL is provide
 
 This Connector supports the following service brokers:
 
-- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-12/csb-azure/index.html)
+- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-9/csb-azure/index.html)
 - [VMware Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-gcp/1-8/csb-gcp/index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:

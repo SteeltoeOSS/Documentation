@@ -30,7 +30,7 @@ Each key must be prefixed with `Management:Endpoints:Health:`.
 | `Claim` | The claim required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized` | |
 | `Role`  | The role required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized`  | |
 
-The depth of information exposed by the health endpoint depends on the `ShowComponents` and `ShowDetails` properties; both be configured with one of the following values:
+The depth of information exposed by the health endpoint depends on the `ShowComponents` and `ShowDetails` properties; both can be configured with one of the following values:
 
 | Name    | Description |
 | ------- | ----------- |
@@ -238,21 +238,21 @@ These entries demonstrate enabling the probes and their groups, and specifies in
 
 #### Liveness
 
-The "Liveness" state of an application instance tells whether its internal state allows it to work correctly, or recover itself if it's currently failing. A broken "Liveness" state means that the application is in a state that it cannot recover from, and the infrastructure should restart the application.
+The Liveness state of an application tells whether its internal state is valid. If Liveness is broken, this means that the application itself is in a failed state and cannot recover from it. In this case, the best course of action is to restart the application instance.
 
-Out of the box, any of Steeltoe's extension methods that set up the health actuator initialize the liveness state, `LivenessState.Correct`. The only other defined state for liveness is `LivenessState.Broken`, though Steeltoe code does not currently cover any conditions that set this state.
+Out of the box, any of Steeltoe's extension methods that set up the health actuator initialize the liveness state with `LivenessState.Correct`. The only other defined state for liveness is `LivenessState.Broken`, though Steeltoe code does not currently cover any conditions that set this state.
 
 > [!CAUTION]
-> In general, the "Liveness" state should not depend on external system checks such as a database, queue, or cache server. Including checks on external systems could trigger massive restarts and cascading failures across the platform.
+> In general, the Liveness state should not depend on external system checks such as a database, queue, or cache server. Including checks on external systems could trigger massive restarts and cascading failures across the platform.
 
 #### Readiness
 
-The "Readiness" state of an application instance describes whether the application is ready to handle traffic. A failing "Readiness" state tells the platform that it should not route traffic to the application instance.
+The Readiness state tells whether the application is ready to accept client requests. If the Readiness state is unready, the platform should not route traffic to this instance. If an application is too busy processing a task queue, then it could declare itself as busy until its load is manageable again.
 
 Out of the box, any of Steeltoe's extension methods that set up the health actuator also:
 
-* Registers a callback on [`ApplicationStarted`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstarted) to initialize the readiness state to `AcceptingTraffic` when the application has started
-* Registers a callback on [`ApplicationStopping`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstopping) to change the state to `RefusingTraffic` when the application begins to shut down
+* Register a callback on [`ApplicationStarted`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstarted) to initialize the readiness state to `AcceptingTraffic` when the application has started
+* Register a callback on [`ApplicationStopping`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstopping) to change the state to `RefusingTraffic` when the application begins to shut down
 
 These are the only defined states for this availability type.
 

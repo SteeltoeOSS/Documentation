@@ -77,5 +77,5 @@ For this reason, all endpoints are exposed by default at `/cloudfoundryapplicati
 In addition, the endpoints may be secured by whatever security mechanism the application itself uses. For more details, see [securing actuators](./using-endpoints.md#securing-endpoints).
 
 > [!CAUTION]
-> Applying an authorization policy on `/actuator` also has an impact on `/cloudfoundryapplication`, which then breaks the integration with Apps Manager.
+> An authorization policy on `/actuator` also applies to `/cloudfoundryapplication`, which then breaks the integration with Apps Manager.
 > To prevent public access to `/actuator` when running on Cloud Foundry, consider configuring actuators to [use an alternate port](./using-endpoints.md#configure-global-settings).

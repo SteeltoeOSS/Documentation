@@ -95,7 +95,7 @@ A complete sample app that uses `MySqlConnection` is provided at https://github.
 
 ### Use Entity Framework Core
 
-Follow this procedure:
+To retrieve data from MySQL in your app using Entity Framework Core, use the following steps:
 
 1. Define your `DbContext` class:
 
@@ -154,7 +154,7 @@ A complete sample app that uses Entity Framework Core with MySQL is provided at 
 This Connector supports the following service brokers:
 
 - [VMware Tanzu for MySQL on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-for-mysql-on-cloud-foundry/3-3/mysql-for-tpcf/about_mysql_vms.html)
-- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-gcp/1-8/csb-gcp/index.html)
+- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-9/csb-azure/index.html)
 - [VMware Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-gcp/1-8/csb-gcp/index.html)
 
 You can create and bind an instance to your application using the Cloud Foundry CLI:

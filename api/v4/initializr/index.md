@@ -5,7 +5,7 @@ Metadata may include, among other properties, a project name, a namespace, and a
 At the core of an Initializr is the [Steeltoe InitializrService](https://github.com/SteeltoeOSS/InitializrService).
 InitializrService provides several REST/HTTP endpoints, and includes:
 
-* an endpoint to generate projects, and
+* an endpoint to generate projects
 * an endpoint to provide smart clients the metadata needed to construct user interfaces
 
 It is possible to have a fully functioning Initializr deployment by simply deploying the InitializrService.

@@ -92,7 +92,7 @@
   topicHref: fileshares/
   items:
     - topicHref: fileshares/usage.md
-      name: Using Network File Share
+      name: Using Network File Shares
 - name: Security
   topicHref: security/
   items:

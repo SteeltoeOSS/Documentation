@@ -60,7 +60,7 @@ builder.AddCosmosDb();
 
 ### Use CosmosClient
 
-Follow this procedure:
+To retrieve data from CosmosDB in your app, follow the steps below:
 
 1. Define a class that contains container data:
 
@@ -128,7 +128,7 @@ A complete sample app that uses `CosmosClient` is provided at https://github.com
 
 This Connector supports the following service brokers:
 
-- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-12/csb-azure/index.html)
+- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-10/csb-azure/index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:
 

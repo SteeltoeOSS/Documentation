@@ -12,7 +12,7 @@ Fundamentally, you have to follow these steps:
 
 ## Add NuGet packages
 
-To get started with Steeltoe Discovery, add a reference to the package(s) containing the discovery technology you might want to use.
+To get started with Steeltoe Discovery, add a reference to the package(s) containing the discovery technology you want to use.
 Each package also includes all the relevant dependencies.
 
 | Package | Description |
@@ -44,7 +44,7 @@ var app = builder.Build();
 ## Client configuration
 
 Discovery clients need to be explicitly configured to fetch application instances and/or register your app with the discovery server.
-See the sub-page for the discovery technology of choice for instructions about how to set it up.
+See the sub-topic for the discovery technology of choice for instructions about setting it up.
 
 ## Enable debug logging
 

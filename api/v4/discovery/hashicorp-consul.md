@@ -64,15 +64,15 @@ All of these settings must start with `Consul:Discovery:`.
 | `UseAspNetCoreUrls` | Register with the port number ASP.NET Core is listening on | `true` |
 | `InstanceId` | The unique ID under which to register the running app | computed |
 | `Tags` | Array of tags used when registering the running app | |
-| `Meta` | Metadata key/value pairs used when registering the running app | see [Configuring metadata](#configuring-metadata)|
+| `Meta` | Metadata key/value pairs used when registering the running app | see [Configuring metadata](#configuring-metadata) |
 | `InstanceGroup` | Metadata `group` value to use when registering the running app | |
 | `InstanceZone` | Metadata zone value to use when registering the running app | |
 | `DefaultZoneMetadataName` | Metadata key name for `InstanceZone` | `zone` |
 | `RegisterHealthCheck` | Whether to enable periodic health checking for the running app | `true` |
 | `HealthCheckCriticalTimeout` | Duration after which Consul deregisters the running app when in state `critical` [^1] | `30m` |
 | `Heartbeat:Enabled` | Whether the running app periodically sends TTL (time-to-live) heartbeats [^1] | `true` |
-| `Heartbeat:TtlValue` | How often a TTL heartbeat must be sent to be considered healthy; used with `Heartbeat:TtlUnit` | every `30` seconds |
-| `Heartbeat:TtlUnit` | Unit for `TtlValue` (`ms`, `s`, `m` or `h`) | `s` (seconds) |
+| `Heartbeat:TtlValue` | How often a TTL heartbeat must be sent to be considered healthy | `30` |
+| `Heartbeat:TtlUnit` | Unit for `TtlValue` (`ms`, `s`, `m` or `h`) | `s` |
 | `Heartbeat:IntervalRatio` | Rate at which the running app sends TTL heartbeats, relative to `TtlValue` with `TtlUnit` | `0.66` |
 | `HealthCheckPath` | Relative URL to the health endpoint of the running app [^2] | `/actuator/health` |
 | `HealthCheckUrl` | Absolute URL to the health endpoint of the running app (overrides `HealthCheckPath`) [^2] | |

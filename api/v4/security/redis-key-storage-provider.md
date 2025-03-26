@@ -1,4 +1,4 @@
-# Redis/Valkey Key Storage Provider
+# Redis Key Storage Provider
 
 The Redis Key Storage Provider is commonly used when secured data needs to be shared between two or more instances of the same application.
 
@@ -8,11 +8,11 @@ The Redis Key Storage Provider is commonly used when secured data needs to be sh
 By default, the [data protection system in ASP.NET Core](https://learn.microsoft.com/aspnet/core/security/data-protection/introduction) stores cryptographic keys on the local file system.
 Even when not used by the application directly, these cryptographic keys are used for systems like [session state](https://learn.microsoft.com/aspnet/core/fundamentals/app-state#session-state) storage.
 
-By using the Steeltoe Redis key storage provider, you can easily reconfigure the data protection service to store these keys in Redis instances that are accessible through the [Steeltoe Redis Connector](../connectors/redis.md).
+By using the Steeltoe Redis Key Storage Provider, you can easily reconfigure the data protection service to store these keys in Redis instances that are accessible through the [Steeltoe Redis Connector](../connectors/redis.md).
 
 For more information, see the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/RedisDataProtection/README.md).
 
-## Using the Redis/Valkey Storage Provider
+## Using the Redis Key Storage Provider
 
 To use this provider:
 
@@ -94,7 +94,7 @@ builder.AddCloudFoundryConfiguration();
 
 ### Cloud Foundry
 
-To use the Redis data protection key ring provider on Cloud Foundry, use a supported [Redis service](../connectors/redis.md#cloud-foundry) to create and bind an instance of Redis to your application.
+To store data protection keys in a Redis/Valkey cache on Cloud Foundry, use a supported [Redis service](../connectors/redis.md#cloud-foundry) to create and bind an instance of Redis/Valkey to your application.
 
 You can complete these steps using the Cloud Foundry command line, as follows:
 

@@ -95,7 +95,7 @@ For more information about HttpClient instrumentation for OpenTelemetry, see the
 
 ### .NET Runtime
 
-To instrument the .NET Runtime for metrics:
+To instrument the .NET runtime for metrics:
 
 1. Add a reference to the `OpenTelemetry.Instrumentation.Runtime` NuGet package.
 
@@ -181,7 +181,7 @@ If no instrumentation has been included, the response is very short:
 # EOF
 ```
 
-With the addition of [.NET Runtime instrumentation](#net-runtime), the response is similar to the following:
+With the addition of [.NET runtime instrumentation](#net-runtime), the response is similar to the following:
 
 ```text
 # TYPE process_runtime_dotnet_gc_collections_count_total counter

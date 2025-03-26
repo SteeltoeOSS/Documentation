@@ -166,7 +166,7 @@ builder.Services.AddHypermediaActuator().AddLoggersActuator().AddRefreshActuator
 ```
 
 > [!NOTE]
-> Use `AddAllActuators()` and `AddLoggingActuator()` to automatically configure [Dynamic Console Logging](../logging/dynamic-console-logging.md). You must set up [Dynamic Serilog Logging](../logging/dynamic-serilog-logging.md) *before* adding actuators. For example:
+> `AddAllActuators()` and `AddLoggingActuator()` automatically configure [Dynamic Console Logging](../logging/dynamic-console-logging.md). If you want to use [Dynamic Serilog Logging](../logging/dynamic-serilog-logging.md) instead, add it *before* adding actuators. For example:
 >
 > ```csharp
 > using Steeltoe.Logging.DynamicSerilog;

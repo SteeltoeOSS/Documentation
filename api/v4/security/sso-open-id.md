@@ -13,7 +13,7 @@ For more information about how to use this library, see the [Steeltoe Security s
 
 ## Using the OpenID Connect Library
 
-To use the OpenID Connect Library:
+To use the OpenID Connect library:
 
 1. Add NuGet references.
 1. Configure settings for the security provider.
@@ -32,7 +32,7 @@ To use this package, add NuGet package references to:
 
 The Steeltoe OpenID Connect library configures the Microsoft OpenID Connect implementation, so all supported settings are available in [`Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.openidconnect.openidconnectoptions).
 
-`OpenIdConnectOptions` is bound to configuration values found under `Authentication:Schemes:OpenIdConnect`. The following example `appsettings.json` shows how to declare a list of permissions that should be requested for users.
+`OpenIdConnectOptions` is bound to configuration values found at the key `Authentication:Schemes:OpenIdConnect`. The following example `appsettings.json` shows how to declare a list of permissions that should be requested for users.
 
 ```json
 {
@@ -118,7 +118,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("sampleapi.read", policy => policy.RequireClaim("scope", "sampleapi.read"));
 ```
 
-The order of operations is important:
+The middleware pipeline order is important:
 Activate authentication and authorization services _after_ routing services, but _before_ controller route registrations, as shown in the following example.
 
 ```csharp
@@ -178,7 +178,7 @@ The preceding example establishes the following security rules:
 
 ### Single Sign-On for VMware Tanzu
 
-When using Single Sign-On for VMware Tanzu, you must identify the service plan to be used before creating a service instance of that plan.
+When using Single Sign-On for VMware Tanzu, you must choose a service plan before you create a service instance.
 If you do not have an existing service plan, a platform operator may need to create a new plan for you.
 For the operator resource, see the [Single Sign-On for Tanzu operator guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/operator-index.html). This guide contains information about how to configure plans for developer use.
 

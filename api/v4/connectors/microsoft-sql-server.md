@@ -88,7 +88,7 @@ public class HomeController : Controller
 
 ### Use Entity Framework Core
 
-Follow this procedure:
+To retrieve data from SQL Server in your app using Entity Framework Core, use the following steps:
 
 1. Define your `DbContext` class:
 

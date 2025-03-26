@@ -6,7 +6,7 @@ Previous versions of Steeltoe offered either an implementation of OpenCensus or 
 
 OpenTelemetry has evolved to the point that only a few lines of code are needed. So instead of providing a Steeltoe component, the guidance below is offered to accomplish the same. The benefit of this approach is greater flexibility: when OpenTelemetry changes, there's no need to wait for a new Steeltoe version before using it.
 
-Steeltoe continues to directly offer an option for [log correlation](#log-correlation). This topic provides direction for developers looking to achieve the same outcomes Steeltoe has previously provided more directly.
+Steeltoe continues to directly offer an option for [log correlation](#log-correlation). The remainder of this topic provides direction for developers looking to achieve the same outcomes Steeltoe has previously provided more directly.
 
 ## About distributed tracing
 
@@ -46,7 +46,7 @@ To use the processor:
 
 1. Add a reference to the `Steeltoe.Management.Tracing` NuGet package.
 
-2. Register the processor:
+1. Register the processor from `Program.cs`:
 
     ```csharp
     using Steeltoe.Management.Tracing;
@@ -57,17 +57,17 @@ To use the processor:
 
 > [!NOTE]
 > This extension method also ensures that implementations of `IApplicationInstanceInfo` and `IDynamicLoggerProvider` have been registered.
-> If you wish to customize either of these or use non-default implementations, make these changes before calling `AddTracingLogProcessor`.
+> If you want to customize either of these or use non-default implementations, call their extension methods *before* calling `AddTracingLogProcessor`.
 
 ## OpenTelemetry
 
 To use OpenTelemetry, start by adding a reference to the `OpenTelemetry.Extensions.Hosting` NuGet package.
-Other package references will probably be necessary, but these depend on your specific application needs.
+Depending on your specific application needs, other package references will probably be necessary.
 This package provides access to `OpenTelemetryBuilder`, which is the main entrypoint to OpenTelemetry.
 
-### Add Open Telemetry Tracing
+### Add OpenTelemetry Tracing
 
-To add Open Telemetry Tracing, use the following:
+To use tracing with OpenTelemetry, add the following to your `Program.cs`:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -75,7 +75,7 @@ builder.Services.AddOpenTelemetry().WithTracing();
 ```
 
 > [!NOTE]
-> At this point, not much has changed for the application, but you will continue by making changes to add [instrumentation](#instrumenting-applications) and [exporting of traces](#exporting-distributed-traces) to this line.
+> At this point, not much has changed for the application. The following sections will expand this line to add [instrumentation](#instrumenting-applications) and [exporting of traces](#exporting-distributed-traces).
 
 ### Sampler configuration
 
@@ -89,7 +89,7 @@ As a replacement for what Steeltoe used to provide for using these samplers, set
 
 > [!NOTE]
 > OpenTelemetry is generally built to follow the [options pattern](https://learn.microsoft.com/dotnet/core/extensions/options).
-> There are more ways to configure options than demonstrated on this page; these are just examples to help you get started.
+> There are more ways to configure options than demonstrated in this topic; these are just examples to help you get started.
 
 ### Set Application Name
 
@@ -217,7 +217,7 @@ To use B3 propagation:
     using B3Propagator = OpenTelemetry.Extensions.Propagators.B3Propagator;
     ```
 
-2. Register a `CompositeTextMapPropagator` that includes the `B3Propagator` and `BaggagePropagator`:
+1. Register a `CompositeTextMapPropagator` that includes the `B3Propagator` and `BaggagePropagator`:
 
     ```csharp
     using OpenTelemetry;
