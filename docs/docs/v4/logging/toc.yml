@@ -1,0 +1,4 @@
+- href: dynamic-console-logging.md
+  name: Console
+- href: dynamic-serilog-logging.md
+  name: Serilog

@@ -1,0 +1,39 @@
+- name: Overview
+  href: index.md
+- href: using-endpoints.md
+  name: Using Endpoints
+  items:
+    - href: cloud-foundry.md
+      name: Cloud Foundry Integration
+    - href: metrics.md
+      name: Metrics
+    - href: springbootadmin.md
+      name: Spring Boot Admin Client
+    - href: dbmigrations.md
+      name: /dbmigrations
+    - href: env.md
+      name: /env
+    - href: health.md
+      name: /health
+    - href: heapdump.md
+      name: /heapdump
+    - href: hypermedia.md
+      name: /hypermedia
+    - href: httptrace.md
+      name: /httptrace
+    - href: info.md
+      name: /info
+    - href: loggers.md
+      name: /loggers
+    - href: mappings.md
+      name: /mappings
+    - href: metrics-endpoint.md
+      name: /metrics
+    - href: prometheus.md
+      name: /prometheus
+    - href: refresh.md
+      name: /refresh
+    - href: threaddump.md
+      name: /threaddump
+- href: tasks.md
+  name: Tasks
