@@ -6,7 +6,7 @@ After selecting desired project parameters, an end user uses InitializrWeb to su
 
 ## Overview
 
-![Steeltoe Initializr](./images/default.png)
+<img src="images/default.png" alt="Steeltoe Initializr" class="screenshot" />
 
 The interface is made up of four areas:
 
@@ -43,14 +43,14 @@ The actions area provides three project actions to the end user:
 Clicking **Generate** submits the current configuration to the InitializrApi to generate a project archive.
 The resultant project archive is a Zip file with a name based on the project name.
 
-![Steeltoe Initializr generate](images/generate.png)
+<img src="images/generate.png" alt="Steeltoe Initializr generate a project" class="screenshot" />
 
 ### Explore
 
 Clicking **Explore** submits the current configuration to the InitializrApi to generate a project archive.
 The resultant project archive is expanded in the UI so that the end user can explore the project.
 
-![Steeltoe Initializr explore](images/explore.png)
+<img src="images/explore.png" alt="Steeltoe Initializr explore project" class="screenshot" />
 
 ### Share
 
@@ -58,4 +58,4 @@ Clicking **Share** displays a URL that represents the current project configurat
 It can be shared with other developers or saved in a bookmark.
 Note that the URL is specific to InitializrWeb and cannot be used directly with the InitializrApi.
 
-![Steeltoe Initializr share](images/share.png)
+<img src="images/share.png" alt="Steeltoe Initializr share project configuration" class="screenshot" />
