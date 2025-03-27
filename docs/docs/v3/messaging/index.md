@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Messaging Overview
 
 Steeltoe provides support for integrating with messaging systems, from simplified use of the RabbitMQ API with `RabbitTemplate` to a complete infrastructure to receive messages asynchronously.

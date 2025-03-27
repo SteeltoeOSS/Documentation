@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Management
 
 This section describes the various application management facilities that Steeltoe provides.

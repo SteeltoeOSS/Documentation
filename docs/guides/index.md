@@ -3,6 +3,7 @@ uid: guides/index
 title: Steeltoe Get Started
 tags: []
 _disableFooter: true
+_disableAffix: true
 _hideTocVersionToggle: true
 ---
 

@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Dynamic Logging
 
 Steeltoe includes two logging providers that enhance existing logger libraries with support for managing minimum log levels at runtime through the [Steeltoe Management logger endpoint](../management/loggers.md) and [recording distributed trace information](../tracing/index.md#log-correlation).

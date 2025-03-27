@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Service Discovery
 
 Service Discovery enables the use of friendly names for the microservices your app depends on.

@@ -82,6 +82,7 @@ jobs:
         app-name: ${{ vars.AZURE_WWW_NAME }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         slot-name: ${{ env.SLOT_NAME }}
+        clean: true
 
     - name: If PR, comment with the preview link
       if: ${{ github.event_name == 'pull_request' }}

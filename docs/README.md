@@ -38,7 +38,6 @@ In the YAML header of a page's markdown, you have options to turn page elements 
 |_disableToc     |false|Turn off the left hand table of contents         |
 |_disableAffix     |false|Turn off the right hand page navigation links         |
 |_disableContribution     |false|Turn off right hand link to "edit this page"         |
-|_disableFooter     |false|Don't show footer when guest scrolls to page bottom         |
 |_enableSearch     |true|Show the search icon         |
 |_enableNewTab     |true|All links on the page open in a new browser tab         |
 |_disableNav     |false|Do not show top navigation links         |

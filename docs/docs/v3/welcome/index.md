@@ -1,3 +1,7 @@
+---
+_disableAffix: true
+---
+
 # Steeltoe Documentation
 
 ## [What's New in Steeltoe 3](./whats-new.md)

@@ -227,7 +227,7 @@ app {
     background-color: #eeeeee;
 }
 
-/* =====================HTML ELEMENT OVERRIDE===================== */
+/* =====================Styles for Blazor content===================== */
 #main {
     pre {
         box-shadow: 3px 3px 0px 0px #0066cc;
@@ -276,12 +276,12 @@ app {
         font-style: normal;
         font-weight: bold;
     }
-}
-a,
-.navbar-light .navbar-nav .nav-link,
-.navbar-light .navbar-nav .show>.nav-link {
-    text-decoration: none;
-    color: #0066cc;
+    a,
+    .navbar-light .navbar-nav .nav-link,
+    .navbar-light .navbar-nav .show>.nav-link {
+        text-decoration: none;
+        color: #0066cc;
+    }
 }
 /* =====================FONT STYLING===================== */
 .special-link {
@@ -470,9 +470,10 @@ a,
 #navbar .nav-link {
     padding: unset;
     display: unset;
+    font-weight: 500;
 }
 
-.sticky-top .nav-item {
+#navbar .nav-item {
     padding: 15px;
 }
 
@@ -656,10 +657,6 @@ a,
     fill: #8A8C8E;
 }
 
-[data-bs-theme="dark"] .logo-text {
-    fill: #0066CC;
-}
-
 /*===================== DARK MODE ===================== */
 [data-bs-theme="dark"] {
     body {
@@ -691,7 +688,10 @@ a,
         .navbar-light .navbar-nav .show>.nav-link {
             color: white;
         }
-        a {
+        .logo-text {
+            fill: #0066CC;
+        }
+        #main a {
             color: steelblue;
         }
         a.btn {
@@ -895,7 +895,29 @@ ul.blog-list> :first-child .blog-date::after {
 }
 
 /* =====================DOCFX OVERRIDE===================== */
-article h1 {
-    color: #0066cc;
-    font-weight: bold;
+@media (min-width: 768px) {
+    body:not([data-search])[data-layout=""]>main>.toc-offcanvas,
+    body:not([data-search])[data-layout=""]>main>.affix,
+    body:not([data-search])[data-layout=conceptual]>main>.affix {
+        top: calc(80px + 1.6rem);
+    }
 }
+@media (min-width: 1140px) {
+    body>main>.content>article [id],
+    body[data-layout=landing]>main>.content>article [id] {
+        scroll-margin-top: 100px;
+    }
+}
+
+.hljs-attr {
+    color: steelblue;
+}
+[data-bs-theme=light] {
+    .hljs-keyword {
+        color: var(--bs-code-color);
+    }
+    p code {
+        color: steelblue;
+    }
+}
+

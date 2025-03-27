@@ -6,15 +6,20 @@
 <head>
     <meta charset="utf-8">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    @if (!HostEnvironment.IsDevelopment())
-    {
-        <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-domain-script="018ee7f5-70e6-7787-8d98-05c8f935c75d"></script>
-        <script>function OptanonWrapper(){}</script>
-        <script>
-            function setGTM(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
-            if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){setGTM(window,document,'script','dataLayer','GTM-MMDFJKF');}else{waitForOnetrustActiveGroups();}var timer;function waitForOnetrustActiveGroups(){if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){clearTimeout(timer);setGTM(window,document,'script','dataLayer','GTM-MMDFJKF');}else{timer=setTimeout(waitForOnetrustActiveGroups,250);}}
-        </script>
-    }
+    <script>
+        if (window.location.href.indexOf('localhost') === -1 && window.location.href.indexOf('azurewebsites.net') === -1)
+        {
+            const script = document.createElement("script");
+            script.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+            script.setAttribute("data-domain-script", "018ee7f5-70e6-7787-8d98-05c8f935c75d");
+            document.head.appendChild(script);
+        }
+    </script>
+    <script>function OptanonWrapper(){}</script>
+    <script>
+        function setGTM(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
+        if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){setGTM(window,document,'script','dataLayer','GTM-MMDFJKF');}else{waitForOnetrustActiveGroups();}var timer;function waitForOnetrustActiveGroups(){if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){clearTimeout(timer);setGTM(window,document,'script','dataLayer','GTM-MMDFJKF');}else{timer=setTimeout(waitForOnetrustActiveGroups,250);}}
+    </script>
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
     <meta property="og:image" content="https://steeltoe.io/images/favicon.png">

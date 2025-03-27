@@ -14,7 +14,7 @@
 
     "_disableGitFeatures": false,
     "_disableDefaultFilter": false,
-    "_disableBreadcrumb": false,
+    "_disableBreadcrumb": true,
     "_disableNavbar": false,
     "_disableAffix": false,
 

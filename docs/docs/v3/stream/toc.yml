@@ -1,5 +1,3 @@
-- name: Overview
-  href: index.md
 - name: Stream Reference
   href: stream-reference.md
 - name: RabbitMQ Binder
