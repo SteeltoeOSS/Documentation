@@ -108,7 +108,7 @@ This Connector supports the following service brokers:
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:
 
-```bash
+```shell
 # Create MongoDB service
 cf create-service csb-azure-mongodb small myMongoDbService
 

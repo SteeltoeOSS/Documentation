@@ -165,7 +165,7 @@ For information about service plans for use by developers, see the [Single Sign-
 
 After you have identified the service plan to use, create a service instance:
 
-```bash
+```shell
 cf create-service p-identity SERVICE_PLAN_NAME MY_SERVICE_INSTANCE
 ```
 
@@ -195,7 +195,7 @@ applications:
 Alternatively, you can bind the instance manually and restage the app with the Cloud Foundry CLI.
 Then you can configure the SSO binding with the web interface:
 
-```bash
+```shell
 # Bind service to your app
 cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
 

@@ -98,7 +98,7 @@ To store data protection keys in a Redis/Valkey cache on Cloud Foundry, use a su
 
 You can complete these steps using the Cloud Foundry command line, as follows:
 
-```bash
+```shell
 # Push your app
 cf push sampleApp --buildpack dotnet_core_buildpack
 

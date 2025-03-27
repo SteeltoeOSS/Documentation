@@ -24,7 +24,7 @@ You can use the `dotnet` CLI to [build and locally publish](https://learn.micros
 
 This section describes how to use the [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) to push the published application to Cloud Foundry using the parameters that match what you selected for framework and runtime:
 
-```bash
+```shell
 # Push to Linux cell
 cf push -f manifest.yml -p bin/Debug/net8.0/linux-x64/publish
 
@@ -41,7 +41,7 @@ To see the logs as you start the application, use `cf logs your-app-name`.
 
 On a Linux cell, you should see output similar to the following during startup:
 
-```bash
+```shell
 2016-06-01T09:14:14.38-0600 [CELL/0]     OUT Creating container
 2016-06-01T09:14:15.93-0600 [CELL/0]     OUT Successfully created container
 2016-06-01T09:14:17.14-0600 [CELL/0]     OUT Starting health monitoring of container

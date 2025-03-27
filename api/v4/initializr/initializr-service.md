@@ -12,7 +12,7 @@ The InitializrService provides four REST/HTTP endpoints:
 `api/` accepts `GET` requests and returns a help document.
 The document includes available parameters (and their defaults) and dependencies, plus CLI samples.
 
-```bash
+```shell
 # sample: view help doc
 $ http -p b https://start.steeltoe.io/api/
 ...
@@ -32,7 +32,7 @@ The URI templates take a set of parameters to customize the result of a request.
 
 `api/about` accepts `GET` requests and returns the InitializrService "About" information.
 
-```bash
+```shell
 # sample: view "About" document
 $ http -p b https://start.steeltoe.io/api/about
 {
@@ -61,7 +61,7 @@ The following endpoints can be used by CLI users to browse project configuration
 * `api/config/languages`
 * `api/config/steeltoeVersions`
 
-```bash
+```shell
 # sample: list available Steeltoe versions
 $ http -p b https://start.steeltoe.io/api/config/steeltoeVersions
 [
@@ -111,7 +111,7 @@ The parameter `dependencies` is different than other parameters in that it is se
 > [!NOTE]
 > To get a list of parameters and dependencies, send a `GET` request to `api/`.
 
-```bash
+```shell
 # sample: generate a .NET Core App 3.1 project with actuator endpoints and a Redis backend:
 $ http https://start.steeltoe.io/api/project dotNetFramework=netcoreapp3.1 dependencies==actuators,redis -d
 ```

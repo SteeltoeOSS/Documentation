@@ -184,7 +184,7 @@ For the operator resource, see the [Single Sign-On for Tanzu operator guide](htt
 
 After you have identified the service plan to use, create a service instance:
 
-```bash
+```shell
 cf create-service p-identity SERVICE_PLAN_NAME MY_SERVICE_INSTANCE
 ```
 
@@ -215,7 +215,7 @@ applications:
 Alternatively, you can bind the instance manually and restage the app with the Cloud Foundry CLI.
 Then you can configure the SSO binding with the web interface:
 
-```bash
+```shell
 # Bind service to your app
 cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
 
@@ -236,13 +236,13 @@ There is no service broker available to manage service instances or bindings for
 
 This command is an example of how the service instance can be created:
 
-```bash
+```shell
 cf cups MY_SERVICE_INSTANCE -p '{"auth_domain": "https://uaa.login.sys.cf-app.com","grant_types": [ "authorization_code", "client_credentials" ],"client_secret": "SOME_CLIENT_SECRET","client_id": "SOME_CLIENT_ID"}'
 ```
 
 And to bind the service instance to the app:
 
-```bash
+```shell
 cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
 ```
 

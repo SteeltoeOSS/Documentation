@@ -159,7 +159,7 @@ This Connector supports the following service brokers:
 
 You can create and bind an instance to your application using the Cloud Foundry CLI:
 
-```bash
+```shell
 # Create MySQL service
 cf create-service p.mysql db-small myMySqlService
 

@@ -131,7 +131,7 @@ builder.AddConfigServer();
 
 When you want to use a Config Server on Cloud Foundry and you have installed [Spring Cloud Services](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#provision-sccs-on-cloud-foundry), you can create and bind an instance of it to your application by using the Cloud Foundry CLI, as follows:
 
-```bash
+```shell
 # Create a Config Server instance named `myConfigServer`
 cf create-service p-config-server standard myConfigServer
 

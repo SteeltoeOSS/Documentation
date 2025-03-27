@@ -93,7 +93,7 @@ This Connector supports the following service brokers:
 
 You can create and bind an instance to your application using the Cloud Foundry CLI:
 
-```bash
+```shell
 # Create RabbitMQ service
 cf create-service p.rabbitmq single-node myRabbitMQService
 
