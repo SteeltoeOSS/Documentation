@@ -60,7 +60,7 @@ builder.AddMongoDb();
 
 ### Use IMongoClient
 
-1. Start by defining a class that contains collection data:
+1. Define a class that contains collection data:
 
     ```csharp
     using MongoDB.Bson;

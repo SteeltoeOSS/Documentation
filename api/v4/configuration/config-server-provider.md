@@ -54,7 +54,7 @@ The following example shows some provider settings that have been put in a JSON 
 ```
 
 The following table describes all the settings that can be used to configure the behavior of the provider.
-All settings should start with `Spring:Cloud:Config:`.
+Each key must be prefixed with `Spring:Cloud:Config:`.
 
 | Key | Description | Default |
 | --- | ----------- | ------- |

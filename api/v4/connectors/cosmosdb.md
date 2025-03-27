@@ -60,7 +60,7 @@ builder.AddCosmosDb();
 
 ### Use CosmosClient
 
-To retrieve data from CosmosDB in your app, follow the steps below:
+To retrieve data from CosmosDB in your app, use the following steps:
 
 1. Define a class that contains container data:
 

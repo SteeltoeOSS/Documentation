@@ -57,7 +57,7 @@ a few additional steps are needed:
 
 - Register additional actuator endpoints
 
-  For the server to report the app as "UP," you must add at least the hypermedia and health actuators in `Program.cs`.
+  For the server to report the app as "UP", you must add at least the hypermedia and health actuators in `Program.cs`.
 
 > [!NOTE]
 > For testing, you can use the [Steeltoe docker image for SBA](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#spring-boot-admin).

@@ -3,7 +3,7 @@
 The Redis Key Storage Provider is commonly used when secured data needs to be shared between two or more instances of the same application.
 
 > [!NOTE]
-> This connector simplifies accessing [Redis](https://redis.io/) and [Valkey](https://valkey.io/) databases.
+> The Key Storage Provider can be used with [Redis](https://redis.io/) and [Valkey](https://valkey.io/) databases.
 
 By default, the [data protection system in ASP.NET Core](https://learn.microsoft.com/aspnet/core/security/data-protection/introduction) stores cryptographic keys on the local file system.
 Even when not used by the application directly, these cryptographic keys are used for systems like [session state](https://learn.microsoft.com/aspnet/core/fundamentals/app-state#session-state) storage.

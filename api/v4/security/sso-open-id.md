@@ -84,7 +84,7 @@ A UAA server (such as [UAA Server for Steeltoe samples](https://github.com/Steel
 
 > [!IMPORTANT]
 > If you want to use the Steeltoe UAA server without modification, some application configuration options will be very limited.
-> Because the OpenID Connect authentication flow requires user redirection to known locations, the client `steeltoesamplesclient` is expected to listen at <https://localhost:7072>, so you must update `launchSettings.json` accordingly.
+> Because the OpenID Connect authentication flow requires user redirection to known locations, the client `steeltoesamplesclient` is expected to listen at https://localhost:7072, so you must update `launchSettings.json` accordingly.
 > The Steeltoe UAA Server configuration is located in [uaa.yml](https://github.com/SteeltoeOSS/Dockerfiles/blob/main/uaa-server/uaa.yml#L116).
 
 ### Add and use OpenID Connect
