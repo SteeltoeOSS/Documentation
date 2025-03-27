@@ -32,7 +32,7 @@ function Get-Sources {
     git clone $gitSourcesUrl $destDir -b $branch
 }
 
-Write-Output "Cloning Steeltoe repository at each version"
+Write-Output 'Cloning Steeltoe repository for each version'
 Get-Sources (Join-Path "sources" "v2") $v2Sources
 Get-Sources (Join-Path "sources" "v3") $v3Sources
 Get-Sources (Join-Path "sources" "v4") $v4Sources

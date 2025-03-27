@@ -76,7 +76,7 @@ csharp_style_unused_value_expression_statement_preference = discard_variable:sil
 # IDE0058: Remove unused expression value
 dotnet_diagnostic.IDE0058.severity = silent
 
-# Collection expression preferences (note: turned off in shared-package.props)
+# Collection expression preferences
 dotnet_style_prefer_collection_expression = when_types_exactly_match
 dotnet_diagnostic.IDE0306.severity = silent # Workaround for https://github.com/dotnet/roslyn/issues/77177
 

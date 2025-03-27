@@ -2,14 +2,14 @@
 
 ## Overview
 
-This is the home of Steeltoe website, documentation and blog articles.
+This is the home of the [Steeltoe website](https://steeltoe.io/), which hosts documentation and blog articles.
 
-[Steeltoe.io](src/Steeltoe.io/) is built with [ASP.NET Core Blazor](https://learn.microsoft.com/aspnet/core/blazor/) and [DocFX](https://dotnet.github.io/docfx).
-DocFX is used to generate API documentation from triple-slash comments in Steeltoe and convert Markdown documents to HTML.
+The website is built with [ASP.NET Core Blazor](https://learn.microsoft.com/aspnet/core/blazor/) and [docfx](https://dotnet.github.io/docfx).
+docfx generates API documentation from triple-slash comments in Steeltoe source code and converts [Markdown](https://dotnet.github.io/docfx/docs/markdown.html) documents to HTML.
 
 ## Building and running the site
 
-To run the website, use [Steeltoe.io.sln](src/Steeltoe.io.sln) and your preferred IDE, or your preferred shell with the equivalent of these commands:
+To run the website, open [Steeltoe.io.sln](src/Steeltoe.io.sln) in your preferred IDE, or use the command-line:
 
 ```shell
 cd src\Steeltoe.io\
@@ -25,11 +25,12 @@ The site should now be running at <https://localhost:8080>
 
 If you want API browser content available on your machine, review the [build README](build/README.md) before starting the site.
 
-For a faster feedback loop, exclude the API Browser content by building the static content with the following commands:
+For a faster feedback loop, you can skip building the API Browser content and only build the documentation YAML files with the following commands:
 
 ```shell
 dotnet tool restore
 dotnet docfx build docs/docfx.json
 ```
 
-With the fast-feedback approach, it is expected to see `InvalidFileLink` warnings in files under the path `docs/api`.
+> [!NOTE]
+> If you skipped building the API Browser content, `InvalidFileLink` warnings will appear in files at the path `docs/api`.
