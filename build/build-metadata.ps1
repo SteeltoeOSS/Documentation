@@ -3,7 +3,7 @@
 set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-# Install dotnet tools (DocFX)
+# Restore docfx tool
 dotnet tool restore
 
 # Get the script's directory
