@@ -1,9 +1,6 @@
 # Redis/Valkey
 
-This connector simplifies accessing [Redis](https://redis.io/) databases.
-
-> [!NOTE]
-> This connector simplifies accessing [Redis](https://redis.io/) and [Valkey](https://valkey.io/) databases..
+This connector simplifies accessing [Redis](https://redis.io/) and [Valkey](https://valkey.io/) databases.
 
 It supports the following .NET drivers:
 
@@ -16,7 +13,7 @@ The remainder of this topic assumes that you are familiar with the basic concept
 
 To use this connector:
 
-1. Create a Redis server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#redis).
+1. Create a Redis/Valkey server instance or use a [Redis docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#redis) or [Valkey docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#valkey).
 1. Add NuGet references to your project.
 1. Configure your connection string in `appsettings.json`.
 1. Initialize the Steeltoe Connector at startup.

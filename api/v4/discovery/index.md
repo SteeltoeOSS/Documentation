@@ -9,7 +9,7 @@ It also tracks whether your microservice instances are still alive, using health
 
 While service discovery enables changing infrastructure without affecting your app, its real power lies in scalability.
 Discovery servers can typically be run in a cluster to eliminate the single point of failure.
-And because they monitor the live-ness of your microservice instances, you can easily scale them up and down.
+And because they monitor the liveness of your microservice instances, you can easily scale them up and down.
 
 Steeltoe facilitates both registration and querying of discovery servers by providing various implementations of `IDiscoveryClient`.
 To resolve friendly names, Steeltoe provides implementations of `ILoadBalancer`, which rely on `IDiscoveryClient`.
