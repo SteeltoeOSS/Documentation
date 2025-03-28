@@ -16,14 +16,14 @@ cd src\Steeltoe.io\
 dotnet run
 ```
 
-The site should now be running at <https://localhost:8080>
+The site should now be running at <https://localhost:8080>.
 
 > [!NOTE]
 > If this is your first time running the site and you only follow this step, none of the static content will be processed and you will encounter 404 errors when browsing the site.
 
 ### Including DocFX content
 
-If you want API browser content available on your machine, review the [build README](build/README.md) before starting the site.
+If you want API Browser content available locally, see the [build README](build/README.md) before starting the site. Note that it takes several minutes to run.
 
 For a faster feedback loop, you can skip building the API Browser content and only build the documentation YAML files with the following commands:
 
