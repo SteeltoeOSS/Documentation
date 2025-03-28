@@ -24,8 +24,8 @@ Acceptable values are:
 * `Triage`
 * `Full`
 
-> [!IMPORTANT]
-> On macOS, this setting is ignored and a gcdump is always captured.
+> [!NOTE]
+> On macOS, the `HeapDumpType` setting is ignored and a gcdump is always captured.
 
 ## Enable HTTP Access
 
@@ -45,6 +45,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHeapDumpActuator();
 ```
 
-> [!NOTE]
+> [!TIP]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
 > this enables individually turning them on/off at runtime via configuration.

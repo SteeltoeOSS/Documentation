@@ -2,7 +2,7 @@
 
 The Steeltoe Database Migrations endpoint exposes information about database migrations that are available to an application's data source that has been built with Entity Framework Core (EF Core). EF Core migrations give developers the ability to update an application's database schema while staying consistent with the application's data model, and without removing any existing data.
 
-> [!NOTE]
+> [!TIP]
 > For more detailed information, see [EF Core Migrations Overview](https://learn.microsoft.com/ef/core/managing-schemas/migrations) in the Microsoft documentation.
 
 ## Configure Settings
@@ -36,7 +36,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbMigrationsActuator();
 ```
 
-> [!NOTE]
+> [!TIP]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
 > this enables individually turning them on/off at runtime via configuration.
 

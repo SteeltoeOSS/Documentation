@@ -158,7 +158,7 @@ cf install-plugin -r CF-Community "metric-registrar"
 cf register-metrics-endpoint APP-NAME /actuator/prometheus --internal-port 8091
 ```
 
-> [!CAUTION]
+> [!IMPORTANT]
 > Due to an issue with the Cloud Foundry CLI plugin interface, some variations on this command do not work on Windows.
 > If you are a Windows user, you should either use the metric registrar plugin from WSL or use another method.
 

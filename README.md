@@ -24,7 +24,7 @@ Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.
 As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/tutorial/links_and_cross_references.html).
 
 > [!NOTE]
-> It should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
+> It should be very rare that you hardcode a link to an HTML page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
 
 ### Page display options
 
@@ -98,7 +98,7 @@ Corresponding entry in `api/v2/toc.yml`:
 
 ## Installing DocFX
 
-> [!NOTE]
+> [!IMPORTANT]
 > This project currently expects DocFX version 2.59.4 to be available.
 
 ### Install with Chocolatey

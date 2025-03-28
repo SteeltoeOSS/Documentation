@@ -28,12 +28,12 @@ This section describes how to use the [Cloud Foundry CLI](https://docs.cloudfoun
 # Push to Linux cell
 cf push -f manifest.yml -p bin/Debug/net8.0/linux-x64/publish
 
-# Push to Windows cell, .NET Core
+# Push to Windows cell
 cf push -f manifest-windows.yml -p bin/Debug/net8.0/win-x64/publish
 ```
 
 > [!NOTE]
-> All sample manifests have been defined to bind their application to the services as created earlier.
+> All samples contain manifest files to bind to the services they depend on.
 
 ### Observe the Logs
 

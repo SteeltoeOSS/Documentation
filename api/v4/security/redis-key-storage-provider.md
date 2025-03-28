@@ -116,7 +116,7 @@ After the service is bound to your application, the configuration settings are a
 
 > [!NOTE]
 > The preceding commands are for the Redis service provided by Tanzu Platform for Cloud Foundry.
-> If you use a different service, you have to adjust the `create-service` command.
+> If you use a different service, adjust the `create-service` command accordingly.
 
-> [!NOTE]
+> [!TIP]
 > For more information, see the [Steeltoe sample application](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/RedisDataProtection/README.md).

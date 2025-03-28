@@ -59,7 +59,7 @@ a few additional steps are needed:
 
   For the server to report the app as "UP", you must add at least the hypermedia and health actuators in `Program.cs`.
 
-> [!NOTE]
+> [!TIP]
 > For testing, you can use the [Steeltoe docker image for SBA](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#spring-boot-admin).
 
 Putting it all together, your config files contain the contents shown in the following:
@@ -141,5 +141,5 @@ app.MapControllers();
 app.Run();
 ```
 
-> [!NOTE]
+> [!TIP]
 > To see all the Spring Boot Admin features in action, replace the `Add*Actuator()` calls in `Program.cs` with `AddAllActuators()` and expose all endpoints. See [Exposing endpoints](./using-endpoints.md#exposing-endpoints).

@@ -35,13 +35,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLoggersActuator();
 ```
 
-> [!NOTE]
+> [!TIP]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
 > this enables individually turning them on/off at runtime via configuration.
 
 > [!NOTE]
-> When `AddLoggersActuator` is called, it tries to register [Dynamic Console Logging](../logging/dynamic-console-logging.md).
-> If you'd like to use Serilog instead, call `AddDynamicSerilog` *before* calling `AddLoggersActuator`.
+> `AddAllActuators()` and `AddLoggingActuator()` automatically configure [Dynamic Console Logging](../logging/dynamic-console-logging.md). If you want to use [Dynamic Serilog Logging](../logging/dynamic-serilog-logging.md) instead, add it *before* adding actuators. For example:
+>
+> ```csharp
+> using Steeltoe.Logging.DynamicSerilog;
+> using Steeltoe.Management.Endpoint.Actuators.All;
+>
+> var builder = WebApplication.CreateBuilder(args);
+> builder.Logging.AddDynamicSerilog();
+> builder.Services.AddLoggersActuator();
+> ```
 
 ## Retrieving Minimum Log Levels
 
@@ -135,7 +143,7 @@ by sending a POST request to `/actuator/loggers/Steeltoe.Management` with the fo
 }
 ```
 
-> [!NOTE]
+> [!CAUTION]
 > Because the logger category is part of the request URL, avoid using colons in the name to prevent invalid HTTP requests.
 
 To verify that the change was applied, send a `GET` request to `/actuator/loggers` to see the updated loggers.
@@ -203,5 +211,5 @@ The returned `ILogger` instances are also wrapped so that the minimum level can 
 When changes to `appsettings.json` are saved, existing loggers are updated with the new minimum levels, unless they are overridden.
 A reset of an overridden logger reverts to the updated level from `appsettings.json`.
 
-> [!NOTE]
+> [!TIP]
 > The Steeltoe dynamic logging provider can be combined with `BootstrapLoggerFactory` to upgrade loggers after startup.

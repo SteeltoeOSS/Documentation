@@ -119,7 +119,7 @@ To expose all endpoints, you can use `*`. For example, to expose everything exce
 }
 ```
 
-> [!NOTE]
+> [!IMPORTANT]
 > When running on Cloud Foundry, exposure settings affect *only* requests starting with `/actuator`.
 > They are ignored for requests starting with `/cloudfoundryapplication`, where access control is [handled differently](./cloud-foundry.md#security).
 > Individual endpoints can be turned off by setting `Enabled` to `false`, which applies to both URLs.
@@ -150,7 +150,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAllActuators();
 ```
 
-> [!NOTE]
+> [!TIP]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
 > this enables individually turning them on/off at runtime using configuration.
 

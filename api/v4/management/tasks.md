@@ -42,7 +42,7 @@ public class ExampleTask(ILogger<ExampleTask> logger) : IApplicationTask
 }
 ```
 
-> [!NOTE]
+> [!TIP]
 > Steeltoe includes the `MigrateDbContextTask<TDbContext>` task, which runs database migrations with Entity Framework Core.
 > It requires a reference to the `Steeltoe.Connectors.EntityFrameworkCore` NuGet package.
 
@@ -115,7 +115,7 @@ Invoking the command on Cloud Foundry looks similar to this:
 cf run-task YourAppName "dotnet run -- RunTask=ExampleTaskName" --name ExampleTaskName
 ```
 
-> [!NOTE]
+> [!TIP]
 > The command line configuration provider is added by default when using `WebApplication.CreateBuilder(args)`.
 > If the task does not fire when running from the command line with the `RunTask=` parameter,
 > verify that the configuration provider has been added for your application.

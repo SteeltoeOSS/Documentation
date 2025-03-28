@@ -36,7 +36,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEnvironmentActuator();
 ```
 
-> [!NOTE]
+> [!TIP]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
 > this enables individually turning them on/off at runtime via configuration.
 

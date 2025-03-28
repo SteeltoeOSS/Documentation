@@ -8,7 +8,7 @@ When used, this endpoint enables the following additional functionality on Cloud
 * All endpoints are also mapped under the base path `/cloudfoundryapplication`.
 * [Authentication and authorization](#security) for your Cloud Foundry environment is added to the request pipeline.
 
-> [!NOTE]
+> [!IMPORTANT]
 > The Cloud Foundry integration works only when the [Cloud Foundry Configuration Provider](../configuration/cloud-foundry-provider.md) has also been configured.
 
 ## Configure Settings
@@ -47,7 +47,7 @@ builder.Configuration.AddCloudFoundry();
 builder.Services.AddCloudFoundryActuator();
 ```
 
-> [!NOTE]
+> [!TIP]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
 > this enables individually turning them on/off at runtime via configuration.
 

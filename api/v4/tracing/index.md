@@ -56,7 +56,7 @@ To use the processor:
     ```
 
 > [!NOTE]
-> This extension method also ensures that implementations of `IApplicationInstanceInfo` and `IDynamicLoggerProvider` have been registered.
+> The `AddTracingLogProcessor()` extension method also ensures that implementations of `IApplicationInstanceInfo` and `IDynamicLoggerProvider` have been registered.
 > If you want to customize either of these or use non-default implementations, call their extension methods *before* calling `AddTracingLogProcessor`.
 
 ## OpenTelemetry
@@ -87,7 +87,7 @@ As a replacement for what Steeltoe used to provide for using these samplers, set
 * `always_on`
 * `always_off`
 
-> [!NOTE]
+> [!TIP]
 > OpenTelemetry is generally built to follow the [options pattern](https://learn.microsoft.com/dotnet/core/extensions/options).
 > There are more ways to configure options than demonstrated in this topic; these are just examples to help you get started.
 
@@ -269,5 +269,5 @@ builder.Services.Configure<ZipkinExporterOptions>(options =>
 });
 ```
 
-> [!NOTE]
+> [!TIP]
 > The Zipkin endpoint can also be set with the environment variable `OTEL_EXPORTER_ZIPKIN_ENDPOINT`.

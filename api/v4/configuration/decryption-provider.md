@@ -107,5 +107,5 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddDecryption(new ExampleTextDecryptor(), NullLoggerFactory.Instance);
 ```
 
-> [!CAUTION]
+> [!WARNING]
 > Creating encryption algorithms is notoriously difficult. Use this only if you know what you are doing.

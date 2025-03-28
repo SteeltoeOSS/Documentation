@@ -15,8 +15,8 @@ Each key must be prefixed with `Management:Endpoints:ThreadDump:`.
 | `RequiredPermissions` | Permissions required to access the endpoint when running on Cloud Foundry | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
 
-> [!NOTE]
-> In version 4, the configuration key prefix for this endpoint changed from `Management:Endpoints:Dump:` to `Management:Endpoints:ThreadDump:`
+> [!IMPORTANT]
+> In version 4, the configuration key prefix for this endpoint changed from `Management:Endpoints:Dump:` to `Management:Endpoints:ThreadDump:`.
 
 ## Enable HTTP Access
 
@@ -36,7 +36,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddThreadDumpActuator();
 ```
 
-> [!NOTE]
+> [!TIP]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
 > this enables individually turning them on/off at runtime via configuration.
 

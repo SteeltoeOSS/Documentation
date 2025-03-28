@@ -35,7 +35,7 @@ The following example shows some provider settings that have been put in a JSON 
 * `Spring:Application:Name` configures the "application name" to be `sample`.
 * `Spring:Cloud:Config:Uri` configures the address of the Config Server.
 
-> [!NOTE]
+> [!TIP]
 > The `Spring:Application:Name` key is also used by various other Steeltoe components.
 
 ```json
@@ -87,7 +87,7 @@ Each key must be prefixed with `Spring:Cloud:Config:`.
 | `Health:Enabled` | Enable or disable Config Server health check contributor | `true` |
 | `Health:TimeToLive` | Health check contributor cache time to live, in milliseconds | `300_000` (5 min) |
 
-> [!NOTE]
+> [!TIP]
 > If you use self-signed certificates on Cloud Foundry, you might run into certificate validation issues when pushing an application.
 > A quick way to work around this is to disable certificate validation until a proper solution can be put in place.
 
@@ -101,8 +101,8 @@ Then, after the JSON provider has been added, you can add the Config Server prov
 
 Because the JSON provider that reads `appsettings.json` has been added *before* the Config Server provider, the JSON-based settings become available to the Steeltoe provider. Note that you do not have to use JSON for the Steeltoe settings. You can use any of the other off-the-shelf configuration providers for the settings (such as INI files, environment variables, and so on).
 
-> [!CAUTION]
-> You must use the `Add*()` methods to add the source of the Config Server clients settings (`AddJsonFile(..)`) *before* you use `AddConfigServer(..)`. Otherwise, the settings are not picked up and used.
+> [!IMPORTANT]
+> You must use the `Add*()` methods to add the source of the Config Server clients settings, such as `AddJsonFile()`, *before* you use `AddConfigServer(..)`. Otherwise, the settings are not picked up and used.
 
 The following sample shows how to add a configuration provider:
 
@@ -157,7 +157,7 @@ When the `ConfigurationBuilder` builds the configuration, the Config Server clie
 
 If there are any errors or problems accessing the server, the application continues to initialize, but the values from the server are not retrieved. If this is not the behavior you want, set `Spring:Cloud:Config:FailFast` to `true`. After that is done, the application fails to start if problems occur during the retrieval.
 
-> [!NOTE]
+> [!TIP]
 > To diagnose startup errors, activate bootstrap logging as described in [Application Bootstrapping](../bootstrap/index.md#logging-inside-configuration-providers).
 
 After the configuration has been built, you can access the retrieved data directly by using `IConfiguration`. See the following example:
@@ -283,5 +283,5 @@ Aside from PEM files, Steeltoe supports a single file in PKCS#12 format:
 }
 ```
 
-> [!NOTE]
+> [!TIP]
 > A single certificate can be shared with both Config Server and Eureka by using the key `Certificates` instead of `Certificates:ConfigServer`.

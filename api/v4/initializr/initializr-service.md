@@ -108,7 +108,7 @@ $ http https://start.steeltoe.io/api/config/dependencies | jq '.[] .values[] .id
 Projects are configured using HTTP parameters, such as `name` for the project name and `steeltoeVersion` for the Steeltoe version.
 The parameter `dependencies` is different than other parameters in that it is set to a comma-separated list of dependency IDs.
 
-> [!NOTE]
+> [!TIP]
 > To get a list of parameters and dependencies, send a `GET` request to `api/`.
 
 ```shell

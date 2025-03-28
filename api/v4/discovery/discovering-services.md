@@ -8,8 +8,8 @@ The recommended approach is to use a typed `HttpClient`, supplied through
 [HttpClientFactory](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests). Call the `.AddServiceDiscovery()`
 extension method from the `Steeltoe.Discovery.HttpClients` NuGet package to activate service discovery.
 
-> [!NOTE]
-> The `AddServiceDiscovery()` extension method takes an optional `ILoadBalancer` parameter.
+> [!TIP]
+> The `AddServiceDiscovery()` extension method takes an optional `ILoadBalancer` type parameter.
 > If no load balancer is provided, the built-in `RandomLoadBalancer` is activated,
 > which uses randomized selection of service instances.
 
@@ -160,7 +160,7 @@ To use this load balancer in service discovery, pass it to the `AddServiceDiscov
 builder.Services.AddHttpClient<OrderService>().AddServiceDiscovery<RoundRobinLoadBalancer>();
 ```
 
-> [!NOTE]
+> [!TIP]
 > When caching is activated (see above), this load balancer stores the last-used instance index in the cache.
 > Combining it with a shared Redis cache ensures an even load distribution.
 

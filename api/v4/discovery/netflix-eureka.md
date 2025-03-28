@@ -30,7 +30,7 @@ For a complete understanding of the effects of many of these settings, we recomm
 In most cases, unless you are confident that you understand the effects of changing the values from their defaults,
 we recommend that you use the defaults.
 
-> [!NOTE]
+> [!TIP]
 > Since Steeltoe v4, most of these settings can be changed at runtime, and the Eureka server is updated accordingly.
 
 ### General
@@ -196,7 +196,7 @@ appManager.UpdateInstance(newStatus: null, newOverriddenStatus: null,
     });
 ```
 
-> [!CAUTION]
+> [!IMPORTANT]
 > After metadata has been updated from code, later metadata changes in configuration are ignored.
 
 In general, additional metadata does not change the behavior of applications, unless they are made aware of
@@ -229,7 +229,7 @@ or:
 > [!NOTE]
 > To support certificate rotation, the configuration keys and the files on disk are automatically monitored for changes.
 
-> [!NOTE]
+> [!TIP]
 > A single certificate can be shared with both Config Server and Eureka by using the key `Certificates`, instead of `Certificates:Eureka`.
 
 ### Using custom HTTP headers
@@ -262,5 +262,5 @@ public sealed class ExtraRequestHeaderDelegatingHandler : DelegatingHandler
 }
 ```
 
-> [!NOTE]
+> [!TIP]
 > To send an extra header to the OAuth2 endpoint, replace `"Eureka"` with `"AccessTokenForEureka"` in the preceding example.

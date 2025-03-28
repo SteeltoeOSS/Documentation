@@ -17,7 +17,7 @@ Each key must be prefixed with `Management:Endpoints:Refresh:`.
 | `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `POST` |
 | `ReturnConfiguration` | Whether to return the configuration after refresh | `true` |
 
-> [!NOTE]
+> [!CAUTION]
 > Despite it being *possible* to configure this endpoint to respond to `GET` requests,
 > this is discouraged because it is not a [Safe HTTP Method](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP).
 
@@ -39,7 +39,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRefreshActuator();
 ```
 
-> [!NOTE]
+> [!TIP]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
 > this enables individually turning them on/off at runtime via configuration.
 

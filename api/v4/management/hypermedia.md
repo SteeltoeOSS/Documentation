@@ -40,7 +40,7 @@ Each key must be prefixed with `Management:Endpoints:Actuator:`. Note this key d
 The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting with the `Path` setting described in the preceding section.
 The default path is `/actuator`.
 
-> [!NOTE]
+> [!IMPORTANT]
 > When running on Cloud Foundry, the [Cloud Foundry Actuator](./cloud-foundry.md) should be used instead.
 > Its default path is `/cloudfoundryapplication`.
 
@@ -57,7 +57,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHypermediaActuator();
 ```
 
-> [!NOTE]
+> [!TIP]
 > It is recommended that you use `AddAllActuators()` instead of adding individual actuators;
 > this enables individually turning them on/off at runtime via configuration.
 
