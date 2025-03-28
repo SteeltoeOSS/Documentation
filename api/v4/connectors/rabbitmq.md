@@ -3,7 +3,7 @@
 This connector simplifies accessing [RabbitMQ](https://www.rabbitmq.com/) message brokers.
 It supports the following .NET drivers:
 
-- [RabbitMQ.Client](https://www.nuget.org/packages/RabbitMQ.Client), which provides an `IConnection`.
+- [RabbitMQ.Client](https://www.nuget.org/packages/RabbitMQ.Client), which provides an `IConnection`
 
 The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md) for more information.
 

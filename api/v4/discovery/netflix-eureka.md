@@ -63,7 +63,7 @@ All of these settings must start with `Eureka:Client:`.
 | Key | Description | Default |
 | --- | ----------- | ------- |
 | `ShouldRegisterWithEureka`  | Whether to register the running app as a service instance | `true` |
-| `Health:CheckEnabled` | Whether to query ASP.NET health checks and `IHealthContributor`s during registration and renewals, to determine the status of the running app to report back to Eureka (see following section) | `true` |
+| `Health:CheckEnabled` | Whether to query ASP.NET health checks and `IHealthContributor`s during registration and renewals, to determine the status of the running app to report back to Eureka (see [Configuring health contributors](#configuring-health-contributors)) | `true` |
 
 Additionally, the table below lists the configuration settings that control *how* to register the instance.
 All of these settings must start with `Eureka:Instance:`.
@@ -122,7 +122,7 @@ All of these settings must start with `Eureka:Client:`.
 | `ShouldFilterOnlyUpInstances`  | Whether to include only instances with UP status after fetching the list of applications | `true` |
 | `ShouldDisableDelta`  | Whether to fetch the full registry each time (`true`) or fetch only deltas (`false`) | `false` |
 | `RegistryRefreshSingleVipAddress` | Whether to fetch registry information only for the specified VIP address | `false` |
-| `Health:MonitoredApps` | Comma-delimited list of applications in Eureka that this app depends on (see following section) | |
+| `Health:MonitoredApps` | Comma-delimited list of applications in Eureka that this app depends on (see [Configuring health contributors](#configuring-health-contributors)) | |
 
 ## Configuring health contributors
 
