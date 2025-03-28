@@ -6,11 +6,11 @@ The Steeltoe Prometheus endpoint configures the [OpenTelemetry Prometheus Export
 
 The Prometheus endpoint does not automatically instrument your application, but does make it easy to export metrics in the Prometheus metrics format, which can be used by tools like [Prometheus Server](https://prometheus.io/) and the [Metric Registrar for Tanzu Platform for Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/metric-registrar-index.html).
 
-The [Steeltoe Management samples](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src/ActuatorWeb/README.md) can help you understand how to use this tool.
+See the [Steeltoe Management samples](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src/ActuatorWeb/README.md) for more information about using this tool.
 
 ## Add NuGet Reference
 
-To use the Prometheus endpoint, you need to add a reference to the `Steeltoe.Management.Prometheus` NuGet package.
+To use the Prometheus endpoint, add a reference to the `Steeltoe.Management.Prometheus` NuGet package.
 
 ## Configure Settings
 
@@ -18,22 +18,22 @@ The following table describes the configuration settings that you can apply to t
 Each key must be prefixed with `Management:Endpoints:Prometheus:`.
 
 | Key | Description | Default |
-| --- | --- | --- |
-| `Enabled` | Whether the endpoint is enabled. | `true` |
-| `ID` | The unique ID of the endpoint. | `prometheus` |
-| `Path` | The relative path at which the endpoint is exposed. | same as `ID` |
-| `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry. | `Restricted` |
-| `AllowedVerbs` | An array of HTTP verbs the endpoint is exposed at. | `GET` |
+| --- | ----------- | ------- |
+| `Enabled` | Whether the endpoint is enabled | `true` |
+| `ID` | The unique ID of the endpoint | `prometheus` |
+| `Path` | The relative path at which the endpoint is exposed | same as `ID` |
+| `RequiredPermissions` | Permissions required to access the endpoint when running on Cloud Foundry | `Restricted` |
+| `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
 
 > [!NOTE]
-> The `AllowedVerbs` setting is inherited from Steeltoe's `EndpointOptions`, but is not intended to work for the Prometheus exporter, which is only registered to respond to `GET` requests.
+> The `AllowedVerbs` setting is inherited from the Steeltoe `EndpointOptions`, but is not intended to work for the Prometheus exporter, which is only registered to respond to `GET` requests.
 
 ## Enable HTTP Access
 
-The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting together with the `Path` setting described in the preceding section.
+The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting with the `Path` setting described in the preceding section.
 The default path is `/actuator/prometheus`.
 
-See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the overall steps required to enable HTTP access to endpoints in an ASP.NET Core application.
+See the [Exposing Endpoints](./using-endpoints.md#exposing-endpoints) and [HTTP Access](./using-endpoints.md#http-access) sections for the steps required to enable HTTP access to endpoints in an ASP.NET Core application.
 
 To add the actuator to the service container and map its route, use the `AddPrometheusActuator` extension method.
 
@@ -49,7 +49,7 @@ builder.Services.AddPrometheusActuator();
 ### Configuring the request pipeline for Prometheus
 
 In addition to the options described in [using endpoints](./using-endpoints.md), `AddPrometheusActuator` exposes an `Action<IApplicationBuilder>?` that can be used to configure the branched request pipeline that is used in the underlying OpenTelemetry package.
-This pipeline would need to be configured if, as an example, you are configuring an authorization policy.
+This pipeline must be configured if, as an example, you are configuring an authorization policy.
 
 ```csharp
 builder.Services.AddPrometheusActuator(true, pipeline => pipeline.UseAuthorization());
@@ -57,51 +57,57 @@ builder.Services.AddPrometheusActuator(true, pipeline => pipeline.UseAuthorizati
 
 ## Instrumentation
 
-In order for the Prometheus endpoint to return metrics, the application and relevant libraries need to be instrumented.
-This page will cover the basics for elements that previous versions of Steeltoe configured automatically.
-Please refer to the [OpenTelemetry documentation](https://opentelemetry.io/docs/languages/net/instrumentation/) for more detailed information.
+For the Prometheus endpoint to return metrics, the application and relevant libraries must be instrumented.
+This topic covers the basics for elements that previous versions of Steeltoe configured automatically.
+Refer to the [OpenTelemetry documentation](https://opentelemetry.io/docs/languages/net/instrumentation/) for more detailed information.
 
 ### ASP.NET Core
 
-To instrument ASP.NET Core for metrics, start by adding a reference to the `OpenTelemetry.Instrumentation.AspNetCore` NuGet package.
+To instrument ASP.NET Core for metrics:
 
-Next, add the instrumentation to the `MeterProviderBuilder`:
+1. Add a reference to the `OpenTelemetry.Instrumentation.AspNetCore` NuGet package.
 
-```csharp
-using OpenTelemetry.Metrics;
+1. Add the instrumentation to the `MeterProviderBuilder`:
 
-builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddAspNetCoreInstrumentation());
-```
+    ```csharp
+    using OpenTelemetry.Metrics;
 
-[Learn more about ASP.NET Core instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore)
+    builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddAspNetCoreInstrumentation());
+    ```
+
+For more information about ASP.NET Core instrumentation for OpenTelemetry, see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore).
 
 ### HttpClient
 
-To instrument `HttpClient`s for metrics, start by adding a reference to the `OpenTelemetry.Instrumentation.Http` NuGet package.
+To instrument `HttpClient`s for metrics:
 
-Next, add the instrumentation to the `MeterProviderBuilder`:
+1. Add a reference to the `OpenTelemetry.Instrumentation.Http` NuGet package.
 
-```csharp
-using OpenTelemetry.Metrics;
+1. Add the instrumentation to the `MeterProviderBuilder`:
 
-builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddHttpClientInstrumentation());
-```
+    ```csharp
+    using OpenTelemetry.Metrics;
 
-[Learn more about HttpClient instrumentation for OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Http)
+    builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddHttpClientInstrumentation());
+    ```
 
-### .NET Runtime
+For more information about HttpClient instrumentation for OpenTelemetry, see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Http).
 
-To instrument the .NET Runtime for metrics, start by adding a reference to the `OpenTelemetry.Instrumentation.Runtime` NuGet package.
+### .NET runtime
 
-Next, add the instrumentation to the `MeterProviderBuilder`:
+To instrument the .NET runtime for metrics:
 
-```csharp
-using OpenTelemetry.Metrics;
+1. Add a reference to the `OpenTelemetry.Instrumentation.Runtime` NuGet package.
 
-builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddRuntimeInstrumentation());
-```
+1. Add the instrumentation to the `MeterProviderBuilder`:
 
-[Learn more about Runtime Instrumentation for OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Runtime)
+    ```csharp
+    using OpenTelemetry.Metrics;
+
+    builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddRuntimeInstrumentation());
+    ```
+
+For more information about Runtime Instrumentation for OpenTelemetry .NET, see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Runtime).
 
 ### Prometheus Server
 
@@ -138,10 +144,10 @@ To emit custom metrics in Cloud Foundry, use [Metric Registrar](https://techdocs
 
 > [!CAUTION]
 > Authenticated endpoints are not supported with Metric Registrar.
-> For this scenario, configure actuators to [use an alternate port](./using-endpoints.md#configure-global-settings) and use that private network port to offer the metrics.
+> For this scenario, configure actuators to use an [alternate port](./using-endpoints.md#configure-global-settings) and use that private network port to offer the metrics.
 
-The examples below expect that actuators are mapped to an alternate port (8091 in this case).
-The specific port that is used is not important to Steeltoe, it only matters that the binding and Steeltoe configurations match.
+The following examples assume that actuators are mapped to an alternate port (8091 in this case).
+The specific port is not important to Steeltoe, it only matters that the binding and Steeltoe configurations match.
 
 #### Metrics Registrar Plugin
 
@@ -152,7 +158,7 @@ cf install-plugin -r CF-Community "metric-registrar"
 cf register-metrics-endpoint APP-NAME /actuator/prometheus --internal-port 8091
 ```
 
-> [!CAUTION]
+> [!IMPORTANT]
 > Due to an issue with the Cloud Foundry CLI plugin interface, some variations on this command do not work on Windows.
 > If you are a Windows user, you should either use the metric registrar plugin from WSL or use another method.
 
@@ -169,13 +175,13 @@ cf bind-service APP-NAME SERVICE-NAME
 
 This endpoint returns information about the instrumented application metrics and their values.
 
-If no instrumentation has been included, the response will be very short, like this:
+If no instrumentation has been included, the response is very short:
 
 ```text
 # EOF
 ```
 
-With the addition of [.NET Runtime instrumentation](#net-runtime), the response will be like this:
+With the addition of [.NET runtime instrumentation](#net-runtime), the response is similar to the following:
 
 ```text
 # TYPE process_runtime_dotnet_gc_collections_count_total counter

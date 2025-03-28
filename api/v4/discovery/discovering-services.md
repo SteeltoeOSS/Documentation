@@ -8,8 +8,8 @@ The recommended approach is to use a typed `HttpClient`, supplied through
 [HttpClientFactory](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests). Call the `.AddServiceDiscovery()`
 extension method from the `Steeltoe.Discovery.HttpClients` NuGet package to activate service discovery.
 
-> [!NOTE]
-> The `AddServiceDiscovery()` extension method takes an optional `ILoadBalancer` parameter.
+> [!TIP]
+> The `AddServiceDiscovery()` extension method takes an optional `ILoadBalancer` type parameter.
 > If no load balancer is provided, the built-in `RandomLoadBalancer` is activated,
 > which uses randomized selection of service instances.
 

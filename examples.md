@@ -5,13 +5,19 @@ title: Example markdown
 # These are example markdown items
 
 > [!NOTE]
-> This is a note
-
-> [!WARNING]
-> This is a warning
+> Information the user should notice even if skimming.
 
 > [!TIP]
-> This is a tip
+> Optional information to help a user be more successful.
+
+> [!IMPORTANT]
+> Essential information required for user success.
+
+> [!CAUTION]
+> Negative potential consequences of an action.
+
+> [!WARNING]
+> Dangerous certain consequences of an action.
 
 ## Sectioned code
 
