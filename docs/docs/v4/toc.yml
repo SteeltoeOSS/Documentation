@@ -1,0 +1,31 @@
+- name: Welcome - v4
+  href: welcome/toc.yml
+  topicHref: welcome/index.md
+- name: Application Bootstrapping
+  href: bootstrap/index.md
+- name: Application Configuration
+  href: configuration/toc.yml
+  topicHref: configuration/index.md
+- name: Distributed Tracing
+  href: tracing/index.md
+- name: Dynamic Logging
+  href: logging/toc.yml
+  topicHref: logging/index.md
+- name: Management
+  href: management/toc.yml
+  topicHref: management/index.md
+- name: Network File Sharing
+  href: fileshares/toc.yml
+  topicHref: fileshares/index.md
+- name: Security
+  href: security/toc.yml
+  topicHref: security/index.md
+- name: Connectors
+  href: connectors/toc.yml
+  topicHref: connectors/index.md
+- name: Service Discovery
+  href: discovery/toc.yml
+  topicHref: discovery/index.md
+- name: Initializr
+  href: initializr/toc.yml
+  topicHref: initializr/index.md

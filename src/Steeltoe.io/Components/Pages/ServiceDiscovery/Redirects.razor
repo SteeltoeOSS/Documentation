@@ -1,0 +1,21 @@
+@page "/service-discovery/{Provider}"
+@page "/service-discovery/get-started/{Provider}"
+
+@inject NavigationManager Navigation
+
+@code
+{
+    [Parameter] public string Provider { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (Provider == "docs")
+        {
+            Navigation.NavigateTo($"/docs/discovery");
+        }
+        else
+        {
+            Navigation.NavigateTo($"/guides/service-discovery/{Provider}.html");
+        }
+    }
+}

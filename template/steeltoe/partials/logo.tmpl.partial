@@ -1,3 +1,0 @@
-<a class="navbar-brand" href="{{{_homePath}}}{{^_homePath}}{{#_rootHost}}{{_rootHost}}{{/_rootHost}}{{^_rootHost}}https://steeltoe.io{{/_rootHost}}{{/_homePath}}" onmouseover="$(this).removeAttr('target')">
-  <img id="logo" class="svg" src="{{_rel}}{{{_appLogoPath}}}{{^_appLogoPath}}logo.svg{{/_appLogoPath}}" alt="{{_appName}}" style="width: 211px;" >
-</a>
