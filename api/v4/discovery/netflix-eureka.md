@@ -63,7 +63,7 @@ All of these settings must start with `Eureka:Client:`.
 | Key | Description | Default |
 | --- | ----------- | ------- |
 | `ShouldRegisterWithEureka`  | Whether to register the running app as a service instance | `true` |
-| `Health:CheckEnabled` | Whether to query ASP.NET health checks and `IHealthContributor`s during registration and renewals, to determine the status of the running app to report back to Eureka (see [Configuring health contributors](#configuring-health-checks)) | `true` |
+| `Health:CheckEnabled` | Whether to query ASP.NET health checks and `IHealthContributor`s during registration and renewals, to determine the status of the running app to report back to Eureka (see [Configuring health checks](#configuring-health-checks)) | `true` |
 
 Additionally, the table below lists the configuration settings that control *how* to register the instance.
 All of these settings must start with `Eureka:Instance:`.
