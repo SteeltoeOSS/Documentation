@@ -366,7 +366,7 @@ When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `Whe
 
 ## ASP NET Core Health Checks
 
-ASP.NET Core offers [middleware and libraries](https://learn.microsoft.com/aspnet/core/host-and-deploy/health-checks) and abstractions for reporting health. There is wide community support for these abstractions from libraries such as [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). You can use these community-provided health checks and make them available using the health actuator endpoint (for integration with Cloud Foundry or any other infrastructure that depends on this format). In addition, Steeltoe Connectors expose functionality to get the connection string, which is needed to set up these community health checks.
+ASP.NET Core offers [middleware and libraries](https://learn.microsoft.com/aspnet/core/host-and-deploy/health-checks) and abstractions for reporting health. There is wide community support for these abstractions from libraries such as [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). You can use these community-provided health checks and make them available using the health actuator (for integration with Cloud Foundry or any other infrastructure that depends on this format). In addition, Steeltoe Connectors expose functionality to get the connection string, which is needed to set up these community health checks.
 
 For example, to use the Steeltoe MySQL connector, but replace its health contributor with the ASP.NET Core community health check,
 use the following code in `Program.cs`:

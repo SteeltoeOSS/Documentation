@@ -100,10 +100,10 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Steeltoe.Common;
 
-builder.Services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracerProviderBuilder) =>
+builder.Services.ConfigureOpenTelemetryTracerProvider((serviceProvider, tracing) =>
 {
     var appInfo = serviceProvider.GetRequiredService<IApplicationInstanceInfo>();
-    tracerProviderBuilder.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(appInfo.ApplicationName!));
+    tracing.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(appInfo.ApplicationName!));
 });
 ```
 
@@ -183,7 +183,7 @@ To instrument requests leaving the application through `HttpClient`:
     ```csharp
     using OpenTelemetry.Trace;
 
-    builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddHttpClientInstrumentation());
+    builder.Services.AddOpenTelemetry().WithTracing(tracing => tracing.AddHttpClientInstrumentation());
     ```
 
 1. To replicate the Steeltoe setting `EgressIgnorePattern` (a Regex pattern describing which outgoing HTTP requests to ignore), configure the `HttpClientTraceInstrumentationOptions`:
@@ -253,7 +253,7 @@ To use the Zipkin Exporter:
 1. Use the extension method `AddZipkinExporter` by updating the existing call from above to:
 
     ```csharp
-    builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder => tracerProviderBuilder.AddZipkinExporter());
+    builder.Services.AddOpenTelemetry().WithTracing(tracing => tracing.AddZipkinExporter());
     ```
 
 The Zipkin options class `ZipkinExporterOptions` works nearly the same as Steeltoe settings with the same names in previous releases:
