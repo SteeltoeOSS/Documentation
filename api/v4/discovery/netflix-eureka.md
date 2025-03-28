@@ -98,17 +98,21 @@ All of these settings must start with `Eureka:Instance:`.
 | `AsgName` | AWS auto-scaling group name associated with the instance | |
 | `DataCenterInfo` | Data center the instance is deployed to (`Netflix`, `Amazon`, or `MyOwn`) | `MyOwn` |
 
-[^1]: When both non-secure and secure ports are enabled, the secure port is preferred during service discovery. The values for `Port` and `SecurePort`, and whether they are enabled, are automatically determined from the ASP.NET address bindings. See [8 ways to set the URLs for an ASP.NET Core app](https://andrewlock.net/8-ways-to-set-the-urls-for-an-aspnetcore-app/)
-for how to influence them using environment variables.
-It is also possible to use dynamic port bindings (by setting the port number to `0` in ASP.NET).
-In that case, Steeltoe adds a random number (outside the valid port range) to the `InstanceId` to make it unique.
-After the app has fully started, the assigned port numbers are updated in Eureka, but the `InstanceId` does not change.
+[^1]: When both non-secure and secure ports are enabled, the secure port is preferred during service discovery.
 
 [^2]: Specify `direct` to use container-to-container networking on Cloud Foundry. Specify `hostname` to force using `HostName`.
 
 [^3]: When set to `false`, call `EurekaApplicationInfoManager.UpdateInstance()` after initialization to mark the instance as up.
 
 [^4]: Add a NuGet package reference to `Steeltoe.Management.Endpoint` to use its `health` and `info` actuator paths.
+
+The values for `Port` and `SecurePort`, and whether they are enabled, are automatically determined from the ASP.NET address bindings. [^1]
+See [8 ways to set the URLs for an ASP.NET Core app](https://andrewlock.net/8-ways-to-set-the-urls-for-an-aspnetcore-app/)
+for how to influence them using environment variables.
+
+It is also possible to use dynamic port bindings (by setting the port number to `0` in ASP.NET).
+In that case, Steeltoe adds a random number (outside the valid port range) to the `InstanceId` to make it unique.
+After the app has fully started, the assigned port numbers are updated in Eureka, but the `InstanceId` does not change.
 
 ### Querying
 
