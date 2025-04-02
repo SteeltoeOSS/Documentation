@@ -161,7 +161,7 @@ See the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/
 
 When using Single Sign-On for VMware Tanzu, you must choose a service plan before you create a service instance.
 If you do not have an existing service plan, a platform operator might need to create a new plan for you.
-For information about service plans for use by developers, see the [Single Sign-On for Tanzu operator guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/operator-index.html).
+For information about configuring service plans for use by developers, a platform operator should follow the steps in the [Single Sign-On for Tanzu operator guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/operator-index.html).
 
 After you have identified the service plan to use, create a service instance:
 
