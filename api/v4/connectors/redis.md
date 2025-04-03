@@ -29,7 +29,7 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 The available connection string parameters for Redis are described in [StackExchange.Redis](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).
 
-The following example `appsettings.json` uses the docker container used earlier:
+The following example `appsettings.json` uses the Redis docker container referred to earlier:
 
 ```json
 {

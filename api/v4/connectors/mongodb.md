@@ -27,7 +27,7 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 The available connection string parameters for MongoDB are described in the [MongoDB documentation](https://www.mongodb.com/docs/manual/reference/connection-string/).
 
-The following example `appsettings.json` uses the docker container mentioned earlier:
+The following example `appsettings.json` uses the docker container referred to earlier:
 
 ```json
 {

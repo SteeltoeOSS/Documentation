@@ -27,7 +27,7 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 The available connection string parameters for RabbitMQ are described in the [RabbitMQ documentation](https://www.rabbitmq.com/uri-spec.html).
 
-The following example `appsettings.json` uses the docker container from earlier:
+The following example `appsettings.json` uses the docker container referred to earlier:
 
 ```json
 {

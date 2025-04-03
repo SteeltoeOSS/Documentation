@@ -35,7 +35,7 @@ For the available connection string parameters for MySQL, see:
 * [MySQL Connector documentation](https://mysqlconnector.net/connection-options/)
 * [MySQL documentation](https://dev.mysql.com/doc/refman/8.0/en/connecting-using-uri-or-key-value-pairs.html#connection-parameters-base)
 
-The following example `appsettings.json` uses the docker container from the earlier example:
+The following example `appsettings.json` uses the docker container referred to earlier:
 
 ```json
 {

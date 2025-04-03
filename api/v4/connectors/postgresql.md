@@ -29,7 +29,7 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 The available connection string parameters for PostgreSQL are described in the [Npgsql documentation](https://www.npgsql.org/doc/connection-string-parameters.html).
 
-The following example `appsettings.json` uses the docker container from the previous example:
+The following example `appsettings.json` uses the docker container referred to earlier:
 
 ```json
 {
