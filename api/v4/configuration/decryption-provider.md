@@ -69,14 +69,14 @@ The following table describes the configuration settings that you can apply to t
 
 | Key | Description | Default |
 | --- | ----------- | ------- |
-| `Encrypt:Enabled` | Enable decryption of encrypted `{cipher}` values. | `false` |
-| `Encrypt:Rsa:Strong` | When set to `true`, the "strong" GCM AES algorithm is used. Otherwise, the standard CBC algorithm is used. | `false` |
-| `Encrypt:Rsa:Salt` | Salt for the random secret used to encrypt cipher text. | `deadbeef` |
-| `Encrypt:Rsa:Algorithm` | The RSA algorithm to use (`DEFAULT` or `OAEP`). | `DEFAULT` |
-| `Encrypt:KeyStore:Location` | Location of the keystore file. Only PKCS12 store is supported. | |
-| `Encrypt:KeyStore:Password` | Password that locks the keystore. | |
-| `Encrypt:KeyStore:Alias` | Alias for a key in the store. | |
-| `Encrypt:Key` | A symmetric key. As a stronger alternative, consider using a keystore. | |
+| `Encrypt:Enabled` | Enable decryption of encrypted `{cipher}` values | `false` |
+| `Encrypt:Rsa:Strong` | When set to `true`, the "strong" GCM AES algorithm is used; otherwise, the standard CBC algorithm is used | `false` |
+| `Encrypt:Rsa:Salt` | Salt for the random secret used to encrypt cipher text | `deadbeef` |
+| `Encrypt:Rsa:Algorithm` | The RSA algorithm to use (`DEFAULT` or `OAEP`) | `DEFAULT` |
+| `Encrypt:KeyStore:Location` | Location of the keystore file (PKCS12 store is supported) | |
+| `Encrypt:KeyStore:Password` | Password that locks the keystore | |
+| `Encrypt:KeyStore:Alias` | Alias for a key in the store | |
+| `Encrypt:Key` | A symmetric key; as a stronger alternative, consider using a keystore | |
 
 ## Custom encryption
 

@@ -84,7 +84,7 @@ All of these settings must start with `Eureka:Instance:`.
 | `NonSecurePortEnabled` | Whether the non-secure port should be enabled [^1] | computed |
 | `SecurePort` | Secure port on which the instance should receive traffic | computed |
 | `SecurePortEnabled` | Whether the secure port should be enabled [^1] | computed |
-| `RegistrationMethod` | How to register on Cloud Foundry. Can be `route`, `direct`, or `hostname` [^2] | |
+| `RegistrationMethod` | How to register on Cloud Foundry; can be `route`, `direct`, or `hostname` [^2] | |
 | `InstanceEnabledOnInit` | Whether the instance should take traffic as soon as it is registered [^3] | `true` |
 | `LeaseRenewalIntervalInSeconds` | How often (in seconds) the client sends heartbeats to Eureka to indicate that it is still alive | `30` |
 | `LeaseExpirationDurationInSeconds` | Time (in seconds) that the Eureka server waits after receiving the last heartbeat before it marks the instance as down | `90` |
