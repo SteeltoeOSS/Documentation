@@ -76,7 +76,7 @@ This contributor exposes information from the `git.properties` Spring Boot file.
 
 ## Sample Output
 
-Depending on the registered contributors, this endpoint returns JSON similar to this:
+The response is always returned as JSON:
 
 ```json
 {

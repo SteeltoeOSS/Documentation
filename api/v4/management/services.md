@@ -44,7 +44,7 @@ builder.Services.AddServicesActuator();
 
 This endpoint returns the contents of `IServiceCollection`.
 
-The response is always returned as JSON, like this:
+The response is always returned as JSON:
 
 ```json
 {

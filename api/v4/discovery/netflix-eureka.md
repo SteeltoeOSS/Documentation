@@ -41,7 +41,7 @@ All of these settings must start with `Eureka:Client:`.
 | Key       | Description | Default |
 | --------- | ----------- | ------- |
 | `Enabled` | Whether to enable the Eureka client | `true` |
-| `ServiceUrl` | Comma-delimited list of Eureka server endpoints | `http://localhost:8761/eureka/` |
+| `ServiceUrl` | Comma-separated list of Eureka server endpoints | `http://localhost:8761/eureka/` |
 | `AccessTokenUri` | URL at which to obtain OAuth2 access token, before connecting to the Eureka server | |
 | `ClientId` | Client ID for obtaining an access token | |
 | `ClientSecret` | Secret for obtaining an access token | |
@@ -78,8 +78,8 @@ All of these settings must start with `Eureka:Instance:`.
 | `IPAddress` | IP address on which the instance is registered | computed |
 | `UseNetworkInterfaces` | Query the operating system for network interfaces to determine `HostName` and `IPAddress` | `false` |
 | `PreferIPAddress` | Whether to register with `IPAddress` instead of `HostName` | `false` |
-| `VipAddress` | Comma-delimited list of VIP addresses for the instance | computed |
-| `SecureVipAddress` | Comma-delimited list of secure VIP addresses for the instance | computed |
+| `VipAddress` | Comma-separated list of VIP addresses for the instance | computed |
+| `SecureVipAddress` | Comma-separated list of secure VIP addresses for the instance | computed |
 | `Port` | Non-secure port number on which the instance should receive traffic | computed |
 | `NonSecurePortEnabled` | Whether the non-secure port should be enabled [^1] | computed |
 | `SecurePort` | Secure port on which the instance should receive traffic | computed |
@@ -126,7 +126,7 @@ All of these settings must start with `Eureka:Client:`.
 | `ShouldFilterOnlyUpInstances`  | Whether to include only instances with UP status after fetching the list of applications | `true` |
 | `ShouldDisableDelta`  | Whether to fetch the full registry each time (`true`) or fetch only deltas (`false`) | `false` |
 | `RegistryRefreshSingleVipAddress` | Whether to fetch registry information only for the specified VIP address | `false` |
-| `Health:MonitoredApps` | Comma-delimited list of applications in Eureka that this app depends on (see [Configuring health contributors](#configuring-health-contributors)) | |
+| `Health:MonitoredApps` | Comma-separated list of applications in Eureka that this app depends on (see [Configuring health contributors](#configuring-health-contributors)) | |
 
 ## Configuring health contributors
 
@@ -168,7 +168,7 @@ If you require more control over the health checks, consider implementing your o
 
 ## Configuring multiple Eureka servers
 
-You can specify a comma-delimited list of Eureka server URLs that the client uses when registering or fetching
+You can specify a comma-separated list of Eureka server URLs that the client uses when registering or fetching
 the service registry. These servers should be part of a properly configured Eureka server cluster, and should be using
 peer-to-peer communications to keep in sync.
 

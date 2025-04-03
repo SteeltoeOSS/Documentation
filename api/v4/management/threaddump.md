@@ -44,7 +44,7 @@ builder.Services.AddThreadDumpActuator();
 
 This endpoint returns a list of threads with their state and stack trace.
 
-The response always returned as JSON:
+The response is always returned as JSON:
 
 ```json
 {

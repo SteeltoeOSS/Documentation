@@ -44,7 +44,7 @@ builder.Services.AddDbMigrationsActuator();
 
 This endpoint returns a list of objects representing each registered `DbContext` along with its migrations, grouped by status (pending or applied).
 
-The response is always returned as JSON, as shown here:
+The response is always returned as JSON:
 
 ```json
 {

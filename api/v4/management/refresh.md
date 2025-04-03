@@ -47,7 +47,7 @@ builder.Services.AddRefreshActuator();
 
 This endpoint returns an array of keys obtained from `IConfiguration`.
 
-The response always returns as JSON:
+The response is always returned as JSON:
 
 ```json
 [

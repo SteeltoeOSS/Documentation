@@ -44,7 +44,7 @@ builder.Services.AddEnvironmentActuator();
 
 This endpoint returns a list of objects representing information from `IConfiguration`.
 
-The response is always returned as JSON, like this:
+The response is always returned as JSON:
 
 ```json
 {
