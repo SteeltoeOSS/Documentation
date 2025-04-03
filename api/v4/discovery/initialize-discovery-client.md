@@ -38,8 +38,8 @@ var app = builder.Build();
 ```
 
 > [!TIP]
-> Alternatively, you can use `builder.AddSteeltoe()` (Steeltoe Bootstrap Auto Configuration), which uses reflection to determine
-> which discovery assemblies are loaded, and adding the appropriate clients automatically.
+> Alternatively, you can use `builder.AddSteeltoe()` (Steeltoe Bootstrap Auto Configuration),
+> which uses reflection to determine which discovery assemblies are loaded and adds the appropriate clients automatically.
 
 ## Client configuration
 

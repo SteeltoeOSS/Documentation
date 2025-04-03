@@ -122,7 +122,7 @@ All of these settings must start with `Eureka:Client:`.
 | Key | Description | Default |
 | --- | ----------- | ------- |
 | `ShouldFetchRegistry` | Whether to periodically fetch registry information from the Eureka server | `true` |
-| `RegistryFetchIntervalSeconds` | How often (in seconds) to fetch registry information from the Eureka server | every `30` seconds |
+| `RegistryFetchIntervalSeconds` | How often (in seconds) to fetch registry information from the Eureka server | `30` |
 | `ShouldFilterOnlyUpInstances`  | Whether to include only instances with UP status after fetching the list of applications | `true` |
 | `ShouldDisableDelta`  | Whether to fetch the full registry each time (`true`) or fetch only deltas (`false`) | `false` |
 | `RegistryRefreshSingleVipAddress` | Whether to fetch registry information only for the specified VIP address | `false` |
@@ -162,7 +162,7 @@ as calculated from the ASP.NET health checks and active health contributors, to 
 Consequently, after successful registration, Eureka always announces that the application is in 'UP' state.
 You can alter this behavior by enabling `Eureka:Client:Health:CheckEnabled` (`false` by default),
 which results in propagating health status to Eureka.
-Note that other applications don't send traffic to your app unless the health checks and contributors report the status as 'UP'.
+As a result, other applications stop sending traffic to your app until the health checks and contributors report the status as 'UP'.
 
 If you require more control over the health checks, consider implementing your own `IHealthCheckHandler`.
 

@@ -38,7 +38,7 @@ dbug: Microsoft.EntityFrameworkCore.Database.Command[20104]
        [ActuatorApi,44ed2fe24a051bda2d1a56815448e9fb,c32846ff227bed40,f315823f4c554816,true] Created DbCommand for 'ExecuteReader' (1ms).
 ```
 
-Log correlation is easiest with a tool such as [Splunk](https://www.splunk.com/en_us/solutions/isolate-cloud-native-problems.html), [SumoLogic](https://www.sumologic.com/lp/log-analytics/), or [DataDog](https://www.datadoghq.com/dg/enterprise/log-management-analytics-security). (This is not an endorsement of any tool, only a pointer to some popular options).
+Log correlation is easiest with a tool such as [Splunk](https://www.splunk.com/en_us/solutions/isolate-cloud-native-problems.html), [SumoLogic](https://www.sumologic.com/lp/log-analytics/), or [DataDog](https://www.datadoghq.com/dg/enterprise/log-management-analytics-security). (This is not an endorsement of any tool, only a pointer to some popular options.)
 
 ### Using TracingLogProcessor
 
