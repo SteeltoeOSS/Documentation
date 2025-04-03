@@ -218,7 +218,7 @@ However, with the default "Config First" mode of the Steeltoe client, you cannot
 
 1. If your application does not use a service discovery service, you need to configure your application to do so. See the [Steeltoe Discovery documentation](../discovery/initialize-discovery-client.md) for instructions. At a minimum, you must configure the Eureka Server address.
 1. Change the Steeltoe Config Server client setting `Spring:Cloud:Config:Discovery:Enabled` to `true` (the default is `false`).
-1. If your Config Server is registered with Eureka using a name other than "configserver," use `Spring:Cloud:Config:Discovery:ServiceId` to specify the name used by the client for lookup.
+1. If your Config Server is registered with Eureka using a name other than `configserver`, use `Spring:Cloud:Config:Discovery:ServiceId` to specify the name used by the client for lookup.
 
 Note that the cost for using this mode of operation is an extra network roundtrip on startup to locate the Config Server service registration. The benefit is that, as long as the discovery service is at a fixed point, the Config Server can change its address and no changes to applications are needed.
 
