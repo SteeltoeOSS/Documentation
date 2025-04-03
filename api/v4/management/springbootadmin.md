@@ -64,82 +64,76 @@ a few additional steps are needed:
 
 Putting it all together, your config files contain the contents shown in the following:
 
-### appsettings.Development.json
+- In `appsettings.Development.json`:
 
-In `appsettings.Development.json`:
-
-```json
-{
-  "Spring": {
-    "Application": {
-      "Name": "ExampleSteeltoeApp"
-    },
-    "Boot": {
-      "Admin": {
-        "Client": {
-          // This is the URL of the Spring Boot Admin Server.
-          "Url": "http://localhost:9099",
-          // This is what the Spring Boot Admin Server uses to connect to your app.
-          "BasePath": "http://host.docker.internal:5258"
+    ```json
+    {
+      "Spring": {
+        "Application": {
+          "Name": "ExampleSteeltoeApp"
+        },
+        "Boot": {
+          "Admin": {
+            "Client": {
+              // This is the URL of the Spring Boot Admin Server.
+              "Url": "http://localhost:9099",
+              // This is what the Spring Boot Admin Server uses to connect to your app.
+              "BasePath": "http://host.docker.internal:5258"
+            }
+          }
         }
       }
     }
-  }
-}
-```
+    ```
 
-### launchsettings.json
+- In `launchsettings.json`:
 
-In `launchsettings.json`:
-
-```json
-{
-  "$schema": "http://json.schemastore.org/launchsettings.json",
-  "profiles": {
-    "http": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      // Listen on all network interfaces by using a wildcard for the hostname.
-      "applicationUrl": "http://*:5258",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+    ```json
+    {
+      "$schema": "http://json.schemastore.org/launchsettings.json",
+      "profiles": {
+        "http": {
+          "commandName": "Project",
+          "dotnetRunMessages": true,
+          // Listen on all network interfaces by using a wildcard for the hostname.
+          "applicationUrl": "http://*:5258",
+          "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+          }
+        }
       }
     }
-  }
-}
-```
+    ```
 
-> [!NOTE]
-> If you want your app to listen on a different port number, replace `5258` in both files above with the desired port.
+    > [!NOTE]
+    > If you want your app to listen on a different port number, replace `5258` in both files above with the desired port.
 
-### Program.cs
+- In `Program.cs`:
 
-And the following code in `Program.cs`:
+    ```csharp
+    using Steeltoe.Management.Endpoint.Actuators.Health;
+    using Steeltoe.Management.Endpoint.Actuators.Hypermedia;
+    using Steeltoe.Management.Endpoint.SpringBootAdminClient;
 
-```csharp
-using Steeltoe.Management.Endpoint.Actuators.Health;
-using Steeltoe.Management.Endpoint.Actuators.Hypermedia;
-using Steeltoe.Management.Endpoint.SpringBootAdminClient;
+    var builder = WebApplication.CreateBuilder(args);
 
-var builder = WebApplication.CreateBuilder(args);
+    // Add services to the container.
 
-// Add services to the container.
+    builder.Services.AddSpringBootAdminClient();
+    builder.Services.AddHypermediaActuator();
+    builder.Services.AddHealthActuator();
 
-builder.Services.AddSpringBootAdminClient();
-builder.Services.AddHypermediaActuator();
-builder.Services.AddHealthActuator();
+    builder.Services.AddControllers();
 
-builder.Services.AddControllers();
+    var app = builder.Build();
 
-var app = builder.Build();
+    // To avoid trust issues with self-signed certificates, do not automatically redirect to https.
+    //app.UseHttpsRedirection();
 
-// To avoid trust issues with self-signed certificates, do not automatically redirect to https.
-//app.UseHttpsRedirection();
+    app.MapControllers();
 
-app.MapControllers();
-
-app.Run();
-```
+    app.Run();
+    ```
 
 > [!TIP]
 > To see all the Spring Boot Admin features in action, replace the `Add*Actuator()` calls in `Program.cs` with `AddAllActuators()` and expose all endpoints. See [Exposing endpoints](./using-endpoints.md#exposing-endpoints).
