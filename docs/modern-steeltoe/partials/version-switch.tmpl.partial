@@ -1,0 +1,13 @@
+      <div id="version-toggles">
+        <div class="btn-group" role="group" id="api-docs-toggle">
+          <a href="/docs/v4" class="btn v4" id="v4">v4</a>
+          <a href="/docs/v3" class="btn v3" id="v3">v3</a>
+          <a href="/docs/v2" class="btn v2" id="v2">v2</a>
+        </div>
+        <div class="btn-group api-browser-controls" role="group" id="api-browser-toggle" style="display:none">
+          <a href="/api/v4" class="btn v4" id="v4">v4</a>
+          <a href="/api/v3" class="btn v3" id="v3">v3</a>
+          <a href="/api/v2" class="btn v2" id="v2">v2</a>
+        </div>
+      </div>
+      <script src="/js/docfx-custom.js"></script>

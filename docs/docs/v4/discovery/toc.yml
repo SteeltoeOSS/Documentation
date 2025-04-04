@@ -1,0 +1,11 @@
+- href: initialize-discovery-client.md
+  name: Discovery clients
+  items:
+  - href: configuration-based.md
+    name: Configuration-based
+  - href: hashicorp-consul.md
+    name: HashiCorp Consul
+  - href: netflix-eureka.md
+    name: Netflix Eureka
+- href: discovering-services.md
+  name: Discovering services

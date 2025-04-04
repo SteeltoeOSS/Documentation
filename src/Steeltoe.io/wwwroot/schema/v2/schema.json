@@ -1,0 +1,2246 @@
+{
+  "definitions": {
+    "Application": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Cloud": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Config": {
+          "$ref": "#/definitions/ConfigServerClientSettings"
+        }
+      }
+    },
+    "CloudFoundryEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ValidateCertificates": {
+          "type": "boolean"
+        },
+        "ApplicationId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "CloudFoundryApi": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        },
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ConfigServerClientSettings": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Uri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Enabled": {
+          "type": "boolean"
+        },
+        "Environment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Username": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "FailFast": {
+          "type": "boolean"
+        },
+        "ValidateCertificates": {
+          "type": "boolean"
+        },
+        "RetryEnabled": {
+          "type": "boolean"
+        },
+        "RetryInitialInterval": {
+          "type": "integer"
+        },
+        "RetryMaxInterval": {
+          "type": "integer"
+        },
+        "RetryMultiplier": {
+          "type": "number"
+        },
+        "RetryAttempts": {
+          "type": "integer"
+        },
+        "DiscoveryEnabled": {
+          "type": "boolean"
+        },
+        "DiscoveryServiceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "HealthEnabled": {
+          "type": "boolean"
+        },
+        "HealthTimeToLive": {
+          "type": "integer"
+        },
+        "RawUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RawUris": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "Token": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Timeout": {
+          "type": "integer"
+        },
+        "AccessTokenUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ClientId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ClientSecret": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "TokenTtl": {
+          "type": "integer"
+        },
+        "TokenRenewRate": {
+          "type": "integer"
+        }
+      }
+    },
+    "ConnectorConfig<HystrixProviderConnectorOptions>": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Client": {
+          "$ref": "#/definitions/HystrixProviderConnectorOptions"
+        }
+      }
+    },
+    "ConnectorConfig<MongoDbConnectorOptions>": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Client": {
+          "$ref": "#/definitions/MongoDbConnectorOptions"
+        }
+      }
+    },
+    "ConnectorConfig<MySqlProviderConnectorOptions>": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Client": {
+          "$ref": "#/definitions/MySqlProviderConnectorOptions"
+        }
+      }
+    },
+    "ConnectorConfig<OAuthConnectorOptions>": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Client": {
+          "$ref": "#/definitions/OAuthConnectorOptions"
+        }
+      }
+    },
+    "ConnectorConfig<PostgresProviderConnectorOptions>": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Client": {
+          "$ref": "#/definitions/PostgresProviderConnectorOptions"
+        }
+      }
+    },
+    "ConnectorConfig<RabbitMQProviderConnectorOptions>": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Client": {
+          "$ref": "#/definitions/RabbitMQProviderConnectorOptions"
+        }
+      }
+    },
+    "ConnectorConfig<RedisCacheConnectorOptions>": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Client": {
+          "$ref": "#/definitions/RedisCacheConnectorOptions"
+        }
+      }
+    },
+    "EndpointClaim": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Endpoints": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Enabled": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Sensitive": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "CloudFoundry": {
+          "$ref": "#/definitions/CloudFoundryEndpointOptions"
+        },
+        "Env": {
+          "$ref": "#/definitions/EnvEndpointOptions"
+        },
+        "Health": {
+          "$ref": "#/definitions/HealthEndpointOptions"
+        },
+        "HeapDump": {
+          "$ref": "#/definitions/HeapDumpEndpointOptions"
+        },
+        "HttpTrace": {
+          "$ref": "#/definitions/HttpTraceEndpointOptions"
+        },
+        "Actuator": {
+          "$ref": "#/definitions/HypermediaEndpointOptionsSchema"
+        },
+        "Info": {
+          "$ref": "#/definitions/InfoEndpointOptions"
+        },
+        "Loggers": {
+          "$ref": "#/definitions/LoggersEndpointOptions"
+        },
+        "Mappings": {
+          "$ref": "#/definitions/MappingsEndpointOptions"
+        },
+        "Metrics": {
+          "$ref": "#/definitions/MetricsEndpointOptions"
+        },
+        "Refresh": {
+          "$ref": "#/definitions/RefreshEndpointOptions"
+        },
+        "Dump": {
+          "$ref": "#/definitions/ThreadDumpEndpointOptions"
+        },
+        "Trace": {
+          "$ref": "#/definitions/TraceEndpointOptions"
+        }
+      }
+    },
+    "EnvEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "KeysToSanitize": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "EurekaConfig": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Client": {
+          "$ref": "#/definitions/IEurekaClientConfig"
+        },
+        "Instance": {
+          "$ref": "#/definitions/IEurekaInstanceConfig"
+        }
+      }
+    },
+    "Exposure": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Include": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "Exclude": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "HealthEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ShowDetails": {
+          "type": "string",
+          "enum": [
+            "Always",
+            "Never",
+            "WhenAuthorized"
+          ]
+        },
+        "Claim": {
+          "$ref": "#/definitions/EndpointClaim"
+        },
+        "Role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "HeapDumpEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "HttpTraceEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Capacity": {
+          "type": "integer"
+        },
+        "AddRequestHeaders": {
+          "type": "boolean"
+        },
+        "AddResponseHeaders": {
+          "type": "boolean"
+        },
+        "AddPathInfo": {
+          "type": "boolean"
+        },
+        "AddUserPrincipal": {
+          "type": "boolean"
+        },
+        "AddParameters": {
+          "type": "boolean"
+        },
+        "AddQueryString": {
+          "type": "boolean"
+        },
+        "AddAuthType": {
+          "type": "boolean"
+        },
+        "AddRemoteAddress": {
+          "type": "boolean"
+        },
+        "AddSessionId": {
+          "type": "boolean"
+        },
+        "AddTimeTaken": {
+          "type": "boolean"
+        },
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "HypermediaEndpointOptionsSchema": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Exposure": {
+          "$ref": "#/definitions/Exposure"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        },
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "HystrixProviderConnectorOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "SslEnabled": {
+          "type": "boolean"
+        },
+        "Uri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Server": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "SslPort": {
+          "type": "integer"
+        },
+        "Username": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "VirtualHost": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "UrlEncodedCredentials": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IDataCenterInfo": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "enum": [
+            "Netflix",
+            "Amazon",
+            "MyOwn"
+          ]
+        }
+      }
+    },
+    "IEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        }
+      }
+    },
+    "IEurekaClientConfig": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "RegistryFetchIntervalSeconds": {
+          "type": "integer"
+        },
+        "InstanceInfoReplicationIntervalSeconds": {
+          "type": "integer"
+        },
+        "ProxyHost": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ProxyPort": {
+          "type": "integer"
+        },
+        "ProxyUserName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ProxyPassword": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ShouldGZipContent": {
+          "type": "boolean"
+        },
+        "EurekaServerConnectTimeoutSeconds": {
+          "type": "integer"
+        },
+        "ShouldRegisterWithEureka": {
+          "type": "boolean"
+        },
+        "AllowRedirects": {
+          "type": "boolean"
+        },
+        "ShouldDisableDelta": {
+          "type": "boolean"
+        },
+        "ShouldFilterOnlyUpInstances": {
+          "type": "boolean"
+        },
+        "ShouldFetchRegistry": {
+          "type": "boolean"
+        },
+        "RegistryRefreshSingleVipAddress": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ShouldOnDemandUpdateStatusChange": {
+          "type": "boolean"
+        },
+        "EurekaServerServiceUrls": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ValidateCertificates": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IEurekaInstanceConfig": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "InstanceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "AppName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "AppGroupName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "IsInstanceEnabledOnInit": {
+          "type": "boolean"
+        },
+        "NonSecurePort": {
+          "type": "integer"
+        },
+        "SecurePort": {
+          "type": "integer"
+        },
+        "IsNonSecurePortEnabled": {
+          "type": "boolean"
+        },
+        "SecurePortEnabled": {
+          "type": "boolean"
+        },
+        "LeaseRenewalIntervalInSeconds": {
+          "type": "integer"
+        },
+        "LeaseExpirationDurationInSeconds": {
+          "type": "integer"
+        },
+        "VirtualHostName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "SecureVirtualHostName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ASGName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "MetadataMap": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "DataCenterInfo": {
+          "$ref": "#/definitions/IDataCenterInfo"
+        },
+        "IpAddress": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "StatusPageUrlPath": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "StatusPageUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "HomePageUrlPath": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "HomePageUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "HealthCheckUrlPath": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "HealthCheckUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "SecureHealthCheckUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DefaultAddressResolutionOrder": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "HostName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "PreferIpAddress": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IManagementOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "EndpointOptions": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/IEndpointOptions"
+          }
+        }
+      }
+    },
+    "InfoEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "LoggersEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "LoggingRoot": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "IncludeScopes": {
+          "type": "boolean"
+        },
+        "LogLevel": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "enum": [
+              "Trace",
+              "Debug",
+              "Information",
+              "Warning",
+              "Error",
+              "Critical",
+              "None"
+            ]
+          }
+        }
+      }
+    },
+    "Management": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Endpoints": {
+          "$ref": "#/definitions/Endpoints"
+        }
+      }
+    },
+    "MappingsEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "MetricsEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "IngressIgnorePattern": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "EgressIgnorePattern": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "MongoDbConnectorOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ConnectionString": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Server": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "Username": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Database": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "UrlEncodedCredentials": {
+          "type": "boolean"
+        }
+      }
+    },
+    "MySqlProviderConnectorOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ConnectionString": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Server": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "Username": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Database": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "SslMode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "AllowPublicKeyRetrieval": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "AllowUserVariables": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "ConnectionTimeout": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "ConvertZeroDateTime": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "DefaultCommandTimeout": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "Keepalive": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "OldGuids": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "PersistSecurityInfo": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "TreatTinyAsBoolean": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "UseAffectedRows": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "UseCompression": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "ConnectionLifeTime": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "ConnectionReset": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "MaximumPoolsize": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "MinimumPoolsize": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "Pooling": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "UrlEncodedCredentials": {
+          "type": "boolean"
+        }
+      }
+    },
+    "OAuthConnectorOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "OAuthServiceUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ClientId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ClientSecret": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "UserAuthorizationUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "AccessTokenUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "UserInfoUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "TokenInfoUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "JwtKeyUri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Scope": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "ValidateCertificates": {
+          "type": "boolean"
+        },
+        "UrlEncodedCredentials": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PostgresProviderConnectorOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ConnectionString": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Host": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "Username": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Database": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "UrlEncodedCredentials": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RabbitMQProviderConnectorOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "SslEnabled": {
+          "type": "boolean"
+        },
+        "Uri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Server": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "SslPort": {
+          "type": "integer"
+        },
+        "Username": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "VirtualHost": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "UrlEncodedCredentials": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RedisCacheConnectorOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Host": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "EndPoints": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "AllowAdmin": {
+          "type": "boolean"
+        },
+        "ClientName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ConnectRetry": {
+          "type": "integer"
+        },
+        "ConnectTimeout": {
+          "type": "integer"
+        },
+        "AbortOnConnectFail": {
+          "type": "boolean"
+        },
+        "KeepAlive": {
+          "type": "integer"
+        },
+        "ResolveDns": {
+          "type": "boolean"
+        },
+        "ServiceName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Ssl": {
+          "type": "boolean"
+        },
+        "SslHost": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "TieBreaker": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "WriteBuffer": {
+          "type": "integer"
+        },
+        "SyncTimeout": {
+          "type": "integer"
+        },
+        "ConnectionString": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "InstanceName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "UrlEncodedCredentials": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RefreshEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Security": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Oauth2": {
+          "$ref": "#/definitions/ConnectorConfig<OAuthConnectorOptions>"
+        }
+      }
+    },
+    "Spring": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Application": {
+          "$ref": "#/definitions/Application"
+        },
+        "Cloud": {
+          "$ref": "#/definitions/Cloud"
+        }
+      }
+    },
+    "SqlServerConfig": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Credentials": {
+          "$ref": "#/definitions/SqlServerProviderConnectorOptions"
+        }
+      }
+    },
+    "SqlServerProviderConnectorOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ConnectionString": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Server": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "Username": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Database": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "IntegratedSecurity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Uid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Uri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Db": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Pw": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Timeout": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "UrlEncodedCredentials": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ThreadDumpEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TraceEndpointOptions": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Capacity": {
+          "type": "integer"
+        },
+        "AddRequestHeaders": {
+          "type": "boolean"
+        },
+        "AddResponseHeaders": {
+          "type": "boolean"
+        },
+        "AddPathInfo": {
+          "type": "boolean"
+        },
+        "AddUserPrincipal": {
+          "type": "boolean"
+        },
+        "AddParameters": {
+          "type": "boolean"
+        },
+        "AddQueryString": {
+          "type": "boolean"
+        },
+        "AddAuthType": {
+          "type": "boolean"
+        },
+        "AddRemoteAddress": {
+          "type": "boolean"
+        },
+        "AddSessionId": {
+          "type": "boolean"
+        },
+        "AddTimeTaken": {
+          "type": "boolean"
+        },
+        "IsEnabled": {
+          "type": "boolean"
+        },
+        "Enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "IsSensitive": {
+          "type": "boolean"
+        },
+        "Sensitive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "RequiredPermissions": {
+          "type": "string",
+          "enum": [
+            "UNDEFINED",
+            "NONE",
+            "RESTRICTED",
+            "FULL"
+          ]
+        },
+        "Global": {
+          "$ref": "#/definitions/IManagementOptions"
+        },
+        "DefaultEnabled": {
+          "type": "boolean"
+        },
+        "DefaultSensitive": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "Spring": {
+      "$ref": "#/definitions/Spring"
+    },
+    "Eureka": {
+      "$ref": "#/definitions/EurekaConfig"
+    },
+    "Logging": {
+      "$ref": "#/definitions/LoggingRoot"
+    },
+    "MySql": {
+      "$ref": "#/definitions/ConnectorConfig<MySqlProviderConnectorOptions>"
+    },
+    "Postgres": {
+      "$ref": "#/definitions/ConnectorConfig<PostgresProviderConnectorOptions>"
+    },
+    "Rabbitmq": {
+      "$ref": "#/definitions/ConnectorConfig<RabbitMQProviderConnectorOptions>"
+    },
+    "Redis": {
+      "$ref": "#/definitions/ConnectorConfig<RedisCacheConnectorOptions>"
+    },
+    "SqlServer": {
+      "$ref": "#/definitions/SqlServerConfig"
+    },
+    "MongoDb": {
+      "$ref": "#/definitions/ConnectorConfig<MongoDbConnectorOptions>"
+    },
+    "Hystrix": {
+      "$ref": "#/definitions/ConnectorConfig<HystrixProviderConnectorOptions>"
+    },
+    "Security": {
+      "$ref": "#/definitions/Security"
+    },
+    "Management": {
+      "$ref": "#/definitions/Management"
+    }
+  }
+}

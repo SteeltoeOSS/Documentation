@@ -1,0 +1,43 @@
+{
+  // NOTE: This file is for local development and intentionally does not include api browser content
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "build": {
+    "content": [
+      {
+        "files": "*/**.{md|yml}"
+      }
+    ],
+    "resource": [
+      {
+        "files": "*/**.{png|jpg}"
+      }
+    ],
+    "sitemap": {
+      "baseUrl": "https://steeltoe.io",
+      "priority": 0.1,
+      "changefreq": "monthly"
+    },
+    "template": [
+      "default",
+      "modern",
+      "modern-steeltoe"
+    ],
+    "globalMetadataFiles": [
+      "metadata.json"
+    ],
+    "disableGitFeatures": false,
+    "fileMetadataFiles": [],
+    "markdownEngineProperties": {
+      "markdigExtensions": [
+        "Footnotes"
+      ]
+    },
+    "output": "../src/Steeltoe.io/wwwroot",
+    "postProcessors": [
+      "ExtractSearchIndex"
+    ]
+  },
+  "rules": {
+    "InvalidFileLink": "warning"
+  }
+}

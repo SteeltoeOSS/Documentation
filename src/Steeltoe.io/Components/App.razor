@@ -1,0 +1,69 @@
+@using Steeltoe.io.Components.Layout
+@inject IHostEnvironment HostEnvironment
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>
+        if (window.location.href.indexOf('localhost') === -1 && window.location.href.indexOf('azurewebsites.net') === -1)
+        {
+            const script = document.createElement("script");
+            script.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+            script.setAttribute("data-domain-script", "018ee7f5-70e6-7787-8d98-05c8f935c75d");
+            document.head.appendChild(script);
+        }
+    </script>
+    <script>function OptanonWrapper(){}</script>
+    <script>
+        function setGTM(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
+        if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){setGTM(window,document,'script','dataLayer','GTM-MMDFJKF');}else{waitForOnetrustActiveGroups();}var timer;function waitForOnetrustActiveGroups(){if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){clearTimeout(timer);setGTM(window,document,'script','dataLayer','GTM-MMDFJKF');}else{timer=setTimeout(waitForOnetrustActiveGroups,250);}}
+    </script>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta property="og:image" content="https://steeltoe.io/images/favicon.png">
+    <meta property="og:type" content="website">
+    <meta name="DC.Contributor" content="Steeltoe OSS">
+    <meta name="DC.Creator" content="Broadcom">
+    <meta name="DC.Date" content="2019-10-03" scheme="ISO8601">
+    <meta name="DC.Format" content="text/html" schema="DCterms:IMT">
+    <meta name="DC.Identifier" content="https://steeltoe.io/" schema="DCterms:URI">
+    <meta name="DC.Language" content="EN" scheme="dcterms:RFC1766">
+    <meta name="DC.Publisher" content="Steeltoe OSS">
+    <meta name="DC.Publisher.Address" content="info@steeltoe.io">
+    <meta name="DC.Rights" content="Copyright © 2005-@(DateTime.Now.Year) Broadcom. All Rights Reserved. The term &quot;Broadcom&quot; refers to Broadcom Inc. and/or its subsidiaries.">
+    <meta name="DC.Subject" content="cloud-native, .net, dotnet, framework, cloud, developer" xml:lang="EN">
+    <meta name="DC.Type" content="text/html">
+    <base href="/">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <script src="js/main.js" data-cfasync="false"></script>
+    <HeadOutlet />
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMDFJKF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="blazor-error-ui">
+    @if (HostEnvironment.IsProduction())
+    {
+        <span>An error has occurred.</span>
+    }
+    else
+    {
+        <span>An unhandled exception occurred. See browser dev tools for details.</span>
+    }
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+    </Found>
+</Router>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

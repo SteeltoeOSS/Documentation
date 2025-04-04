@@ -2,162 +2,35 @@
 
 ## Overview
 
-This is the home of Steeltoe documentation and blog articles. The site uses [DocFX](https://dotnet.github.io/docfx) to convert Markdown to HTML, generate API documentation from triple-slash comments in Steeltoe and generate site navigation.
+This is the home of the [Steeltoe website](https://steeltoe.io/), which hosts documentation and blog articles.
 
-## Site Contents
-
-| Path | Description
-| --- | ---
-| `/api` | API documentation
-| `/articles` | blog posts
-| `/guides` | guides for getting started with Steeltoe
-| `/template` | theming
-
-## DocFX Markdown
-
-DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) documentation.
-
-Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack) extension pack useful.
-
-### Links and Cross References
-
-As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/tutorial/links_and_cross_references.html).
-
-> [!NOTE]
-> It should be very rare that you hardcode a link to an HTML page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
-
-### Page display options
-
-In the YAML header of a page's markdown, you have options to turn page elements on or off. Below are those options.
-
-|Yaml label  |Default value  |Description   |
-|---------|---------|---------|
-|_disableToc     |false|Turn off the left hand table of contents         |
-|_disableAffix     |false|Turn off the right hand page navigation links         |
-|_disableContribution     |false|Turn off right hand link to "edit this page"         |
-|_disableFooter     |false|Don't show footer when guest scrolls to page bottom         |
-|_enableSearch     |true|Show the search icon         |
-|_enableNewTab     |true|All links on the page open in a new browser tab         |
-|_disableNav     |false|Do not show top navigation links         |
-|_hideTocVersionToggle|false     |Hide the version toggler in the table of contents         |
-|_noindex     |false|Do not let search engines index the page         |
-|_disableNavbar|false     |Do not show top bar of page         |
-
-## Creating a new blog post
-
-Create a new `.md` file in the `articles` directory. Name the file something that is URL safe. In `/articles/index.md` add a shorthand link to the document as well as a short description.
-
-Here is a starter blog post:
-
-```markdown
----
-type: markdown
-title: My Very Authentic Blog Post Title
-description: A short description of my topic. Maybe 2 sentences long.
-date: 01/01/2000
-uid: articles/my-very-authentic-blog-post-title
-tags: [ "modernize", 'something else", "and another thing" ]
-author.name: Joe Montana
-author.github: jmontana
-author.twitter: thebigguy
----
-
-# My Very Authentic Blog Post Title
-
-Let's talk about something really cool...
-```
-
-## Creating a new API document
-
-Similar to the blog post, you're going to create a new markdown file, but in the `api` folder. The name needs to be URL-safe. Notice in the api folder, there is a `v2`, `v3` and `v4` subfolder. Within each of those are folders for each component. Place your content accordingly. To include the file in the table of contents, add it in `api/(version)/toc.yml`. Notice in the example below that the `topicHref` values are not absolute paths. DocFX will calculate everything at build time.
-
-An example API doc:
-
-```markdown
----
-uid: api/v2/circuitbreaker/hystrix
----
-
-# Netflix Hystrix
-
-Steeltoe's Hystrix implementation lets application developers isolate and manage back-end dependencies so that a single failing dependency does not take down the entire application. This is accomplished by wrapping all calls to external dependencies in a `HystrixCommand`, which runs in its own...
-
-Here is an example cross-reference link to config docs: @api/v2/configuration/cloud-foundry-provider
-Or you could link to the v3 version of this doc: @api/v3/circuitbreaker/hystrix
-Or do the same thing by providing custom link text: [view the v3 version](xref:api/v2/circuitbreaker/hystrix)
-```
-
-Corresponding entry in `api/v2/toc.yml`:
-
-```yaml
-- name: Circuit Breakers
-  items:
-    - topicHref: circuitbreaker/hystrix.md
-      name: Hystrix
-```
-
-## Installing DocFX
-
-> [!IMPORTANT]
-> This project currently expects DocFX version 2.59.4 to be available.
-
-### Install with Chocolatey
-
-If you are using Windows, this is the easiest method. Run this command from an elevated shell: `choco install docfx -y --version 2.59.4`
-
-### Download from DocFX
-
-> [!IMPORTANT]
-> If running on Linux or OS X, you will need to [install Mono](https://www.mono-project.com/docs/getting-started/install/) and use `mono` to execute the DocFX binary.
-
-- Download DocFX [distribution](https://github.com/dotnet/docfx/releases/v2.59.4).
-- Unzip to directory of your choosing and add that directory to your `PATH`.
-- See the script in this repository at path `docfx/docfx` for an example wrapper script.
+The website is built with [ASP.NET Core Blazor](https://learn.microsoft.com/aspnet/core/blazor/) and [docfx](https://dotnet.github.io/docfx).
+docfx generates API documentation from triple-slash comments in Steeltoe source code and converts [Markdown](https://dotnet.github.io/docfx/docs/markdown.html) documents to HTML.
 
 ## Building and running the site
 
-For working on any non-trivial changes, there are several ways to build and run the site locally.
+To run the website, open [Steeltoe.io.sln](src/Steeltoe.io.sln) in your preferred IDE, or use the command-line:
 
-### Basic build and run
-
-The easiest way to build and run the site is this command: `docfx build --serve --port 8082`.
-
-### Build API docs for Steeltoe 2, 3 and 4
-
-Building the API docs is not required for the site to run locally.
-
-If needed, these commands will download the Steeltoe source code and generate API documentation from the triple-slash comments in the codebase.
-
-```bash
-git clone https://github.com/SteeltoeOSS/Steeltoe sources/v2 -b release/2.5
-git clone https://github.com/SteeltoeOSS/Steeltoe sources/v3 -b release/3.2
-git clone https://github.com/SteeltoeOSS/Steeltoe sources/v4 -b release/main
-git clean -fX api
-docfx metadata api-v2.json
-docfx metadata api-v3.json
-docfx metadata api-v4.json
-docfx metadata api-all.json
+```shell
+cd src\Steeltoe.io\
+dotnet run
 ```
 
-> This process can take a while to complete, will display many warnings and may increase build time in subsequent runs of `docfx build`.
+The site should now be running at <https://localhost:8080>.
 
-### Build the site docs
+> [!NOTE]
+> If this is your first time running the site and you only follow this step, none of the static content will be processed and you will encounter 404 errors when browsing the site.
 
-This documentation site is expected to run alongside Steeltoe's [main site](https://github.com/SteeltoeOSS/MainSite). In order to run the two together, first use the instructions from the MainSite project to start that site, then use the appropriate main-site.json file variant described below to identify where the main site is running.
+### Including DocFX content
 
-```bash
-# main site -> https://steeltoe.io
-docfx build --globalMetadataFiles main-site.json
+If you want API Browser content available locally, see the [build README](build/README.md) before starting the site. Note that it takes several minutes to run.
 
-# main site -> https://staging.steeltoe.io
-docfx build --globalMetadataFiles main-site.staging.json
+For a faster feedback loop, you can skip building the API Browser content and only build the documentation YAML files with the following commands:
 
-# main site -> http://localhost:8080
-docfx build --globalMetadataFiles main-site.localhost.json
+```shell
+dotnet tool restore
+dotnet docfx build docs/docfx.json
 ```
 
-### Run local HTTP server
-
-```bash
-docfx serve _site -p 8082
-```
+> [!NOTE]
+> If you skipped building the API Browser content, `InvalidFileLink` warnings will appear in files at the path `docs/api`.
