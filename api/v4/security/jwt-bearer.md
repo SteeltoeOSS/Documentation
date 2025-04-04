@@ -185,7 +185,7 @@ applications:
     GRANT_TYPE: client_credentials
     SSO_AUTHORITIES: uaa.resource, sampleapi.read
     SSO_RESOURCES: sampleapi.read
-    SSO_SHOW_ON_HOME_PAGE: "false"
+    SSO_SHOW_ON_HOME_PAGE: false
   services:
   - sampleSSOService
 ```
