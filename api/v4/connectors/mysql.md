@@ -23,8 +23,7 @@ To use this connector:
 ### Add NuGet References
 
 To use this connector, add a NuGet reference to `Steeltoe.Connectors`.
-If you're using Entity Framework Core, add a
-NuGet reference to `Steeltoe.Connectors.EntityFrameworkCore` instead.
+If you're using Entity Framework Core, add a NuGet reference to `Steeltoe.Connectors.EntityFrameworkCore` instead.
 
 Also add a NuGet reference to one of the .NET drivers listed above, as you would if you were not using Steeltoe.
 
@@ -157,7 +156,7 @@ This Connector supports the following service brokers:
 - [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-9/csb-azure/index.html)
 - [VMware Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-gcp/1-8/csb-gcp/index.html)
 
-You can create and bind an instance to your application using the Cloud Foundry CLI:
+You can create and bind an instance to your application by using the Cloud Foundry CLI:
 
 ```shell
 # Create MySQL service

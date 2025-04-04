@@ -12,7 +12,7 @@ The interface is made up of four areas:
 
 * project configuration area
 * project action area (bottom)
-* UI configuration (right)
+* Dependencies configuration (right)
 * external links (left)
 
 The remainder of this document focuses on the project configuration and action areas.
@@ -21,21 +21,20 @@ The remainder of this document focuses on the project configuration and action a
 
 The configuration area exposes five project properties to the end user:
 
-* **Name**
-* **Namespace**: C# namespace
-* **Application**: application name
-* **Description**
+* **Name**: application name
+* **Namespace**: code namespace
+* **Description**: application description
 * **Steeltoe**: Steeltoe version
 * **.NET Framework**: .NET target framework
-* **.NET template**
-* **Dependencies**
+* **Language**: The programming language
 
 ## Project actions
 
-The actions area provides three project actions to the end user:
+The actions area provides four project actions to the end user:
 
 * **Generate**
 * **Explore**
+* **Bookmark**
 * **Share**
 
 ### Generate

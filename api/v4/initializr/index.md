@@ -13,4 +13,4 @@ A more user-friendly deployment might include a user interface, such as a web fr
 A deployment may also use a [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html) to access a configuration store.
 As an example, the [Steeltoe Initializr deployment](https://start.steeltoe.io) includes [InitializrWeb](https://github.com/SteeltoeOSS/InitializrWeb) for a friendly user experience and a Spring Cloud Config Server using a GitHub-maintained configuration.
 
-InitializrWeb is the reference UI for the Steeltoe Initializr and is an example of a smart client.  It uses project metadata from the InitializrService to populate its web controls with, for example, supported .NET target frameworks and Steeltoe versions.
+InitializrWeb is the reference UI for the Steeltoe Initializr and is an example of a smart client. It uses project metadata from the InitializrService to populate its web controls with, for example, supported .NET target frameworks and Steeltoe versions.

@@ -53,7 +53,6 @@ Consider the following `appsettings.json` file:
       }
     }
   }
-  ...
 }
 ```
 

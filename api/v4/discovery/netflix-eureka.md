@@ -102,7 +102,7 @@ All of these settings must start with `Eureka:Instance:`.
 
 [^2]: Specify `direct` to use container-to-container networking on Cloud Foundry. Specify `hostname` to force using `HostName`.
 
-[^3]: When set to `false`, call `EurekaApplicationInfoManager.UpdateInstance()` after initialization to mark the instance as up.
+[^3]: When set to `false`, call `EurekaApplicationInfoManager.UpdateInstance()` after initialization to mark the instance as `UP`.
 
 [^4]: Add a NuGet package reference to `Steeltoe.Management.Endpoint` to use its `health` and `info` actuator paths.
 
@@ -123,7 +123,7 @@ All of these settings must start with `Eureka:Client:`.
 | --- | ----------- | ------- |
 | `ShouldFetchRegistry` | Whether to periodically fetch registry information from the Eureka server | `true` |
 | `RegistryFetchIntervalSeconds` | How often (in seconds) to fetch registry information from the Eureka server | `30` |
-| `ShouldFilterOnlyUpInstances`  | Whether to include only instances with UP status after fetching the list of applications | `true` |
+| `ShouldFilterOnlyUpInstances`  | Whether to include only instances with `UP` status after fetching the list of applications | `true` |
 | `ShouldDisableDelta`  | Whether to fetch the full registry each time (`true`) or fetch only deltas (`false`) | `false` |
 | `RegistryRefreshSingleVipAddress` | Whether to fetch registry information only for the specified VIP address | `false` |
 | `Health:MonitoredApps` | Comma-separated list of applications in Eureka that this app depends on (see [Configuring health contributors](#configuring-health-contributors)) | |
@@ -159,10 +159,10 @@ periodic heartbeats to inform the Eureka server that the currently running app i
 
 Unless specified otherwise, the client does not propagate the current health status of the application,
 as calculated from the ASP.NET health checks and active health contributors, to Eureka.
-Consequently, after successful registration, Eureka always announces that the application is in 'UP' state.
+Consequently, after successful registration, Eureka always announces that the application is in `UP` state.
 You can alter this behavior by enabling `Eureka:Client:Health:CheckEnabled` (`false` by default),
 which results in propagating health status to Eureka.
-As a result, other applications stop sending traffic to your app until the health checks and contributors report the status as 'UP'.
+As a result, other applications stop sending traffic to your app until the health checks and contributors report the status as `UP`.
 
 If you require more control over the health checks, consider implementing your own `IHealthCheckHandler`.
 

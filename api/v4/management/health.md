@@ -11,7 +11,7 @@ In addition, you can write your own.
 
 By default, the final application health state is computed by the registered `IHealthAggregator` implementation.
 It is responsible for sorting out all of the returned statuses from each `IHealthContributor` and [`IHealthCheck`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.diagnostics.healthchecks.ihealthcheck) and deriving an overall application health state.
-The built-in aggregator returns the "worst" status returned from the contributors and checks.
+The built-in aggregator returns the *worst* status returned from the contributors and checks.
 
 ## Configure Settings
 
@@ -208,8 +208,9 @@ Support is provided, out of the box, for Liveness and Readiness, where each is e
 While these health contributors are included, they are disabled by default and must be enabled in the configuration (as shown in the example below).
 
 To change the health contributors that are included in either of the two built-in groups, use the same style of configuration described above.
-Note that this _replaces_ these groupings, so if you want to _add_ an `IHealthContributor`, you must include the original entry.
-These entries demonstrate enabling the probes and their groups, and specifies including disk space in both groups:
+Note that this _replaces_ the default groupings, so if you want to _add_ an `IHealthContributor`, you must include the original entry.
+
+The following example enables both contributors and their groups, and specifies to include disk space in both groups:
 
 ```json
 {

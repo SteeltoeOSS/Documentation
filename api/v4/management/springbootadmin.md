@@ -26,7 +26,7 @@ Each key must be prefixed with `Spring:Boot:Admin:Client:`.
 | ----- | ----------- | ------- |
 | `Url` | The URL of the Spring Boot Admin server | |
 | `ApplicationName` | The name of the Steeltoe app being registered | computed |
-| `BasePath` | The base path to find endpoints for integration | computed |
+| `BasePath` | The base URL to find endpoints for integration | computed |
 | `ValidateCertificates` | Whether server certificates should be validated | `true` |
 | `ConnectionTimeoutMS` | Connection timeout (in milliseconds) | `100_000` |
 | `Metadata` | Dictionary of metadata to use when registering | |
@@ -57,7 +57,7 @@ a few additional steps are needed:
 
 - Register additional actuator endpoints
 
-  For the server to report the app as "UP", you must add at least the hypermedia and health actuators in `Program.cs`.
+  For the server to report the app as `UP`, you must add at least the hypermedia and health actuators in `Program.cs`.
 
 > [!TIP]
 > For testing, you can use the [Steeltoe docker image for SBA](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#spring-boot-admin).

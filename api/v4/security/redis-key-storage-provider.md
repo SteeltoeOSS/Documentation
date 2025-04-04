@@ -67,7 +67,7 @@ There are several steps required to configure key storage in Redis:
 - Set the key persistence location to Redis.
 - Set an application name so all instances of the application can see the same data.
 
-These steps can be performed by chaining the method calls together:
+These steps can be performed by chaining the method calls:
 
 ```csharp
 using Microsoft.AspNetCore.DataProtection;

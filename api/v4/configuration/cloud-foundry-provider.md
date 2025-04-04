@@ -1,6 +1,6 @@
 # Cloud Foundry Provider
 
-The Cloud Foundry provider enables the standard Cloud Foundry environment variables (`VCAP_APPLICATION`,  `VCAP_SERVICES`, and `CF_*`) to be parsed and accessed as configuration data within a .NET application.
+The Cloud Foundry provider enables the standard Cloud Foundry environment variables (`VCAP_APPLICATION`, `VCAP_SERVICES`, and `CF_*`) to be parsed and accessed as configuration data within a .NET application.
 
 Cloud Foundry creates and uses these environment variables to communicate an application's environment and configuration to the application code running inside a container. More specifically, the values found in `VCAP_APPLICATION` provide information about the application's resource limits, routes (URIs), and version numbers, among other things. The `VCAP_SERVICES` environment variable provides information about the external services (databases, caches, and so on) to which the application is bound, along with details for contacting those services.
 

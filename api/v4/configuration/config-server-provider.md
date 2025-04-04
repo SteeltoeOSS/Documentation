@@ -32,7 +32,7 @@ The most convenient way to configure settings for the provider is to put them in
 
 The following example shows some provider settings that have been put in a JSON file. Only two settings are required:
 
-* `Spring:Application:Name` configures the "application name" to be `sample`.
+* `Spring:Application:Name` configures the application name to be `sample`.
 * `Spring:Cloud:Config:Uri` configures the address of the Config Server.
 
 > [!TIP]
@@ -168,7 +168,7 @@ string? property1 = configuration["example:property1"];
 string? property2 = configuration["example:property2"];
 ```
 
-Alternatively, you can create a class to hold your configuration data and then use the [Options Pattern](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/options) along with [Dependency Injection](https://learn.microsoft.com/aspnet/core/fundamentals/dependency-injection) to get an instance of your options class into your controllers and views.
+Alternatively, you can create a class to hold your configuration data and then use the [Options Pattern](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/options) with [Dependency Injection](https://learn.microsoft.com/aspnet/core/fundamentals/dependency-injection) to get an instance of your options class into your controllers and views.
 
 1. First create a class representing the configuration data you expect to retrieve from the server, as follows:
 
