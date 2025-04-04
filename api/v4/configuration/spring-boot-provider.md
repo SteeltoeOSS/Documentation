@@ -5,11 +5,11 @@ This provider exists for interoperability with Spring Boot environment variables
 The Steeltoe Spring Boot configuration provider reads the JSON in the `SPRING_BOOT_APPLICATION` environment variable and adds its contents to the configuration. It does the same for command-line arguments.
 In both cases, any `.` delimiters in configuration keys are converted to `:`, which is the configuration key separator used by .NET. Likewise, Spring array syntax, such as `[1]`, is converted to .NET array syntax `:1`.
 
-## Usage
+## Using the Spring Boot Provider
 
 You should have a good understanding of how the [.NET Configuration System](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use this provider.
 
-To use the Steeltoe Spring Boot provider, you need to:
+To use the Steeltoe Spring Boot provider:
 
 1. Add the appropriate NuGet package reference to your project.
 1. Add the provider to the Configuration Builder.
@@ -17,13 +17,13 @@ To use the Steeltoe Spring Boot provider, you need to:
 
 ### Add NuGet Reference
 
-To use the provider, you need to add a reference to the `Steeltoe.Configuration.SpringBoot` NuGet package.
+To use the provider, add a reference to the `Steeltoe.Configuration.SpringBoot` NuGet package.
 
 ### Add Configuration Provider
 
-To access Spring Boot configuration data, you need to add the Spring Boot provider to the `ConfigurationBuilder`.
+To access Spring Boot configuration data, add the Spring Boot provider to the `ConfigurationBuilder`.
 
-The following example shows how to do so:
+See the following example:
 
 ```csharp
 using Steeltoe.Configuration.SpringBoot;
@@ -35,7 +35,7 @@ builder.Configuration.AddSpringBootFromCommandLine(args);
 
 ### Access Spring Boot Data
 
-Once the configuration has been built, the Spring Boot provider can be used to access Spring-style keys in .NET syntax.
+After the configuration has been built, you can use the Spring Boot provider to access Spring-style keys in .NET syntax.
 For example:
 
 ```csharp

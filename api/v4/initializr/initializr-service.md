@@ -1,6 +1,6 @@
 # InitializrService
 
-The _InitializrService_ provides 4 REST/HTTP endpoints:
+The InitializrService provides four REST/HTTP endpoints:
 
 * `api/`
 * `api/about`
@@ -10,9 +10,9 @@ The _InitializrService_ provides 4 REST/HTTP endpoints:
 ## `api/`
 
 `api/` accepts `GET` requests and returns a help document.
-The document includes available parameters (and their defaults) and dependencies, as well as CLI samples.
+The document includes available parameters (and their defaults) and dependencies, plus CLI samples.
 
-```bash
+```shell
 # sample: view help doc
 $ http -p b https://start.steeltoe.io/api/
 ...
@@ -30,9 +30,9 @@ The URI templates take a set of parameters to customize the result of a request.
 
 ## `api/about`
 
-`api/about` accepts `GET` requests and returns the _InitialzrService_ "About" information.
+`api/about` accepts `GET` requests and returns the InitializrService "About" information.
 
-```bash
+```shell
 # sample: view "About" document
 $ http -p b https://start.steeltoe.io/api/about
 {
@@ -46,11 +46,11 @@ $ http -p b https://start.steeltoe.io/api/about
 
 ## `api/config`
 
-`api/config` accepts `GET` requests and returns _InitializrService_ configuration.
-The returned document includes *all* configuration which can include superfluous details.
-Sub-endpoints are available allowing more targeted responses.
+`api/config` accepts `GET` requests and returns InitializrService configuration.
+The returned document includes *all* configuration, which can include superfluous details.
+Sub-endpoints are available, allowing more targeted responses.
 
-`api/config/projectMetadata` can be used by smart clients, such as the _InitializrWeb_, to assist in creating user interfaces.
+`api/config/projectMetadata` can be used by smart clients, such as the InitializrWeb, to assist in creating user interfaces.
 
 The following endpoints can be used by CLI users to browse project configuration options:
 
@@ -61,7 +61,7 @@ The following endpoints can be used by CLI users to browse project configuration
 * `api/config/languages`
 * `api/config/steeltoeVersions`
 
-```bash
+```shell
 # sample: list available Steeltoe versions
 $ http -p b https://start.steeltoe.io/api/config/steeltoeVersions
 [
@@ -105,12 +105,13 @@ $ http https://start.steeltoe.io/api/config/dependencies | jq '.[] .values[] .id
 
 `api/project` accepts `GET` and `POST` requests and returns a project as an archive.
 
-Projects are configured by using HTTP parameters, such as `name` for the project name and `steeltoeVersion` for the Steeltoe version.
-The parameter `dependencies` is a little different than other parameters in that it is set to a comma-separated list of dependency IDs.
+Projects are configured using HTTP parameters, such as `name` for the project name and `steeltoeVersion` for the Steeltoe version.
+The parameter `dependencies` is different than other parameters in that it is set to a comma-separated list of dependency IDs.
 
-_Note: to get a list of parameters and dependencies, send a `GET` request to `api/`._
+> [!TIP]
+> To get a list of parameters and dependencies, send a `GET` request to `api/`.
 
-```bash
+```shell
 # sample: generate a .NET Core App 3.1 project with actuator endpoints and a Redis backend:
 $ http https://start.steeltoe.io/api/project dotNetFramework=netcoreapp3.1 dependencies==actuators,redis -d
 ```

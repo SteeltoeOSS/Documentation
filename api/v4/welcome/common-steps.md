@@ -17,31 +17,31 @@ You can use the `dotnet` CLI to [build and locally publish](https://learn.micros
 * Linux: `dotnet publish --framework net8.0 --runtime linux-x64`
 * macOS: `dotnet publish --framework net8.0 --runtime osx-x64`
 
-> [!TIP]
-> Since .NET Core 2.0, the `dotnet publish` command automatically runs NuGet package restore for you. Running `dotnet restore` explicitly is no longer required.
+> [!NOTE]
+> Since .NET Core 2.0, the `dotnet publish` command automatically runs the NuGet package restore for you. Running `dotnet restore` explicitly is no longer required.
 
 ## Cloud Foundry Push Sample
 
-This section describes how to use the [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) to push the published application to Cloud Foundry by using the parameters that match what you selected for framework and runtime:
+This section describes how to use the [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) to push the published application to Cloud Foundry using the parameters that match what you selected for framework and runtime:
 
-```bash
+```shell
 # Push to Linux cell
 cf push -f manifest.yml -p bin/Debug/net8.0/linux-x64/publish
 
-# Push to Windows cell, .NET Core
+# Push to Windows cell
 cf push -f manifest-windows.yml -p bin/Debug/net8.0/win-x64/publish
 ```
 
 > [!NOTE]
-> All sample manifests have been defined to bind their application to the services as created earlier.
+> All samples contain manifest files to bind to the services they depend on.
 
 ### Observe the Logs
 
 To see the logs as you start the application, use `cf logs your-app-name`.
 
-On a Linux cell, you should see output that resembles the following during startup:
+On a Linux cell, you should see output similar to the following during startup:
 
-```bash
+```shell
 2016-06-01T09:14:14.38-0600 [CELL/0]     OUT Creating container
 2016-06-01T09:14:15.93-0600 [CELL/0]     OUT Successfully created container
 2016-06-01T09:14:17.14-0600 [CELL/0]     OUT Starting health monitoring of container
@@ -52,7 +52,7 @@ On a Linux cell, you should see output that resembles the following during start
 2016-06-01T09:14:21.41-0600 [CELL/0]     OUT Container became healthy
 ```
 
-On Windows cells, you should see something slightly different with similar information.
+On Windows cells, you see similar information in a slightly different format.
 
 ### Reading Configuration Values
 

@@ -1,10 +1,10 @@
-# Usage
+# Using Network File Shares
 
 Before starting with Steeltoe's Windows Network File Share library, you should already have a plan for interacting with the file system. Steeltoe only manages the connection to the file share.
 
 ## Add NuGet References
 
-To use the `WindowsNetworkFileShare` class, you need to add a reference to the `Steeltoe.Common.Net` NuGet package.
+To use the `WindowsNetworkFileShare` class, add a reference to the `Steeltoe.Common.Net` NuGet package.
 
 ## Managing the Connection
 
@@ -36,9 +36,9 @@ using (new WindowsNetworkFileShare(@"\\server\path", new NetworkCredential("user
 
 ### Managing Credentials
 
-Credentials are generally required for interacting with SMB shares. `WindowsNetworkFileShare` does not have an opinion on where those credentials are stored. However, as a general guideline, storing credentials with your application's code or standard configuration is not recommended. Consider using the [CredHub Service Broker](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/6.0/tas-for-vms/credhub-index.html) for storing and retrieving your credentials.
+Credentials are generally required for interacting with SMB shares. `WindowsNetworkFileShare` does not have an opinion on where those credentials are stored. However, as a general guideline, storing credentials with your application's code or standard configuration is not recommended. Consider using the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html) for storing and retrieving your credentials.
 
-When used in conjunction with the Cloud Foundry Configuration Provider, you can access the values as follows:
+When used with the Cloud Foundry Configuration Provider, you can access the values as follows:
 
 ```shell
 dotnet add package Steeltoe.Configuration.CloudFoundry

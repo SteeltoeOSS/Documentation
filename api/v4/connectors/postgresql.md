@@ -2,12 +2,13 @@
 
 This connector simplifies accessing [PostgreSQL](https://www.postgresql.org/) databases.
 It supports the following .NET drivers:
-- [Npgsql](https://www.nuget.org/packages/Npgsql), which provides an ADO.NET `DbConnection`.
-- [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support.
 
-The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
+- [Npgsql](https://www.nuget.org/packages/Npgsql), which provides an ADO.NET `DbConnection`
+- [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL), which provides [Entity Framework Core](https://learn.microsoft.com/ef/core) support
 
-## Usage
+The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md) for more information.
+
+## Using the PostgreSQL connector
 
 To use this connector:
 
@@ -26,9 +27,9 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 ### Configure connection string
 
-The available connection string parameters for PostgreSQL are documented [here](https://www.npgsql.org/doc/connection-string-parameters.html).
+The available connection string parameters for PostgreSQL are described in the [Npgsql documentation](https://www.npgsql.org/doc/connection-string-parameters.html).
 
-The following example `appsettings.json` uses the docker container from above:
+The following example `appsettings.json` uses the docker container referred to earlier:
 
 ```json
 {
@@ -46,7 +47,7 @@ The following example `appsettings.json` uses the docker container from above:
 
 ### Initialize Steeltoe Connector
 
-Update your `Program.cs` as below to initialize the Connector:
+Update your `Program.cs` to initialize the Connector:
 
 ```csharp
 using Steeltoe.Connectors.PostgreSql;
@@ -88,66 +89,70 @@ A complete sample app that uses `NpgsqlConnection` is provided at https://github
 
 ### Use Entity Framework Core
 
-Start by defining your `DbContext` class:
-```csharp
-public class AppDbContext : DbContext
-{
-    public DbSet<SampleEntity> SampleEntities => Set<SampleEntity>();
+To retrieve data from PostgreSQL in your app using Entity Framework Core, use the following steps:
 
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+1. Define your `DbContext` class:
+
+    ```csharp
+    public class AppDbContext : DbContext
     {
+        public DbSet<SampleEntity> SampleEntities => Set<SampleEntity>();
+
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
     }
-}
 
-public class SampleEntity
-{
-    public long Id { get; set; }
-    public string? Text { get; set; }
-}
-```
+    public class SampleEntity
+    {
+        public long Id { get; set; }
+        public string? Text { get; set; }
+    }
+    ```
 
-Next, call the `UseNpgsql()` Steeltoe extension method from `Program.cs` to initialize Entity Framework Core:
+1. Call the `UseNpgsql()` Steeltoe extension method from `Program.cs` to initialize Entity Framework Core:
 
-```csharp
-using Steeltoe.Connectors.EntityFrameworkCore.PostgreSql;
-using Steeltoe.Connectors.PostgreSql;
+    ```csharp
+    using Steeltoe.Connectors.EntityFrameworkCore.PostgreSql;
+    using Steeltoe.Connectors.PostgreSql;
 
-var builder = WebApplication.CreateBuilder(args);
-builder.AddPostgreSql();
+    var builder = WebApplication.CreateBuilder(args);
+    builder.AddPostgreSql();
 
-builder.Services.AddDbContext<AppDbContext>(
-    (serviceProvider, options) => options.UseNpgsql(serviceProvider));
-```
+    builder.Services.AddDbContext<AppDbContext>(
+        (serviceProvider, options) => options.UseNpgsql(serviceProvider));
+    ```
 
-Once you have configured and added your `DbContext` to the service container,
+1. After you have configured and added your `DbContext` to the service container,
 you can inject it and use it in a controller or view:
 
-```csharp
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+    ```csharp
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
-public class HomeController : Controller
-{
-    public async Task<IActionResult> Index([FromServices] AppDbContext appDbContext)
+    public class HomeController : Controller
     {
-        List<SampleEntity> entities = await appDbContext.SampleEntities.ToListAsync();
-        return View(entities);
+        public async Task<IActionResult> Index([FromServices] AppDbContext appDbContext)
+        {
+            List<SampleEntity> entities = await appDbContext.SampleEntities.ToListAsync();
+            return View(entities);
+        }
     }
-}
-```
+    ```
 
 A complete sample app that uses Entity Framework Core with PostgreSQL is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSqlEFCore.
 
 ## Cloud Foundry
 
 This Connector supports the following service brokers:
-- [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
-- [VMware Tanzu Cloud Service Broker for GCP](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)
+
+- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-9/csb-azure/index.html)
+- [VMware Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-gcp/1-8/csb-gcp/index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:
 
-```bash
+```shell
 # Create PostgreSQL service
 cf create-service csb-azure-postgresql small myPostgreSqlService
 
@@ -161,6 +166,6 @@ cf restage myApp
 ## Kubernetes
 
 This Connector supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
-It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
+It can be used through the [Services Toolkit](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/services-toolkit-install-services-toolkit.html).
 
-For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSql#running-on-tanzu-application-platform-tap.
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSql#running-on-tanzu-platform-for-kubernetes.

@@ -1,17 +1,19 @@
-# Redis
+# Redis/Valkey
 
-This connector simplifies accessing [Redis](https://redis.io/) databases.
+This connector simplifies accessing [Redis](https://redis.io/) and [Valkey](https://valkey.io/) databases.
+
 It supports the following .NET drivers:
-- [StackExchange.Redis](https://www.nuget.org/packages/StackExchange.Redis), which provides an `IConnectionMultiplexer`.
-- [Microsoft.Extensions.Caching.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis), which provides an `IDistributedCache`.
 
-The remainder of this page assumes you're familiar with the [basic concepts of Steeltoe Connectors](./usage.md).
+- [StackExchange.Redis](https://www.nuget.org/packages/StackExchange.Redis), which provides an `IConnectionMultiplexer`
+- [Microsoft.Extensions.Caching.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis), which provides an `IDistributedCache`
 
-## Usage
+The remainder of this topic assumes that you are familiar with the basic concepts of Steeltoe Connectors. See [Overview](./usage.md) for more information.
+
+## Using the Redis Connector
 
 To use this connector:
 
-1. Create a Redis server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#redis).
+1. Create a Redis/Valkey server instance or use a [Redis docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#redis) or [Valkey docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#valkey).
 1. Add NuGet references to your project.
 1. Configure your connection string in `appsettings.json`.
 1. Initialize the Steeltoe Connector at startup.
@@ -25,9 +27,9 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 ### Configure connection string
 
-The available connection string parameters for Redis are documented [here](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).
+The available connection string parameters for Redis are described in [StackExchange.Redis](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).
 
-The following example `appsettings.json` uses the docker container from above:
+The following example `appsettings.json` works with either docker container referred to earlier:
 
 ```json
 {
@@ -45,7 +47,7 @@ The following example `appsettings.json` uses the docker container from above:
 
 ### Initialize Steeltoe Connector
 
-Update your `Program.cs` as below to initialize the Connector:
+Update your `Program.cs` to initialize the Connector:
 
 ```csharp
 using Steeltoe.Connectors.Redis;
@@ -81,7 +83,7 @@ public class HomeController : Controller
 }
 ```
 
-A complete sample app that uses `IConnectionMultiplexer` is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis.
+For a complete sample app that uses `IConnectionMultiplexer`, see https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis.
 
 ### Use IDistributedCache
 
@@ -109,18 +111,20 @@ public class HomeController : Controller
 }
 ```
 
-A complete sample app that uses `IDistributedCache` is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis.
+For a complete sample app that uses `IDistributedCache`, see https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis.
 
 ## Cloud Foundry
 
 This Connector supports the following service brokers:
-- [Redis for VMware Tanzu Application Service](https://docs.vmware.com/en/Redis-for-VMware-Tanzu-Application-Service/3.1/redis-tanzu-application-service/GUID-index.html)
-- [VMware Tanzu Cloud Service Broker for Azure](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-Azure/1.4/csb-azure/GUID-index.html)
-- [VMware Tanzu Cloud Service Broker for GCP](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)
+
+- [Redis for VMware Tanzu Application Service](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/redis-for-tanzu-application-service/3-5/redis-for-tas/index.html)
+- [Tanzu for Valkey on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-for-valkey-on-cloud-foundry/4-0/valkey-on-cf/index.html)
+- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-12/csb-azure/index.html)
+- [VMware Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-gcp/1-5/csb-gcp/index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI:
 
-```bash
+```shell
 # Create Redis service
 cf create-service p-redis shared-vm myRedisService
 
@@ -134,6 +138,6 @@ cf restage myApp
 ## Kubernetes
 
 This Connector supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
-It can be used through the Bitnami [Services Toolkit](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/services-toolkit-install-services-toolkit.html).
+It can be used through the [Services Toolkit](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/services-toolkit-install-services-toolkit.html).
 
-For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis#running-on-tanzu-application-platform-tap.
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/Redis#running-on-tanzu-platform-for-kubernetes.

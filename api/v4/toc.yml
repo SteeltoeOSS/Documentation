@@ -92,7 +92,7 @@
   topicHref: fileshares/
   items:
     - topicHref: fileshares/usage.md
-      name: Usage
+      name: Using Network File Shares
 - name: Security
   topicHref: security/
   items:
@@ -108,7 +108,7 @@
   topicHref: connectors/
   items:
     - topicHref: connectors/usage.md
-      name: Usage
+      name: Overview
     - topicHref: connectors/extensibility.md
       name: Extensibility
     - topicHref: connectors/mysql.md
@@ -124,7 +124,7 @@
     - topicHref: connectors/cosmosdb.md
       name: CosmosDB
     - topicHref: connectors/redis.md
-      name: Redis
+      name: Redis/Valkey
 - name: Service Discovery
   topicHref: discovery/
   items:
