@@ -9,13 +9,6 @@
 
     protected override void OnParametersSet()
     {
-        if (Provider == "docs")
-        {
-            Navigation.NavigateTo($"/docs/discovery");
-        }
-        else
-        {
-            Navigation.NavigateTo($"/guides/service-discovery/{Provider}.html");
-        }
+        Navigation.NavigateTo(Provider == "docs" ? "/docs/discovery" : $"/guides/service-discovery/{Provider}.html");
     }
 }

@@ -4,42 +4,42 @@ _disableAffix: true
 
 # Steeltoe Documentation
 
-## [What's New](./whats-new.md)
+## What's New
 
-Lists the new features and changes in Steeltoe v4.
+Learn the [new features and changes in Steeltoe v4](./whats-new.md).
 
-## [Application Bootstrapping](../bootstrap/index.md)
+## Application Bootstrapping
 
-Automatically configure many Steeltoe components with a single line of code.
+Automatically configure many Steeltoe components with a single line of code with [Application Bootstrapping](../bootstrap/index.md).
 
-## [Application Configuration](../configuration/index.md)
+## Application Configuration
 
-Access external configuration values from Git, the file system, or HashiCorp Vault with Spring Cloud Config.
+Utilize a variety of .NET configuration providers for situations like access to external configuration values from Git, the file system, or HashiCorp Vault with Spring Cloud Config and [Steeltoe Application Configuration](../configuration/index.md).
 
-## [Distributed Tracing](../tracing/index.md)
+## Distributed Tracing
 
-Capture trace data for your microservice application using logs, or by sending to a remote collector service.
+Include trace data in log entries for your microservice application with [Steeltoe Distributed Tracing](../tracing/index.md).
 
-## [Dynamic Logging](../logging/index.md)
+## Dynamic Logging
 
-List the active loggers and change their minimum log levels at runtime.
+List the active loggers and change their minimum log levels at runtime with [Steeltoe Dynamic logging](../logging/index.md).
 
-## [Management](../management/index.md)
+## Management
 
-Monitor and manage your application while it runs in production through various HTTP endpoints.
+Monitor and manage your application while it runs in production through various HTTP endpoints with [Steeltoe Management](../management/index.md).
 
-## [Network File Sharing](../fileshares/index.md)
+## Network File Sharing
 
-Provides a simplified experience for interacting with SMB file shares (Windows only).
+Experience simple management of SMB file shares (Windows only) with [Steeltoe Network File Shares](../fileshares/index.md).
 
-## [Security](../security/index.md)
+## Security
 
-Integrate ASP.NET authentication and authorization features in your app, no matter what cloud platform you use.
+Utilize Cloud Foundry security services in ASP.NET authentication and authorization features in your app with [Steeltoe Security](../security/index.md).
 
-## [Connectors](../connectors/index.md)
+## Connectors
 
-Automatically configure connections to common cloud services like databases, message brokers, caches, and more.
+Automatically configure connections to common cloud services like databases, message brokers, caches, and more with [Steeltoe Connectors](../connectors/index.md).
 
-## [Service Discovery](../discovery/index.md)
+## Service Discovery
 
-Register and discover microservices by interacting with popular service registries.
+Register and discover microservices by interacting with popular service registries with [Steeltoe Service Discovery](../discovery/index.md).

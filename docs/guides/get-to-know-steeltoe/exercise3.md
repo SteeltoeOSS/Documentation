@@ -17,9 +17,6 @@ _hideTocVersionToggle: true
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-| [<< Previous Exercise][exercise-2-link] | [Next Exercise >>][exercise-4-link] |
-| :-------------------------------------- | ----------------------------------: |
-
 # Adding a cloud connector with SQL
 
 ## Goal
@@ -313,6 +310,3 @@ Use the key combination "Ctrl+C" on Windows/Linux or "Cmd+C" on Mac.
 ## Summary
 
 We've done quite a bit in this exercise, but notice it was mostly focused on working with the ToDo list. You never had to open a SQL editor, create a database, test the database, etc, etc. That's the purpose of the Steeltoe Connectors. They take care of all the messy behind-the-scenes work and let you focus on the business logic. Yeah we know, it's pretty awesome. Being awesome is one of Steeltoe's superpowers.
-
-| [<< Previous Exercise][exercise-2-link] | [Next Exercise >>][exercise-4-link] |
-| :-------------------------------------- | ----------------------------------: |

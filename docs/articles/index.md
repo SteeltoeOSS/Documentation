@@ -1,5 +1,6 @@
 ---
 _disableBreadcrumb: true
+_disableContribution: true
 _disableToc: true
 _disableAffix: true
 _disableGitFeatures: true

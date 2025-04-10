@@ -4,7 +4,7 @@ The directories below this one are used with DocFX to generate static HTML files
 
 | Path | Description |
 | --- | --- |
-| `/api` | Index pages for API browser content |
+| `/api` | Index pages for API Browser content |
 | `/articles` | Blog posts |
 | `/docs` | Steeltoe documentation |
 | `/guides` | Guides for getting started with Steeltoe |

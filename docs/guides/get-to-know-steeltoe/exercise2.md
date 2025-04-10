@@ -17,9 +17,6 @@ _hideTocVersionToggle: true
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-| [<< Previous Exercise][exercise-1-link] | [Next Exercise >>][exercise-3-link] |
-| :-------------------------------------- | ----------------------------------: |
-
 # Exploring all actuators
 
 ## Goal
@@ -117,6 +114,3 @@ Use the key combination "Ctrl+C" on Windows/Linux or "Cmd+C" on Mac.
 ## Summary
 
 Similar to the previous exercise, there is a minimum expectation of any microservice running in the cloud. These things are meant to help the developer debug, trace, and observe the application within its container. But these things have the potential to consume the developer's time creating everything, adding the right options, and making it distributable. Steeltoe aims to use the best in .NET to get the developer back to coding business logic and not deal with the boilerplate stuff.
-
-| [<< Previous Exercise][exercise-1-link] | [Next Exercise >>][exercise-3-link] |
-| :-------------------------------------- | ----------------------------------: |

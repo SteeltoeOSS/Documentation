@@ -118,7 +118,7 @@ Console.WriteLine(optionsMonitor.Get("MyServiceTwo").ConnectionString);
 
 This is the output:
 
-```
+```text
 Host=host1;Database=db1;Username=user1;Password=pass1;Include Error Detail=True
 Host=host1;Database=db2;Username=user2;Password=pass2;Log Parameters=True
 ```

@@ -21,6 +21,7 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   DOTNET_NOLOGO: true
   DOTNET_VERSION: '9.0'
+  DOCFX_SOURCE_BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
 
 jobs:
   build:
@@ -34,7 +35,7 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Generate API browser docs
+    - name: Generate API Browser docs
       shell: pwsh
       run: build/build-metadata.ps1
 

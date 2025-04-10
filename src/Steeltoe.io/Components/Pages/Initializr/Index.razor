@@ -32,16 +32,16 @@
 			</div>
 		</div>
 		<div class="row mb-5 g-0">
-			<div class="col component-whyuse-desc">
+			<div class="component-whyuse-desc">
 				<h4>Hosted Service</h4>
 				<div>
                     As a hosted service, Initializr offers both API and browser interfaces. The service itself is distributed as a Nuget package which you include in a new .NET Core web project.
                     From there, you can run the project as a web-based service. Out of the box you'll get all the <Href href="https://github.com/SteeltoeOSS/initializr" NewWindow="true">default dependencies</Href> along with endpoints for interaction.
                     Try the below curl command that uses our hosted Initializr service to get started.<br /><br />
-                    <pre><code style="color:white">curl https://start.steeltoe.io/starter.zip -d "dependencies=Actuators,DynamicLogger,SQL Server" -d "projectName=MyCompany.MySample" -o "myProject.zip"</code></pre>
+                    <pre><code>curl https://start.steeltoe.io/starter.zip -d "dependencies=Actuators,DynamicLogger,SQL Server" -d "projectName=MyCompany.MySample" -o "myProject.zip"</code></pre>
                 </div>
 			</div>
-			<div class="col component-whyuse-desc">
+			<div class="component-whyuse-desc">
 				<h4>Browser UI</h4>
 				<div>
                     Along with adding the Initializr package, you can optionally add a UI in the same .NET project. This gives developers an additional interaction with the Initializr service.
@@ -51,12 +51,12 @@
 			</div>
 		</div>
 		<div class="row g-0">
-			<div class="col component-whyuse-title mt-0">
+			<div class="component-whyuse-title mt-0">
 				<h2>About Dependencies</h2>
 			</div>
 		</div>
 		<div class="row mb-5 g-0">
-			<div class="col component-whyuse-desc">
+			<div class="component-whyuse-desc">
                 No matter the way you choose to use Initializr, the value is in the distribution of pre-packaged dependencies. The default dependencies included in Initializr are mostly Steeltoe focused.
                 Things like database connectors, a Spring Cloud Config Server client, a Consul service discovery client, and many others. But this is a community driven project, so it only makes sense to offer ways for the .NET community to contribute.<br /><br />
 				<h4>Creating private dependencies</h4>

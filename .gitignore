@@ -399,7 +399,7 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-# Items produced or moved by docfx and/or API browser processing
+# Items produced or moved by docfx and/or API Browser processing
 build/sources/
 docs/api/**/.manifest
 docs/api/**/*.yml

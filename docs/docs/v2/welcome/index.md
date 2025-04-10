@@ -4,47 +4,38 @@ _disableAffix: true
 
 # Steeltoe Documentation
 
-## [Application Configuration](../configuration/index.md)
+## Application Configuration
 
-Steeltoe lets you store external configuration values in Git, the filesystem, or HashiCorp Vault with Spring Cloud Config.
-[read more](../configuration/index.md)
+Utilize a variety of .NET configuration providers for situations like access to external configuration values from Git, the file system, or HashiCorp Vault with Spring Cloud Config and [Steeltoe Application Configuration](../configuration/index.md).
 
-## [Circuit Breakers](../circuitbreaker/index.md)
+## Circuit Breakers
 
-Steeltoe lets you use the Netflix Hystrix .NET implementation, a proven circuit breaker pattern with rich metrics and monitoring features.
-[read more](../circuitbreaker/index.md)
+Use the Netflix Hystrix .NET implementation with [Steeltoe Circuit Breaker](../circuitbreaker/index.md)
 
-## [Distributed Tracing](../tracing/index.md)
+## Distributed Tracing
 
-Steeltoe allows you to capture trace data for your microservice application using logs, or by sending it to a remote collector service.
-[read more](../tracing/index.md)
+Capture trace data for your microservice application using logs, or by sending it to a remote collector service with [Steeltoe Distributed Tracing](../tracing/index.md).
 
-## [Dynamic Logging](../logging/index.md)
+## Dynamic Logging
 
-Steeltoe adds a Logging provider to the set of available logging packages in order to support the Steeltoe Management Logger endpoint.
-[read more](../logging/index.md)
+List the active loggers and change their minimum log levels at runtime with [Steeltoe Dynamic logging](../logging/index.md).
 
-## [Management](../management/index.md)
+## Management
 
-Steeltoe lets you monitor and manage your application while it runs in production with Steeltoe management.
-[read more](../management/index.md)
+Monitor and manage your application while it runs in production through various HTTP endpoints with [Steeltoe Management](../management/index.md).
 
-## [Network File Sharing](../fileshares/index.md)
+## Network File Sharing
 
-Steeltoe's WindowsNetworkFileShare provides a simplified experience for interacting with SMB file shares by making P/Invoke calls to underlying Windows APIs, specifically to mpr.dll.
-[read more](../fileshares/index.md)
+Experience simple management of SMB file shares (Windows only) with [Steeltoe Network File Shares](../fileshares/index.md).
 
-## [Security](../security/index.md)
+## Security
 
-Steeltoe lets you integrate ASP.NET authentication and authorization features in your app, no matter what platform you use.
-[read more](../security/index.md)
+Utilize Cloud Foundry security services in ASP.NET authentication and authorization features in your app with [Steeltoe Security](../security/index.md).
 
-## [Service Connectors](../connectors/index.md)
+## Service Connectors
 
-Steeltoe lets you automatically configure and manage connections to common cloud services like databases, caches, and more.
-[read more](../connectors/index.md)
+Automatically configure connections to common cloud services like databases, message brokers, caches, and more with [Steeltoe Connectors](../connectors/index.md).
 
-## [Service Discovery](../discovery/index.md)
+## Service Discovery
 
-Steeltoe includes a .NET client to both register and discover microservices in your registry of choice.
-[read more](../discovery/index.md)
+Register and discover microservices by interacting with popular service registries with [Steeltoe Service Discovery](../discovery/index.md).

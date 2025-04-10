@@ -34,3 +34,12 @@ dotnet docfx build docs/docfx.json
 
 > [!NOTE]
 > If you skipped building the API Browser content, `InvalidFileLink` warnings will appear in files at the path `docs/api`.
+
+### NavigationException while debugging
+
+In a number of places, this site uses `NavigationManager` to redirect to static content.
+When running the app locally, you will experience a `NavigationException` every time you are redirected.
+If you've already run the docfx steps, let the debugger continue and you should be redirected to the static content as expected.
+
+While annoying, this behavior is according to Blazor's design, and handling the exception would break the redirect.
+[Learn more about plans to address `NavigationException` in .NET 10](https://github.com/dotnet/aspnetcore/issues/59451).
