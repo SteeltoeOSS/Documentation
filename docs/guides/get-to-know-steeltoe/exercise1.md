@@ -16,9 +16,6 @@ _hideTocVersionToggle: true
 [exercise-3-link]: exercise3.md
 [exercise-4-link]: exercise4.md
 
-| [<< Home](index.md) | [Next Exercise >>][exercise-2-link] |
-| :------------------ | ----------------------------------: |
-
 # Getting to know Steeltoe
 
 ## Goal
@@ -225,6 +222,3 @@ Use the key combination "Ctrl+C" on Windows/Linux or "Cmd+C" on Mac.
 ## Summary
 
 These are the basics of any cloud ready microservice. Logging and debugging are significantly different than a traditional IIS environment. But! A developer shouldn't be spending tons of time coding these boilerplate-type things. Heeelllo Steeltoe!
-
-|     | [Next Exercise >>][exercise-2-link] |
-| :-- | ----------------------------------: |

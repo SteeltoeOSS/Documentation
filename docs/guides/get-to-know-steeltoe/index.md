@@ -43,6 +43,3 @@ With Visual Studio as your IDE
 
 With VS Code as your IDE
 ![Windows placement with VS Code](../images/strigo-desktop-vscode.png)
-
-| [Get started][exercise-1-link] |
-| :----------------------------: |
