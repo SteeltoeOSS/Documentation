@@ -155,6 +155,9 @@
             --bs-border-opacity: 1;
             border-color: rgba(var(--bs-light-rgb), var(--bs-border-opacity)) !important;
         }
+        .hljs-built_in {
+            color: #569cd6;
+        }
     }
 }
 
