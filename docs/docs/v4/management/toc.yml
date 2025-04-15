@@ -1,0 +1,35 @@
+- href: using-endpoints.md
+  name: Endpoints
+  items:
+  - href: dbmigrations.md
+    name: Database Migrations
+  - href: env.md
+    name: Environment
+  - href: health.md
+    name: Health
+  - href: heapdump.md
+    name: Heap Dump
+  - href: httpexchanges.md
+    name: HTTP Exchanges
+  - href: hypermedia.md
+    name: Hypermedia
+  - href: info.md
+    name: Info
+  - href: loggers.md
+    name: Loggers
+  - href: mappings.md
+    name: Route Mappings
+  - href: prometheus.md
+    name: Prometheus
+  - href: refresh.md
+    name: Refresh
+  - href: services.md
+    name: Services
+  - href: threaddump.md
+    name: Thread Dump
+- href: tasks.md
+  name: Tasks
+- href: springbootadmin.md
+  name: Spring Boot Admin Client
+- href: cloud-foundry.md
+  name: Cloud Foundry Integration

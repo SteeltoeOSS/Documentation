@@ -1,0 +1,24 @@
+@page "/cloud-management/get-started/{Provider}"
+@page "/cloud-management/get-started/endpoints/{Provider}"
+
+@inject NavigationManager Navigation
+
+@code
+{
+    [Parameter] public string Provider { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo($"/guides/cloud-management/{TranslateProviderName(Provider)}.html");
+    }
+
+    private static string TranslateProviderName(string provider)
+    {
+        return provider.ToLower() switch
+        {
+            "endpoints" => "endpoints-netcore",
+            "framework" => "endpoints-framework",
+            _ => provider
+        };
+    }
+}

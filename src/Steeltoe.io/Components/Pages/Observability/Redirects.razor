@@ -1,0 +1,13 @@
+@page "/observability/{Provider}"
+
+@inject NavigationManager Navigation
+
+@code
+{
+    [Parameter] public string Provider { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo($"/guides/observability/{Provider}.html");
+    }
+}

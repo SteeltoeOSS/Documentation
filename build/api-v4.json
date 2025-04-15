@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "src/*/src/*/*.csproj"
+          ],
+          "src": "sources/v4"
+        }
+      ],
+      "output": "../docs/api/v4",
+      "filter": "api-filter.yml",
+      "properties": {
+        "ProduceReferenceAssembly": "true",
+        "TargetFramework": "net8.0"
+      }
+    }
+  ]
+}

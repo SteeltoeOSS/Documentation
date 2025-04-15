@@ -1,0 +1,6 @@
+- name: What's New in Steeltoe 3
+  href: whats-new.md
+- name: Prerequisites
+  href: prerequisites.md
+- name: Common Steps
+  href: common-steps.md
