@@ -6,7 +6,9 @@ The Redis Key Storage Provider is commonly used when secured data needs to be sh
 > The Key Storage Provider can be used with [Redis](https://redis.io/) and [Valkey](https://valkey.io/) databases.
 
 By default, the [data protection system in ASP.NET Core](https://learn.microsoft.com/aspnet/core/security/data-protection/introduction) stores cryptographic keys on the local file system.
-Even when not used by the application directly, these cryptographic keys are used for systems like [session state](https://learn.microsoft.com/aspnet/core/fundamentals/app-state#session-state) storage.
+Even when not used by the application directly, these cryptographic keys are used for systems like
+[session state](https://learn.microsoft.com/aspnet/core/fundamentals/app-state#session-state) storage and
+[antiforgery tokens](https://learn.microsoft.com/aspnet/core/security/anti-request-forgery#antiforgery-in-aspnet-core).
 
 By using the Steeltoe Redis Key Storage Provider, you can easily reconfigure the data protection service to store these keys in Redis/Valkey instances that are accessible through the [Steeltoe Redis Connector](../connectors/redis.md).
 
