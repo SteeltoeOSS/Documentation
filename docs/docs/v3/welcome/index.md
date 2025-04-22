@@ -1,7 +1,3 @@
----
-_disableAffix: true
----
-
 # Steeltoe Documentation
 
 ## What's New

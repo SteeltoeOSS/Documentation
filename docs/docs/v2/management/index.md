@@ -1,7 +1,3 @@
----
-_disableAffix: true
----
-
 # Management
 
 ## Endpoints

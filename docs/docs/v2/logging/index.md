@@ -1,7 +1,3 @@
----
-_disableAffix: true
----
-
 # Dynamic Logging
 
 Steeltoe adds a Logging provider to the set of available logging packages in order to support the Steeltoe Management Logger endpoint.

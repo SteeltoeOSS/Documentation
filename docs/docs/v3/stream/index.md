@@ -1,7 +1,3 @@
----
-_disableAffix: true
----
-
 # Introducing Steeltoe Stream
 
 Steeltoe Stream is a framework for building message-driven microservice applications. It builds upon other Steeltoe components to enable developers to create standalone, production-grade .NET applications providing connectivity to messaging systems.

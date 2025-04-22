@@ -1,7 +1,3 @@
----
-_disableAffix: true
----
-
 # Application Configuration
 
 Steeltoe Configuration builds on the new .NET configuration API, which enables developers to configure an application with values from a variety of sources by using Configuration Providers. Each provider supports reading a set of name-value pairs from a given source location and adding them into a combined multi-level configuration dictionary.

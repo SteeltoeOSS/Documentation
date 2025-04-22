@@ -1,7 +1,3 @@
----
-_disableAffix: true
----
-
 # Cloud Security
 
 Steeltoe provides a number of security-related services that simplify using Cloud Foundry-based security services in ASP.NET applications.

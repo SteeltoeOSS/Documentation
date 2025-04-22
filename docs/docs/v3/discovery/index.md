@@ -1,7 +1,3 @@
----
-_disableAffix: true
----
-
 # Service Discovery
 
 Steeltoe provides a set of generalized interfaces for interacting with multiple service registry options. This section covers the general components first. If you are looking for something specific to the registry server you are using, skip ahead to the section on that provider.
