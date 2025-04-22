@@ -26,22 +26,46 @@ Each key must be prefixed with `Spring:Boot:Admin:Client:`.
 | --- | --- | --- |
 | `Url` | The URL of the Spring Boot Admin server | |
 | `ApplicationName` | The name of the Steeltoe app being registered | computed |
-| `BasePath` | The base URL to find endpoints for integration | computed |
+| `BaseUrl` | The base URL to find endpoints for integration | computed |
+| `BaseScheme` | The scheme (`http` or `https`) to use in `BaseUrl` | |
+| `BaseHost` | The hostname or IP address to use in `BaseUrl` | |
+| `BasePort` | The port number to use in `BaseUrl` | |
+| `BasePath` | The path to use in `BaseUrl` | |
+| `UseNetworkInterfaces` | Query the operating system for network interfaces to determine `BaseHost` | `false` |
+| `PreferIPAddress` | Whether to register with IP address instead of hostname | `false` |
 | `ValidateCertificates` | Whether server certificates should be validated | `true` |
-| `ConnectionTimeoutMS` | Connection timeout (in milliseconds) | `100_000` |
+| `ConnectionTimeoutMS` | Connection timeout (in milliseconds) | `5_000` |
+| `RefreshInterval` | How often to re-register with the Spring Boot Admin server | `00:00:10` |
 | `Metadata` | Dictionary of metadata to use when registering | |
 
-## Connecting to dockerized Spring Boot Admin Server
+At the minimum, `Url` must be configured. The other settings are optional and can be used to customize the registration process.
+For example, when your app runs behind a reverse proxy or API gateway.
 
-For successful communication between your app and Spring Boot Admin Server running inside a docker container,
+> [!TIP]
+> By default, your app re-registers with the Spring Boot Admin server every 10 seconds.
+> To register only once at startup, set `RefreshInterval` to `0`.
+
+When not configured, `BaseUrl` is determined from:
+- The `BaseScheme`, `BaseHost`, `BasePort`, and `BasePath` settings, if provided.
+- If management endpoints are exposed on an alternate port, its scheme and port are used.
+- The scheme and port from the ASP.NET bindings your app listens on. Dynamic port bindings are supported. If multiple bindings exist and `BaseScheme` is not configured, `https` is preferred.
+- The host is determined based on `UseNetworkInterfaces` and `PreferIPAddress`.
+
+> [!CAUTION]
+> Earlier versions of Steeltoe expected `BasePath` to contain the full URL. When upgrading, set `BaseUrl` instead.
+> The default connection timeout has changed from 100 seconds to 5 seconds.
+
+## Connecting to containerized Spring Boot Admin Server
+
+For successful communication between your app and Spring Boot Admin Server running inside a container,
 a few additional steps are needed:
 
-- Register your app using `host.docker.internal`
+- Register your app using `host.docker.internal` (docker) or `host.containers.internal` (podman)
 
   After your app has registered itself with Spring Boot Admin Server, the server tries to connect to your app
   and send requests to its actuator endpoints. This fails when your app registers itself using `localhost`,
-  because the server runs in a docker container that has its own network.
-  Instead, you must register using the special `host.docker.internal` address, which enables the server inside the container
+  because the server runs in a container that has its own network.
+  Instead, you must register using the special address, which enables the server inside the container
   to connect to your app outside the container.
 
 - Bind your app to a wildcard address
@@ -78,7 +102,7 @@ Putting it all together, your config files contain the contents shown in the fol
               // This is the URL of the Spring Boot Admin Server.
               "Url": "http://localhost:9099",
               // This is what the Spring Boot Admin Server uses to connect to your app.
-              "BasePath": "http://host.docker.internal:5258"
+              "BaseHost": "host.docker.internal"
             }
           }
         }
@@ -106,7 +130,7 @@ Putting it all together, your config files contain the contents shown in the fol
     ```
 
     > [!NOTE]
-    > If you want your app to listen on a different port number, replace `5258` in both files above with the desired port.
+    > If you want your app to listen on a different port number, replace `5258` with the desired port.
 
 - In `Program.cs`:
 
