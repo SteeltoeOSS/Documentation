@@ -35,14 +35,14 @@ Each key must be prefixed with `Spring:Boot:Admin:Client:`.
 | `PreferIPAddress` | Whether to register with IP address instead of hostname | `false` |
 | `ValidateCertificates` | Whether server certificates should be validated | `true` |
 | `ConnectionTimeoutMS` | Connection timeout (in milliseconds) | `5_000` |
-| `RefreshInterval` | How often to re-register with the Spring Boot Admin server | `00:00:10` |
+| `RefreshInterval` | How often to re-register with the Spring Boot Admin server | `00:00:15` |
 | `Metadata` | Dictionary of metadata to use when registering | |
 
 At the minimum, `Url` must be configured. The other settings are optional and can be used to customize the registration process.
 For example, when your app runs behind a reverse proxy or API gateway.
 
 > [!TIP]
-> By default, your app re-registers with the Spring Boot Admin server every 10 seconds.
+> By default, your app re-registers with the Spring Boot Admin server every 15 seconds.
 > To register only once at startup, set `RefreshInterval` to `0`.
 
 When not configured, `BaseUrl` is determined from:
