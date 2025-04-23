@@ -48,7 +48,7 @@ For example, when your app runs behind a reverse proxy or API gateway.
 When not configured, `BaseUrl` is determined from:
 - The `BaseScheme`, `BaseHost`, `BasePort`, and `BasePath` settings, if provided.
 - If management endpoints are exposed on an alternate port, its scheme and port are used.
-- The scheme and port from the ASP.NET bindings your app listens on. Dynamic port bindings are supported. If multiple bindings exist and `BaseScheme` is not configured, `https` is preferred.
+- The scheme and port from the ASP.NET Core bindings your app listens on. Dynamic port bindings are supported. If multiple bindings exist and `BaseScheme` is not configured, `https` is preferred.
 - The host is determined based on `UseNetworkInterfaces` and `PreferIPAddress`.
 
 > [!CAUTION]
