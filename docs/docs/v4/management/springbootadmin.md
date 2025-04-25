@@ -39,17 +39,25 @@ Each key must be prefixed with `Spring:Boot:Admin:Client:`.
 | `Metadata` | Dictionary of metadata to use when registering | |
 
 At the minimum, `Url` must be configured. The other settings are optional and can be used to customize the registration process.
-For example, when your app runs behind a reverse proxy or API gateway.
+For example, if your app runs behind a reverse proxy or API gateway.
 
 > [!TIP]
 > By default, your app re-registers with the Spring Boot Admin server every 15 seconds.
 > To register only once at startup, set `RefreshInterval` to `0`.
 
 When not configured, `BaseUrl` is determined from:
-- The `BaseScheme`, `BaseHost`, `BasePort`, and `BasePath` settings, if provided.
-- If management endpoints are exposed on an alternate port, its scheme and port are used.
-- The scheme and port from the ASP.NET Core bindings your app listens on. Dynamic port bindings are supported. If multiple bindings exist and `BaseScheme` is not configured, `https` is preferred.
-- The host is determined based on `UseNetworkInterfaces` and `PreferIPAddress`.
+- The `BaseScheme`, `BaseHost`, `BasePort`, and `BasePath` settings, if configured.
+- If management endpoints are exposed on an alternate port, its scheme and port are used, combined with the local hostname or IP address.
+- The scheme, non-wildcard host, and port from the ASP.NET Core bindings your app listens on. Dynamic port bindings are supported.
+  - If multiple bindings exist and `BaseScheme` is configured, incompatible bindings are discarded.
+  - If multiple bindings exist and `PreferIPAddress` is set to `true`, entries with an IP address are preferred.
+  - If multiple bindings exist and `BaseScheme` is not configured, entries with `https` are preferred.
+  - If multiple bindings exist, entries with a non-wildcard host are preferred.
+  - A wildcard host is replaced with the local hostname or IP address.
+
+In ASP.NET Core bindings, anything not recognized as a valid IP address or `localhost` is treated as a wildcard host
+that binds to all IPv4 and IPv6 addresses. Some people like to use `*` or `+` to be more explicit.
+See the [Microsoft documentation on URL formats](https://learn.microsoft.com/aspnet/core/fundamentals/servers/kestrel/endpoints#url-formats) for details.
 
 > [!CAUTION]
 > Earlier versions of Steeltoe expected `BasePath` to contain the full URL. When upgrading, set `BaseUrl` instead.
