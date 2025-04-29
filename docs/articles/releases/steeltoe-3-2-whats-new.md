@@ -1,13 +1,9 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: Steeltoe 3.2
 description: All about Steeltoe 3.2
-monikerRange: '== steeltoe-3.2'
-type: markdown
 date: 06/15/2022
 uid: releases/steeltoe-3-2-whats-new.html
 tags: ["new-release"]

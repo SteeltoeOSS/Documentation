@@ -1,13 +1,10 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: "Steeltoe: Modernize .Net Apps for a Microservices Architecture"
 description: How do you plan to modernize your .NET application estate?
-type: markdown
 date: 01/09/2019
 uid: articles/steeltoe-modernize-net-apps-for-a-microservices-architecture
 tags: ["modernization"]

@@ -1,12 +1,9 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: "Create .NET Microservice Projects Automatically with Steeltoe Initializr"
 description: Initializr aims to get you (the developer) going faster, while making the right way the easy way.
-type: markdown
 date: 1/10/2021
 uid: articles/create-dotnet-microservice-projects-automatically-with-steeltoe-initializr
 tags: ["initializr"]

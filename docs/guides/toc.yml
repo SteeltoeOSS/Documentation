@@ -1,3 +1,12 @@
+- href: index.md
+- name: Steeltoe Workshop
+  items:
+    - topicUid: guides/get-to-know-steeltoe
+    - topicUid: guides/get-to-know-steeltoe/exercise1
+    - topicUid: guides/get-to-know-steeltoe/exercise2
+    - topicUid: guides/get-to-know-steeltoe/exercise3
+    - topicUid: guides/get-to-know-steeltoe/exercise4
+    - topicUid: guides/get-to-know-steeltoe/summary
 - name: Application Configuration
   items:
     - topicUid: guides/application-configuration/spring-config
@@ -10,8 +19,8 @@
 - name: Cloud Management
   items:
     - topicUid: guides/cloud-management/distributed-tracing
-    - topicUid: guides/cloud-management/endpoints-framework
     - topicUid: guides/cloud-management/endpoints-netcore
+    - topicUid: guides/cloud-management/endpoints-framework
 - name: Messaging
   items:
     - topicUid: guides/messaging/tutorials/tutorial1/readme
@@ -49,11 +58,3 @@
 - name: Stream
   items:
     - topicUid: guides/stream/quick-start
-- name: Steeltoe Workshop
-  items:
-    - topicUid: guides/get-to-know-steeltoe
-    - topicUid: guides/get-to-know-steeltoe/exercise1
-    - topicUid: guides/get-to-know-steeltoe/exercise2
-    - topicUid: guides/get-to-know-steeltoe/exercise3
-    - topicUid: guides/get-to-know-steeltoe/exercise4
-    - topicUid: guides/get-to-know-steeltoe/summary

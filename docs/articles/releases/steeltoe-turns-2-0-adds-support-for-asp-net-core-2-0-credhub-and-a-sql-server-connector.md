@@ -1,14 +1,10 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: Steeltoe Turns 2.0, Adds Support for ASP.NET Core 2.0, CredHub, and a SQL Server Connector
 description: Steeltoe is a toolkit to help .NET developers build apps for Cloud Foundry using established microservices patterns.
-monikerRange: '== steeltoe-2.0'
-type: markdown
 date: 02/16/2018
 uid: releases/steeltoe-turns-2-0-adds-support-for-asp-net-core-2-0-credhub-and-a-sql-server-connector
 tags: ["new-release", "2.0"]

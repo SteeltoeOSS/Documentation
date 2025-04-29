@@ -1,5 +1,5 @@
 {
-  // NOTE: This file should contain everything in docfx.json AND api browser content.
+  // NOTE: This file should contain everything in docfx.json AND API Browser content.
   //       docfx build will take a lot longer when using this file
   "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
   "build": {

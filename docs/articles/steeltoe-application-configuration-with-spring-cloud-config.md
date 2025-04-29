@@ -1,13 +1,10 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: Steeltoe Application Configuration with Spring Cloud Config
 description: Learn how to create an ASP.NET microservice application that uses Steeltoe to connect with a Spring Cloud Config Server, to retrieve it's configuration values.
-type: markdown
 date: 09/29/2020
 uid: articles/steeltoe-application-configuration-with-spring-cloud-config
 tags: [ "app-config" ]

@@ -1,14 +1,10 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: Writing Event Based Microservices using Steeltoe
-_description: All the essentials for building .NET microservices.
 description: All the essentials for building .NET microservices.
-type: markdown
 date: 11/17/2020
 uid: articles/writing-event-based-microservices-using-steeltoe
 tags: [ "messaging" ]

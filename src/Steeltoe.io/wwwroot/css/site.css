@@ -1,7 +1,19 @@
 /* DEVELOP WIDTH = 1400px */
 html,
 body {
-    font-family: 'Metropolis', sans-serif;
+    font-family: system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        "Noto Sans",
+        "Liberation Sans",
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji";
     font-size: 100%;
     font-style: normal;
     font-weight: normal;
@@ -258,7 +270,6 @@ app {
     a,
     .navbar-nav .nav-link,
     .navbar-nav .show>.nav-link {
-        text-decoration: none;
         color: #0066cc;
     }
     .special-link {
@@ -269,7 +280,7 @@ app {
         font-size: smaller;
     }
     .small {
-        font-size: .75em;
+        font-size: .765em;
     }
 }
 /* =====================FONT STYLING===================== */
@@ -300,6 +311,9 @@ app {
 
 #footer {
     padding-top: 5%;
+    /* a {
+        text-decoration: underline;
+    } */
 }
 
 .bottom-bar .col,

@@ -53,7 +53,6 @@ Here is a starter blog post:
 
 ```markdown
 ---
-type: markdown
 title: My Very Authentic Blog Post Title
 description: A short description of my topic. Maybe 2 sentences long.
 date: 01/01/2000

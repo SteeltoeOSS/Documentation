@@ -1,10 +1,11 @@
 {
-  // NOTE: This file is for local development and intentionally does not include api browser content
+  // NOTE: This file is for local development and intentionally excludes api browser content
   "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
   "build": {
     "content": [
       {
-        "files": "*/**.{md|yml}"
+        "files": "*/**.{md|yml}",
+        "exclude": "api/**"
       }
     ],
     "resource": [

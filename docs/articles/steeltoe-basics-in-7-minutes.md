@@ -1,14 +1,10 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: Steeltoe basics in 7 minutes
-_description: All the essentials for building .NET microservices.
 description: All the essentials for building .NET microservices.
-type: markdown
 date: 01/03/2020
 uid: articles/steeltoe-basics-in-7-minutes
 tags: [ "get-started" ]

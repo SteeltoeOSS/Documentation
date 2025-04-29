@@ -1,13 +1,9 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: Steeltoe 3.1 is a minor release, but a major deal
 description: All about Steeltoe 3.1
-monikerRange: '== steeltoe-3.1'
-type: markdown
 date: 07/13/2021
 uid: releases/steeltoe-3-1-minor-release-major-deal.html
 tags: ["new-release"]

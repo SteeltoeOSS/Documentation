@@ -1,14 +1,10 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: Steeltoe 2.2 Gives Your .NET Microservices a Boost
 description: Learn how Steeltoe 2.2 can help your .NET Microservices with New Service Discovery Options, MongoDB Connector, and Placeholder Values
-monikerRange: '== steeltoe-2.2'
-type: markdown
 date: 03/15/2019
 uid: releases/steeltoe-2-2-gives-your--microservices-a-boost
 tags: ["new-release","2.2"]

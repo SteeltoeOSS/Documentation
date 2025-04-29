@@ -11,6 +11,7 @@
         }
       ],
       "output": "../docs/api/v4",
+      "disableGitFeatures": true,
       "filter": "api-filter.yml",
       "properties": {
         "ProduceReferenceAssembly": "true",

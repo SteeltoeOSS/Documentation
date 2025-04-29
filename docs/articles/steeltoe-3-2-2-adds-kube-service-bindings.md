@@ -1,13 +1,9 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: Announcing Steeltoe 3.2.2 with Experimental Kubernetes Service Bindings
 description: Kubernetes Service Bindings
-monikerRange: '== steeltoe-3.2.2'
-type: markdown
 date: 01/10/2023
 uid: steeltoe-3-2-2-adds-kube-service-bindings.html
 tags: ["new-release"]

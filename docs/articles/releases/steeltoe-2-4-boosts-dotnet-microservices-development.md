@@ -1,14 +1,10 @@
 ---
-_disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
-_disableToc: true
-_showBackToBlogs: true
+_hideTocVersionToggle: true
 
 title: Steeltoe 2.4 boosts .NET microservices development with a code generator, new getting started guides, and more
 description: Application generation, a new site, and the Steeltoe CLI - Get familiar with Steeltoe 2.4.
-monikerRange: '== steeltoe-2.4'
-type: markdown
 date: 11/27/2019
 uid: releases/steeltoe-2-4-boosts-dotnet-microservices-development
 tags: [new-release]
