@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.ResponseCompression;
 using Steeltoe.io;
 using Steeltoe.io.Components;
 using Steeltoe.io.Models;
@@ -9,12 +8,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorComponents();
 
 builder.Services.Configure<CalendarEventOptions>(builder.Configuration.GetSection("CalendarEvents"));
-
-builder.Services.AddResponseCompression(options =>
-{
-    options.EnableForHttps = true;
-    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(["image/svg+xml", "font/woff2"]);
-});
 
 var app = builder.Build();
 
@@ -32,7 +25,6 @@ app.UseMiddleware<DocsRedirectMiddleware>(builder.Configuration);
 
 app.UseHttpsRedirection();
 
-app.UseResponseCompression();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
