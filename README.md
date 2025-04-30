@@ -12,6 +12,7 @@ docfx generates API documentation from triple-slash comments in Steeltoe source 
 To run the website, open [Steeltoe.io.sln](src/Steeltoe.io.sln) in your preferred IDE, or use the command-line:
 
 1. (Optional, build API Browser metadata and process files in `docs`) run the PowerShell script `.\build\build-metadata.ps1`
+    * To easily remove all files that are not part of this repository (including these copies of the Steeltoe repository), use `git clean -xdff`
 1. (Optional, process files in `docs`) run `dotnet tool restore && dotnet docfx build docs/docfx.json`
 1. Run `cd .\src\Steeltoe.io\ && dotnet run` or use your IDE to start the app
 
