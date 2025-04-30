@@ -8,7 +8,7 @@ title: Articles
 uid: articles
 ---
 
-<!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD033 --> <!-- Allow HTML on this page -->
 <ul class="blog-list">
     <li class="blog-item">
         <a href="steeltoe-3-2-2-adds-kube-service-bindings.md">

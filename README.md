@@ -11,29 +11,15 @@ docfx generates API documentation from triple-slash comments in Steeltoe source 
 
 To run the website, open [Steeltoe.io.sln](src/Steeltoe.io.sln) in your preferred IDE, or use the command-line:
 
-```shell
-cd src\Steeltoe.io\
-dotnet run
-```
+1. (Optional, build API Browser metadata and process files in `docs`) run the PowerShell script `.\build\build-metadata.ps1`
+1. (Optional, process files in `docs`) run `dotnet tool restore && dotnet docfx build docs/docfx.json`
+1. Run `cd .\src\Steeltoe.io\ && dotnet run` or use your IDE to start the app
 
 The site should now be running at <https://localhost:8080>.
 
 > [!NOTE]
-> If this is your first time running the site and you only follow this step, none of the static content will be processed and you will encounter 404 errors when browsing the site.
-
-### Including DocFX content
-
-If you want API Browser content available locally, see the [build README](build/README.md) before starting the site. Note that it takes several minutes to run.
-
-For a faster feedback loop, you can skip building the API Browser content and only build the documentation YAML files with the following commands:
-
-```shell
-dotnet tool restore
-dotnet docfx build docs/docfx.json
-```
-
-> [!NOTE]
-> If you skipped building the API Browser content, `InvalidFileLink` warnings will appear in files at the path `docs/api`.
+> If this is your first time running the site and you skip steps 1 and 2, none of the static content will be processed.
+> You will encounter `InvalidFileLink` warnings from files at the path `docs/api` and 404 errors when browsing the site.
 
 ### NavigationException while debugging
 

@@ -1,6 +1,6 @@
 ---
 uid: guides/index
-title: Steeltoe Get Started
+title: Get Started
 tags: []
 _disableFooter: true
 _disableAffix: true
@@ -15,6 +15,11 @@ _hideTocVersionToggle: true
 ## The Basics Workshop
 
 - @guides/get-to-know-steeltoe
+- @guides/get-to-know-steeltoe/exercise1
+- @guides/get-to-know-steeltoe/exercise2
+- @guides/get-to-know-steeltoe/exercise3
+- @guides/get-to-know-steeltoe/exercise4
+- @guides/get-to-know-steeltoe/summary
 
 ## Application Configuration
 

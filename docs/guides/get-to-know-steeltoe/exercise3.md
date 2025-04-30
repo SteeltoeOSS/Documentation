@@ -8,14 +8,11 @@ _disableNav: true
 _hideTocVersionToggle: true
 ---
 
+<!-- markdownlint-disable MD041 --> <!-- allow out-of-date notice above header -->
+<!-- markdownlint-disable MD051 --> <!-- Tab syntax looks flagged as invalid markdown -->
+<!-- markdownlint-disable MD024 --> <!-- Intentionally duplicated tabs -->
 > [!NOTE]
 > This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
-
-[home-page-link]: index.md
-[exercise-1-link]: exercise1.md
-[exercise-2-link]: exercise2.md
-[exercise-3-link]: exercise3.md
-[exercise-4-link]: exercise4.md
 
 # Adding a cloud connector with SQL
 
@@ -239,7 +236,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d m
 
 If your SQL instance is running somewhere else, you'll need its URI port number and credentials. Uncomment the provided parameters to configure the connection correctly.
 
-***
+---
 
 Add the below JSON to 'appsettings.json', just after the 'management' section. This will give Steeltoe connection information for the database instance, as well as name the new database.
 

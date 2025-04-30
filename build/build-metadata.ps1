@@ -6,6 +6,8 @@ param (
 
 set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+Write-Host "'DOCFX_SOURCE_BRANCH_NAME' starting value: '$env:DOCFX_SOURCE_BRANCH_NAME'"
+$OriginalSourceBranchName = $env:DOCFX_SOURCE_BRANCH_NAME
 
 # Restore docfx tool
 dotnet tool restore
@@ -19,6 +21,7 @@ $gitSourcesUrl = "https://github.com/SteeltoeOSS/Steeltoe"
 
 function Clone-Source-Build-Metadata
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseApprovedVerbs', '', Scope = 'Function')]
     param (
         [int]$version
     )
@@ -39,6 +42,8 @@ function Clone-Source-Build-Metadata
     }
 
     $apiFile = "api-v$version.json"
+    Write-Host "Setting 'DOCFX_SOURCE_BRANCH_NAME' to '$branch'"
+    $env:DOCFX_SOURCE_BRANCH_NAME = $branch
     Write-Host "Running command: dotnet docfx metadata $apiFile"
     dotnet docfx metadata $apiFile
 }
@@ -67,6 +72,8 @@ if ($buildAll -or $SteeltoeVersion -ieq "4")
     Clone-Source-Build-Metadata 4
 }
 
+Write-Host "Setting 'DOCFX_SOURCE_BRANCH_NAME' back to '$OriginalSourceBranchName'"
+$env:DOCFX_SOURCE_BRANCH_NAME = $OriginalSourceBranchName
 
 Write-Host 'Running command: dotnet docfx build (Join-Path ".." "docs" "docfx-all.json")'
 dotnet docfx build (Join-Path ".." "docs" "docfx-all.json")

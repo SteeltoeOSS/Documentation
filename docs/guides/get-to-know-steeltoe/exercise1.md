@@ -8,13 +8,11 @@ _disableNav: true
 _hideTocVersionToggle: true
 ---
 
+<!-- markdownlint-disable MD041 --> <!-- allow out-of-date notice above header -->
+<!-- markdownlint-disable MD051 --> <!-- Tab syntax looks flagged as invalid markdown -->
+<!-- markdownlint-disable MD024 --> <!-- Intentionally duplicated tabs -->
 > [!NOTE]
 > This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
-
-[exercise-1-link]: exercise1.md
-[exercise-2-link]: exercise2.md
-[exercise-3-link]: exercise3.md
-[exercise-4-link]: exercise4.md
 
 # Getting to know Steeltoe
 
@@ -221,4 +219,4 @@ Use the key combination "Ctrl+C" on Windows/Linux or "Cmd+C" on Mac.
 
 ## Summary
 
-These are the basics of any cloud ready microservice. Logging and debugging are significantly different than a traditional IIS environment. But! A developer shouldn't be spending tons of time coding these boilerplate-type things. Heeelllo Steeltoe!
+These are the basics of any cloud ready microservice. Logging and debugging are significantly different than a traditional IIS environment. But! A developer shouldn't be spending tons of time coding these boilerplate-type things. Hello Steeltoe!

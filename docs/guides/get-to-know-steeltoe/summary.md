@@ -8,13 +8,9 @@ _disableNav: true
 _hideTocVersionToggle: true
 ---
 
+<!-- markdownlint-disable MD041 --> <!-- allow out-of-date notice above header -->
 > [!NOTE]
 > This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
-
-[exercise-1-link]: exercise1.md
-[exercise-2-link]: exercise2.md
-[exercise-3-link]: exercise3.md
-[exercise-4-link]: exercise4.md
 
 # Workshop summary
 
@@ -22,22 +18,7 @@ The previous labs were meant to give you an introduction to the power available 
 
 ---
 
-## Steeltoe Site (https://steeltoe.io)
-
-- Learn more
-- Get started guides
-- Documentation
-
-<!-- ---
-
-### Training (https://steeltoe.io/training)
-
-- Pivotal Platform Acceleration Lab for .NET Developers
-- Pivotal Certified Developer .NET -->
-
----
-
-### Support
+## Support
 
 - Slack (https://slack.steeltoe.io)
 - GitHub (https://github.com/steeltoeoss)
