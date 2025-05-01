@@ -38,7 +38,7 @@ Experience simple management of SMB file shares (Windows only) with [Steeltoe Ne
 
 ## Security
 
-Utilize Cloud Foundry security services in ASP.NET authentication and authorization features in your app with [Steeltoe Security](../security/index.md).
+Utilize Cloud Foundry security services with ASP.NET authentication and authorization with [Steeltoe Security](../security/index.md).
 
 ## Service Connectors
 

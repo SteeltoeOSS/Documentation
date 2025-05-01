@@ -1,5 +1,5 @@
 {
-  // NOTE: This file is for local development and intentionally excludes api browser content
+  // NOTE: This file is for local development and intentionally excludes API Browser content.
   "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
   "build": {
     "content": [
