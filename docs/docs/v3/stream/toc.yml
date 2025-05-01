@@ -4,3 +4,5 @@
   href: rabbit-binder.md
 - name: Spring Cloud Dataflow
   href: data-flow-stream.md
+- name: Standalone Guide
+  href: standalone-stream-rabbitmq.md

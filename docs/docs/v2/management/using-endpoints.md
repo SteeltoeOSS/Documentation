@@ -29,6 +29,7 @@ The following table describes the available Steeltoe management endpoints that c
 | [loggers](./loggers.md) | Gathers existing loggers and allows modification of logging levels. |
 | [mappings](./mappings.md) | Reports the configured ASP.NET routes and route templates. |
 | [metrics](./metrics.md) | Reports the collected metrics for the application. |
+| [prometheus](./prometheus.md) | Reports the collected metrics for the application in Prometheus format. |
 | [refresh](./refresh.md) | Triggers the application configuration to be reloaded. |
 | [trace](./tracing.md) | Gathers a configurable set of trace information (such as the last 100 HTTP requests). |
 

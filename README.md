@@ -13,21 +13,25 @@ Follow the steps below to run/debug locally. The optional steps take longer, but
 
 > [!TIP]
 > To start fresh, delete all files that are not part of this repository (including the cloned Steeltoe sources) using the following command:
+>
 > ```shell
 > git clean -xdff
 > ```
 
 1. Optional: Build API Browser metadata (clones Steeltoe sources) and process Markdown files in `docs`:
+
    ```shell
    pwsh .\build\build-metadata.ps1
    ```
 
 1. Optional: Only process Markdown files in `docs`:
+
    ```shell
    dotnet tool restore && dotnet docfx build docs/docfx.json
    ```
 
 1. Open [Steeltoe.io.sln](src/Steeltoe.io.sln) in your preferred IDE, or run from the command line:
+
    ```shell
    cd .\src\Steeltoe.io\ && dotnet run
    ```

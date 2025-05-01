@@ -21,4 +21,6 @@ Steeltoe adds additional configuration providers to the preceding list:
 * RandomValue generator
 * Spring Cloud Config Server
 
+Steeltoe also provides hosting extensions for dynamically binding ASP.NET Core to ports assigned by cloud platforms.
+
 The following sections provide more detail on each of these new providers.
