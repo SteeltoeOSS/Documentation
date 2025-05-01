@@ -9,12 +9,28 @@ docfx generates API documentation from triple-slash comments in Steeltoe source 
 
 ## Building and running the site
 
-To run the website, open [Steeltoe.io.sln](src/Steeltoe.io.sln) in your preferred IDE, or use the command-line:
+Follow the steps below to run/debug locally. The optional steps take longer, but provide a more complete experience.
 
-1. (Optional, build API Browser metadata and process files in `docs`) run the PowerShell script `.\build\build-metadata.ps1`
-    * To easily remove all files that are not part of this repository (including these copies of the Steeltoe repository), use `git clean -xdff`
-1. (Optional, process files in `docs`) run `dotnet tool restore && dotnet docfx build docs/docfx.json`
-1. Run `cd .\src\Steeltoe.io\ && dotnet run` or use your IDE to start the app
+> [!TIP]
+> To start fresh, delete all files that are not part of this repository (including the cloned Steeltoe sources) using the following command:
+> ```shell
+> git clean -xdff
+> ```
+
+1. Optional: Build API Browser metadata (clones Steeltoe sources) and process Markdown files in `docs`:
+   ```shell
+   pwsh .\build\build-metadata.ps1
+   ```
+
+1. Optional: Only process Markdown files in `docs`:
+   ```shell
+   dotnet tool restore && dotnet docfx build docs/docfx.json
+   ```
+
+1. Open [Steeltoe.io.sln](src/Steeltoe.io.sln) in your preferred IDE, or run from the command line:
+   ```shell
+   cd .\src\Steeltoe.io\ && dotnet run
+   ```
 
 The site should now be running at <https://localhost:8080>.
 
@@ -24,9 +40,9 @@ The site should now be running at <https://localhost:8080>.
 
 ### NavigationException while debugging
 
-In a number of places, this site uses `NavigationManager` to redirect to static content.
+This site uses `NavigationManager` to redirect to static content in several places.
 When running the app locally, you will experience a `NavigationException` every time you are redirected.
-If you've already run the docfx steps, let the debugger continue and you should be redirected to the static content as expected.
+If you've already run the docfx steps, let the debugger continue, and you should be redirected to the static content as expected.
 
 While annoying, this behavior is according to Blazor's design, and handling the exception would break the redirect.
 [Learn more about plans to address `NavigationException` in .NET 10](https://github.com/dotnet/aspnetcore/issues/59451).
