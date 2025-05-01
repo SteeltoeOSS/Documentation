@@ -3,7 +3,7 @@
 > [!TIP]
 > Building the API Browser documentation is not required for the site to run locally.
 
-Generate API Browser documentation and process all markdown with the included PowerShell Core script [build-metadata.ps1](./build-metadata.ps1):
+Generate API Browser documentation and process all markdown with the included PowerShell script [build-metadata.ps1](./build-metadata.ps1):
 
 ```pwsh
 cd ./build
