@@ -45,9 +45,9 @@ For example, if your app runs behind a reverse proxy or API gateway.
 > By default, your app re-registers with the Spring Boot Admin server every 15 seconds.
 > To register only once at startup, set `RefreshInterval` to `0`.
 
-When not configured, `BaseUrl` is determined from:
+When not configured, `BaseUrl` is computed using these settings, in this priority order:
 - The `BaseScheme`, `BaseHost`, `BasePort`, and `BasePath` settings, if configured.
-- If management endpoints are exposed on an alternate port, its scheme and port are used, combined with the local hostname or IP address.
+- The port and scheme used by management endpoints, if configured, combined with the local hostname or IP address.
 - The scheme, non-wildcard host, and port from the ASP.NET Core bindings your app listens on. Dynamic port bindings are supported.
   - If multiple bindings exist and `BaseScheme` is configured, incompatible bindings are discarded.
   - If multiple bindings exist and `PreferIPAddress` is set to `true`, entries with an IP address are preferred.
