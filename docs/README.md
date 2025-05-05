@@ -1,6 +1,6 @@
 # Directory Contents
 
-The directories below this one are used with DocFX to generate static HTML files that are served from the `wwwroot` folder in Steeltoe.io.
+The directories below this one are used with [docfx](https://dotnet.github.io/docfx) to generate static HTML files that are served from the `/src/Steeltoe.io/wwwroot` directory.
 
 | Path | Description |
 | --- | --- |
@@ -24,10 +24,10 @@ Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.
 
 ### Links and Cross References
 
-As you get familiar with DocFX, you'll notice the addition of a YAML header in the markdown files. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create `xref` as well as use DocFX's `@` shorthand. Learn more about [linking in DocFX](https://dotnet.github.io/docfx/docs/links-and-cross-references.html).
+Markdown files can contain a YAML header. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create an `xref`, as well as use the `@` shorthand. For more information, see [Links and Cross References](https://dotnet.github.io/docfx/docs/links-and-cross-references.html).
 
 > [!NOTE]
-> It should be very rare that you hardcode a link to an 'HTML' page with your markdown. Instead, use its `UID` and let the path get calculated, as well as get links validated when building the project.
+> Internal links should point to `.md` files instead of `.html` files. Alternatively, use the `UID` of the target page. In both cases, docfx calculates the path and checks for broken links when building the project.
 
 ### Page display options
 
@@ -37,9 +37,9 @@ In the YAML header of a page's markdown, you have options to turn page elements 
 |---------|---------|---------|
 |_disableToc     |false|Turn off the left hand table of contents         |
 |_disableAffix     |false|Turn off the right hand page navigation links         |
-|_disableContribution     |false|Turn off right hand link to "edit this page"         |
+|_disableContribution     |false|Turn off the "Edit this page" link at the bottom         |
 |_enableSearch     |true|Show the search icon         |
-|_enableNewTab     |true|All links on the page open in a new browser tab         |
+|_enableNewTab     |true|All external links on the page open in a new browser tab         |
 |_disableNav     |false|Do not show top navigation links         |
 |_hideTocVersionToggle|false     |Hide the version toggler in the table of contents         |
 |_noindex     |false|Do not let search engines index the page         |
@@ -47,7 +47,7 @@ In the YAML header of a page's markdown, you have options to turn page elements 
 
 ## Creating a new blog post
 
-Create a new `.md` file in the `articles` directory. Name the file something that is URL safe. In `/articles/index.md` add a shorthand link to the document as well as a short description.
+Create a new `.md` file in the `articles` directory. Name the file something that is URL-safe. In `/articles/index.md`, add a shorthand link to the document, as well as a short description.
 
 Here is a starter blog post:
 
@@ -57,7 +57,7 @@ title: My Very Authentic Blog Post Title
 description: A short description of my topic. Maybe 2 sentences long.
 date: 01/01/2000
 uid: articles/my-very-authentic-blog-post-title
-tags: [ "modernize", 'something else", "and another thing" ]
+tags: [ "modernize", "something else", "and another thing" ]
 author.name: Joe Montana
 author.github: jmontana
 author.twitter: thebigguy
@@ -70,7 +70,7 @@ Let's talk about something really cool...
 
 ## Creating a new documentation page
 
-Similar to the blog post, you're going to create a new markdown file, but in the `docs` folder. The name needs to be URL-safe. Notice in the docs folder, there is a `v2`, `v3` and `v4` subfolder. Within each of those are folders for each component. Place your content accordingly. To include the file in the table of contents, add it in `docs/(version)/toc.yml`. Notice in the example below that the `href` values are not absolute paths. DocFX will calculate everything at build time.
+Create a new `.md` file in the `docs` directory. The name needs to be URL-safe. Notice there are subdirectories for the Steeltoe version, such as `v2`, `v3`, and `v4`. Each one contains directories for Steeltoe components. Place your content accordingly. To include the file in the table of contents, add it in the appropriate `toc.yml` file. Notice in the example below, that the `href` values are not absolute paths. docfx will calculate everything at build time.
 
 An example API doc:
 

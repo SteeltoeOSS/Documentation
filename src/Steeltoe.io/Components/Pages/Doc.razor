@@ -37,10 +37,8 @@
 
 
         Component ??= "welcome";
-        var uri = $"/docs/v{Version}/{Component}/";
-
         Area ??= "index";
-        uri += $"{Area}.html";
+        var uri = $"/docs/v{Version}/{Component}/{Area}.html";
 
         NavigationManager.NavigateTo(uri);
     }
