@@ -12,31 +12,25 @@
 
 @code
 {
-	private readonly Feature[] _features =
+    private readonly Feature[] _features =
     [
         new()
         {
-			Title = (MarkupString)"Service discovery",
-			Description = b => {
-                b.AddMarkupContent(1,"In the cloud, applications can&apos;t always know the exact location of other services. A service registry, such as Netflix Eureka or HashiCorp Consul, can help. Steeltoe provides clients for both as well as Spring Config, a C# implementation of circuit breakers, and many other components.<br /><br />");
-            },
-			Img = "/images/Icon_tool.svg"
-		},
-		new()
+            Title = (MarkupString)"Service discovery",
+            Description = b => { b.AddMarkupContent(1, "In the cloud, applications can&apos;t always know the exact location of other services. A service registry, such as Netflix Eureka or HashiCorp Consul, can help. Steeltoe provides clients for both as well as Spring Config, a C# implementation of circuit breakers, and many other components.<br /><br />"); },
+            Img = "/images/Icon_tool.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Cloud configuration",
-			Description = b => {
-                b.AddMarkupContent(1,"In the cloud, configuration can&apos;t simply be embedded inside the application. The configuration has to be flexible enough to cope with multiple applications, environments, and service instances, as well as deal with dynamic changes without downtime. Spring Cloud Config is designed to ease these burdens and offers integration with version control systems like Git to help you keep your configuration safe.<br /><br />");
-            },
-			Img = "/images/Icon_data-transfer.svg"
-		},
-		new()
+            Title = (MarkupString)"Cloud configuration",
+            Description = b => { b.AddMarkupContent(1, "In the cloud, configuration can&apos;t simply be embedded inside the application. The configuration has to be flexible enough to cope with multiple applications, environments, and service instances, as well as deal with dynamic changes without downtime. Spring Cloud Config is designed to ease these burdens and offers integration with version control systems like Git to help you keep your configuration safe.<br /><br />"); },
+            Img = "/images/Icon_data-transfer.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Tracing",
-			Description = b => {
-                b.AddMarkupContent(1,"Debugging distributed applications can be complex and take a long time. For any given failure, you might need to piece together traces of information from several independent services. Spring Cloud Sleuth can instrument your applications in a predictable and repeatable way. And when used in conjunction with Zipkin, you can zero in on any latency problems you might have.<br /><br />");
-            },
-			Img = "/images/Icon_data-transfer.svg"
-		}
+            Title = (MarkupString)"Tracing",
+            Description = b => { b.AddMarkupContent(1, "Debugging distributed applications can be complex and take a long time. For any given failure, you might need to piece together traces of information from several independent services. Spring Cloud Sleuth can instrument your applications in a predictable and repeatable way. And when used in conjunction with Zipkin, you can zero in on any latency problems you might have.<br /><br />"); },
+            Img = "/images/Icon_data-transfer.svg"
+        }
     ];
 }

@@ -4,14 +4,8 @@
 
 @code
 {
-    private const int CurrentVersion = 4;
-
-    [Parameter] public int? Version { get; set; }
-
     protected override void OnParametersSet()
     {
-        var uri = $"/api/v{CurrentVersion}/";
-
-        NavigationManager.NavigateTo(uri);
+        NavigationManager.NavigateTo("/api/v4/");
     }
 }

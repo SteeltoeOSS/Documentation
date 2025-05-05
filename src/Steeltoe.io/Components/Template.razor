@@ -2,72 +2,81 @@
 
 <PageTitle>Steeltoe | @Name</PageTitle>
 <HeadContent>
-    <meta name="description" content="@MetaDescription" />
-    <meta name="DC.Title" content="@(SocialShareTitle ?? Name)" xml:lang="EN" />
-    <meta property="og:title" content="@(SocialShareTitle ?? Name)" />
-    <meta property="og:description" content="@(SocialShareDescription ?? MetaDescription)" />
-    <meta property="og:url" content="@_canonicalUrl" />
-    <link rel="canonical" href="@_canonicalUrl" />
+    <meta name="description" content="@MetaDescription"/>
+    <meta name="DC.Title" content="@(SocialShareTitle ?? Name)" xml:lang="EN"/>
+    <meta property="og:title" content="@(SocialShareTitle ?? Name)"/>
+    <meta property="og:description" content="@(SocialShareDescription ?? MetaDescription)"/>
+    <meta property="og:url" content="@_canonicalUrl"/>
+    <link rel="canonical" href="@_canonicalUrl"/>
 </HeadContent>
 
 <div class="width-all bg-yellow">
-	<div class="width-90 container">
-		<div class="row g-0"><div class="col component-title">@Name</div></div>
-		<div class="row g-0"><div class="col component-desc">@Description</div></div>
-	</div>
-	<div class="width-90 container">
-		<div class="row g-0">
-			@if (GettingStartedUrl != null) {
-			<div class="col offset-@(DocsUrl==null?"4":"2")">
-				<Href Class="component-button link-light" href="@(GettingStartedUrl)">GET STARTED</Href>
-			</div>
-			}
-			@if (DocsUrl != null) {
-			<div class="col @(GettingStartedUrl==null?"offset-4":"")">
-				<Href Class="component-button link-light" href="@(DocsUrl)">READ THE DOCS</Href>
-			</div>
-			}
-		</div>
-	</div>
+    <div class="width-90 container">
+        <div class="row g-0">
+            <div class="col component-title">@Name</div>
+        </div>
+        <div class="row g-0">
+            <div class="col component-desc">@Description</div>
+        </div>
+    </div>
+    <div class="width-90 container">
+        <div class="row g-0">
+            @if (GettingStartedUrl != null)
+            {
+                <div class="col offset-@(DocsUrl == null ? "4" : "2")">
+                    <Href Class="component-button link-light" href="@(GettingStartedUrl)">GET STARTED</Href>
+                </div>
+            }
+            @if (DocsUrl != null)
+            {
+                <div class="col @(GettingStartedUrl == null ? "offset-4" : "")">
+                    <Href Class="component-button link-light" href="@(DocsUrl)">READ THE DOCS</Href>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 <div class="width-all yellow-slant">
 </div>
 <div class="width-all">
-	<div class="width-90 container">
-		<div class="@(WhatIs != null || WhyUse != null ? "border-bottom-steeltoe-blue" : "") row g-0"
+    <div class="width-90 container">
+        <div class="@(WhatIs != null || WhyUse != null ? "border-bottom-steeltoe-blue" : "") row g-0"
              style="@(WhatIs != null || WhyUse != null ? "margin-bottom:7%;padding-bottom:7%" : "")">
-			@if (WhatIs != null) {
-			<div class="col-sm mr-sm-2">
-				<div class="row g-0">
-					<div class="col component-whatis-title">
-						What @(NameIsPlural ? "are" : "is") @Name?
-					</div>
-				</div>
-				<div class="row g-0">
-					<div class="col component-whatis-desc">
-						@WhatIs
-					</div>
-				</div>
-			</div>
-			}
-			@if (WhyUse != null) {
-			<div class="col-sm ml-sm-2">
-				<div class="row g-0">
-					<div class="col component-whyuse-title">
-						Why use @Name?
-					</div>
-				</div>
-				<div class="row g-0">
-					<div class="col component-whyuse-desc">
-						@WhyUse
-					</div>
-				</div>
-			</div>
-			}
-		</div>
-		@if (Features != null) {
-			<div class="row g-0">
-				@foreach (var feature in Features)
+            @if (WhatIs != null)
+            {
+                <div class="col-sm mr-sm-2">
+                    <div class="row g-0">
+                        <div class="col component-whatis-title">
+                            What @(NameIsPlural ? "are" : "is") @Name?
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col component-whatis-desc">
+                            @WhatIs
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (WhyUse != null)
+            {
+                <div class="col-sm ml-sm-2">
+                    <div class="row g-0">
+                        <div class="col component-whyuse-title">
+                            Why use @Name?
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col component-whyuse-desc">
+                            @WhyUse
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        @if (Features != null)
+        {
+            <div class="row g-0">
+                @foreach (var feature in Features)
                 {
                     if (FeatureTemplate == null && AltFeatureTemplate == null)
                     {
@@ -86,6 +95,7 @@
                         {
                             throw new NotImplementedException("This is unexpected");
                         }
+
                         if (AltFeatureTemplate != null)
                         {
                             if (_i % 2 == 0)
@@ -103,55 +113,58 @@
                         }
                     }
 
-					_i++;
-				}
-			</div>
-		}
-		<div class="row g-0" style="@((GettingStartedUrl == null && DocsUrl == null) || (DocsUrl == null && !ShowBottomGetStarted) ? "":"margin: 7% 0 7% 0;")">
-			@if (GettingStartedUrl != null && ShowBottomGetStarted) {
-				<div class="col offset-@(DocsUrl==null&&ShowBottomGetStarted?"4":"2")">
-					<Href Class="component-button link-light" href="@(GettingStartedUrl)">GET STARTED</Href>
-				</div>
-			}
-			@if (DocsUrl != null && ShowBottomDocsUrl) {
-				<div class="col @(GettingStartedUrl==null&&ShowBottomDocsUrl?"offset-4":"")">
-					<Href Class="component-button link-light" href="@DocsUrl">READ THE DOCS</Href>
-				</div>
-			}
-		</div>
-	</div>
+                    _i++;
+                }
+            </div>
+        }
+        <div class="row g-0" style="@((GettingStartedUrl == null && DocsUrl == null) || (DocsUrl == null && !ShowBottomGetStarted) ? "" : "margin: 7% 0 7% 0;")">
+            @if (GettingStartedUrl != null && ShowBottomGetStarted)
+            {
+                <div class="col offset-@(DocsUrl == null && ShowBottomGetStarted ? "4" : "2")">
+                    <Href Class="component-button link-light" href="@(GettingStartedUrl)">GET STARTED</Href>
+                </div>
+            }
+            @if (DocsUrl != null && ShowBottomDocsUrl)
+            {
+                <div class="col @(GettingStartedUrl == null && ShowBottomDocsUrl ? "offset-4" : "")">
+                    <Href Class="component-button link-light" href="@DocsUrl">READ THE DOCS</Href>
+                </div>
+            }
+        </div>
+    </div>
 </div>
-@if (OtherArea != null) {
-	<div class="width-all">
-		<div class="width-90 container">
-			<div class="row g-0">
-				@OtherArea
-			</div>
-		</div>
-	</div>
+@if (OtherArea != null)
+{
+    <div class="width-all">
+        <div class="width-90 container">
+            <div class="row g-0">
+                @OtherArea
+            </div>
+        </div>
+    </div>
 }
 
 @code
 {
-	private int _i = 0;
+    private int _i = 0;
     private string _canonicalUrl;
 
-	[Parameter] public string Name { get; set; }
+    [Parameter] public string Name { get; set; }
     [Parameter] public string MetaDescription { get; set; }
     [Parameter] public string SocialShareTitle { get; set; }
     [Parameter] public string SocialShareDescription { get; set; }
     [Parameter] public bool NameIsPlural { get; set; } = false;
-	[Parameter] public bool ShowBottomGetStarted { get; set; } = true;
-	[Parameter] public bool ShowBottomDocsUrl { get; set; } = true;
-	[Parameter] public RenderFragment Description { get; set; }
-	[Parameter] public RenderFragment WhatIs { get; set; }
-	[Parameter] public RenderFragment WhyUse { get; set; }
-	[Parameter] public RenderFragment<Feature> FeatureTemplate { get; set; }
-	[Parameter] public RenderFragment<Feature> AltFeatureTemplate { get; set; } = null;
-	[Parameter] public IReadOnlyList<Feature> Features { get; set; } = null;
-	[Parameter] public string GettingStartedUrl { get; set; }
-	[Parameter] public string DocsUrl { get; set; }
-	[Parameter] public RenderFragment OtherArea { get; set; }
+    [Parameter] public bool ShowBottomGetStarted { get; set; } = true;
+    [Parameter] public bool ShowBottomDocsUrl { get; set; } = true;
+    [Parameter] public RenderFragment Description { get; set; }
+    [Parameter] public RenderFragment WhatIs { get; set; }
+    [Parameter] public RenderFragment WhyUse { get; set; }
+    [Parameter] public RenderFragment<Feature> FeatureTemplate { get; set; }
+    [Parameter] public RenderFragment<Feature> AltFeatureTemplate { get; set; } = null;
+    [Parameter] public IReadOnlyList<Feature> Features { get; set; } = null;
+    [Parameter] public string GettingStartedUrl { get; set; }
+    [Parameter] public string DocsUrl { get; set; }
+    [Parameter] public RenderFragment OtherArea { get; set; }
 
     public override Task SetParametersAsync(ParameterView parameters)
     {

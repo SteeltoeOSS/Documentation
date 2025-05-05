@@ -76,5 +76,11 @@ Write-Host "Setting 'DOCFX_SOURCE_BRANCH_NAME' back to '$OriginalSourceBranchNam
 $env:DOCFX_SOURCE_BRANCH_NAME = $OriginalSourceBranchName
 
 Write-Host 'Running command: dotnet docfx build (Join-Path ".." "docs" "docfx-all.json")'
-dotnet docfx build (Join-Path ".." "docs" "docfx-all.json")
+dotnet docfx build (Join-Path ".." "docs" "docfx-all.json") --warningsAsErrors true
+
+if ($LastExitCode -ne 0)
+{
+    throw "Exit code is $LastExitCode"
+}
+
 Pop-Location

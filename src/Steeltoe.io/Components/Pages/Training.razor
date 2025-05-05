@@ -13,49 +13,65 @@
     </Description>
     <FeatureTemplate Context="Feature">
         <div class="row component-feature g-0">
-            <div class="col-6 text-center"><div class="component-feature-img"><img class="img-fluid" src="@Feature.Img" alt="@Feature.Title" /></div></div>
-            <div class="col"><div class="component-feature-title">@Feature.Title</div><div class="component-feature-desc">@Feature.Description</div></div>
+            <div class="col-6 text-center">
+                <div class="component-feature-img">
+                    <img class="img-fluid" src="@Feature.Img" alt="@Feature.Title"/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="component-feature-title">@Feature.Title</div>
+                <div class="component-feature-desc">@Feature.Description</div>
+            </div>
         </div>
     </FeatureTemplate>
     <AltFeatureTemplate Context="Feature">
         <div class="row component-feature g-0">
-            <div class="col-6"><div class="component-feature-title">@Feature.Title</div><div class="component-feature-desc">@Feature.Description</div></div>
-            <div class="col-6 text-center"><div class="component-feature-img"><img class="img-fluid" src="@Feature.Img" alt="@Feature.Title" /></div></div>
+            <div class="col-6">
+                <div class="component-feature-title">@Feature.Title</div>
+                <div class="component-feature-desc">@Feature.Description</div>
+            </div>
+            <div class="col-6 text-center">
+                <div class="component-feature-img">
+                    <img class="img-fluid" src="@Feature.Img" alt="@Feature.Title"/>
+                </div>
+            </div>
         </div>
     </AltFeatureTemplate>
 </Template>
 
 @code
 {
-	private readonly Feature[] _features =
+    private readonly Feature[] _features =
     [
         new()
         {
-			Title = (MarkupString)"Pivotal Platform Acceleration Lab for .NET Developers",
-			Description = b => {
-                b.AddMarkupContent(1,"Experience best practices building cloud-native applications in a hands-on setting with Pivotal educators and consultants. The program is focused on enabling customers and partners through \"doing it\" rather than \"talking about it\".<br /><br />");
+            Title = (MarkupString)"Pivotal Platform Acceleration Lab for .NET Developers",
+            Description = b =>
+            {
+                b.AddMarkupContent(1, "Experience best practices building cloud-native applications in a hands-on setting with Pivotal educators and consultants. The program is focused on enabling customers and partners through \"doing it\" rather than \"talking about it\".<br /><br />");
                 b.OpenComponent<Href>(2);
-                b.AddAttribute(3, "href","https://store.education.pivotal.io/confirm-course?courseid=EDU-1180");
-                b.AddAttribute(4, "NewWindow",true);
-                b.AddAttribute(5, "AsButton",true);
+                b.AddAttribute(3, "href", "https://store.education.pivotal.io/confirm-course?courseid=EDU-1180");
+                b.AddAttribute(4, "NewWindow", true);
+                b.AddAttribute(5, "AsButton", true);
                 b.AddAttribute(6, "ChildContent", (RenderFragment)(child => { child.AddContent(7, "LEAN MORE"); }));
                 b.CloseComponent();
             },
-			Img = "/images/Icon_computer.svg"
-		},
-		new()
+            Img = "/images/Icon_computer.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Pivotal Certified Developer .NET",
-			Description = b => {
-                b.AddMarkupContent(1,"The performance-based Pivotal Certified Developer Exam is designed to test and validate your understanding of and familiarity with Tanzu Application Service, ASP.NET Core, RESTful APIs, and cloud-native patterns.<br /><br />");
+            Title = (MarkupString)"Pivotal Certified Developer .NET",
+            Description = b =>
+            {
+                b.AddMarkupContent(1, "The performance-based Pivotal Certified Developer Exam is designed to test and validate your understanding of and familiarity with Tanzu Application Service, ASP.NET Core, RESTful APIs, and cloud-native patterns.<br /><br />");
                 b.OpenComponent<Href>(2);
-                b.AddAttribute(3, "href","https://store.education.pivotal.io/confirm-course?courseid=EDU-1198");
-                b.AddAttribute(4, "NewWindow",true);
-                b.AddAttribute(5, "AsButton",true);
+                b.AddAttribute(3, "href", "https://store.education.pivotal.io/confirm-course?courseid=EDU-1198");
+                b.AddAttribute(4, "NewWindow", true);
+                b.AddAttribute(5, "AsButton", true);
                 b.AddAttribute(6, "ChildContent", (RenderFragment)(child => { child.AddContent(7, "LEAN MORE"); }));
                 b.CloseComponent();
             },
-			Img = "/images/Icon_keys.svg"
-		}
+            Img = "/images/Icon_keys.svg"
+        }
     ];
 }

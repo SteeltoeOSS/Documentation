@@ -12,44 +12,36 @@
         Instead, use the native functions of .NET and let the platform decide the provider.
         Cloud Security helps your app achieve that abstraction.
     </WhatIs>
-	<WhyUse>Steeltoe provides a number of Security-related services that simplify using a cloud platform&apos;s security services in ASP.NET applications.</WhyUse>
+    <WhyUse>Steeltoe provides a number of Security-related services that simplify using a cloud platform&apos;s security services in ASP.NET applications.</WhyUse>
 </Template>
 
 @code
 {
-	private readonly Feature[] _features =
+    private readonly Feature[] _features =
     [
         new()
         {
-			Title = (MarkupString)"Single Sign-on with OpenID Connect",
-			Description = b => {
-                b.AddMarkupContent(1,"Leverage existing credentials managed by an OAuth2 service for authentication and authorization in ASP.NET Core applications or with OpenID Connect in ASP.NET Framework (4.x).");
-            },
-			Img = "/images/Icon_computer.svg"
-		},
-		new()
+            Title = (MarkupString)"Single Sign-on with OpenID Connect",
+            Description = b => { b.AddMarkupContent(1, "Leverage existing credentials managed by an OAuth2 service for authentication and authorization in ASP.NET Core applications or with OpenID Connect in ASP.NET Framework (4.x)."); },
+            Img = "/images/Icon_computer.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Resource Protection using JWT",
-			Description = b => {
-                b.AddMarkupContent(1,"Control access to REST resources by using JWT tokens.");
-            },
-			Img = "/images/Icon_security.svg"
-		},
-		new()
+            Title = (MarkupString)"Resource Protection using JWT",
+            Description = b => { b.AddMarkupContent(1, "Control access to REST resources by using JWT tokens."); },
+            Img = "/images/Icon_security.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Redis Key Storage Provider",
-			Description = b => {
-                b.AddMarkupContent(1,"Reconfigure the Data Protection service in ASP.NET to use an external Redis instance for key ring storage.");
-            },
-			Img = "/images/Icon_down-arrow.svg"
-		},
-		new()
+            Title = (MarkupString)"Redis Key Storage Provider",
+            Description = b => { b.AddMarkupContent(1, "Reconfigure the Data Protection service in ASP.NET to use an external Redis instance for key ring storage."); },
+            Img = "/images/Icon_down-arrow.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"CredHub Client",
-			Description = b => {
-                b.AddMarkupContent(1,"Interact directly with a CredHub secrets store in an ASP.NET application.");
-            },
-			Img = "/images/Icon_security.svg"
-		}
+            Title = (MarkupString)"CredHub Client",
+            Description = b => { b.AddMarkupContent(1, "Interact directly with a CredHub secrets store in an ASP.NET application."); },
+            Img = "/images/Icon_security.svg"
+        }
     ];
 }

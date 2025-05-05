@@ -15,48 +15,40 @@
         Your app could also register itself for discovery.
         Then you could distribute the name used during registration for others to discover.
     </WhatIs>
-	<WhyUse>
+    <WhyUse>
         With the ability to discover and register URIs, services within an organization are far less coupled.
-        In turn services are more mobile, can be updated easily, and each can follow different availability patterns.<br /><br />
-		Duplicated registries in multiple locations, registering URIs to route requests between multiple data centers, and registering different versions of the same service are just a few of the benefits.
-	</WhyUse>
+        In turn services are more mobile, can be updated easily, and each can follow different availability patterns.<br/><br/>
+        Duplicated registries in multiple locations, registering URIs to route requests between multiple data centers, and registering different versions of the same service are just a few of the benefits.
+    </WhyUse>
 </Template>
 
 @code
 {
-	private readonly Feature[] _features =
+    private readonly Feature[] _features =
     [
         new()
         {
-			Title = (MarkupString)"Support for Multiple Registries",
-			Description = b => {
-                b.AddMarkupContent(1,"The Steeltoe discovery client removes any dependencies to a specific registry. With support for Eureka as well as HashiCorp Consul, you have flexibility with little to no code change when choosing the right registry.");
-            },
-			Img = "/images/Icon_computers.svg"
-		},
-		new()
+            Title = (MarkupString)"Support for Multiple Registries",
+            Description = b => { b.AddMarkupContent(1, "The Steeltoe discovery client removes any dependencies to a specific registry. With support for Eureka as well as HashiCorp Consul, you have flexibility with little to no code change when choosing the right registry."); },
+            Img = "/images/Icon_computers.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Logging & Health Checks Built In",
-			Description = b => {
-                b.AddMarkupContent(1,"Service registry logs are automatically fed to your app&apos;s logging interface, and health contributors are automatically configured and made available to your application.");
-            },
-			Img = "/images/Icon_cloud.svg"
-		},
-		new()
+            Title = (MarkupString)"Logging & Health Checks Built In",
+            Description = b => { b.AddMarkupContent(1, "Service registry logs are automatically fed to your app&apos;s logging interface, and health contributors are automatically configured and made available to your application."); },
+            Img = "/images/Icon_cloud.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Register and Discover Services",
-			Description = b => {
-                b.AddMarkupContent(1,"With just a few lines of code, your app can use a registry to discover services as well as registering itself for discovery.");
-            },
-			Img = "/images/Icon_device-network.svg"
-		},
-		new()
+            Title = (MarkupString)"Register and Discover Services",
+            Description = b => { b.AddMarkupContent(1, "With just a few lines of code, your app can use a registry to discover services as well as registering itself for discovery."); },
+            Img = "/images/Icon_device-network.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Request Load Balancing",
-			Description = b => {
-                b.AddMarkupContent(1,"When a service as registered multiple instances, configure the client to balance requests across instances. Options for random, round robin, as well as building your own are available in Steeltoe Service Discovery.");
-            },
-			Img = "/images/Icon_data-transfer.svg"
-		}
+            Title = (MarkupString)"Request Load Balancing",
+            Description = b => { b.AddMarkupContent(1, "When a service as registered multiple instances, configure the client to balance requests across instances. Options for random, round robin, as well as building your own are available in Steeltoe Service Discovery."); },
+            Img = "/images/Icon_data-transfer.svg"
+        }
     ];
 }

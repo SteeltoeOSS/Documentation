@@ -15,11 +15,11 @@ To better understand .NET configuration services, you should read the [ASP.NET C
 
 Steeltoe adds additional configuration providers to the preceding list:
 
+* Spring Cloud Config Server
 * Cloud Foundry
 * Kubernetes (Config Maps and Secrets)
 * Placeholder resolvers
 * RandomValue generator
-* Spring Cloud Config Server
 
 Steeltoe also provides hosting extensions for dynamically binding ASP.NET Core to ports assigned by cloud platforms.
 

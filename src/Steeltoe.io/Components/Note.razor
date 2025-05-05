@@ -4,7 +4,7 @@
     </div>
     <div class="row" style="background-color:#f0f6fc">
         <div class="col note-desc">
-            @Message 
+            @Message
             @ChildContent
         </div>
     </div>
@@ -12,6 +12,6 @@
 
 @code
 {
-	[Parameter] public RenderFragment Message { get; set; }
-	[Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment Message { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
 }

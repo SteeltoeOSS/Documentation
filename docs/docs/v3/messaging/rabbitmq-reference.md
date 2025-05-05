@@ -3,7 +3,6 @@
 
 This section explores the interfaces and classes that are the essential components for developing applications with Steeltoe RabbitMQ.
 
-
 ## Messaging Abstractions
 
 Steeltoe RabbitMQ consists of two packages (each represented by a nuget in the distribution): `Steeltoe.Messaging.MessagingBase` and `Steeltoe.Messaging.RabbitMQ`.
@@ -17,7 +16,7 @@ There is currently only a RabbitMQ implementation at this point, but in the futu
 Since RabbitMQ is based on the AMQP and it operates at a protocol level, in principle, you should be able to use the Steeltoe package with any broker that supports the same protocol version. Currently we are only testing with the RabbitMQ broker at present.
 
 This overview assumes that you are already familiar with the basics of the AMQP specification.
-If not, have a look at the resources listed in [further-reading](./further-reading.md).
+If not, have a look at the resources listed in [further-reading](#further-reading).
 
 ### IMessage
 
@@ -112,7 +111,7 @@ The behavior varies across these `IExchange` types in terms of how they handle b
 For example, a `DirectExchange` lets a queue be bound by a fixed routing key (often the queue's name).
 A `TopicExchange` supports bindings with routing patterns that may include the '\*' and '#' wildcards for 'exactly-one' and 'zero-or-more', respectively.
 The `FanoutExchange` publishes to all queues that are bound to it without taking any routing key into consideration.
-For much more information about these and the other Exchange types, see [further-reading](./further-reading.md).
+For much more information about these and the other Exchange types, see [further-reading](#further-reading).
 
 >The AMQP specification also requires that any broker provide a "default" direct exchange that has no name.
 All queues that are declared are bound to that default `IExchange` with their names as routing keys.
@@ -3294,3 +3293,13 @@ The `BinaryExceptionClassifier` has a property called `TraverseInnerExceptions` 
 When `true`, it traverses inner exceptions until it finds a match or there is no cause.
 
 To use this classifier for retry, you can use a `PollyRetryPolicy` created with the constructor that takes the max attempts, the `Dictionary` of `Exception` instances, and the boolean (`TraverseInnerExceptions`) and use this with the `RetryTemplate`.
+
+## Further Reading
+
+For those who are not familiar with AMQP, the [specification](https://www.amqp.org/resources/download) is actually quite readable.
+It is, of course, the authoritative source of information, and the Spring AMQP code should be easy to understand for anyone who is familiar with the spec.
+Our current implementation of the RabbitMQ support is based on their 2.8.x version, and it officially supports AMQP 0.8 and 0.9.1.
+We recommend reading the 0.9.1 document.
+
+There are many great articles, presentations, and blogs available on the RabbitMQ [Getting Started](https://www.rabbitmq.com/how.html) page.
+Since that is currently the only supported implementation for Spring AMQP, we also recommend that as a general starting point for all broker-related concerns.

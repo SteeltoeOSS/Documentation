@@ -1,4 +1,4 @@
-/*====================== logo ========================= */
+/* ===================== logo ===================== */
 #logo {
     margin-right: 10px;
 }
@@ -21,7 +21,7 @@
 .st3 {
     fill: #8A8C8E;
 }
-/* Header nav */
+/* ===================== Header nav ===================== */
 #navbar .nav-link {
     padding: unset;
     display: unset;
@@ -52,7 +52,7 @@
         text-align: center;
     }
 }
-/* Footer */
+/* ===================== Footer ===================== */
 #footer .text-secondary, #footer .text-secondary>a {
     color: #bfbfbf !important;
 }
@@ -65,7 +65,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* =====================DOCFX OVERRIDE===================== */
+/* ===================== DOCFX OVERRIDE ===================== */
 .navbar #navbar form.icons{
     margin-left: 0;
     order:50;
@@ -143,7 +143,7 @@ body[data-yaml-mime=ApiPage] article dl.parameters>dt>code {
     }
 }
 
-/*===================== DARK MODE ===================== */
+/* ===================== DARK MODE ===================== */
 [data-bs-theme="dark"] {
     body {
         background: #212529;
@@ -180,7 +180,7 @@ body[data-yaml-mime=ApiPage] article dl.parameters>dt>code {
     }
 }
 
-/************ BLOG ************/
+/* ===================== BLOG ===================== */
 ul.blog-list {
     padding-left: 0;
     a {

@@ -8,17 +8,17 @@ The directories below this one are used with [docfx](https://dotnet.github.io/do
 | `/articles` | Blog posts |
 | `/docs` | Steeltoe documentation |
 | `/guides` | Guides for getting started with Steeltoe |
-| `/modern-steeltoe` | Customized copy of the modern DocFX template |
+| `/modern-steeltoe` | Customized copy of the modern docfx template |
 
 If you are working with API Browser content, view [this README](../build/README.md).
 
-## Installing DocFX
+## Installing docfx
 
-Install DocFX by running `dotnet tool restore`, which installs tools defined in [dotnet-tools.json](../.config/dotnet-tools.json).
+Install docfx by running `dotnet tool restore`, which installs tools defined in [dotnet-tools.json](../.config/dotnet-tools.json).
 
-## DocFX Markdown
+## docfx Markdown
 
-DocFX offers an enhanced flavor of Markdown. To see examples and learn more, view the [DocFX Flavored Markdown](https://dotnet.github.io/docfx/docs/markdown.html) documentation.
+docfx offers an enhanced flavor of Markdown. To see examples and learn more, view the [docfx Flavored Markdown](https://dotnet.github.io/docfx/docs/markdown.html) documentation.
 
 Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack) extension pack useful.
 

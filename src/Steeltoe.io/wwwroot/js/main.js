@@ -7,7 +7,7 @@ function setTheme(theme) {
         document.getElementById("theme").className = "bi bi-circle-half";
     } else {
         document.documentElement.setAttribute("data-bs-theme", theme)
-        if (theme === "light"){
+        if (theme === "light") {
           document.getElementById("theme").className = "bi bi-sun";
         }
         else {

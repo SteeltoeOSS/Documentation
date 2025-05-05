@@ -1,4 +1,4 @@
-/* DEVELOP WIDTH = 1400px */
+/* ===================== DEVELOP WIDTH = 1400px ===================== */
 html,
 body {
     font-family: system-ui,
@@ -27,7 +27,7 @@ app {
     display: block;
 }
 
-/*=======================Error Display=======================*/
+/* ===================== Error Display ===================== */
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -47,7 +47,7 @@ app {
     top: 0.5rem;
 }
 
-/*=====================CONTAINER SIZING===================== */
+/* ===================== CONTAINER SIZING ===================== */
 .width-90 {
     max-width: 90%;
 }
@@ -128,7 +128,7 @@ app {
     }
 }
 
-/*===================== BACKGROUND COLORS===================== */
+/* ===================== BACKGROUND COLORS ===================== */
 .bg-midnight-blue {
     background-color: #00376e;
 }
@@ -182,7 +182,7 @@ app {
 }
 
 
-/*=====================FONT COLORS===================== */
+/* ===================== FONT COLORS ===================== */
 .yellow {
     color: #ffd700;
 }
@@ -203,7 +203,7 @@ app {
     color: #00376e;
 }
 
-/* =====================BORDER COLORS===================== */
+/* ===================== BORDER COLORS ===================== */
 .border-yellow {
     border-color: #ffd700;
     border-width: 2px;
@@ -222,7 +222,7 @@ app {
     border-bottom-style: solid;
 }
 
-/* =====================BOOTSTRAP OVERRIDE===================== */
+/* ===================== BOOTSTRAP OVERRIDE ===================== */
 .row {
     width: 100%;
 }
@@ -242,7 +242,7 @@ app {
     background-color: #eeeeee;
 }
 
-/* =====================Styles for Blazor content===================== */
+/* ===================== Styles for Blazor content ===================== */
 #main {
     h1 {
         font-style: normal;
@@ -283,7 +283,8 @@ app {
         font-size: .765em;
     }
 }
-/* =====================FONT STYLING===================== */
+
+/* ===================== FONT STYLING ===================== */
 
 .font-sm {
     font-size: 90%;
@@ -307,13 +308,10 @@ app {
     line-height: 40px;
 }
 
-/* =====================PAGE ITEMS===================== */
+/* ===================== PAGE ITEMS ===================== */
 
 #footer {
     padding-top: 5%;
-    /* a {
-        text-decoration: underline;
-    } */
 }
 
 .bottom-bar .col,
@@ -387,6 +385,9 @@ app {
     text-align: left;
     border: 1px solid #eeeeee;
     border-top: 11px solid #ffd700;
+    a {
+        text-decoration:none;
+    }
 }
 
 .component-dark:hover {

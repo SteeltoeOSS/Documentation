@@ -23,33 +23,35 @@
 
 @code
 {
-	private readonly Feature[] _features =
+    private readonly Feature[] _features =
     [
-		new()
+        new()
         {
-			Title = (MarkupString)"Steeltoe Messaging",
-			Description = b => {
-                b.AddMarkupContent(1,"With the Steeltoe Messaging project, you can apply core concepts to the development of RabbitMQ based messaging solutions.<br /><br />In just a few lines, implement high-level message handling abstraction and support message-driven POCOs with a \"listener container.\"<Br /><br />");
+            Title = (MarkupString)"Steeltoe Messaging",
+            Description = b =>
+            {
+                b.AddMarkupContent(1, "With the Steeltoe Messaging project, you can apply core concepts to the development of RabbitMQ based messaging solutions.<br /><br />In just a few lines, implement high-level message handling abstraction and support message-driven POCOs with a \"listener container.\"<Br /><br />");
                 b.OpenComponent<Href>(2);
-                b.AddAttribute(3, "href","/messaging");
-                b.AddAttribute(4, "AsButton",true);
+                b.AddAttribute(3, "href", "/messaging");
+                b.AddAttribute(4, "AsButton", true);
                 b.AddAttribute(5, "ChildContent", (RenderFragment)(child => { child.AddContent(6, "Learn more"); }));
                 b.CloseComponent();
             },
-			Img = "/images/Icon_device-exchange.svg"
-		},
-		new()
+            Img = "/images/Icon_device-exchange.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Steeltoe Stream",
-			Description = b => {
-                b.AddMarkupContent(1,"Steeltoe Stream improves your productivity when working with RabbitMQ, providing three key abstractions to simplify your code. &quot;Binders&quot; integrate with external messaging systems. &quot;Bindings&quot; bridge the gap between the messaging systems and your code. &quot;Messages&quot; provide the structure that your code uses to send and receive data.<Br /><br />Steeltoe Stream also provides support for provisioning, content conversion, error handling, configuration management, consumer groups, partitioning, monitoring, and health checks.<Br /><br />");
+            Title = (MarkupString)"Steeltoe Stream",
+            Description = b =>
+            {
+                b.AddMarkupContent(1, "Steeltoe Stream improves your productivity when working with RabbitMQ, providing three key abstractions to simplify your code. &quot;Binders&quot; integrate with external messaging systems. &quot;Bindings&quot; bridge the gap between the messaging systems and your code. &quot;Messages&quot; provide the structure that your code uses to send and receive data.<Br /><br />Steeltoe Stream also provides support for provisioning, content conversion, error handling, configuration management, consumer groups, partitioning, monitoring, and health checks.<Br /><br />");
                 b.OpenComponent<Href>(2);
-                b.AddAttribute(3, "href","/docs/stream");
-                b.AddAttribute(4, "AsButton",true);
+                b.AddAttribute(3, "href", "/docs/stream");
+                b.AddAttribute(4, "AsButton", true);
                 b.AddAttribute(5, "ChildContent", (RenderFragment)(child => { child.AddContent(6, "Learn more"); }));
                 b.CloseComponent();
             },
-			Img = "/images/Icon_data-transfer.svg"
-		}
+            Img = "/images/Icon_data-transfer.svg"
+        }
     ];
 }

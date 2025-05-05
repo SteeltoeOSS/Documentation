@@ -26,15 +26,12 @@
             Component = Component.Replace("steeltoe-", string.Empty).Replace("introduction", "welcome");
         }
 
-        if (_v3Components.Contains(Component))
+        Version = Version switch
         {
-            Version = 3;
-        }
-        else if (Version is null or < 2 or > CurrentVersion)
-        {
-            Version = CurrentVersion;
-        }
-
+            null or < 2 or > 3 when _v3Components.Contains(Component) => 3,
+            null or < 2 or > CurrentVersion => CurrentVersion,
+            _ => Version
+        };
 
         Component ??= "welcome";
         Area ??= "index";

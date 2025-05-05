@@ -2,7 +2,8 @@
     "cSpell.words": [
         "appsettings",
         "Blazor",
-        "DOCFX",
+        "docfx",
+        "LastExitCode",
         "steeltoe",
         "tanzu"
     ]

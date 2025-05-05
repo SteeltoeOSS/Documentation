@@ -11,19 +11,19 @@ public class DocsRedirectMiddleware(
     {
         var originalHost = context.Request.Host.Host.ToLower();
 
-        var newRequestUri = new StringBuilder();
-        newRequestUri.Append(Uri.UriSchemeHttps);
-        newRequestUri.Append(Uri.SchemeDelimiter);
+        var redirectUri = new StringBuilder();
+        redirectUri.Append(Uri.UriSchemeHttps);
+        redirectUri.Append(Uri.SchemeDelimiter);
         if (string.Equals(originalHost, "docs.steeltoe.io", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(originalHost, "docs-staging.steeltoe.io", StringComparison.OrdinalIgnoreCase))
         {
             logger.LogTrace("Received request for {originalHost}", originalHost);
-            newRequestUri.Append(configuration["Docs:NewHost"]);
+            redirectUri.Append(configuration["Docs:RedirectToHost"]);
 #if DEBUG
-            if (!string.IsNullOrEmpty(configuration["Docs:NewPort"]))
+            if (!string.IsNullOrEmpty(configuration["Docs:RedirectToPort"]))
             {
-                newRequestUri.Append(':');
-                newRequestUri.Append(configuration["Docs:NewPort"]);
+                redirectUri.Append(':');
+                redirectUri.Append(configuration["Docs:RedirectToPort"]);
             }
 #endif
             var path = context.Request.Path;
@@ -53,8 +53,9 @@ public class DocsRedirectMiddleware(
                         .Replace(".md", ".html");
                 }
             }
-            newRequestUri.Append(path);
-            var newLocation = newRequestUri.ToString();
+
+            redirectUri.Append(path);
+            var newLocation = redirectUri.ToString();
             logger.LogTrace("Redirecting to {newLocation}", newLocation);
             context.Response.Redirect(newLocation, permanent: true);
             return;

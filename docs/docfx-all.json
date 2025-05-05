@@ -40,7 +40,11 @@
     ],
     "resource": [
       {
-        "files": "**.{png|jpg}"
+        "files": [
+          "**.{png|jpg}",
+          "favicon.ico"
+        ]
+
       }
     ],
     "sitemap": {

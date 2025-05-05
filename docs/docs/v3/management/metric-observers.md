@@ -1,3 +1,3 @@
-# Metric Observers
-
-See [Metric Observers](metrics.md#metric-observers)
+---
+redirect_url: ./metrics.html#metric-observers
+---

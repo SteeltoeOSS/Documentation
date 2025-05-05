@@ -21,23 +21,19 @@
 
 @code
 {
-	private readonly Feature[] _features =
+    private readonly Feature[] _features =
     [
         new()
         {
-			Title = (MarkupString)"Management Endpoints",
-			Description = b => {
-                b.AddMarkupContent(1,"Automatically expose endpoints over HTTP in your ASP.NET application for things like health, info, metrics, refresh, tracing, loggers, and route mappings.");
-            },
-			Img = "/images/Icon_connector.svg"
-		},
-		new()
+            Title = (MarkupString)"Management Endpoints",
+            Description = b => { b.AddMarkupContent(1, "Automatically expose endpoints over HTTP in your ASP.NET application for things like health, info, metrics, refresh, tracing, loggers, and route mappings."); },
+            Img = "/images/Icon_connector.svg"
+        },
+        new()
         {
-			Title = (MarkupString)"Management Tasks",
-			Description = b => {
-                b.AddMarkupContent(1,"Run one-time administrative tasks for ASP.NET Core applications, for things like data migrations or custom processes.");
-            },
-			Img = "/images/Icon_box.svg"
-		}
+            Title = (MarkupString)"Management Tasks",
+            Description = b => { b.AddMarkupContent(1, "Run one-time administrative tasks for ASP.NET Core applications, for things like data migrations or custom processes."); },
+            Img = "/images/Icon_box.svg"
+        }
     ];
 }
