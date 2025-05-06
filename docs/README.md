@@ -76,23 +76,19 @@ An example API doc:
 
 ```markdown
 ---
-uid: docs/v2/circuitbreaker/hystrix
+uid: docs/v4/component/index
 ---
 
-# Netflix Hystrix
+# Some New Item
 
-Steeltoe's Hystrix implementation lets application developers isolate and manage back-end dependencies so that a single failing dependency does not take down the entire application. This is accomplished by wrapping all calls to external dependencies in a `HystrixCommand`, which runs in its own...
-
-Here is an example cross-reference link to config docs: @docs/v2/configuration/cloud-foundry-provider
-Or you could link to the v3 version of this doc: @docs/v3/circuitbreaker/hystrix
-Or do the same thing by providing custom link text: [view the v3 version](xref:docs/v2/circuitbreaker/hystrix)
+Steeltoe's newest component cures developer toil by...
 ```
 
-Corresponding entry in `docs/v2/toc.yml`:
+Corresponding entry in `docs/v4/toc.yml`:
 
 ```yaml
-- name: Circuit Breakers
+- name: Component
   items:
-    - name: Hystrix
-      href: circuitbreaker/hystrix.md
+    - name: Introduction
+      href: component/index.md
 ```

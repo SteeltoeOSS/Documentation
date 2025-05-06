@@ -1,6 +1,6 @@
 ---
 uid: guides/observability/tanzu
-title: Tanzu App Manager
+title: Tanzu Apps Manager
 tags: []
 _disableFooter: true
 _hideTocVersionToggle: true
@@ -9,7 +9,7 @@ _hideTocVersionToggle: true
 > [!NOTE]
 > This guide applies to Steeltoe v3. Please [open an issue](https://github.com/SteeltoeOSS/Documentation/issues/new/choose) if you'd like to help update the content for Steeltoe v4.
 
-## Using Tanzu App Manager for app container metrics, distributed tracing, and observability
+## Using Tanzu Apps Manager for app container metrics, distributed tracing, and observability
 
 This tutorial takes you creating a simple Steeltoe app with actuators, logging, and distributed tracing. With that app running you then export the data to a Tanzu Application Services foundation.
 

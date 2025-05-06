@@ -26,7 +26,7 @@ The following table describes the settings that you can apply to the endpoint:
 
 >Each setting above must be prefixed with `Management:Endpoints:Metrics`.
 
-To configure Observers, see [Metric Observers](./metric-observers.md)
+To configure Observers, see [Metric Observers](./metrics.md#metric-observers)
 
 ## Enable HTTP Access
 

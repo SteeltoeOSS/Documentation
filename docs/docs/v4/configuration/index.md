@@ -16,10 +16,10 @@ To better understand .NET configuration services, see the [ASP.NET Core document
 Steeltoe adds the following configuration providers to the preceding list:
 
 * Spring Cloud Config Server
-* Random value generator
-* Placeholder resolvers
-* Decryption of encrypted values
 * Cloud Foundry (JSON from the `VCAP_APPLICATION` and `VCAP_SERVICES` environment variables)
+* Placeholder resolvers
+* Random value generator
+* Decryption of encrypted values
 * Spring Boot configuration
 
 The following sections provide more detail about each of these Steeltoe providers.

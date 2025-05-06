@@ -14,69 +14,69 @@ _hideTocVersionToggle: true
 
 ## The Basics Workshop
 
-- @guides/get-to-know-steeltoe
-- @guides/get-to-know-steeltoe/exercise1
-- @guides/get-to-know-steeltoe/exercise2
-- @guides/get-to-know-steeltoe/exercise3
-- @guides/get-to-know-steeltoe/exercise4
-- @guides/get-to-know-steeltoe/summary
+- [Introduction](get-to-know-steeltoe/index.md)
+- [Getting to know Steeltoe](get-to-know-steeltoe/exercise1.md)
+- [Exploring all actuators](get-to-know-steeltoe/exercise2.md)
+- [Adding a cloud connector with SQL](get-to-know-steeltoe/exercise3.md)
+- [Using an external configuration provider](get-to-know-steeltoe/exercise4.md)
+- [Summary](get-to-know-steeltoe/summary.md)
 
 ## Application Configuration
 
-- @guides/application-configuration/spring-config
-- @guides/application-configuration/cloud-foundry
-- @guides/application-configuration/placeholder
-- @guides/application-configuration/random-value
+- [Spring Cloud Config Server Provider](application-configuration/spring-config.md)
+- [Cloud Foundry Provider](application-configuration/cloud-foundry.md)
+- [Placeholder Provider](application-configuration/placeholder.md)
+- [Random Value Provider](application-configuration/random-value.md)
 
 ## Circuit Breakers
 
-- @guides/circuit-breakers/circuit-breaker
+- [Circuit Breakers with Hystrix](circuit-breaker/circuit-breaker.md)
 
 ## Cloud Management
 
-- @guides/cloud-management/distributed-tracing
-- @guides/cloud-management/endpoints-netcore
-- @guides/cloud-management/endpoints-framework
+- [Distributed Tracing](cloud-management/distributed-tracing.md)
+- [Management Endpoints (.NET Core)](cloud-management/endpoints-netcore.md)
+- [Management Endpoints (.NET Framework)](cloud-management/endpoints-framework.md)
 
 ## Messaging
 
-- @guides/messaging/tutorials/tutorial1/readme
-- @guides/messaging/tutorials/tutorial2/readme
-- @guides/messaging/tutorials/tutorial3/readme
-- @guides/messaging/tutorials/tutorial4/readme
-- @guides/messaging/tutorials/tutorial5/readme
-- @guides/messaging/tutorials/tutorial6/readme
-- @guides/messaging/tutorials/tutorial7/readme
+- [RabbitMQ Tutorial 1 - Hello World](messaging/tutorials/tutorial1/readme.md)
+- [RabbitMQ Tutorial 2 - Work Queues](messaging/tutorials/tutorial2/readme.md)
+- [RabbitMQ Tutorial 3 - Publish/Subscribe](messaging/tutorials/tutorial3/readme.md)
+- [RabbitMQ Tutorial 4 - Routing](messaging/tutorials/tutorial4/readme.md)
+- [RabbitMQ Tutorial 5 - Topics](messaging/tutorials/tutorial5/readme.md)
+- [RabbitMQ Tutorial 6 - Remote Procedure Call](messaging/tutorials/tutorial6/readme.md)
+- [RabbitMQ Tutorial 7 - Publisher Confirms](messaging/tutorials/tutorial7/readme.md)
 
 ## Observability
 
-- @guides/observability/grafana
-- @guides/observability/tanzu
-- @guides/observability/wavefront
+- [Grafana](observability/grafana.md)
+- [Tanzu Apps Manager](observability/tanzu.md)
+- [Wavefront](observability/wavefront.md)
 
 ## Security
 
-- @guides/security-providers/jwt
-- @guides/security-providers/redisstore
-- @guides/security-providers/sso-oauth
-- @guides/security-providers/sso-openid-framework
-- @guides/security-providers/sso-openid-netcore
+- [Key Ring with Redis](security/redisstore.md)
+- [JWT Web Tokens](security/jwt.md)
+- [Cloud Foundry Single Sign-on with OAuth2](security/sso-oauth.md)
+- [Cloud Foundry Single Sign-on with OpenID Connect](security/sso-openid-netcore.md)
+- [Cloud Foundry Single Sign-on with OpenID Connect (.NET Framework)](security/sso-openid-framework.md)
 
 ## Service Connectors
 
-- @guides/service-connectors/mongo
-- @guides/service-connectors/mssql
-- @guides/service-connectors/mysql
-- @guides/service-connectors/oauth
-- @guides/service-connectors/postgresql
-- @guides/service-connectors/rabbitmq
-- @guides/service-connectors/redis
+- [Mongo Database](service-connectors/mongo.md)
+- [Microsoft SQL Database](service-connectors/mssql.md)
+- [MySQL Database](service-connectors/mysql.md)
+- [OAuth2 Client](service-connectors/oauth.md)
+- [PostgreSQL Database](service-connectors/postgresql.md)
+- [RabbitMQ Messaging](service-connectors/rabbitmq.md)
+- [Redis Cache](service-connectors/redis.md)
 
 ## Service Discovery
 
-- @guides/service-discovery/eureka
-- @guides/service-discovery/consul
+- [Eureka Service Discovery](service-discovery/eureka.md)
+- [Consul Service Discovery](service-discovery/consul.md)
 
 ## Stream
 
-- @guides/stream/quick-start
+- [Quick Start with RabbitMQ](stream/quick-start.md)

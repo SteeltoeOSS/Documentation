@@ -2,11 +2,11 @@
   href: config-server-provider.md
 - name: Cloud Foundry Provider
   href: cloud-foundry-provider.md
-- name: Kubernetes Providers
-  href: kubernetes-providers.md
 - name: Placeholder Provider
   href: placeholder-provider.md
 - name: Random Value Provider
   href: random-value-provider.md
+- name: Kubernetes Providers
+  href: kubernetes-providers.md
 - name: Hosting Extensions
   href: hosting-extensions.md

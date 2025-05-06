@@ -11,9 +11,9 @@
 
 @code
 {
-    private const int CurrentVersion = 4;
+    private const int LatestSteeltoeVersion = 4;
 
-    private readonly string[] _v3Components = ["circuitbreaker", "messaging", "stream"];
+    private readonly string[] _componentsNotAvailableInV4 = ["circuitbreaker", "messaging", "stream"];
 
     [Parameter] public string Area { get; set; }
     [Parameter] public string Component { get; set; }
@@ -28,8 +28,8 @@
 
         Version = Version switch
         {
-            null or < 2 or > 3 when _v3Components.Contains(Component) => 3,
-            null or < 2 or > CurrentVersion => CurrentVersion,
+            null or < 2 or > 3 when _componentsNotAvailableInV4.Contains(Component) => 3,
+            null or < 2 or > LatestSteeltoeVersion => LatestSteeltoeVersion,
             _ => Version
         };
 

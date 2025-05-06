@@ -75,7 +75,7 @@ if ($buildAll -or $SteeltoeVersion -ieq "4")
 Write-Host "Setting 'DOCFX_SOURCE_BRANCH_NAME' back to '$OriginalSourceBranchName'"
 $env:DOCFX_SOURCE_BRANCH_NAME = $OriginalSourceBranchName
 
-Write-Host 'Running command: dotnet docfx build (Join-Path ".." "docs" "docfx-all.json")'
+Write-Host 'Running command: dotnet docfx build (Join-Path ".." "docs" "docfx-all.json") --warningsAsErrors true'
 dotnet docfx build (Join-Path ".." "docs" "docfx-all.json") --warningsAsErrors true
 
 if ($LastExitCode -ne 0)

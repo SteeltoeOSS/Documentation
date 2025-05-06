@@ -15,7 +15,7 @@ The following table describes the settings that you can apply to the endpoint:
 
 >Each setting must be prefixed with `Management:Endpoints:Prometheus`.
 
-To configure Observers, see [Metric Observers](./metric-observers.md)
+To configure Observers, see [Metric Observers](./metrics.md#metric-observers)
 
 ## Enable HTTP Access
 

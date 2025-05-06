@@ -42,6 +42,6 @@
     ]
   },
   "rules": {
-    "InvalidFileLink": "warning"
+    "InvalidFileLink": "error"
   }
 }
