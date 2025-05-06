@@ -40,13 +40,13 @@ _hideTocVersionToggle: true
 
 ## Messaging
 
-- [RabbitMQ Tutorial 1 - Hello World](messaging/tutorials/tutorial1/readme.md)
-- [RabbitMQ Tutorial 2 - Work Queues](messaging/tutorials/tutorial2/readme.md)
-- [RabbitMQ Tutorial 3 - Publish/Subscribe](messaging/tutorials/tutorial3/readme.md)
-- [RabbitMQ Tutorial 4 - Routing](messaging/tutorials/tutorial4/readme.md)
-- [RabbitMQ Tutorial 5 - Topics](messaging/tutorials/tutorial5/readme.md)
-- [RabbitMQ Tutorial 6 - Remote Procedure Call](messaging/tutorials/tutorial6/readme.md)
-- [RabbitMQ Tutorial 7 - Publisher Confirms](messaging/tutorials/tutorial7/readme.md)
+- [RabbitMQ Tutorial 1 - Hello World](messaging/Tutorials/Tutorial1/Readme.md)
+- [RabbitMQ Tutorial 2 - Work Queues](messaging/Tutorials/Tutorial2/Readme.md)
+- [RabbitMQ Tutorial 3 - Publish/Subscribe](messaging/Tutorials/Tutorial3/Readme.md)
+- [RabbitMQ Tutorial 4 - Routing](messaging/Tutorials/Tutorial4/Readme.md)
+- [RabbitMQ Tutorial 5 - Topics](messaging/Tutorials/Tutorial5/Readme.md)
+- [RabbitMQ Tutorial 6 - Remote Procedure Call](messaging/Tutorials/Tutorial6/Readme.md)
+- [RabbitMQ Tutorial 7 - Publisher Confirms](messaging/Tutorials/Tutorial7/Readme.md)
 
 ## Observability
 
