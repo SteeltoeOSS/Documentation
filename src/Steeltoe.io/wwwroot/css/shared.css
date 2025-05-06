@@ -21,6 +21,7 @@
 .st3 {
     fill: #8A8C8E;
 }
+
 /* ===================== Header nav ===================== */
 #navbar .nav-link {
     padding: unset;
@@ -52,34 +53,39 @@
         text-align: center;
     }
 }
+
 /* ===================== Footer ===================== */
-#footer .text-secondary, #footer .text-secondary>a {
+#footer .text-secondary, #footer .text-secondary > a {
     color: #bfbfbf !important;
 }
+
 footer a {
     color: var(--bs-body-color);
     text-decoration: none;
 }
+
 footer a:hover {
     color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
     text-decoration: underline;
 }
 
 /* ===================== DOCFX OVERRIDE ===================== */
-.navbar #navbar form.icons{
+.navbar #navbar form.icons {
     margin-left: 0;
-    order:50;
+    order: 50;
 }
+
 .navbar #navbar form.search {
     margin-left: auto;
 }
+
 .hljs-attr {
     color: steelblue;
 }
 
-:not(a):not(pre)>code,
-body[data-yaml-mime=ManagedReference] article dl.parameters>dt>code,
-body[data-yaml-mime=ApiPage] article dl.parameters>dt>code {
+:not(a):not(pre) > code,
+body[data-yaml-mime=ManagedReference] article dl.parameters > dt > code,
+body[data-yaml-mime=ApiPage] article dl.parameters > dt > code {
     border-radius: 3px;
     font-size: 85%;
     padding: .1em .2em;
@@ -91,7 +97,7 @@ body[data-yaml-mime=ApiPage] article dl.parameters>dt>code {
         color: #006881
     }
 
-    :not(a):not(pre)>code {
+    :not(a):not(pre) > code {
         color: var(--bs-primary-text-emphasis);
         background-color: #e6e6e6;
     }
@@ -116,25 +122,26 @@ body[data-yaml-mime=ApiPage] article dl.parameters>dt>code {
 #version-toggles .btn-group {
     width: 100%;
 }
+
 @media (min-width: 768px) {
 
-    body:not([data-search])[data-layout=""]>main>.toc-offcanvas,
-    body:not([data-search])[data-layout=""]>main>.affix,
-    body:not([data-search])[data-layout=conceptual]>main>.affix {
+    body:not([data-search])[data-layout=""] > main > .toc-offcanvas,
+    body:not([data-search])[data-layout=""] > main > .affix,
+    body:not([data-search])[data-layout=conceptual] > main > .affix {
         top: calc(80px + 1.6rem);
     }
 }
 
 @media (min-width: 1140px) {
 
-    body>main>.content>article [id],
-    body[data-layout=landing]>main>.content>article [id] {
+    body > main > .content > article [id],
+    body[data-layout=landing] > main > .content > article [id] {
         scroll-margin-top: 100px;
     }
 }
 
 @media (min-width: 768px) {
-    body>header {
+    body > header {
         height: auto;
     }
 
@@ -158,10 +165,12 @@ body[data-yaml-mime=ApiPage] article dl.parameters>dt>code {
         article p img {
             background-color: white;
         }
-        :not(a):not(pre)>code {
+
+        :not(a):not(pre) > code {
             color: #e6e6e6;
             background-color: #404040;
         }
+
         a.nav-link.link-primary {
             color: lightsteelblue !important;
         }
@@ -170,10 +179,12 @@ body[data-yaml-mime=ApiPage] article dl.parameters>dt>code {
         .blog-list a {
             color: white !important;
         }
+
         .border-dark {
             --bs-border-opacity: 1;
             border-color: rgba(var(--bs-light-rgb), var(--bs-border-opacity)) !important;
         }
+
         .hljs-built_in {
             color: #569cd6;
         }
@@ -183,26 +194,29 @@ body[data-yaml-mime=ApiPage] article dl.parameters>dt>code {
 /* ===================== BLOG ===================== */
 ul.blog-list {
     padding-left: 0;
+
     a {
         display: block;
         text-decoration: none;
     }
 }
-ul.blog-list> :first-child {
+
+ul.blog-list > :first-child {
     font-style: italic;
 }
 
-ul.blog-list> :first-child .blog-date {
+ul.blog-list > :first-child .blog-date {
     font-size: 1.1em;
     font-style: italic;
 }
 
-ul.blog-list> :first-child .blog-date::after {
+ul.blog-list > :first-child .blog-date::after {
     color: red;
     content: ' * LATEST';
     font-size: .6em;
     font-style: italic;
 }
+
 .blog-item {
     border: solid #e7e7e7 1px;
     list-style: none;
