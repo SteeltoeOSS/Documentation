@@ -1,0 +1,11 @@
+@inject NavigationManager NavigationManager
+
+@page "/api"
+
+@code
+{
+    protected override void OnParametersSet()
+    {
+        NavigationManager.NavigateTo("/api/v4/");
+    }
+}

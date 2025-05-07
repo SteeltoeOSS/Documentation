@@ -1,0 +1,8 @@
+- href: sso-open-id.md
+  name: SSO with Open ID Connect
+- href: jwt-bearer.md
+  name: JWT Bearer Token
+- href: certificate.md
+  name: Certificate (Mutual TLS)
+- href: redis-key-storage-provider.md
+  name: Redis Key Storage Provider

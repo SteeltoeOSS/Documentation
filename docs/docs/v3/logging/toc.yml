@@ -1,0 +1,5 @@
+- name: Dynamic Provider
+  href: dynamic-logging-provider.md
+- name: Serilog Dynamic Provider
+  href: serilog-logger.md
+

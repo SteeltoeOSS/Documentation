@@ -1,0 +1,24 @@
+@page "/app-configuration/get-started/{Provider}"
+
+@inject NavigationManager Navigation
+
+@code
+{
+    [Parameter] public string Provider { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Navigation.NavigateTo($"/guides/application-configuration/{TranslateProviderName(Provider)}.html");
+    }
+
+    private static string TranslateProviderName(string provider)
+    {
+        return provider.ToLower() switch
+        {
+            "cloudfoundry" => "cloud-foundry",
+            "randomvalue" => "random-value",
+            "springconfig" => "spring-config",
+            _ => provider
+        };
+    }
+}

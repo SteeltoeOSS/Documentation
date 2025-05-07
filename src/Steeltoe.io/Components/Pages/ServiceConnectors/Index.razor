@@ -1,0 +1,42 @@
+@page "/service-connectors"
+@page "/steeltoe-connectors"
+
+<Template Name="Service Connectors" Features="@_features" DocsUrl="/docs/connectors" MetaDescription="Use Steeltoe to ease the transition from locally-hosted services to bound services in your cloud hosted environment.">
+    <Description>
+        One of the many advantages of running applications on the cloud is the easy availability of a variety of backing services.
+        Steeltoe simplifies using those services by automatically configuring and wiring up connections to common services like Redis, RabbitMQ, MySQL, Microsoft SQL Server, and more.
+    </Description>
+    <WhatIs>
+        Backing services are must when creating cloud-native .NET applications, but managing the connections can be time-consuming and annoying.
+        Steeltoe Service Connectors takes that pain away and let you get back to doing what you love.
+    </WhatIs>
+    <WhyUse>
+        Steeltoe Connectors provide out-of-the-box support for discovering many common services on a cloud platform.
+        They also include the ability to use settings-based configuration so that developers can supply configuration settings at development and testing time but then have those settings be overridden when pushing the application to the platform.
+    </WhyUse>
+</Template>
+
+@code
+{
+    private readonly Feature[] _features =
+    [
+        new()
+        {
+            Title = (MarkupString)"Database connector",
+            Description = b => { b.AddMarkupContent(1, "Discover and connect to databases such as Microsoft SQL, MySQL, PostgreSQL, and MongoDB."); },
+            Img = "/images/Icon_box.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Cache and Messaging connectors",
+            Description = b => { b.AddMarkupContent(1, "Discover and connect to Redis or GemFire/Apache Geode cache. Also easily interact with a RabbitMQ service instance."); },
+            Img = "/images/Icon_data-transfer.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"OAuth2 service client",
+            Description = b => { b.AddMarkupContent(1, "Automatically get OAuth2 service instance configuration data injected into your ASP.NET application."); },
+            Img = "/images/Icon_keys.svg"
+        }
+    ];
+}

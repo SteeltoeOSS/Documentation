@@ -1,0 +1,38 @@
+@page "/circuit-breakers"
+@page "/steeltoe-circuitbreaker"
+
+<Banner BannerTypeName="Deprecation Notice" Href="https://github.com/SteeltoeOSS/Steeltoe/issues/1244">
+    This component has been discontinued from Steeltoe v4. Please click here to read more and provide feedback.
+</Banner>
+
+<Template Name="Circuit Breaker" Features="@_features" DocsUrl="/docs/circuitbreaker" MetaDescription="Prevent cascading failures in .NET applications with Steeltoe Circuit Breaker.">
+    <Description>
+        What do you do when a service you depend on stops responding? Circuit breakers enable you to bypass a failing service, allowing it time to recover, and preventing your users from seeing nasty error messages.
+        Steeltoe includes a .NET implementation of Netflix Hystrix, a proven circuit breaker implementation with rich metrics and monitoring features.
+    </Description>
+    <WhatIs>
+        When applied to a service, a circuit breaker watches for failing calls to the service.
+        If failures reach a certain threshold, it &quot;opens&quot; (or breaks) the circuit and automatically redirects calls to the specified fallback mechanism.
+        This gives the failing service time to recover. By using Circuit Breaker frameworks, you can prevent failures from cascading and provide fallback behavior until a failing service is restored to normal operation.
+    </WhatIs>
+    <WhyUse>Based on Netflix Hystrix circuit breaker pattern, Steeltoe Circuit Breakers provides applications with an implementation of the same pattern. No external dependencies are introduced by this package, your application can manage circuits completely internal.</WhyUse>
+</Template>
+
+@code
+{
+    private readonly Feature[] _features =
+    [
+        new()
+        {
+            Title = (MarkupString)"Based on a proven pattern",
+            Description = b => { b.AddMarkupContent(1, "Steeltoe support a similar design to Spring Cloud Netflix based on Hystrix, Netflix&apos;s Latency and Fault Tolerance library for distributed systems."); },
+            Img = "/images/icon-spring-cloud.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Internal to your application",
+            Description = b => { b.AddMarkupContent(1, "Steeltoe Circuit Breakers is a pure .NET implementation. Meaning all your app will need is this package."); },
+            Img = "/images/Icon_upload.svg"
+        }
+    ];
+}

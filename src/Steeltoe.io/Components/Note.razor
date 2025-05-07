@@ -1,0 +1,17 @@
+<div class="note">
+    <div class="row" style="background-color:#3b89d8">
+        <div class="col note-title">note</div>
+    </div>
+    <div class="row" style="background-color:#f0f6fc">
+        <div class="col note-desc">
+            @Message
+            @ChildContent
+        </div>
+    </div>
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment Message { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}

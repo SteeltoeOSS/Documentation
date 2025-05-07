@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "src/*/src/*/*.csproj"
+          ],
+          "exclude": "src/Management/src/OpenTelemetryBase/Steeltoe - Backup.Management.OpenTelemetryBase.csproj",
+          "src": "sources/v3"
+        }
+      ],
+      "output": "../docs/api/v3",
+      "filter": "api-filter.yml",
+      "properties": {
+        "ProduceReferenceAssembly": "true"
+      }
+    }
+  ]
+}

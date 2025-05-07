@@ -1,0 +1,39 @@
+@page "/cloud-management"
+@page "/steeltoe-management"
+@page "/1x/steeltoe-management"
+@page "/management"
+
+<Template Name="Management" Features="@_features" DocsUrl="/docs/management" MetaDescription="Steeltoe provides production-ready actuators and a Task framework to help manage your .NET applications.">
+    <Description>
+        Steeltoe includes a number of optional features you can add to your applications to aid in monitoring and managing it while it runs in production.
+        These features are implemented as a number of management endpoints that you can easily add to your application.
+    </Description>
+    <WhatIs>
+        Once your application is in production, management tools become a must. Unlike traditional infrastructure, cloud platforms offer limited access to VMs and disk storage.
+        Management automatically creates secure endpoints exposing critical data about your application.
+    </WhatIs>
+    <WhyUse>
+        The way the endpoints are exposed and used depends on the type of technology you choose in exposing the functionality of the endpoint.
+        Out of the box, Steeltoe provides several easy ways to expose these endpoints over HTTP in .NET applications.
+        Of course, you can build and use whatever you would like to meet your needs.
+    </WhyUse>
+</Template>
+
+@code
+{
+    private readonly Feature[] _features =
+    [
+        new()
+        {
+            Title = (MarkupString)"Management Endpoints",
+            Description = b => { b.AddMarkupContent(1, "Automatically expose endpoints over HTTP in your ASP.NET application for things like health, info, metrics, refresh, tracing, loggers, and route mappings."); },
+            Img = "/images/Icon_connector.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Management Tasks",
+            Description = b => { b.AddMarkupContent(1, "Run one-time administrative tasks for ASP.NET Core applications, for things like data migrations or custom processes."); },
+            Img = "/images/Icon_box.svg"
+        }
+    ];
+}

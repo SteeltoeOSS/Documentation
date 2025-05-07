@@ -1,0 +1,54 @@
+@page "/service-discovery"
+@page "/1x/steeltoe-discovery"
+@page "/steeltoe-discovery"
+
+<Template Name="Service Discovery" DocsUrl="/docs/discovery" Features="@_features" MetaDescription="Use Steeltoe to participate in service registration and service discovery with your .NET applications.">
+    <Description>
+        A service registry provides a database that applications can use to implement the Service Discovery pattern, one of the key tenets of a microservices-based architecture.
+        Trying to hand-configure each client of a service or adopt some form of access convention can be difficult and prove to be brittle in production.
+        Instead, applications can use a service registry to dynamically discover and call registered services.
+    </Description>
+    <WhatIs>
+        Think of it as a phone book of services.
+        Instead of needing to configure a service's exact URI, your app &quot;asks&quot; the service registry to look up the URI of a named service.
+        The name is what your app remembers, the URI is what's discovered.
+        Your app could also register itself for discovery.
+        Then you could distribute the name used during registration for others to discover.
+    </WhatIs>
+    <WhyUse>
+        With the ability to discover and register URIs, services within an organization are far less coupled.
+        In turn services are more mobile, can be updated easily, and each can follow different availability patterns.<br/><br/>
+        Duplicated registries in multiple locations, registering URIs to route requests between multiple data centers, and registering different versions of the same service are just a few of the benefits.
+    </WhyUse>
+</Template>
+
+@code
+{
+    private readonly Feature[] _features =
+    [
+        new()
+        {
+            Title = (MarkupString)"Support for Multiple Registries",
+            Description = b => { b.AddMarkupContent(1, "The Steeltoe discovery client removes any dependencies to a specific registry. With support for Eureka as well as HashiCorp Consul, you have flexibility with little to no code change when choosing the right registry."); },
+            Img = "/images/Icon_computers.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Logging & Health Checks Built In",
+            Description = b => { b.AddMarkupContent(1, "Service registry logs are automatically fed to your app&apos;s logging interface, and health contributors are automatically configured and made available to your application."); },
+            Img = "/images/Icon_cloud.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Register and Discover Services",
+            Description = b => { b.AddMarkupContent(1, "With just a few lines of code, your app can use a registry to discover services as well as registering itself for discovery."); },
+            Img = "/images/Icon_device-network.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Request Load Balancing",
+            Description = b => { b.AddMarkupContent(1, "When a service as registered multiple instances, configure the client to balance requests across instances. Options for random, round robin, as well as building your own are available in Steeltoe Service Discovery."); },
+            Img = "/images/Icon_data-transfer.svg"
+        }
+    ];
+}

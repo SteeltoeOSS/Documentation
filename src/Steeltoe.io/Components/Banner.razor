@@ -1,0 +1,20 @@
+<div class="banner">
+    <Href href="@Href" NewWindow="@NewWindow">
+        <div class="row g-0 text-center" style="padding: 1% 0">
+            <div class="col desc">
+                <div class="sign rounded-pill special-link text-center" style="min-width:125px;max-width:200px;display:inline-block;margin:10px;">
+                    <div style="padding: 4px 4px 0 4px;">@BannerTypeName</div>
+                </div>
+                @ChildContent
+            </div>
+        </div>
+    </Href>
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Href { get; set; }
+    [Parameter] public string BannerTypeName { get; set; } = "event";
+    [Parameter] public bool NewWindow { get; set; } = true;
+}

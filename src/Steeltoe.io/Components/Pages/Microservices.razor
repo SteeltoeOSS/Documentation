@@ -1,0 +1,61 @@
+@page "/microservices"
+@page "/microservice"
+
+<Template Name="Microservices" NameIsPlural="true" ShowBottomGetStarted="false" Features="@_features" MetaDescription="Explore how Steeltoe can help with your .NET microservices.">
+    <Description>
+        Microservice architectures are the &apos;new normal&apos;. Building small, self-contained, ready to run applications can bring great flexibility and added resilience to your code.
+        Steeltoe&apos;s many purpose-built features make it easy to build and run your microservices in production at scale.
+        And don&apos;t forget, no microservice architecture is complete without <Href href="/cloud">cloud components</Href> ‒ easing administration and boosting your fault-tolerance.
+    </Description>
+    <WhatIs>Microservices are a modern approach to software whereby application code is delivered in small, manageable pieces, independent of others.</WhatIs>
+    <WhyUse>Their small scale and relative isolation can lead to many additional benefits, such as easier maintenance, improved productivity, greater fault tolerance, better business alignment, and more.</WhyUse>
+</Template>
+
+@code
+{
+    private readonly Feature[] _features =
+    [
+        new()
+        {
+            Title = (MarkupString)"Microservices with Steeltoe",
+            Description = b =>
+            {
+                b.AddMarkupContent(1, "With Steeltoe, your microservices can start small and iterate fast. Quickstart your project with ");
+                b.OpenComponent<Href>(2);
+                b.AddAttribute(3, "href", "/initializr");
+                b.AddAttribute(4, "ChildContent", (RenderFragment)(child => { child.AddContent(5, "Steeltoe Initializr"); }));
+                b.CloseComponent();
+                b.AddMarkupContent(6, " and then package as a container. With Steeltoe&apos;s help, you&apos;re ready to go in minutes.<br /><br />");
+            },
+            Img = "/images/Icon_down-arrow.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Microservice resilience with Steeltoe Cloud Components",
+            Description = b =>
+            {
+                b.AddMarkupContent(1, "The distributed nature of microservices brings challenges. Steeltoe helps you mitigate these. With several ready-to-run cloud patterns, Steeltoe's ");
+                b.OpenComponent<Href>(2);
+                b.AddAttribute(3, "href", "/cloud");
+                b.AddAttribute(4, "ChildContent", (RenderFragment)(child => { child.AddContent(5, "cloud components"); }));
+                b.CloseComponent();
+                b.AddMarkupContent(6, " can help with service discovery, load-balancing, monitoring, and more.");
+            },
+            Img = "/images/Icon_tool.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Microservices on Cloud Foundry",
+            Description = b =>
+            {
+                b.AddMarkupContent(1, "The small, stateless nature of microservices makes them ideal for horizontal scaling. Platforms like VMware Tanzu Platform can provide scalable infrastructure to match, with and greatly reduce your administrative overhead. Using ");
+                b.OpenComponent<Href>(2);
+                b.AddAttribute(3, "href", "service-connectors");
+                b.AddAttribute(4, "ChildContent", (RenderFragment)(child => { child.AddContent(5, "service connectors"); }));
+                b.CloseComponent();
+                b.AddMarkupContent(6, ", you can also consume multiple backend services with ease.<br /><br />");
+            },
+            Img = "/images/Icon_data-transfer.svg"
+        }
+    ];
+}

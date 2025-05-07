@@ -1,0 +1,31 @@
+apiRules:
+# Excluding types in global namespace, originating from Management/.../DotNetHeapDump
+- exclude:
+    uidRegex: ^$
+    type: Namespace
+# Excluding types in Graphs namespace, originating from Management/.../DotNetHeapDump
+- exclude:
+    uidRegex: ^Graphs
+    type: Namespace
+- exclude:
+    uidRegex: ^OpenCensus\.*
+    type: Namespace
+- exclude:
+    uidRegex: ^Microsoft\.Diagnostics\.Runtime\.Interop$
+    type: Namespace
+- exclude:
+    uidRegex: ^Microsoft\.Extensions\.DependencyInjection$
+    type: Namespace
+# Excluding Steeltoe.Messaging.RabbitMQ.Support.RabbitMessageBuilder class clears issue #147
+- exclude:
+    uidRegex: ^Steeltoe\.Messaging\.RabbitMQ\.Support\.RabbitMessageBuilder
+    type: Class
+- exclude:
+    uidRegex: ^ConfigurationSchemaGenerator\.*
+    type: Namespace
+- exclude:
+    uidRegex: ^SourceGenerators\.*
+    type: Namespace
+- exclude:
+    uidRegex: ^Microsoft.Extensions.Configuration.Binder.SourceGeneration\.*
+    type: Namespace

@@ -1,0 +1,16 @@
+<NavLink
+    class="@(Class + (AsButton ? " btn btn-default p-3 border-dark" : ""))"
+    target="@(NewWindow ? "_blank" : "")" role="@(AsButton ? "button" : "")" @attributes="AdditionalAttributes">
+    @ChildContent
+</NavLink>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Class { get; set; }
+    [Parameter] public bool AsButton { get; set; } = false;
+    [Parameter] public bool NewWindow { get; set; } = false;
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; }
+}

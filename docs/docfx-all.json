@@ -1,0 +1,74 @@
+{
+  // NOTE: This file should contain everything in docfx.json AND API Browser content.
+  //       docfx build will take a lot longer when using this file.
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "build": {
+    "content": [
+      {
+        "files": "**.{md|yml}",
+        "src": "docs/",
+        "dest": "docs/"
+      },
+      {
+        "files": "**.{md|yml}",
+        "src": "articles/",
+        "dest": "articles/"
+      },
+      {
+        "files": "**.{md|yml}",
+        "src": "guides/",
+        "dest": "guides/"
+      },
+      {
+        "files": "*.{md|yml}",
+        "src": "api/v4/",
+        "dest": "api/v4/",
+        "group": "v4"
+      },
+      {
+        "files": "*.{md|yml}",
+        "src": "api/v3/",
+        "dest": "api/v3/",
+        "group": "v3"
+      },
+      {
+        "files": "*.{md|yml}",
+        "src": "api/v2/",
+        "dest": "api/v2/",
+        "group": "v2"
+      }
+    ],
+    "resource": [
+      {
+        "files": "**.{png|jpg|ico}"
+      }
+    ],
+    "sitemap": {
+      "baseUrl": "https://steeltoe.io",
+      "priority": 0.1,
+      "changefreq": "monthly"
+    },
+    "template": [
+      "default",
+      "modern",
+      "modern-steeltoe"
+    ],
+    "globalMetadataFiles": [
+      "metadata.json"
+    ],
+    "disableGitFeatures": false,
+    "fileMetadataFiles": [],
+    "markdownEngineProperties": {
+      "markdigExtensions": [
+        "Footnotes"
+      ]
+    },
+    "output": "../src/Steeltoe.io/wwwroot",
+    "postProcessors": [
+      "ExtractSearchIndex"
+    ]
+  },
+  "rules": {
+    "InvalidFileLink": "warning"
+  }
+}

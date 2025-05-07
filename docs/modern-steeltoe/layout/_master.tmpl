@@ -1,0 +1,183 @@
+{{!Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.}}
+{{!include(/^public/.*/)}}
+{{!include(favicon.ico)}}
+{{!include(logo.svg)}}
+<!DOCTYPE html>
+<html {{#_lang}}lang="{{_lang}}"{{/_lang}}>
+  <head>
+    <meta charset="utf-8">
+    {{#redirect_url}}
+      <meta http-equiv="refresh" content="0;URL='{{redirect_url}}'">
+    {{/redirect_url}}
+    {{^redirect_url}}
+      <title>{{#title}}{{title}}{{/title}}{{^title}}{{>partials/title}}{{/title}} {{#_appTitle}}| {{_appTitle}} {{/_appTitle}}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="{{#title}}{{title}}{{/title}}{{^title}}{{>partials/title}}{{/title}} {{#_appTitle}}| {{_appTitle}} {{/_appTitle}}">
+      {{#_description}}<meta name="description" content="{{_description}}">{{/_description}}
+      {{#description}}<meta name="description" content="{{description}}">{{/description}}
+      <link rel="icon" href="/images/favicon.png">
+      <link rel="stylesheet" href="{{_rel}}public/docfx.min.css">
+      <link rel="stylesheet" href="/css/shared.css">
+      <meta name="docfx:navrel" content="{{_navRel}}">
+      <meta name="docfx:tocrel" content="{{_tocRel}}">
+      {{#_noindex}}<meta name="searchOption" content="noindex">{{/_noindex}}
+      {{#_enableSearch}}<meta name="docfx:rel" content="{{_rel}}">{{/_enableSearch}}
+      {{#_disableNewTab}}<meta name="docfx:disablenewtab" content="true">{{/_disableNewTab}}
+      {{#_disableTocFilter}}<meta name="docfx:disabletocfilter" content="true">{{/_disableTocFilter}}
+      {{#docurl}}<meta name="docfx:docurl" content="{{docurl}}">{{/docurl}}
+      <meta name="loc:inThisArticle" content="{{__global.inThisArticle}}">
+      <meta name="loc:searchResultsCount" content="{{__global.searchResultsCount}}">
+      <meta name="loc:searchNoResults" content="{{__global.searchNoResults}}">
+      <meta name="loc:tocFilter" content="{{__global.tocFilter}}">
+      <meta name="loc:nextArticle" content="{{__global.nextArticle}}">
+      <meta name="loc:prevArticle" content="{{__global.prevArticle}}">
+      <meta name="loc:themeLight" content="{{__global.themeLight}}">
+      <meta name="loc:themeDark" content="{{__global.themeDark}}">
+      <meta name="loc:themeAuto" content="{{__global.themeAuto}}">
+      <meta name="loc:changeTheme" content="{{__global.changeTheme}}">
+      <meta name="loc:copy" content="{{__global.copy}}">
+      <meta name="loc:downloadPdf" content="{{__global.downloadPdf}}">
+
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script type="module" src="./{{_rel}}public/docfx.min.js" crossorigin="anonymous"></script>
+
+      <script data-cfasync="false">
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+      {{#_googleAnalyticsTagId}}
+      <script>
+        if (window.location.href.indexOf('localhost') === -1 && window.location.href.indexOf('azurewebsites.net') === -1)
+        {
+          const script = document.createElement("script");
+          script.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+          script.setAttribute("data-domain-script", "018ee7f5-70e6-7787-8d98-05c8f935c75d");
+          document.head.appendChild(script);
+        }
+      </script>
+      <script>function OptanonWrapper() { }</script>
+      <script>
+        function setGTM(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
+        if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){setGTM(window,document,'script','dataLayer','{{_googleAnalyticsTagId}}');}else{waitForOnetrustActiveGroups();}var timer;function waitForOnetrustActiveGroups(){if(document.cookie.indexOf('OptanonConsent')>-1&&document.cookie.indexOf('groups=')>-1){clearTimeout(timer);setGTM(window,document,'script','dataLayer','{{_googleAnalyticsTagId}}');}else{timer=setTimeout(waitForOnetrustActiveGroups,250);}}
+      </script>
+
+      {{/_googleAnalyticsTagId}}
+    {{/redirect_url}}
+  </head>
+
+  {{^redirect_url}}
+  <body class="tex2jax_ignore" data-layout="{{_layout}}{{layout}}" data-yaml-mime="{{yamlmime}}">
+    {{#_googleAnalyticsTagId}}
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{_googleAnalyticsTagId}}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {{/_googleAnalyticsTagId}}
+    <header class="bg-body border-bottom">
+      {{^_disableNavbar}}
+      {{>partials/navbar}}
+      {{/_disableNavbar}}
+    </header>
+
+    <main class="container-xxl">
+      {{^_disableToc}}
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            {{^_hideTocVersionToggle}}
+            {{>partials/version-switch}}
+            {{/_hideTocVersionToggle}}
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+      {{/_disableToc}}
+
+      <div class="content">
+        <div class="actionbar">
+          {{^_disableToc}}
+          <button class="btn btn-lg border-0 d-md-none"
+              type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas"
+              aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+          {{/_disableToc}}
+
+          {{^_disableBreadcrumb}}
+          <nav id="breadcrumb"></nav>
+          {{/_disableBreadcrumb}}
+        </div>
+
+        <article data-uid="{{uid}}">
+          {{!body}}
+        </article>
+
+        {{^_disableContribution}}
+        <div class="contribution d-print-none">
+          {{#sourceurl}}
+          <a href="{{sourceurl}}" class="edit-link">{{__global.improveThisDoc}}</a>
+          {{/sourceurl}}
+          {{^sourceurl}}{{#docurl}}
+          <a href="{{docurl}}" class="edit-link">{{__global.improveThisDoc}}</a>
+          {{/docurl}}{{/sourceurl}}
+        </div>
+        {{/_disableContribution}}
+
+        {{^_disableNextArticle}}
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        {{/_disableNextArticle}}
+
+      </div>
+
+      {{^_disableAffix}}
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+      {{/_disableAffix}}
+    </main>
+
+    {{#_enableSearch}}
+    <div class="container-xxl search-results" id="search-results"></div>
+    {{/_enableSearch}}
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <div class="row align-items-center g-0 pt-0">
+            <div class="row py-sm-0 py-4">
+                <div class="col text-end">
+                    <a href="https://github.com/SteeltoeOSS" title="Steeltoe on GitHub" target="_blank" class="link-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+                            class="bi bi-github" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="https://x.com/steeltoeoss" title="Steeltoe on Twitter/X" target="_blank" class="link-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+                            class="bi bi-twitter-x" viewBox="0 0 16 16">
+                            <path
+                                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="col text-center my-2 small">
+              Copyright &copy; 2005-{{ _copyrightEndYear }} Broadcom. All Rights Reserved. The term &quot;Broadcom&quot; refers to Broadcom Inc. and/or its subsidiaries.<br />
+              &bull;&nbsp;<a class="" href="https://www.vmware.com/help/privacy.html" target="_blank">Privacy&nbsp;Policy</a>
+              &bull;&nbsp;<a class="" href="https://www.vmware.com/help/privacy/california-privacy-rights.html" target="_blank">Your&nbsp;California&nbsp;Privacy&nbsp;Rights</a>
+              &bull;&nbsp;<a class="" href="https://www.vmware.com/help/legal.html" target="_blank">Terms&nbsp;of&nbsp;Use</a>
+              &bull;&nbsp;<a class="" href="/SteeltoeTrademarkGuidelines.pdf" target="_blank">Trademark&nbsp;Guidelines</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  {{/redirect_url}}
+</html>

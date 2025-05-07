@@ -1,0 +1,4 @@
+- href: rabbitmq-intro.md
+  name: RabbitMQ Introduction
+- href: rabbitmq-reference.md
+  name: RabbitMQ Reference

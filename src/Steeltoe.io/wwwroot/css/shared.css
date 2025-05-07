@@ -1,0 +1,256 @@
+/* ===================== logo ===================== */
+#logo {
+    margin-right: 10px;
+}
+
+.st0,
+.logo-text {
+    fill: #00376E;
+}
+
+.st1 {
+    fill: #0066CC;
+}
+
+.st2 {
+    opacity: 0.2;
+    fill: #00376E;
+    enable-background: new;
+}
+
+.st3 {
+    fill: #8A8C8E;
+}
+
+/* ===================== Header nav ===================== */
+#navbar .nav-link {
+    padding: unset;
+    display: unset;
+    font-weight: 500;
+}
+
+#navbar .nav-item {
+    padding: 15px;
+}
+
+.navbar-collapse {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#navbar.collapse:not(.show) {
+    display: none;
+}
+
+.navbar #navbar {
+    display: block;
+    flex-basis: 100%;
+}
+
+@media (max-width: 1200px) {
+    .navbar #navbar form.icons {
+        display: block;
+        text-align: center;
+    }
+}
+
+/* ===================== Footer ===================== */
+#footer .text-secondary, #footer .text-secondary > a {
+    color: #bfbfbf !important;
+}
+
+footer a {
+    color: var(--bs-body-color);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
+    text-decoration: underline;
+}
+
+/* ===================== DOCFX OVERRIDE ===================== */
+.navbar #navbar form.icons {
+    margin-left: 0;
+    order: 50;
+}
+
+.navbar #navbar form.search {
+    margin-left: auto;
+}
+
+.hljs-attr {
+    color: steelblue;
+}
+
+:not(a):not(pre) > code,
+body[data-yaml-mime=ManagedReference] article dl.parameters > dt > code,
+body[data-yaml-mime=ApiPage] article dl.parameters > dt > code {
+    border-radius: 3px;
+    font-size: 85%;
+    padding: .1em .2em;
+}
+
+[data-bs-theme=light] {
+
+    .hljs-title {
+        color: #006881
+    }
+
+    :not(a):not(pre) > code {
+        color: var(--bs-primary-text-emphasis);
+        background-color: #e6e6e6;
+    }
+
+    .blog-list a {
+        color: black;
+    }
+
+    .container-xxl .link-light svg {
+        fill: var(--bs-body-color);
+    }
+}
+
+#version-toggles {
+    margin-bottom: 15px;
+}
+
+#version-toggles label {
+    width: 33%
+}
+
+#version-toggles .btn-group {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+
+    body:not([data-search])[data-layout=""] > main > .toc-offcanvas,
+    body:not([data-search])[data-layout=""] > main > .affix,
+    body:not([data-search])[data-layout=conceptual] > main > .affix {
+        top: calc(80px + 1.6rem);
+    }
+}
+
+@media (min-width: 1140px) {
+
+    body > main > .content > article [id],
+    body[data-layout=landing] > main > .content > article [id] {
+        scroll-margin-top: 100px;
+    }
+}
+
+@media (min-width: 768px) {
+    body > header {
+        height: auto;
+    }
+
+    .offcanvas-body {
+        flex-direction: column;
+    }
+}
+
+/* ===================== DARK MODE ===================== */
+[data-bs-theme="dark"] {
+    body {
+        background: #212529;
+        color: white;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        .logo-text {
+            fill: #0066CC;
+        }
+
+        article p img {
+            background-color: white;
+        }
+
+        :not(a):not(pre) > code {
+            color: #e6e6e6;
+            background-color: #404040;
+        }
+
+        a.nav-link.link-primary {
+            color: lightsteelblue !important;
+        }
+
+        a:hover, a.nav-link.link-primary:hover,
+        .blog-list a {
+            color: white !important;
+        }
+
+        .border-dark {
+            --bs-border-opacity: 1;
+            border-color: rgba(var(--bs-light-rgb), var(--bs-border-opacity)) !important;
+        }
+
+        .hljs-built_in {
+            color: #569cd6;
+        }
+    }
+}
+
+/* ===================== BLOG ===================== */
+ul.blog-list {
+    padding-left: 0;
+
+    a {
+        display: block;
+        text-decoration: none;
+    }
+}
+
+ul.blog-list > :first-child {
+    font-style: italic;
+}
+
+ul.blog-list > :first-child .blog-date {
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+ul.blog-list > :first-child .blog-date::after {
+    color: red;
+    content: ' * LATEST';
+    font-size: .6em;
+    font-style: italic;
+}
+
+.blog-item {
+    border: solid #e7e7e7 1px;
+    list-style: none;
+    margin: 10px 0px;
+    padding: 20px;
+    text-align: left;
+}
+
+.blog-item:hover {
+    border: solid 1px #0066cc;
+    cursor: pointer;
+}
+
+.blog-date {
+    color: #0066cc;
+    font-weight: bold;
+}
+
+.blog-author {
+    float: right;
+}
+
+.blog-author::before {
+    content: 'By: ';
+}
+
+.blog-title {
+    font-size: 1.5em;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+
+    div[role=main].container-fluid.body-content {
+        margin-top: 0px;
+    }
+}

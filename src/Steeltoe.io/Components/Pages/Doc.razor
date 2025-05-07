@@ -1,0 +1,42 @@
+@inject NavigationManager NavigationManager
+@page "/doc"
+@page "/docs"
+@page "/{Component}/docs"
+@page "/docs/{Component}"
+@page "/docs/v{Version:int}"
+@page "/docs/{Version:int}"
+@page "/docs/{Version:int}/{Component}"
+@page "/docs/{Version:int}x/{Component}"
+@page "/docs/{Version:int}/{Component}/{Area}"
+
+@code
+{
+    private const int LatestSteeltoeVersion = 4;
+
+    private readonly string[] _componentsNotAvailableInV4 = ["circuitbreaker", "messaging", "stream"];
+
+    [Parameter] public string Area { get; set; }
+    [Parameter] public string Component { get; set; }
+    [Parameter] public int? Version { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (!string.IsNullOrEmpty(Component))
+        {
+            Component = Component.Replace("steeltoe-", string.Empty).Replace("introduction", "welcome");
+        }
+
+        Version = Version switch
+        {
+            null or < 2 or > 3 when _componentsNotAvailableInV4.Contains(Component) => 3,
+            null or < 2 or > LatestSteeltoeVersion => LatestSteeltoeVersion,
+            _ => Version
+        };
+
+        Component ??= "welcome";
+        Area ??= "index";
+        var uri = $"/docs/v{Version}/{Component}/{Area}.html";
+
+        NavigationManager.NavigateTo(uri);
+    }
+}

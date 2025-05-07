@@ -1,0 +1,12 @@
+- href: sso-oauth2.md
+  name: SSO with OAuth2
+- href: sso-open-id.md
+  name: SSO with OpenId Connect
+- href: jwt-authentication.md
+  name: JWT Bearer Token
+- href: mtls.md
+  name: Certificate (Mutual TLS)
+- href: redis-key-storage-provider.md
+  name: Redis Key Storage Provider
+- href: credhub-api-client.md
+  name: CredHub Api Client

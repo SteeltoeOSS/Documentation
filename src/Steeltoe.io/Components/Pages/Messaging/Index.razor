@@ -1,0 +1,33 @@
+@page "/messaging"
+
+<Banner BannerTypeName="Deprecation Notice" Href="https://github.com/SteeltoeOSS/Steeltoe/issues/1244">
+    This component has been discontinued from Steeltoe v4. Please click here to read more and provide feedback.
+</Banner>
+
+<Template Name="Messaging" Features="@_features" DocsUrl="/docs/messaging" MetaDescription="Use Steeltoe Messaging to build event-driven applications.">
+    <Description>Build highly scalable event-driven microservices connected to shared messaging systems.</Description>
+    <WhatIs>
+        The Steeltoe Messaging project applies core .NET concepts to the development of AMQP-based messaging solutions.
+        It provides a "template" as a high-level abstraction for sending and receiving messages. It also provides support for Message-driven POCOs with a "listener container".
+        These libraries facilitate management of AMQP resources while promoting the use of dependency injection and declarative configuration.
+    </WhatIs>
+</Template>
+
+@code
+{
+    private readonly Feature[] _features =
+    [
+        new()
+        {
+            Title = (MarkupString)"RabbitMQ Message Broker",
+            Description = b => { b.AddMarkupContent(1, "Using the native RabbitMQ .NET client within, the Steeltoe Messaging client abstracts the complexity of messaging containers and translates them into simple configuration values."); },
+            Img = "/images/rabbitmq.png"
+        },
+        new()
+        {
+            Title = (MarkupString)"Rabbit Admin",
+            Description = b => { b.AddMarkupContent(1, "Simple implementation of RabbitAdmin to automatically declare queues, exchanges, and bindings."); },
+            Img = "/images/Icon_keys.svg"
+        }
+    ];
+}

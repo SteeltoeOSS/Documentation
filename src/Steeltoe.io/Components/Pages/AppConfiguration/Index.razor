@@ -1,0 +1,44 @@
+@page "/app-configuration"
+@page "/app-config"
+@page "/steeltoe-configuration"
+
+<Template Name="Application Configuration" Features="@_features" DocsUrl="/docs/configuration" MetaDescription="Steeltoe offers .NET configuration providers for placeholder resolution, random value generation, working with Spring Cloud Config Server, Cloud Foundry environments and more.">
+    <Description>
+        Separating configuration from application code is an important discipline in cloud-native development.
+        Spring Cloud Config Server provides a mechanism to store your application&apos;s configuration externally, and have it injected into your application at runtime.
+        Steeltoe includes a custom .NET Configuration Provider that utilizes Spring Cloud Config Server to pull in config values stored in Git, the filesystem, or HashiCorp Vault.
+    </Description>
+    <WhatIs>Steeltoe Configuration builds on the .NET configuration API, which enables developers to configure an application with values from a variety of sources by using Configuration Providers.</WhatIs>
+    <WhyUse>With the added providers, Steeltoe Configuration takes care of managing connections to external config servers and provides new resources, such as placeholders and random values.</WhyUse>
+</Template>
+
+@code
+{
+    private readonly Feature[] _features =
+    [
+        new()
+        {
+            Title = (MarkupString)"Spring Cloud Config Server",
+            Description = b => { b.AddMarkupContent(1, "Enable a .NET application to use Spring Cloud Config server as a configuration provider."); },
+            Img = "/images/icon-spring-cloud.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Placeholders in Configuration",
+            Description = b => { b.AddMarkupContent(1, "Define configuration values as placeholders in your configuration and have them resolved to real values at runtime during configuration access."); },
+            Img = "/images/Icon_down-arrow.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Random Values",
+            Description = b => { b.AddMarkupContent(1, "Generate random values as integers, longs, UUIDs or strings as part of your application's configuration values."); },
+            Img = "/images/Icon_data-transfer.svg"
+        },
+        new()
+        {
+            Title = (MarkupString)"Cloud Foundry",
+            Description = b => { b.AddMarkupContent(1, "A custom .NET Configuration provider for the Cloud Foundry platform that parses the VCAP environment variables and automatically loads them as configuration values."); },
+            Img = "/images/cloud-foundry.png"
+        }
+    ];
+}
