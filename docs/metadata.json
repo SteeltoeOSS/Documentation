@@ -1,25 +1,25 @@
 {
-    "$schema": "https://dotnet.github.io/docfx/schemas/v1.0/schema.json#",
-    "version": "1.0",
-    "_appName": "Documentation",
-    "_appLogoUrl": "/",
-    "_disableToc": false,
-    "_appTitle": "Steeltoe",
-    "_googleAnalyticsTagId": "GTM-MMDFJKF",
-    "_copyrightEndYear": "2025",
-    "_enableSearch": true,
-    "_noindex": false,
+  "$schema": "https://dotnet.github.io/docfx/schemas/v1.0/schema.json#",
+  "version": "1.0",
+  "_appName": "Documentation",
+  "_appLogoUrl": "/",
+  "_disableToc": false,
+  "_appTitle": "Steeltoe",
+  "_googleAnalyticsTagId": "GTM-MMDFJKF",
+  "_copyrightEndYear": "2025",
+  "_enableSearch": true,
+  "_noindex": false,
 
-    "_disableContribution": false,
+  "_disableContribution": false,
 
-    "_disableGitFeatures": false,
-    "_disableDefaultFilter": false,
-    "_disableBreadcrumb": true,
-    "_disableNavbar": false,
-    "_disableAffix": false,
+  "_disableGitFeatures": false,
+  "_disableDefaultFilter": false,
+  "_disableBreadcrumb": true,
+  "_disableNavbar": false,
+  "_disableAffix": false,
 
-    "_appLogoPath": "images/logo.svg",
-    "_appFaviconPath": "images/favicon.png",
+  "_appLogoPath": "images/logo.svg",
+  "_appFaviconPath": "images/favicon.png",
 
-    "_gitUrlPattern": "github"
+  "_gitUrlPattern": "github"
 }
