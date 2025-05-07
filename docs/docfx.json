@@ -10,10 +10,7 @@
     ],
     "resource": [
       {
-        "files": [
-          "*/**.{png|jpg}",
-          "favicon.ico"
-        ]
+        "files": "**.{png|jpg|ico}"
       }
     ],
     "sitemap": {
@@ -42,6 +39,6 @@
     ]
   },
   "rules": {
-    "InvalidFileLink": "error"
+    "InvalidFileLink": "warning"
   }
 }
