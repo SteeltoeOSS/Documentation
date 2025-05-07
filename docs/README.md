@@ -24,7 +24,9 @@ Visual Studio Code users may find the [Docs Authoring Pack](https://marketplace.
 
 ### Links and Cross References
 
-Markdown files can contain a YAML header. Values in this header let you control page design, as well as set the page's `UID`. With this, you can create an `xref`, as well as use the `@` shorthand. For more information, see [Links and Cross References](https://dotnet.github.io/docfx/docs/links-and-cross-references.html).
+Markdown files can contain a YAML header. Values in this header let you control page design and set the page's `UID`. The `UID` can be used to create a reference to the page using an `xref`. The shorthand `@` syntax is not recommended, because broken links aren't reliably validated when used. The easiest way to reference other pages is to use Markdown syntax, for example: `[link title](../example.md#section-title)`.
+
+For more information, see [Links and Cross References](https://dotnet.github.io/docfx/docs/links-and-cross-references.html).
 
 > [!NOTE]
 > Internal links should point to `.md` files instead of `.html` files. Alternatively, use the `UID` of the target page. In both cases, docfx calculates the path and checks for broken links when building the project.
