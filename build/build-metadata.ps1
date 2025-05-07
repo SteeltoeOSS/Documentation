@@ -83,4 +83,8 @@ if ($LastExitCode -ne 0)
     throw "Exit code is $LastExitCode"
 }
 
+# Due to an apparent bug within docfx, Steeltoe's favicon.ico is overwritten by the docfx icon (when using any group with build content)
+# Overwrite the overwrite so the Steeltoe favicon is deployed.
+Copy-Item -Path (Join-Path ".." "docs" "favicon.ico") -Destination (Join-Path ".." "src" "Steeltoe.io" "wwwroot")
+
 Pop-Location
