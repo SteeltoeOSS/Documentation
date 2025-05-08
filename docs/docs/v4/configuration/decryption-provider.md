@@ -31,6 +31,9 @@ Any configuration value prefixed with `{cipher}` is decrypted using the configur
 
 To decrypt secrets, the decryption provider must be configured to match the encryption settings.
 
+> [!TIP]
+> To diagnose startup errors, activate bootstrap logging, as described in [Logger Bootstrapping](../bootstrap/log-bootstrap.md).
+
 There are two types of encryption: symmetric and asymmetric.
 
 * For symmetric encryption, a shared key is used to decrypt the secrets:

@@ -158,7 +158,7 @@ When the `ConfigurationBuilder` builds the configuration, the Config Server clie
 If there are any errors or problems accessing the server, the application continues to initialize, but the values from the server are not retrieved. If this is not the behavior you want, set `Spring:Cloud:Config:FailFast` to `true`. After that is done, the application fails to start if problems occur during the retrieval.
 
 > [!TIP]
-> To diagnose startup errors, activate bootstrap logging as described in [Application Bootstrapping](../bootstrap/index.md#logging-inside-configuration-providers).
+> To diagnose startup errors, activate bootstrap logging, as described in [Logger Bootstrapping](../bootstrap/log-bootstrap.md).
 
 After the configuration has been built, you can access the retrieved data directly by using `IConfiguration`. See the following example:
 
