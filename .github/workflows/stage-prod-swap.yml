@@ -17,23 +17,6 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Change mainsite link to prod and restart
-      shell: bash
-      run: |
-        az webapp config appsettings set --resource-group steeltoe --name ${{ vars.AZURE_WWW_NAME }} --slot ${{ vars.STAGING_SLOT_NAME }} --settings ASPNETCORE_ENVIRONMENT=Production
-        az webapp restart --resource-group steeltoe --name ${{ vars.AZURE_WWW_NAME }} --slot ${{ vars.STAGING_SLOT_NAME }}
-        echo "Waiting 30 seconds until beginning to curl to see if the site is back up"
-        sleep 30
-        until $(curl --output /dev/null --silent --head --fail https://staging.steeltoe.io); do
-          printf '.'
-          sleep 5
-        done
-
     - name: Swap slots
       run: az webapp deployment slot swap -s ${{ vars.STAGING_SLOT_NAME }} -n ${{ vars.AZURE_WWW_NAME }} -g ${{ vars.AZURE_RESOURCE_GROUP }}
-
-    - name: Change mainsite link to staging and restart
-      run: |
-        az webapp config appsettings set --resource-group steeltoe --name ${{ vars.AZURE_WWW_NAME }} --slot ${{ vars.STAGING_SLOT_NAME }} --settings ASPNETCORE_ENVIRONMENT=Staging
-        az webapp restart --resource-group steeltoe --name ${{ vars.AZURE_WWW_NAME }} --slot ${{ vars.STAGING_SLOT_NAME }}
 
