@@ -21,7 +21,7 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   DOTNET_NOLOGO: true
   DOTNET_VERSION: '8.0.x'
-  DOCFX_SOURCE_BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
+  DOCFX_SOURCE_BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
   build:
@@ -74,7 +74,16 @@ jobs:
 
     - name: If PR, create a new staging slot
       if: ${{ github.event_name == 'pull_request' }}
-      run: az webapp deployment slot create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WWW_NAME}} --slot ${{ env.SLOT_NAME }} --configuration-source ${{ vars.STAGING_SLOT_NAME }}
+      shell: pwsh
+      run: |
+        if (az webapp deployment slot list --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WWW_NAME}} | Select-String '"name": "${{ env.SLOT_NAME }}"')
+        {
+          Write-Host "Staging slot already exists"
+        }
+        else
+        {
+          az webapp deployment slot create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WWW_NAME}} --slot ${{ env.SLOT_NAME }} --configuration-source ${{ vars.STAGING_SLOT_NAME }}
+        }
 
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
