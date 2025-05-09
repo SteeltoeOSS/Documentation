@@ -21,7 +21,7 @@ builder.Configuration.AddConfigServer(loggerFactory);
 builder.Services.UpgradeBootstrapLoggerFactory(loggerFactory);
 ```
 
-All `BootstrapLoggerFactory` creation methods provide an `ILoggingBuilder` action parameter that enables to further configure the startup logger.
+All `BootstrapLoggerFactory` creation methods provide an `ILoggingBuilder` action parameter that enables further configuration of the startup logger.
 
 For example, the following code adds the Debug logger and sets the minimum level to `Warning`:
 
