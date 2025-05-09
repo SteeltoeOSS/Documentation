@@ -56,32 +56,3 @@ var loggerFactory = LoggerFactory.Create(loggingBuilder =>
 
 builder.Configuration.AddConfigServer(loggerFactory);
 ```
-
----
-
-
-Use the optional parameter to provide one as needed:
-
-```csharp
-using Microsoft.Extensions.Logging.Debug;
-using Steeltoe.Bootstrap.AutoConfiguration;
-
-var loggerFactory = LoggerFactory.Create(loggingBuilder =>
-{
-    loggingBuilder.AddDebug(); // or: loggingBuilder.AddConsole();
-    loggingBuilder.SetMinimumLevel(LogLevel.Debug);
-});
-
-builder.AddSteeltoe(loggerFactory);
-```
-
-Alternatively, you can use `BootstrapLoggerFactory`. It logs to the console until the service container has been built.
-After the service container has become available, it automatically upgrades existing loggers to use the application configuration.
-
-```csharp
-using Steeltoe.Bootstrap.AutoConfiguration;
-using Steeltoe.Common.Logging;
-
-var loggerFactory = BootstrapLoggerFactory.CreateConsole();
-builder.AddSteeltoe(loggerFactory);
-```
