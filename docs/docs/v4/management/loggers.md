@@ -212,4 +212,4 @@ When changes to `appsettings.json` are saved, existing loggers are updated with 
 A reset of an overridden logger reverts to the updated level from `appsettings.json`.
 
 > [!TIP]
-> The Steeltoe dynamic logging provider can be combined with `BootstrapLoggerFactory` to upgrade loggers after startup.
+> The Steeltoe dynamic logging provider can be combined with [`BootstrapLoggerFactory`](../bootstrap/log-bootstrap.md) to upgrade loggers after startup.

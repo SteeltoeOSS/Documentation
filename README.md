@@ -33,7 +33,7 @@ Follow the steps below to run/debug locally. The optional steps take longer, but
 1. Open [Steeltoe.io.sln](src/Steeltoe.io.sln) in your preferred IDE, or run from the command line:
 
    ```shell
-   cd .\src\Steeltoe.io\ && dotnet run
+   dotnet run --project .\src\Steeltoe.io
    ```
 
 The site should now be running at <https://localhost:8080>.

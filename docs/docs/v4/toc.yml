@@ -1,8 +1,9 @@
 - name: Welcome - v4
   href: welcome/toc.yml
   topicHref: welcome/index.md
-- name: Application Bootstrapping
-  href: bootstrap/index.md
+- name: Bootstrapping
+  href: bootstrap/toc.yml
+  topicHref: bootstrap/index.md
 - name: Application Configuration
   href: configuration/toc.yml
   topicHref: configuration/index.md
