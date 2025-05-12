@@ -16,10 +16,10 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 </ItemGroup>
 ```
 
-Alternatively, you can add the package through PowerShell:
+Or, from the command line:
 
-```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 3.2.0
+```shell
+dotnet add package Steeltoe.Management.EndpointCore --version 3.2.0
 ```
 
 ## Metric Observers
@@ -107,7 +107,7 @@ To emit custom metrics on TAS for VMs v2.5 or later, use the Metric Registrar. F
 
 To register your endpoint for metrics collection, install the metrics-registrar plugin and use it to register your endpoint:
 
-```bash
+```shell
 cf install-plugin -r CF-Community "metric-registrar"`
 cf register-metrics-endpoint your-dotnet-app /actuator/prometheus
 ```
@@ -132,7 +132,7 @@ scrape_configs:
 
 Running Prometheus server with this configuration lets you view metrics in the built-in UI. You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/), to use Prometheus as a datasource. The following example shows how to run Prometheus in Docker:
 
-```bash
+```shell
 docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
 ```
 

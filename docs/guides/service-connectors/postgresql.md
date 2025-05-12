@@ -18,7 +18,7 @@ This tutorial takes you through setting up a .NET Core application with the Post
 
 First, **start a PostgreSQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
-```powershell
+```shell
 docker run --env POSTGRES_PASSWORD=Steeltoe789 --publish 5432:5432 steeltoeoss/postgresql
 ```
 
@@ -51,7 +51,7 @@ Next, **create a .NET Core WebAPI** that interacts with PostgreSQL
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\PostgreSqlConnector.csproj
 ```
 

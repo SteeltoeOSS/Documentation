@@ -11,28 +11,30 @@ There are 3 basic steps when using Steeltoe Tooling:
 
 ### Install Steeltoe Tooling
 
-Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
+Steeltoe Tooling is a [DotNet Global Tool](https://docs.microsoft.com/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
 
-```sh
-$ dotnet tool install --global --version 0.5.0 Steeltoe.Cli
+```shell
+dotnet tool install --global --version 0.5.0 Steeltoe.Cli
 ```
 
-### Add DotNet Global Tools to your PATH Variable
+### Add the DotNet Global Tool to your PATH variable
 
-DotNet Global Tools are installed in an OS-dependent user directory.
+The DotNet Global Tool is installed in an OS-dependent user directory.
 
 |OS|Path|
 |---|---|
 |Windows|`%USERPROFILE%\.dotnet\tools`|
 |OS X/Linux|`$HOME/.dotnet/tools`|
 
-After adding of the above paths to your `PATH` env var, you can run the `st` executable.
+After adding the above paths to your `PATH` env var, you can run the `st` executable.
 
-```sh
-$ st --version
-1.0.0-m1
+```shell
+st --version
 ```
 
+```text
+1.0.0-m1
+```
 
 ## Usage of Tooling CLI
 
@@ -40,9 +42,12 @@ $ st --version
 
 The `st init` command initializes your project for Steeltoo Tooling.  Enter your project directory and run the command.
 
-```sh
-$ cd MyProject
-$ st init
+```shell
+cd MyProject
+st init
+```
+
+```text
 Initialized Steeltoe Developer Tools
 ```
 
@@ -56,8 +61,11 @@ The `st add-app`, `st add-service`, and `st remove` commands add and remove appl
 
 Running `st add-app <appname>` adds an application to the configuration. _appname_ must correspond to a `.csproj` file of the same name.
 
-```sh
-$ st add-app MyProject
+```shell
+st add-app MyProject
+```
+
+```text
 Added app 'MyProject'
 ```
 
@@ -79,8 +87,11 @@ Supported service types include:
 |redis|Redis In-Memory Datastore|
 |zipkin|Zipkin Tracing Collector and UI|
 
-```sh
-$ st add-service config-server MyConfigServer
+```shell
+st add-service config-server MyConfigServer
+```
+
+```text
 Added config-server service 'MyConfigServer'
 ```
 
@@ -88,8 +99,11 @@ Added config-server service 'MyConfigServer'
 
 Running `st remove <name>` removes the named application or service.
 
-```sh
-$ st remove myConfigServer
+```shell
+st remove myConfigServer
+```
+
+```text
 Removed config-server service 'myConfigServer'
 ```
 
@@ -107,8 +121,11 @@ Supported targets include:
 |docker|local Docker host|
 |kubernetes|current Kubernetes context|
 
-```sh
-$ st target kubernetes
+```shell
+st target kubernetes
+```
+
+```text
 Kubernetes ... kubectl client version 1.14, server version 1.14
 current context ... docker-desktop
 Target set to 'kubernetes'
@@ -118,8 +135,11 @@ Target set to 'kubernetes'
 
 Running `st deploy` deploys an application and its services to the current target.
 
-```sh
-$ st deploy
+```shell
+st deploy
+```
+
+```text
 Deploying service 'myConfigServer'
 Waiting for service 'myConfigServer' to come online (1)
 Waiting for service 'myConfigServer' to come online (2)
@@ -130,8 +150,11 @@ Deploying app 'SimpleCloudFoundry'
 
 Running `st undeploy` undeploys an application and its services from the current target.
 
-```sh
-$ st undeploy
+```shell
+st undeploy
+```
+
+```text
 Undeploying app 'SimpleCloudFoundry'
 Undeploying service 'myConfigServer'
 ```
@@ -144,29 +167,40 @@ In this sample we use Steeltoe Tooling to simplify the process of deploying the 
 
 Checkout Steeltoe Samples and navigate to the Redis Connector sample.
 
-```sh
-$ git clone https://github.com/SteeltoeOSS/Samples.git
-$ cd Samples/Connectors/src/AspDotNetCore/Redis
+```shell
+git clone https://github.com/SteeltoeOSS/Samples.git
+cd Samples/Connectors/src/AspDotNetCore/Redis
 ```
 
 Initialize Steeltoe Tooling.
 
-```sh
-$ st init
+```shell
+st init
+```
+
+```text
 Initialized Steeltoe Developer Tools
 ```
 
 ### Add the Application and Service
 
 Add application.
-```sh
-$ st add-app Redis
+
+```shell
+st add-app Redis
+```
+
+```text
 Added app 'Redis' (netcoreapp3.1/win10-x64)
 ```
 
 Add service.
-```sh
-$ st add-service redis myRedisService
+
+```shell
+st add-service redis myRedisService
+```
+
+```text
 Added redis service 'myRedisService'
 ```
 
@@ -176,8 +210,11 @@ Added redis service 'myRedisService'
 
 Before deploying to a remote cloud, first run locally using Docker ...
 
-```sh
-$ st target docker
+```shell
+st target docker
+```
+
+```text
 Docker ... Docker version 18.09.1, build 4c52b90
 Docker host OS ... Docker for Mac
 Docker container OS ... linux
@@ -186,8 +223,8 @@ Target set to 'docker'
 
 ... create a DotNet Configuration file named `appsettings.Docker.json` ...
 
-```sh
-$ cat appsettings.Docker.json
+```bash
+cat appsettings.Docker.json
 {
   "redis": {
     "client": {
@@ -201,15 +238,21 @@ $ cat appsettings.Docker.json
 ... deploy to Docker ...
 
 ```bash
-$ st deploy
+st deploy
+```
+
+```text
 Deploying service 'myRedisService'
 Deploying app 'Redis'
 ```
 
 ... check status ...
 
-```sh
-$ st status
+```shell
+st status
+```
+
+```text
 myRedisService online
 Redis online
 ```
@@ -220,8 +263,11 @@ Redis online
 
 ... finally, undeploy.
 
-```sh
-$ st undeploy
+```shell
+st undeploy
+```
+
+```text
 Undeploying app 'Redis'
 Undeploying service 'myRedisService'
 ```
@@ -230,29 +276,43 @@ Undeploying service 'myRedisService'
 
 Deploy to Cloud Foundry ...
 
-```sh
-$ st target cloud-foundry
+```shell
+st target cloud-foundry
+```
+
+```text
 Cloud Foundry ... cf version 6.46.0+29d6257f1.2019-07-09
 logged into Cloud Foundry ... yes
 Target set to 'cloud-foundry'
+```
 
-$ st deploy
+```shell
+st deploy
+```
+
+```text
 Deploying service 'myRedisService'
 Deploying app 'Redis'
 ```
 
 ... check status ...
 
-```sh
-$ st status
+```shell
+st status
+```
+
+```text
 myRedisService online
 Redis online
 ```
 
 ... and undeploy.
 
-```sh
-$ st undeploy
+```shell
+st undeploy
+```
+
+```text
 Undeploying app 'Redis'
 Undeploying service 'myRedisService'
 ```
@@ -263,15 +323,25 @@ If you haven't already, create a DotNet Configuration file named `appsettings.Do
 
 ... deploy to Kubernetes ...
 
-```sh
-$ eval $(minikube docker-env)  # if using minikube's Docker
+```bash
+eval $(minikube docker-env)  # if using minikube's Docker
+```
 
-$ st target kubernetes
+```shell
+st target kubernetes
+```
+
+```text
 Kubernetes ... kubectl client version 1.15, server version 1.15
 current context ... minikube
 Target set to 'kubernetes'
+```
 
-$ st deploy
+```shell
+st deploy
+```
+
+```text
 Deploying service 'myRedisService'
 Waiting for 'myRedisService' to transition to online (1)
 Waiting for 'myRedisService' to transition to online (2)
@@ -285,22 +355,35 @@ Waiting for 'Redis' to transition to online (4)
 
 ... check status ...
 
-```sh
-$ st status
+```shell
+st status
+```
+
+```text
 myRedisService online
 Redis online
 ```
 
 ... enable port-forwarding to the app running in Kubernetes ...
 
-```sh
-# determine pod name
-$ kubectl get pods --selector app=redis
+Determine pod name:
+
+```shell
+kubectl get pods --selector app=redis
+```
+
+```text
 NAME                     READY   STATUS    RESTARTS   AGE
 redis-57fc6b5c85-9n4z9   1/1     Running   0          87s
+```
 
-# forward port 8080 to pod
-$ kubectl port-forward redis-57fc6b5c85-9n4z9 8080:80
+Forward port 8080 to pod:
+
+```shell
+kubectl port-forward redis-57fc6b5c85-9n4z9 8080:80
+```
+
+```text
 Forwarding from 127.0.0.1:8080 -> 80
 Forwarding from [::1]:8080 -> 80
 ...
@@ -312,8 +395,11 @@ Forwarding from [::1]:8080 -> 80
 
 ... and undeploy.
 
-```sh
-$ st undeploy
+```shell
+st undeploy
+```
+
+```text
 Undeploying app 'Redis'
 Undeploying service 'myRedisService'
 ```

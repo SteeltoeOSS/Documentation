@@ -18,7 +18,7 @@ This tutorial takes you through setting up a .NET Core application with the Redi
 
 First, **start a Redis instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
-```powershell
+```shell
 docker run --publish 6379:6379 steeltoeoss/redis
 ```
 
@@ -48,7 +48,7 @@ Next, **create a .NET Core WebAPI** that interacts with Redis
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\RedisConnector.csproj
 ```
 

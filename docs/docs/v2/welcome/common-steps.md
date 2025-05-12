@@ -22,16 +22,23 @@ Use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/d
 
 Use the Cloud Foundry CLI to push the published application to Cloud Foundry using the parameters that match what you selected for framework and runtime:
 
-```bash
-# Push to Linux cell
-cf push -f manifest.yml -p bin/Debug/netcoreapp3.1/linux-x64/publish
+- Push to Linux cell:
 
-# Push to Windows cell, .NET Core
-cf push -f manifest-windows.yml -p bin/Debug/netcoreapp3.1/win10-x64/publish
+  ```shell
+  cf push -f manifest.yml -p bin/Debug/netcoreapp3.1/linux-x64/publish
+  ```
 
-# Push to Windows cell, .NET Framework
-cf push -f manifest-windows.yml -p bin/Debug/net461/win10-x64/publish
-```
+- Push to Windows cell, .NET Core:
+
+  ```shell
+  cf push -f manifest-windows.yml -p bin/Debug/netcoreapp3.1/win10-x64/publish
+  ```
+
+- Push to Windows cell, .NET Framework:
+
+  ```shell
+  cf push -f manifest-windows.yml -p bin/Debug/net461/win10-x64/publish
+  ```
 
 >NOTE: all sample manifests have been defined to bind their application to their service(s) as created above.
 
@@ -41,7 +48,7 @@ To see the logs as you startup the application, use `cf logs oauth`.
 
 On a Linux cell, you should see something resembling the following during startup:
 
-```bash
+```text
 2016-06-01T09:14:14.38-0600 [CELL/0]     OUT Creating container
 2016-06-01T09:14:15.93-0600 [CELL/0]     OUT Successfully created container
 2016-06-01T09:14:17.14-0600 [CELL/0]     OUT Starting health monitoring of container

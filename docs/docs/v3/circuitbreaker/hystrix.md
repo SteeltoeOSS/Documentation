@@ -857,7 +857,7 @@ Once you have made the changes described earlier, you can then use the Netflix H
 
 There are a few images available on Docker Hub that provide basic Hystrix Dashboard functionality. This example has been tested with:
 
-```bash
+```shell
 docker run --rm -ti -p 7979:7979 --name steeltoe-hystrix steeltoeoss/hystrix-dashboard
 ```
 

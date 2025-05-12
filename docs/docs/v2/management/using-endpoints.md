@@ -62,10 +62,10 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 </ItemGroup>
 ```
 
-or
+Or, from the command line:
 
-```powershell
-PM>Install-Package  Steeltoe.Management.EndpointWeb -Version 2.5.2
+```shell
+dotnet add package Steeltoe.Management.EndpointCore --version 2.5.2
 ```
 
 ## Configure Global Settings

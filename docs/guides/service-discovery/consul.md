@@ -15,7 +15,7 @@ This tutorial takes you through setting up two .NET Core applications using serv
 
 First, **start a HashiCorp Consul server**. There are a variety of ways to get a Consul server, but using this command will create a server that will be cleaned up automatically after you stop it:
 
-```powershell
+```shell
 docker run --rm -ti -p 8500:8500 --name=steeltoe_guide_consul consul
 ```
 
@@ -37,12 +37,12 @@ Next, **create a .NET Core WebAPI** and configure Steeltoe to register with the 
 
 First, open your preferred shell and navigate to the folder you'd like the sample created in.
 
-```powershell
+```bash
 # create the project
 dotnet new webapi --name Consul_Register_Example
 
 # enter the project directory
-cd .\Consul_Register_Example\
+cd Consul_Register_Example
 
 # add the NuGet reference
 dotnet add Steeltoe.Discovery.Consul
@@ -67,7 +67,7 @@ Now when the application starts up, Steeltoe will activate the appropriate disco
 
 When the application is run directly, Steeltoe should be able to register with the default settings.
 
-```powershell
+```shell
 dotnet run
 ```
 
@@ -140,12 +140,12 @@ Once you've confirmed the service runs and registers correctly, **create another
 
 First, open your preferred shell and navigate to the folder you'd like the sample created in.
 
-```powershell
+```bash
 # create the project
 dotnet new webapi --name Consul_Discover_Example
 
 # enter the project directory
-cd .\Consul_Discover_Example\
+cd Consul_Discover_Example
 
 # add the NuGet reference
 dotnet add Steeltoe.Discovery.Consul
@@ -211,7 +211,7 @@ Run the app to see discovery in action:
 
 # [dotnet CLI](#tab/dotnet-run2)
 
-```powershell
+```shell
 cd Consul_Discover_Example
 dotnet run
 ```

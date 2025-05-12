@@ -318,25 +318,21 @@ namespace Receiver
 
 We must now build the solution.
 
-```bash
+```shell
 cd tutorials\tutorial1
 dotnet build
 ```
 
 To run the receiver, execute the following commands:
 
-```bash
-# receiver
-
+```shell
 cd receiver
 dotnet run
 ```
 
 Open another shell to run the sender:
 
-```bash
-# sender
-
+```shell
 cd sender
 dotnet run
 ```
@@ -352,7 +348,7 @@ dotnet run
 >
 > On Windows, omit the sudo:
 >
-> ```bash
+> ```cmd
 > rabbitmqctl.bat list_queues
 > ```
 

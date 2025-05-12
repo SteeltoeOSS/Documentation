@@ -41,10 +41,10 @@ To use the prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 </ItemGroup>
 ```
 
-or
+Or, from the command line:
 
-```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 2.5.2
+```shell
+dotnet add package Steeltoe.Management.EndpointCore --version 2.5.2
 ```
 
 ## Cloud Foundry Forwarder

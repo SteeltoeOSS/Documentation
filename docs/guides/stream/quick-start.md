@@ -19,7 +19,7 @@ and abstractions, making it easier to digest the rest of this user guide.
 First, **start a rabbitmq server** locally using Docker:
 
 ```shell
-    docker run --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+docker run --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 ```
 
 1. [Creating a Sample Application by Using Steeltoe Initializr](https://start.steeltoe.io)
@@ -136,7 +136,7 @@ Assuming you have RabbitMQ installed and running, you can start the application 
 
 You should see following output:
 
-```shell
+```text
 info: Steeltoe.Messaging.RabbitMQ.Connection.CachingConnectionFactory[0]
       Attempting to connect to: amqp://127.0.0.1:5672
 info: Microsoft.Hosting.Lifetime[0]

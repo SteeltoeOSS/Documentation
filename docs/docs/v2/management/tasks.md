@@ -18,10 +18,10 @@ Add the following PackageReference to your .csproj file.
 </ItemGroup>
 ```
 
-or
+Or, from the command line:
 
-```powershell
-PM>Install-Package  Steeltoe.Management.TaskCore -Version 2.5.2
+```shell
+dotnet add package Steeltoe.Management.TaskCore --version 2.5.2
 ```
 
 ## Implement Task

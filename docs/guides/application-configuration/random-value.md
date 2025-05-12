@@ -28,7 +28,7 @@ First, **create a .NET Core WebAPI** that has a placeholder implemented.
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\RandomValueExample.csproj
 ```
 

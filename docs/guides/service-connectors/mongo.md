@@ -20,7 +20,7 @@ First, **start a Mongo DB instance**. Depending on your hosting platform this is
 
 1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Mongo.
 
-   ```powershell
+   ```shell
    docker run --env MONGO_INITDB_ROOT_USERNAME=steeltoe --env MONGO_INITDB_ROOT_PASSWORD=Steeltoe234 --publish 27017:27017 mongo
    ```
 
@@ -53,7 +53,7 @@ Next, **create a .NET Core WebAPI** that interacts with Mongo DB
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\MongoConnector.csproj
 ```
 

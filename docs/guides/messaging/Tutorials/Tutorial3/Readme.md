@@ -261,7 +261,7 @@ namespace Receiver
 >
 > You can list existing bindings using, you guessed it,
 >
-> ```bash
+> ```shell
 > rabbitmqctl list_bindings
 > ```
 
@@ -396,7 +396,7 @@ namespace Receiver
 
 Compile as before and we're ready to execute the fanout sender and receiver.
 
-```bash
+```shell
 cd tutorials\tutorial3
 dotnet build
 ```
@@ -405,18 +405,14 @@ And of course, to execute the tutorial do the following:
 
 To run the receiver, execute the following commands:
 
-```bash
-# receiver
-
+```shell
 cd receiver
 dotnet run
 ```
 
 Open another shell to run the sender:
 
-```bash
-# sender
-
+```shell
 cd sender
 dotnet run
 ```

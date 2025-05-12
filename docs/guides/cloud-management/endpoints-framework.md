@@ -39,7 +39,7 @@ Next, **install packages** needed
    <img src="/guides/images/open-package-manager-console.png" alt="Visual Studio - Package Manager Console" width="100%">
 1. Install NuGet distributed packages
 
-   ```powershell
+   ```pwsh
    Install-Package Microsoft.Extensions.Configuration
    Install-Package Microsoft.Extensions.Logging
    Install-Package Microsoft.Extensions.Logging.Console

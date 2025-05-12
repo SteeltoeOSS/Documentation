@@ -91,18 +91,25 @@ This Connector supports the following service brokers:
 
 - [VMware Tanzu RabbitMQ on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-cloud-foundry/10-0/tanzu-rabbitmq-cloud-foundry/index.html)
 
-You can create and bind an instance to your application by using the Cloud Foundry CLI:
+You can create and bind an instance to your application by using the Cloud Foundry CLI.
 
-```shell
-# Create RabbitMQ service
-cf create-service p.rabbitmq single-node myRabbitMQService
+1. Create RabbitMQ service:
 
-# Bind service to your app
-cf bind-service myApp myRabbitMQService
+   ```shell
+   cf create-service p.rabbitmq single-node myRabbitMQService
+   ```
 
-# Restage the app to pick up change
-cf restage myApp
-```
+1. Bind service to your app:
+
+   ```shell
+   cf bind-service myApp myRabbitMQService
+   ```
+
+1. Restage the app to pick up change:
+
+   ```shell
+   cf restage myApp
+   ```
 
 ## Kubernetes
 

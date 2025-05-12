@@ -22,7 +22,7 @@ This tutorial takes you through setting up a .NET Core application that implemen
 
 1. There are a few images available on Docker Hub that provide basic Hystrix Dashboard functionality. The following image is provided by the Steeltoe team for testing and development:
 
-```bash
+```shell
 docker run --rm -ti -p 7979:7979 --name steeltoe-hystrix steeltoeoss/hystrix-dashboard
 ```
 
@@ -92,7 +92,7 @@ Alternatively, to run a Hystrix Dashboard with Java on your local workstation
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\CircuitBreakerExample.csproj
 ```
 

@@ -45,10 +45,10 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 </ItemGroup>
 ```
 
-Alternative, you can add it with PowerShell:
+Or, from the command line:
 
-```powershell
-PM>Install-Package Steeltoe.Management.TracingCore
+```shell
+dotnet add package Steeltoe.Management.TracingCore --version 3.2.0
 ```
 
 ### Configure Settings

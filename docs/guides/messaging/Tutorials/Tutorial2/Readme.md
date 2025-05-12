@@ -256,7 +256,7 @@ This is how the `RabbitListener` attribute ties the `Receive(..)` method to the 
 
 Compile both projects using `dotnet build`.
 
-```bash
+```shell
 cd tutorials\tutorial2
 dotnet build
 ```

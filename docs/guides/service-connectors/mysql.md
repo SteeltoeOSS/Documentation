@@ -18,7 +18,7 @@ This tutorial takes you through setting up a .NET Core application with the MySQ
 
 First, **start a MySQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
-```powershell
+```shell
 docker run --env MYSQL_ROOT_PASSWORD=Steeltoe456 --publish 3306:3306 steeltoeoss/mysql
 ```
 
@@ -51,7 +51,7 @@ Next, **create a .NET Core WebAPI** that interacts with MySQL
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\MySqlConnector.csproj
 ```
 

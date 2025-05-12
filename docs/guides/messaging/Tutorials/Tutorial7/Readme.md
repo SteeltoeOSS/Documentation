@@ -447,21 +447,21 @@ namespace Sender
 
 Compile as usual, see [tutorial one](../Tutorial1/Readme.md)
 
-```bash
+```shell
 cd tutorials\tutorial7
 dotnet build
 ```
 
 To run the receiver, execute the following commands:
 
-```bash
+```shell
 cd receiver
 dotnet run
 ```
 
 To watch the confirms come back, run the sender
 
-```bash
+```shell
 cd sender
 dotnet run
 ```
