@@ -110,7 +110,6 @@ namespace Sender
         }
     }
 }
-
 ```
 
 ## Strategy #1: Publishing Messages Individually
@@ -238,7 +237,6 @@ namespace Sender
 There are two callbacks: one for confirmed messages and one returned messages.
 
 ```csharp
-
 .....
 public void ReturnedMessage(IMessage<byte[]> message, int replyCode, string replyText, string exchange, string routingKey)
 {
@@ -250,7 +248,6 @@ public void Confirm(CorrelationData correlationData, bool ack, string cause)
     _logger.LogInformation($"Confirming message: Id={correlationData.Id}, Acked={ack}, Cause={cause}");
 }
 ....
-
 ```
 
 For the `ReturnedMessage()` callback method to be
@@ -266,13 +263,11 @@ Note that the `CorrelationData` provided in the `Confirm(CorrelationData correla
 The template then returns it as part of the arguments to the `Confirm(...)` callback.
 
 ```csharp
-
 ....
 CorrelationData data = new CorrelationData(id.ToString());
 id++;
 await _rabbitTemplate.ConvertAndSendAsync(Program.QueueName, (object)"Hello World!", data);
 ...
-
 ```
 
 A simple way to correlate messages with sequence numbering consists in using a
@@ -300,7 +295,6 @@ to the constraints in the application and in the overall system. Typical techniq
 The code for the receivers `Program.cs` comes from the first tutorial:
 
 ```csharp
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Steeltoe.Messaging.RabbitMQ.Config;

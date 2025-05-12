@@ -244,7 +244,6 @@ public class TestContext : DbContext
     }
     public DbSet<TestData> TestData { get; set; }
 }
-
 ```
 
 If you need to set additional properties for the `DbContext` (such as `MigrationsAssembly` or connection retry settings), create an `Action<SqlServerDbContextOptionsBuilder>`:

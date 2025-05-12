@@ -399,7 +399,6 @@ public void ConfigureServices(IServiceCollection services)
 When using the WebApplication Builder, or if you prefer not to use the RabbitMQHost within your application, you will need to add the below additional configuration to the service container to get Steelotoe RabbitMQ services up and running:
 
 ```csharp
-
     var builder = WebApplication.CreateBuilder(args);
 
     // Configure the RabbitMQ client connection;

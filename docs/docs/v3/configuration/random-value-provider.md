@@ -11,7 +11,6 @@ var my_big_number = config["random:long"];
 var my_uuid = config["random:uuid"];
 var my_number_less_than_ten = config["random:int(10)"];
 var my_number_in_range = config["random:int[1024,65536]"];
-
 ```
 
 You can also use the generator together with property placeholders. For example, consider the following `appsettings.json`:
@@ -72,7 +71,6 @@ var builder = new ConfigurationBuilder()
     .AddRandomValueSource();
 Configuration = builder.Build();
 ...
-
 ```
 
 >If you wish to generate random values as part of using placeholders, you need to add the `RandomValue` provider to the builder before you add the placeholder resolver.

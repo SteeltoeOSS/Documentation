@@ -147,7 +147,6 @@ Next add `Tut1Receiver` to the service container.  `Tu1Receiver` is the componen
 > Note: At this point we have not explained how to tie together the queue, `Tut1Receiver` and the method that gets invoked; that comes next.
 
 ```csharp
-
 // Add the rabbit listener component
 services.AddSingleton<Tut1Receiver>();
 

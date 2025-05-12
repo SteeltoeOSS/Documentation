@@ -67,7 +67,6 @@ Now we can create the code required for this application. To do so:
 1. Create the `UsageGenerator` class in the project, which resembles the following listing:
 
 ```csharp
-
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Steeltoe.Messaging;
@@ -250,7 +249,6 @@ namespace UsageProcessor
         }
     }
 }
-
 ```
 
 In the preceding application, the `[EnableBinding]` attribute indicates that you want to bind your application to the messaging middleware. The attribute takes one or more interfaces as a parameter, in this case, the [IProcessor](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Stream/src/Abstractions/Messaging/IProcessor.cs) that defines and input and output channel.
@@ -573,7 +571,6 @@ cf apps
 The following listings shows typical output:
 
 ```bash
-
 name              requested state   processes   routes
 usage-logger      started           web:1/1     usage-logger.apps.pcfone.io
 usage-processor   started           web:1/1     usage-processor.apps.pcfone.io
@@ -627,7 +624,6 @@ kubectl apply -f https://raw.githubusercontent.com/spring-cloud/spring-cloud-dat
 To build the Docker images, we use a Dockerfile for each of the three applications. For example the UsageSender Dockerfile looks like this:
 
 ```Dockerfile
-
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /source
 
@@ -645,7 +641,6 @@ ENV SPRING_RABBITMQ_HOST=host.docker.internal
 ENV PORT=8080
 
 ENTRYPOINT ["dotnet", "UsageSender.dll"]
-
 ```
 
 Then use the `docker build` command to build, tag and publish to your repository:

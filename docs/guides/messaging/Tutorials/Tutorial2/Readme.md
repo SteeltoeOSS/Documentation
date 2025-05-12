@@ -278,7 +278,6 @@ dotnet run
 
 cd sender
 dotnet run
-
 ```
 
 Notice how the work that is produced by the sender is distributed across both receivers.

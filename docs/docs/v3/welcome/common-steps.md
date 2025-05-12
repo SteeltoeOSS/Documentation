@@ -29,7 +29,6 @@ cf push -f manifest.yml -p bin/Debug/net6.0/linux-x64/publish
 
 # Push to Windows cell, .NET Core
 cf push -f manifest-windows.yml -p bin/Debug/net6.0/win-x64/publish
-
 ```
 
 >All sample manifests have been defined to bind their application to the services as created earlier.

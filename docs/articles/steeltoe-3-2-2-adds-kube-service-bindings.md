@@ -24,16 +24,15 @@ Each of configuration keys is prefixed with `k8s:bindings:<binding-name>` where 
 
 Below is an example of the configuration keys associated with a PostgreSql service binding that are created by the Steeltoe configuration provider.
 
-```csharp
-    k8s:bindings:mypostgres:username=pgappuser
-    k8s:bindings:mypostgres:uri=postgresql://pgappuser:sn3L007KAUC2i598hPtC3ftfgIqvF2@postgres-sample.postgres-service-instances:5432/postgres-sample
-    k8s:bindings:mypostgres:type=postgresql
-    k8s:bindings:mypostgres:provider=vmware
-    k8s:bindings:mypostgres:port=5432
-    k8s:bindings:mypostgres:password=sn3L007KAUC2i598hPtC3ftfgIqvF2
-    k8s:bindings:mypostgres:host=postgres-sample.postgres-service-instances
-    k8s:bindings:mypostgres:database=postgres-sample
-
+```text
+k8s:bindings:mypostgres:username=pgappuser
+k8s:bindings:mypostgres:uri=postgresql://pgappuser:sn3L007KAUC2i598hPtC3ftfgIqvF2@postgres-sample.postgres-service-instances:5432/postgres-sample
+k8s:bindings:mypostgres:type=postgresql
+k8s:bindings:mypostgres:provider=vmware
+k8s:bindings:mypostgres:port=5432
+k8s:bindings:mypostgres:password=sn3L007KAUC2i598hPtC3ftfgIqvF2
+k8s:bindings:mypostgres:host=postgres-sample.postgres-service-instances
+k8s:bindings:mypostgres:database=postgres-sample
 ```
 
 To use the experimental provider, you need to add a reference to the [Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding](https://www.nuget.org/packages/Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding) NuGet package.
@@ -83,7 +82,6 @@ namespace PostgreSql
         }
     }
 }
-
 ```
 
 Running your application on a Kubernetes platform which supports the [Kubernetes Service Binding](https://github.com/servicebinding/spec) specification you should see configuration key/values appear in your applications configuration.

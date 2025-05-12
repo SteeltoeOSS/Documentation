@@ -64,7 +64,6 @@ var builder = new ConfigurationBuilder()
     .AddCloudFoundry();
 Configuration = builder.Build();
 ...
-
 ```
 
 When developing a .NET Core application, you can do the same thing by using the `AddCloudFoundry()` extension method for either the `IWebHostBuilder` or Generic `IHostBuilder`. The following example shows how to do so:
