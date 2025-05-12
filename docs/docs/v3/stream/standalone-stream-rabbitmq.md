@@ -623,7 +623,7 @@ kubectl apply -f https://raw.githubusercontent.com/spring-cloud/spring-cloud-dat
 
 To build the Docker images, we use a Dockerfile for each of the three applications. For example the UsageSender Dockerfile looks like this:
 
-```Dockerfile
+```dockerfile
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /source
 

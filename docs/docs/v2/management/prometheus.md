@@ -76,6 +76,6 @@ scrape_configs:
 ```
 Running Prometheus server with this configuration will allow you view metrics in the built-in UI. Other visualization tools such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/) can then be configured to use Prometheus as a datasource.
 
-```docker
+```shell
 docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
 ```
