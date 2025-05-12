@@ -1774,7 +1774,7 @@ runtime SpEL expression (described after the next example).
 The `@SendTo` can be a SpEL expression that is evaluated at runtime against the request
 and reply, as the following example shows:
 
-```Java
+```java
 @RabbitListener(queues = "test.sendTo.spel")
 @SendTo("!{'some.reply.queue.with.' + result.queueName}")
 public Bar capitalizeWithSendToSpel(Foo foo) {
@@ -1800,7 +1800,7 @@ Beans are referenced with their names, prefixed by `@`.
 Simple property placeholders are also supported (for example, `${some.reply.to}`).
 With earlier versions, the following can be used as a work around, as the following example shows:
 
-```Java
+```java
 @RabbitListener(queues = "foo")
 @SendTo("#{environment['my.send.to']}")
 public String listen(Message in) {
@@ -2851,7 +2851,7 @@ Events are published by the broker to a topic exchange `amq.rabbitmq.event` with
 The listener uses event keys, which are used to bind an `AnonymousQueue` to the exchange so the listener receives only selected events.
 Since it is a topic exchange, wildcards can be used (as well as explicitly requesting specific events), as the following example shows:
 
-```Java
+```java
 @Bean
 public BrokerEventListener eventListener() {
     return new BrokerEventListener(connectionFactory(), "user.deleted", "channel.#", "queue.#");
@@ -2860,7 +2860,7 @@ public BrokerEventListener eventListener() {
 
 You can further narrow the received events in individual event listeners, by using normal Spring techniques, as the following example shows:
 
-```Java
+```java
 @EventListener(condition = "event.eventType == 'queue.created'")
 public void listener(BrokerEvent event) {
     ...
@@ -3031,7 +3031,7 @@ This transaction attribute can be used directly in the container or through a tr
 
 The following example uses this rule:
 
-```Java
+```java
 @Bean
 public AbstractMessageListenerContainer container() {
     ...
@@ -3227,7 +3227,7 @@ By default, it uses `MessageProperties` default value - `MessageDeliveryMode.PER
 
 The following example shows how to set a `RepublishMessageRecoverer` as the recoverer:
 
-```Java
+```java
 @Bean
 RetryOperationsInterceptor interceptor() {
     return RetryInterceptorBuilder.stateless()
@@ -3241,7 +3241,7 @@ The `RepublishMessageRecoverer` publishes the message with additional informatio
 Additional headers can be added by creating a subclass and overriding `additionalHeaders()`.
 The `deliveryMode` (or any other properties) can also be changed in the `additionalHeaders()`, as follows:
 
-```Java
+```java
 RepublishMessageRecoverer recoverer = new RepublishMessageRecoverer(amqpTemplate, "error") {
 
     protected Map<? extends String, ? extends Object> additionalHeaders(Message message, Throwable cause) {
