@@ -104,7 +104,6 @@ Here are the `DeclareQueueBinding` attributes that illustrate the above concepts
 [DeclareQueueBinding(Name = "tut.direct.binding.queue1.black", ExchangeName = "tut.direct", RoutingKey = "black", QueueName = "#{@queue1}")]
 [DeclareQueueBinding(Name = "tut.direct.binding.queue2.green", ExchangeName = "tut.direct", RoutingKey = "green", QueueName = "#{@queue2}")]
 [DeclareQueueBinding(Name = "tut.direct.binding.queue2.black", ExchangeName = "tut.direct", RoutingKey = "black", QueueName = "#{@queue2}")]
-
 ```
 
 ## Publishing messages
@@ -275,21 +274,21 @@ namespace Receiver
 
 Compile as usual, see [tutorial one](../Tutorial1/Readme.md)
 
-```bash
+```shell
 cd tutorials\tutorial4
 dotnet build
 ```
 
 To run the receiver, execute the following commands:
 
-```bash
+```shell
 cd receiver
 dotnet run
 ```
 
 Open another shell to run the sender:
 
-```bash
+```shell
 cd sender
 dotnet run
 ```

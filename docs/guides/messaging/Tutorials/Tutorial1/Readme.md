@@ -147,7 +147,6 @@ Next add `Tut1Receiver` to the service container.  `Tu1Receiver` is the componen
 > Note: At this point we have not explained how to tie together the queue, `Tut1Receiver` and the method that gets invoked; that comes next.
 
 ```csharp
-
 // Add the rabbit listener component
 services.AddSingleton<Tut1Receiver>();
 
@@ -319,25 +318,21 @@ namespace Receiver
 
 We must now build the solution.
 
-```bash
+```shell
 cd tutorials\tutorial1
 dotnet build
 ```
 
 To run the receiver, execute the following commands:
 
-```bash
-# receiver
-
+```shell
 cd receiver
 dotnet run
 ```
 
 Open another shell to run the sender:
 
-```bash
-# sender
-
+```shell
 cd sender
 dotnet run
 ```
@@ -353,7 +348,7 @@ dotnet run
 >
 > On Windows, omit the sudo:
 >
-> ```bash
+> ```cmd
 > rabbitmqctl.bat list_queues
 > ```
 

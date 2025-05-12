@@ -22,21 +22,17 @@ You'll need a Wavefront account to complete this guide successfully. [Create a 3
 
 First, **clone to accompanying repo** that contains all the needed assets
 
-1. ```powershell
+1. ```shell
    git clone https://github.com/steeltoeoss-incubator/observability.git
    ```
 
-   ```powershell
+   ```shell
    cd observability/wavefront
    ```
 
-1. Have a look at what things are provided
+1. Have a look at what things are provided:
 
-   ```powershell
-   ls
-   ```
-
-   ```bash
+   ```text
    Name                    Description
    ----                    ----
    dashboard-template.json Wavefront dashboard configuration
@@ -133,13 +129,13 @@ Next, **deploy everything** with docker compose
 
 1. Build the image using the provided docker-compose file
 
-   ```powershell
+   ```shell
    docker-compose up -d
    ```
 
 1. Confirm everything started successfully by running `docker-compose ps` and checking the State. Output should look similar to this:
 
-   ```bash
+   ```text
    Name              Command                         State    Ports
    -----------------------------------------------------------------------------------------------------------------------------
    steeltoe-app      dotnet Grafana_Observabili ...   Up      0.0.0.0:80->80/tcp

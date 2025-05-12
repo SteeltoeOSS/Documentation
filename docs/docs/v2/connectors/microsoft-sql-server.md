@@ -62,13 +62,13 @@ The samples and most templates are already set up to read from `appsettings.json
 
 To use Microsoft SQL Server on Cloud Foundry, you need a service instance bound to your application. If the [Microsoft SQL Server broker](https://github.com/cf-platform-eng/mssql-server-broker) is installed in your Cloud Foundry instance, use it to create a new service instance, as follows:
 
-```bash
+```shell
 cf create-service SqlServer sharedVM mySqlServerService
 ```
 
 An alternative to the broker is to use a user-provided service to explicitly provide connection information to the application, as shown in the following example:
 
-```bash
+```shell
 cf cups mySqlServerService -p '{"pw": "|password|","uid": "|user id|","uri": "jdbc:sqlserver://|host|:|port|;databaseName=|database name|"}'
 ```
 
@@ -237,7 +237,6 @@ public class TestContext : DbContext
     }
     public DbSet<TestData> TestData { get; set; }
 }
-
 ```
 
 If you need to set additional properties for the `DbContext` like `MigrationsAssembly` or connection retry settings, create an `Action<SqlServerDbContextOptionsBuilder>` like this:

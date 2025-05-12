@@ -41,10 +41,10 @@ To use the prometheus endpoint, you need to add a reference to `Steetoe.Manageme
 </ItemGroup>
 ```
 
-or
+Or, from the command line:
 
-```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore -Version 2.5.2
+```shell
+dotnet add package Steeltoe.Management.EndpointCore --version 2.5.2
 ```
 
 ## Cloud Foundry Forwarder
@@ -61,7 +61,7 @@ To register your endpoint for metrics collection install the metrics-registrar p
 
 [Prometheus Server](https://prometheus.io/) can be set up to scrape this endpoint by registering your application in the server's configuration. For example, this prometheus.yml expects a Steeltoe-enabled app running on port 8000 with the actuator management path at the default of /actuator:
 
-```yml
+```yaml
 global:
   scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
@@ -76,6 +76,6 @@ scrape_configs:
 ```
 Running Prometheus server with this configuration will allow you view metrics in the built-in UI. Other visualization tools such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/) can then be configured to use Prometheus as a datasource.
 
-```docker
+```shell
 docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
 ```

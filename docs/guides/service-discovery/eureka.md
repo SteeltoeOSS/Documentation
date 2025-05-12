@@ -18,7 +18,7 @@ This tutorial takes you through setting up two .NET Core applications using serv
 
 First, **start a Eureka Server** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Eureka.
 
-```powershell
+```shell
 docker run --publish 8761:8761 steeltoeoss/eureka-server
 ```
 
@@ -75,7 +75,7 @@ Next, **create a .NET Core WebAPI** that registers itself as a service.
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\EurekaRegisterExample.csproj
 ```
 
@@ -168,7 +168,7 @@ Now, **create another .NET Core WebAPI** that will discover the registered servi
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\EurekaDiscoverExample.csproj
 ```
 

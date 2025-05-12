@@ -49,8 +49,8 @@ This tutorial takes you through setting up a .NET Core application with cloud ma
 
 # [.NET cli](#tab/cli)
 
-```powershell
-dotnet run<PATH_TO>\ManagementEndpointsNetCoreExample.csproj
+```shell
+dotnet run <PATH_TO>\ManagementEndpointsNetCoreExample.csproj
 ```
 
 Navigate to the management endpoints summary page (you may need to change the port number) [http://localhost:5000/actuator](http://localhost:5000/actuator)

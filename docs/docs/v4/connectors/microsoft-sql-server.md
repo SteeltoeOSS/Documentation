@@ -148,15 +148,23 @@ This Connector supports the following service brokers:
 
 - [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-12/csb-azure/index.html)
 
-You can create and bind an instance to your application by using the Cloud Foundry CLI:
+You can create and bind an instance to your application by using the Cloud Foundry CLI.
 
-```shell
-# Create SQL Server service
-cf create-service csb-azure-mssql small-v2 mySqlServerService
+1. Create SQL Server service:
 
-# Bind service to your app
-cf bind-service myApp mySqlServerService
+   ```shell
+   cf create-service csb-azure-mssql small-v2 mySqlServerService
+   ```
 
-# Restage the app to pick up change
-cf restage myApp
-```
+1. Bind service to your app:
+
+   ```shell
+   cf bind-service myApp mySqlServerService
+   ```
+
+1. Restage the app to pick up change:
+
+   ```shell
+   cf restage myApp
+   ```
+

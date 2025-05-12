@@ -236,7 +236,6 @@ The preceding `Configure<MyConfiguration>(Configuration.GetSection("myconfigurat
 After this has been done, you can gain access to the data in your `Controller` or `View` through dependency injection. The following example shows how to do so:
 
 ```csharp
-
 public class HomeController : Controller
 {
     public HomeController(IOptions<MyConfiguration> myOptions)

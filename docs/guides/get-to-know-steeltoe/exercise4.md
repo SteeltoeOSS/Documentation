@@ -39,7 +39,7 @@ Right-click on the project name in the solution explorer and choose "Manage NuGe
 
 # [.NET CLI](#tab/dotnet-cli)
 
-```powershell
+```shell
 dotnet add package Steeltoe.Extensions.Configuration.ConfigServerCore
 ```
 
@@ -140,7 +140,7 @@ Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust
 
 Executing the below command will start the application. You will see a log message written, telling you how to navigate to the application. It should be [http://localhost:5000/weatherforecast](http://localhost:5000/weatherforecast).
 
-```powershell
+```shell
 dotnet run
 ```
 

@@ -23,14 +23,17 @@ You can use the `dotnet` CLI to [build and locally publish](https://docs.microso
 
 This section describes how to use the Cloud Foundry CLI to push the published application to Cloud Foundry by using the parameters that match what you selected for framework and runtime:
 
-```bash
-# Push to Linux cell
-cf push -f manifest.yml -p bin/Debug/net6.0/linux-x64/publish
+- Push to Linux cell:
 
-# Push to Windows cell, .NET Core
-cf push -f manifest-windows.yml -p bin/Debug/net6.0/win-x64/publish
+  ```shell
+  cf push -f manifest.yml -p bin/Debug/net6.0/linux-x64/publish
+  ```
 
-```
+- Push to Windows cell:
+
+  ```shell
+  cf push -f manifest-windows.yml -p bin/Debug/net6.0/win-x64/publish
+  ```
 
 >All sample manifests have been defined to bind their application to the services as created earlier.
 
@@ -40,7 +43,7 @@ To see the logs as you startup the application, use `cf logs oauth`.
 
 On a Linux cell, you should see output that resembles the following during startup:
 
-```bash
+```text
 2016-06-01T09:14:14.38-0600 [CELL/0]     OUT Creating container
 2016-06-01T09:14:15.93-0600 [CELL/0]     OUT Successfully created container
 2016-06-01T09:14:17.14-0600 [CELL/0]     OUT Starting health monitoring of container

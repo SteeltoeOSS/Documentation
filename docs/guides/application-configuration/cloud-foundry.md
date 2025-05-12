@@ -27,7 +27,7 @@ First, **create a .NET Core WebAPI** that retrieves (configuration) environment 
 
 1. Publish the application locally using the .NET cli. The following command will create a publish folder automatically
 
-   ```powershell
+   ```shell
    dotnet publish -o .\publish <PATH_TO>\CloudFoundryExample.csproj
    ```
 
@@ -47,7 +47,7 @@ First, **create a .NET Core WebAPI** that retrieves (configuration) environment 
 
 1. Push the app to Cloud Foundry
 
-   ```powershell
+   ```shell
    cf push -f <PATH_TO>\manifest.yml -p .\publish
    ```
 

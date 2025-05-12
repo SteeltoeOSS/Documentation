@@ -48,7 +48,7 @@ We want to create a .NET Core microservice (aka webapi project) that hands us he
 
 # [Powershell](#tab/powershell)
 
-```powershell
+```pwsh
 $body = @{
     Name='MyApp'
     Dependencies='Actuator,Dynamic-Logger,SQLServer'
@@ -60,7 +60,7 @@ Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutF
 # [Bash](#tab/bash)
 
 ```bash
-$ http https://start.steeltoe.io/api/project dependencies==actuator,dynamic-logger,sqlserver -d
+http https://start.steeltoe.io/api/project dependencies==actuator,dynamic-logger,sqlserver -d
 ```
 
 ***
@@ -105,7 +105,7 @@ Alternatively you could also run the following command:
 
 # [Powershell](#tab/powershell)
 
-```powershell
+```pwsh
 $body = @{
     Name='MyProject'
     Dependencies='Actuator,SQLServer'
@@ -117,7 +117,7 @@ Invoke-RestMethod -Uri 'https://start.steeltoe.io/api/project' -Body $body -OutF
 # [Bash](#tab/bash)
 
 ```bash
-$ http https://start.steeltoe.io/api/project dependencies==actuator,sqlserver -d
+http https://start.steeltoe.io/api/project dependencies==actuator,sqlserver -d
 ```
 
 ***

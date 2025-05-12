@@ -44,7 +44,7 @@ At "Additional information", you can keep the default values.
 
 # [.NET CLI](#tab/dotnet-cli)
 
-```powershell
+```shell
 dotnet new webapi -n WebApplication1
 cd WebApplication1
 ```
@@ -53,7 +53,7 @@ To use Visual Studio as your IDE, open the Visual Studio program, choose "Open a
 
 To use VS Code as your IDE:
 
-```powershell
+```shell
 code .
 ```
 
@@ -73,7 +73,7 @@ Finally the `Steeltoe.Management.TracingCore` package and install.
 
 # [.NET CLI](#tab/dotnet-cli)
 
-```powershell
+```shell
 dotnet add package Steeltoe.Management.EndpointCore
 dotnet add package Steeltoe.Management.TracingCore
 ```
@@ -158,7 +158,7 @@ Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust
 
 Executing the below command will start the application. You will see a log message written, telling how to navigate to the application. It should be [https://localhost:7010/weatherforecast](https://localhost:7010/WeatherForecast).
 
-```powershell
+```shell
 dotnet run
 ```
 
@@ -193,7 +193,7 @@ Finally, let's look at the log message that was written.
 
 Go back to the terminal window where the application was started. The logs should be streaming. Locate the following line:
 
-```plaintext
+```text
 [WebApplication1, 917e146c942117d2, 917e146c942117d2, true] Hi there
 ```
 

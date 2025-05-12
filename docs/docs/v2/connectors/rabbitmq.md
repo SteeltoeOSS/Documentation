@@ -132,5 +132,4 @@ using RabbitMQ.Client;
      }
 
  }
-
  ```

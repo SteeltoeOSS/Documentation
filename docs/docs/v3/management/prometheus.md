@@ -50,8 +50,8 @@ To use the Prometheus endpoint, you need to add a reference to `Steeltoe.Managem
 </ItemGroup>
 ```
 
-Alternatively, you can use PowerShell:
+Or, from the command line:
 
-```powershell
-PM>Install-Package  Steeltoe.Management.EndpointCore
+```shell
+dotnet add package Steeltoe.Management.EndpointCore --version 3.2.0
 ```

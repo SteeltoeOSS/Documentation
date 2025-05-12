@@ -66,6 +66,6 @@ Here is an example settings file.
 
 For testing, you can use a version of spring boot admin server running locally.
 
-```bash
+```shell
 docker run -d -p 8080:8080 steeltoeoss/spring-boot-admin
 ```

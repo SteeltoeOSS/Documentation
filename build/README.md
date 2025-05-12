@@ -6,8 +6,8 @@
 Generate API Browser documentation and process all markdown with the included PowerShell script [build-metadata.ps1](./build-metadata.ps1):
 
 ```pwsh
-cd ./build
-./build-metadata.ps1
+cd build
+pwsh ./build-metadata.ps1
 ```
 
 This process can take a while to complete, will display many warnings and may increase build time in subsequent local runs of Steeltoe.io.

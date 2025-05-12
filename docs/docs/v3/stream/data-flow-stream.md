@@ -39,33 +39,34 @@ Spring Cloud team publishes a number of sample applications as `maven` and `dock
 
 <!-- For the `UsageDetailSender` source, use one of the following:
 
-```
+```text
 maven://io.spring.dataflow.sample:usage-detail-sender-rabbit:0.0.1-SNAPSHOT
 ```
 
-```
+```text
 docker://springcloudstream/usage-detail-sender-rabbit:0.0.1-SNAPSHOT
 ```
 
 For the `UsageCostProcessor` processor, use one of the following:
 
-```
+```text
 maven://io.spring.dataflow.sample:usage-cost-processor-rabbit:0.0.1-SNAPSHOT
 ```
 
-```
+```text
 docker://springcloudstream/usage-cost-processor-rabbit:0.0.1-SNAPSHOT
 ```
 
 For the `UsageCostLogger` sink, use one of the following:
 
-```
+```text
 maven://io.spring.dataflow.sample:usage-cost-logger-rabbit:0.0.1-SNAPSHOT
 ```
 
-```
+```text
 docker://springcloudstream/usage-cost-logger-rabbit:0.0.1-SNAPSHOT
-``` -->
+```
+-->
 
 ### The Data Flow Dashboard
 
@@ -202,7 +203,7 @@ If you run SCDF on Docker, to access the log files of the streaming applications
 
 `docker exec <stream-application-docker-container-id> tail -f <stream-application-log-file>`
 
-```
+```text
 2019-04-19 22:16:04.864  INFO 95238 --- [container-0-C-1] c.e.demo.UsageCostLoggerApplication      : {"userId": "Mark", "callCost": "0.17", "dataCost": "0.32800000000000007" }
 2019-04-19 22:16:04.872  INFO 95238 --- [container-0-C-1] c.e.demo.UsageCostLoggerApplication      : {"userId": "Janne", "callCost": "0.20800000000000002", "dataCost": "0.298" }
 2019-04-19 22:16:04.872  INFO 95238 --- [container-0-C-1] c.e.demo.UsageCostLoggerApplication      : {"userId": "Ilaya", "callCost": "0.175", "dataCost": "0.16150000000000003" }
@@ -231,7 +232,7 @@ Besides verifying the runtime status of your stream, you should also verify the 
 To run data through the stream, POST data to the HttpSource application using a client such as [Httpie](https://httpie.io/) and verify the logs for the transformed output.
 
 ```bash
- http --json POST https://mkzmlko-steeltoestream-http-v1.apps.pcfone.io/ test=data
+http --json POST https://mkzmlko-steeltoestream-http-v1.apps.pcfone.io/ test=data
 ```
 
  The logging statements should look like the following:
@@ -251,7 +252,6 @@ For the `Http` source, use the following:
 
 ```text
 docker:springcloudstream/http-source-rabbit:3.0.1
-
 ```
 
 For the `BasicStreamProcessor` processor, use the following:
@@ -276,7 +276,7 @@ Once you have registered the applications, you can deploy the stream per the ins
 
 To lists the pods (including the server components and the streaming applications), run the following command (shown with its output):
 
-```bash
+```shell
  kubectl get pods
 ```
 
@@ -299,11 +299,8 @@ To run data through the stream you can POST data to the HttpSource application u
 The following example (shown with its output) shows how to make sure that the values you expect appear in the logs:
 
 ```bash
-
 kubectl port-forward --namespace default svc/steeltoestream-http 8081:8080
-
 http --json POST http://localhost:8081 "test=data"
-
 kubectl logs steeltoestream-steeltoebasicsink-v2-5fd5c84448-f2w5b
 ```
 

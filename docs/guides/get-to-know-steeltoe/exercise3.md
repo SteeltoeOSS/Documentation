@@ -41,7 +41,7 @@ Then search for the `Microsoft.EntityFrameworkCore.SqlServer` package and instal
 
 # [.NET CLI](#tab/dotnet-cli)
 
-```powershell
+```shell
 dotnet add package Steeltoe.Connector.EFCore
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
@@ -60,7 +60,7 @@ Right-click on the project name in the solution explorer, choose "Add" > "New Fo
 
 # [.NET CLI](#tab/dotnet-cli)
 
-```powershell
+```shell
 mkdir "Models"
 cd "Models"
 ```
@@ -228,7 +228,7 @@ Local installations of SQL Server are usually available on `localhost:1433`. If 
 
 Should you require one, here is an example docker command for running a SQL Server instance:
 
-```powershell
+```shell
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=IheartSteeltoe1" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
@@ -271,7 +271,7 @@ Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust
 
 Executing the below command will start the application. You will see a log message written, telling you how to navigate to the application. It should be [http://localhost:5000/weatherforecast](http://localhost:5000/weatherforecast).
 
-```powershell
+```shell
 dotnet run
 ```
 

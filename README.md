@@ -20,7 +20,7 @@ Follow the steps below to run/debug locally. The optional steps take longer, but
 
 1. Optional: Build API Browser metadata (clones Steeltoe sources) and process Markdown files in `docs`:
 
-   ```shell
+   ```pwsh
    pwsh .\build\build-metadata.ps1
    ```
 

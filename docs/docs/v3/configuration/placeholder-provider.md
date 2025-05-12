@@ -62,7 +62,6 @@ var builder = new ConfigurationBuilder()
     .AddPlaceholderResolver();
 Configuration = builder.Build();
 ...
-
 ```
 
 Extensions are also provided for quick addition to both `IHostBuilder` and `IWebHostBuilder`. Their usage is identical. The following example shows how to add to the `IWebHostBuilder`:
@@ -175,7 +174,6 @@ public class Program
 Then, to use the configuration and the added placeholder resolver together with your Options classes, you can configure the Options as you normally would:
 
 ```csharp
-
 // Options class
 public class SampleOptions
 {

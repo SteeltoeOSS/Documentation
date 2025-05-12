@@ -195,7 +195,7 @@ For information about configuring an app manifest, see the [Single Sign-On docum
 
 Consider this example manifest that names the application and buildpack, and configures properties for the SSO binding:
 
-```yml
+```yaml
 applications:
 - name: steeltoesamplesclient
   buildpacks:
@@ -213,15 +213,19 @@ applications:
 #### Bind and configure manually
 
 Alternatively, you can bind the instance manually and restage the app with the Cloud Foundry CLI.
-Then you can configure the SSO binding with the web interface:
+Then you can configure the SSO binding with the web interface.
 
-```shell
-# Bind service to your app
-cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
+1. Bind service to your app:
 
-# Restage the app to pick up change
-cf restage MY_APPLICATION
-```
+   ```shell
+   cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
+   ```
+
+1. Restage the app to pick up change:
+
+   ```shell
+   cf restage MY_APPLICATION
+   ```
 
 For more information, see:
 

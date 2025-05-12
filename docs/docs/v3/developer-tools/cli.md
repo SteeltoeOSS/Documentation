@@ -24,7 +24,7 @@ See [docker-compose](https://docs.docker.com/compose/)
 
 Steeltoe Tooling is a [DotNet Global Tools](https://docs.microsoft.com/dotnet/core/tools/global-tools) console executable named `st`.  Use `dotnet tool install` to install.
 
-```sh
+```shell
 dotnet tool install -g Steeltoe.Cli --version 0.7.1-2785 --add-source https://www.myget.org/F/steeltoedev/api/v3/index.json
 ```
 
@@ -39,8 +39,11 @@ DotNet Global Tools are installed in an OS-dependent user directory
 
 After adding of the path to your `PATH` environment variable, you can run the `st` executable:
 
-```sh
-$ st --version
+```shell
+st --version
+```
+
+```text
 0.7.1 (build 2785 -> https://dev.azure.com/SteeltoeOSS/Steeltoe/_build/results?buildId=2785)
 ```
 
@@ -50,21 +53,21 @@ You can create the sample application used by using the [Steeltoe Initializr](ht
 
 To create it in your environment:
 
-```sh
-$ mkdir MyRedisApp
-$ curl https://start.steeltoe.io/starter.zip -o MyRedisApp.zip \
-    -dprojectName=MyRedisApp \
-    -dtargetFrameworkVersion=netcoreapp3.1 \
-    -ddependencies=redis
-$ unzip MyRedisApp.zip -d MyRedisApp
-$ cd MyRedisApp
+```bash
+mkdir MyRedisApp
+curl https://start.steeltoe.io/starter.zip -o MyRedisApp.zip \
+  -dprojectName=MyRedisApp \
+  -dtargetFrameworkVersion=netcoreapp3.1 \
+  -ddependencies=redis
+unzip MyRedisApp.zip -d MyRedisApp
+cd MyRedisApp
 ```
 
 ### Using show
 
 The following example shows how to use the `show` command:
 
-```sh
+```text
 Displays project details
 
 Usage: st show [options]
@@ -86,8 +89,11 @@ This structure is subsequently used by the `run` command to start the project an
 Running `show` in our example application shows that the project application is a `netcoreapp3.1` application that listens on port `5000` for HTTP requests.
 The application depends on Redis to be listening on port `5672`.
 
-```sh
-$ st show
+```shell
+st show
+```
+
+```text
 configuration: MyRedisApp
 project:
   name: myredisapp
@@ -107,7 +113,7 @@ project:
 
 The following example shows how to use the `run` command:
 
-```sh
+```text
 Runs project in the local Docker environment
 
 Usage: st run [options]
@@ -138,8 +144,11 @@ If the project has service dependencies, Docker containers are created for each 
 
 Running `run` in our example app starts up the application and its dependent Redis service:
 
-```sh
-$ st run
+```shell
+st run
+```
+
+```text
 running 'myredisapp' in Docker
 > docker-compose up --build
 Creating network "myredisapp_default" with the default driver
@@ -189,7 +198,7 @@ myredisapp_1  | Application started. Press Ctrl+C to shut down.
 
 The following example shows how to use the `stop` command:
 
-```sh
+```text
 Stops project running in the local Docker environment
 
 Usage: st stop [options]
@@ -212,8 +221,11 @@ Running `stop` stops the project running in your local Docker environment.
 
 Running `stop` in our example application tears down the project's Docker containers:
 
-```sh
-$ st stop
+```shell
+st stop
+```
+
+```text
 stopping 'myredisapp' in Docker
 > docker-compose down
 Stopping myredisapp_redis_1      ...

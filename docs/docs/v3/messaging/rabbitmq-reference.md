@@ -1400,7 +1400,6 @@ public void HandleAFoo(Foo foo)
 {
     ....
 }
-
 ```
 
 The container factories provide methods for adding `IMessagePostProcessor` instances that are applied after receiving messages (before invoking the listener) and before sending replies.
@@ -1519,7 +1518,6 @@ public class MyRabbitListenerConfigurer : IRabbitListenerConfigurer
         registrar.MessageHandlerMethodFactory = handler;
     }
 }
-
 ```
 
 >IMPORTANT: For multi-method listeners ( see [Multiple Method Listeners](#multiple-method-listeners) ), the method selection is based on the payload of the message *after the message conversion*.
@@ -1532,7 +1530,6 @@ The infrastructure lets you configure endpoints programmatically in addition to 
 The following example shows how to do so:
 
 ```csharp
-
 ...
 // Add core services
 services.AddRabbitServices();
@@ -1561,7 +1558,6 @@ public class MyRabbitEndpointConfigurer : IRabbitListenerConfigurer
         registrar.RegisterEndpoint(endpoint);
     }
 }
-
 ```
 
 In the preceding example, we used `SimpleRabbitListenerEndpoint`, which provides the actual `IMessageListener` to invoke, but you could just as well build your own endpoint variant to describe a custom invocation mechanism.
@@ -1687,7 +1683,6 @@ Alternatively, you can use a `IMessagePostProcessor` in the `BeforeSendReplyMess
 The called type and method is made available in the reply message, which can be used in a message post processor to communicate the information back to the caller:
 
 ```csharp
-
 // Configure default container factory with post processor
 services.AddRabbitListenerContainerFactory((p, f) =>
 {
@@ -1709,13 +1704,11 @@ public class AddSomeHeadersPostProcessor : IMessagePostProcessor
         return PostProcessMessage(message, null);
     }
 }
-
 ```
 
 You can configure a `IReplyPostProcessor` on the `[RabbitListener()]` attribute to modify the reply message before it is sent as well; it is called after the `correlationId` header has been set up to match the request.
 
 ```csharp
-
 // Add the reply post processor to the container .. has name set to echoCustomHeader
 services.AddSingleton<IReplyPostProcessor, MyReplyPostProcessor>();
 
@@ -1781,7 +1774,7 @@ runtime SpEL expression (described after the next example).
 The `@SendTo` can be a SpEL expression that is evaluated at runtime against the request
 and reply, as the following example shows:
 
-```Java
+```java
 @RabbitListener(queues = "test.sendTo.spel")
 @SendTo("!{'some.reply.queue.with.' + result.queueName}")
 public Bar capitalizeWithSendToSpel(Foo foo) {
@@ -1807,7 +1800,7 @@ Beans are referenced with their names, prefixed by `@`.
 Simple property placeholders are also supported (for example, `${some.reply.to}`).
 With earlier versions, the following can be used as a work around, as the following example shows:
 
-```Java
+```java
 @RabbitListener(queues = "foo")
 @SendTo("#{environment['my.send.to']}")
 public String listen(Message in) {
@@ -1935,7 +1928,6 @@ When receiving a [batch](#batching) of messages, the de-batching is normally per
 You can configure the listener container factory and listener to receive the entire batch in one call, simply set the factory's `BatchListener` property, and make the method payload parameter a `List`:
 
 ```csharp
-
 // Configure the default container factory for batch listening
 services.AddRabbitListenerContainerFactory((p, f) =>
 {
@@ -1981,7 +1973,6 @@ There are two ways to create such containers:
 The following example uses a `SimpleRabbitListenerEndpoint` to create a listener container:
 
 ```csharp
-
 // Add core services
 services.AddRabbitHostingServices();
 services.AddRabbitDefaultMessageConverter();
@@ -2010,7 +2001,6 @@ services.AddRabbitDirecListenerContainer((p) =>
 The following example adds the listener after creation:
 
 ```csharp
-
 // Add core services
 services.AddRabbitHostingServices();
 services.AddRabbitDefaultMessageConverter();
@@ -2032,7 +2022,6 @@ services.AddRabbitDirecListenerContainer((p) =>
 
     return container;
 });
-
 ```
 
 In either case, the listener can also be a `IChannelAwareMessageListener`, since it is now a sub-interface of `IMessageListener`.
@@ -2081,7 +2070,6 @@ services.AddRabbitDirecListenerContainer("container", (p, container) =>
    container.MissingQueuesFatal = false;
    container.Initialize();
 });
-
 ```
 
 When the `RabbitAdmin` declares queues, it updates the `Queue.ActualName` property with the name returned by the broker.
@@ -2611,7 +2599,6 @@ that has both client and server configuration needs.
 The following listing shows the code for the sample:
 
 ```csharp
-
 // Configuration code common to both client and server
 
 services.ConfigureRabbitOptions(Configuration);
@@ -2692,7 +2679,6 @@ var fooExchange = ExchangeBuilder.DirectExchange("foo")
       .AutoDelete()
       .WithArgument("foo", "bar")
       .Build();
-
 ```
 
 See the code for [QueueBuilder](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/src/RabbitMQ/Config/QueueBuilder.cs) and [ExchangeBuilder](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/src/RabbitMQ/Config/ExchangeBuilder.cs) for more information.
@@ -2721,7 +2707,6 @@ var alternate = ExchangeBuilder.DirectExchange("ex.with.alternate")
             .Durable(true)
             .Alternate("alternate")
             .Build();
-
 ```
 
 ### Declaring Collections of Exchanges Queues and Bindings
@@ -2808,7 +2793,6 @@ services.AddRabbitBinding("foo.binding", Binding.DestinationType.QUEUE, (p, b) =
     var admin1 = p.GetRabbitAdmin("admin1");
     binding.SetAdminsThatShouldDeclare(admin1);
 });
-
 ```
 
 ### A Note On the `ServiceName` and `*Name` Properties
@@ -2867,7 +2851,7 @@ Events are published by the broker to a topic exchange `amq.rabbitmq.event` with
 The listener uses event keys, which are used to bind an `AnonymousQueue` to the exchange so the listener receives only selected events.
 Since it is a topic exchange, wildcards can be used (as well as explicitly requesting specific events), as the following example shows:
 
-```Java
+```java
 @Bean
 public BrokerEventListener eventListener() {
     return new BrokerEventListener(connectionFactory(), "user.deleted", "channel.#", "queue.#");
@@ -2876,7 +2860,7 @@ public BrokerEventListener eventListener() {
 
 You can further narrow the received events in individual event listeners, by using normal Spring techniques, as the following example shows:
 
-```Java
+```java
 @EventListener(condition = "event.eventType == 'queue.created'")
 public void listener(BrokerEvent event) {
     ...
@@ -3047,7 +3031,7 @@ This transaction attribute can be used directly in the container or through a tr
 
 The following example uses this rule:
 
-```Java
+```java
 @Bean
 public AbstractMessageListenerContainer container() {
     ...
@@ -3243,7 +3227,7 @@ By default, it uses `MessageProperties` default value - `MessageDeliveryMode.PER
 
 The following example shows how to set a `RepublishMessageRecoverer` as the recoverer:
 
-```Java
+```java
 @Bean
 RetryOperationsInterceptor interceptor() {
     return RetryInterceptorBuilder.stateless()
@@ -3257,7 +3241,7 @@ The `RepublishMessageRecoverer` publishes the message with additional informatio
 Additional headers can be added by creating a subclass and overriding `additionalHeaders()`.
 The `deliveryMode` (or any other properties) can also be changed in the `additionalHeaders()`, as follows:
 
-```Java
+```java
 RepublishMessageRecoverer recoverer = new RepublishMessageRecoverer(amqpTemplate, "error") {
 
     protected Map<? extends String, ? extends Object> additionalHeaders(Message message, Throwable cause) {

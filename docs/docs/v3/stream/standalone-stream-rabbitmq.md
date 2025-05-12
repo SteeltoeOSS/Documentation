@@ -67,7 +67,6 @@ Now we can create the code required for this application. To do so:
 1. Create the `UsageGenerator` class in the project, which resembles the following listing:
 
 ```csharp
-
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Steeltoe.Messaging;
@@ -250,7 +249,6 @@ namespace UsageProcessor
         }
     }
 }
-
 ```
 
 In the preceding application, the `[EnableBinding]` attribute indicates that you want to bind your application to the messaging middleware. The attribute takes one or more interfaces as a parameter, in this case, the [IProcessor](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Stream/src/Abstractions/Messaging/IProcessor.cs) that defines and input and output channel.
@@ -377,7 +375,7 @@ In this section, we deploy the applications created earlier to the local machine
 
 When you deploy these three applications (`UsageDetailSender`, `UsageCostProcessor`, and `UsageCostLogger`), the flow of message is as follows:
 
-```
+```text
 UsageDetailSender -> UsageCostProcessor -> UsageCostLogger
 ```
 
@@ -392,7 +390,7 @@ You can run the applications as standalone applications on your `local` environm
 
 To install and run the `RabbitMQ` docker image, run the following command:
 
-```bash
+```shell
 docker run -d --hostname rabbitmq --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:3.7.14-management
 ```
 
@@ -403,7 +401,7 @@ You can use the default account username and password: `guest` and `guest`.
 
 By using the [pre-defined](#configuration-usage-detail-sender) configuration properties (along with a unique server port) for `UsageSender`, you can run the application, as follows:
 
-```
+```shell
 cd UsageSender
 dotnet build && dotnet run --framework net6.0
 ```
@@ -424,7 +422,7 @@ When configuring the consumer applications for this `Source` application, you ca
 
 By using the [pre-defined](#configuration-usage-cost-processor) configuration properties (along with a unique server port) for `UsageProcessor`, you can run the application, as follows:
 
-```
+```shell
 cd UsageProcessor
 dotnet build && dotnet run --framework net6.0
 ```
@@ -447,14 +445,14 @@ Also, if you click on the `Queues` and check the `usage-cost.logger` queue, you 
 
 By using the [pre-defined](#configuration-usage-cost-logger) configuration properties (along with a unique server port) for `UsageLogger`, you can run the application, as follows:
 
-```bash
+```shell
 cd UsageLogger
 dotnet build && dotnet run --framework net6.0
 ```
 
 Now you can see that this application logs the usage cost detail it receives from the `usage-cost` RabbitMQ exchange through the `usage-cost.logger` durable queue, as the following example shows:
 
-```cmd
+```text
 info: UsageLogger.UsageLogger[0]
       Received UsageCostDetail { "UserId" "user3", "CallCost": "$12.90", "DataCost": "$28.95" }
 info: UsageLogger.UsageLogger[0]
@@ -484,7 +482,7 @@ To create a RabbitMQ service:
 1. Log in to the CloudFoundry environment with your credentials.
 1. From the CF market place, create a RabbitMQ service instance.
 
-```bash
+```shell
 cf create-service p-rabbitmq standard stream-rabbitmq
 ```
 
@@ -510,7 +508,7 @@ applications:
 
 Push the `UsageDetailSender` application by using its manifest YAML file, as follows:
 
-```bash
+```shell
 cd UsageSender
 dotnet publish -f net6.0 -r linux-x64 -o publish
 cf push -f manifest.yml
@@ -534,7 +532,7 @@ applications:
 
 Push the `UsageProcessor` application by using its manifest YAML file, as follows:
 
-```bash
+```shell
 cd UsageProcessor
 dotnet publish -f net6.0 -r linux-x64 -o publish
 cf push -f manifest.yml
@@ -558,7 +556,7 @@ applications:
 
 Push the `UsageLogger` application by using its manifest YAML file, as follows:
 
-```bash
+```shell
 cd UsageLogger
 dotnet publish -f net6.0 -r linux-x64 -o publish
 cf push -f manifest.yml
@@ -566,29 +564,28 @@ cf push -f manifest.yml
 
 You can see the applications running by using the `cf apps` command, as follows:
 
-```bash
+```shell
 cf apps
 ```
 
 The following listings shows typical output:
 
-```bash
-
+```text
 name              requested state   processes   routes
 usage-logger      started           web:1/1     usage-logger.apps.pcfone.io
 usage-processor   started           web:1/1     usage-processor.apps.pcfone.io
 usage-sender      started           web:1/1     usage-sender.apps.pcfone.io
 ```
 
-```cmd
-   2021-06-08T15:39:57.62-0400 [APP/PROC/WEB/0] OUT info: UsageLogger.UsageLogger[0]
-   2021-06-08T15:39:57.62-0400 [APP/PROC/WEB/0] OUT       Received UsageCostDetail { "UserId" "user4", "CallCost": "$21.30", "DataCost": "$31.40" }
-   2021-06-08T15:40:02.63-0400 [APP/PROC/WEB/0] OUT info: UsageLogger.UsageLogger[0]
-   2021-06-08T15:40:02.63-0400 [APP/PROC/WEB/0] OUT       Received UsageCostDetail { "UserId" "user3", "CallCost": "$1.30", "DataCost": "$27.20" }
-   2021-06-08T15:40:07.63-0400 [APP/PROC/WEB/0] OUT info: UsageLogger.UsageLogger[0]
-   2021-06-08T15:40:07.63-0400 [APP/PROC/WEB/0] OUT       Received UsageCostDetail { "UserId" "user2", "CallCost": "$5.60", "DataCost": "$29.30" }
-   2021-06-08T15:40:12.62-0400 [APP/PROC/WEB/0] OUT info: UsageLogger.UsageLogger[0]
-   2021-06-08T15:40:12.62-0400 [APP/PROC/WEB/0] OUT       Received UsageCostDetail { "UserId" "user4", "CallCost": "$0.40", "DataCost": "$26.15" }
+```text
+2021-06-08T15:39:57.62-0400 [APP/PROC/WEB/0] OUT info: UsageLogger.UsageLogger[0]
+2021-06-08T15:39:57.62-0400 [APP/PROC/WEB/0] OUT       Received UsageCostDetail { "UserId" "user4", "CallCost": "$21.30", "DataCost": "$31.40" }
+2021-06-08T15:40:02.63-0400 [APP/PROC/WEB/0] OUT info: UsageLogger.UsageLogger[0]
+2021-06-08T15:40:02.63-0400 [APP/PROC/WEB/0] OUT       Received UsageCostDetail { "UserId" "user3", "CallCost": "$1.30", "DataCost": "$27.20" }
+2021-06-08T15:40:07.63-0400 [APP/PROC/WEB/0] OUT info: UsageLogger.UsageLogger[0]
+2021-06-08T15:40:07.63-0400 [APP/PROC/WEB/0] OUT       Received UsageCostDetail { "UserId" "user2", "CallCost": "$5.60", "DataCost": "$29.30" }
+2021-06-08T15:40:12.62-0400 [APP/PROC/WEB/0] OUT info: UsageLogger.UsageLogger[0]
+2021-06-08T15:40:12.62-0400 [APP/PROC/WEB/0] OUT       Received UsageCostDetail { "UserId" "user4", "CallCost": "$0.40", "DataCost": "$26.15" }
 ```
 
 ### Running on Kubernetes
@@ -603,9 +600,11 @@ For this example, we need a running Kubernetes cluster. For this example, we dep
 
 To verify that you have a running Kubernetes instance, run the following command (show with sample output):
 
-```bash
+```shell
 kubectl config get-contexts
+```
 
+```text
 CURRENT   NAME             CLUSTER          AUTHINFO         NAMESPACE
 *         docker-desktop   docker-desktop   docker-desktop
 
@@ -618,7 +617,7 @@ Switched to context "docker-desktop".
 You can install the RabbitMQ message broker by using the default configuration from Spring Cloud Data Flow.
 To do so, run the following command:
 
-```bash
+```shell
 kubectl apply -f https://raw.githubusercontent.com/spring-cloud/spring-cloud-dataflow/main/src/kubernetes/rabbitmq/rabbitmq-deployment.yaml -f https://raw.githubusercontent.com/spring-cloud/spring-cloud-dataflow/main/src/kubernetes/rabbitmq/rabbitmq-svc.yaml
 ```
 
@@ -626,8 +625,7 @@ kubectl apply -f https://raw.githubusercontent.com/spring-cloud/spring-cloud-dat
 
 To build the Docker images, we use a Dockerfile for each of the three applications. For example the UsageSender Dockerfile looks like this:
 
-```Dockerfile
-
+```dockerfile
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /source
 
@@ -645,12 +643,11 @@ ENV SPRING_RABBITMQ_HOST=host.docker.internal
 ENV PORT=8080
 
 ENTRYPOINT ["dotnet", "UsageSender.dll"]
-
 ```
 
 Then use the `docker build` command to build, tag and publish to your repository:
 
-```bash
+```shell
 docker build . -t <your-repo>/usagelogger
 ```
 
@@ -724,13 +721,13 @@ spec:
 
 Then you can deploy the apps, as follows:
 
-```bash
+```shell
 kubectl apply -f usage-cost-stream.yaml
 ```
 
 If all is well, you should see the following output:
 
-```
+```text
 pod/usage-detail-sender created
 pod/usage-cost-processor created
 pod/usage-cost-logger created
@@ -744,13 +741,13 @@ We set the logical hostname for the RabbitMQ broker for each app to connect to i
 
 To verify the deployment, use the following command to tail the log for the `usage-cost-logger` sink:
 
-```bash
+```shell
 kubectl logs -f usage-logger
 ```
 
 You should see messages similar to the following streaming:
 
-```cmd
+```text
 info: UsageLogger.UsageLogger[0]
       Received UsageCostDetail { "UserId" "user3", "CallCost": "$12.90", "DataCost": "$28.95" }
 info: UsageLogger.UsageLogger[0]
@@ -765,13 +762,13 @@ info: UsageLogger.UsageLogger[0]
 
 To delete the stream, we can use the label we created earlier, as follows:
 
-```bash
+```shell
 kubectl delete pod -l app=usage-cost-stream
 ```
 
 To uninstall RabbitMQ, run the following command:
 
-```bash
+```shell
 kubectl delete all -l app=rabbitmq
 ```
 

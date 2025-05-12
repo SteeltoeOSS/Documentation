@@ -96,21 +96,31 @@ builder.AddCloudFoundryConfiguration();
 
 To store data protection keys in a Redis/Valkey cache on Cloud Foundry, use a supported [Redis service](../connectors/redis.md#cloud-foundry) to create and bind an instance of Redis/Valkey to your application.
 
-You can complete these steps using the Cloud Foundry command line, as follows:
+You can complete these steps using the Cloud Foundry command line.
 
-```shell
-# Push your app
-cf push sampleApp --buildpack dotnet_core_buildpack
+1. Push your app:
 
-# Create Redis service
-cf create-service p-redis shared-vm sampleRedisService
+   ```shell
+   cf push sampleApp --buildpack dotnet_core_buildpack
+   ```
 
-# Bind service to your app
-cf bind-service sampleApp sampleRedisService
+1. Create Redis service:
 
-# Restage the app to pick up change
-cf restage sampleApp
-```
+   ```shell
+   cf create-service p-redis shared-vm sampleRedisService
+   ```
+
+1. Bind service to your app:
+
+   ```shell
+   cf bind-service sampleApp sampleRedisService
+   ```
+
+1. Restage the app to pick up change:
+
+   ```shell
+   cf restage sampleApp
+   ```
 
 After the service is bound to your application, the configuration settings are available in `VCAP_SERVICES`.
 

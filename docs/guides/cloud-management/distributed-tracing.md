@@ -20,7 +20,7 @@ First, **start a Zipkin instance**. Depending on your hosting platform this is d
 
 1. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of Zipkin
 
-   ```powershell
+   ```shell
    docker run --publish 9411:9411 steeltoeoss/zipkin
    ```
 
@@ -51,8 +51,8 @@ Next, **create a .NET Core WebAPI** that interacts with Distributed Tracing
 
 # [.NET cli](#tab/cli)
 
-```powershell
-dotnet run<PATH_TO>\DistributedTracingExample.csproj
+```shell
+dotnet run <PATH_TO>\DistributedTracingExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)

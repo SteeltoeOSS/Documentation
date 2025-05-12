@@ -18,7 +18,7 @@ This tutorial takes you through setting up a .NET Core application with the Rabb
 
 First, **start a RabbitMQ instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
-```powershell
+```shell
 docker run --publish 5672:5672 steeltoeoss/rabbitmq
 ```
 
@@ -71,7 +71,7 @@ Next, **create a .NET Core WebAPI** that interacts with RabbitMQ
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\RabbitMQConnector.csproj
 ```
 
@@ -86,7 +86,7 @@ Navigate to the endpoint (you may need to change the port number) [http://localh
 
 As the app loads in the browser it will create a message queue, listen for new messages on the queue, and write 5 messages. Once finished the output will let you know everything has completed - "Wrote 5 message to the info log. Have a look!". Looking at the app logs (console) you will see...
 
-```bash
+```text
 Received message: Message 1
 Received message: Message 2
 Received message: Message 3

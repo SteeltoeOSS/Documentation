@@ -10,7 +10,7 @@ Prerequisites: [Download RabbitMQ broker](https://www.rabbitmq.com/download.html
 Then grab the `Steeltoe.Messaging.RabbitMQ` nuget and all its dependencies. The easiest way to do so is to declare a dependency in your build tool.
 For example, simply add the following to your `.csproj` file:
 
-```XML
+```xml
   <ItemGroup>
     <PackageReference Include="Steeltoe.Messaging.RabbitMQ" Version="3.x.x" />
   </ItemGroup>
@@ -399,7 +399,6 @@ public void ConfigureServices(IServiceCollection services)
 When using the WebApplication Builder, or if you prefer not to use the RabbitMQHost within your application, you will need to add the below additional configuration to the service container to get Steelotoe RabbitMQ services up and running:
 
 ```csharp
-
     var builder = WebApplication.CreateBuilder(args);
 
     // Configure the RabbitMQ client connection;

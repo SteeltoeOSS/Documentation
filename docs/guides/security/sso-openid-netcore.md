@@ -21,7 +21,7 @@ This is a guide to integrate a .Net Core API with the Cloud Foundry SSO identity
 
 First, **establish an identity provider**. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of SSO.
 
-```powershell
+```shell
 docker run --rm -ti -p 8080:8080 --name steeltoe-uaa steeltoeoss/workshop-uaa-server
 ```
 
@@ -39,7 +39,7 @@ Next, **create a .NET Core WebAPI** that interacts with SSO
    <img src="/guides/images/open-package-manager-console.png" alt="Visual Studio - Package Manager Console" width="100%">
 1. Install NuGet packages
 
-   ```powershell
+   ```pwsh
    Install-Package Steeltoe.Security.Authentication.CloudFoundryCore
    ```
 
@@ -148,8 +148,8 @@ Then, **add** Cloud Foundry OpenID Connect, secure endpoints, and run the app
 
 # [.NET cli](#tab/cli)
 
-```powershell
-dotnet run<PATH_TO>\OAuthSSOExample.csproj
+```shell
+dotnet run <PATH_TO>\OAuthSSOExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)

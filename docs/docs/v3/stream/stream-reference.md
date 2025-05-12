@@ -554,7 +554,6 @@ When implementing polled consumers, you are required to poll the `IPollableMessa
 Consider the following example of a polled consumer:
 
 ```csharp
-
 public interface IPolledConsumerBinding
 {
     [Input]
@@ -576,7 +575,6 @@ public class Program
         await host.StartAsync();
     }
 }
-
 ```
 
 Given the polled consumer in the preceding example, you might use it as follows:

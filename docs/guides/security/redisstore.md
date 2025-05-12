@@ -18,7 +18,7 @@ This tutorial takes you through setting up a .NET Core application that stores i
 
 First, **start a Redis instance**. Using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles), start a local instance of RedisStore.
 
-```powershell
+```shell
 docker run --publish 6379:6379 steeltoeoss/redis
 ```
 
@@ -60,8 +60,8 @@ Next, **create a .NET Core WebAPI** using redis for key storage
 
 # [.NET cli](#tab/cli)
 
-```powershell
-dotnet run<PATH_TO>\RedisKeyRingExample.csproj
+```shell
+dotnet run <PATH_TO>\RedisKeyRingExample.csproj
 ```
 
 Navigate to the endpoint (you may need to change the port number) [http://localhost:5000/api/values](http://localhost:5000/api/values)

@@ -18,17 +18,17 @@ This tutorial takes you creating a simple Steeltoe app with actuators, logging, 
 
 First, **clone to accompanying repo** that contains all the needed assets
 
-1. ```powershell
+1. ```shell
    git clone https://github.com/steeltoeoss-incubator/observability.git
    ```
 
-1. ```powershell
+1. ```shell
    cd observability/grafana
    ```
 
-1. Have a look at what things are provided: `PS C:\tmp\observability\grafana> ls`
+1. Have a look at what things are provided:
 
-   ```bash
+   ```text
    Name                Description
    ----                ----
    dashboard.json      The Grafana dashboard definition
@@ -122,8 +122,8 @@ Next, **deploy everything** with docker compose
 
 1. Build the image using the provided docker-compose file.
 
-   ```powershell
-   PS C:\tmp\observability\grafana> docker-compose up -d
+   ```shell
+   docker-compose up -d
    ```
 
    > [!NOTE]
@@ -131,7 +131,7 @@ Next, **deploy everything** with docker compose
 
 1. Confirm everything started successfully by running `docker-compose ps` and checking the State. Output should look similar to this:
 
-   ```bash
+   ```text
    Name           Command                        State     Ports
    -----------------------------------------------------------------------------------------------------------
    grafana        /run.sh                          Up      0.0.0.0:3000->3000/tcp

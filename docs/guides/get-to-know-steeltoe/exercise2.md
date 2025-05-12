@@ -66,7 +66,7 @@ Click the `Debug > Start Debugging` top menu item. You may be prompted to "trust
 
 Executing the below command will start the application. You will see a log message written, telling you how to navigate to the application. It should be [http://localhost:5000/weatherforecast](http://localhost:5000/weatherforecast).
 
-```powershell
+```shell
 dotnet run
 ```
 

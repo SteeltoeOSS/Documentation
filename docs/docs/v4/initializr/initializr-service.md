@@ -12,9 +12,13 @@ The InitializrService provides four REST/HTTP endpoints:
 `api/` accepts `GET` requests and returns a help document.
 The document includes available parameters (and their defaults) and dependencies, plus CLI samples.
 
-```shell
-# sample: view help doc
-$ http -p b https://start.steeltoe.io/api/
+### Sample: view help doc
+
+```bash
+http -p b https://start.steeltoe.io/api/
+```
+
+```text
 ...
 This service generates quickstart projects that can be easily customized.
 Possible customizations include a project's dependencies and .NET target framework.
@@ -32,9 +36,10 @@ The URI templates take a set of parameters to customize the result of a request.
 
 `api/about` accepts `GET` requests and returns the InitializrService "About" information.
 
-```shell
-# sample: view "About" document
-$ http -p b https://start.steeltoe.io/api/about
+### Sample: View "About" document
+
+```bash
+http -p b https://start.steeltoe.io/api/about
 {
     "commit": "381bbd2a1e30d621ed6ad4a07790955447ffe468",
     "name": "Steeltoe.InitializrApi",
@@ -61,9 +66,10 @@ The following endpoints can be used by CLI users to browse project configuration
 * `api/config/languages`
 * `api/config/steeltoeVersions`
 
-```shell
-# sample: list available Steeltoe versions
-$ http -p b https://start.steeltoe.io/api/config/steeltoeVersions
+### Sample: List available Steeltoe versions
+
+```bash
+http -p b https://start.steeltoe.io/api/config/steeltoeVersions
 [
     {
         "id": "2.4.4",
@@ -78,9 +84,15 @@ $ http -p b https://start.steeltoe.io/api/config/steeltoeVersions
         "name": "Steeltoe 3.0.1 Maintenance Release"
     }
 ]
+```
 
-# sample: list available dependency IDs
-$ http https://start.steeltoe.io/api/config/dependencies | jq '.[] .values[] .id' | sort
+### Sample: List available dependency IDs
+
+```bash
+http https://start.steeltoe.io/api/config/dependencies | jq '.[] .values[] .id' | sort
+```
+
+```text
 "actuator"
 "amqp"
 "azure-spring-cloud"
@@ -111,7 +123,8 @@ The parameter `dependencies` is different than other parameters in that it is se
 > [!TIP]
 > To get a list of parameters and dependencies, send a `GET` request to `api/`.
 
-```shell
-# sample: generate a .NET Core App 3.1 project with actuator endpoints and a Redis backend:
-$ http https://start.steeltoe.io/api/project dotNetFramework=netcoreapp3.1 dependencies==actuators,redis -d
+### Sample: Generate a .NET 8 project with actuator endpoints and a Redis backend
+
+```bash
+http https://start.steeltoe.io/api/project dotNetFramework=net8.0 dependencies==actuators,redis -d
 ```

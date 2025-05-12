@@ -35,7 +35,6 @@ namespace WebApplication1
                 .AddSteeltoe();
     }
 }
-
 ```
 
 ## Supported Steeltoe Packages

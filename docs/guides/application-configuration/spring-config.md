@@ -27,7 +27,7 @@ Next, **add a config file** to the repository.
 1. Create a new file in the repo named `my-values.yml`
 1. Add the following to the file
 
-   ```yml
+   ```yaml
    Value1: some-val
    Value2: another-val
    ```
@@ -36,7 +36,7 @@ Next, **add a config file** to the repository.
 
 Then, **start a config server instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
-```bash
+```shell
 docker run -p 8888:8888 steeltoeoss/config-server --spring.cloud.config.server.git.default-label=main --spring.cloud.config.server.git.uri=<NEW_REPO_URL>
 ```
 
@@ -68,7 +68,7 @@ Next, **create a .NET Core WebAPI** that retrieves values from the Spring Config
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\SpringConfigExample.csproj
 ```
 

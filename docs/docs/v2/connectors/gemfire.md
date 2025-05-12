@@ -85,8 +85,8 @@ If your application fails to [programmatically create regions](https://gemfire-n
 
 Use gfsh to connect to the cluster and create the region:
 
-```bash
-gfsh>connect --url=https://cloudcache-someguid.run.pcfone.io/gemfire/v1 --user=cluster_operator_****** --password=******
+```text
+gfsh> connect --url=https://cloudcache-someguid.run.pcfone.io/gemfire/v1 --user=cluster_operator_****** --password=******
 
 Successfully connected to: GemFire Manager HTTP service @ https://cloudcache-someguid.run.pcfone.io/gemfire/v1
 

@@ -106,18 +106,25 @@ This Connector supports the following service brokers:
 
 - [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-12/csb-azure/index.html)
 
-You can create and bind an instance to your application by using the Cloud Foundry CLI:
+You can create and bind an instance to your application by using the Cloud Foundry CLI.
 
-```shell
-# Create MongoDB service
-cf create-service csb-azure-mongodb small myMongoDbService
+1. Create MongoDB service:
 
-# Bind service to your app
-cf bind-service myApp myMongoDbService
+   ```shell
+   cf create-service csb-azure-mongodb small myMongoDbService
+   ```
 
-# Restage the app to pick up change
-cf restage myApp
-```
+1. Bind service to your app:
+
+   ```shell
+   cf bind-service myApp myMongoDbService
+   ```
+
+1. Restage the app to pick up change:
+
+   ```shell
+   cf restage myApp
+   ```
 
 ## Kubernetes
 

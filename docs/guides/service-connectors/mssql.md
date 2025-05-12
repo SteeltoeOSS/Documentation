@@ -18,7 +18,7 @@ This tutorial takes you through setting up a .NET Core application with the Micr
 
 First, **start an MsSQL instance** using the [Steeltoe dockerfile](https://github.com/steeltoeoss/dockerfiles).
 
-```powershell
+```shell
 docker run --env ACCEPT_EULA=Y --env SA_PASSWORD=Steeltoe123 --publish 1433:1433 steeltoeoss/mssql
 ```
 
@@ -51,7 +51,7 @@ Next, **create a .NET Core WebAPI** that interacts with MS SQL
 
 # [.NET cli](#tab/cli)
 
-```powershell
+```shell
 dotnet run <PATH_TO>\MsSqlConnector.csproj
 ```
 
