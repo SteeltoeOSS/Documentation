@@ -95,7 +95,7 @@ Since endpoints may contain sensitive information, only Health and Info are expo
 | Property | Default |
 | --- | --- |
 | exposure:include | [`info`, `health`] |
-| exposure:exclude |  |
+| exposure:exclude | |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:actuator`**. To select all endpoints,
 `*`  can be used. For example, to expose everything except `env` and `refresh`, use the following property:

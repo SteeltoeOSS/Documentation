@@ -27,8 +27,8 @@ Each key must be prefixed with `Management:Endpoints:Health:`.
 | `AllowedVerbs` | An array of HTTP verbs in which the endpoint is exposed | `GET` |
 | `ShowComponents` | Whether health check components should be included in the response | `Never` |
 | `ShowDetails` | Whether details of health check components should be included in the response | `Never` |
-| `Claim` | The claim required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized` |  |
-| `Role` | The role required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized` |  |
+| `Claim` | The claim required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized` | |
+| `Role` | The role required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized` | |
 
 The depth of information exposed by the health endpoint depends on the `ShowComponents` and `ShowDetails` properties; both can be configured with one of the following values:
 

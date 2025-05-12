@@ -24,8 +24,8 @@ Each key must be prefixed with `Management:Endpoints:CloudFoundry`.
 | `RequiredPermissions` | Permissions required to access the endpoint when running on Cloud Foundry | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
 | `ValidateCertificates` | Whether to validate server certificates | `true` |
-| `ApplicationId` | The ID of the application used in permission checks |  |
-| `CloudFoundryApi` | The URL of the Cloud Foundry API |  |
+| `ApplicationId` | The ID of the application used in permission checks | |
+| `CloudFoundryApi` | The URL of the Cloud Foundry API | |
 
 ## Enable HTTP Access
 

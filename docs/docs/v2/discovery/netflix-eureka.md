@@ -95,9 +95,9 @@ The following table describes the settings you can use to configure the behavior
 | metadataMap | Name/value pairs associated with the instance | none |
 | statusPageUrlPath | Relative status page path for this instance | `/Status` |
 | statusPageUrl | Absolute status page for this instance | computed |
-| homePageUrlPath |  | `/` |
+| homePageUrlPath | | `/` |
 | homePageUrl | Absolute home page for this instance | computed |
-| healthCheckUrlPath |  | `/healthcheck` |
+| healthCheckUrlPath | | `/healthcheck` |
 | healthCheckUrl | Absolute health check page for this instance | computed |
 | secureHealthCheckUrl | Secured absolute health check page for this instance | computed |
 | ipAddress | IP address to register | computed |

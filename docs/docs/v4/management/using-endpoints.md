@@ -50,11 +50,11 @@ The following table describes the configuration settings that you can apply glob
 | --- | --- | --- |
 | `Enabled` | Whether to enable management endpoints | `true` |
 | `Path` | The HTTP route prefix applied to all endpoints | `/actuator` |
-| `Port` | Expose management endpoints on an alternate HTTP port [^1] |  |
+| `Port` | Expose management endpoints on an alternate HTTP port [^1] | |
 | `SslEnabled` | Whether `Port` applies to HTTP or HTTPS requests [^1] | `false` |
 | `UseStatusCodeFromResponse` | Reflect the actuator outcome in the HTTP response status code | `true` |
 | `SerializerOptions` | Customize JSON serialization options | use camelCase properties |
-| `CustomJsonConverters` | Additional [`JsonConverter`](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/converters-how-to)s to use (see below) |  |
+| `CustomJsonConverters` | Additional [`JsonConverter`](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/converters-how-to)s to use (see below) | |
 
 [^1]: Using an alternate port does not apply to `/cloudfoundryapplication` endpoints.
 
@@ -68,10 +68,10 @@ The following table describes the configuration settings that are common to all 
 | Key | Description | Default |
 | --- | --- | --- |
 | `Enabled` | Whether the endpoint is enabled | `true` |
-| `ID` | The unique ID of the endpoint |  |
+| `ID` | The unique ID of the endpoint | |
 | `Path` | The relative path at which the endpoint is exposed | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint when running on Cloud Foundry | `Restricted` |
-| `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed |  |
+| `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | |
 
 ### Custom JSON Serialization Options
 
@@ -101,7 +101,7 @@ Since endpoints may contain sensitive information, only health and info are expo
 | Property | Default |
 | --- | --- |
 | `Exposure:Include` | [`info`, `health`] |
-| `Exposure:Exclude` |  |
+| `Exposure:Exclude` | |
 
 Each key in the table must be prefixed with `Management:Endpoints:Actuator`. Use the actuator ID to specify the endpoint.
 To expose all endpoints, you can use `*`. For example, to expose everything except `env` and `refresh`, use the following:
