@@ -8,12 +8,12 @@ You can view a list of all active loggers in an application and their current co
 
 The following table describes the settings that you can apply to the endpoint.
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the loggers endpoint|`loggers`|
-|enabled|Enable or disable loggers management endpoint|true|
-|sensitive|Currently not used|false|
-|requiredPermissions|User permissions required on Cloud Foundry to access endpoint|RESTRICTED|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the loggers endpoint | `loggers` |
+| enabled | Enable or disable loggers management endpoint | true |
+| sensitive | Currently not used | false |
+| requiredPermissions | User permissions required on Cloud Foundry to access endpoint | RESTRICTED |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:loggers`**.
 

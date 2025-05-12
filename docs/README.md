@@ -35,17 +35,17 @@ For more information, see [Links and Cross References](https://dotnet.github.io/
 
 In the YAML header of a page's markdown, you have options to turn page elements on or off. Below are those options.
 
-|Yaml label  |Default value  |Description   |
-|---------|---------|---------|
-|_disableToc     |false|Turn off the left hand table of contents         |
-|_disableAffix     |false|Turn off the right hand page navigation links         |
-|_disableContribution     |false|Turn off the "Edit this page" link at the bottom         |
-|_enableSearch     |true|Show the search icon         |
-|_enableNewTab     |true|All external links on the page open in a new browser tab         |
-|_disableNav     |false|Do not show top navigation links         |
-|_hideTocVersionToggle|false     |Hide the version toggler in the table of contents         |
-|_noindex     |false|Do not let search engines index the page         |
-|_disableNavbar|false     |Do not show top bar of page         |
+| Yaml label | Default value | Description |
+| --- | --- | --- |
+| _disableToc | false | Turn off the left hand table of contents |
+| _disableAffix | false | Turn off the right hand page navigation links |
+| _disableContribution | false | Turn off the "Edit this page" link at the bottom |
+| _enableSearch | true | Show the search icon |
+| _enableNewTab | true | All external links on the page open in a new browser tab |
+| _disableNav | false | Do not show top navigation links |
+| _hideTocVersionToggle | false | Hide the version toggler in the table of contents |
+| _noindex | false | Do not let search engines index the page |
+| _disableNavbar | false | Do not show top bar of page |
 
 ## Creating a new blog post
 

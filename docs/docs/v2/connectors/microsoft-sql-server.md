@@ -41,16 +41,16 @@ The following Microsoft SQL Server connector configuration shows how to connect 
 
 The following table shows the available settings for the connector:
 
-|Key|Description|Steeltoe Default|
-|---|---|---|
-|server|Hostname or IP Address of server|localhost|
-|port|Port number of server|1433|
-|username|Username for authentication|not set|
-|password|Password for authentication|not set|
-|database|Schema to which to connect|not set|
-|connectionString|Full connection string|built from settings|
-|integratedSecurity|Enable Windows Authentication (For local use only)|not set|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+| Key | Description | Steeltoe Default |
+| --- | --- | --- |
+| server | Hostname or IP Address of server | localhost |
+| port | Port number of server | 1433 |
+| username | Username for authentication | not set |
+| password | Password for authentication | not set |
+| database | Schema to which to connect | not set |
+| connectionString | Full connection string | built from settings |
+| integratedSecurity | Enable Windows Authentication (For local use only) | not set |
+| urlEncodedCredentials | Set to `true` if your service broker provides URL-encoded credentials | false |
 
 >IMPORTANT: All of the settings shown in the preceding table should be prefixed with `sqlserver:credentials:`.
 

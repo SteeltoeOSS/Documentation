@@ -52,8 +52,8 @@ The following MySQL connector configuration shows how to connect to a database a
 
 The following table describes the available settings for the connector. These settings are not specific to Steeltoe. They are passed through to the underlying data provider. See the [Oracle MySQL Connection String docs](https://dev.mysql.com/doc/connector-net/en/connector-net-connection-options.html) or [open source MySQL Connection String docs](https://mysql-net.github.io/MySqlConnector/connection-options/).
 
-|Key|Description |Steeltoe Default|
-| --- | --- |:---:|
+| Key | Description | Steeltoe Default |
+| --- | --- | :---: |
 | `Server` | Hostname or IP Address of the server. | `localhost` |
 | `Port` | Port number of server. | 3306 |
 | `Username` | Username for authentication. | not set |
@@ -63,7 +63,7 @@ The following table describes the available settings for the connector. These se
 | `SslMode` | SSL usage option. One of `None`, `Preferred`, or `Required`. | `None` |
 | `AllowPublicKeyRetrieval` | Whether RSA public keys should be retrieved from the server. | not set |
 | `AllowUserVariables` | Whether the provider expects user variables in the SQL. | not set |
-| `ConnectionTimeout` |Seconds to wait for a connection before throwing an error. | not set |
+| `ConnectionTimeout` | Seconds to wait for a connection before throwing an error. | not set |
 | `ConnectionLifeTime` | The maximum length of time a connection to the server can be open. | not set |
 | `ConnectionReset` | Whether the connection state is reset when it is retrieved from the pool. | not set |
 | `ConvertZeroDateTime` | Whether to have MySqlDataReader.GetValue() and MySqlDataReader.GetDateTime() return DateTime.MinValue for date or datetime columns that have disallowed values. | not set |
@@ -71,7 +71,7 @@ The following table describes the available settings for the connector. These se
 | `Keepalive` | TCP keep-alive idle time. | not set |
 | `MaximumPoolsize` | Maximum number of connections allowed in the pool. | not set |
 | `MinimumPoolsize` | Minimum number of connections to leave in the pool if ConnectionIdleTimeout is reached. | not set |
-| `OldGuids` | Whether to use a GUID of data type BINARY(16)| not set |
+| `OldGuids` | Whether to use a GUID of data type BINARY(16) | not set |
 | `PersistSecurityInfo` | Whether to allow the application to access to security-sensitive information, such as the password. **_(Not recommended)_**. | not set |
 | `Pooling` | Enables connection pooling. | not set |
 | `TreatTinyAsBoolean` | Whether to return tinyint(1) as a boolean. Set to `false` to return tinyint(1) as sbyte/byte. | not set |

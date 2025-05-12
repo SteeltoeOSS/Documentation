@@ -16,7 +16,7 @@ To get started with Steeltoe Discovery, add a reference to the package(s) contai
 Each package also includes all the relevant dependencies.
 
 | Package | Description |
-| ------- | ----------- |
+| --- | --- |
 | `Steeltoe.Discovery.Configuration` | Query app instances stored in .NET configuration |
 | `Steeltoe.Discovery.Consul` | Use [HashiCorp Consul](https://www.consul.io/) server |
 | `Steeltoe.Discovery.Eureka` | Use [Spring Cloud Eureka](https://projects.spring.io/spring-cloud/docs/1.0.3/spring-cloud.html#spring-cloud-eureka-server) server |

@@ -18,4 +18,4 @@ WWe started the Steeltoe project 2 years ago to help .NET developers build apps 
 The latest release of Steeltoe represents a major milestone in the project, reflecting feedback from the user community (and a few pull requests). Feedback like this...
 
 | [Read More](https://tanzu.vmware.com/content/blog/steeltoe-turns-2-0-adds-support-for-asp-net-core-2-0-credhub-and-a-sql-server-connector) |
-|:---:|
+| :---: |

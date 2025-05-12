@@ -45,12 +45,12 @@ Settings for this library are expected to have a prefix of `CredHubClient`. The 
 
 The `CredHubClient` supports four settings:
 
-|Setting Name|Description|Default|
-|---|---|---|
-|CredHubUrl|The address of the CredHub API|<https://credhub.service.cf.internal:8844/api>|
-|CredHubUser|The username for UAA auth|`null`|
-|CredHubPassword|The password for UAA auth|`null`|
-|ValidateCertificates|Whether to validate certificates for UAA and/or CredHub servers|`true`|
+| Setting Name | Description | Default |
+| --- | --- | --- |
+| CredHubUrl | The address of the CredHub API | <https://credhub.service.cf.internal:8844/api> |
+| CredHubUser | The username for UAA auth | `null` |
+| CredHubPassword | The password for UAA auth | `null` |
+| ValidateCertificates | Whether to validate certificates for UAA and/or CredHub servers | `true` |
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
@@ -150,12 +150,12 @@ Any JSON object can be used for a `JsonCredential`. CredHub allows Get, Set, Del
 
 A `CertificateCredential` represents a security certificate. CredHub allows Get, Set, Delete, Find, Generate, Regenerate, and Bulk Regenerate operations with `CertificateCredential`. The following table describes specific properties:
 
-|Property|Description|
-|---|---|
-|CertificateAuthority|The certificate of the Certificate Authority|
-|CertificateAuthorityName|The name of the CA credential in credhub that has signed this certificate|
-|Certificate|The string representation of the certificate|
-|PrivateKey|The private key for the certificate|
+| Property | Description |
+| --- | --- |
+| CertificateAuthority | The certificate of the Certificate Authority |
+| CertificateAuthorityName | The name of the CA credential in credhub that has signed this certificate |
+| Certificate | The string representation of the certificate |
+| PrivateKey | The private key for the certificate |
 
 #### RsaCredential
 

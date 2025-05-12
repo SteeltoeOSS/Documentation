@@ -16,4 +16,4 @@ author.name: Zach Brown
 It’s official: the Steeltoe open source project is joining the [.NET Foundation](https://www.dotnetfoundation.org/). That’s the news from Microsoft’s Connect() conference in New York City today....
 
 | [Read More](https://tanzu.vmware.com/content/blog/pivotal-contributes-steeltoe-to-the-net-foundation) |
-|:---:|
+| :---: |

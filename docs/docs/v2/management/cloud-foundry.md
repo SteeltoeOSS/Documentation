@@ -15,13 +15,13 @@ When adding this management endpoint to your application, the Cloud Foundry secu
 
 Typically, you need not do any additional configuration. However, the following table describes the additional settings that you could apply to the Cloud Foundry endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the Cloud Foundry endpoint|""|
-|enabled|Whether to enable Cloud Foundry management endpoint|true|
-|validateCertificates|Whether to validate server certificates|true|
-|applicationId|The ID of the application used in permissions check|VCAP settings|
-|cloudFoundryApi|The URL of the Cloud Foundry API|VCAP settings|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the Cloud Foundry endpoint | "" |
+| enabled | Whether to enable Cloud Foundry management endpoint | true |
+| validateCertificates | Whether to validate server certificates | true |
+| applicationId | The ID of the application used in permissions check | VCAP settings |
+| cloudFoundryApi | The URL of the Cloud Foundry API | VCAP settings |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:cloudfoundry`**.
 

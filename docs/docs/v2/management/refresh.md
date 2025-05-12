@@ -6,10 +6,10 @@ The Steeltoe Refresh endpoint can be used to cause the applications configuratio
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the refresh endpoint|`refresh`|
-|enabled|Whether to enable the refresh management endpoint|true|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the refresh endpoint | `refresh` |
+| enabled | Whether to enable the refresh management endpoint | true |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:refresh`**.
 

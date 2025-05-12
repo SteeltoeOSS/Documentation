@@ -32,56 +32,56 @@ To get the Steeltoe Discovery client to properly communicate with the Consul ser
 
 The first pertains to configuring the information needed to connect to the Consul server. All of these settings should start with `consul:`
 
-|Key|Description|Default|
-|---|---|---|
-|host|Address of the Consul server|localhost|
-|port|Port number the Consul server is listening on|8500|
-|scheme|Scheme to use with the Consul server (http or https)|http|
-|datacenter|The datacenter name passed in each request to the server|none|
-|token|The auth token passed in each request to the server|true|
-|waitTime|The time a Watch request blocks or waits|none|
-|username|Username for HTTP authentication|none|
-|password|Password for HTTP authentication|none|
+| Key | Description | Default |
+| --- | --- | --- |
+| host | Address of the Consul server | localhost |
+| port | Port number the Consul server is listening on | 8500 |
+| scheme | Scheme to use with the Consul server (http or https) | http |
+| datacenter | The datacenter name passed in each request to the server | none |
+| token | The auth token passed in each request to the server | true |
+| waitTime | The time a Watch request blocks or waits | none |
+| username | Username for HTTP authentication | none |
+| password | Password for HTTP authentication | none |
 
 The second set of settings you may need to specify pertain to service registration and service discovery. All of these settings should start with `consul:discovery`
 
-|Key|Description|Default|
-|---|---|---|
-|enabled|Enable to disable the Consul client|true|
-|register|Whether to register as a service|true|
-|cacheTTL|Time in seconds local cache entries are valid|15|
-|deregister|Whether to de-register on shutdown|true|
-|serviceName|The service name to register|computed|
-|scheme|Scheme to register for service|http|
-|hostname|Hostname to use when registering server|computed|
-|ipAddress|IP address to register|computed|
-|port|Port number to register|none|
-|preferIpAddress|Register IP address instead of hostname|false|
-|useAspNetCoreUrls|Register with the address ASP.NET Core is listening on|true|
-|instanceId|The instance id registered for service|computed|
-|tags|The list of tags used when registering a service|none|
-|defaultQueryTag|Tag to query for in service list if one is not listed in serverListQueryTags|none|
-|queryPassing|Enable or disable whether to add the 'passing' parameter to health requests. This pushes health check passing to the server.|false|
-|registerHealthCheck|Enable or disable health check registration|true|
-|healthCheckUrl|The health check URL override|none|
-|healthCheckPath|Alternate server health check path|'/actuator/health'|
-|healthCheckInterval|How often to perform the health check|10s|
-|healthCheckTimeout|Timeout for health check|10s|
-|healthCheckCriticalTimeout|Timeout to de-register services critical for longer than this value|30m|
-|healthCheckTlsSkipVerify|Health check verifies TLS|true|
-|instanceZone|Instance zone to use during registration|none|
-|instanceGroup|Instance group to use during registration|none|
-|defaultZoneMetadataName|Metadata tag name of the zone|'zone'|
-|failFast|Throw exception if registration fails|true|
-|retry:enabled|Enable or disable retry logic|false|
-|retry:maxAttempts|Max retries if retry enabled|6|
-|retry:initialInterval|Starting interval|1000ms|
-|retry:maxInterval|Maximum retry interval|2000ms|
-|retry:multiplier|Retry interval multiplier|1.1|
-|heartbeat:enabled|Enable or disable heartbeat logic|false|
-|heartbeat:ttlValue|Time to live heartbeat time|30|
-|heartbeat:ttlUnit|Time to live heartbeat unit|s|
-|heartbeat:intervalRation|The interval ration|2.0/3.0|
+| Key | Description | Default |
+| --- | --- | --- |
+| enabled | Enable to disable the Consul client | true |
+| register | Whether to register as a service | true |
+| cacheTTL | Time in seconds local cache entries are valid | 15 |
+| deregister | Whether to de-register on shutdown | true |
+| serviceName | The service name to register | computed |
+| scheme | Scheme to register for service | http |
+| hostname | Hostname to use when registering server | computed |
+| ipAddress | IP address to register | computed |
+| port | Port number to register | none |
+| preferIpAddress | Register IP address instead of hostname | false |
+| useAspNetCoreUrls | Register with the address ASP.NET Core is listening on | true |
+| instanceId | The instance id registered for service | computed |
+| tags | The list of tags used when registering a service | none |
+| defaultQueryTag | Tag to query for in service list if one is not listed in serverListQueryTags | none |
+| queryPassing | Enable or disable whether to add the 'passing' parameter to health requests. This pushes health check passing to the server. | false |
+| registerHealthCheck | Enable or disable health check registration | true |
+| healthCheckUrl | The health check URL override | none |
+| healthCheckPath | Alternate server health check path | '/actuator/health' |
+| healthCheckInterval | How often to perform the health check | 10s |
+| healthCheckTimeout | Timeout for health check | 10s |
+| healthCheckCriticalTimeout | Timeout to de-register services critical for longer than this value | 30m |
+| healthCheckTlsSkipVerify | Health check verifies TLS | true |
+| instanceZone | Instance zone to use during registration | none |
+| instanceGroup | Instance group to use during registration | none |
+| defaultZoneMetadataName | Metadata tag name of the zone | 'zone' |
+| failFast | Throw exception if registration fails | true |
+| retry:enabled | Enable or disable retry logic | false |
+| retry:maxAttempts | Max retries if retry enabled | 6 |
+| retry:initialInterval | Starting interval | 1000ms |
+| retry:maxInterval | Maximum retry interval | 2000ms |
+| retry:multiplier | Retry interval multiplier | 1.1 |
+| heartbeat:enabled | Enable or disable heartbeat logic | false |
+| heartbeat:ttlValue | Time to live heartbeat time | 30 |
+| heartbeat:ttlUnit | Time to live heartbeat unit | s |
+| heartbeat:intervalRation | The interval ration | 2.0/3.0 |
 
 ### Enable Logging
 

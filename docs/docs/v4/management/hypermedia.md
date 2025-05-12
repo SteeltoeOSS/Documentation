@@ -9,7 +9,7 @@ The following table describes the configuration settings that you can apply to t
 Each key must be prefixed with `Management:Endpoints:Actuator:`. Note this key differs from the convention used by other actuators.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `Enabled` | Whether the endpoint is enabled | `true` |
 | `ID` | The unique ID of the endpoint | `""` |
 | `Path` | The relative path at which the endpoint is exposed | same as `ID` |

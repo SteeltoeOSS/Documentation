@@ -48,10 +48,10 @@ Configuring additional settings for the provider is not typically required, but,
 
 The JWT provider uses Microsoft's JWT implementation, and settings are based on `Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions`, with these additional properties:
 
-|Name|Description|Default|
-|---|---|---|
-|skipAuthIfNoBoundSSOService|JWT Middleware will not be added if SSO binding is not found|`true`|
-|validateCertificates|Validate Auth server certificate|`true`|
+| Name | Description | Default |
+| --- | --- | --- |
+| skipAuthIfNoBoundSSOService | JWT Middleware will not be added if SSO binding is not found | `true` |
+| validateCertificates | Validate Auth server certificate | `true` |
 
 **Note**: **Each setting above must be prefixed with `security:oauth2:client`**.
 

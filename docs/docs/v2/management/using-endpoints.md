@@ -17,10 +17,10 @@ When adding Steeltoe Management endpoints to your ASP.NET 4.x applications, you 
 
 The following table describes the available Steeltoe management endpoints that can be used in an application:
 
-|ID|Description|
-|---|---|
+| ID | Description |
+| --- | --- |
 | [cloudfoundry](./cloud-foundry.md) | Enables the management endpoint integration with Cloud Foundry. |
-| [dump](./dump.md)  | Generates and reports a snapshot of the application's threads (Windows only). |
+| [dump](./dump.md) | Generates and reports a snapshot of the application's threads (Windows only). |
 | [env](./env.md) | Reports the keys and values from the application's configuration. |
 | [health](./health.md) | Customizable endpoint that gathers application health information. |
 | [heapdump](./heapdump.md) | Generates and downloads a mini-dump of the application (Windows and Linux only). |
@@ -43,14 +43,14 @@ To use the management endpoints, you need to add a reference to the appropriate 
 
 The following table describes the available packages:
 
-|App Type|Package|Description|
-|---|---|---|
-|All|`Steeltoe.Management.EndpointBase`|Base functionality, no dependency injection, no HTTP middleware.|
-|ASP.NET Core|`Steeltoe.Management.EndpointCore`|Includes `EndpointBase`, adds ASP.NET Core DI, includes HTTP middleware,  no TAS Apps Manager integration. |
-|ASP.NET Core|`Steeltoe.Management.CloudFoundryCore`|Includes `EndpointCore`, enables TAS Apps Manager integration. |
-|ASP.NET 4.x|`Steeltoe.Management.EndpointWeb`|Includes `EndpointBase`, enables TAS Apps Manager integration.|
-|ASP.NET 4.x OWIN|`Steeltoe.Management.EndpointOwin`|Includes `EndpointBase`, enables TAS Apps Manager integration.|
-|ASP.NET 4.x OWIN with Autofac|`Steeltoe.Management.EndpointOwinAutofac`|Includes `EndpointOwin`, adds Autofac DI, enables TAS Apps Manager integration.|
+| App Type | Package | Description |
+| --- | --- | --- |
+| All | `Steeltoe.Management.EndpointBase` | Base functionality, no dependency injection, no HTTP middleware. |
+| ASP.NET Core | `Steeltoe.Management.EndpointCore` | Includes `EndpointBase`, adds ASP.NET Core DI, includes HTTP middleware,  no TAS Apps Manager integration. |
+| ASP.NET Core | `Steeltoe.Management.CloudFoundryCore` | Includes `EndpointCore`, enables TAS Apps Manager integration. |
+| ASP.NET 4.x | `Steeltoe.Management.EndpointWeb` | Includes `EndpointBase`, enables TAS Apps Manager integration. |
+| ASP.NET 4.x OWIN | `Steeltoe.Management.EndpointOwin` | Includes `EndpointBase`, enables TAS Apps Manager integration. |
+| ASP.NET 4.x OWIN with Autofac | `Steeltoe.Management.EndpointOwinAutofac` | Includes `EndpointOwin`, adds Autofac DI, enables TAS Apps Manager integration. |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
@@ -78,11 +78,11 @@ Settings that you want to apply to specific endpoints should be placed under the
 
 The following table describes the settings that you can apply globally:
 
-|Key|Description|Default|
-|---|---|---|
-|enabled|Whether to enable all management endpoints|`true`|
-|path|The path prefix applied to all endpoints when exposed over HTTP|`/actuator`|
-|useStatusCodeFromResponse|Whether or not to use accurate status codes in some responses.|`true`|
+| Key | Description | Default |
+| --- | --- | --- |
+| enabled | Whether to enable all management endpoints | `true` |
+| path | The path prefix applied to all endpoints when exposed over HTTP | `/actuator` |
+| useStatusCodeFromResponse | Whether or not to use accurate status codes in some responses. | `true` |
 
 >When running an application in IIS or with the HWC buildpack, response body content is automatically filtered out when the HTTP response code is 503. Some actuator responses intentionally return a code of 503 in failure scenarios. Setting `useStatusCodeFromResponse` to `false` will allow the response body to be returned by using a status code of 200 instead. This switch will not affect the status code of responses outside of Steeltoe.
 
@@ -92,10 +92,10 @@ When you want to integrate with the [TAS Apps Manager](https://docs.pivotal.io/p
 
 Since endpoints may contain sensitive information, only Health and Info are exposed by default. To change which endpoints are exposed, use the `include` and `exclude` properties:
 
-|Property|Default|
-|---|---|
-|exposure:include | [`info`, `health`]|
-|exposure:exclude | |
+| Property | Default |
+| --- | --- |
+| exposure:include | [`info`, `health`] |
+| exposure:exclude |  |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:actuator`**. To select all endpoints,
 `*`  can be used. For example, to expose everything except `env` and `refresh`, use the following property:

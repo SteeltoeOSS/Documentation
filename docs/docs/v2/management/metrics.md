@@ -17,12 +17,12 @@ All of the above metrics are tagged with values specific to the requests being p
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the metrics endpoint|`metrics`|
-|enabled|Whether to enable the metrics management endpoint|true|
-|ingressIgnorePattern|Regex pattern describing what incoming requests to ignore|See `MetricsOptions`|
-|egressIgnorePattern|Regex pattern describing what outgoing requests to ignore|See `MetricsOptions`|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the metrics endpoint | `metrics` |
+| enabled | Whether to enable the metrics management endpoint | true |
+| ingressIgnorePattern | Regex pattern describing what incoming requests to ignore | See `MetricsOptions` |
+| egressIgnorePattern | Regex pattern describing what outgoing requests to ignore | See `MetricsOptions` |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:metrics`**.
 
@@ -58,10 +58,10 @@ To use the metrics exporters, you need to add a reference to the appropriate Ste
 
 The following table describes the available packages:
 
-|App Type|Package|Description|
-|---|---|---|
-|All|`Steeltoe.Management.ExporterBase`|Base functionality, no dependency injection|
-|ASP.NET Core|`Steeltoe.Management.ExporterCore`|Includes `ExporterBase`, adds ASP.NET Core DI|
+| App Type | Package | Description |
+| --- | --- | --- |
+| All | `Steeltoe.Management.ExporterBase` | Base functionality, no dependency injection |
+| ASP.NET Core | `Steeltoe.Management.ExporterCore` | Includes `ExporterBase`, adds ASP.NET Core DI |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
@@ -96,17 +96,17 @@ There are many third-party products you can choose from, including [PCF Metrics]
 
 The following table describes the settings that you can apply to the exporter:
 
-|Key|Description|Default|
-|---|---|---|
-|endpoint|the uri used to POST metrics|null|
-|accessToken|the authentication token needed to access the endpoint|null|
-|rateMilli|delay in milliseconds between metrics POSTs|60000|
-|validateCertificates|validate SSL certificates received from exporter service|true|
-|timeoutSeconds|timeout used in seconds for each POST request|3|
-|applicationId|cloud foundry application ID the POST applies to|null|
-|instanceId|cloud foundry application instance ID the POST applies to|null|
-|instanceIndex|cloud foundry application instance index the POST applies to|null|
-|micrometerMetricWriter|emit metrics using Spring Boot 2.x format |false|
+| Key | Description | Default |
+| --- | --- | --- |
+| endpoint | the uri used to POST metrics | null |
+| accessToken | the authentication token needed to access the endpoint | null |
+| rateMilli | delay in milliseconds between metrics POSTs | 60000 |
+| validateCertificates | validate SSL certificates received from exporter service | true |
+| timeoutSeconds | timeout used in seconds for each POST request | 3 |
+| applicationId | cloud foundry application ID the POST applies to | null |
+| instanceId | cloud foundry application instance ID the POST applies to | null |
+| instanceIndex | cloud foundry application instance index the POST applies to | null |
+| micrometerMetricWriter | emit metrics using Spring Boot 2.x format | false |
 
 **Note**: **The `endpoint`, `accessToken`,`applicationId`, `instanceId` and `instanceIndex` settings above will be automatically picked up from the Metrics Forwarder service binding found for your application.**
 

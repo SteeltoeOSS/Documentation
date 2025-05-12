@@ -8,11 +8,11 @@ The Steeltoe heap dump endpoint can be used to generate and download a mini-dump
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the heap dump endpoint|`heapdump`|
-|enabled|Whether to enable the heap dump management endpoint|true|
-|sensitive|Currently not used|false|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the heap dump endpoint | `heapdump` |
+| enabled | Whether to enable the heap dump management endpoint | true |
+| sensitive | Currently not used | false |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:heapdump`**.
 

@@ -19,21 +19,21 @@ The following table describes the configuration settings that you can apply to t
 Each key must be prefixed with `Management:Endpoints:Health:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `Enabled` | Whether the endpoint is enabled | `true` |
-| `ID`      | The unique ID of the endpoint | `health` |
-| `Path`    | The relative path at which the endpoint is exposed | same as `ID` |
+| `ID` | The unique ID of the endpoint | `health` |
+| `Path` | The relative path at which the endpoint is exposed | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint when running on Cloud Foundry | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs in which the endpoint is exposed | `GET` |
 | `ShowComponents` | Whether health check components should be included in the response | `Never` |
 | `ShowDetails` | Whether details of health check components should be included in the response | `Never` |
-| `Claim` | The claim required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized` | |
-| `Role`  | The role required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized`  | |
+| `Claim` | The claim required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized` |  |
+| `Role` | The role required in `HttpContext.User` when `ShowComponents` and/or `ShowDetails` is set to `WhenAuthorized` |  |
 
 The depth of information exposed by the health endpoint depends on the `ShowComponents` and `ShowDetails` properties; both can be configured with one of the following values:
 
-| Name    | Description |
-| ------- | ----------- |
+| Name | Description |
+| --- | --- |
 | `Never` | Never shown |
 | `WhenAuthorized` | Shown only to authorized users |
 | `Always` | Always shown |

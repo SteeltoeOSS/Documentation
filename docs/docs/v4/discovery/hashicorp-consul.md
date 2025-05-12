@@ -29,23 +29,23 @@ whether it also needs to query for other apps.
 The first section is for configuring the information needed to connect to the Consul server.
 All of these settings must start with `Consul:`.
 
-| Key    | Description | Default |
-| ------ | ----------- | ------- |
+| Key | Description | Default |
+| --- | --- | --- |
 | `Host` | Hostname or IP address of the Consul server | `localhost` |
 | `Port` | Port number the Consul server is listening on | `8500` |
 | `Scheme` | Scheme to connect with the Consul server (`http` or `https`) | `http` |
-| `Datacenter` | The datacenter name passed in each request to the server | |
-| `Token`    | Authentication token passed in each request to the server | |
-| `WaitTime` | The maximum duration for a blocking request | |
-| `Username` | Username for HTTP authentication | |
-| `Password` | Password for HTTP authentication | |
+| `Datacenter` | The datacenter name passed in each request to the server |  |
+| `Token` | Authentication token passed in each request to the server |  |
+| `WaitTime` | The maximum duration for a blocking request |  |
+| `Username` | Username for HTTP authentication |  |
+| `Password` | Password for HTTP authentication |  |
 | `Discovery:Enabled` | Whether to enable the Consul client | `true` |
 
 The second section (optional) pertains to registering the running app.
 All of these settings must start with `Consul:Discovery:`.
 
-| Key        | Description | Default |
-| ---------- | ----------- | ------- |
+| Key | Description | Default |
+| --- | --- | --- |
 | `Register` | Whether to register the running app as a service instance | `true` |
 | `FailFast` | Throw an exception (instead of logging an error) if registration fails | `true` |
 | `Retry:Enabled` | Whether to try again when registering the running app fails | `false` |
@@ -60,13 +60,13 @@ All of these settings must start with `Consul:Discovery:`.
 | `IPAddress` | IP address with which to register the running app (if `PreferIPAddress` is `true`) | computed |
 | `UseNetworkInterfaces` | Query the operating system for network interfaces to determine `HostName` and `IPAddress` | `false` |
 | `PreferIPAddress` | Register the running app with IP address instead of hostname | `false` |
-| `Port` | Port number with which to register the running app | |
+| `Port` | Port number with which to register the running app |  |
 | `UseAspNetCoreUrls` | Register with the port number ASP.NET Core is listening on | `true` |
 | `InstanceId` | The unique ID under which to register the running app | computed |
-| `Tags` | Array of tags used when registering the running app | |
+| `Tags` | Array of tags used when registering the running app |  |
 | `Meta` | Metadata key/value pairs used when registering the running app | see [Configuring metadata](#configuring-metadata) |
-| `InstanceGroup` | Metadata `group` value to use when registering the running app | |
-| `InstanceZone` | Metadata zone value to use when registering the running app | |
+| `InstanceGroup` | Metadata `group` value to use when registering the running app |  |
+| `InstanceZone` | Metadata zone value to use when registering the running app |  |
 | `DefaultZoneMetadataName` | Metadata key name for `InstanceZone` | `zone` |
 | `RegisterHealthCheck` | Whether to enable periodic health checking for the running app | `true` |
 | `HealthCheckCriticalTimeout` | Duration after which Consul deregisters the running app when in state `critical` [^1] | `30m` |
@@ -75,7 +75,7 @@ All of these settings must start with `Consul:Discovery:`.
 | `Heartbeat:TtlUnit` | Unit for `TtlValue` (`ms`, `s`, `m` or `h`) | `s` |
 | `Heartbeat:IntervalRatio` | Rate at which the running app sends TTL heartbeats, relative to `TtlValue` with `TtlUnit` | `0.66` |
 | `HealthCheckPath` | Relative URL to the health endpoint of the running app [^2] | `/actuator/health` |
-| `HealthCheckUrl` | Absolute URL to the health endpoint of the running app (overrides `HealthCheckPath`) [^2] | |
+| `HealthCheckUrl` | Absolute URL to the health endpoint of the running app (overrides `HealthCheckPath`) [^2] |  |
 | `HealthCheckTlsSkipVerify` | Whether Consul should skip TLS verification for HTTP health checks [^2] | `false` |
 | `HealthCheckInterval` | How often Consul should perform HTTP health checks [^2] | `10s` |
 | `HealthCheckTimeout` | The timeout Consul should use for HTTP health checks [^2] | `10s` |
@@ -88,9 +88,9 @@ This section pertains to querying for app instances.
 All of these settings must start with `Consul:Discovery:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
-| `DefaultQueryTag` | The tag to filter on when querying for service instances | |
-| `QueryPassing`    | Filter on health status passing when querying for service instances | `true` |
+| --- | --- | --- |
+| `DefaultQueryTag` | The tag to filter on when querying for service instances |  |
+| `QueryPassing` | Filter on health status passing when querying for service instances | `true` |
 
 For more information about these settings, see the Consul documentation:
 
@@ -120,10 +120,10 @@ For example:
 
 By default, the following metadata is added:
 
-| Key      | Value |
-| ---------| ----- |
-| `group`  | Value from `Consul:Discovery:InstanceGroup` |
-| Value from `Consul:Discovery:DefaultZoneMetadataName`  | Value from `Consul:Discovery:InstanceZone` |
+| Key | Value |
+| --- | --- |
+| `group` | Value from `Consul:Discovery:InstanceGroup` |
+| Value from `Consul:Discovery:DefaultZoneMetadataName` | Value from `Consul:Discovery:InstanceZone` |
 | `secure` | Value at `Consul:Discovery:Scheme` equals `https` |
 
 ## Health Contributor

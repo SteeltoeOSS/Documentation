@@ -29,11 +29,11 @@ In order to use the Steeltoe Cloud Foundry provider you need to do the following
 
 To use the provider, you need to add a reference to the appropriate Steeltoe Cloud Foundry NuGet based on the type of the application you are building and what Dependency Injector you have chosen, if any. The following table describes the available packages:
 
-|App Type|Package|Description|
-|---|---|---|
-|Console/ASP.NET 4.x|`Steeltoe.Extensions.Configuration.CloudFoundryBase`|Base functionality. No dependency injection.|
-|ASP.NET Core|`Steeltoe.Extensions.Configuration.CloudFoundryCore`|Includes base. Adds ASP.NET Core dependency injection.|
-|ASP.NET 4.x with Autofac|`Steeltoe.Extensions.Configuration.CloudFoundryAutofac`|Includes base. Adds Autofac dependency injection.|
+| App Type | Package | Description |
+| --- | --- | --- |
+| Console/ASP.NET 4.x | `Steeltoe.Extensions.Configuration.CloudFoundryBase` | Base functionality. No dependency injection. |
+| ASP.NET Core | `Steeltoe.Extensions.Configuration.CloudFoundryCore` | Includes base. Adds ASP.NET Core dependency injection. |
+| ASP.NET 4.x with Autofac | `Steeltoe.Extensions.Configuration.CloudFoundryAutofac` | Includes base. Adds Autofac dependency injection. |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 

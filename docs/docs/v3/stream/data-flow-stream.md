@@ -99,10 +99,10 @@ When you register an application, you provide its:
 
 The following table shows the applications listed in the Samples:
 
-| App Name               | App Type  | App URI                                                                      |
-| ---------------------- | --------- | ---------------------------------------------------------------------------- |
+| App Name | App Type | App URI |
+| --- | --- | --- |
 | `basicstreamprocessor` | Processor | docker://projects.registry.vmware.com/steeltoe/basicstreamprocessor:latest |
-| `basicstreamsink`    | Sink      | docker://projects.registry.vmware.com/steeltoe/basicstreamsink    |
+| `basicstreamsink` | Sink | docker://projects.registry.vmware.com/steeltoe/basicstreamsink |
 
 <!-- NOTE -->
 

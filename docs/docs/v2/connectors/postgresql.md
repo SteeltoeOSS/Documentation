@@ -46,15 +46,15 @@ The following example shows a PostgreSQL connector configuration (in JSON) to se
 
 The following table describes all of the possible settings for the connector:
 
-|Key|Description|Default
-|---|---|---|
-|host|Hostname or IP Address of server|localhost|
-|port|Port number of server|5432|
-|username|Username for authentication|not set|
-|password|Password for authentication|not set|
-|database|Schema to which to connect|not set|
-|connectionString|Full connection string|built from settings
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+| Key | Description | Default |
+| --- | --- | --- |
+| host | Hostname or IP Address of server | localhost |
+| port | Port number of server | 5432 |
+| username | Username for authentication | not set |
+| password | Password for authentication | not set |
+| database | Schema to which to connect | not set |
+| connectionString | Full connection string | built from settings |
+| urlEncodedCredentials | Set to `true` if your service broker provides URL-encoded credentials | false |
 
 >IMPORTANT: All of these settings should be prefixed with `postgres:client:`.
 

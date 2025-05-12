@@ -8,23 +8,23 @@ When you activate the tracing endpoint, an `ITraceRepository` implementation is 
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the trace endpoint|`trace`|
-|enabled|Enable or disable trace management endpoint|true|
-|sensitive|Currently not used|false|
-|requiredPermissions|User permissions required on Cloud Foundry to access endpoint|RESTRICTED|
-|capacity|Size of the circular buffer of traces|100|
-|addRequestHeaders|Add request headers|true|
-|addResponseHeaders|Add response headers|true|
-|addPathInfo|Add path information|false|
-|addUserPrincipal|Add user principal|false|
-|addParameters|Add request parameters|false|
-|addQueryString|Add query string|false|
-|addAuthType|Add authentication type|false|
-|addRemoteAddress|Add remote address of user|false|
-|addSessionId|Add session id|false|
-|addTimeTaken|Add time take|true|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the trace endpoint | `trace` |
+| enabled | Enable or disable trace management endpoint | true |
+| sensitive | Currently not used | false |
+| requiredPermissions | User permissions required on Cloud Foundry to access endpoint | RESTRICTED |
+| capacity | Size of the circular buffer of traces | 100 |
+| addRequestHeaders | Add request headers | true |
+| addResponseHeaders | Add response headers | true |
+| addPathInfo | Add path information | false |
+| addUserPrincipal | Add user principal | false |
+| addParameters | Add request parameters | false |
+| addQueryString | Add query string | false |
+| addAuthType | Add authentication type | false |
+| addRemoteAddress | Add remote address of user | false |
+| addSessionId | Add session id | false |
+| addTimeTaken | Add time take | true |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:trace`**.
 

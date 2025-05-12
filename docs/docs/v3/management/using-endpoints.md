@@ -13,7 +13,7 @@ In this section, it is helpful to understand the following:
 
 The following table describes the available Steeltoe management endpoints that can be used in an application:
 
-| ID|Description |
+| ID | Description |
 | --- | --- |
 | [cloudfoundry](./cloud-foundry.md) | Enables the management endpoint integration with Cloud Foundry. |
 | [dbmigrations](./dbmigrations.md) | Provides ability to see current and pending database migrations for an application data source. |
@@ -28,7 +28,7 @@ The following table describes the available Steeltoe management endpoints that c
 | [metrics](./metrics.md) | Reports the collected metrics for the application. |
 | [prometheus](./prometheus.md) | Exposes metrics collected via built-in instrumentation of various aspects of the application in the prometheus format. |
 | [refresh](./refresh.md) | Triggers the application configuration to be reloaded. |
-| [threaddump](./threaddump.md)  | Generates and reports a snapshot of the application's threads (Windows only). |
+| [threaddump](./threaddump.md) | Generates and reports a snapshot of the application's threads (Windows only). |
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint is mapped to `/health`.
 
@@ -70,7 +70,7 @@ The following table describes the settings that you can apply globally:
 | --- | --- | --- |
 | `Enabled` | Whether to enable all management endpoints. | `true` |
 | `Path` | The path prefix applied to all endpoints when exposed over HTTP. | `/actuator` |
-| `UseStatusCodeFromResponse` | Whether or not to use accurate status codes in some responses.  | `true` |
+| `UseStatusCodeFromResponse` | Whether or not to use accurate status codes in some responses. | `true` |
 | `SerializerOptions` | Configure Json serialization | CamelCase properties |
 | `CustomJsonConverters` | List of `JsonConverters` to use | none |
 
@@ -100,7 +100,7 @@ Since endpoints may contain sensitive information, only health and info are expo
 | Property | Default |
 | --- | --- |
 | `Exposure:Include` | [`info`, `health`] |
-| `Exposure:Exclude` | |
+| `Exposure:Exclude` |  |
 
 >Each setting above must be prefixed with `Management:Endpoints:actuator`. To select all endpoints,
 `*`  can be used. For example, to expose everything except `env` and `refresh`, use the following property:

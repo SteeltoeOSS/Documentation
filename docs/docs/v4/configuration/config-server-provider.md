@@ -57,20 +57,20 @@ The following table describes all the settings that can be used to configure the
 Each key must be prefixed with `Spring:Cloud:Config:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
-| `Name` | Application name for which to request configuration | |
+| --- | --- | --- |
+| `Name` | Application name for which to request configuration |  |
 | `Enabled` | Enable or disable the Config Server client | `true` |
 | `Uri` | Comma-separated list of Config Server endpoints | `http://localhost:8888` |
 | `Env` | Environment or profile used in the server request | `Production` |
 | `ValidateCertificates` | Enable or disable server certificate validation | `true` |
-| `Label` | Comma-separated list of labels to request | |
+| `Label` | Comma-separated list of labels to request |  |
 | `Timeout` | Time to wait for response from server, in milliseconds | `60_000` (1 min) |
-| `PollingInterval` | How often to check for changes in Config Server | |
-| `Username` | Username for basic authentication | |
-| `Password` | Password for basic authentication | |
+| `PollingInterval` | How often to check for changes in Config Server |  |
+| `Username` | Username for basic authentication |  |
+| `Password` | Password for basic authentication |  |
 | `FailFast` | Enable or disable failure at startup | `false` |
-| `Headers` | Extra HTTP headers that are added to Config Server requests | |
-| `Token` | HashiCorp Vault authentication token | |
+| `Headers` | Extra HTTP headers that are added to Config Server requests |  |
+| `Token` | HashiCorp Vault authentication token |  |
 | `TokenTtl` | HashiCorp Vault token renewal TTL, in milliseconds (used on Cloud Foundry only) | `300_000` (5 min) |
 | `TokenRenewRate` | HashiCorp Vault token renewal rate, in milliseconds (used on Cloud Foundry only) | `60_000` (1 min) |
 | `DisableTokenRenewal` | Enable or disable HashiCorp Vault token renewal (used on Cloud Foundry only) | `false` |
@@ -79,9 +79,9 @@ Each key must be prefixed with `Spring:Cloud:Config:`.
 | `Retry:InitialInterval` | Starting interval, in milliseconds | `1000` |
 | `Retry:MaxInterval` | Maximum retry interval, in milliseconds | `2000` |
 | `Retry:Multiplier` | Retry interval multiplier | `1.1` |
-| `ClientId` | OAuth2 client ID when using OAuth security | |
-| `ClientSecret` | OAuth2 client secret when using OAuth security | |
-| `AccessTokenUri` | URI to use to obtain OAuth access token | |
+| `ClientId` | OAuth2 client ID when using OAuth security |  |
+| `ClientSecret` | OAuth2 client secret when using OAuth security |  |
+| `AccessTokenUri` | URI to use to obtain OAuth access token |  |
 | `Discovery:Enabled` | Enable or disable the Discovery First feature | `false` |
 | `Discovery:ServiceId` | Config Server service ID to use in Discovery First feature | `configserver` |
 | `Health:Enabled` | Enable or disable Config Server health check contributor | `true` |

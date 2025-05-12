@@ -10,7 +10,7 @@ The following table describes the configuration settings that you can apply to t
 Each key must be prefixed with `Management:Endpoints:HttpExchanges:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `Enabled` | Whether the endpoint is enabled | `true` |
 | `ID` | The unique ID of the endpoint | `httpexchanges` |
 | `Path` | The relative path at which the endpoint is exposed | same as `ID` |
@@ -18,9 +18,9 @@ Each key must be prefixed with `Management:Endpoints:HttpExchanges:`.
 | `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
 | `Capacity` | Size of the circular buffer of exchanges | 100 |
 | `IncludeRequestHeaders` | Whether to return headers from the HTTP request | `true` |
-| `RequestHeaders` | An array of HTTP request headers to return unredacted, in addition to the default set | |
+| `RequestHeaders` | An array of HTTP request headers to return unredacted, in addition to the default set |  |
 | `IncludeResponseHeaders` | Whether to return headers from the HTTP response | `true` |
-| `ResponseHeaders` | An array of HTTP response headers to return unredacted, in addition to the default set | |
+| `ResponseHeaders` | An array of HTTP response headers to return unredacted, in addition to the default set |  |
 | `IncludePathInfo` | Whether to return the path from the HTTP request URL | `true` |
 | `IncludeQueryString` | Whether to return the query string parameters from the request URL | `true` |
 | `IncludeUserPrincipal` | Whether to return the username from [`HttpContext.User`](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal) | `false` |

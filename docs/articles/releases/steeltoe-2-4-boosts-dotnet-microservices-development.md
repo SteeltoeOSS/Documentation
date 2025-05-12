@@ -20,4 +20,4 @@ The Steeltoe framework helps .NET developers create cloud-native applications. A
 To this end, we’ve cooked up some nifty things to help you do more with Steeltoe...
 
 | [Read More](https://tanzu.vmware.com/content/blog/steeltoe-2-4-boosts-dotnet-microservices-development) |
-|:---:|
+| :---: |

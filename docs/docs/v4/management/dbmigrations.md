@@ -11,10 +11,10 @@ The following table describes the configuration settings that you can apply to t
 Each key must be prefixed with `Management:Endpoints:DbMigrations:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `Enabled` | Whether the endpoint is enabled | `true` |
-| `ID`      | The unique ID of the endpoint | `dbmigrations` |
-| `Path`    | The relative path at which the endpoint is exposed | same as `ID` |
+| `ID` | The unique ID of the endpoint | `dbmigrations` |
+| `Path` | The relative path at which the endpoint is exposed | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint when running on Cloud Foundry | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
 

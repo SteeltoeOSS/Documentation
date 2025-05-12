@@ -463,7 +463,7 @@ The following table describes the `CacheMode.CHANNEL` properties:
 | `IdleChannelsTx` | The number of transactional channels that are currently idle (cached). |
 | `IdleChannelsNotTx` | The number of non-transactional channels that are currently idle (cached). |
 | `IdleChannelsTxHighWater` | The maximum number of transactional channels that have been concurrently idle (cached). |
-| `IdleChannelsNotTxHighWater`  | The maximum number of non-transactional channels have been concurrently idle (cached). |
+| `IdleChannelsNotTxHighWater` | The maximum number of non-transactional channels have been concurrently idle (cached). |
 
 The following table describes the `CacheMode.CONNECTION` properties:
 
@@ -3074,7 +3074,7 @@ There are quite a few options for configuring a `DirectMessageListenerContainer`
 The following table shows the container property names you can use to configure the functionality.
 
 | Property | Description |
-| -------- | ----------- |
+| --- | --- |
 | AckTimeout | When `MessagesPerAck` is set, this timeout is used as an alternative to send an ack. When a new message arrives, the count of un-acked messages is compared to `MessagesPerAck`, and the time since the last ack is compared to this value. If either condition is `true`, the message is acknowledged. When no new messages arrive and there are un-acked messages, this timeout is approximate since the condition is only checked each `MonitorInterval`. See also `MessagesPerAck` and `MonitorInterval` in this table. |
 | AcknowledgeMode | * `NONE` - No acks are sent (incompatible with `IsChannelTransacted=true`). RabbitMQ calls this autoack, because the broker assumes all messages are acked without any action from the consumer.<br\> * `MANUAL`: The listener must acknowledge all messages by calling `Channel.basicAck()`.<br\> * `AUTO`: The container acknowledges the message automatically, unless the `MessageListener` throws an exception. Note that `acknowledgeMode` is complementary to `channelTransacted` - if the channel is transacted, the broker requires a commit notification in addition to the ack. This is the default mode. |
 | AfterReceivePostProcessors | An array of `IMessagePostProcessor` instances that are invoked before invoking the listener. Post processors can implement `IPriorityOrdered` or `IOrdered`. The array is sorted with un-ordered members invoked last. If a post processor returns `null`, the message is discarded (and acknowledged, if appropriate). |
@@ -3104,7 +3104,7 @@ The following table shows the container property names you can use to configure 
 | RecoveryBackOff | Specifies the `BackOff` for intervals between attempts to start a consumer if it fails to start for non-fatal reasons. Default is `FixedBackOff` with unlimited retries every five seconds. Mutually exclusive with `RecoveryInterval`. |
 | RecoveryInterval | Determines the time in milliseconds between attempts to start a consumer if it fails to start for non-fatal reasons. Default: 5000. Mutually exclusive with `RecoveryBackOff`. |
 | ShutdownTimeout | When a container shuts down (for example, if the service container is disposed), it waits for in-flight messages to be processed up to this limit. Defaults to five seconds. |
-| TransactionManager| External transaction manager for the operation of the listener. Also complementary to `IsChannelTransacted` - if the `IModel` is transacted, its transaction is synchronized with the external transaction. |
+| TransactionManager | External transaction manager for the operation of the listener. Also complementary to `IsChannelTransacted` - if the `IModel` is transacted, its transaction is synchronized with the external transaction. |
 
 ## Listener Concurrency
 

@@ -2,11 +2,11 @@
 
 The Steeltoe health management endpoint can be used to check and return the status of your running application. It can often be used by monitoring software to alert someone if a production system goes down. The information exposed by the `health` endpoint depends on the `management:endpoints:health:showdetails` property which can be configured with one of the following values:
 
-|Name|Description|
-|---|---|
-|`never`|Details are never shown.|
-|`whenauthorized`|Details are only shown to authorized users. |
-|`always`|Details are always shown.|
+| Name | Description |
+| --- | --- |
+| `never` | Details are never shown. |
+| `whenauthorized` | Details are only shown to authorized users. |
+| `always` | Details are always shown. |
 
 The default value is `always`. Authorized roles can be configured using `management:endpoints:health:claim or management:endpoints:health:role`. A user is considered to be authorized when they are in the given role or have the specified claim. For example:
 
@@ -32,12 +32,12 @@ By default, the final application health state is computed by the `IHealthAggreg
 
 At present, Steeltoe provides the following `IHealthContributor` implementations you can choose from:
 
-|Name|Description|
-|---|---|
-|`DiskSpaceContributor`|checks for low disk space, configure using `DiskSpaceContributorOptions`|
-|`RabbitMQHealthContributor`|checks RabbitMQ connection health|
-|`RedisHealthContributor`|checks Redis cache connection health|
-|`RelationalHealthContributor`|checks relational database connection health (MySql, Postgres, SqlServer)|
+| Name | Description |
+| --- | --- |
+| `DiskSpaceContributor` | checks for low disk space, configure using `DiskSpaceContributorOptions` |
+| `RabbitMQHealthContributor` | checks RabbitMQ connection health |
+| `RedisHealthContributor` | checks Redis cache connection health |
+| `RelationalHealthContributor` | checks relational database connection health (MySql, Postgres, SqlServer) |
 
 Each of these contributors are located in the `Steeltoe.CloudFoundry.ConnectorBase` package and are made available to your application when you reference the connector package.
 
@@ -73,12 +73,12 @@ public class CustomHealthContributor : IHealthContributor
 
 The following table describes the settings that you can apply to the endpoint.
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the health endpoint|`health`|
-|enabled|Whether to enable the health management endpoint|true|
-|sensitive|Currently not used|false|
-|requiredPermissions|The user permissions required on Cloud Foundry to access endpoint|RESTRICTED|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the health endpoint | `health` |
+| enabled | Whether to enable the health management endpoint | true |
+| sensitive | Currently not used | false |
+| requiredPermissions | The user permissions required on Cloud Foundry to access endpoint | RESTRICTED |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:health`**.
 

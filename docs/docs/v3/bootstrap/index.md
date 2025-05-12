@@ -41,19 +41,19 @@ namespace WebApplication1
 
 `Steeltoe.Bootstrap.Autoconfig` is not a meta-package. In order for a Steeltoe feature to be automatically bootstrapped in the application, the appropriate package must also be added as a reference. The following table describes the Steeltoe package that is required to light up a feature and any additional packages that may also be required:
 
-|  Feature Description | Steeltoe Package |Additional Package Required |
+| Feature Description | Steeltoe Package | Additional Package Required |
 | --- | --- | --- |
 | [Config Server Configuration](../configuration/config-server-provider.md) | `Steeltoe.Extensions.Configuration.ConfigServerBase` or `ConfigServerCore` | N/A |
-| [Cloud Foundry Configuration](../configuration/cloud-foundry-provider.md) |`Steeltoe.Extensions.Configuration.CloudFoundryBase` or `CloudFoundryCore` |  N/A |
-| [Kubernetes Configuration](../configuration/kubernetes-providers.md) |`Steeltoe.Extensions.Configuration.KubernetesBase` or `KubernetesCore` |  N/A |
-| [Random Value Provider](../configuration/random-value-provider.md) |`Steeltoe.Extensions.Configuration.RandomValueBase` |  N/A |
-| [Placeholder Resolver](../configuration/placeholder-provider.md) |`Steeltoe.Extensions.Configuration.PlaceholderBase` or `PlaceholderCore` |  N/A |
-| [Connectors*](../connectors/index.md) |`Steeltoe.Connector.ConnectorCore` |  Supported driver (MySQL, PostgreSQL, RabbitMQ, SQL Server, etc) |
+| [Cloud Foundry Configuration](../configuration/cloud-foundry-provider.md) | `Steeltoe.Extensions.Configuration.CloudFoundryBase` or `CloudFoundryCore` | N/A |
+| [Kubernetes Configuration](../configuration/kubernetes-providers.md) | `Steeltoe.Extensions.Configuration.KubernetesBase` or `KubernetesCore` | N/A |
+| [Random Value Provider](../configuration/random-value-provider.md) | `Steeltoe.Extensions.Configuration.RandomValueBase` | N/A |
+| [Placeholder Resolver](../configuration/placeholder-provider.md) | `Steeltoe.Extensions.Configuration.PlaceholderBase` or `PlaceholderCore` | N/A |
+| [Connectors*](../connectors/index.md) | `Steeltoe.Connector.ConnectorCore` | Supported driver (MySQL, PostgreSQL, RabbitMQ, SQL Server, etc) |
 | [Dynamic Serilog](../logging/serilog-logger.md) | `Steeltoe.Extensions.Logging.DynamicSerilogCore` | N/A |
-| [Service Discovery](../discovery/index.md) |`Steeltoe.Discovery.ClientBase` or `ClientCore` | Desired client (Eureka, Consul, Kubernetes)
+| [Service Discovery](../discovery/index.md) | `Steeltoe.Discovery.ClientBase` or `ClientCore` | Desired client (Eureka, Consul, Kubernetes) |
 | [Actuators](../management/index.md) | `Steeltoe.Management.EndpointCore` | N/A |
-| [Actuators with Cloud Foundry support**](../management/cloud-foundry.md) |`Steeltoe.Management.CloudFoundryCore` |  N/A |
-| [Actuators with Kubernetes support](../management/index.md) |`Steeltoe.Management.KubernetesCore` |  N/A |
+| [Actuators with Cloud Foundry support**](../management/cloud-foundry.md) | `Steeltoe.Management.CloudFoundryCore` | N/A |
+| [Actuators with Kubernetes support](../management/index.md) | `Steeltoe.Management.KubernetesCore` | N/A |
 | [Distributed Tracing](../tracing/index.md) | `Steeltoe.Management.TracingBase` or `TracingCore` | OpenTelemetry Exporter (Zipkin, Jaeger, OTLP) |
 | [Cloud Foundry Container Identity](../security/mtls.md#configure-settings) | `Steeltoe.Security.Authentication.CloudFoundryCore` | N/A |
 

@@ -22,14 +22,14 @@ builder.Services.AddSpringBootAdminClient();
 The following table describes the configuration settings that you can apply to the client.
 Each key must be prefixed with `Spring:Boot:Admin:Client:`.
 
-| Key   | Description | Default |
-| ----- | ----------- | ------- |
-| `Url` | The URL of the Spring Boot Admin server | |
+| Key | Description | Default |
+| --- | --- | --- |
+| `Url` | The URL of the Spring Boot Admin server |  |
 | `ApplicationName` | The name of the Steeltoe app being registered | computed |
 | `BasePath` | The base URL to find endpoints for integration | computed |
 | `ValidateCertificates` | Whether server certificates should be validated | `true` |
 | `ConnectionTimeoutMS` | Connection timeout (in milliseconds) | `100_000` |
-| `Metadata` | Dictionary of metadata to use when registering | |
+| `Metadata` | Dictionary of metadata to use when registering |  |
 
 ## Connecting to dockerized Spring Boot Admin Server
 

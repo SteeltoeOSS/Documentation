@@ -6,11 +6,11 @@ The Steeltoe Env endpoint can be used to query and return the configuration valu
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the env endpoint|`env`|
-|enabled|Whether to enable the env management endpoint|true|
-|keysToSanitize|Keys that should be sanitized. Keys can be simple strings that the property ends with or regex expressions|```["password", "secret", "key", "token", ".*credentials.*", "vcap_services"]```|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the env endpoint | `env` |
+| enabled | Whether to enable the env management endpoint | true |
+| keysToSanitize | Keys that should be sanitized. Keys can be simple strings that the property ends with or regex expressions | ```["password", "secret", "key", "token", ".*credentials.*", "vcap_services"]``` |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:env`**.
 

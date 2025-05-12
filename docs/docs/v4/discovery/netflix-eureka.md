@@ -38,21 +38,21 @@ we recommend that you use the defaults.
 The following table describes the configuration settings that control the behavior of the client.
 All of these settings must start with `Eureka:Client:`.
 
-| Key       | Description | Default |
-| --------- | ----------- | ------- |
+| Key | Description | Default |
+| --- | --- | --- |
 | `Enabled` | Whether to enable the Eureka client | `true` |
 | `ServiceUrl` | Comma-separated list of Eureka server endpoints | `http://localhost:8761/eureka/` |
-| `AccessTokenUri` | URL at which to obtain OAuth2 access token, before connecting to the Eureka server | |
-| `ClientId` | Client ID for obtaining an access token | |
-| `ClientSecret` | Secret for obtaining an access token | |
+| `AccessTokenUri` | URL at which to obtain OAuth2 access token, before connecting to the Eureka server |  |
+| `ClientId` | Client ID for obtaining an access token |  |
+| `ClientSecret` | Secret for obtaining an access token |  |
 | `Validate_Certificates` | Whether the client validates server certificates | `true` |
 | `EurekaServer:ShouldGZipContent` | Whether to auto-decompress responses from the Eureka server | `true` |
 | `EurekaServer:RetryCount` | Number of times to retry Eureka server requests | `2` |
 | `EurekaServer:ConnectTimeoutSeconds` | How long to wait (in seconds) before a connection to the Eureka server times out | `5` |
-| `EurekaServer:ProxyHost` | Proxy hostname used in contacting the Eureka server | |
-| `EurekaServer:ProxyPort` | Proxy port number used in contacting the Eureka server | |
-| `EurekaServer:ProxyUserName` | Proxy username used in contacting the Eureka server | |
-| `EurekaServer:ProxyPassword` | Proxy password used in contacting the Eureka server | |
+| `EurekaServer:ProxyHost` | Proxy hostname used in contacting the Eureka server |  |
+| `EurekaServer:ProxyPort` | Proxy port number used in contacting the Eureka server |  |
+| `EurekaServer:ProxyUserName` | Proxy username used in contacting the Eureka server |  |
+| `EurekaServer:ProxyPassword` | Proxy password used in contacting the Eureka server |  |
 | `Health:Enabled` | Whether to activate an `IHealthContributor` that verifies connectivity to the Eureka server | `true` |
 
 ### Registration
@@ -61,18 +61,18 @@ The configuration settings below pertain to registering the currently running ap
 All of these settings must start with `Eureka:Client:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
-| `ShouldRegisterWithEureka`  | Whether to register the running app as a service instance | `true` |
+| --- | --- | --- |
+| `ShouldRegisterWithEureka` | Whether to register the running app as a service instance | `true` |
 | `Health:CheckEnabled` | Whether to query ASP.NET health checks and `IHealthContributor`s during registration and renewals, to determine the status of the running app to report back to Eureka (see [Configuring health checks](#configuring-health-checks)) | `true` |
 
 Additionally, the table below lists the configuration settings that control *how* to register the instance.
 All of these settings must start with `Eureka:Instance:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `InstanceId` | Unique ID (within the scope of the app name) of the instance to be registered with Eureka | computed |
 | `AppName` | Name of the application to be registered with Eureka | computed |
-| `AppGroup` | Name of the application group to be registered with Eureka | |
+| `AppGroup` | Name of the application group to be registered with Eureka |  |
 | `MetadataMap` | Name/value pairs associated with the instance | computed |
 | `HostName` | Hostname on which the instance is registered | computed |
 | `IPAddress` | IP address on which the instance is registered | computed |
@@ -84,7 +84,7 @@ All of these settings must start with `Eureka:Instance:`.
 | `NonSecurePortEnabled` | Whether the non-secure port should be enabled [^1] | computed |
 | `SecurePort` | Secure port on which the instance should receive traffic | computed |
 | `SecurePortEnabled` | Whether the secure port should be enabled [^1] | computed |
-| `RegistrationMethod` | How to register on Cloud Foundry; can be `route`, `direct`, or `hostname` [^2] | |
+| `RegistrationMethod` | How to register on Cloud Foundry; can be `route`, `direct`, or `hostname` [^2] |  |
 | `InstanceEnabledOnInit` | Whether the instance should take traffic as soon as it is registered [^3] | `true` |
 | `LeaseRenewalIntervalInSeconds` | How often (in seconds) the client sends heartbeats to Eureka to indicate that it is still alive | `30` |
 | `LeaseExpirationDurationInSeconds` | Time (in seconds) that the Eureka server waits after receiving the last heartbeat before it marks the instance as down | `90` |
@@ -95,7 +95,7 @@ All of these settings must start with `Eureka:Instance:`.
 | `HealthCheckUrlPath` | Relative path to the health check endpoint of the instance [^4] | `/health` |
 | `HealthCheckUrl` | Absolute URL for health checks of the instance (overrides `HealthCheckUrlPath`) | computed |
 | `SecureHealthCheckUrl` | Secure absolute URL for health checks of the instance (overrides `HealthCheckUrlPath`) | computed |
-| `AsgName` | AWS auto-scaling group name associated with the instance | |
+| `AsgName` | AWS auto-scaling group name associated with the instance |  |
 | `DataCenterInfo` | Data center the instance is deployed to (`Netflix`, `Amazon`, or `MyOwn`) | `MyOwn` |
 
 [^1]: When both non-secure and secure ports are enabled, the secure port is preferred during service discovery.
@@ -120,13 +120,13 @@ The configuration settings that pertain to querying the Eureka registry for apps
 All of these settings must start with `Eureka:Client:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `ShouldFetchRegistry` | Whether to periodically fetch registry information from the Eureka server | `true` |
 | `RegistryFetchIntervalSeconds` | How often (in seconds) to fetch registry information from the Eureka server | `30` |
-| `ShouldFilterOnlyUpInstances`  | Whether to include only instances with `UP` status after fetching the list of applications | `true` |
-| `ShouldDisableDelta`  | Whether to fetch the full registry each time (`true`) or fetch only deltas (`false`) | `false` |
+| `ShouldFilterOnlyUpInstances` | Whether to include only instances with `UP` status after fetching the list of applications | `true` |
+| `ShouldDisableDelta` | Whether to fetch the full registry each time (`true`) or fetch only deltas (`false`) | `false` |
 | `RegistryRefreshSingleVipAddress` | Whether to fetch registry information only for the specified VIP address | `false` |
-| `Health:MonitoredApps` | Comma-separated list of applications in Eureka that this app depends on (see [Configuring health contributors](#configuring-health-contributors)) | |
+| `Health:MonitoredApps` | Comma-separated list of applications in Eureka that this app depends on (see [Configuring health contributors](#configuring-health-contributors)) |  |
 
 ## Configuring health contributors
 

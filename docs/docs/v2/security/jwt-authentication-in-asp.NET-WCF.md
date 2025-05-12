@@ -47,13 +47,13 @@ Configuring additional settings for the provider is not typically required, but,
 
 The Steeltoe sample is set up to read from `appsettings.json`.
 
-|Name|Description|Default|
-|---|---|---|
-|forwardUserCredentials|Whether to use app credentials or forward users's credentials|`false`|
-|validateAudience|Whether or not a token's audience should be validated|`true`|
-|validateIssuer|Whether or not a token's issuer should be validated|`true`|
-|validateLifeTime|Whether or not a token's lifetime should be validated|`true`|
-|validateCertificates|Validate Auth server certificate|`true`|
+| Name | Description | Default |
+| --- | --- | --- |
+| forwardUserCredentials | Whether to use app credentials or forward users's credentials | `false` |
+| validateAudience | Whether or not a token's audience should be validated | `true` |
+| validateIssuer | Whether or not a token's issuer should be validated | `true` |
+| validateLifeTime | Whether or not a token's lifetime should be validated | `true` |
+| validateCertificates | Validate Auth server certificate | `true` |
 
 ### Cloud Foundry
 
