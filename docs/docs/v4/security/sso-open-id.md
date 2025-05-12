@@ -195,7 +195,7 @@ For information about configuring an app manifest, see the [Single Sign-On docum
 
 Consider this example manifest that names the application and buildpack, and configures properties for the SSO binding:
 
-```yml
+```yaml
 applications:
 - name: steeltoesamplesclient
   buildpacks:

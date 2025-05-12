@@ -27,7 +27,7 @@ Next, **add a config file** to the repository.
 1. Create a new file in the repo named `my-values.yml`
 1. Add the following to the file
 
-   ```yml
+   ```yaml
    Value1: some-val
    Value2: another-val
    ```

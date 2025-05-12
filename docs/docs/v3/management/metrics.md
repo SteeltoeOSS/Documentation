@@ -116,7 +116,7 @@ cf register-metrics-endpoint your-dotnet-app /actuator/prometheus
 
 You can set up [Prometheus Server](https://prometheus.io/) to scrape this endpoint by registering your application in the server's configuration. For example, the following `prometheus.yml` file expects a Steeltoe-enabled application to be running on port 8000 with the actuator management path at the default of `/actuator`:
 
-```yml
+```yaml
 global:
   scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.

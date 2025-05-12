@@ -115,7 +115,7 @@ You can set up Prometheus to scrape this endpoint by registering your applicatio
 
 As an example, the following `prometheus.yml` file configures metric scraping for a Steeltoe-enabled application listening on port 8091 with the default actuator path:
 
-```yml
+```yaml
 global:
   scrape_interval: 15s # Set the scrape interval to every 15 seconds. The default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
