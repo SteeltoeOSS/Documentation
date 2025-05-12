@@ -39,6 +39,9 @@ builder.Configuration.AddPlaceholderResolver();
 
 After the configuration has been built, the placeholder resolver is used to resolve any placeholders as you access your configuration data. You can access the configuration data as you normally would, and the resolver tries to resolve any placeholder before returning the value for the key requested.
 
+> [!TIP]
+> To diagnose startup errors, activate bootstrap logging, as described in [Logger Bootstrapping](../bootstrap/log-bootstrap.md).
+
 Consider the following `appsettings.json` file:
 
 ```json

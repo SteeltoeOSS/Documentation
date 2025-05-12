@@ -4,9 +4,9 @@
 
 Learn the [new features and changes in Steeltoe v4](./whats-new.md).
 
-## Application Bootstrapping
+## Bootstrapping
 
-Automatically configure many Steeltoe components with a single line of code with [Application Bootstrapping](../bootstrap/index.md).
+Automatically configure many Steeltoe components with a single line of code with [Bootstrapping](../bootstrap/index.md).
 
 ## Application Configuration
 
