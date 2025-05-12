@@ -48,7 +48,7 @@ Console.WriteLine(options.Value.ConnectionString);
 
 The output is:
 
-```
+```text
 Host=localhost;Database=steeltoe;Username=steeltoe;Password=steeltoe;Log Parameters=True
 ```
 
@@ -252,7 +252,7 @@ public class AppDbContext : DbContext
 
 This is the output:
 
-```
+```text
 Data Source=(localdb)\mssqllocaldb;Initial Catalog=ExampleDB;Pooling=True
 ```
 

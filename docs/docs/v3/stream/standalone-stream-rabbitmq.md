@@ -375,7 +375,7 @@ In this section, we deploy the applications created earlier to the local machine
 
 When you deploy these three applications (`UsageDetailSender`, `UsageCostProcessor`, and `UsageCostLogger`), the flow of message is as follows:
 
-```
+```text
 UsageDetailSender -> UsageCostProcessor -> UsageCostLogger
 ```
 
@@ -401,7 +401,7 @@ You can use the default account username and password: `guest` and `guest`.
 
 By using the [pre-defined](#configuration-usage-detail-sender) configuration properties (along with a unique server port) for `UsageSender`, you can run the application, as follows:
 
-```
+```shell
 cd UsageSender
 dotnet build && dotnet run --framework net6.0
 ```
@@ -422,7 +422,7 @@ When configuring the consumer applications for this `Source` application, you ca
 
 By using the [pre-defined](#configuration-usage-cost-processor) configuration properties (along with a unique server port) for `UsageProcessor`, you can run the application, as follows:
 
-```
+```shell
 cd UsageProcessor
 dotnet build && dotnet run --framework net6.0
 ```
@@ -725,7 +725,7 @@ kubectl apply -f usage-cost-stream.yaml
 
 If all is well, you should see the following output:
 
-```
+```text
 pod/usage-detail-sender created
 pod/usage-cost-processor created
 pod/usage-cost-logger created

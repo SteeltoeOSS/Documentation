@@ -200,7 +200,7 @@ $ cat appsettings.Docker.json
 
 ... deploy to Docker ...
 
-```
+```bash
 $ st deploy
 Deploying service 'myRedisService'
 Deploying app 'Redis'

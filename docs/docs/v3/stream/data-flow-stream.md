@@ -39,31 +39,31 @@ Spring Cloud team publishes a number of sample applications as `maven` and `dock
 
 <!-- For the `UsageDetailSender` source, use one of the following:
 
-```
+```text
 maven://io.spring.dataflow.sample:usage-detail-sender-rabbit:0.0.1-SNAPSHOT
 ```
 
-```
+```text
 docker://springcloudstream/usage-detail-sender-rabbit:0.0.1-SNAPSHOT
 ```
 
 For the `UsageCostProcessor` processor, use one of the following:
 
-```
+```text
 maven://io.spring.dataflow.sample:usage-cost-processor-rabbit:0.0.1-SNAPSHOT
 ```
 
-```
+```text
 docker://springcloudstream/usage-cost-processor-rabbit:0.0.1-SNAPSHOT
 ```
 
 For the `UsageCostLogger` sink, use one of the following:
 
-```
+```text
 maven://io.spring.dataflow.sample:usage-cost-logger-rabbit:0.0.1-SNAPSHOT
 ```
 
-```
+```text
 docker://springcloudstream/usage-cost-logger-rabbit:0.0.1-SNAPSHOT
 ```
 -->
@@ -203,7 +203,7 @@ If you run SCDF on Docker, to access the log files of the streaming applications
 
 `docker exec <stream-application-docker-container-id> tail -f <stream-application-log-file>`
 
-```
+```text
 2019-04-19 22:16:04.864  INFO 95238 --- [container-0-C-1] c.e.demo.UsageCostLoggerApplication      : {"userId": "Mark", "callCost": "0.17", "dataCost": "0.32800000000000007" }
 2019-04-19 22:16:04.872  INFO 95238 --- [container-0-C-1] c.e.demo.UsageCostLoggerApplication      : {"userId": "Janne", "callCost": "0.20800000000000002", "dataCost": "0.298" }
 2019-04-19 22:16:04.872  INFO 95238 --- [container-0-C-1] c.e.demo.UsageCostLoggerApplication      : {"userId": "Ilaya", "callCost": "0.175", "dataCost": "0.16150000000000003" }

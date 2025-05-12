@@ -103,7 +103,7 @@ await app.RunWithTasksAsync(CancellationToken.None);
 After all the setup steps have been completed, any invocation of your application with a configuration value for the `RunTask` key
 runs that task (and shuts down) instead of starting the web application:
 
-```
+```shell
 dotnet run -- RunTask=ExampleTaskName
 ```
 
