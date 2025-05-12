@@ -193,7 +193,7 @@ Finally, let's look at the log message that was written.
 
 Go back to the terminal window where the application was started. The logs should be streaming. Locate the following line:
 
-```plaintext
+```text
 [WebApplication1, 917e146c942117d2, 917e146c942117d2, true] Hi there
 ```
 
