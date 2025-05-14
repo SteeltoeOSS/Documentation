@@ -100,10 +100,10 @@ Clients can overrule this per request by sending an `X-Use-Status-Code-From-Resp
 >     "Endpoints": {
 >       "Health": {
 >         "DiskSpace": {
->           "Enabled": "false"
+>           "Enabled": false
 >         },
 >         "Ping": {
->           "Enabled": "false"
+>           "Enabled": false
 >         }
 >       }
 >     }
@@ -218,10 +218,10 @@ The following example enables both contributors and their groups, and specifies 
     "Endpoints": {
       "Health": {
         "Liveness": {
-          "Enabled": "true"
+          "Enabled": true
         },
         "Readiness": {
-          "Enabled": "true"
+          "Enabled": true
         },
         "Groups": {
           "liveness": {
