@@ -17,12 +17,12 @@ In order to use any Steeltoe Discovery client, you need to do the following:
 <!-- TODO: review this section, its not completely correct -->
 The simplest way to get started with Steeltoe Discovery is to add a reference to a package built for either Microsoft's dependency injection or Autofac. Either package will also include all relevant dependencies. If you are using another DI tool, please file an issue to let us know, and in the mean time use the relevant base package:
 
-|App Type|Package|Description|
-|---|---|---|
-|ASP.NET Core|`Steeltoe.Discovery.ClientCore`|Includes base. Adds ASP.NET Core dependency injection.|
-|ASP.NET 4.x with Autofac|`Steeltoe.Discovery.ClientAutofac`|Includes base. Adds Autofac dependency injection.|
-|Console/ASP.NET 4.x|`Steeltoe.Discovery.EurekaBase`|Base Eureka functionality. No dependency injection.|
-|Console/ASP.NET 4.x|`Steeltoe.Discovery.ConsulBase`|Base Consul functionality. No dependency injection.|
+| App Type | Package | Description |
+| --- | --- | --- |
+| ASP.NET Core | `Steeltoe.Discovery.ClientCore` | Includes base. Adds ASP.NET Core dependency injection. |
+| ASP.NET 4.x with Autofac | `Steeltoe.Discovery.ClientAutofac` | Includes base. Adds Autofac dependency injection. |
+| Console/ASP.NET 4.x | `Steeltoe.Discovery.EurekaBase` | Base Eureka functionality. No dependency injection. |
+| Console/ASP.NET 4.x | `Steeltoe.Discovery.ConsulBase` | Base Consul functionality. No dependency injection. |
 
 To add this type of NuGet to your project, add an element resembling the following `PackageReference`:
 

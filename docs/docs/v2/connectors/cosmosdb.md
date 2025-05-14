@@ -31,15 +31,15 @@ This connector supports several settings for local interaction with CosmosDB tha
 
 The following table table describes all possible settings for the connector
 
-|Key|Description|Default|
-|---|---|---|
-|host|Protocol, hostname or IP Address and port of the server|not set|
-|masterKey|Authentication for read/write access|not set|
-|readOnlyKey|Authentication for read-only access|not set|
-|databaseId|Name of the database to use|not set|
-|useReadOnlyCredentials|Designate that the read-only key should be used|false|
-|connectionString|Full connection string|built from settings|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+| Key | Description | Default |
+| --- | --- | --- |
+| host | Protocol, hostname or IP Address and port of the server | not set |
+| masterKey | Authentication for read/write access | not set |
+| readOnlyKey | Authentication for read-only access | not set |
+| databaseId | Name of the database to use | not set |
+| useReadOnlyCredentials | Designate that the read-only key should be used | false |
+| connectionString | Full connection string | built from settings |
+| urlEncodedCredentials | Set to `true` if your service broker provides URL-encoded credentials | false |
 
 >IMPORTANT: All of these settings should be prefixed with `cosmosdb:client:`.
 

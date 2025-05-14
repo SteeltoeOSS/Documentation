@@ -57,23 +57,23 @@ The following example of the connector's configuration in JSON that shows how to
 
 The following table table describes all possible settings for the connector
 
-|Key|Description|Default|
-|---|---|---|
-|host|Hostname or IP Address of the server|localhost|
-|port|Port number of the server|6379|
-|endPoints|Comma-separated list of host:port pairs|not set|
-|clientName|Identification for the connection within redis|not set|
-|connectRetry|Times to repeat initial connect attempts|3|
-|connectTimeout|Timeout (ms) for connect operations|5000|
-|abortOnConnectFail|Will not create a connection while no servers are available|true|
-|keepAlive|Time (seconds) at which to send a message to help keep sockets alive|-1|
-|resolveDns|Whether DNS resolution should be explicit and eager, rather than implicit|false|
-|ssl|Whether SSL encryption should be used|false|
-|sslHost|Enforces a particular SSL host identity on the server's certificate|not set|
-|writeBuffer|Size of the output buffer|4096|
-|connectionString|Full connection string|built from settings|
-|instanceId|Cache ID. Used only with `IDistributedCache`|not set|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+| Key | Description | Default |
+| --- | --- | --- |
+| host | Hostname or IP Address of the server | localhost |
+| port | Port number of the server | 6379 |
+| endPoints | Comma-separated list of host:port pairs | not set |
+| clientName | Identification for the connection within redis | not set |
+| connectRetry | Times to repeat initial connect attempts | 3 |
+| connectTimeout | Timeout (ms) for connect operations | 5000 |
+| abortOnConnectFail | Will not create a connection while no servers are available | true |
+| keepAlive | Time (seconds) at which to send a message to help keep sockets alive | -1 |
+| resolveDns | Whether DNS resolution should be explicit and eager, rather than implicit | false |
+| ssl | Whether SSL encryption should be used | false |
+| sslHost | Enforces a particular SSL host identity on the server's certificate | not set |
+| writeBuffer | Size of the output buffer | 4096 |
+| connectionString | Full connection string | built from settings |
+| instanceId | Cache ID. Used only with `IDistributedCache` | not set |
+| urlEncodedCredentials | Set to `true` if your service broker provides URL-encoded credentials | false |
 
 >IMPORTANT: All of these settings should be prefixed with `redis:client:`.
 

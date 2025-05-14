@@ -45,11 +45,11 @@ There are two types of NuGet references to consider with when adding Hystrix to 
 
 The first is required to bring the basic Hystrix functionality (the ability to define and execute commands) into your application. Choose from the following based on the type of the application you are building and what Dependency Injector you have chosen, if any.
 
-|App Type|Package|Description|
-|---|---|---|
-|Console/ASP.NET 4.x|`Steeltoe.CircuitBreaker.HystrixBase`|Base functionality, no DI|
-|ASP.NET Core|`Steeltoe.CircuitBreaker.HystrixCore`|Includes base, adds ASP.NET Core DI|
-|ASP.NET 4.x with Autofac|`Steeltoe.CircuitBreaker.HystrixAutofac`|Includes base, adds Autofac DI|
+| App Type | Package | Description |
+| --- | --- | --- |
+| Console/ASP.NET 4.x | `Steeltoe.CircuitBreaker.HystrixBase` | Base functionality, no DI |
+| ASP.NET Core | `Steeltoe.CircuitBreaker.HystrixCore` | Includes base, adds ASP.NET Core DI |
+| ASP.NET 4.x with Autofac | `Steeltoe.CircuitBreaker.HystrixAutofac` | Includes base, adds Autofac DI |
 
 To add this type of NuGet to your project add something like the following `PackageReference`:
 
@@ -75,10 +75,10 @@ To do this include the following `PackageReference` in your application:
 
 Alternatively, if you will be pushing your application to Cloud Foundry and you want to use the [Spring Cloud Services Hystrix Dashboard](https://docs.pivotal.io/spring-cloud-services/1-5/common/circuit-breaker/), then include one of the following packages instead.
 
-|App Type|Package|Description|
-|---|---|---|
-|ASP.NET Core|`Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore`|ASP.NET Core DI|
-|ASP.NET 4.x with Autofac|`Steeltoe.CircuitBreaker.Hystrix.MetricsStreamAutofac`|Autofac DI|
+| App Type | Package | Description |
+| --- | --- | --- |
+| ASP.NET Core | `Steeltoe.CircuitBreaker.Hystrix.MetricsStreamCore` | ASP.NET Core DI |
+| ASP.NET 4.x with Autofac | `Steeltoe.CircuitBreaker.Hystrix.MetricsStreamAutofac` | Autofac DI |
 
 In addition to one of the above package references, you also need to include a package reference to a RabbitMQ client.
 
@@ -171,12 +171,12 @@ The following set of tables specifies all of the possible settings by category.
 
 The following table describes the settings that control how the HystrixCommand's `RunAsync()` method runs:
 
-|Key|Description|Default|
-|---|---|---|
-|timeout:enabled|Enables or disables `RunAsync()` timeouts|true|
-|isolation:strategy|`THREAD` or `SEMAPHORE`|`THREAD`|
-|isolation:thread:timeoutInMilliseconds|Time allowed for `RunAsync()` execution completion before fallback is executed|1000|
-|isolation:semaphore:maxConcurrentRequests|Maximum requests to `RunAsync()` method when using the `SEMAPHORE` strategy|10|
+| Key | Description | Default |
+| --- | --- | --- |
+| timeout:enabled | Enables or disables `RunAsync()` timeouts | true |
+| isolation:strategy | `THREAD` or `SEMAPHORE` | `THREAD` |
+| isolation:thread:timeoutInMilliseconds | Time allowed for `RunAsync()` execution completion before fallback is executed | 1000 |
+| isolation:semaphore:maxConcurrentRequests | Maximum requests to `RunAsync()` method when using the `SEMAPHORE` strategy | 10 |
 
 Each setting is prefixed with a key of `execution`, as shown in the following example:
 
@@ -186,10 +186,10 @@ Each setting is prefixed with a key of `execution`, as shown in the following ex
 
 The following table describes the settings that control how the HystrixCommand's `RunFallbackAsync()` method runs:
 
-|Key|Description|Default|
-|---|---|---|
-|enabled|Enables or disables `RunFallbackAsync()`|true|
-|isolation:semaphore:maxConcurrentRequests|Maximum requests to `RunFallbackAsync()` method when using the `SEMAPHORE` strategy|10|
+| Key | Description | Default |
+| --- | --- | --- |
+| enabled | Enables or disables `RunFallbackAsync()` | true |
+| isolation:semaphore:maxConcurrentRequests | Maximum requests to `RunFallbackAsync()` method when using the `SEMAPHORE` strategy | 10 |
 
 Each setting is prefixed with a key of `fallback`, as shown in the following example:
 
@@ -199,14 +199,14 @@ Each setting is prefixed with a key of `fallback`, as shown in the following exa
 
 The following table describes the settings that control the behavior of the default Circuit Breaker used by Hystrix commands:
 
-|Key|Description|Default|
-|---|---|---|
-|enabled|Enables or disables circuit breaker usage|true|
-|requestVolumeThreshold|Minimum number of requests in a rolling window that will trip the circuit|20|
-|sleepWindowInMilliseconds|Amount of time, after tripping the circuit, to reject requests before allowing attempts again|5000|
-|errorThresholdPercentage|Error percentage at or above which the circuit should trip open and start short-circuiting requests to fallback logic|50|
-|forceOpen|Force circuit open|false|
-|forceClosed|Force circuit closed|false|
+| Key | Description | Default |
+| --- | --- | --- |
+| enabled | Enables or disables circuit breaker usage | true |
+| requestVolumeThreshold | Minimum number of requests in a rolling window that will trip the circuit | 20 |
+| sleepWindowInMilliseconds | Amount of time, after tripping the circuit, to reject requests before allowing attempts again | 5000 |
+| errorThresholdPercentage | Error percentage at or above which the circuit should trip open and start short-circuiting requests to fallback logic | 50 |
+| forceOpen | Force circuit open | false |
+| forceClosed | Force circuit closed | false |
 
 Each setting is prefixed with a key of `circuitBreaker`, as shown in the following example:
 
@@ -216,15 +216,15 @@ Each setting is prefixed with a key of `circuitBreaker`, as shown in the followi
 
 The following table describes the settings that control the behavior of capturing metrics from Hystrix commands:
 
-|Key|Description|Default|
-|---|---|---|
-|rollingStats:timeInMilliseconds|duration of the statistical rolling window, used by circuit breaker and for publishing|10000|
-|rollingStats:numBuckets|number of buckets the rolling statistical window is divided into|10|
-|rollingPercentile:enabled|indicates whether execution latencies should be tracked and calculated as percentiles|true|
-|rollingPercentile:timeInMilliseconds|duration of the rolling window in which execution times are kept to allow for percentile calculations|60000|
-|rollingPercentile:numBuckets|number of buckets the rollingPercentile window will be divided into|6|
-|rollingPercentile:bucketSize|maximum number of execution times that are kept per bucket|100|
-|healthSnapshot:intervalInMilliseconds| time to wait between allowing health snapshots to be taken that calculate success and error percentages affecting circuit breaker status|500|
+| Key | Description | Default |
+| --- | --- | --- |
+| rollingStats:timeInMilliseconds | duration of the statistical rolling window, used by circuit breaker and for publishing | 10000 |
+| rollingStats:numBuckets | number of buckets the rolling statistical window is divided into | 10 |
+| rollingPercentile:enabled | indicates whether execution latencies should be tracked and calculated as percentiles | true |
+| rollingPercentile:timeInMilliseconds | duration of the rolling window in which execution times are kept to allow for percentile calculations | 60000 |
+| rollingPercentile:numBuckets | number of buckets the rollingPercentile window will be divided into | 6 |
+| rollingPercentile:bucketSize | maximum number of execution times that are kept per bucket | 100 |
+| healthSnapshot:intervalInMilliseconds | time to wait between allowing health snapshots to be taken that calculate success and error percentages affecting circuit breaker status | 500 |
 
 Each setting is prefixed with the key `metrics`, as shown in the following example:
 
@@ -234,9 +234,9 @@ Each setting is prefixed with the key `metrics`, as shown in the following examp
 
 The following table describes the settings that control whether Hystrix command request caching is enabled or disabled:
 
-|Key|Description|Default|
-|---|---|---|
-|enabled|Enables or disables request scoped caching|true|
+| Key | Description | Default |
+| --- | --- | --- |
+| enabled | Enables or disables request scoped caching | true |
 
 Each setting is prefixed with the key `requestCache`, as shown in the following example:
 
@@ -246,9 +246,9 @@ Each setting is prefixed with the key `requestCache`, as shown in the following 
 
 The following table describes the settings that control whether Hystrix command execution events are logged to the Request log:
 
-|Key|Description|Default|
-|---|---|---|
-|enabled|enable or disable request scoped logging|true|
+| Key | Description | Default |
+| --- | --- | --- |
+| enabled | enable or disable request scoped logging | true |
 
 Each setting is prefixed with the key `requestLog`, as shown in the following example:
 
@@ -258,9 +258,9 @@ Each setting is prefixed with the key `requestLog`, as shown in the following ex
 
 The following table describes the settings that control what and how the command uses the Hystrix thread pools:
 
-|Key|Description|Default|
-|---|---|---|
-|threadPoolKeyOverride|Sets the thread pool used by the command|command group key name|
+| Key | Description | Default |
+| --- | --- | --- |
+| threadPoolKeyOverride | Sets the thread pool used by the command | command group key name |
 
 The following listing shows an example:
 
@@ -299,14 +299,14 @@ The tables in the following sections specify all of the possible settings.
 
 These settings control the sizing of various aspects of the thread pool. There is no additional prefix used in these settings.
 
-|Key|Description|Default|
-|---|---|---|
-|coreSize|Sets the thread pool size.|10|
-|maximumSize|Maximum size of threadPool. See `allowMaximumSizeToDivergeFromCoreSize`.|10|
-|maxQueueSize|Maximum thread pool queue size. `value=-1` uses the sync queue.|-1|
-|queueSizeRejectionThreshold|Sets the queue size rejection threshold. An artificial maximum queue size, at which rejections occur even if maxQueueSize has not been reached, does not apply if `maxQueueSize=-1`.|5|
-|keepAliveTimeMinutes|Currently not used.|1|
-|allowMaximumSizeToDivergeFromCoreSize|Lets the configuration for `maximumSize` take effect.|false|
+| Key | Description | Default |
+| --- | --- | --- |
+| coreSize | Sets the thread pool size. | 10 |
+| maximumSize | Maximum size of threadPool. See `allowMaximumSizeToDivergeFromCoreSize`. | 10 |
+| maxQueueSize | Maximum thread pool queue size. `value=-1` uses the sync queue. | -1 |
+| queueSizeRejectionThreshold | Sets the queue size rejection threshold. An artificial maximum queue size, at which rejections occur even if maxQueueSize has not been reached, does not apply if `maxQueueSize=-1`. | 5 |
+| keepAliveTimeMinutes | Currently not used. | 1 |
+| allowMaximumSizeToDivergeFromCoreSize | Lets the configuration for `maximumSize` take effect. | false |
 
 The following listing shows an example:
 
@@ -316,10 +316,10 @@ The following listing shows an example:
 
 The following table describes the settings that control the behavior of capturing metrics from Hystrix thread pools:
 
-|Key|Description|Default|
-|---|---|---|
-|rollingStats.timeInMilliseconds|Duration of the statistical rolling window. Defines how long metrics are kept for the thread pool.|10000|
-|rollingStats.numBuckets|Number of buckets into which the rolling statistical window is divided.|10|
+| Key | Description | Default |
+| --- | --- | --- |
+| rollingStats.timeInMilliseconds | Duration of the statistical rolling window. Defines how long metrics are kept for the thread pool. | 10000 |
+| rollingStats.numBuckets | Number of buckets into which the rolling statistical window is divided. | 10 |
 
 Each setting is prefixed with a key of `metrics`, as shown in the following example:
 
@@ -360,11 +360,11 @@ The tables that follow specify all of the possible settings.
 
 The following table describes the settings that control the sizing of various aspects of collapsers:
 
-|Key|Description|Default|
-|---|---|---|
-|maxRequestsInBatch|sets the max number of requests in a batch|INT32.MaxValue|
-|timerDelayInMilliseconds|delay before a batch is executed|10|
-|requestCacheEnabled|indicates whether request cache is enabled|true|
+| Key | Description | Default |
+| --- | --- | --- |
+| maxRequestsInBatch | sets the max number of requests in a batch | INT32.MaxValue |
+| timerDelayInMilliseconds | delay before a batch is executed | 10 |
+| requestCacheEnabled | indicates whether request cache is enabled | true |
 
 There is no additional prefix used in these settings.
 
@@ -376,14 +376,14 @@ The following listing shows an example:
 
 The following table describes the settings that control the behavior of capturing metrics from Hystrix collapsers.
 
-|Key|Description|Default|
-|---|---|---|
-|rollingStats:timeInMilliseconds|Duration of the statistical rolling window. Used by circuit breaker and for publishing.|10000|
-|rollingStats:numBuckets|Number of buckets into which the rolling statistical window is divided.|10|
-|rollingPercentile:enabled|Indicates whether execution latencies should be tracked and calculated as percentiles.|true|
-|rollingPercentile:timeInMilliseconds|Duration of the rolling window in which execution times are kept to allow for percentile calculations.|60000|
-|rollingPercentile:numBuckets|Number of buckets into which the rollingPercentile window will be divided.|6|
-|rollingPercentile:bucketSize|Maximum number of execution times that are kept per bucket.|100|
+| Key | Description | Default |
+| --- | --- | --- |
+| rollingStats:timeInMilliseconds | Duration of the statistical rolling window. Used by circuit breaker and for publishing. | 10000 |
+| rollingStats:numBuckets | Number of buckets into which the rolling statistical window is divided. | 10 |
+| rollingPercentile:enabled | Indicates whether execution latencies should be tracked and calculated as percentiles. | true |
+| rollingPercentile:timeInMilliseconds | Duration of the rolling window in which execution times are kept to allow for percentile calculations. | 60000 |
+| rollingPercentile:numBuckets | Number of buckets into which the rollingPercentile window will be divided. | 6 |
+| rollingPercentile:bucketSize | Maximum number of execution times that are kept per bucket. | 100 |
 
 Each setting is prefixed with a key of `metrics`, as shown in the following example:
 

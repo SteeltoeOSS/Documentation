@@ -38,8 +38,8 @@ we recommend that you use the defaults.
 The following table describes the configuration settings that control the behavior of the client.
 All of these settings must start with `Eureka:Client:`.
 
-| Key       | Description | Default |
-| --------- | ----------- | ------- |
+| Key | Description | Default |
+| --- | --- | --- |
 | `Enabled` | Whether to enable the Eureka client | `true` |
 | `ServiceUrl` | Comma-separated list of Eureka server endpoints | `http://localhost:8761/eureka/` |
 | `AccessTokenUri` | URL at which to obtain OAuth2 access token, before connecting to the Eureka server | |
@@ -61,15 +61,15 @@ The configuration settings below pertain to registering the currently running ap
 All of these settings must start with `Eureka:Client:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
-| `ShouldRegisterWithEureka`  | Whether to register the running app as a service instance | `true` |
+| --- | --- | --- |
+| `ShouldRegisterWithEureka` | Whether to register the running app as a service instance | `true` |
 | `Health:CheckEnabled` | Whether to query ASP.NET health checks and `IHealthContributor`s during registration and renewals, to determine the status of the running app to report back to Eureka (see [Configuring health checks](#configuring-health-checks)) | `true` |
 
 Additionally, the table below lists the configuration settings that control *how* to register the instance.
 All of these settings must start with `Eureka:Instance:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `InstanceId` | Unique ID (within the scope of the app name) of the instance to be registered with Eureka | computed |
 | `AppName` | Name of the application to be registered with Eureka | computed |
 | `AppGroup` | Name of the application group to be registered with Eureka | |
@@ -120,11 +120,11 @@ The configuration settings that pertain to querying the Eureka registry for apps
 All of these settings must start with `Eureka:Client:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `ShouldFetchRegistry` | Whether to periodically fetch registry information from the Eureka server | `true` |
 | `RegistryFetchIntervalSeconds` | How often (in seconds) to fetch registry information from the Eureka server | `30` |
-| `ShouldFilterOnlyUpInstances`  | Whether to include only instances with `UP` status after fetching the list of applications | `true` |
-| `ShouldDisableDelta`  | Whether to fetch the full registry each time (`true`) or fetch only deltas (`false`) | `false` |
+| `ShouldFilterOnlyUpInstances` | Whether to include only instances with `UP` status after fetching the list of applications | `true` |
+| `ShouldDisableDelta` | Whether to fetch the full registry each time (`true`) or fetch only deltas (`false`) | `false` |
 | `RegistryRefreshSingleVipAddress` | Whether to fetch registry information only for the specified VIP address | `false` |
 | `Health:MonitoredApps` | Comma-separated list of applications in Eureka that this app depends on (see [Configuring health contributors](#configuring-health-contributors)) | |
 

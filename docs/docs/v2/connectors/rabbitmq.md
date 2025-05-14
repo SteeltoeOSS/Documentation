@@ -43,17 +43,17 @@ The following example of the connectors configuration in JSON shows how to setup
 
 The following table describes all the possible settings for the connector:
 
-|Key|Description|Default|
-|---|---|---|
-|server|Hostname or IP Address of the server|127.0.0.1|
-|port|Port number of the server|5672|
-|username|Username for authentication|not set|
-|password|Password for authentication|not set|
-|virtualHost|Virtual host to which to connect|not set|
-|sslEnabled|Should SSL be enabled|false|
-|sslPort|SSL Port number of server|5671|
-|uri|Full connection string|built from settings|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+| Key | Description | Default |
+| --- | --- | --- |
+| server | Hostname or IP Address of the server | 127.0.0.1 |
+| port | Port number of the server | 5672 |
+| username | Username for authentication | not set |
+| password | Password for authentication | not set |
+| virtualHost | Virtual host to which to connect | not set |
+| sslEnabled | Should SSL be enabled | false |
+| sslPort | SSL Port number of server | 5671 |
+| uri | Full connection string | built from settings |
+| urlEncodedCredentials | Set to `true` if your service broker provides URL-encoded credentials | false |
 
 >IMPORTANT: All of these settings should be prefixed with `rabbitmq:client:`.
 

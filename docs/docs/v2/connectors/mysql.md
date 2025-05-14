@@ -53,32 +53,32 @@ The following MySQL connector configuration shows how to connect to a database a
 
 The following table describes the available settings for the connector. These settings are not specific to Steeltoe. They are passed through to the underlying data provider. See the [Oracle MySQL Connection String docs](https://dev.mysql.com/doc/connector-net/en/connector-net-connection-options.html) or [open source MySQL Connection String docs](https://mysql-net.github.io/MySqlConnector/connection-options/).
 
-|Key|Description|Steeltoe Default|
-|---|---|:---:|
-|server|Hostname or IP Address of the server|localhost|
-|port|Port number of server|3306|
-|username|Username for authentication|not set|
-|password|Password for authentication|not set|
-|database|Schema to which to connect|not set|
-|connectionString|Full connection string|built from settings|
-|sslMode|SSL usage option. One of `None`, `Preferred`, or `Required`|`None`|
-|allowPublicKeyRetrieval|Whether RSA public keys should be retrieved from the server|not set|
-|allowUserVariables|Whether the provider expects user variables in the SQL|not set|
-|connectionTimeout|Seconds to wait for a connection before throwing an error|not set|
-|connectionLifeTime|The maximum length of time a connection to the server can be open|not set|
-|connectionReset|Whether the connection state is reset when it is retrieved from the pool|not set|
-|convertZeroDateTime|Whether to have MySqlDataReader.GetValue() and MySqlDataReader.GetDateTime() return DateTime.MinValue for date or datetime columns that have disallowed values|not set|
-|defaultCommandTimeout|Seconds each command can execute before timing out. Use 0 to disable timeouts|not set|
-|keepalive|TCP keep-alive idle time|not set|
-|maximumPoolsize|Maximum number of connections allowed in the pool|not set|
-|minimumPoolsize|Minimum number of connections to leave in the pool if ConnectionIdleTimeout is reached|not set|
-|oldGuids|Whether to use a GUID of data type BINARY(16)|not set|
-|persistSecurityInfo|Whether to allow the application to access to security-sensitive information, such as the password. **_(Not recommended)_**|not set|
-|pooling|Enables connection pooling|not set|
-|treatTinyAsBoolean|Whether to return tinyint(1) as a boolean. Set to `false` to return tinyint(1) as sbyte/byte|not set|
-|useAffectedRows|Set to `false` to report found rows instead of changed (affected) rows|not set|
-|useCompression|If `true` (and server-supported), packets sent between client and server are compressed|not set|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+| Key | Description | Steeltoe Default |
+| --- | --- | :---: |
+| server | Hostname or IP Address of the server | localhost |
+| port | Port number of server | 3306 |
+| username | Username for authentication | not set |
+| password | Password for authentication | not set |
+| database | Schema to which to connect | not set |
+| connectionString | Full connection string | built from settings |
+| sslMode | SSL usage option. One of `None`, `Preferred`, or `Required` | `None` |
+| allowPublicKeyRetrieval | Whether RSA public keys should be retrieved from the server | not set |
+| allowUserVariables | Whether the provider expects user variables in the SQL | not set |
+| connectionTimeout | Seconds to wait for a connection before throwing an error | not set |
+| connectionLifeTime | The maximum length of time a connection to the server can be open | not set |
+| connectionReset | Whether the connection state is reset when it is retrieved from the pool | not set |
+| convertZeroDateTime | Whether to have MySqlDataReader.GetValue() and MySqlDataReader.GetDateTime() return DateTime.MinValue for date or datetime columns that have disallowed values | not set |
+| defaultCommandTimeout | Seconds each command can execute before timing out. Use 0 to disable timeouts | not set |
+| keepalive | TCP keep-alive idle time | not set |
+| maximumPoolsize | Maximum number of connections allowed in the pool | not set |
+| minimumPoolsize | Minimum number of connections to leave in the pool if ConnectionIdleTimeout is reached | not set |
+| oldGuids | Whether to use a GUID of data type BINARY(16) | not set |
+| persistSecurityInfo | Whether to allow the application to access to security-sensitive information, such as the password. **_(Not recommended)_** | not set |
+| pooling | Enables connection pooling | not set |
+| treatTinyAsBoolean | Whether to return tinyint(1) as a boolean. Set to `false` to return tinyint(1) as sbyte/byte | not set |
+| useAffectedRows | Set to `false` to report found rows instead of changed (affected) rows | not set |
+| useCompression | If `true` (and server-supported), packets sent between client and server are compressed | not set |
+| urlEncodedCredentials | Set to `true` if your service broker provides URL-encoded credentials | false |
 
 >IMPORTANT: All of the settings described in the preceding table should be prefixed with `mysql:client:`.
 

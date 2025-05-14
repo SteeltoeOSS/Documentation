@@ -43,11 +43,11 @@ You can choose from two Config Server client NuGets, depending on your needs.
 
 If you plan on only connecting to the open source version of [Spring Cloud Config Server](https://projects.spring.io/spring-cloud/), then you should use one of the packages described by the following table, depending on your application type and needs:
 
-|App Type|Package|Description|
-|---|---|---|
-|Console/ASP.NET 4.x|`Steeltoe.Extensions.Configuration.ConfigServerBase`|Base functionality. No dependency injection.|
-|ASP.NET Core|`Steeltoe.Extensions.Configuration.ConfigServerCore`|Includes base. Adds ASP.NET Core dependency injection.|
-|ASP.NET 4.x with Autofac|`Steeltoe.Extensions.Configuration.ConfigServerAutofac`|Includes base. Adds Autofac dependency injection.|
+| App Type | Package | Description |
+| --- | --- | --- |
+| Console/ASP.NET 4.x | `Steeltoe.Extensions.Configuration.ConfigServerBase` | Base functionality. No dependency injection. |
+| ASP.NET Core | `Steeltoe.Extensions.Configuration.ConfigServerCore` | Includes base. Adds ASP.NET Core dependency injection. |
+| ASP.NET 4.x with Autofac | `Steeltoe.Extensions.Configuration.ConfigServerAutofac` | Includes base. Adds Autofac dependency injection. |
 
 To add this type of NuGet to your project, add a `PackageReference` that resembles the following:
 
@@ -85,33 +85,33 @@ The following example shows some provider settings put in a JSON file. Only two 
 
 The following table describes all the settings that can be used to configure the behavior of the provider:
 
-|Key|Description|Default|
-|---|---|---|
-|name|App name for which to request config|`IHostingEnvironment.ApplicationName`|
-|enabled|Enable or disable config server client|true|
-|uri|Comma-separated list of config server endpoints|`http://localhost:8888`|
-|env|Environment or profile used in the server request|`IHostingEnvironment.EnvironmentName`|
-|validateCertificates|Enable or disable certificate validation|true|
-|label|Comma-separated list of labels to request|master|
-|timeout|Time to wait for response from server, in milliseconds|6000|
-|username|Username for basic authentication|none|
-|password|Password for basic authentication|none|
-|failFast|Enable or disable failure at startup|false|
-|token|HashiCorp Vault authentication token|none|
-|tokenTtl|HashiCorp Vault token renewal TTL. Valid on Cloud Foundry only|300000ms|
-|tokenRenewRate|HashiCorp Vault token renewal rate. Valid on Cloud Foundry only|60000ms|
-|retry:enabled|Enable or disable retry logic|false|
-|retry:maxAttempts|Max retries if retry enabled|6|
-|retry:initialInterval|Starting interval|1000ms|
-|retry:maxInterval|Maximum retry interval|2000ms|
-|retry:multiplier|Retry interval multiplier|1.1|
-|clientId|OAuth2 client id when using OAuth security|none|
-|clientSecret|OAuth2 client secret when using OAuth security|none|
-|accessTokenUri|Uri to use to obtain OAuth access token|none|
-|discovery:enabled|Enable or disable discovery first feature|false|
-|discovery:serviceId|Config Server service id to use in discovery first feature|configserver|
-|health:enabled|Enable or disable config server health check contributor|true|
-|health:timeToLive|Health check contributor cache time to live in ms|60*5ms|
+| Key | Description | Default |
+| --- | --- | --- |
+| name | App name for which to request config | `IHostingEnvironment.ApplicationName` |
+| enabled | Enable or disable config server client | true |
+| uri | Comma-separated list of config server endpoints | `http://localhost:8888` |
+| env | Environment or profile used in the server request | `IHostingEnvironment.EnvironmentName` |
+| validateCertificates | Enable or disable certificate validation | true |
+| label | Comma-separated list of labels to request | master |
+| timeout | Time to wait for response from server, in milliseconds | 6000 |
+| username | Username for basic authentication | none |
+| password | Password for basic authentication | none |
+| failFast | Enable or disable failure at startup | false |
+| token | HashiCorp Vault authentication token | none |
+| tokenTtl | HashiCorp Vault token renewal TTL. Valid on Cloud Foundry only | 300000ms |
+| tokenRenewRate | HashiCorp Vault token renewal rate. Valid on Cloud Foundry only | 60000ms |
+| retry:enabled | Enable or disable retry logic | false |
+| retry:maxAttempts | Max retries if retry enabled | 6 |
+| retry:initialInterval | Starting interval | 1000ms |
+| retry:maxInterval | Maximum retry interval | 2000ms |
+| retry:multiplier | Retry interval multiplier | 1.1 |
+| clientId | OAuth2 client id when using OAuth security | none |
+| clientSecret | OAuth2 client secret when using OAuth security | none |
+| accessTokenUri | Uri to use to obtain OAuth access token | none |
+| discovery:enabled | Enable or disable discovery first feature | false |
+| discovery:serviceId | Config Server service id to use in discovery first feature | configserver |
+| health:enabled | Enable or disable config server health check contributor | true |
+| health:timeToLive | Health check contributor cache time to live in ms | 60*5ms |
 
 As mentioned earlier, all settings should start with `spring:cloud:config:`
 

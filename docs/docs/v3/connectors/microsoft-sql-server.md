@@ -47,7 +47,7 @@ The following Microsoft SQL Server connector configuration shows how to connect 
 
 The following table shows the available settings for the connector:
 
-|Key|Description |Steeltoe Default|
+| Key | Description | Steeltoe Default |
 | --- | --- | --- |
 | `Server` | Hostname or IP Address of server. | `localhost` |
 | `Port` | Port number of server. | 1433 |

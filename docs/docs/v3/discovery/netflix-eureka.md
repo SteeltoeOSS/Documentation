@@ -65,7 +65,7 @@ The following table describes the settings you can use to configure the behavior
 | `LeaseRenewalIntervalInSeconds` | How often client needs to send heartbeats. | 30s |
 | `LeaseExpirationDurationInSeconds` | Time the Eureka server waits before removing instance. | 90s |
 | `VipAddress` | Virtual host name. | `{HostName}:{Port}` |
-| `SecureVipAddress` | Secure virtual host name. | `{HostName}:{SecurePort}`|
+| `SecureVipAddress` | Secure virtual host name. | `{HostName}:{SecurePort}` |
 | `MetadataMap` | Name/value pairs associated with the instance. | none |
 | `StatusPageUrlPath` | Relative status page path for this instance. | `/Status` |
 | `StatusPageUrl` | Absolute status page for this instance. | computed |

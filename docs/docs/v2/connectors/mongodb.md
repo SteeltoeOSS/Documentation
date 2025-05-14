@@ -37,16 +37,16 @@ This connector supports several settings for local interaction with MongoDB that
 
 The following table table describes all possible settings for the connector
 
-|Key|Description|Default|
-|---|---|---|
-|server|Hostname or IP Address of the server|localhost|
-|port|Port number of the server|27017|
-|username|Username for authentication|not set|
-|password|Password for authentication|not set|
-|database|Name of the database to use|not set|
-|options|any additional [options](https://mongodb.github.io/mongo-csharp-driver/2.7/apidocs/html/T_MongoDB_Driver_MongoClientSettings.htm), passed through as provided|not set|
-|connectionString|Full connection string|built from settings|
-|urlEncodedCredentials|Set to `true` if your service broker provides URL-encoded credentials|false|
+| Key | Description | Default |
+| --- | --- | --- |
+| server | Hostname or IP Address of the server | localhost |
+| port | Port number of the server | 27017 |
+| username | Username for authentication | not set |
+| password | Password for authentication | not set |
+| database | Name of the database to use | not set |
+| options | any additional [options](https://mongodb.github.io/mongo-csharp-driver/2.7/apidocs/html/T_MongoDB_Driver_MongoClientSettings.htm), passed through as provided | not set |
+| connectionString | Full connection string | built from settings |
+| urlEncodedCredentials | Set to `true` if your service broker provides URL-encoded credentials | false |
 
 >IMPORTANT: All of these settings should be prefixed with `mongodb:client:`.
 

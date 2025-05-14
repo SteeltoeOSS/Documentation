@@ -57,7 +57,7 @@ The following table describes all the settings that can be used to configure the
 Each key must be prefixed with `Spring:Cloud:Config:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `Name` | Application name for which to request configuration | |
 | `Enabled` | Enable or disable the Config Server client | `true` |
 | `Uri` | Comma-separated list of Config Server endpoints | `http://localhost:8888` |

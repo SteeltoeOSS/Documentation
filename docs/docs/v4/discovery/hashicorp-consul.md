@@ -29,13 +29,13 @@ whether it also needs to query for other apps.
 The first section is for configuring the information needed to connect to the Consul server.
 All of these settings must start with `Consul:`.
 
-| Key    | Description | Default |
-| ------ | ----------- | ------- |
+| Key | Description | Default |
+| --- | --- | --- |
 | `Host` | Hostname or IP address of the Consul server | `localhost` |
 | `Port` | Port number the Consul server is listening on | `8500` |
 | `Scheme` | Scheme to connect with the Consul server (`http` or `https`) | `http` |
 | `Datacenter` | The datacenter name passed in each request to the server | |
-| `Token`    | Authentication token passed in each request to the server | |
+| `Token` | Authentication token passed in each request to the server | |
 | `WaitTime` | The maximum duration for a blocking request | |
 | `Username` | Username for HTTP authentication | |
 | `Password` | Password for HTTP authentication | |
@@ -44,8 +44,8 @@ All of these settings must start with `Consul:`.
 The second section (optional) pertains to registering the running app.
 All of these settings must start with `Consul:Discovery:`.
 
-| Key        | Description | Default |
-| ---------- | ----------- | ------- |
+| Key | Description | Default |
+| --- | --- | --- |
 | `Register` | Whether to register the running app as a service instance | `true` |
 | `FailFast` | Throw an exception (instead of logging an error) if registration fails | `true` |
 | `Retry:Enabled` | Whether to try again when registering the running app fails | `false` |
@@ -88,9 +88,9 @@ This section pertains to querying for app instances.
 All of these settings must start with `Consul:Discovery:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `DefaultQueryTag` | The tag to filter on when querying for service instances | |
-| `QueryPassing`    | Filter on health status passing when querying for service instances | `true` |
+| `QueryPassing` | Filter on health status passing when querying for service instances | `true` |
 
 For more information about these settings, see the Consul documentation:
 
@@ -120,10 +120,10 @@ For example:
 
 By default, the following metadata is added:
 
-| Key      | Value |
-| ---------| ----- |
-| `group`  | Value from `Consul:Discovery:InstanceGroup` |
-| Value from `Consul:Discovery:DefaultZoneMetadataName`  | Value from `Consul:Discovery:InstanceZone` |
+| Key | Value |
+| --- | --- |
+| `group` | Value from `Consul:Discovery:InstanceGroup` |
+| Value from `Consul:Discovery:DefaultZoneMetadataName` | Value from `Consul:Discovery:InstanceZone` |
 | `secure` | Value at `Consul:Discovery:Scheme` equals `https` |
 
 ## Health Contributor

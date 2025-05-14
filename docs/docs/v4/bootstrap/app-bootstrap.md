@@ -38,15 +38,15 @@ The following table describes the Steeltoe package that is required to light up 
 | Feature Description | Steeltoe Package | Additional Packages |
 | --- | --- | --- |
 | [Config Server Configuration Provider](../configuration/config-server-provider.md) | `Steeltoe.Configuration.ConfigServer` | Optional: `Steeltoe.Discovery.Eureka` to use discovery-first |
-| [Cloud Foundry Configuration Provider](../configuration/cloud-foundry-provider.md) |`Steeltoe.Configuration.CloudFoundry` |  N/A |
-| [Random Value Configuration Provider](../configuration/random-value-provider.md) |`Steeltoe.Configuration.RandomValue` |  N/A |
-| [Placeholder Configuration Provider](../configuration/placeholder-provider.md) |`Steeltoe.Configuration.Placeholder` |  N/A |
+| [Cloud Foundry Configuration Provider](../configuration/cloud-foundry-provider.md) | `Steeltoe.Configuration.CloudFoundry` | N/A |
+| [Random Value Configuration Provider](../configuration/random-value-provider.md) | `Steeltoe.Configuration.RandomValue` | N/A |
+| [Placeholder Configuration Provider](../configuration/placeholder-provider.md) | `Steeltoe.Configuration.Placeholder` | N/A |
 | [Encrypted Configuration Provider](../configuration/decryption-provider.md) | `Steeltoe.Configuration.Encryption` | N/A |
 | [Spring Boot Configuration Provider](../configuration/spring-boot-provider.md) | `Steeltoe.Configuration.SpringBoot` | N/A |
-| [Connectors](../connectors/index.md) |`Steeltoe.Connectors` |  Required: Supported driver[^1] (MySQL, PostgreSQL, SQL Server, MongoDB, CosmosDB, Redis/Valkey, RabbitMQ) |
-| [Eureka Service Discovery](../discovery/netflix-eureka.md) |`Steeltoe.Discovery.Eureka` | Optional: `Steeltoe.Management.Endpoint` for health checks |
-| [Consul Service Discovery](../discovery/hashicorp-consul.md) |`Steeltoe.Discovery.Consul` | N/A |
-| [Configuration-based Service Discovery](../discovery/configuration-based.md) |`Steeltoe.Discovery.Configuration` | N/A |
+| [Connectors](../connectors/index.md) | `Steeltoe.Connectors` | Required: Supported driver[^1] (MySQL, PostgreSQL, SQL Server, MongoDB, CosmosDB, Redis/Valkey, RabbitMQ) |
+| [Eureka Service Discovery](../discovery/netflix-eureka.md) | `Steeltoe.Discovery.Eureka` | Optional: `Steeltoe.Management.Endpoint` for health checks |
+| [Consul Service Discovery](../discovery/hashicorp-consul.md) | `Steeltoe.Discovery.Consul` | N/A |
+| [Configuration-based Service Discovery](../discovery/configuration-based.md) | `Steeltoe.Discovery.Configuration` | N/A |
 | [Dynamic Console Logging](../logging/dynamic-console-logging.md) | `Steeltoe.Logging.DynamicConsole` | N/A |
 | [Dynamic Serilog Logging](../logging/dynamic-serilog-logging.md) | `Steeltoe.Logging.DynamicSerilog` | N/A |
 | [Actuators](../management/index.md) | `Steeltoe.Management.Endpoint` | N/A |

@@ -7,7 +7,7 @@ The simplest way to use service discovery is by storing the list of app instance
 An app instance in configuration contains the following keys:
 
 | Key | Description |
-| --- | ----------- |
+| --- | --- |
 | `ServiceId` | The app friendly name |
 | `Host` | The hostname or IP address of the service instance |
 | `Port` | The port number the service instance is listening on |

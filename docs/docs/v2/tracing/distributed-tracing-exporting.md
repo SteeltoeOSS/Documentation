@@ -38,13 +38,13 @@ Steeltoe provides an exporter that will send all captured traces to a Zipkin ser
 
 The following table describes the settings that you can apply to the exporter:
 
-|Key|Description|Default|
-|---|---|---|
-|endpoint|the uri used to POST traces|`http://localhost:9411/api/v2/spans`|
-|validateCertificates|validate SSL certificates received from exporter service|true|
-|timeoutSeconds|timeout used in seconds for each POST request|3|
-|serviceName|app name used in log messages|null|
-|useShortTraceIds|truncate the ids to 8 bytes instead of 16, use for backwards compatibility with Spring Sleuth, PCF Metrics, etc.|true|
+| Key | Description | Default |
+| --- | --- | --- |
+| endpoint | the uri used to POST traces | `http://localhost:9411/api/v2/spans` |
+| validateCertificates | validate SSL certificates received from exporter service | true |
+| timeoutSeconds | timeout used in seconds for each POST request | 3 |
+| serviceName | app name used in log messages | null |
+| useShortTraceIds | truncate the ids to 8 bytes instead of 16, use for backwards compatibility with Spring Sleuth, PCF Metrics, etc. | true |
 
 **Note**: **Each setting above must be prefixed with `management:tracing:exporter:zipkin`**.
 

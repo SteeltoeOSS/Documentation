@@ -7,11 +7,11 @@ You can use the Steeltoe Heap Dump endpoint to capture and download a mini-dump 
 The following table describes the configuration settings that you can apply to the endpoint.
 Each key must be prefixed with `Management:Endpoints:HeapDump:`.
 
-| Key       | Description | Default |
-| --------- | ----------- | ------- |
+| Key | Description | Default |
+| --- | --- | --- |
 | `Enabled` | Whether the endpoint is enabled | `true` |
-| `ID`      | The unique ID of the endpoint | `heapdump` |
-| `Path`    | The relative path at which the endpoint is exposed | same as `ID` |
+| `ID` | The unique ID of the endpoint | `heapdump` |
+| `Path` | The relative path at which the endpoint is exposed | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
 | `HeapDumpType` | Sets the type of heap dump to capture | `Full` |

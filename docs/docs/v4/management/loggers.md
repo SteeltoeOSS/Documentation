@@ -10,7 +10,7 @@ The following table describes the configuration settings that you can apply to t
 Each key must be prefixed with `Management:Endpoints:Loggers:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `Enabled` | Whether the endpoint is enabled | `true` |
 | `ID` | The unique ID of the endpoint | `loggers` |
 | `Path` | The relative path at which the endpoint is exposed | same as `ID` |
@@ -125,7 +125,7 @@ For example, changing the minimum log level of `Microsoft.AspNetCore` affects al
 > provide a UI to change the minimum levels at runtime. For compatibility, the level names used by this actuator differ from the names used by .NET.
 >
 > | Actuator level | .NET level |
-> | -------------- | ------ |
+> | --- | --- |
 > | `OFF` | `LogLevel.None` |
 > | `FATAL` | `LogLevel.Critical` |
 > | `ERROR` | `LogLevel.Error` |

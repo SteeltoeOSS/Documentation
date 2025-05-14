@@ -8,11 +8,11 @@ The Steeltoe thread dump endpoint can be used to generate a snapshot of informat
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the thread dump endpoint|`dump`|
-|enabled|Whether to enable the thread dump management endpoint|true|
-|sensitive|Currently not used|false|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the thread dump endpoint | `dump` |
+| enabled | Whether to enable the thread dump management endpoint | true |
+| sensitive | Currently not used | false |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:dump`**.
 

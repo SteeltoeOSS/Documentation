@@ -22,8 +22,8 @@ builder.Services.AddSpringBootAdminClient();
 The following table describes the configuration settings that you can apply to the client.
 Each key must be prefixed with `Spring:Boot:Admin:Client:`.
 
-| Key   | Description | Default |
-| ----- | ----------- | ------- |
+| Key | Description | Default |
+| --- | --- | --- |
 | `Url` | The URL of the Spring Boot Admin server | |
 | `ApplicationName` | The name of the Steeltoe app being registered | computed |
 | `BasePath` | The base URL to find endpoints for integration | computed |

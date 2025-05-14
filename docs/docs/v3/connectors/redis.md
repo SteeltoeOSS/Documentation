@@ -56,8 +56,8 @@ The following table table describes all possible settings for the connector
 | Key | Description | Default |
 | --- | --- | --- |
 | `Host` | Hostname or IP Address of the server. | `localhost` |
-| `Port` | Port number of the server. |6379|
-| `EndPoints` |Comma-separated list of host:port pairs. | not set |
+| `Port` | Port number of the server. | 6379 |
+| `EndPoints` | Comma-separated list of host:port pairs. | not set |
 | `ClientName` | Identification for the connection within Redis. | not set |
 | `ConnectRetry` | Times to repeat initial connect attempts. | 3 |
 | `ConnectTimeout` | Timeout (ms) for connect operations. | 5000 |

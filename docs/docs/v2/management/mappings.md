@@ -6,10 +6,10 @@ The Steeltoe mappings endpoint can be used to return the MVC and WebAPI Routes a
 
 The following table describes the settings that you can apply to the endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the mappings endpoint|`mappings`|
-|enabled|Whether to enable the mappings management endpoint|true|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the mappings endpoint | `mappings` |
+| enabled | Whether to enable the mappings management endpoint | true |
 
 **Note**: **Each setting above must be prefixed with `management:endpoints:mappings`**.
 

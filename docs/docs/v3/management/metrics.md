@@ -83,9 +83,9 @@ In addition the following settings are available to be configured. Note that the
 | --- | --- | --- |
 | `ApiToken` | Your Tanzu Observability [API Token](https://docs.wavefront.com/users_account_managing.html#generate-an-api-token) | not set |
 | `Uri` | The Uri of your Wavefront Instance | not set |
-| `Step` | The interval between reporting to Wavefront  | 30000  |
+| `Step` | The interval between reporting to Wavefront | 30000 |
 | `BatchSize` | The max batch of data sent per flush interval | 10000 |
-| `MaxQueueSize` |  the size of internal buffer beyond which data is dropped | 500000
+| `MaxQueueSize` | the size of internal buffer beyond which data is dropped | 500000 |
 
 **Note**: **Each setting above must be prefixed with `Management:Metrics:Export:Wavefront`**
 
@@ -95,7 +95,7 @@ In addition, the following settings can be used to set the application and servi
 
 | Key | Description | Default |
 | --- | --- | --- |
-| `Source`| Unique identifier for the app instance that is publishing metrics to Wavefront | DNS name
+| `Source` | Unique identifier for the app instance that is publishing metrics to Wavefront | DNS name |
 | `Name` | Name of the application | SteeltoeApp |
 | `Service` | Name of the service | SteeltoeService |
 

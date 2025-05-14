@@ -39,8 +39,8 @@ The second set of settings you may need to specify pertain to service registrati
 | `InstanceId` | The instance id registered for service. | computed |
 | `Tags` | The list of tags used when registering a service. | none |
 | `DefaultQueryTag` | Tag to query for in service list if one is not listed in serverListQueryTags. | none |
-| `Meta` | The metadata used when registering a service. | see [Configuring Metadata](#configuring-metadata)|
-| `TagsAsMetadata` |  Value indicating whether use tags as metadata. | `true` (see [Configuring Metadata](#configuring-metadata)) |
+| `Meta` | The metadata used when registering a service. | see [Configuring Metadata](#configuring-metadata) |
+| `TagsAsMetadata` | Value indicating whether use tags as metadata. | `true` (see [Configuring Metadata](#configuring-metadata)) |
 | `QueryPassing` | Enable or disable whether to add the 'passing' parameter to health requests. This pushes health check passing to the server. | `false` |
 | `RegisterHealthCheck` | Enable or disable health check registration. | `true` |
 | `HealthCheckUrl` | The health check URL override. | none |
@@ -48,7 +48,7 @@ The second set of settings you may need to specify pertain to service registrati
 | `HealthCheckInterval` | How often to perform the health check. | 10s |
 | `HealthCheckTimeout` | Timeout for health check. | 10s |
 | `HealthCheckCriticalTimeout` | Timeout to de-register services critical for longer than this value. | 30m |
-| `HealthCheckTlsSkipVerify` |Skip health check TLS verification. | `false` |
+| `HealthCheckTlsSkipVerify` | Skip health check TLS verification. | `false` |
 | `InstanceZone` | Instance zone to use during registration. | none |
 | `InstanceGroup` | Instance group to use during registration. | none |
 | `DefaultZoneMetadataName` | Metadata tag name of the zone. | `zone` |
@@ -139,7 +139,7 @@ When set to `false`, metadata are in the form of `key: value`. You can add metad
 By default the following metadata are added:
 
 | Key | Value |
-| - | - |
+| --- | --- |
 | `group` | `ConsulDiscoveryOptions.InstanceGroup` |
 | `ConsulDiscoveryOptions.DefaultZoneMetadataName` | `ConsulDiscoveryOptions.InstanceZone` |
 | `secure` | `ConsulDiscoveryOptions.Scheme == "https"` |

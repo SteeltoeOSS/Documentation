@@ -17,10 +17,10 @@ When running in Cloud Foundry, the [Cloud Foundry Actuator](cloud-foundry.md) as
 
 The following table describes the additional settings that you could apply to the Hypermedia endpoint:
 
-|Key|Description|Default|
-|---|---|---|
-|id|The ID of the Hypermedia endpoint|""|
-|enabled|Whether to enable the Hypermedia endpoint|true|
+| Key | Description | Default |
+| --- | --- | --- |
+| id | The ID of the Hypermedia endpoint | "" |
+| enabled | Whether to enable the Hypermedia endpoint | true |
 
 ## Enable HTTP Access
 

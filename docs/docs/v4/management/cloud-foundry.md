@@ -17,7 +17,7 @@ Typically, no additional configuration is needed. However, the following table d
 Each key must be prefixed with `Management:Endpoints:CloudFoundry`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `Enabled` | Whether the endpoint is enabled | `true` |
 | `ID` | The unique ID of the endpoint | `""` |
 | `Path` | The relative path at which the endpoint is exposed | same as `ID` |

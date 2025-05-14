@@ -44,7 +44,7 @@ The following example shows a PostgreSQL connector configuration (in JSON) to se
 
 The following table describes all of the possible settings for the connector:
 
-|Key|Description |Default
+| Key | Description | Default |
 | --- | --- | --- |
 | `Host` | Hostname or IP Address of server. | `localhost` |
 | `Port` | Port number of server. | 5432 |

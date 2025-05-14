@@ -21,10 +21,10 @@ dotnet tool install --global --version 0.5.0 Steeltoe.Cli
 
 The DotNet Global Tool is installed in an OS-dependent user directory.
 
-|OS|Path|
-|---|---|
-|Windows|`%USERPROFILE%\.dotnet\tools`|
-|OS X/Linux|`$HOME/.dotnet/tools`|
+| OS | Path |
+| --- | --- |
+| Windows | `%USERPROFILE%\.dotnet\tools` |
+| OS X/Linux | `$HOME/.dotnet/tools` |
 
 After adding the above paths to your `PATH` env var, you can run the `st` executable.
 
@@ -75,17 +75,17 @@ Running `st add-service <svctype> <svcname>` adds a service to the configuration
 
 Supported service types include:
 
-|Service Type|Description|
-|---|---|
-|config-server|Cloud Foundry Config Server|
-|eureka-server|Netflix Eureka Server|
-|hystrix-dashboard|Netflix Hystrix Dashboard|
-|mssql|Microsoft SQL Server|
-|mysql|MySQL Server|
-|postgresql|PostgreSQL Server|
-|rabbitmq|RabbitMQ Message Broker|
-|redis|Redis In-Memory Datastore|
-|zipkin|Zipkin Tracing Collector and UI|
+| Service Type | Description |
+| --- | --- |
+| config-server | Cloud Foundry Config Server |
+| eureka-server | Netflix Eureka Server |
+| hystrix-dashboard | Netflix Hystrix Dashboard |
+| mssql | Microsoft SQL Server |
+| mysql | MySQL Server |
+| postgresql | PostgreSQL Server |
+| rabbitmq | RabbitMQ Message Broker |
+| redis | Redis In-Memory Datastore |
+| zipkin | Zipkin Tracing Collector and UI |
 
 ```shell
 st add-service config-server MyConfigServer
@@ -115,11 +115,11 @@ Running `st target <target>` targets a deployment.
 
 Supported targets include:
 
-|Target|Deployment Destination|
-|---|---|
-|cloud-foundry|current Cloud Foundry space|
-|docker|local Docker host|
-|kubernetes|current Kubernetes context|
+| Target | Deployment Destination |
+| --- | --- |
+| cloud-foundry | current Cloud Foundry space |
+| docker | local Docker host |
+| kubernetes | current Kubernetes context |
 
 ```shell
 st target kubernetes

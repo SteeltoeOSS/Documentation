@@ -71,7 +71,7 @@ There are two types of encryption: symmetric and asymmetric.
 The following table describes the configuration settings that you can apply to the decryption provider:
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `Encrypt:Enabled` | Enable decryption of encrypted `{cipher}` values | `false` |
 | `Encrypt:Rsa:Strong` | When set to `true`, the "strong" GCM AES algorithm is used; otherwise, the standard CBC algorithm is used | `false` |
 | `Encrypt:Rsa:Salt` | Salt for the random secret used to encrypt cipher text | `deadbeef` |

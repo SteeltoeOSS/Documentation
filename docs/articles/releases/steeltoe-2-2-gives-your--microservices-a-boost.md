@@ -22,4 +22,4 @@ While my better half may not be excited about the new Steeltoe, over 2.4 million
 Each Steeltoe release is always jam-packed with useful new capabilities. [Steeltoe 2.2](http://steeltoe.io/reference/reference-release-notes/), now GA, delivers! Let’s take a spin through the highlights...
 
 | [Read More](https://tanzu.vmware.com/content/blog/steeltoe-2-2-gives-your-net-microservices-a-boost) |
-|:---:|
+| :---: |

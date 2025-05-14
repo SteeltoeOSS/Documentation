@@ -10,10 +10,10 @@ Steeltoe builds on top of `Microsoft.AspNetCore.Authentication.OpenIdConnect`. Y
 
 Usage of Steeltoe's OpenID Connect provider is effectively identical to that of the OAuth2 provider, although the behind-the-scenes story is a little different. The OpenID Connect provider uses Microsoft's OpenId Connect implementation, and settings are based on `Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions`, with these additional properties:
 
-|Name|Description|Default|
-|---|---|---|
-|additionalScopes|Scopes to request for tokens in addition to `openid`|`string.Empty`|
-|validateCertificates|Validate Auth server certificate|`true`|
+| Name | Description | Default |
+| --- | --- | --- |
+| additionalScopes | Scopes to request for tokens in addition to `openid` | `string.Empty` |
+| validateCertificates | Validate Auth server certificate | `true` |
 
 **Note**: **Each setting above must be prefixed with `security:oauth2:client`**.
 
@@ -63,15 +63,15 @@ The samples and most templates are already set up to read from `appsettings.json
 
 This full list of settings can also be configured, though `AuthDomain`, `ClientId` and `ClientSecret` will be overridden by service bindings (if present).
 
-|Name|Description|Default|
-|---|---|---|
-|additionalScopes|Scopes to request for tokens in addition to `openid`|`string.Empty`|
-|authDomain|Location of the OAuth2 server|`https://Default_OAuthServiceUrl`|
-|authenticationType|Corresponds to the IIdentity AuthenticationType|`CloudFoundry`|
-|callbackPath|Path the user is redirected back to after authentication|`/signin-cloudfoundry`|
-|clientId|App credentials with auth server|`Default_ClientId`|
-|clientSecret|App credentials with auth server|`Default_ClientSecret`|
-|validateCertificates|Validate OAuth2 server certificate|`true`|
+| Name | Description | Default |
+| --- | --- | --- |
+| additionalScopes | Scopes to request for tokens in addition to `openid` | `string.Empty` |
+| authDomain | Location of the OAuth2 server | `https://Default_OAuthServiceUrl` |
+| authenticationType | Corresponds to the IIdentity AuthenticationType | `CloudFoundry` |
+| callbackPath | Path the user is redirected back to after authentication | `/signin-cloudfoundry` |
+| clientId | App credentials with auth server | `Default_ClientId` |
+| clientSecret | App credentials with auth server | `Default_ClientSecret` |
+| validateCertificates | Validate OAuth2 server certificate | `true` |
 
 **Note**: **Each setting above must be prefixed with `security:oauth2:client`**.
 

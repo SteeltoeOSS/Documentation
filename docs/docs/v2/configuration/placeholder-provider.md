@@ -29,10 +29,10 @@ In order to use the Steeltoe Placeholder resolver provider you need to do the fo
 
 To use the provider, you need to add a reference to the appropriate Steeltoe NuGet based on the type of the application you are building and what Dependency Injector you have chosen, if any. The following table describes the available packages:
 
-|App Type|Package|Description|
-|---|---|---|
-|Console/ASP.NET 4.x|`Steeltoe.Extensions.Configuration.PlaceholderBase`|Base functionality. No dependency injection.|
-|ASP.NET Core|`Steeltoe.Extensions.Configuration.PlaceholderCore`|Includes base. Adds ASP.NET Core dependency injection.|
+| App Type | Package | Description |
+| --- | --- | --- |
+| Console/ASP.NET 4.x | `Steeltoe.Extensions.Configuration.PlaceholderBase` | Base functionality. No dependency injection. |
+| ASP.NET Core | `Steeltoe.Extensions.Configuration.PlaceholderCore` | Includes base. Adds ASP.NET Core dependency injection. |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 

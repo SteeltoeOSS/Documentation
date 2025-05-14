@@ -38,10 +38,10 @@ To use the distributed tracing exporters, you need to add a reference to the app
 
 The following table describes the available packages:
 
-|App Type|Package|Description|
-|---|---|---|
-|All|`Steeltoe.Management.TracingBase`|Base functionality, no dependency injection|
-|ASP.NET Core|`Steeltoe.Management.TracingCore`|Includes `TracingBase`, adds ASP.NET Core DI|
+| App Type | Package | Description |
+| --- | --- | --- |
+| All | `Steeltoe.Management.TracingBase` | Base functionality, no dependency injection |
+| ASP.NET Core | `Steeltoe.Management.TracingCore` | Includes `TracingBase`, adds ASP.NET Core DI |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
@@ -65,18 +65,18 @@ Distributed tracing can be configured by using the normal .NET [Configuration se
 
 All settings should be placed under the prefix with the key `management:tracing:`.
 
-|Key|Description|Default|
-|---|---|---|
-|name|the name of the application|spring:application:name, Cloud Foundry name, or "Unknown"|
-|ingressIgnorePattern|Regex pattern describing what incoming requests to ignore|See `TracingOptions`|
-|egressIgnorePattern|Regex pattern describing what outgoing requests to ignore|See `TracingOptions`|
-|maxNumberOfAttributes|max attributes attachable to OpenCensus span|32|
-|maxNumberOfAnnotations|max annotations attachable to OpenCensus span|32|
-|maxNumberOfMessageEvents|max events attachable to OpenCensus span|128|
-|maxNumberOfLinks|max links attachable to OpenCensus span|128|
-|alwaysSample|enable the OpenCensus AlwaysSampler|OpenCensus ProbabilitySampler|
-|neverSample|enable the OpenCensus NeverSampler|OpenCensus ProbabilitySampler|
-|useShortTraceIds|truncate the ids to 8 bytes instead of 16, use for backwards compatibility with Spring Sleuth, PCF Metrics, etc.|true|
+| Key | Description | Default |
+| --- | --- | --- |
+| name | the name of the application | spring:application:name, Cloud Foundry name, or "Unknown" |
+| ingressIgnorePattern | Regex pattern describing what incoming requests to ignore | See `TracingOptions` |
+| egressIgnorePattern | Regex pattern describing what outgoing requests to ignore | See `TracingOptions` |
+| maxNumberOfAttributes | max attributes attachable to OpenCensus span | 32 |
+| maxNumberOfAnnotations | max annotations attachable to OpenCensus span | 32 |
+| maxNumberOfMessageEvents | max events attachable to OpenCensus span | 128 |
+| maxNumberOfLinks | max links attachable to OpenCensus span | 128 |
+| alwaysSample | enable the OpenCensus AlwaysSampler | OpenCensus ProbabilitySampler |
+| neverSample | enable the OpenCensus NeverSampler | OpenCensus ProbabilitySampler |
+| useShortTraceIds | truncate the ids to 8 bytes instead of 16, use for backwards compatibility with Spring Sleuth, PCF Metrics, etc. | true |
 
 ### Enabling Log Correlation
 

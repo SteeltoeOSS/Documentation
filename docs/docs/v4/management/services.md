@@ -8,7 +8,7 @@ The following table describes the configuration settings that you can apply to t
 Each key must be prefixed with `Management:Endpoints:Services:`.
 
 | Key | Description | Default |
-| --- | ----------- | ------- |
+| --- | --- | --- |
 | `Enabled` | Whether the endpoint is enabled | `true` |
 | `ID` | The unique ID of the endpoint | `beans` |
 | `Path` | The relative path at which the endpoint is exposed | same as `ID` |
