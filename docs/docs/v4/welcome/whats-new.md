@@ -980,10 +980,11 @@ For more information, see the updated [Logging documentation](../logging/index.m
 - Simplified content negotiation; updated all actuators to support latest Spring media type
 - New actuator `/beans` that lists the contents of the .NET dependency container, including support for keyed services
 - Update health checks and actuator to align with latest Spring; hide details by default; contributors can be turned on/off at runtime using configuration
+- Support Windows network shares in disk space health contributor
 - Update `/mappings` actuator to include endpoints from Minimal APIs, Razor Pages, and Blazor, with richer metadata and improved compatibility with Spring
-- Heap dumps are enabled by default in Cloud Foundry on Linux
+- Heap dumps are enabled by default in Cloud Foundry on Linux; all dump types supported on Windows/Linux/macOS
 - Improved Prometheus exporter that works with latest OpenTelemetry
-- Various fixes for interoperability with latest Spring Boot Admin
+- Various fixes for interoperability with latest Spring Boot Admin; more flexible configuration, uses smarter defaults
 - Unified `/traces` and `/httptraces` actuators to `/httpexchanges`, to align with latest Spring
 - WaveFront, Zipkin, and Jaeger support was removed (use OpenTelemetry directly)
 - Metrics endpoint was removed (use OpenTelemetry directly)
@@ -1346,6 +1347,10 @@ For more information, see the updated [Logging documentation](../logging/index.m
 
 ### Notable PRs
 
+- https://github.com/SteeltoeOSS/Steeltoe/pull/1517
+- https://github.com/SteeltoeOSS/Steeltoe/pull/1508
+- https://github.com/SteeltoeOSS/Steeltoe/pull/1503
+- https://github.com/SteeltoeOSS/Steeltoe/pull/1490
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1474
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1457
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1454
