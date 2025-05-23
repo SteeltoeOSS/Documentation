@@ -1,6 +1,10 @@
 # Heap Dump
 
-You can use the Steeltoe Heap Dump endpoint to capture and download a mini-dump of your application. The mini-dump can then be read into Visual Studio for analysis.
+You can use the Steeltoe Heap Dump endpoint to capture and download a memory dump of your application.
+Depending on the type of dump and the operating system it was captured on, it can be analyzed in various tools, such as Visual Studio and [PerfView](https://github.com/microsoft/perfview).
+
+> [!NOTE]
+> The logic used by this endpoint is similar to the [dotnet-dump](https://learn.microsoft.com/dotnet/core/diagnostics/dotnet-dump) and [dotnet-gcdump](https://learn.microsoft.com/dotnet/core/diagnostics/dotnet-gcdump) tools.
 
 ## Configure Settings
 
@@ -14,18 +18,18 @@ Each key must be prefixed with `Management:Endpoints:HeapDump:`.
 | `Path` | The relative path at which the endpoint is exposed | same as `ID` |
 | `RequiredPermissions` | Permissions required to access the endpoint, when running on Cloud Foundry | `Restricted` |
 | `AllowedVerbs` | An array of HTTP verbs at which the endpoint is exposed | `GET` |
-| `HeapDumpType` | Sets the type of heap dump to capture | `Full` |
+| `HeapDumpType` | Sets the type of memory dump to capture | `Full`, `GCDump` on macOS |
 
-The `HeapDumpType` setting is supported on Linux and Windows only.
-Acceptable values are:
+The following table lists the memory dump types.
+All types are supported on Windows, Linux, and macOS.
 
-* `Normal`
-* `WithHeap`
-* `Triage`
-* `Full`
-
-> [!NOTE]
-> On macOS, the `HeapDumpType` setting is ignored and a gcdump is always captured.
+| HeapDumpType | Description |
+| --- | --- |
+| `Full` | The largest dump containing all memory including the module images. |
+| `Heap` | A large and relatively comprehensive dump containing module lists, thread lists, all stacks, exception information, handle information, and all memory except for mapped images. |
+| `Mini` | A small dump containing module lists, thread lists, exception information, and all stacks. |
+| `Triage` | A small dump containing module lists, thread lists, exception information, all stacks and PII removed. |
+| `GCDump` | A Garbage Collector dump, created by triggering a GC, turning on special events, and regenerating the graph of object roots from the event stream. |
 
 ## Enable HTTP Access
 
