@@ -1,6 +1,10 @@
 # Thread Dump
 
-The Steeltoe Thread Dump endpoint can be used to generate a snapshot of information about all the threads in your application. That snapshot includes several bits of information for each thread, including the thread state, a stack trace, any monitor locks held by the thread, any monitor locks the thread is waiting for, and other details.
+The Steeltoe Thread Dump endpoint can be used to generate a snapshot of information about all the threads in your application.
+Such a snapshot includes several bits of information per thread, including its ID, whether the thread is blocked, and its stack trace.
+
+> [!NOTE]
+> The logic used by this endpoint is similar to the [dotnet-stack](https://learn.microsoft.com/dotnet/core/diagnostics/dotnet-stack) tool.
 
 ## Configure Settings
 
@@ -50,9 +54,6 @@ The response is always returned as JSON:
 {
   "threads": [
     {
-      "blockedCount": 0,
-      "blockedTime": -1,
-      "lockOwnerId": -1,
       "stackTrace": [
         {
           "className": "[NativeClasses]",
@@ -60,23 +61,31 @@ The response is always returned as JSON:
           "nativeMethod": true
         },
         {
-          "className": "System!System.Threading.WaitHandle",
+          "moduleName": "System.Runtime",
+          "className": "System.Threading.WaitHandle",
           "methodName": "WaitOneNoCheck(int32)",
           "nativeMethod": false
         },
         {
-          "className": "System!System.Threading.PortableThreadPool+GateThread",
+          "moduleName": "System.Runtime",
+          "className": "System.Threading.PortableThreadPool+GateThread",
           "methodName": "GateThreadStart()",
+          "nativeMethod": false
+        },
+        {
+          "moduleName": "ExampleAssembly",
+          "className": "ExampleNamespace.ExampleClass",
+          "methodName": "Run()",
+          "fileName": "C:\\Source\\Code\\Example.cs",
+          "lineNumber": 10,
+          "columnNumber": 16,
           "nativeMethod": false
         }
       ],
       "threadId": 11848,
       "threadName": "Thread-11848",
       "threadState": "WAITING",
-      "waitedCount": 0,
-      "waitedTime": -1,
-      "inNative": true,
-      "suspended": false
+      "inNative": true
     }
   ]
 }
