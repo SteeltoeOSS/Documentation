@@ -78,7 +78,7 @@ The following table describes the settings that you can apply globally:
 
 ### Custom Serialization Options
 
-As of 3.1.1, the `JsonSerializerOptions` used to serialize actuator responses are configurable, and custom JsonConverters can be used by adding the [assembly-qualified type](https://docs.microsoft.com/dotnet/api/system.type.assemblyqualifiedname").
+As of 3.1.1, the `JsonSerializerOptions` used to serialize actuator responses are configurable, and custom JsonConverters can be used by adding the [assembly-qualified type](https://docs.microsoft.com/dotnet/api/system.type.assemblyqualifiedname).
 
 For example, to have DateTime values serialized as epoch times and all JSON pretty printed:
 

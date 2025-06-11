@@ -84,8 +84,8 @@ When working with distributed tracing systems, you will find that a trace contex
 
 Steeltoe makes this easy by automatically configuring some of the instrumentation packages provided by Open Telemetry.
 
-* TracingBase configures [instrumentation on outbound requests](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.Http/README.md)
-* TracingCore builds on top of TracingBase, also configuring [instrumentation on inbound requests through ASP.NET Core and Grpc.AspNetCore](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md)
+* TracingBase configures [instrumentation on outbound requests](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.Http/README.md)
+* TracingCore builds on top of TracingBase, also configuring [instrumentation on inbound requests through ASP.NET Core and Grpc.AspNetCore](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md)
 * Additional instrumentation libraries can be added with the [`Action<TracerProviderBuilder>` parameter](#adding-to-tracerproviderbuilder)
 
  Steeltoe currently uses [Zipkin B3 Propagation](https://github.com/openzipkin/b3-propagation) by default, but can be configured to use [W3C trace context](https://www.w3.org/TR/trace-context/). As a result, you will find that Steeltoe tracing is interoperable with several other instrumentation libraries, such as [Spring Cloud Sleuth](https://spring.io/projects/spring-cloud-sleuth).
