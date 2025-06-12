@@ -125,7 +125,7 @@ namespace UsageSender
 ```
 
 The `[EnableBinding]` attribute indicates that you want to bind your application to messaging middleware.
-The attribute takes one or more interfaces as a parameter, in this case, the [ISource](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Stream/src/Abstractions/Messaging/ISource.cs) interface that defines an output channel named `output`.
+The attribute takes one or more interfaces as a parameter, in this case, the [ISource](https://github.com/SteeltoeOSS/Steeltoe/blob/3.x/src/Stream/src/Abstractions/Messaging/ISource.cs) interface that defines an output channel named `output`.
 In the case of RabbitMQ, messages sent to the `output` channel are in turn sent to the RabbitMQ message broker by using a `TopicExchange`.
 
 Deriving from [BackgroundService](https://docs.microsoft.com/aspnet/core/fundamentals/host/hosted-services#backgroundservice-base-class) and calling `Task.Delay` makes the UsageGenerator a background task that gets called by the framework every `5` seconds.
@@ -251,7 +251,7 @@ namespace UsageProcessor
 }
 ```
 
-In the preceding application, the `[EnableBinding]` attribute indicates that you want to bind your application to the messaging middleware. The attribute takes one or more interfaces as a parameter, in this case, the [IProcessor](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Stream/src/Abstractions/Messaging/IProcessor.cs) that defines and input and output channel.
+In the preceding application, the `[EnableBinding]` attribute indicates that you want to bind your application to the messaging middleware. The attribute takes one or more interfaces as a parameter, in this case, the [IProcessor](https://github.com/SteeltoeOSS/Steeltoe/blob/3.x/src/Stream/src/Abstractions/Messaging/IProcessor.cs) that defines and input and output channel.
 
 The `[StreamListener]` attribute binds the application's `input` channel to the `Handle` method and automatically deserializes the incoming JSON into `UsageDetail` object.
 
@@ -337,7 +337,7 @@ namespace UsageLogger
 }
 ```
 
-In the preceding application, the `[EnableBinding]` attribute indicates that you want to bind your application to the messaging middleware. The attribute takes one or more interfaces as a parameter, in this case, the [ISink](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Stream/src/Abstractions/Messaging/ISink.cs) interface that defines an input channel.
+In the preceding application, the `[EnableBinding]` attribute indicates that you want to bind your application to the messaging middleware. The attribute takes one or more interfaces as a parameter, in this case, the [ISink](https://github.com/SteeltoeOSS/Steeltoe/blob/3.x/src/Stream/src/Abstractions/Messaging/ISink.cs) interface that defines an input channel.
 
 The `[StreamListener]` attribute binds the application's `input` channel to the `process` method by converting the incoming JSON to a `UsageCostDetail` object.
 
