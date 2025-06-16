@@ -27,6 +27,10 @@ Each key must be prefixed with `Management:Endpoints:CloudFoundry`.
 | `ApplicationId` | The ID of the application used in permission checks | |
 | `CloudFoundryApi` | The URL of the Cloud Foundry API | |
 
+> [!TIP]
+> The preceding settings apply only to the `/cloudfoundryapplication` hypermedia endpoint.
+> To turn off *all* management endpoints starting with this path, set `Management:CloudFoundry:Enabled` to `false`.
+
 ## Enable HTTP Access
 
 The URL path to the endpoint is computed by combining the global `Management:Endpoints:Path` setting with the `Path` setting described in the preceding section.
@@ -79,3 +83,65 @@ In addition, the endpoints may be secured by whatever security mechanism the app
 > [!CAUTION]
 > An authorization policy on `/actuator` also applies to `/cloudfoundryapplication`, which then breaks the integration with Apps Manager.
 > To prevent public access to `/actuator` when running on Cloud Foundry, consider configuring actuators to [use an alternate port](./using-endpoints.md#configure-global-settings).
+
+## Sample Output
+
+This endpoint returns a list of management endpoints, including itself.
+
+The response is always returned as JSON:
+
+```json
+{
+  "type": "steeltoe",
+  "_links": {
+    "beans": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/beans",
+      "templated": false
+    },
+    "dbmigrations": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/dbmigrations",
+      "templated": false
+    },
+    "env": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/env",
+      "templated": false
+    },
+    "health": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/health",
+      "templated": true
+    },
+    "heapdump": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/heapdump",
+      "templated": false
+    },
+    "httpexchanges": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/httpexchanges",
+      "templated": false
+    },
+    "info": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/info",
+      "templated": false
+    },
+    "loggers": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/loggers",
+      "templated": true
+    },
+    "mappings": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/mappings",
+      "templated": false
+    },
+    "refresh": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/refresh",
+      "templated": false
+    },
+    "threaddump": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication/threaddump",
+      "templated": false
+    },
+    "self": {
+      "href": "https://appname.cf-app.com/cloudfoundryapplication",
+      "templated": false
+    }
+  }
+}
+```

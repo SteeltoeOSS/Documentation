@@ -129,9 +129,6 @@ When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `Whe
 {
   "status": "UP",
   "components": {
-    "ping": {
-      "status": "UP"
-    },
     "diskSpace": {
       "status": "UP",
       "details": {
@@ -141,6 +138,9 @@ When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `Whe
         "path": "C:\\source\\Repository\\src\\Project",
         "exists": true
       }
+    },
+    "ping": {
+      "status": "UP"
     }
   }
 }
@@ -170,7 +170,7 @@ If you want to check application health based on a subset of health contributors
 }
 ```
 
-While group names are case-sensitive, the entries in `Include` are case-insensitive and activate only health contributors with a matching `Id`, and/or ASP.NET health check registrations with a matching name.
+Group names and the entries in `Include` are case-insensitive and activate only health contributors with a matching `Id`, and/or ASP.NET health check registrations with a matching name.
 
 For any group that has been defined, you can access health information from the group by appending the group name to the HTTP request URL. For example: `/actuator/health/example-group`.
 
@@ -348,9 +348,6 @@ When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `Whe
       "status": "WARNING",
       "description": "This health check does not check anything"
     },
-    "ping": {
-      "status": "UP"
-    },
     "diskSpace": {
       "status": "UP",
       "details": {
@@ -360,6 +357,9 @@ When `ShowComponents` and `ShowDetails` are set to `Always`, or when set to `Whe
         "path": "C:\\source\\Repository\\src\\Project",
         "exists": true
       }
+    },
+    "ping": {
+      "status": "UP"
     }
   }
 }
