@@ -71,12 +71,12 @@ The response is always returned as JSON:
 {
   "type": "steeltoe",
   "_links": {
-    "info": {
-      "href": "https://localhost:7105/actuator/info",
-      "templated": false
-    },
     "health": {
       "href": "https://localhost:7105/actuator/health",
+      "templated": true
+    },
+    "info": {
+      "href": "https://localhost:7105/actuator/info",
       "templated": false
     },
     "self": {
