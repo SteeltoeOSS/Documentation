@@ -123,30 +123,3 @@ To retrieve data from CosmosDB in your app, use the following steps:
     ```
 
 A complete sample app that uses `CosmosClient` is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/CosmosDb.
-
-## Cloud Foundry
-
-This Connector supports the following service brokers:
-
-- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-10/csb-azure/index.html)
-
-You can create and bind an instance to your application by using the Cloud Foundry CLI.
-
-1. Create CosmosDB service:
-
-   ```shell
-   cf create-service csb-azure-cosmosdb-sql mini myCosmosDbService
-   ```
-
-1. Bind service to your app:
-
-   ```shell
-   cf bind-service myApp myCosmosDbService
-   ```
-
-1. Restage the app to pick up change:
-
-   ```shell
-   cf restage myApp
-   ```
-

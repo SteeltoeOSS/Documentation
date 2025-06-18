@@ -147,15 +147,16 @@ A complete sample app that uses Entity Framework Core with PostgreSQL is provide
 
 This Connector supports the following service brokers:
 
-- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-9/csb-azure/index.html)
-- [VMware Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-gcp/1-8/csb-gcp/index.html)
+- [Tanzu for Postgres on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-for-postgres-on-cloud-foundry/10-1/postgres/index.html)
+- [Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-gcp/1-9/csb-gcp/reference-gcp-postgresql.html)
+- [Tanzu Cloud Service Broker for AWS](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-aws/1-14/csb-aws/reference-aws-postgres.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI.
 
 1. Create PostgreSQL service:
 
    ```shell
-   cf create-service csb-azure-postgresql small myPostgreSqlService
+   cf create-service postgres small myPostgreSqlService
    ```
 
 1. Bind service to your app:
