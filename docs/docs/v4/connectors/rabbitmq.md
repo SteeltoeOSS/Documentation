@@ -89,14 +89,14 @@ A complete sample app that uses `IConnection` is provided at https://github.com/
 
 This Connector supports the following service brokers:
 
-- [VMware Tanzu RabbitMQ on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-cloud-foundry/10-0/tanzu-rabbitmq-cloud-foundry/index.html)
+- [Tanzu RabbitMQ on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-cloud-foundry/10-0/tanzu-rabbitmq-cloud-foundry/index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI.
 
 1. Create RabbitMQ service:
 
    ```shell
-   cf create-service p.rabbitmq single-node myRabbitMQService
+   cf create-service p.rabbitmq rmq-single-node myRabbitMQService
    ```
 
 1. Bind service to your app:

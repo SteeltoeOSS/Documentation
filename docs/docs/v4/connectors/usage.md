@@ -167,7 +167,7 @@ The cached instance is per named service, so when both service1 and service2 exi
 
 ## Legacy host builders
 
-Steeltoe provides direct extension methods on `WebApplicationBuilder` for ease of use.
+Steeltoe provides direct extension methods on `IHostApplicationBuilder` for ease of use.
 
 If you're using the legacy [IHostBuilder](https://learn.microsoft.com/aspnet/core/fundamentals/host/generic-host) or
 [IWebHostBuilder](https://learn.microsoft.com/aspnet/core/fundamentals/host/web-host), you need to call two methods instead.

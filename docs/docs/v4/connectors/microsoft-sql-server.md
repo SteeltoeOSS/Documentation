@@ -146,14 +146,15 @@ A complete sample app that uses Entity Framework Core with SQL Server is provide
 
 This Connector supports the following service brokers:
 
-- [VMware Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-12/csb-azure/index.html)
+- [Tanzu Cloud Service Broker for Microsoft Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-13/csb-azure/reference-azure-mssql-db.html)
+- [Tanzu Cloud Service Broker for AWS](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-aws/1-14/csb-aws/reference-aws-mssql.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI.
 
 1. Create SQL Server service:
 
    ```shell
-   cf create-service csb-azure-mssql small-v2 mySqlServerService
+   cf create-service csb-azure-mssql-db your-plan mySqlServerService
    ```
 
 1. Bind service to your app:
