@@ -1,0 +1,10 @@
+apiRules:
+- exclude:
+    uidRegex: ^Microsoft\.Diagnostics\.Runtime\.Interop$
+    type: Namespace
+- exclude:
+    uidRegex: ^Microsoft\.Extensions\.DependencyInjection$
+    type: Namespace
+- exclude:
+    uidRegex: ^Graphs
+    type: Namespace
