@@ -11,9 +11,10 @@
         }
       ],
       "output": "../docs/api/v4",
-      "filter": "api-filter.yml",
+      "filter": "api-filter-v4.yml",
       "properties": {
         "ProduceReferenceAssembly": "true",
+        "RunAnalyzers": "false",
         "TargetFramework": "net8.0"
       }
     }

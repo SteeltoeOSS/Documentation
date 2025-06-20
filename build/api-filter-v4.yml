@@ -1,0 +1,10 @@
+apiRules:
+- exclude:
+    uidRegex: ^ConfigurationSchemaGenerator\.*
+    type: Namespace
+- exclude:
+    uidRegex: ^Microsoft.Extensions.Configuration.Binder.SourceGeneration\.*
+    type: Namespace
+- exclude:
+    uidRegex: ^SourceGenerators\.*
+    type: Namespace

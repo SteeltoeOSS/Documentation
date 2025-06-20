@@ -12,8 +12,9 @@
         }
       ],
       "output": "../docs/api/v3",
-      "filter": "api-filter.yml",
+      "filter": "api-filter-v3.yml",
       "properties": {
+        "RunAnalyzers": "false",
         "ProduceReferenceAssembly": "true"
       }
     }

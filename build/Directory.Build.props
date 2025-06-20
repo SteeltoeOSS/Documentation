@@ -1,0 +1,6 @@
+<Project>
+   <PropertyGroup>
+      <!-- Workaround for https://github.com/dotnet/docfx/issues/10719 -->
+      <NuGetAudit>false</NuGetAudit>
+   </PropertyGroup>
+</Project>

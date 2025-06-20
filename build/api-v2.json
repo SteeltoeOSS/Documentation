@@ -12,8 +12,9 @@
       ],
       "output": "../docs/api/v2",
       "allowCompilationErrors": true,
-      "filter": "api-filter.yml",
+      "filter": "api-filter-v2.yml",
       "properties": {
+        "RunAnalyzers": "false",
         "ProduceReferenceAssembly": "true"
       }
     }
