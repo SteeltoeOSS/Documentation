@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "src/*/src/*/*.csproj"
+          ],
+          "src": "../../Steeltoe"
+        }
+      ],
+      "output": "../docs/api/v4",
+      "filter": "api-filter-v4.yml",
+      "properties": {
+        "ProduceReferenceAssembly": "true",
+        "RunAnalyzers": "false",
+        "TargetFramework": "net8.0"
+      }
+    }
+  ]
+}

@@ -15,6 +15,8 @@ This process can take a while to complete, will display many warnings and may in
 > [!TIP]
 > `build-metadata.ps1` takes an optional parameter to process one Steeltoe version at a time.
 > For example, running `./build-metadata.ps1 4` will clone and build API Browser metadata for only v4.
+> Or run `./build-metadata.ps1 source` to use local Steeltoe sources in a sibling directory.
+>
 > Passing a version to `build-metadata.ps1` is likely to produce failures during `docfx build`.
 > These failures _can_ be ignored, but will result in 404 errors if you try to view API Browser pages that were not generated on your machine.
 
