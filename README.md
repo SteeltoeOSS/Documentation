@@ -23,6 +23,7 @@ Follow the steps below to run/debug locally. The optional steps take longer, but
    ```pwsh
    pwsh .\build\build-metadata.ps1
    ```
+   See [build/README.md](build/README.md) for command-line switches.
 
 1. Optional: Only process Markdown files in `docs`:
 
