@@ -14,6 +14,7 @@ To use this provider, the following steps are required:
 1. Add and use the security provider in the application.
 1. Secure your endpoints.
 1. Attach certificate to requests to secured endpoints.
+1. (Optional) Add support for additional intermediate certificate authorities.
 
 ### Add NuGet Reference
 
@@ -178,3 +179,41 @@ builder.Services.AddHttpClient<ExampleApiClient>().AddAppInstanceIdentityCertifi
 ```
 
 This method has an overload that changes the name of the HTTP header used to pass the certificate. For example: `.AddAppInstanceIdentityCertificate("X-Custom-Certificate-Header")`.
+
+### Customizing CertificateAuthenticationOptions
+
+In some scenarios - particularly when running applications across Linux and Windows cells in Cloud Foundry - you may encounter issues where instance identity certificates are not trusted, even though they are properly issued.
+This usually happens because the identity certificates are signed by different intermediate certificates depending on the operating system.
+
+If the intermediate certificate from one environment is not included in the trust store of the other, authentication can fail with errors such as:
+
+```text
+Certificate validation failed... NotSignatureValid The signature of the certificate cannot be verified.
+```
+
+To resolve this, you can manually extract the intermediate certificate from a trusted identity certificate, export it to a .crt file, and then configure `CertificateAuthenticationOptions` to include it.
+
+1. Extract the identity certificate:
+
+    ```shell
+    cf ssh your-app-name
+    cat /etc/cf-instance-credentials/instance.crt
+    ```
+
+1. Copy everything from the second `-----BEGIN CERTIFICATE-----` to the ending `-----END CERTIFICATE-----` and save it all in a separate file (such as `intermediate.crt`)
+
+1. Now that you have the intermediate certificate as its own .crt file, configure CertificateAuthenticationOptions to include it during the certificate chain validation:
+
+    ```csharp
+    using System.Security.Cryptography.X509Certificates;
+    using Microsoft.AspNetCore.Authentication;
+
+    builder.Services
+        .AddAuthentication()
+        .AddCertificate(
+            options =>
+            {
+                X509Certificate2 certificate = new X509Certificate2("intermediate.crt");
+                options.AdditionalChainCertificates.Add(certificate);
+            });
+    ```
