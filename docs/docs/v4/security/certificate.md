@@ -101,9 +101,13 @@ To activate certificate-based authorization in the request pipeline, use the `Us
 ```csharp
 var app = builder.Build();
 
-// Steeltoe: Use certificate and header forwarding along with ASP.NET Core Authentication and Authorization middleware
+// Steeltoe: Use certificate forwarding along with ASP.NET Core Authentication and Authorization middleware
 app.UseCertificateAuthorization();
 ```
+
+> [!NOTE]
+> This feature requires the application to be compatible with reverse-proxy scenarios, such as when running in Cloud Foundry.
+> [Reverse-proxy support is automatically configured by the configuration provider for Cloud Foundry](../configuration/cloud-foundry-provider.md#reverseproxy-and-forwarded-headers-support).
 
 ### Securing Endpoints
 

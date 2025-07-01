@@ -118,3 +118,23 @@ public class HomeController(
     }
 }
 ```
+
+### Reverse‑Proxy and Forwarded Headers Support
+
+Cloud Foundry places applications behind a reverse‑proxy (the **Gorouter**), which forwards client IP, protocol, and other metadata using HTTP headers like `X‑Forwarded‑For` and `X‑Forwarded‑Proto`.
+
+When an application that uses the Cloud Foundry configuration provider is running on Cloud Foundry, the ASP.NET Core switch `ASPNETCORE_FORWARDEDHEADERS_ENABLED` is set to `true` so that ASP.NET Core's Forwarded Headers Middleware is enabled and configured to trust the proxy headers found in Cloud Foundry environments.
+
+Review the [documentation for configuration ASP.NET Core to work with a reverse proxy](https://learn.microsoft.com/aspnet/core/host-and-deploy/proxy-load-balancer#forward-the-scheme-for-linux-and-non-iis-reverse-proxies) to learn more.
+
+#### Customizing ForwardedHeadersOptions
+
+`ForwardedHeadersOptions` is configured like any other class that is accessed with `IOptions`, so you may configure them in `Program.cs`:
+
+```csharp
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders |= ForwardedHeaders.XForwardedHost;
+    options.KnownProxies.Add(IPAddress.Parse("10.0.0.5")); // your internal proxy
+});
+```
