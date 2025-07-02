@@ -137,7 +137,7 @@ app.Run();
 ```
 
 > [!NOTE]
-> This feature requires the application to be compatible with reverse-proxy scenarios, such as when running in Cloud Foundry.
+> This feature requires the application to be compatible with reverse-proxy scenarios, such as when running on Cloud Foundry.
 > [Reverse-proxy support is automatically configured by the configuration provider for Cloud Foundry](../configuration/cloud-foundry-provider.md#reverseproxy-and-forwarded-headers-support).
 
 ### Securing Endpoints

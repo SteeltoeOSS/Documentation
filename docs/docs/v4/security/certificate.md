@@ -107,7 +107,7 @@ app.UseCertificateAuthorization();
 ```
 
 > [!NOTE]
-> This feature requires the application to be compatible with reverse-proxy scenarios, such as when running in Cloud Foundry.
+> This feature requires the application to be compatible with reverse-proxy scenarios, such as when running on Cloud Foundry.
 > [Reverse-proxy support is automatically configured by the configuration provider for Cloud Foundry](../configuration/cloud-foundry-provider.md#reverseproxy-and-forwarded-headers-support).
 
 ### Securing Endpoints
@@ -183,9 +183,9 @@ This method has an overload that changes the name of the HTTP header used to pas
 ### Customizing CertificateAuthenticationOptions
 
 In some scenarios - particularly when running applications across Linux and Windows cells in Cloud Foundry - you may encounter issues where instance identity certificates are not trusted, even though they are properly issued.
-This usually happens because the identity certificates are signed by different intermediate certificates depending on the operating system.
+This usually happens because the identity certificates are signed by different intermediate certificates, depending on the operating system.
 
-If the intermediate certificate from one environment is not included in the trust store of the other, authentication can fail with errors such as:
+If the intermediate certificate from one environment is not included in the trust store of the other, authentication can fail with errors, such as:
 
 ```text
 Certificate validation failed... NotSignatureValid The signature of the certificate cannot be verified.
@@ -210,10 +210,9 @@ To resolve this, you can manually extract the intermediate certificate from a tr
 
     builder.Services
         .AddAuthentication()
-        .AddCertificate(
-            options =>
-            {
-                X509Certificate2 certificate = new X509Certificate2("intermediate.crt");
-                options.AdditionalChainCertificates.Add(certificate);
-            });
+        .AddCertificate(options =>
+        {
+            X509Certificate2 certificate = new X509Certificate2("intermediate.crt");
+            options.AdditionalChainCertificates.Add(certificate);
+        });
     ```
