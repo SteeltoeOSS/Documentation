@@ -182,7 +182,7 @@ This method has an overload that changes the name of the HTTP header used to pas
 
 ### Customizing CertificateAuthenticationOptions
 
-In some scenarios - particularly when running applications across Linux and Windows cells in Cloud Foundry - you may encounter issues where instance identity certificates are not trusted, even though they are properly issued.
+In some scenarios (particularly when running applications across Linux and Windows cells in Cloud Foundry), you may encounter issues where instance identity certificates are not trusted, even though they are properly issued.
 This usually happens because the identity certificates are signed by different intermediate certificates, depending on the operating system.
 
 If the intermediate certificate from one environment is not included in the trust store of the other, authentication can fail with errors, such as:
