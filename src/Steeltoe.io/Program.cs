@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Rewrite;
 using Steeltoe.io;
 using Steeltoe.io.Components;
 using Steeltoe.io.Models;
@@ -20,6 +21,14 @@ else
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
 }
+
+app.UseRewriter(new RewriteOptions()
+    .AddRedirect("^circuit-breakers.*", "attic")
+    .AddRedirect("^steeltoe-circuitbreaker", "attic")
+    .AddRedirect("^event-driven", "attic")
+    .AddRedirect("^messaging.*", "attic")
+    .AddRedirect("/guides/messaging/rabbitmq.html", "attic")
+    .AddRedirect("^circuit-breakers.*", "attic"));
 
 app.UseMiddleware<DocsRedirectMiddleware>(builder.Configuration);
 
