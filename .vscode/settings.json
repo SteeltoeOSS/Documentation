@@ -3,6 +3,7 @@
     "appsettings",
     "Blazor",
     "docfx",
+    "Gorouter",
     "LastExitCode",
     "steeltoe",
     "tanzu"

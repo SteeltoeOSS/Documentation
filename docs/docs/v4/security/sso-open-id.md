@@ -126,8 +126,6 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 var app = builder.Build();
 
-app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedProto });
-
 app.UseRouting();
 
 app.UseAuthentication();
@@ -139,7 +137,8 @@ app.Run();
 ```
 
 > [!NOTE]
-> In the sample code above, `app.UseForwardedHeaders` is used so that any links generated within the application are compatible with reverse-proxy scenarios, such as when running in Cloud Foundry.
+> This feature requires the application to be compatible with reverse-proxy scenarios, such as when running on Cloud Foundry.
+> [Reverse-proxy support is automatically configured by the configuration provider for Cloud Foundry](../configuration/cloud-foundry-provider.md#reverseproxy-and-forwarded-headers-support).
 
 ### Securing Endpoints
 
