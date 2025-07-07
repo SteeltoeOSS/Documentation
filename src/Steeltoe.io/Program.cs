@@ -22,13 +22,14 @@ else
     app.UseHsts();
 }
 
-app.UseRewriter(new RewriteOptions()
-    .AddRedirect("^circuit-breakers.*", "attic")
-    .AddRedirect("^steeltoe-circuitbreaker", "attic")
-    .AddRedirect("^event-driven", "attic")
-    .AddRedirect("^messaging.*", "attic")
-    .AddRedirect("/guides/messaging/rabbitmq.html", "attic")
-    .AddRedirect("^circuit-breakers.*", "attic"));
+var rewriteOptions = new RewriteOptions()
+    .AddRedirect("^circuit-breakers.*", "attic", 301)
+    .AddRedirect("^steeltoe-circuitbreaker", "attic", 301)
+    .AddRedirect("^event-driven", "attic", 301)
+    .AddRedirect("^messaging.*", "attic", 301)
+    .AddRedirect("^guides/messaging/rabbitmq.html", "attic", 301);
+
+app.UseRewriter(rewriteOptions);
 
 app.UseMiddleware<DocsRedirectMiddleware>(builder.Configuration);
 
