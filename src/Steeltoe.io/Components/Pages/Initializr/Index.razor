@@ -2,7 +2,7 @@
 
 <Template Name="Steeltoe Initializr" GettingStartedUrl="https://start.steeltoe.io" ShowBottomGetStarted="false" MetaDescription="Steeltoe Initializr generates .NET projects with just what you need to start quickly!">
     <Description>
-        One of the biggest secrets to highly productive .NET development teams is application generators.
+        One of the biggest secrets to highly productive development teams is application generators.
         Enterprises have found that developers adopt platforms far quicker when everything they need to get started is right there, at their fingertips.
         Application generators help developers to get started quickly by providing useful guide rails that reduce toil and ease their burden.
         Application generators also encourage common approaches to common problems, which is particularly useful if you have lots of teams creating microservices at the same time.
@@ -26,28 +26,10 @@
         </div>
         <div class="row mb-5 g-0">
             <div class="col component-whyuse-desc">
-                There are a few ways you can use Steeltoe Initializr. Every option gives you the same ready-to-go .NET project. The typical use of Initializr is hosting the service in-house.
-                Because it is a nuget-distributed package included in an even simpler .NET app, hosting and staying up to date doesn't come with a bunch of debt.
-                Hosting in-house also gives teams the option to add their own private dependencies to the service, but stay up to date with the community.
-            </div>
-        </div>
-        <div class="row mb-5 g-0">
-            <div class="component-whyuse-desc">
-                <h4>Hosted Service</h4>
-                <div>
-                    As a hosted service, Initializr offers both API and browser interfaces. The service itself is distributed as a Nuget package which you include in a new .NET Core web project.
-                    From there, you can run the project as a web-based service. Out of the box you'll get all the <Href href="https://github.com/SteeltoeOSS/initializr" NewWindow="true">default dependencies</Href> along with endpoints for interaction.
-                    Try the below curl command that uses our hosted Initializr service to get started.<br/><br/>
-                    <pre><code>curl https://start.steeltoe.io/starter.zip -d "dependencies=Actuators,DynamicLogger,SQL Server" -d "projectName=MyCompany.MySample" -o "myProject.zip"</code></pre>
-                </div>
-            </div>
-            <div class="component-whyuse-desc">
-                <h4>Browser UI</h4>
-                <div>
-                    Along with adding the Initializr package, you can optionally add a UI in the same .NET project. This gives developers an additional interaction with the Initializr service.
-                    We have created a <Href href="https://github.com/SteeltoeOSS/initializr" NewWindow="true">basic web project</Href> doing just that to help get started.
-                    If you'd like to see the UI in action, head over to <Href href="https://start.steeltoe.io" NewWindow="true">https://start.steeltoe.io</Href> and create your first Initializr project now!
-                </div>
+                There are a few ways you can use Steeltoe Initializr. Every option gives you the same ready-to-go .NET project.
+                The typical use of Initializr is hosting the service in-house. Hosting in-house gives teams the option to add their own private dependencies to the service, but stay up to date with the community.
+                Review the <a href="/docs/v4/initializr/">documentation for Initializr</a> to learn more about the architecture and requirements for self-hosting.
+                Steeltoe Initializr uses the standard .NET template engine, with <a href="https://github.com/SteeltoeOSS/NetCoreToolTemplates">the Steeltoe templates</a> developed in the open on github.com.
             </div>
         </div>
         <div class="row g-0">
@@ -65,7 +47,7 @@
                 What if your organization could offer a starting place for all developers, that (safely) includes your best practices and secret sauce?<br/><br/>
                 <h4>Creating for public use on start.steeltoe.io</h4>
                 If you would like for your Initializr dependency to be a part of the publicly hosted service, please review the <Href href="https://github.com/SteeltoeOSS/initializr/blob/master/THIRD-PARTY-CONTRIBUTIONS.md" NewWindow="true">guidelines</Href>.
-                Once you have everything in place, <Href href="https://github.com/SteeltoeOSS/initializr/issues" NewWindow="true">open an enhancement issue in GitHub</Href>.<br/><br/>
+                Once you have everything in place, <Href href="https://github.com/SteeltoeOSS/NetCoreToolTemplates/issues" NewWindow="true">open an enhancement issue in GitHub</Href>.<br /><br />
             </div>
         </div>
         <div class="col text-center m-5">
