@@ -22,7 +22,7 @@
         new()
         {
             Title = (MarkupString)"Single Sign-on with OpenID Connect",
-            Description = b => { b.AddMarkupContent(1, "Leverage existing credentials managed by an OAuth2 service for authentication and authorization in ASP.NET Core applications or with OpenID Connect in ASP.NET Framework (4.x)."); },
+            Description = b => { b.AddMarkupContent(1, "Leverage existing credentials managed by an external cloud service for authentication and authorization in ASP.NET Core applications."); },
             Img = "/images/Icon_computer.svg"
         },
         new()
@@ -34,14 +34,8 @@
         new()
         {
             Title = (MarkupString)"Redis Key Storage Provider",
-            Description = b => { b.AddMarkupContent(1, "Reconfigure the Data Protection service in ASP.NET to use an external Redis instance for key ring storage."); },
+            Description = b => { b.AddMarkupContent(1, "Reconfigure the Data Protection service in ASP.NET to use an external Valkey/Redis instance for key ring storage."); },
             Img = "/images/Icon_down-arrow.svg"
-        },
-        new()
-        {
-            Title = (MarkupString)"CredHub Client",
-            Description = b => { b.AddMarkupContent(1, "Interact directly with a CredHub secrets store in an ASP.NET application."); },
-            Img = "/images/Icon_security.svg"
         }
     ];
 }

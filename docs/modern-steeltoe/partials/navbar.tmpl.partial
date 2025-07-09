@@ -97,15 +97,13 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="projects">
                   <a class="dropdown-item" href="/app-configuration">Steeltoe Application Configuration</a>
-                  <a class="dropdown-item" href="/circuit-breakers">Steeltoe Circuit Breakers</a>
                   <a class="dropdown-item" href="/docs/logging">Steeltoe Dynamic Logging</a>
                   <a class="dropdown-item" href="/cloud-management">Steeltoe Management</a>
-                  <a class="dropdown-item" href="/messaging">Steeltoe Messaging</a>
                   <a class="dropdown-item" href="/docs/v4/fileshares">Steeltoe Network File Sharing</a>
                   <a class="dropdown-item" href="/security-providers">Steeltoe Security</a>
                   <a class="dropdown-item" href="/service-connectors">Steeltoe Service Connectors</a>
                   <a class="dropdown-item" href="/service-discovery">Steeltoe Service Discovery</a>
-                  <a class="dropdown-item" href="/docs/v3/stream">Steeltoe Stream</a>
+                  <a class="dropdown-item" href="/attic">Archived Projects</a>
                 </div>
               </li>
               <li class="nav-item mx-xl-2">

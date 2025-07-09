@@ -1,10 +1,10 @@
 @page "/web-application"
 @page "/web-applications"
 
-<Template Name="Web Applications" Features="@_features" MetaDescription="Level up your .NET code and explore what Spring can do for you.">
+<Template Name="Web Applications" Features="@_features" MetaDescription="Level up your .NET code and explore what Steeltoe can do for you.">
     <Description>
-        Steeltoe makes building web applications fast and hassle-free. By removing much of the boilerplate code and configuration associated with web development,
-        you get a modern web programming model that streamlines the development of server-side HTML applications, REST APIs, and bidirectional, event-based systems.
+        Steeltoe makes building web applications and REST APIs fast and hassle-free. By removing much of the boilerplate code and configuration associated with web development,
+        you get a modern web programming model that streamlines development using Blazor, Razor Pages, MVC, SPAs with frontend JavaScript frameworks, controller-based APIs and minimal APIs, and other types of ASP.NET Core applications.
     </Description>
 </Template>
 
@@ -28,7 +28,7 @@
                 b.AddAttribute(3, "href", "/security-providers");
                 b.AddAttribute(4, "ChildContent", (RenderFragment)(child => { child.AddContent(5, "Steeltoe Security Providers"); }));
                 b.CloseComponent();
-                b.AddMarkupContent(6, " supports industry-standard authentication protocols, including OAuth and OpenID Connect. <br /><br />Get protection from top OWASP attacks, such as session fixation, click-jacking, cross-site request forgery, and more.<br /><br />");
+                b.AddMarkupContent(6, " supports industry-standard authentication protocols, including OpenID Connect, JWT Bearer tokens and certificate-based authorization. <br /><br />Get protection from top OWASP attacks, such as session fixation, click-jacking, cross-site request forgery, and more.<br /><br />");
             },
             Img = "/images/Icon_security.svg"
         },
@@ -49,7 +49,7 @@
         new()
         {
             Title = (MarkupString)"Data access made easy",
-            Description = b => { b.AddMarkupContent(1, "Steeltoe helps developers connect their web applications to a number of data stores. It supports relational, non-relational databases, and cloud-based data services.<br /> "); },
+            Description = b => { b.AddMarkupContent(1, "Steeltoe helps developers connect their web applications to a number of data stores. It supports relational and non-relational databases, and cloud-based data services.<br /> "); },
             Img = "/images/Icon_box.svg"
         }
     ];
