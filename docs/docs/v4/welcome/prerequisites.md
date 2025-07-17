@@ -11,16 +11,16 @@ If you plan to develop with [.NET](https://learn.microsoft.com/dotnet/fundamenta
 
 When developing applications with Steeltoe, you must pull the Steeltoe NuGet packages into your project.
 
-To use the latest *unstable* packages from the developer feed, create a `Nuget.config` file with the contents below.
+To use the latest *unstable* packages from the development feed, create a `nuget.config` file with the contents below.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
-    <!-- Stable release and release candidates -->
+    <!-- Stable releases and release candidates -->
     <add key="NuGet" value="https://api.nuget.org/v3/index.json" />
     <!-- Latest unstable packages from CI builds -->
-    <add key="SteeltoeDev" value="https://pkgs.dev.azure.com/dotnet/Steeltoe/_packaging/dev/nuget/v3/index.json" />
+    <add key="SteeltoeDev" value="https://pkgs.dev.azure.com/dotnet/Steeltoe/_packaging/ci/nuget/v3/index.json" />
   </packageSources>
 </configuration>
 ```
