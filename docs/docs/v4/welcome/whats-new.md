@@ -290,6 +290,7 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 
 ### Notable PRs
 
+- https://github.com/SteeltoeOSS/Steeltoe/pull/1523
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1342
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1334
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1330
@@ -596,6 +597,7 @@ For more information, see the updated [Configuration documentation](../configura
 
 ### Notable PRs
 
+- https://github.com/SteeltoeOSS/Steeltoe/pull/1528
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1325
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1172
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1143
@@ -1347,6 +1349,8 @@ For more information, see the updated [Logging documentation](../logging/index.m
 
 ### Notable PRs
 
+- https://github.com/SteeltoeOSS/Steeltoe/pull/1521
+- https://github.com/SteeltoeOSS/Steeltoe/pull/1520
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1517
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1508
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1503
@@ -1483,6 +1487,7 @@ For more information, see the updated [Management documentation](../management/i
 
 ### Notable PRs
 
+- https://github.com/SteeltoeOSS/Steeltoe/pull/1525
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1452
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1349
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1336
