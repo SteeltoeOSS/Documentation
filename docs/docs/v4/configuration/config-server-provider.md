@@ -134,7 +134,7 @@ When you want to use a Config Server on Cloud Foundry and you have installed [Sp
 1. Create a Config Server instance:
 
    ```shell
-   cf create-service p-config-server standard myConfigServer
+   cf create-service p.config-server your-plan sampleConfigServer
    ```
 
 1. Wait for service to become ready:
@@ -146,13 +146,13 @@ When you want to use a Config Server on Cloud Foundry and you have installed [Sp
 1. Bind service to your app:
 
    ```shell
-   cf bind-service myApp myConfigServer
+   cf bind-service sampleApp sampleConfigServer
    ```
 
 1. Restage the app to pick up change:
 
    ```shell
-   cf restage myApp
+   cf restage sampleApp
    ```
 
 After the service is bound to the application, the Config Server settings are available and can be set up in `VCAP_SERVICES`.
