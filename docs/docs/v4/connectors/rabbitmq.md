@@ -96,19 +96,19 @@ You can create and bind an instance to your application by using the Cloud Found
 1. Create RabbitMQ service:
 
    ```shell
-   cf create-service p.rabbitmq rmq-single-node myRabbitMQService
+   cf create-service p.rabbitmq your-plan sampleRabbitMQService
    ```
 
 1. Bind service to your app:
 
    ```shell
-   cf bind-service myApp myRabbitMQService
+   cf bind-service sampleApp sampleRabbitMQService
    ```
 
 1. Restage the app to pick up change:
 
    ```shell
-   cf restage myApp
+   cf restage sampleApp
    ```
 
 ## Kubernetes

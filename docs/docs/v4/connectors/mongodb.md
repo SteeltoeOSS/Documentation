@@ -111,19 +111,19 @@ You can create and bind an instance to your application by using the Cloud Found
 1. Create MongoDB service:
 
    ```shell
-   cf create-service csb-azure-mongodb your-plan myMongoDbService
+   cf create-service csb-azure-mongodb your-plan sampleMongoDbService
    ```
 
 1. Bind service to your app:
 
    ```shell
-   cf bind-service myApp myMongoDbService
+   cf bind-service sampleApp sampleMongoDbService
    ```
 
 1. Restage the app to pick up change:
 
    ```shell
-   cf restage myApp
+   cf restage sampleApp
    ```
 
 ## Kubernetes

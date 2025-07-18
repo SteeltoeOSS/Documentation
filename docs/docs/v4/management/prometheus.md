@@ -155,7 +155,7 @@ Install the metrics-registrar plugin and use it to register your endpoint:
 
 ```shell
 cf install-plugin -r CF-Community "metric-registrar"
-cf register-metrics-endpoint APP-NAME /actuator/prometheus --internal-port 8091
+cf register-metrics-endpoint sampleApp /actuator/prometheus --internal-port 8091
 ```
 
 > [!IMPORTANT]
@@ -167,8 +167,8 @@ cf register-metrics-endpoint APP-NAME /actuator/prometheus --internal-port 8091
 The result of using the metrics registrar plugin is a user-provided service, which can also be created and bound manually.
 
 ```shell
-cf create-user-provided-service APP-NAME -l secure-endpoint://:8091/actuator/prometheus
-cf bind-service APP-NAME SERVICE-NAME
+cf create-user-provided-service sampleService -l secure-endpoint://:8091/actuator/prometheus
+cf bind-service sampleApp sampleService
 ```
 
 ## Sample Output

@@ -154,18 +154,18 @@ You can create and bind an instance to your application by using the Cloud Found
 1. Create SQL Server service:
 
    ```shell
-   cf create-service csb-azure-mssql-db your-plan mySqlServerService
+   cf create-service csb-azure-mssql-db your-plan sampleSqlServerService
    ```
 
 1. Bind service to your app:
 
    ```shell
-   cf bind-service myApp mySqlServerService
+   cf bind-service sampleApp sampleSqlServerService
    ```
 
 1. Restage the app to pick up change:
 
    ```shell
-   cf restage myApp
+   cf restage sampleApp
    ```
 

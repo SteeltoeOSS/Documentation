@@ -165,7 +165,7 @@ For information about configuring service plans for use by developers, a platfor
 After you have identified the service plan to use, create a service instance:
 
 ```shell
-cf create-service p-identity SERVICE_PLAN_NAME MY_SERVICE_INSTANCE
+cf create-service p-identity your-plan sampleService
 ```
 
 #### Bind and configure with app manifest
@@ -197,13 +197,13 @@ Then you can configure the SSO binding with the web interface.
 1. Bind service to your app:
 
    ```shell
-   cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
+   cf bind-service sampleApp sampleService
    ```
 
 1. Restage the app to pick up change:
 
    ```shell
-   cf restage MY_APPLICATION
+   cf restage sampleApp
    ```
 
 For more information, see:
@@ -220,13 +220,13 @@ There is no service broker available to manage service instances or bindings for
 This command is an example of how the service instance can be created:
 
 ```shell
-cf cups MY_SERVICE_INSTANCE -p '{"auth_domain": "https://uaa.login.sys.cf-app.com","grant_types": [ "authorization_code", "client_credentials" ],"client_secret": "SOME_CLIENT_SECRET","client_id": "SOME_CLIENT_ID"}'
+cf cups sampleService -p '{"auth_domain": "https://uaa.login.sys.cf-app.com","grant_types": [ "authorization_code", "client_credentials" ],"client_secret": "SOME_CLIENT_SECRET","client_id": "SOME_CLIENT_ID"}'
 ```
 
 And to bind the service instance to the app:
 
 ```shell
-cf bind-service MY_APPLICATION MY_SERVICE_INSTANCE
+cf bind-service sampleApp sampleService
 ```
 
 For additional information, see the [UAA documentation](https://docs.cloudfoundry.org/concepts/architecture/uaa.html).
