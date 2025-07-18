@@ -156,19 +156,19 @@ You can create and bind an instance to your application by using the Cloud Found
 1. Create PostgreSQL service:
 
    ```shell
-   cf create-service postgres small myPostgreSqlService
+   cf create-service postgres your-plan samplePostgreSqlService
    ```
 
 1. Bind service to your app:
 
    ```shell
-   cf bind-service myApp myPostgreSqlService
+   cf bind-service sampleApp samplePostgreSqlService
    ```
 
 1. Restage the app to pick up change:
 
    ```shell
-   cf restage myApp
+   cf restage sampleApp
    ```
 
 ## Kubernetes

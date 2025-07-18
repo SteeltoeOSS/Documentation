@@ -106,16 +106,16 @@ You can complete these steps using the Cloud Foundry command line.
    cf push sampleApp --buildpack dotnet_core_buildpack
    ```
 
-1. Create Redis service:
+1. Create Redis/Valkey service:
 
    ```shell
-   cf create-service p-redis shared-vm sampleRedisService
+   cf create-service p.redis your-plan sampleRedisDataProtectionService
    ```
 
 1. Bind service to your app:
 
    ```shell
-   cf bind-service sampleApp sampleRedisService
+   cf bind-service sampleApp sampleRedisDataProtectionService
    ```
 
 1. Restage the app to pick up change:
