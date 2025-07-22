@@ -85,6 +85,19 @@ If you're looking for something that seems to have disappeared, check out the li
 
 These decisions weren't taken lightly — but we believe they'll help keep Steeltoe focused and easier to use.
 
+## Production-Ready and Supported
+
+Although this release is labeled a "release candidate", Steeltoe 4.0.0 RC1 reflects our intent for the final 4.0.0 release and is suitable for production environments.
+It has passed our full suite of automated and manual tests, including cross-platform and integration scenarios.
+
+If you are planning to run RC1 in production, we recommend:
+
+* Locking to specific NuGet versions until GA
+* Reporting any issues via [GitHub Issues](https://github.com/SteeltoeOSS/Steeltoe/issues)
+* Joining our [Slack community](https://slack.steeltoe.io/) to stay informed
+
+We do not expect further breaking changes before GA.
+
 ## Try It Out — and Help Shape 4.0
 
 Steeltoe 4.0.0 RC1 is available on NuGet now.
