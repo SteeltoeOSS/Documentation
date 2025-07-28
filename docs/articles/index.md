@@ -11,6 +11,13 @@ uid: articles
 <!-- markdownlint-disable MD033 --> <!-- Allow HTML on this page -->
 <ul class="blog-list">
     <li class="blog-item">
+        <a href="releases/steeltoe-4-0-0-rc1.md">
+            <span class="blog-date">July 29 2025</span>
+            <div class="blog-author">Tim Hess</div>
+            <div class="blog-title">Announcing Steeltoe 4.0.0 RC1: A Major Maintenance Release</div>
+        </a>
+    </li>
+    <li class="blog-item">
         <a href="steeltoe-3-2-2-adds-kube-service-bindings.md">
             <span class="blog-date">January 10 2023</span>
             <div class="blog-title">Announcing Steeltoe 3.2.2 with Experimental Kubernetes Service Bindings</div>
