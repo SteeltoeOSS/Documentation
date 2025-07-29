@@ -12,7 +12,7 @@ author.name: Tim Hess
 # Steeltoe 4.0.0 RC1: A Major Maintenance Release
 
 Steeltoe 4.0.0 RC1 is now available — and it's production-ready.
-This release brings a modernized developer experience, compatibility with the latest .NET versions, embedded schema support for better tooling, and updated support for essential cloud platforms and tools.
+This release brings a modernized developer experience, compatibility with the latest .NET versions, improved performance and scalability, enhanced security and updated support for essential cloud platforms and third-party tools.
 Whether you're starting something new or modernizing an existing app, 4.0 is the best way to build cloud-native .NET applications today.
 
 ## What's New Since 3.2?
@@ -25,72 +25,66 @@ For a deeper dive, check out the full changelog in the docs: [What's New in Stee
 
 Steeltoe 4.0 brings modern .NET features and tooling improvements that make development faster and more productive:
 
-* Streamlined packages (`*Base` and `*Core` packages have been combined), now with debug symbols and JSON schemas embedded
+* Streamlined packages (`*Base` and `*Core` packages have been combined), now with debug symbols embedded
 * Async-first APIs
 * Nullable annotations
 * Embedded JSON schemas for IDE completion
 * Simplified and consistent extensions for dependency injection and configuration
-* Updated developer container images for testing local environments
+* Updated developer container images for local development
 
 ### Cleaner APIs, Fewer Surprises
 
 Steeltoe 4.0 delivers simpler APIs that align with modern .NET expectations, helping developers get started faster and reducing long-term friction.
 Over the years, Steeltoe accumulated a large set of APIs that solved similar problems in slightly different ways.
-Almost all of the APIs Steeltoe used were public, with little to no guidance on when and how to extend Steeltoe.
+Almost all of the APIs Steeltoe provided were public, with little to no guidance on when and how to extend Steeltoe.
 This made it harder for developers to discover the "right" approach — and it made maintenance difficult.
 
 With Steeltoe 4.0, we've taken a deliberate approach to address this:
 
-* **Reviewed the entire public API** to eliminate duplication, improve clarity and hide details that were not designed to be extensible.
-* **Aligned APIs more closely with Microsoft conventions and within Steeltoe**, reducing surprises for experienced .NET developers.
-* **Added tooling** to detect breaking changes across releases and ensure future stability.
-
-We know breaking changes can be frustrating, but we've tried to make this the last time it's necessary for a long while.
+* **Reviewed the entire public API** to eliminate duplication, improve clarity and consistency and hide details that were not designed to be extensible.
+* **Aligned APIs more closely with Microsoft conventions**, reducing surprises for all developers.
+* **Added internal tooling** to detect breaking changes across releases and ensure future stability.
 
 Breaking changes are [documented](https://steeltoe.io/docs/v4/welcome/whats-new.html), and our [samples](https://github.com/SteeltoeOSS/Samples/tree/4.x) reflect the latest best practices.
 
 #### Steeltoe Entrypoint Changes
 
 The majority of Steeltoe's functionality can be added to an application via `IServiceCollection` and `IConfigurationBuilder` extension methods.
-In some cases, prior versions of Steeltoe also included various flavors of `HostBuilder` extensions, providing the option of adding Steeltoe components with a single line of top-level code.
-While that extra layer doesn't add much complexity (`HostBuilder` extensions typically called the same `IServiceCollection` and/or `IConfigurationBuilder` extensions under the covers), it also didn't commonly add much value and introduces another place to update any time Microsoft adds another flavor of `HostBuilder`.
-The value is further brought into question when you consider that `HostApplicationBuilder` and `WebApplicationBuilder` provide direct access to `IServiceCollection` and `IConfigurationBuilder`.
+In some cases, prior versions of Steeltoe also included various flavors of extension methods on host builders, providing the option of adding Steeltoe components with a single line of top-level code.
+These days, that extra layer doesn't simplify using Steeltoe anymore, because `HostApplicationBuilder` and `WebApplicationBuilder` provide direct access to them.
 
-For 4.0, we reviewed all of these extension methods to ensure we don't have situations where these additional options don't add value.
-In places where `HostBuilder` level extensions are definitely useful, we've made sure they're available for all currently-applicable options and worked to enhance the XML comments so it's easier for you to know which option to use.
+For 4.0, we reviewed all extension methods to ensure we don't have situations where we don't needlessly offer multiple APIs to accomplish the same thing.
+In places where host builder extensions are definitely useful, we've made sure they're available for all currently-applicable options and worked to enhance the XML comments so it's easier for you to know which option to use.
 
 ### Dependency and Compatibility Updates
 
-All dependencies have been updated to remove known vulnerabilities and ensure compatibility with the latest secure versions.
-By upgrading to Steeltoe 4.0, you benefit from improved resilience and security across the stack.
+All dependencies have been updated to remove known vulnerabilities and ensure compatibility with the latest versions.
+By upgrading to Steeltoe 4.0, you benefit from improved performance, resiliency and security across the stack.
 
-In order to take advantage of performance, security, and feature updates in other libraries, all of Steeltoe's NuGet dependencies have been updated.
-Furthermore, all of Steeltoe's integrations with external systems have been retested against the latest versions of major enterprise and open-source platforms:
+Furthermore, all of Steeltoe's integrations with external systems have been retested against the latest versions of major enterprise and open-source platforms, such as:
 
-* MySQL
-* PostgreSQL
-* Prometheus
+* MongoDB, MySQL, PostgreSQL, Microsoft SQL Server
 * RabbitMQ
 * Redis and Valkey
-* Spring Boot Admin
 * Spring Cloud Config Server
-* Spring Cloud Netflix Eureka
+* Spring Cloud Netflix Eureka and HashiCorp Consul
 * Tanzu Platform (Cloud Foundry)
+* Spring Boot Admin
+* Prometheus and Grafana
 
 ### Improved Documentation, Samples and Supporting Systems
 
 Steeltoe 4.0 comes with updated docs, modernized samples, and improved tooling to help you get started faster and with more confidence. That means:
 
 * Rewritten and reorganized samples that reflect modern .NET practices and highlight where Steeltoe fits in.
-* An updated [Steeltoe Initializr](https://start.steeltoe.io/) that supports 4.0.
+* An updated [Steeltoe Initializr](https://start.steeltoe.io/) that supports Steeltoe 4.0.
 * Documentation improvements across all major areas.
-* Rebuilt testing and pipelines to support faster, more reliable releases — with fewer surprises for users
-
-We've done everything we can to ensure that future updates arrive more quickly and with greater clarity.
+* Improved test coverage and continuous integration pipelines to support faster, more reliable releases — with fewer surprises for users.
+* Improved standards and automated tools for maintaining high levels of code quality.
 
 ### What's Gone
 
-We've also used this release as an opportunity to simplify the project by removing several components that are no longer being maintained.
+We've also used this release as an opportunity to simplify the project by removing several components that did not see great adoption and were very complex.
 If you're looking for something that seems to have disappeared, check out the list of [dropped components](https://github.com/SteeltoeOSS/Steeltoe/issues/1244).
 
 These decisions weren't taken lightly — but we believe they'll help keep Steeltoe focused and easier to use.
@@ -99,12 +93,6 @@ These decisions weren't taken lightly — but we believe they'll help keep Steel
 
 Although this release is labeled a "release candidate", Steeltoe 4.0.0 RC1 reflects our intent for the final 4.0.0 release and is classified as a go-live release so that you can use it in production environments.
 It has passed our full suite of automated and manual tests, including cross-platform and integration scenarios.
-
-If you are planning to run RC1 in production, we recommend:
-
-* Locking to specific NuGet versions until GA
-* Reporting any issues via [GitHub Issues](https://github.com/SteeltoeOSS/Steeltoe/issues)
-* Joining our [Slack community](https://slack.steeltoe.io/) to stay informed
 
 We do not expect further breaking changes before GA.
 
@@ -121,4 +109,4 @@ We're planning to release the general availability version later this summer. No
 * 📢 Reach us on [Twitter/X](https://x.com/SteeltoeOSS) and [Bluesky](https://bsky.app/profile/steeltoe.io)
 
 Thanks to everyone in the community who has tested pre-releases, filed issues, and contributed code, docs, and encouragement.
-We're excited to share this release with you — and even more excited about what comes next.
+We're excited to share this release with you — and eagerly await your feedback.
