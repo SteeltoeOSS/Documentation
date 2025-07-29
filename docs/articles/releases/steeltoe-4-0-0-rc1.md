@@ -50,8 +50,9 @@ Breaking changes are [documented](https://steeltoe.io/docs/v4/welcome/whats-new.
 #### Steeltoe Entrypoint Changes
 
 The majority of Steeltoe's functionality can be added to an application via `IServiceCollection` and `IConfigurationBuilder` extension methods.
-In some cases, prior versions of Steeltoe also included various flavors of extension methods on host builders, providing the option of adding Steeltoe components with a single line of top-level code.
-These days, that extra layer doesn't simplify using Steeltoe anymore, because `HostApplicationBuilder` and `WebApplicationBuilder` provide direct access to them.
+In some cases, prior versions of Steeltoe also included various flavors of extension methods on host builders.
+These extensions provide the option of adding Steeltoe components with a single line of top-level code in `program.cs` and doing less work in `startup.cs`.
+These days however, `HostApplicationBuilder` and `WebApplicationBuilder` provide simple and direct access to the configuration builder and service collection, allowing all app configuration code in `program.cs`, so the extra layer doesn't add the same reward.
 
 For 4.0, we reviewed all extension methods to ensure we don't have situations where we don't needlessly offer multiple APIs to accomplish the same thing.
 In places where host builder extensions are definitely useful, we've made sure they're available for all currently-applicable options and worked to enhance the XML comments so it's easier for you to know which option to use.
