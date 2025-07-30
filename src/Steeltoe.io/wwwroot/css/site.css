@@ -428,7 +428,11 @@ app {
     margin: 3% 0 3% 0;
     min-height: 90px;
 }
-
+.news {
+    border-top: 1px dotted steelblue;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
 .news .date {
     font-size: 75%;
     text-transform: uppercase;
