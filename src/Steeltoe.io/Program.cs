@@ -23,6 +23,7 @@ else
 }
 
 var rewriteOptions = new RewriteOptions()
+    .AddRedirect("^docs/v3/obsolete", "docs/v4/welcome/whats-new.html", 301)
     .AddRedirect("^circuit-breakers.*", "attic", 301)
     .AddRedirect("^steeltoe-circuitbreaker", "attic", 301)
     .AddRedirect("^event-driven", "attic", 301)
