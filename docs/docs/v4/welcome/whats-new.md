@@ -71,6 +71,8 @@ Steeltoe 4 requires .NET 8 or higher.
 - CircuitBreaker, because [Polly](https://github.com/App-vNext/Polly) provides similar features and is widely used in .NET apps
 - Messaging/Integration/Stream, because usage and implementation are too complicated and the adoption rate is very low
 - Spring Expression Language (SpEL), because it was added for Stream and doesn't support many C# language features
+- Extension methods for OpenTelemetry (see [how to use OpenTelemetry exporters with Steeltoe](../tracing/index.md#opentelemetry))
+- The metrics actuator (see [configuring OpenTelemetry for instrumentation](../management//prometheus.md#instrumentation))
 
 > [!NOTE]
 > The components that have been removed from Steeltoe 4 are not _expected_ to have a significant impact due to low adoption (based on NuGet package downloads).
@@ -94,8 +96,8 @@ Steeltoe 4 requires .NET 8 or higher.
 | Steeltoe.Connector.EFCore | Steeltoe.Connectors.EntityFrameworkCore |
 | Steeltoe.Connector.EF6Core | - |
 | Steeltoe.Discovery.Abstractions | Steeltoe.Common |
-| Steeltoe.Discovery.ClientBase | Steeltoe.Discovery.HttpClients |
-| Steeltoe.Discovery.ClientCore | Steeltoe.Discovery.HttpClients |
+| Steeltoe.Discovery.ClientBase | Steeltoe.Discovery.Configuration |
+| Steeltoe.Discovery.ClientCore | Steeltoe.Discovery.Configuration |
 | Steeltoe.Discovery.Kubernetes | - |
 | Steeltoe.Extensions.Configuration.Abstractions | Steeltoe.Configuration.Abstractions |
 | Steeltoe.Extensions.Configuration.CloudFoundryBase | Steeltoe.Configuration.CloudFoundry |
@@ -120,7 +122,7 @@ Steeltoe 4 requires .NET 8 or higher.
 | Steeltoe.Management.EndpointBase | Steeltoe.Management.Endpoint |
 | Steeltoe.Management.EndpointCore | Steeltoe.Management.Endpoint |
 | Steeltoe.Management.KubernetesCore | - |
-| Steeltoe.Management.OpenTelemetryBase | Steeltoe.Management.Endpoint, Steeltoe.Management.Prometheus |
+| Steeltoe.Management.OpenTelemetryBase | Steeltoe.Management.Prometheus |
 | Steeltoe.Management.TaskCore | Steeltoe.Management.Tasks |
 | Steeltoe.Management.TracingBase | Steeltoe.Management.Tracing |
 | Steeltoe.Management.TracingCore | Steeltoe.Management.Tracing |
@@ -650,8 +652,8 @@ For more information, see the updated [Connectors documentation](../configuratio
 | Source | Change | Replacement | Notes |
 | --- | --- | --- | --- |
 | Steeltoe.Discovery.Abstractions | Removed | Steeltoe.Common package | No longer needed (except for `IDiscoveryClient`, which moved to Steeltoe.Common package) |
-| Steeltoe.Discovery.ClientBase | Removed | Steeltoe.Discovery.HttpClients, Steeltoe.Discovery.Configuration packages | Configuration-based discovery moved to Steeltoe.Discovery.Configuration package |
-| Steeltoe.Discovery.ClientCore | Removed | Steeltoe.Discovery.HttpClients package | |
+| Steeltoe.Discovery.ClientBase | Removed | Steeltoe.Discovery.Configuration package | Provides configuration-based discovery |
+| Steeltoe.Discovery.ClientCore | Removed | Steeltoe.Discovery.Configuration package | Provides configuration-based discovery |
 | Steeltoe.Discovery.Configuration | Added | | Provides a configuration-based discovery client |
 | Steeltoe.Discovery.HttpClients | Added | | Provides consumption of `IDiscoveryClient`(s) in `HttpClient`/`HttpClientFactory` pipeline |
 | Steeltoe.Discovery.Kubernetes | Removed | None | |
