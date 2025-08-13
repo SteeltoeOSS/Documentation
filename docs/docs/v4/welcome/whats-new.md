@@ -322,8 +322,9 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 
 ### NuGet Package changes
 
-| Steeltoe.Extensions.Configuration.Abstractions | Renamed | Steeltoe.Configuration.Abstractions | |
+| Source | Change | Replacement | Notes |
 | --- | --- | --- | --- |
+| Steeltoe.Extensions.Configuration.Abstractions | Renamed | Steeltoe.Configuration.Abstractions | |
 | Steeltoe.Extensions.Configuration.CloudFoundryBase | Renamed | Steeltoe.Configuration.CloudFoundry | |
 | Steeltoe.Extensions.Configuration.CloudFoundryCore | Renamed | Steeltoe.Configuration.CloudFoundry | |
 | Steeltoe.Extensions.Configuration.ConfigServerBase | Renamed | Steeltoe.Configuration.ConfigServer | |
