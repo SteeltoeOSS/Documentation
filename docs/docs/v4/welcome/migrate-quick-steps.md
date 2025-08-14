@@ -1,624 +1,516 @@
-# What's new in Steeltoe 4
+# Migrating from Steeltoe 3
 
-## Overview
+This topic provides quick steps to migrate existing applications to Steeltoe 4.
+For non-trivial cases, see the related documentation topic and samples for v4.
 
-### Introduction
-
-The Steeltoe project began all the way back in 2016 (before .NET Core 1.0.0 was released) at the request of enterprises experiencing great success with their [Spring Cloud](https://spring.io/cloud) powered applications on [Cloud Foundry](https://www.cloudfoundry.org/).
-These organizations were looking for similar outcomes (such as reduced developer toil, easy-to-implement observability, scaling and resiliency) for their .NET applications.
-Rather than starting from scratch, Steeltoe took the approach of building clients for Spring Cloud services and porting code from Spring as needed, adapting the codebase to fit with .NET while trying to stay close to the Spring origins.
-In order to deliver higher-level Spring project features, Steeltoe libraries grew rapidly with building-block components matching the architecture and conventions in Spring.
-
-All previous versions of Steeltoe had capability and feature expansion as the main goals, with moderate regard for how well Steeltoe "blends in" with the greater .NET ecosystem.
-As a result of this weighting of priorities, Steeltoe was built to land somewhere in between Spring and .NET, inconsistently favoring conventions from one camp or the other, sometimes with the weight of additional lower-level abstractions from Spring.
-Add to that the breaking changes needed to adapt to updates in the .NET ecosystem since some of the older Steeltoe components were written, and you can see why it was time for a major overhaul.
-
-The introduction of [.NET Aspire](https://learn.microsoft.com/dotnet/aspire/get-started/aspire-overview) and the acquisition of VMware by Broadcom
-underscored that this is the time to refocus on Steeltoe's core goals and re-evaluate how the desired outcomes are achieved.
-
-Steeltoe 4 is a major release that brings many improvements and changes to the library.
-The goal of this release is to make Steeltoe better integrated in the .NET ecosystem in a more developer-friendly way, compatible
-with the latest versions of .NET and third-party libraries/products, and to improve the overall quality of the library.
-This document provides an overview of the changes in Steeltoe 4, the impact on existing applications, and serves as the upgrade guide (with a searchable API diff and replacement notes).
-Steeltoe 4 requires .NET 8 or higher.
-
-### Quality of Life improvements
-
-- Annotated for [nullable reference types](https://learn.microsoft.com/dotnet/csharp/nullable-references)
-- Compatible with the latest versions of ASP.NET and third-party libraries
-- Compatible with recent versions of Tanzu Platform (Cloud Foundry and Kubernetes) and Spring Boot
-- Changes to align with .NET conventions and patterns, extensive review of the public API surface
-- Performance and scalability improvements
-- Numerous bug fixes
-- Cleanup of logging output
-- Substantially improved documentation
-- Improved test coverage, including interaction between different Steeltoe components
-- All samples updated to .NET 8, fully tested and working
-- Automated code style validation (Resharper, StyleCop, Sonar, Microsoft CodeAnalysis)
-
-### General
-
-- NuGet Packages
-  - Dropped the Core/Base suffix from package names, which was used to distinguish between .NET Standard and .NET Core
-  - Removed ".Extensions" from NuGet package names
-- Extension methods
-  - Removed host builder extension methods that could be substituted with a single extension method on
-    `IServiceCollection`, `IConfiguration`, `IConfigurationBuilder`, `ILoggingBuilder`, etc.
-    Their redundancy led to confusion, and required Steeltoe to adapt each time a new host builder is introduced.
-  - Added support for the new `IHostApplicationBuilder` (which `WebApplicationBuilder` and `HostApplicationBuilder` implement) to the remaining host builder extension methods
-  - Moved extension methods to the appropriate Steeltoe namespaces to avoid clashes with other libraries
-- Public API surface
-  - Sealed types not designed for inheritance, which improves runtime performance
-  - Removed various interfaces that weren't general-purpose, types not designed for inheritance/reuse made internal
-  - Changed methods containing optional parameters with default values to overloaded methods
-  - Made more methods async and expanded usage of `CancellationToken`, both as a parameter and internally
-  - Enhanced method input validation to prevent downstream `NullReferenceException` exceptions
-  - Applied C#/.NET naming conventions, for example: renamed `HealthStatus.OUT_OF_SERVICE` to `HealthStatus.OutOfService`
-- Configuration
-  - Added support in Steeltoe packages for auto-completion in `appsettings.json` (without needing a schema reference, which currently only works in Visual Studio for SDK-style web projects), updated global Steeltoe JSON schema
-  - Changed nearly all configuration settings to be reloadable without app restart, now more consistently exposed via ASP.NET Options pattern
-- Up-to-date
-  - Extensively tested with the latest versions of dependent packages, database drivers and third-party products
-    (including Tanzu, Cloud Foundry, Config Server, Consul, Eureka, RabbitMQ, Redis/Valkey, OpenTelemetry, Grafana, Prometheus, Zipkin, Spring Boot Admin)
-  - Refreshed dev-local Docker images for Config Server, Eureka, UAA and Spring Boot Admin
-  - Steeltoe no longer depends on legacy technologies, such as binary serialization and Newtonsoft.Json
-
-### Removed components
-
-- Everything that interacts with the Kubernetes API directly, because the features were not well-defined,
-  test coverage was minimal, and the Steeltoe team believes these packages aren't widely used
-- CredHub client, because we have no _known_ use cases since the introduction of the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html)
-- CircuitBreaker, because [Polly](https://github.com/App-vNext/Polly) provides similar features and is widely used in .NET apps
-- Messaging/Integration/Stream, because usage and implementation are too complicated and the adoption rate is very low
-- Spring Expression Language (SpEL), because it was added for Stream and doesn't support many C# language features
-- Extension methods for OpenTelemetry (see [how to use OpenTelemetry exporters with Steeltoe](../tracing/index.md#opentelemetry))
-- The metrics actuator (see [configuring OpenTelemetry for instrumentation](../management//prometheus.md#instrumentation))
-
-> [!NOTE]
-> The components that have been removed from Steeltoe 4 are not _expected_ to have a significant impact due to low adoption (based on NuGet package downloads).
-> If the loss of any of this functionality _is_ a problem for you, please [open an issue](https://github.com/SteeltoeOSS/Steeltoe/issues/new) and tell us more.
-
-### Package name changes
-
-| Steeltoe 3.x | Steeltoe 4.x |
-| --- | --- |
-| Steeltoe.Bootstrap.Autoconfig | Steeltoe.Bootstrap.AutoConfiguration |
-| Steeltoe.CircuitBreaker.* | - |
-| Steeltoe.Common.Abstractions | Steeltoe.Common |
-| Steeltoe.Common.Expression | - |
-| Steeltoe.Common.Hosting | Steeltoe.Common.Logging |
-| Steeltoe.Common.Http | Steeltoe.Discovery.HttpClients |
-| Steeltoe.Common.Kubernetes | - |
-| Steeltoe.Common.Retry | - |
-| Steeltoe.Common.Security | Steeltoe.Common.Certificates |
-| Steeltoe.Common.Utils | - |
-| Steeltoe.Connector.* | Steeltoe.Connectors |
-| Steeltoe.Connector.EFCore | Steeltoe.Connectors.EntityFrameworkCore |
-| Steeltoe.Connector.EF6Core | - |
-| Steeltoe.Discovery.Abstractions | Steeltoe.Common |
-| Steeltoe.Discovery.ClientBase | Steeltoe.Discovery.Configuration |
-| Steeltoe.Discovery.ClientCore | Steeltoe.Discovery.Configuration |
-| Steeltoe.Discovery.Kubernetes | - |
-| Steeltoe.Extensions.Configuration.Abstractions | Steeltoe.Configuration.Abstractions |
-| Steeltoe.Extensions.Configuration.CloudFoundryBase | Steeltoe.Configuration.CloudFoundry |
-| Steeltoe.Extensions.Configuration.CloudFoundryCore | Steeltoe.Configuration.CloudFoundry |
-| Steeltoe.Extensions.Configuration.ConfigServerBase | Steeltoe.Configuration.ConfigServer |
-| Steeltoe.Extensions.Configuration.ConfigServerCore | Steeltoe.Configuration.ConfigServer |
-| Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding | Steeltoe.Configuration.Kubernetes.ServiceBindings |
-| Steeltoe.Extensions.Configuration.KubernetesBase | - |
-| Steeltoe.Extensions.Configuration.KubernetesCore | - |
-| Steeltoe.Extensions.Configuration.PlaceholderBase | Steeltoe.Configuration.Placeholder |
-| Steeltoe.Extensions.Configuration.PlaceholderCore | Steeltoe.Configuration.Placeholder |
-| Steeltoe.Extensions.Configuration.RandomValueBase | Steeltoe.Configuration.RandomValue |
-| Steeltoe.Extensions.Configuration.SpringBootBase | Steeltoe.Configuration.SpringBoot |
-| Steeltoe.Extensions.Configuration.SpringBootCore | Steeltoe.Configuration.SpringBoot |
-| Steeltoe.Extensions.Logging.Abstractions | Steeltoe.Logging.Abstractions |
-| Steeltoe.Extensions.Logging.DynamicLogger | Steeltoe.Logging.DynamicConsole |
-| Steeltoe.Extensions.Logging.DynamicSerilogBase | Steeltoe.Logging.DynamicSerilog |
-| Steeltoe.Extensions.Logging.DynamicSerilogCore | Steeltoe.Logging.DynamicSerilog |
-| Steeltoe.Integration.* | - |
-| Steeltoe.Management.CloudFoundryCore | Steeltoe.Management.Endpoint |
-| Steeltoe.Management.Diagnostics | Steeltoe.Management.Endpoint |
-| Steeltoe.Management.EndpointBase | Steeltoe.Management.Endpoint |
-| Steeltoe.Management.EndpointCore | Steeltoe.Management.Endpoint |
-| Steeltoe.Management.KubernetesCore | - |
-| Steeltoe.Management.OpenTelemetryBase | Steeltoe.Management.Prometheus |
-| Steeltoe.Management.TaskCore | Steeltoe.Management.Tasks |
-| Steeltoe.Management.TracingBase | Steeltoe.Management.Tracing |
-| Steeltoe.Management.TracingCore | Steeltoe.Management.Tracing |
-| Steeltoe.Messaging.* | - |
-| Steeltoe.Security.Authentication.CloudFoundryBase | Steeltoe.Security.Authentication.JwtBearer, Steeltoe.Security.Authentication.OpenIdConnect, Steeltoe.Security.Authorization.Certificate |
-| Steeltoe.Security.Authentication.CloudFoundryCore | Steeltoe.Security.Authentication.JwtBearer, Steeltoe.Security.Authentication.OpenIdConnect, Steeltoe.Security.Authorization.Certificate |
-| Steeltoe.Security.Authentication.MtlsCore | Steeltoe.Security.Authorization.Certificate |
-| Steeltoe.Security.DataProtection.CredHubBase | - |
-| Steeltoe.Security.DataProtection.CredHubCore | - |
-| Steeltoe.Security.DataProtection.RedisCore | Steeltoe.Security.DataProtection.Redis |
-| Steeltoe.Stream.* | - |
-
-The following sections provide details on the changes per Steeltoe component, as well as tips on how to migrate to Steeltoe 4.
+> [!TIP]
+> For detailed information on what has changed, see [What's new in Steeltoe 4](./whats-new.md).
 
 ## Bootstrap
 
-### Behavior changes
+For additional information, see the updated [Bootstrap documentation](../bootstrap/index.md).
 
-- Unified handling for all host builder types (there were omissions in some cases, due to duplicate code not kept in sync)
-- Added wire-up of Steeltoe.Configuration.SpringBoot, Steeltoe.Configuration.Encryption and Steeltoe.Logging.DynamicConsole
-- Removed wire-up of client certificate authentication, which was only partly done
-- When no `ILoggerFactory` is specified, `BootstrapLoggerFactory` is used by default (pass `NullLoggerFactory.Instance` to disable)
-- Ignore casing when comparing assembly names (bug fix)
+Project file:
 
-### NuGet Package changes
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Bootstrap.Autoconfig" Version="3.*" />
++    <PackageReference Include="Steeltoe.Bootstrap.AutoConfiguration" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
 
-| Source | Change | Replacement | Notes |
-| --- | --- | --- | --- |
-| Steeltoe.Bootstrap.Autoconfig | Moved | Steeltoe.Bootstrap.AutoConfiguration | |
+Program.cs:
 
-### API changes
+```diff
+-using Steeltoe.Bootstrap.Autoconfig;
++using Steeltoe.Bootstrap.AutoConfiguration;
 
-| Source | Kind | Package | Change | Replacement | Notes |
-| --- | --- | --- | --- | --- | --- |
-| `Steeltoe.Bootstrap.Autoconfig.SteeltoeAssemblies` | Type | Steeltoe.Bootstrap.Autoconfig | Renamed | `Steeltoe.Bootstrap.AutoConfiguration.SteeltoeAssemblyNames` | Updated members to new/changed assembly names |
-| `Steeltoe.Connector` | Namespace | Steeltoe.Bootstrap.Autoconfig | Removed | None | Type locators have been replaced with internal-only shims |
+var builder = WebApplication.CreateBuilder(args);
+builder.AddSteeltoe();
+```
 
-### Notable PRs
+## CircuitBreaker
 
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1434
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1352
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1325
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1223
-
-### Documentation
-
-For more information, see the updated [Bootstrap documentation](../bootstrap/index.md).
+CircuitBreaker (a .NET port of Netflix Hystrix) has been removed from Steeltoe in v4.
+Use [Polly](https://github.com/App-vNext/Polly) instead.
 
 ## Common
 
-### Behavior changes
-
-- Removed various APIs that were used internally, but not designed for extensibility/reuse
-- Dynamically loading custom types for connectors and service discovery is no longer possible
-- Removed Spring Expression Language (SpEL) support
-- Removed `UseCloudHosting` (impossible to reliably detect bound ports in all cases, while Cloud Foundry usually [^1] sets the port automatically)
-- Greater flexibility in using Bootstrap logger, bug fixes
-- Certificates are no longer read from OS-specific store, which proved to not work reliably (store paths in configuration instead)
-
-### NuGet Package changes
-
-| Source | Change | Replacement | Notes |
-| --- | --- | --- | --- |
-| Steeltoe.Common.Abstractions | Moved | Steeltoe.Common package | |
-| Steeltoe.Common.Certificates | Added | | Support for handling X.509 certificates |
-| Steeltoe.Common.Expression | Removed | None | Existed for Spring Extension Language (SpEL) support, which has been removed |
-| Steeltoe.Common.Kubernetes | Removed | None | |
-| Steeltoe.Common.Logging | Added | | Provides `BootstrapLoggerFactory` |
-| Steeltoe.Common.Retry | Removed | None | Existed for Messaging support, which has been removed |
-| Steeltoe.Common.Security | Moved | Steeltoe.Common.Certificates | |
-| Steeltoe.Common.Utils | Removed | None | Contained internal helpers not designed for external usage |
-
-### API changes
-
-| Source | Kind | Package | Change | Replacement | Notes |
-| --- | --- | --- | --- | --- | --- |
-| `Microsoft.Extensions.DependencyInjection.ConfigurationServiceInstanceProviderServiceCollectionExtensions.AddConfigurationDiscoveryClient` | Extension method | Steeltoe.Common [Abstractions] | Moved | Steeltoe.Discovery.Configuration package | |
-| `Steeltoe.Common.ApplicationInstanceInfo` | Type | Steeltoe.Common [Abstractions] | Members removed | None | Removed members that only apply to Cloud Foundry |
-| `Steeltoe.Common.Attributes` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Dynamically loading custom types for connectors/discovery is no longer possible |
-| `Steeltoe.Common.Availability` | Namespace | Steeltoe.Common [Abstractions] | Moved | Steeltoe.Management.Endpoint package | |
-| `Steeltoe.Common.Availability.AvailabilityHealthContributor` | Type | Steeltoe.Common [Abstractions] | Removed | None | Made internal |
-| `Steeltoe.Common.Availability.LivenessHealthContributor` | Type | Steeltoe.Common [Abstractions] | Removed | None | Made internal |
-| `Steeltoe.Common.Availability.ReadinessHealthContributor` | Type | Steeltoe.Common [Abstractions] | Removed | None | Made internal |
-| `Steeltoe.Common.CasingConventions.EnumExtensions.ToSnakeCaseString` | Extension method | Steeltoe.Common | Added | | Use to convert between .NET and Java enum member naming styles |
-| `Steeltoe.Common.CasingConventions.SnakeCaseAllCapsEnumMemberJsonConverter` | Type | Steeltoe.Common | Added | | Use to convert between .NET and Java enum member naming styles |
-| `Steeltoe.Common.ConcurrentDictionaryExtensions.GetOrAddEx` | Extension method | Steeltoe.Common [Abstractions] | Removed | None | Existed to support components that have been removed |
-| `Steeltoe.Common.Configuration.ConfigurationValuesHelper` | Type | Steeltoe.Common [Abstractions] | Removed | None | Refactored to use ASP.NET Options pattern instead |
-| `Steeltoe.Common.Configuration.PropertyPlaceholderHelper` | Type | Steeltoe.Common [Abstractions] | Made internal | None | Placeholder substitution is handled in Steeltoe.Configuration.Placeholder package |
-| `Steeltoe.Common.Contexts` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed for SpEL support, which has been removed |
-| `Steeltoe.Common.Converter` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed for SpEL support, which has been removed |
-| `Steeltoe.Common.Discovery` | Namespace | Steeltoe.Common [Abstractions] | Moved | Steeltoe.Discovery.HttpClients package | |
-| `Steeltoe.Common.Discovery.ConfigurationServiceInstance` | Type | Steeltoe.Common [Abstractions] | Moved | Steeltoe.Discovery.Configuration package | |
-| `Steeltoe.Common.Discovery.ConfigurationServiceInstanceProvider` | Type | Steeltoe.Common [Abstractions] | Moved | ConfigurationDiscoveryOptions in Steeltoe.Discovery.Configuration package | |
-| `Steeltoe.Common.Discovery.IServiceInstanceProvider` | Type | Steeltoe.Common [Abstractions] | Moved | `Steeltoe.Common.Discovery.IDiscoveryClient` | |
-| `Steeltoe.Common.Discovery.IServiceInstanceProviderExtensions` | Type | Steeltoe.Common [Abstractions] | Made internal | None | Caching is handled in Steeltoe.Discovery.HttpClients package |
-| `Steeltoe.Common.Discovery.IServiceRegistry<>` | Type | Steeltoe.Common [Abstractions] | Removed | None | This abstraction is no longer needed |
-| `Steeltoe.Common.Discovery.SerializableIServiceInstance` | Type | Steeltoe.Common [Abstractions] | Removed | `Steeltoe.Discovery.Configuration.ConfigurationServiceInstance` | |
-| `Steeltoe.Common.Expression` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed for SpEL support, which has been removed |
-| `Steeltoe.Common.Extensions.UriExtensions` | Type | Steeltoe.Common [Abstractions] | Made internal | None | Internally used to mask URIs in logs |
-| `Steeltoe.Common.IApplicationInstanceInfo` | Type | Steeltoe.Common [Abstractions] | Members removed | Type-check for `CloudFoundryApplicationOptions` at runtime | Removed members that only apply to Cloud Foundry |
-| `Steeltoe.Common.IApplicationTask.Name` | Property | Steeltoe.Common [Abstractions] | Removed | None | Specify task name during registration |
-| `Steeltoe.Common.ICertificateSource` | Type | Steeltoe.Common [Abstractions] | Removed | `IServiceCollection.ConfigureCertificateOptions()` in Steeltoe.Common.Certificates package | Certificate paths are now stored in `IConfiguration` to detect changes |
-| `Steeltoe.Common.IHttpClientHandlerProvider` | Type | Steeltoe.Common [Abstractions] | Removed | `HttpClientHandlerFactory` in Steeltoe.Common.Http package | Should use `HttpMessageHandler` pipeline in `HttpClientFactory` instead |
-| `Steeltoe.Common.IServiceCollectionExtensions.RegisterDefaultApplicationInstanceInfo` | Extension method | Steeltoe.Common [Abstractions] | Renamed | `AddApplicationInstanceInfo` | |
-| `Steeltoe.Common.IServiceProviderExtensions.GetApplicationInstanceInfo` | Extension method | Steeltoe.Common [Abstractions] | Removed | `IServiceProvider.GetRequiredService<IApplicationInstanceInfo>()` | Has become redundant |
-| `Steeltoe.Common.Json.JsonIgnoreEmptyCollectionAttribute` | Type | Steeltoe.Common | Added | | Annotation to exclude a collection during JSON serialization when empty |
-| `Steeltoe.Common.Json.JsonSerializerOptionsExtensions.AddJsonIgnoreEmptyCollection` | Extension method | Steeltoe.Common | Added | | Configures JsonSerializerOptions to exclude empty collections |
-| `Steeltoe.Common.Lifecycle` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed for SpEL support, which has been removed |
-| `Steeltoe.Common.LoadBalancer.ILoadBalancer` | Type | Steeltoe.Common [Abstractions] | Moved | `ILoadBalancer` in Steeltoe.Discovery.HttpClients package | |
-| `Steeltoe.Common.Logging.IBoostrapLoggerFactory` | Type | Steeltoe.Common [Abstractions] | Removed | `BootstrapLoggerFactory.CreateConsole()` in Steeltoe.Common.Logging package | |
-| `Steeltoe.Common.Net.DnsTools` | Type | Steeltoe.Common [Abstractions] | Made internal | None | Internally used to resolve host names and IP addresses |
-| `Steeltoe.Common.Net.HostInfo` | Type | Steeltoe.Common [Abstractions] | Made internal | None | Internally used to resolve host names and IP addresses |
-| `Steeltoe.Common.Net.InetUtils` | Type | Steeltoe.Common [Abstractions] | Made internal | None | Internally used to resolve host names and IP addresses |
-| `Steeltoe.Common.Options.AbstractOptions` | Type | Steeltoe.Common [Abstractions] | Removed | None | Refactored to use ASP.NET Options pattern instead |
-| `Steeltoe.Common.Options.CertificateOptions` | Type | Steeltoe.Common [Abstractions] | Moved | Steeltoe.Common.Certificates package | |
-| `Steeltoe.Common.Order` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed to support components that have been removed |
-| `Steeltoe.Common.Platform.IsFullFramework` | Property | Steeltoe.Common [Abstractions] | Removed | None | Support for .NET Framework is no longer available |
-| `Steeltoe.Common.Platform.IsNetCore` | Property | Steeltoe.Common [Abstractions] | Removed | None | This enum member is no longer needed |
-| `Steeltoe.Common.Reflection` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed to support Type Locators, which have been replaced with internal-only shims |
-| `Steeltoe.Common.Retry` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed for Messaging support, which has been removed |
-| `Steeltoe.Common.SecurityUtilities` | Type | Steeltoe.Common [Abstractions] | Removed | None | Internally used to sanitize line breaks in logs |
-| `Steeltoe.Common.Services` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed to support components that have been removed |
-| `Steeltoe.Common.SteeltoeComponent` | Type | Steeltoe.Common [Abstractions] | Removed | None | This enum is no longer needed |
-| `Steeltoe.Common.Transaction` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed for Messaging support, which has been removed |
-| `Steeltoe.Common.Util` | Namespace | Steeltoe.Common [Abstractions] | Removed | None | Existed to support components that have been removed |
-| `Steeltoe.Common.Certificates.CertificateConfigurationExtensions.AddAppInstanceIdentityCertificate` | Extension method | Steeltoe.Common.Certificates | Added | | Register/generate identity certificate for Cloud Foundry authentication |
-| `Steeltoe.Common.Certificates.CertificateOptions` | Type | Steeltoe.Common.Certificates | Added | | Provides access to loaded certificate using ASP.NET Options pattern |
-| `Steeltoe.Common.Certificates.CertificateServiceCollectionExtensions.ConfigureCertificateOptions` | Extension method | Steeltoe.Common.Certificates | Added | | Bind named certificate from `IConfiguration` and monitor for changes |
-| `Steeltoe.Common.Hosting.BootstrapLoggerHostedService` | Type | Steeltoe.Common.Hosting | Made internal | None | Moved to Steeltoe.Common.Logging package |
-| `Steeltoe.Common.Hosting.HostBuilderExtensions.UseCloudHosting` | Extension method | Steeltoe.Common.Hosting | Removed | Specify ports explicitly [^1] | Feature dropped, impossible to reliably detect bound ports in all cases |
-| `Microsoft.Extensions.DependencyInjection.LoadBalancerHttpClientBuilderExtensions.AddLoadBalancer<T>` | Extension method | Steeltoe.Common.Http | Moved | `AddServiceDiscovery<T>()` in Steeltoe.Discovery.HttpClients package | |
-| `Microsoft.Extensions.DependencyInjection.LoadBalancerHttpClientBuilderExtensions.AddRandomLoadBalancer` | Extension method | Steeltoe.Common.Http | Moved | `AddServiceDiscovery<RandomLoadBalancer>()` in Steeltoe.Discovery.HttpClients package | |
-| `Microsoft.Extensions.DependencyInjection.LoadBalancerHttpClientBuilderExtensions.AddRoundRobinLoadBalancer` | Extension method | Steeltoe.Common.Http | Moved | `AddServiceDiscovery<RoundRobinLoadBalancer>()` in Steeltoe.Discovery.HttpClients package | |
-| `Steeltoe.Common.Discovery.DiscoveryHttpClientHandler` | Type | Steeltoe.Common.Http | Removed | `DiscoveryHttpClientHandler` in Steeltoe.Discovery.HttpClients package | |
-| `Steeltoe.Common.Discovery.DiscoveryHttpClientHandlerBase` | Type | Steeltoe.Common.Http | Removed | `DiscoveryHttpClientHandler` in Steeltoe.Discovery.HttpClients package | |
-| `Steeltoe.Common.Http.ClientCertificateHttpHandler` | Type | Steeltoe.Common.Http | Removed | None | Rotating certificates in OS-level certificate store proved to be unreliable |
-| `Steeltoe.Common.Http.ClientCertificateHttpHandlerProvider` | Type | Steeltoe.Common.Http | Removed | None | Refactored to internal `ClientCertificateHttpClientHandlerConfigurer` |
-| `Steeltoe.Common.Http.Discovery.DiscoveryHttpClientBuilderExtensions.AddServiceDiscovery` | Extension method | Steeltoe.Common.Http | Moved | `AddServiceDiscovery()` in Steeltoe.Discovery.HttpClients package | |
-| `Steeltoe.Common.Http.Discovery.DiscoveryHttpMessageHandler` | Type | Steeltoe.Common.Http | Removed | `DiscoveryHttpDelegatingHandler<>` in Steeltoe.Discovery.HttpClients package | |
-| `Steeltoe.Common.Http.HttpClientHelper` | Type | Steeltoe.Common.Http | Removed | None | Refactored handling of client certificates |
-| `Steeltoe.Common.Http.HttpClientPooling.HttpClientHandlerFactory` | Type | Steeltoe.Common.Http | Added | | Enables to mock request/response from tests |
-| `Steeltoe.Common.Http.LoadBalancer.LoadBalancerDelegatingHandler` | Type | Steeltoe.Common.Http | Moved | `DiscoveryHttpDelegatingHandler<>` in Steeltoe.Discovery.HttpClients package | |
-| `Steeltoe.Common.Http.LoadBalancer.LoadBalancerHttpClientHandler` | Type | Steeltoe.Common.Http | Moved | `DiscoveryHttpClientHandler` in Steeltoe.Discovery.HttpClients package | |
-| `Steeltoe.Common.Http.Serialization.BoolStringJsonConverter` | Type | Steeltoe.Common.Http | Removed | None | Made internal, moved to Steeltoe.Discovery.Eureka package |
-| `Steeltoe.Common.Http.Serialization.LongStringJsonConverter` | Type | Steeltoe.Common.Http | Removed | None | Made internal, moved to Steeltoe.Discovery.Eureka package |
-| `Steeltoe.Common.Logging.BootstrapLoggerFactory` | Type | Steeltoe.Common.Logging | Added | | Writes startup logs to console before logging has initialized |
-| `Steeltoe.Common.Logging.BootstrapLoggerServiceCollectionExtensions.UpgradeBootstrapLoggerFactory` | Extension method | Steeltoe.Common.Logging | Added | | Upgrades existing loggers after app has started |
-| `Steeltoe.Common.Net.IMPR` | Type | Steeltoe.Common.Net | Removed | None | Renamed to internal type `IMultipleProviderRouter` (existed for testing only) |
-| `Steeltoe.Common.Net.WindowsNetworkFileShare.GetLastError` | Method | Steeltoe.Common.Net | Removed | None | Now throws `IOException` on error |
-| `Steeltoe.Common.Net.WindowsNetworkFileShare.NetResource` | Type | Steeltoe.Common.Net | Removed | None | Nested type used internally for P/Invoke, should not be public |
-| `Steeltoe.Common.Net.WindowsNetworkFileShare.ResourceDisplaytype` | Type | Steeltoe.Common.Net | Removed | None | Nested type used internally for P/Invoke, should not be public |
-| `Steeltoe.Common.Net.WindowsNetworkFileShare.ResourceScope` | Type | Steeltoe.Common.Net | Removed | None | Nested type used internally for P/Invoke, should not be public |
-| `Steeltoe.Common.Net.WindowsNetworkFileShare.ResourceType` | Type | Steeltoe.Common.Net | Removed | None | Nested type used internally for P/Invoke, should not be public |
-| `Steeltoe.Common.Security.CertificateProvider` | Type | Steeltoe.Common.Security | Removed | Store certificate paths in `IConfiguration` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Common.Security.CertificateRotationService` | Type | Steeltoe.Common.Security | Removed | None | Rotating certificates in OS-level certificate store proved to be unreliable |
-| `Steeltoe.Common.Security.CertificateSource` | Type | Steeltoe.Common.Security | Removed | Store certificate paths in `IConfiguration` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Common.Security.ConfigurationExtensions.AddCertificateFile` | Extension method | Steeltoe.Common.Security | Removed | `CertificateServiceCollectionExtensions.ConfigureCertificateOptions()` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Common.Security.ConfigurationExtensions.AddPemFiles` | Extension method | Steeltoe.Common.Security | Removed | `CertificateServiceCollectionExtensions.ConfigureCertificateOptions()` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Common.Security.ConfigureCertificateOptions` | Type | Steeltoe.Common.Security | Removed | Store certificate paths in `IConfiguration` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Common.Security.ICertificateRotationService` | Type | Steeltoe.Common.Security | Removed | None | Rotating certificates in OS-level certificate store proved to be unreliable |
-| `Steeltoe.Common.Security.LocalCertificateWriter` | Type | Steeltoe.Common.Security | Removed | `CertificateConfigurationExtensions.AddAppInstanceIdentityCertificate()` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Common.Security.PemCertificateProvider` | Type | Steeltoe.Common.Security | Removed | Store certificate paths in `IConfiguration` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Common.Security.PemCertificateSource` | Type | Steeltoe.Common.Security | Removed | Store certificate paths in `IConfiguration` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Common.Security.PemConfigureCertificateOptions` | Type | Steeltoe.Common.Security | Removed | Store certificate paths in `IConfiguration` | Refactored to use ASP.NET Options pattern |
-
-[^1]: When using the binary buildpack, specify port bindings in an [environment variable](https://learn.microsoft.com/aspnet/core/fundamentals/servers/kestrel/endpoints#specify-ports-only) or on the command-line: `--urls=http://0.0.0.0:%PORT%`.
-
-### Notable PRs
-
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1523
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1342
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1334
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1330
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1327
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1321
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1306
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1247
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1246
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1080
+TODO
 
 ## Configuration
 
-### Behavior changes
-
-- Placeholder substitution changed internally (wrapping and taking ownership of sources), should be added as late as possible
-- To improve performance, Config Server provider doesn't substitute placeholders by default anymore
-  - Call `AddPlaceholderResolver()` *before* `AddConfigServer()` to substitute info to connect to Config Server
-  - Call `AddPlaceholderResolver()` *after* `AddConfigServer()` to substitute placeholders in settings from all providers including Config Server
-  - Call `AddPlaceholderResolver()` *before and after* `AddConfigServer()` to substitute placeholders in both sources
-- Added trace-level logging in placeholder provider to diagnose substitution
-- New configuration provider to decrypt settings in Config Server (should be added as late as possible)
-- Reduced noise in Config Server logging
-- Universal configuration of client certificates, using ASP.NET Options pattern (named, with fallback to default)
-- Added support for reading from [Application Configuration Service for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/application-configuration-service-for-tanzu/2-4/app-config-service/overview.html) on Kubernetes
-- Improved support for ASP.NET Options pattern, responding to configuration changes at runtime
-- Removed configuration provider that directly interacts with the Kubernetes API
-
-### NuGet Package changes
-
-| Source | Change | Replacement | Notes |
-| --- | --- | --- | --- |
-| Steeltoe.Extensions.Configuration.Abstractions | Renamed | Steeltoe.Configuration.Abstractions | |
-| Steeltoe.Extensions.Configuration.CloudFoundryBase | Renamed | Steeltoe.Configuration.CloudFoundry | |
-| Steeltoe.Extensions.Configuration.CloudFoundryCore | Renamed | Steeltoe.Configuration.CloudFoundry | |
-| Steeltoe.Extensions.Configuration.ConfigServerBase | Renamed | Steeltoe.Configuration.ConfigServer | |
-| Steeltoe.Extensions.Configuration.ConfigServerCore | Renamed | Steeltoe.Configuration.ConfigServer | |
-| Steeltoe.Configuration.Encryption | Added | | Provides decryption of `IConfiguration` entries |
-| Steeltoe.Extensions.Configuration.KubernetesBase | Removed | None | |
-| Steeltoe.Extensions.Configuration.KubernetesCore | Removed | None | |
-| Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding | Renamed | Steeltoe.Configuration.Kubernetes.ServiceBindings | |
-| Steeltoe.Extensions.Configuration.PlaceholderBase | Renamed | Steeltoe.Configuration.Placeholder | |
-| Steeltoe.Extensions.Configuration.PlaceholderCore | Renamed | Steeltoe.Configuration.Placeholder | |
-| Steeltoe.Extensions.Configuration.RandomValueBase | Renamed | Steeltoe.Configuration.RandomValue | |
-| Steeltoe.Extensions.Configuration.RandomValueCore | Renamed | Steeltoe.Configuration.RandomValue | |
-| Steeltoe.Extensions.Configuration.SpringBootBase | Renamed | Steeltoe.Configuration.SpringBoot | |
-| Steeltoe.Extensions.Configuration.SpringBootCore | Renamed | Steeltoe.Configuration.SpringBoot | |
-
-### API changes
-
-| Source | Kind | Package | Change | Replacement | Notes |
-| --- | --- | --- | --- | --- | --- |
-| `Steeltoe.Configuration.ICompositeConfigurationSource` | Type | Steeltoe.Configuration.Abstractions | Added | | Building block for configuration providers |
-| `Steeltoe.Extensions.Configuration.AbstractServiceOptions` | Type | Steeltoe.Extensions.Configuration.Abstractions | Removed | `CloudFoundryService` in Steeltoe.Configuration.CloudFoundry package | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Extensions.Configuration.AbstractServiceOptions.GetInstancesOfType` | Method | Steeltoe.Extensions.Configuration.Abstractions | Moved | `CloudFoundryServicesOptions.GetServicesOfType` in Steeltoe.Configuration.CloudFoundry package | |
-| `Steeltoe.Extensions.Configuration.AbstractServiceOptions.GetServicesList` | Method | Steeltoe.Extensions.Configuration.Abstractions | Moved | `CloudFoundryServicesOptions.GetAllServices` in Steeltoe.Configuration.CloudFoundry package | |
-| `Steeltoe.Extensions.Configuration.Credential` | Type | Steeltoe.Extensions.Configuration.Abstractions | Moved | `CloudFoundryCredentials` in Steeltoe.Configuration.CloudFoundry package | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Extensions.Configuration.CredentialConverter` | Type | Steeltoe.Extensions.Configuration.Abstractions | Removed | None | Moved to internal type `CredentialsConverter` |
-| `Steeltoe.Extensions.Configuration.IPlaceholderResolverProvider` | Type | Steeltoe.Extensions.Configuration.Abstractions | Removed | `PlaceholderConfigurationProvider` in Steeltoe.Configuration.Placeholder package | |
-| `Steeltoe.Extensions.Configuration.IServiceCollectionExtensions.GetServicesInfo` | Extension method | Steeltoe.Extensions.Configuration.Abstractions | Removed | `IServiceProvider.GetRequiredService<IOptionsMonitor<CloudFoundryServicesOptions>>()` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Extensions.Configuration.IServicesInfo` | Type | Steeltoe.Extensions.Configuration.Abstractions | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Extensions.Configuration.Service` | Type | Steeltoe.Extensions.Configuration.Abstractions | Moved | `CloudFoundryService` in Steeltoe.Configuration.CloudFoundry package | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Extensions.Configuration.ServicesOptions` | Type | Steeltoe.Extensions.Configuration.Abstractions | Moved | `CloudFoundryServicesOptions` in Steeltoe.Configuration.CloudFoundry package | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Configuration.CloudFoundry.CloudFoundryApplicationOptions.OrganizationId` | Property | Steeltoe.Configuration.CloudFoundry | Added | | |
-| `Steeltoe.Configuration.CloudFoundry.CloudFoundryApplicationOptions.OrganizationName` | Property | Steeltoe.Configuration.CloudFoundry | Added | | |
-| `Steeltoe.Configuration.CloudFoundry.CloudFoundryApplicationOptions.ProcessId` | Property | Steeltoe.Configuration.CloudFoundry | Added | | |
-| `Steeltoe.Configuration.CloudFoundry.CloudFoundryApplicationOptions.ProcessType` | Property | Steeltoe.Configuration.CloudFoundry | Added | | |
-| `Steeltoe.Configuration.CloudFoundry.CloudFoundryApplicationOptions.StartedAtTimestamp` | Property | Steeltoe.Configuration.CloudFoundry | Added | | |
-| `Steeltoe.Configuration.CloudFoundry.CloudFoundryService` | Type | Steeltoe.Configuration.CloudFoundry | Added | | A service object in VCAP_SERVICES |
-| `Steeltoe.Configuration.CloudFoundry.ServiceBindings.ConfigurationBuilderExtensions.AddCloudFoundryServiceBindings` | Extension method | Steeltoe.Configuration.CloudFoundry | Added | | Post-processor based API for reading VCAP_SERVICES into `IConfiguration` |
-| `Steeltoe.Configuration.CloudFoundry.ServiceBindings.IServiceBindingsReader` | Type | Steeltoe.Configuration.CloudFoundry | Added | | Enables to provide VCAP_SERVICES from tests |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.Application_Uris` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `CloudFoundryApplicationOptions.Uris` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.Application_Version` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `CloudFoundryApplicationOptions.ApplicationVersion` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.CF_Api` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `CloudFoundryApplicationOptions.Api` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.DiskLimit` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Removed | `CloudFoundryApplicationOptions.Limits.Disk` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.FileDescriptorLimit` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Removed | `CloudFoundryApplicationOptions.Limits.FileDescriptor` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.Instance_Index` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `CloudFoundryApplicationOptions.InstanceIndex` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.Instance_IP` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `CloudFoundryApplicationOptions.InstanceIP` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.Internal_IP` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `CloudFoundryApplicationOptions.InternalIP` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.MemoryLimit` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Removed | `CloudFoundryApplicationOptions.Limits.Memory` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryApplicationOptions.Space_Id` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `CloudFoundryApplicationOptions.SpaceId` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryConfigurationProvider` | Type | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryConfigurationSource` | Type | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryEnvironmentSettingsReader` | Type | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Removed | None | Made internal, not designed for reuse/extensibility |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryMemorySettingsReader` | Type | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Removed | None | Made internal, used for unit tests only |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryServiceCollectionExtensions.ConfigureCloudFoundryOptions` | Extension method | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Removed | `CloudFoundryHostBuilderExtensions.AddCloudFoundryConfiguration` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryServiceCollectionExtensions.ConfigureCloudFoundryService<T>` | Extension method | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Removed | None | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.IServiceCollectionExtensions.RegisterCloudFoundryApplicationInstanceInfo` | Extension method | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `CloudFoundryServiceCollectionExtensions.AddCloudFoundryOptions` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.Limits` | Type | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `ApplicationLimits` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.Limits.Fds` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `ApplicationLimits.FileDescriptor` | |
-| `Steeltoe.Extensions.Configuration.CloudFoundry.Limits.Mem` | Property | Steeltoe.Extensions.Configuration.CloudFoundry [Base/Core] | Renamed | `ApplicationLimits.Memory` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettings` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Renamed | `ConfigServerClientOptions` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettings.ClientCertificate` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | Store certificate paths in `IConfiguration` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettings.RawUri` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Uri` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Renamed | `ConfigServerClientOptions` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.Access_Token_Uri` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.AccessTokenUri` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.Client_Id` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.ClientId` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.Client_Secret` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.ClientSecret` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.DiscoveryEnabled` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Discovery.Enabled` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.DiscoveryServiceId` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Discovery.ServiceId` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.Env` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Environment` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.HealthEnabled` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Health.Enabled` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.HealthTimeToLive` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Health.TimeToLive` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.RetryAttempts` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Retry.MaxAttempts` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.RetryEnabled` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Retry.Enabled` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.RetryInitialInterval` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Retry.InitialInterval` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.RetryMaxInterval` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Retry.MaxInterval` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.RetryMultiplier` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.Retry.Multiplier` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerClientSettingsOptions.Validate_Certificates` | Property | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | `ConfigServerClientOptions.ValidateCertificates` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerConfigurationProvider` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | None | Made internal, not designed for reuse/extensibility |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerConfigurationSource` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | None | Made internal, not designed for reuse/extensibility |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerHealthContributor` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | None | Made internal, not designed for reuse/extensibility |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigServerHostedService.ConfigServerHostedService` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | None | Made internal, not designed for reuse/extensibility |
-| `Steeltoe.Extensions.Configuration.ConfigServer.ConfigurationSettingsHelper` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Extensions.Configuration.ConfigServer.SpringCloudConfigDiscovery` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Renamed | `ConfigServerDiscoveryOptions` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.SpringCloudConfigHealth` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Renamed | `ConfigServerHealthOptions` | |
-| `Steeltoe.Extensions.Configuration.ConfigServer.SpringCloudConfigRetry` | Type | Steeltoe.Extensions.Configuration.ConfigServer [Base/Core] | Renamed | `ConfigServerRetryOptions` | |
-| `Steeltoe.Configuration.Encryption.Cryptography.DecryptionException` | Type | Steeltoe.Configuration.Encryption | Added | | Thrown when unable to decrypt |
-| `Steeltoe.Configuration.Encryption.Cryptography.ITextDecryptor` | Type | Steeltoe.Configuration.Encryption | Added | | Provides pluggable decryption algorithms |
-| `Steeltoe.Configuration.Encryption.DecryptionConfigurationBuilderExtensions.AddDecryption` | Extension method | Steeltoe.Configuration.Encryption | Added | | Activates decryption |
-| `Steeltoe.Configuration.Kubernetes.ServiceBindings.IServiceBindingsReader` | Type | Steeltoe.Configuration.Kubernetes.ServiceBindings | Added | | Enables to provide bindings from tests |
-| `Steeltoe.Extensions.Configuration.Placeholder.PlaceholderResolverConfigurationExtensions.AddPlaceholderResolver` | Extension method | Steeltoe.Extensions.Configuration.Placeholder [Base/Core] | Moved | `PlaceholderConfigurationBuilderExtensions.AddPlaceholderResolver` | |
-| `Steeltoe.Extensions.Configuration.Placeholder.PlaceholderResolverExtensions.AddPlaceholderResolver` | Extension method | Steeltoe.Extensions.Configuration.Placeholder [Base/Core] | Removed | `IConfigurationBuilder.AddPlaceholderResolver()` | |
-| `Steeltoe.Extensions.Configuration.Placeholder.PlaceholderResolverProvider` | Type | Steeltoe.Extensions.Configuration.Placeholder [Base/Core] | Removed | None | Renamed to internal `PlaceholderConfigurationProvider` |
-| `Steeltoe.Extensions.Configuration.Placeholder.PlaceholderResolverSource` | Type | Steeltoe.Extensions.Configuration.Placeholder [Base/Core] | Removed | None | Renamed to internal `PlaceholderConfigurationSource` |
-| `Steeltoe.Extensions.Configuration.RandomValue.RandomValueProvider` | Type | Steeltoe.Extensions.Configuration.RandomValue [Base/Core] | Removed | None | Made internal, not designed for reuse/extensibility |
-| `Steeltoe.Extensions.Configuration.RandomValue.RandomValueSource` | Type | Steeltoe.Extensions.Configuration.RandomValue [Base/Core] | Removed | None | Made internal, not designed for reuse/extensibility |
-| `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootCmdProvider` | Type | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core] | Removed | None | Renamed to internal `SpringBootCommandLineProvider` |
-| `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootCmdSource` | Type | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core] | Removed | None | Renamed to internal `SpringBootCommandLineSource` |
-| `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootConfigurationBuilderExtensions.AddSpringBootCmd` | Extension method | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core] | Renamed | `SpringBootConfigurationBuilderExtensions.AddSpringBootFromCommandLine` | |
-| `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootConfigurationBuilderExtensions.AddSpringBootEnv` | Extension method | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core] | Renamed | `SpringBootConfigurationBuilderExtensions.AddSpringBootFromEnvironmentVariable` | |
-| `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootEnvProvider` | Type | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core] | Removed | None | Renamed to internal `SpringBootEnvironmentVariableProvider` |
-| `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootEnvSource` | Type | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core] | Removed | None | Renamed to internal `SpringBootEnvironmentVariableSource` |
-| `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootHostBuilderExtensions.AddSpringBootConfiguration` | Extension method | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core] | Removed | `builder.Configuration.AddSpringBootFromCommandLine/EnvironmentVariable()` | Redundant |
-
-### Notable PRs
-
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1360
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1355
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1339
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1306
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1277
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1276
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1243
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1228
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1196
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1183
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1179
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1149
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1099
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1097
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1008
-
-### Documentation
-
-For more information, see the updated [Configuration documentation](../configuration/index.md) and
+For additional information, see the updated [Configuration documentation](../configuration/index.md) and
 [Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration).
+
+### Cloud Foundry
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+#### Load `VCAP_SERVICES`/`VCAP_APPLICATION` into `IConfiguration`
+
+Program.cs:
+
+```diff
+-using Steeltoe.Extensions.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.AddCloudFoundryConfiguration();
+
+Console.WriteLine($"Application name: {builder.Configuration["vcap:application:application_name"]}");
+
+foreach (var section in builder.Configuration.GetRequiredSection("vcap:services").GetChildren())
+{
+    var plans = string.Join(", ", section
+        .GetChildren()
+        .SelectMany(child => child.GetChildren())
+        .Where(child => child.Key == "plan")
+        .Select(child => child.Value));
+    Console.WriteLine($"Service: {section.Key} with plans: {plans}");
+}
+```
+
+#### Load `VCAP_SERVICES`/`VCAP_APPLICATION` into `OptionsMonitor`
+
+Program.cs:
+
+```diff
+using Microsoft.Extensions.Options;
+-using Steeltoe.Extensions.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.AddCloudFoundryConfiguration();
+-builder.Services.ConfigureCloudFoundryOptions(builder.Configuration);
+
+var app = builder.Build();
+
+var appMonitor = app.Services.GetRequiredService<IOptionsMonitor<CloudFoundryApplicationOptions>>();
+Console.WriteLine($"Application name: {appMonitor.CurrentValue.ApplicationName}");
+
+var servicesMonitor = app.Services.GetRequiredService<IOptionsMonitor<CloudFoundryServicesOptions>>();
+foreach (var services in servicesMonitor.CurrentValue.Services)
+{
+    var plans = string.Join(", ", services.Value.Select(service => service.Plan));
+    Console.WriteLine($"Service: {services.Key} with plans: {plans}");
+}
+```
+
+### Config Server
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Configuration.ConfigServer" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+Program.cs:
+
+```diff
+-using Steeltoe.Extensions.Configuration.ConfigServer;
++using Steeltoe.Configuration.ConfigServer;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.AddConfigServer();
+```
+
+### Kubernetes
+
+Direct interaction with the Kubernetes API has been removed from Steeltoe in v4.
+
+### Placeholder
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Configuration.Placeholder" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+Program.cs:
+
+```diff
+-using Steeltoe.Extensions.Configuration.Placeholder;
++using Steeltoe.Configuration.Placeholder;
+
+var builder = WebApplication.CreateBuilder(args);
+-builder.AddPlaceholderResolver();
++builder.Configuration.AddPlaceholderResolver();
+```
+
+### Random Value
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Extensions.Configuration.RandomValueBase" Version="3.*" />
++    <PackageReference Include="Steeltoe.Configuration.RandomValue" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+Program.cs:
+
+```diff
+-using Steeltoe.Extensions.Configuration.RandomValue;
++using Steeltoe.Configuration.RandomValue;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddRandomValueSource();
+```
+
+### Spring Boot
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Extensions.Configuration.SpringBootCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Configuration.SpringBoot" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+Program.cs:
+
+```diff
+-using Steeltoe.Extensions.Configuration.SpringBoot;
++using Steeltoe.Configuration.SpringBoot;
+
+var builder = WebApplication.CreateBuilder(args);
+-builder.AddSpringBootConfiguration();
++builder.Configuration.AddSpringBootFromCommandLine(args);
++builder.Configuration.AddSpringBootFromEnvironmentVariable();
+```
 
 ## Connectors
 
-### Behavior changes
-
-- Universal configuration and API shape for single/multiple (named) service bindings
-  - ADO.NET API: `builder.Add*()`, inject `ConnectorFactory<TOptions, TConnection>` (driver-specific connection/client instances are no longer registered)
-  - EF Core API: must call `builder.Add*()` first. Example: `builder.AddMySql(); builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) => options.UseMySql(serviceProvider));`
-  - The structure of configuration has changed severely to accommodate multiple named service bindings in a unified way
-- Compatible with the latest versions of Tanzu, Cloud Foundry, and .NET database drivers
-- Added [Cloud Native Binding](https://github.com/servicebinding/spec) support (used by Tanzu Application Platform and Tanzu Platform for Kubernetes) for MongoDB, MySQL, PostgreSQL, RabbitMQ, and Redis/Valkey
-- Leverage .NET connection strings (agnostic to the driver-specific parameters) using
-  [ASP.NET Options pattern](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/options)
-- Connection string from appsettings.json is preserved, replacing parameters from cloud bindings
-- No more defaults for missing connection parameters that are required by drivers
-- Provide injectable (named) `IOptions` that expose the merged connection string, respond to configuration changes at runtime
-- Provide an injectable factory to obtain a (named) driver-specific connection/client instance (such as `NpgsqlConnection`, `IMongoClient`, `IConnectionMultiplexer`, etc)
-- Automatic connection lifetime management, depending on driver-specific best practices
-- Earlier limitations on health check registration with Entity Framework Core no longer apply
-- Reflection-based code replaced by internal-only shims
-- Various fixes in handling special characters in connection parameters
-- Removed support for Oracle databases (community-contributed, no way to test it, no Cloud Foundry support)
-- Further details at https://github.com/SteeltoeOSS/Steeltoe/issues/638#issuecomment-1584303824
-
-### NuGet Package changes
-
-| Source | Change | Replacement | Notes |
-| --- | --- | --- | --- |
-| Steeltoe.Connector.Abstractions | Removed | None | Redundant after refactorings |
-| Steeltoe.Connector.CloudFoundry | Removed | None | Redundant after refactorings |
-| Steeltoe.Connector.ConnectorBase | Renamed | Steeltoe.Connectors | |
-| Steeltoe.Connector.ConnectorCore | Renamed | Steeltoe.Connectors | |
-| Steeltoe.Connector.EF6Core | Removed | | Entity Framework 6 is no longer being developed |
-| Steeltoe.Connector.EFCore | Renamed | Steeltoe.Connectors.EntityFrameworkCore | |
-
-### API changes
-
-| Source | Kind | Package | Change | Replacement | Notes |
-| --- | --- | --- | --- | --- | --- |
-| `Steeltoe.Connector.AbstractServiceConnectorOptions` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Redundant after refactorings |
-| `Steeltoe.Connector.ConnectionStringConfigurationSource` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use connection string in configuration | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.ConnectionStringManager` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `IServiceProvider.GetRequiredService<IOptions<T>>()` | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.ConnectorException` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Catch `IOException`/`InvalidOperationException`/`ArgumentException`/`OperationCanceledException` | Standard .NET exceptions are thrown |
-| `Steeltoe.Connector.ConnectorIOptions<T>` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Redundant after refactorings |
-| `Steeltoe.Connector.CosmosDb.CosmosDbConnectionInfo` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use connection string in configuration | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.CosmosDb.CosmosDbConnectorFactory` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<CosmosDbOptions, CosmosClient>` | Registered in service container using `builder.AddCosmosDb()` |
-| `Steeltoe.Connector.CosmosDb.CosmosDbConnectorOptions` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `CosmosDbOptions` | Provides connection string |
-| `Steeltoe.Connector.CosmosDb.CosmosDbProviderConfigurer` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.CosmosDb.CosmosDbReadOnlyConnectionInfo` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use connection string in configuration | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.CosmosDb.CosmosDbTypeLocator` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Type locators have been replaced with internal-only shims |
-| `Steeltoe.Connector.Hystrix` | Namespace | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Hystrix (circuit breaker) support was removed |
-| `Steeltoe.Connector.IConfigurationExtensions` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<TOptions, TConnection>` | Redundant after refactorings |
-| `Steeltoe.Connector.MongoDb.MongoDbConnectionInfo` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use connection string in configuration | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.MongoDb.MongoDbConnectorFactory` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<MongoDbOptions, IMongoClient>` | Registered in service container using `builder.AddMongoDb()` |
-| `Steeltoe.Connector.MongoDb.MongoDbConnectorOptions` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `MongoDbOptions` | Provides connection string |
-| `Steeltoe.Connector.MongoDb.MongoDbHealthContributor` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorAddOptionsBuilder.EnableHealthChecks` | Made internal |
-| `Steeltoe.Connector.MongoDb.MongoDbProviderConfigurer` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.MongoDb.MongoDbProviderServiceCollectionExtensions.AddMongoClient` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Moved | `IHostApplicationBuilder.AddMongoDb()` | |
-| `Steeltoe.Connector.MongoDb.MongoDbTypeLocator` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Type locators have been replaced with internal-only shims |
-| `Steeltoe.Connector.MySql.EF6` | Namespace | Steeltoe.Connector.Connector [Base/Core] | Removed | Use Steeltoe.Connectors.EntityFrameworkCore package | Entity Framework 6 is no longer being developed |
-| `Steeltoe.Connector.MySql.MySqlConnectionInfo` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use connection string in configuration | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.MySql.MySqlProviderConfigurer` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.MySql.MySqlProviderConnectorFactory` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<MySqlOptions, MySqlConnection>` | Registered in service container using `builder.AddMySql()` |
-| `Steeltoe.Connector.MySql.MySqlProviderConnectorOptions` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `MySqlOptions` | Provides connection string |
-| `Steeltoe.Connector.MySql.MySqlProviderServiceCollectionExtensions.AddMySqlConnection` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Moved | `IHostApplicationBuilder.AddMySql()` | |
-| `Steeltoe.Connector.MySql.MySqlServiceCollectionExtensions.AddMySqlHealthContributor` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorAddOptionsBuilder.EnableHealthChecks` | |
-| `Steeltoe.Connector.MySql.MySqlTypeLocator` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Type locators have been replaced with internal-only shims |
-| `Steeltoe.Connector.OAuth` | Namespace | Steeltoe.Connector.Connector [Base/Core] | Removed | Use Steeltoe.Security.Authentication packages | Redundant after refactorings |
-| `Steeltoe.Connector.Oracle` | Namespace | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Support for Oracle databases was removed |
-| `Steeltoe.Connector.PostgreSql.PostgresConnectionInfo` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use connection string in configuration | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.PostgreSql.PostgresProviderConfigurer` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.PostgreSql.PostgresProviderConnectorFactory` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<PostgreSqlOptions, NpgsqlConnection>` | Registered in service container using `builder.AddPostgreSql()` |
-| `Steeltoe.Connector.PostgreSql.PostgresProviderConnectorOptions` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `PostgreSqlOptions` | Provides connection string |
-| `Steeltoe.Connector.PostgreSql.PostgresProviderServiceCollectionExtensions.AddPostgresConnection` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Moved | `IHostApplicationBuilder.AddPostgreSql()` | |
-| `Steeltoe.Connector.PostgreSql.PostgreSqlTypeLocator` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Type locators have been replaced with internal-only shims |
-| `Steeltoe.Connector.PostgreSql.PostgresServiceCollectionExtensions.AddPostgresHealthContributor` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorAddOptionsBuilder.EnableHealthChecks` | |
-| `Steeltoe.Connector.RabbitMQ.RabbitMQConnectionInfo` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use connection string in configuration | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.RabbitMQ.RabbitMQHealthContributor` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorAddOptionsBuilder.EnableHealthChecks` | |
-| `Steeltoe.Connector.RabbitMQ.RabbitMQProviderConfigurer` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.RabbitMQ.RabbitMQProviderConnectorFactory` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<RabbitMQOptions, IConnection>` | Registered in service container using `builder.AddRabbitMQ()` |
-| `Steeltoe.Connector.RabbitMQ.RabbitMQProviderConnectorOptions` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `RabbitMQOptions` | Provides connection string |
-| `Steeltoe.Connector.RabbitMQ.RabbitMQProviderServiceCollectionExtensions.AddRabbitMQConnection` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Moved | `IHostApplicationBuilder.AddRabbitMQ()` | |
-| `Steeltoe.Connector.RabbitMQ.RabbitMQTypeLocator` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Type locators have been replaced with internal-only shims |
-| `Steeltoe.Connector.Redis.RedisCacheConfigurationExtensions.CreateRedisServiceConnectorFactory` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<RedisOptions, IConnectionMultiplexer>` | Registered in service container using `builder.AddRedis()` |
-| `Steeltoe.Connector.Redis.RedisCacheConfigurer` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.Redis.RedisCacheConnectorOptions` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `RedisOptions` | Provides connection string |
-| `Steeltoe.Connector.Redis.RedisCacheServiceCollectionExtensions.AddDistributedRedisCache` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Moved | `IHostApplicationBuilder.AddRedis()` | Auto-adds `ConnectionMultiplexer` if Microsoft.Extensions.Caching.StackExchangeRedis package is referenced |
-| `Steeltoe.Connector.Redis.RedisCacheServiceCollectionExtensions.AddRedisConnectionMultiplexer` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Moved | `IHostApplicationBuilder.AddRedis()` | Auto-adds `ConnectionMultiplexer` if Microsoft.Extensions.Caching.StackExchangeRedis package is referenced |
-| `Steeltoe.Connector.Redis.RedisConnectionInfo` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use connection string in configuration | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.Redis.RedisHealthContributor` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorAddOptionsBuilder.EnableHealthChecks` | |
-| `Steeltoe.Connector.Redis.RedisServiceConnectorFactory` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<RedisOptions, IConnectionMultiplexer>` | Registered in service container using `builder.AddRedis()` |
-| `Steeltoe.Connector.Redis.RedisTypeLocator` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Type locators have been replaced with internal-only shims |
-| `Steeltoe.Connector.RelationalDbHealthContributor` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Made internal, renamed to `RelationalDatabaseHealthContributor` |
-| `Steeltoe.Connector.ServiceInfoCreator` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<TOptions, TConnection>` | Loading connectors from assemblies was dropped |
-| `Steeltoe.Connector.Services` | Namespace | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<TOptions, TConnection>` | Loading connectors from assemblies was dropped |
-| `Steeltoe.Connector.Services.SsoServiceInfoFactory` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use Steeltoe.Security.Authentication packages | Redundant after refactorings |
-| `Steeltoe.Connector.SqlServer.EF6` | Namespace | Steeltoe.Connector.Connector [Base/Core] | Removed | Use Steeltoe.Connectors.EntityFrameworkCore package | Entity Framework 6 is no longer being developed |
-| `Steeltoe.Connector.SqlServer.SqlServerConnectionInfo` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | Use connection string in configuration | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.SqlServer.SqlServerProviderConfigurer` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Refactored to use ASP.NET Options pattern |
-| `Steeltoe.Connector.SqlServer.SqlServerProviderConnectorFactory` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorFactory<SqlServerOptions, SqlConnection>` | Registered in service container using `builder.AddSqlServer()` |
-| `Steeltoe.Connector.SqlServer.SqlServerProviderConnectorOptions` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | `SqlServerOptions` | Provides connection string |
-| `Steeltoe.Connector.SqlServer.SqlServerProviderServiceCollectionExtensions.AddSqlServerConnection` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Moved | `IHostApplicationBuilder.AddSqlServer()` | |
-| `Steeltoe.Connector.SqlServer.SqlServerServiceCollectionExtensions.AddSqlServerHealthContributor` | Extension method | Steeltoe.Connector.Connector [Base/Core] | Removed | `ConnectorAddOptionsBuilder.EnableHealthChecks` | |
-| `Steeltoe.Connector.SqlServer.SqlServerTypeLocator` | Type | Steeltoe.Connector.Connector [Base/Core] | Removed | None | Type locators have been replaced with internal-only shims |
-| `Steeltoe.Connectors.ConnectionStringOptions` | Type | Steeltoe.Connectors | Added | | Base type for driver-specific connection string |
-| `Steeltoe.Connectors.Connector<TOptions, TConnection>` | Type | Steeltoe.Connectors | Added | | Returned by `ConnectorFactory<TOptions, TConnection>` |
-| `Steeltoe.Connectors.ConnectorAddOptionsBuilder` | Type | Steeltoe.Connectors | Added | | Connector configuration settings |
-| `Steeltoe.Connectors.ConnectorConfigureOptionsBuilder` | Type | Steeltoe.Connectors | Added | | Connector configuration settings |
-| `Steeltoe.Connectors.ConnectorCreateConnection` | Type | Steeltoe.Connectors | Added | | Delegate to customize connecting |
-| `Steeltoe.Connectors.ConnectorCreateHealthContributor` | Type | Steeltoe.Connectors | Added | | Delegate to create health contributor |
-| `Steeltoe.Connectors.ConnectorFactory<TOptions, TConnection>` | Type | Steeltoe.Connectors | Added | | Injectable, access connection string or driver-specific connection |
-| `Steeltoe.Connectors.CosmosDb.CosmosDbConfigurationBuilderExtensions.ConfigureCosmosDb` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.CosmosDb.CosmosDbHostApplicationBuilderExtensions.AddCosmosDb` | Extension method | Steeltoe.Connectors | Added | | Activates the CosmosDB connector |
-| `Steeltoe.Connectors.CosmosDb.CosmosDbOptions` | Type | Steeltoe.Connectors | Added | | Provides connection string and database name |
-| `Steeltoe.Connectors.CosmosDb.CosmosDbServiceCollectionExtensions.AddCosmosDb` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.MongoDb.MongoDbConfigurationBuilderExtensions.ConfigureMongoDb` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.MongoDb.MongoDbHostApplicationBuilderExtensions.AddMongoDb` | Extension method | Steeltoe.Connectors | Added | | Activates the MongoDB connector |
-| `Steeltoe.Connectors.MongoDb.MongoDbOptions` | Type | Steeltoe.Connectors | Added | | Provides connection string and database name |
-| `Steeltoe.Connectors.MongoDb.MongoDbServiceCollectionExtensions.AddMongoDb` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.MySql.MySqlConfigurationBuilderExtensions.ConfigureMySql` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.MySql.MySqlHostApplicationBuilderExtensions.AddMySql` | Extension method | Steeltoe.Connectors | Added | | Activates the MySQL connector |
-| `Steeltoe.Connectors.MySql.MySqlOptions` | Type | Steeltoe.Connectors | Added | | Provides connection string |
-| `Steeltoe.Connectors.MySql.MySqlServiceCollectionExtensions.AddMySql` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.PostgreSql.PostgreSqlConfigurationBuilderExtensions.ConfigurePostgreSql` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.PostgreSql.PostgreSqlHostApplicationBuilderExtensions.AddPostgreSql` | Extension method | Steeltoe.Connectors | Added | | Activates the PostgreSQL connector |
-| `Steeltoe.Connectors.PostgreSql.PostgreSqlOptions` | Type | Steeltoe.Connectors | Added | | Provides connection string |
-| `Steeltoe.Connectors.PostgreSql.PostgreSqlServiceCollectionExtensions.AddPostgreSql` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.RabbitMQ.RabbitMQConfigurationBuilderExtensions.ConfigureRabbitMQ` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.RabbitMQ.RabbitMQHostApplicationBuilderExtensions.AddRabbitMQ` | Extension method | Steeltoe.Connectors | Added | | Activates the RabbitMQ connector |
-| `Steeltoe.Connectors.RabbitMQ.RabbitMQOptions` | Type | Steeltoe.Connectors | Added | | Provides connection string |
-| `Steeltoe.Connectors.RabbitMQ.RabbitMQServiceCollectionExtensions.AddRabbitMQ` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.Redis.RedisConfigurationBuilderExtensions.ConfigureRedis` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.Redis.RedisHostApplicationBuilderExtensions.AddRedis` | Extension method | Steeltoe.Connectors | Added | | Activates the Redis/Valkey connector |
-| `Steeltoe.Connectors.Redis.RedisOptions` | Type | Steeltoe.Connectors | Added | | Provides connection string |
-| `Steeltoe.Connectors.Redis.RedisServiceCollectionExtensions.AddRedis` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.SqlServer.SqlServerConfigurationBuilderExtensions.ConfigureSqlServer` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connectors.SqlServer.SqlServerHostApplicationBuilderExtensions.AddSqlServer` | Extension method | Steeltoe.Connectors | Added | | Activates the Microsoft SQL Server connector |
-| `Steeltoe.Connectors.SqlServer.SqlServerOptions` | Type | Steeltoe.Connectors | Added | | Provides connection string |
-| `Steeltoe.Connectors.SqlServer.SqlServerServiceCollectionExtensions.AddSqlServer` | Extension method | Steeltoe.Connectors | Added | | To support legacy host builders |
-| `Steeltoe.Connector.EFCore.EntityFrameworkCoreTypeLocator` | Type | Steeltoe.Connector.EFCore | Removed | | Type locators have been replaced with internal-only shims |
-| `Steeltoe.Connector.MySql.EFCore.MySqlDbContextOptionsExtensions.UseMySql` | Extension method | Steeltoe.Connector.EFCore | Moved | `MySqlDbContextOptionsBuilderExtensions.UseMySql` | Takes an `IServiceProvider`, requires call to `builder.AddMySql()` first |
-| `Steeltoe.Connector.MySql.EFCore.MySqlDbContextOptionsExtensions.UseMySql<TContext>` | Extension method | Steeltoe.Connector.EFCore | Removed | | Redundant |
-| `Steeltoe.Connector.Oracle.EFCore.OracleDbContextOptionsExtensions.UseOracle` | Extension method | Steeltoe.Connector.EFCore | Removed | | Support for Oracle databases was removed |
-| `Steeltoe.Connector.PostgreSql.EFCore.PostgresDbContextOptionsExtensions.FindUseNpgsqlMethod` | Extension method | Steeltoe.Connector.EFCore | Removed | | Redundant after refactorings |
-| `Steeltoe.Connector.PostgreSql.EFCore.PostgresDbContextOptionsExtensions.UseNpgsql` | Extension method | Steeltoe.Connector.EFCore | Moved | `PostgreSqlDbContextOptionsBuilderExtensions.UseNpgsql` | Takes an `IServiceProvider`, requires call to `builder.AddPostgreSql()` first |
-| `Steeltoe.Connector.PostgreSql.EFCore.PostgresDbContextOptionsExtensions.UseNpgsql<TContext>` | Extension method | Steeltoe.Connector.EFCore | Removed | | Redundant |
-| `Steeltoe.Connector.SqlServer.EFCore.SqlServerDbContextOptionsExtensions.UseSqlServer` | Extension method | Steeltoe.Connector.EFCore | Moved | `SqlServerDbContextOptionsBuilderExtensions.UseSqlServer` | Takes an `IServiceProvider`, requires call to `builder.AddSqlServer()` first |
-| `Steeltoe.Connector.SqlServer.EFCore.SqlServerDbContextOptionsExtensions.UseSqlServer<TContext>` | Extension method | Steeltoe.Connector.EFCore | Removed | | Redundant |
-
-### Notable PRs
-
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1528
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1325
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1172
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1143
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1139
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1131
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1128
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1124
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1121
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1119
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1117
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1112
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1110
-- https://github.com/SteeltoeOSS/Steeltoe/pull/1089
-
-### Documentation
-
-For more information, see the updated [Connectors documentation](../configuration/index.md) and
+For additional information, see the updated [Connectors documentation](../configuration/index.md) and
 [Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors).
+
+### MySQL using ADO.NET
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.4.0" />
+-    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Connectors" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+appsettings.json:
+
+```diff
+{
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
++  "$schema": "https://steeltoe.io/schema/v4/schema.json",
+-  "MySql:Client:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
++  "Steeltoe:Client:MySql:Default:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+}
+```
+
+Program.cs:
+
+```diff
+using MySql.Data.MySqlClient;
+-using Steeltoe.Connector.MySql;
++using Steeltoe.Connectors;
++using Steeltoe.Connectors.MySql;
+
+var builder = WebApplication.CreateBuilder(args);
+-builder.Services.AddMySqlConnection(builder.Configuration);
++builder.AddMySql();
+
+var app = builder.Build();
+
+-await using var scope = app.Services.CreateAsyncScope();
+-await using var connection = scope.ServiceProvider.GetRequiredService<MySqlConnection>();
++var factory = app.Services.GetRequiredService<ConnectorFactory<MySqlOptions, MySqlConnection>>();
++var connector = factory.Get();
++Console.WriteLine($"Using connection string: {connector.Options.ConnectionString}");
++await using var connection = connector.GetConnection();
+
+await connection.OpenAsync();
+await using var command = connection.CreateCommand();
+command.CommandText = "SELECT 1";
+var result = await command.ExecuteScalarAsync();
+Console.WriteLine($"Query returned: {result}");
+```
+
+### MySQL using Entity Framework Core
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="9.0.6" />
+-    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
+-    <PackageReference Include="Steeltoe.Connector.EFCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Connectors.EntityFrameworkCore" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+appsettings.json:
+
+```diff
+{
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
++  "$schema": "https://steeltoe.io/schema/v4/schema.json",
+-  "MySql:Client:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
++  "Steeltoe:Client:MySql:Default:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+}
+```
+
+Program.cs:
+
+```diff
+using Microsoft.EntityFrameworkCore;
+-using Steeltoe.Connector.MySql;
++using Steeltoe.Connectors.MySql;
+-using Steeltoe.Connector.MySql.EFCore;
++using Steeltoe.Connectors.EntityFrameworkCore.MySql;
+
+var builder = WebApplication.CreateBuilder(args);
+-builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(builder.Configuration));
+-builder.Services.AddMySqlHealthContributor(builder.Configuration);
++builder.AddMySql();
++builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) => options.UseMySql(serviceProvider));
+
+var app = builder.Build();
+
+await using var scope = app.Services.CreateAsyncScope();
+await using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+var rowCount = await dbContext.ExampleEntities.CountAsync();
+Console.WriteLine($"Found {rowCount} rows.");
+```
+
+### PostgreSQL using ADO.NET
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+    <PackageReference Include="Npgsql" Version="9.0.3" />
+-    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Connectors" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+appsettings.json:
+
+```diff
+{
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
++  "$schema": "https://steeltoe.io/schema/v4/schema.json",
+-  "Postgres:Client:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
++  "Steeltoe:Client:PostgreSQL:Default:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+}
+```
+
+Program.cs:
+
+```diff
+using Npgsql;
+-using Steeltoe.Connector.PostgreSql;
++using Steeltoe.Connectors;
++using Steeltoe.Connectors.PostgreSql;
+
+var builder = WebApplication.CreateBuilder(args);
+-builder.Services.AddPostgresConnection(builder.Configuration);
++builder.AddPostgreSql();
+
+var app = builder.Build();
+
+-await using var scope = app.Services.CreateAsyncScope();
+-await using var connection = scope.ServiceProvider.GetRequiredService<NpgsqlConnection>();
++var factory = app.Services.GetRequiredService<ConnectorFactory<PostgreSqlOptions, NpgsqlConnection>>();
++var connector = factory.Get();
++Console.WriteLine($"Using connection string: {connector.Options.ConnectionString}");
++await using var connection = connector.GetConnection();
+
+await connection.OpenAsync();
+await using var command = connection.CreateCommand();
+command.CommandText = "SELECT 1";
+var result = await command.ExecuteScalarAsync();
+Console.WriteLine($"Query returned: {result}");
+```
+
+### PostgreSQL using Entity Framework Core
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+-    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
+-    <PackageReference Include="Steeltoe.Connector.EFCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Connectors.EntityFrameworkCore" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+appsettings.json:
+
+```diff
+{
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
++  "$schema": "https://steeltoe.io/schema/v4/schema.json",
+-  "Postgres:Client:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
++  "Steeltoe:Client:PostgreSQL:Default:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+}
+```
+
+Program.cs:
+
+```diff
+using Microsoft.EntityFrameworkCore;
+-using Steeltoe.Connector.PostgreSql;
++using Steeltoe.Connectors.PostgreSql;
+-using Steeltoe.Connector.PostgreSql.EFCore;
++using Steeltoe.Connectors.EntityFrameworkCore.PostgreSql;
+
+var builder = WebApplication.CreateBuilder(args);
+-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration));
+-builder.Services.AddPostgresHealthContributor(builder.Configuration);
++builder.AddPostgreSql();
++builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) => options.UseNpgsql(serviceProvider));
+
+var app = builder.Build();
+
+await using var scope = app.Services.CreateAsyncScope();
+await using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+var rowCount = await dbContext.ExampleEntities.CountAsync();
+Console.WriteLine($"Found {rowCount} rows.");
+```
+
+
+
+
+
+### RabbitMQ
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
+-    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Connectors" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+appsettings.json:
+
+```diff
+{
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
++  "$schema": "https://steeltoe.io/schema/v4/schema.json",
+-  "RabbitMQ:Client:ConnectionString": "Server=localhost"
++  "Steeltoe:Client:RabbitMQ:Default:ConnectionString": "amqp://localhost:5672"
+}
+```
+
+> [!TIP]
+> See the RabbitMQ documentation [here](https://www.rabbitmq.com/docs/uri-spec) and [here](https://www.rabbitmq.com/docs/uri-query-parameters) for the `ConnectionString` URI format.
+
+Program.cs:
+
+```diff
+using RabbitMQ.Client;
+-using Steeltoe.Connector.RabbitMQ;
++using Steeltoe.Connectors;
++using Steeltoe.Connectors.RabbitMQ;
+using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+-builder.Services.AddRabbitMQConnection(builder.Configuration, ServiceLifetime.Singleton);
++builder.AddRabbitMQ();
+
+var app = builder.Build();
+
+-var connectionFactory = app.Services.GetRequiredService<IConnectionFactory>();
+-await using var connection = await connectionFactory.CreateConnectionAsync();
++var factory = app.Services.GetRequiredService<ConnectorFactory<RabbitMQOptions, IConnection>>();
++var connector = factory.Get();
++Console.WriteLine($"Using connection string: {connector.Options.ConnectionString}");
++await using var connection = connector.GetConnection();
+await using var channel = await connection.CreateChannelAsync();
+const string queueName = "example-queue-name";
+await channel.QueueDeclareAsync(queueName);
+
+byte[] messageToSend = "example-message"u8.ToArray();
+await channel.BasicPublishAsync(exchange: "", queueName, mandatory: true, new BasicProperties(), messageToSend);
+
+var result = await channel.BasicGetAsync(queueName, autoAck: true);
+string messageReceived = result == null ? "(none)" : Encoding.UTF8.GetString(result.Body.ToArray());
+Console.WriteLine($"Received message: {messageReceived}");
+```
+
+---
+TODO FROM HERE...
+---
+
+### __TEMPLATE__
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="XXXXX" Version="3.*" />
++    <PackageReference Include="XXXXX" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+Program.cs:
+
+```diff
+-XXXXX
++XXXXX
+
+var builder = WebApplication.CreateBuilder(args);
+-XXXXX
++XXXXX
+```
+
+
+
 
 ## Discovery
 
@@ -882,7 +774,7 @@ For more information, see the updated [Connectors documentation](../configuratio
 
 ### Documentation
 
-For more information, see the updated [Discovery documentation](../discovery/index.md) and
+For additional information, see the updated [Discovery documentation](../discovery/index.md) and
 [Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/main/Discovery).
 
 ## Logging
@@ -968,7 +860,7 @@ For more information, see the updated [Discovery documentation](../discovery/ind
 
 ### Documentation
 
-For more information, see the updated [Logging documentation](../logging/index.md).
+For additional information, see the updated [Logging documentation](../logging/index.md).
 
 ## Management
 
@@ -1406,7 +1298,7 @@ For more information, see the updated [Logging documentation](../logging/index.m
 
 ### Documentation
 
-For more information, see the updated [Management documentation](../management/index.md) and
+For additional information, see the updated [Management documentation](../management/index.md) and
 [Management samples](https://github.com/SteeltoeOSS/Samples/tree/main/Management).
 
 ## Security
@@ -1499,7 +1391,7 @@ For more information, see the updated [Management documentation](../management/i
 
 ### Documentation
 
-For more information, see the updated [Security documentation](../security/index.md) and
+For additional information, see the updated [Security documentation](../security/index.md) and
 [Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/main/Security).
 
 ## Release Notes
