@@ -620,8 +620,6 @@ For more information, see the updated [Configuration documentation](../configura
 For more information, see the updated [Connectors documentation](../configuration/index.md) and
 [Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors).
 
----
-
 ## Discovery
 
 ### Behavior changes
@@ -984,7 +982,11 @@ For more information, see the updated [Logging documentation](../logging/index.m
 - Actuators can be turned on/off or bound to different verbs at runtime using configuration
 - Simplified content negotiation; updated all actuators to support latest Spring media type
 - New actuator `/beans` that lists the contents of the .NET dependency container, including support for keyed services
-- Update health checks and actuator to align with latest Spring; hide details by default; contributors can be turned on/off at runtime using configuration
+- Update health checks and actuator to align with latest Spring
+  - Hide components/details by default
+  - Liveness/readiness contributors are turned off by default
+  - Contributors can be turned on/off at runtime using configuration
+  - Contributors must be singletons (you can inject `IHttpContextAccessor`, but `HttpContext` is unavailable from Discovery)
 - Support Windows network shares in disk space health contributor
 - Update `/mappings` actuator to include endpoints from Minimal APIs, Razor Pages, and Blazor, with richer metadata and improved compatibility with Spring
 - Heap dumps are enabled by default in Cloud Foundry on Linux; all dump types supported on Windows/Linux/macOS

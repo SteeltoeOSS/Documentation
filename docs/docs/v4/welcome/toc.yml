@@ -1,5 +1,7 @@
 - href: whats-new.md
   name: What's new in Steeltoe 4
+- href: migrate-quick-steps.md
+  name: Migrating from Steeltoe 3
 - href: prerequisites.md
   name: Prerequisites
 - href: common-steps.md
