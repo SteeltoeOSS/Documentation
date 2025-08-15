@@ -61,7 +61,7 @@ Each key must be prefixed with `Spring:Cloud:Config:`.
 | `Name` | Application name for which to request configuration | |
 | `Enabled` | Enable or disable the Config Server client | `true` |
 | `Uri` | Comma-separated list of Config Server endpoints | `http://localhost:8888` |
-| `Env` | Environment or profile used in the server request | `Production` |
+| `Env` | Comma-separated list of environments/profiles used in the server request | `Production` |
 | `ValidateCertificates` | Enable or disable server certificate validation | `true` |
 | `Label` | Comma-separated list of labels to request | |
 | `Timeout` | Time to wait for response from server, in milliseconds | `60_000` (1 min) |
