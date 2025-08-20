@@ -1251,7 +1251,247 @@ For additional information, see the updated [Security documentation](../security
 The CredHub client has been removed from Steeltoe in v4.
 Use [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html) instead.
 
-### TODO: JWT/OAuth/OpenID Connect/Certificates...
+### OAuth / OpenID Connect
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.0.0" />
+-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Security.Authentication.OpenIdConnect" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+Program.cs:
+
+```diff
+using Microsoft.AspNetCore.Authentication.Cookies;
++using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+-using Microsoft.AspNetCore.HttpOverrides;
+-using Steeltoe.Extensions.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry;
+-using Steeltoe.Security.Authentication.CloudFoundry;
++using Steeltoe.Security.Authentication.OpenIdConnect;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddCloudFoundryConfiguration();
+
+builder.Services.AddAuthentication((options) =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+-        options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
++        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+    })
+    .AddCookie(options => options.AccessDeniedPath = new PathString("/Home/AccessDenied"))
+-    .AddCloudFoundryOAuth(builder.Configuration);
+-    .AddCloudFoundryOpenIdConnect(builder.Configuration);
++    .AddOpenIdConnect().ConfigureOpenIdConnectForCloudFoundry();
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("some-group", policy => policy.RequireClaim("scope", "some-group"));
+
+var app = builder.Build();
+
+-app.UseForwardedHeaders(new ForwardedHeadersOptions
+-{
+-    ForwardedHeaders = ForwardedHeaders.XForwardedProto
+-});
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+```
+
+appsettings.json:
+
+```diff
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
+-  "Security": {
+-    "Oauth2": {
+-      "Client": {
+-        "OAuthServiceUrl": "http://localhost:8080/uaa",
+-        "ClientId": "steeltoesamplesclient",
+-        "ClientSecret": "client_secret",
+-      }
+-    }
+-  }
++  "Authentication": {
++    "Schemes": {
++      "OpenIdConnect": {
++        "Authority": "http://localhost:8080/uaa",
++        "ClientId": "steeltoesamplesserver",
++        "ClientSecret": "server_secret",
++      }
++    }
++  }
+```
+
+> [!NOTE]
+> This is not a complete listing of appsettings. As of version 4, Steeltoe configures Microsoft's option class rather than maintaining separate options.
+> Refer to [the OpenIdConnectOptions class documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.openidconnect.openidconnectoptions) for the new options.
+
+### JWT Bearer
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.0.0" />
+-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Security.Authentication.JwtBearer" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+Program.cs:
+
+```diff
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+-using Microsoft.AspNetCore.HttpOverrides;
+-using Steeltoe.Extensions.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry;
+-using Steeltoe.Security.Authentication.CloudFoundry;
++using Steeltoe.Security.Authentication.JwtBearer;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddCloudFoundryConfiguration();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+-    .AddCloudFoundryJwtBearer(builder.Configuration);
++    .AddJwtBearer().ConfigureJwtBearerForCloudFoundry();
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("some-group", policy => policy.RequireClaim("scope", "some-group"));
+
+var app = builder.Build();
+
+-app.UseForwardedHeaders(new ForwardedHeadersOptions
+-{
+-    ForwardedHeaders = ForwardedHeaders.XForwardedProto
+-});
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+```
+
+appsettings.json:
+
+```diff
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
+-  "Security": {
+-    "Oauth2": {
+-      "Client": {
+-        "OAuthServiceUrl": "http://localhost:8080/uaa",
+-        "ClientId": "steeltoesamplesserver",
+-        "ClientSecret": "server_secret",
+-      }
+-    }
+-  }
++  "Authentication": {
++    "Schemes": {
++      "Bearer": {
++        "Authority": "http://localhost:8080/uaa",
++        "ClientId": "steeltoesamplesserver",
++        "ClientSecret": "server_secret",
++      }
++    }
++  }
+```
+
+> [!NOTE]
+> This is not a complete listing of appsettings. As of version 4, Steeltoe configures Microsoft's option class rather than maintaining separate options.
+> Refer to [the JwtBearerOptions class documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions) for the new options.
+
+### Certificates / MutualTLS
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Security.Authorization.Certificate" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+Program.cs (server-side):
+
+```diff
++using Steeltoe.Common.Certificates;
+-using Steeltoe.Security.Authentication.CloudFoundry;
++using Steeltoe.Security.Authorization.Certificate;
+
+var builder = WebApplication.CreateBuilder(args);
+
+-builder.Configuration.AddCloudFoundryContainerIdentity();
++builder.Configuration.AddAppInstanceIdentityCertificate();
+
+-builder.Services.AddCloudFoundryCertificateAuth();
++builder.Services.AddAuthentication().AddCertificate();
++builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies();
+
+var app = builder.Build();
+
+-app.UseCloudFoundryCertificateAuth();
++app.UseCertificateAuthorization();
+```
+
+Secured endpoints:
+
+```diff
+-using Steeltoe.Security.Authentication.CloudFoundry;
++using Steeltoe.Security.Authorization.Certificate;
+
+-        [Authorize(CloudFoundryDefaults.SameOrganizationAuthorizationPolicy)]
++        [Authorize(CertificateAuthorizationPolicies.SameOrg)]
+        [HttpGet]
+        public string SameOrg()
+        {
+            return "Certificate is valid and both client and server are in the same org";
+        }
+
+-        [Authorize(CloudFoundryDefaults.SameSpaceAuthorizationPolicy)]
++        [Authorize(CertificateAuthorizationPolicies.SameSpace)]
+        [HttpGet]
+        public string SameSpace()
+        {
+            return "Certificate is valid and both client and server are in the same space";
+        }
+```
+
+Program.cs (client-side):
+
+```diff
+-using System.Security.Cryptography.X509Certificates;
+-using Microsoft.Extensions.Options;
+-using Steeltoe.Common.Options;
++using Steeltoe.Common.Certificates;
+-using Steeltoe.Security.Authentication.CloudFoundry;
++using Steeltoe.Security.Authorization.Certificate;
+
+var builder = WebApplication.CreateBuilder(args);
+
+-builder.Configuration.AddCloudFoundryContainerIdentity();
++builder.Configuration.AddAppInstanceIdentityCertificate();
+
+-builder.Services.AddHttpClient("withCertificate", (services, client) =>
+-{
+-    var options = services.GetRequiredService<IOptions<CertificateOptions>>();
+-    var b64 = Convert.ToBase64String(options.Value.Certificate.Export(X509ContentType.Cert));
+-    client.DefaultRequestHeaders.Add("X-Forwarded-Client-Cert", b64);
+-});
++builder.Services.AddHttpClient("withCertificate").AddAppInstanceIdentityCertificate();
+```
 
 ### DataProtection Key Store using Redis/Valkey
 
