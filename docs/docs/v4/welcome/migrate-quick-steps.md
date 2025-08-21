@@ -1266,6 +1266,35 @@ Project file:
 </Project>
 ```
 
+appsettings.json:
+
+```diff
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
+-  "Security": {
+-    "Oauth2": {
+-      "Client": {
+-        "OAuthServiceUrl": "http://localhost:8080/uaa",
+-        "ClientId": "steeltoesamplesclient",
+-        "ClientSecret": "client_secret"
+-      }
+-    }
+-  }
++  "Authentication": {
++    "Schemes": {
++      "OpenIdConnect": {
++        "Authority": "http://localhost:8080/uaa",
++        "ClientId": "steeltoesamplesserver",
++        "ClientSecret": "server_secret",
++        "RequireHttpsMetadata": false
++      }
++    }
++  }
+```
+
+> [!NOTE]
+> This is not a complete listing of appsettings. As of version 4, Steeltoe configures Microsoft's option class rather than maintaining separate options.
+> Refer to [the OpenIdConnectOptions class documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.openidconnect.openidconnectoptions) for the new options.
+
 Program.cs:
 
 ```diff
@@ -1288,7 +1317,6 @@ builder.Services.AddAuthentication((options) =>
 +        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
     })
     .AddCookie(options => options.AccessDeniedPath = new PathString("/Home/AccessDenied"))
--    .AddCloudFoundryOAuth(builder.Configuration);
 -    .AddCloudFoundryOpenIdConnect(builder.Configuration);
 +    .AddOpenIdConnect().ConfigureOpenIdConnectForCloudFoundry();
 builder.Services.AddAuthorizationBuilder()
@@ -1307,33 +1335,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 ```
 
-appsettings.json:
-
-```diff
--  "$schema": "https://steeltoe.io/schema/v3/schema.json",
--  "Security": {
--    "Oauth2": {
--      "Client": {
--        "OAuthServiceUrl": "http://localhost:8080/uaa",
--        "ClientId": "steeltoesamplesclient",
--        "ClientSecret": "client_secret",
--      }
--    }
--  }
-+  "Authentication": {
-+    "Schemes": {
-+      "OpenIdConnect": {
-+        "Authority": "http://localhost:8080/uaa",
-+        "ClientId": "steeltoesamplesserver",
-+        "ClientSecret": "server_secret",
-+      }
-+    }
-+  }
-```
-
 > [!NOTE]
-> This is not a complete listing of appsettings. As of version 4, Steeltoe configures Microsoft's option class rather than maintaining separate options.
-> Refer to [the OpenIdConnectOptions class documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.openidconnect.openidconnectoptions) for the new options.
+> The code above should also be used for applications that previously used `.AddCloudFoundryOAuth(builder.Configuration);`
 
 ### JWT Bearer
 
@@ -1349,6 +1352,34 @@ Project file:
   </ItemGroup>
 </Project>
 ```
+
+appsettings.json:
+
+```diff
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
+-  "Security": {
+-    "Oauth2": {
+-      "Client": {
+-        "OAuthServiceUrl": "http://localhost:8080/uaa",
+-        "ClientId": "steeltoesamplesserver",
+-        "ClientSecret": "server_secret",
+-      }
+-    }
+-  }
++  "Authentication": {
++    "Schemes": {
++      "Bearer": {
++        "Authority": "http://localhost:8080/uaa",
++        "ClientId": "steeltoesamplesserver",
++        "ClientSecret": "server_secret",
++      }
++    }
++  }
+```
+
+> [!NOTE]
+> This is not a complete listing of appsettings. As of version 4, Steeltoe configures Microsoft's option class rather than maintaining separate options.
+> Refer to [the JwtBearerOptions class documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions) for the new options.
 
 Program.cs:
 
@@ -1382,34 +1413,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 ```
-
-appsettings.json:
-
-```diff
--  "$schema": "https://steeltoe.io/schema/v3/schema.json",
--  "Security": {
--    "Oauth2": {
--      "Client": {
--        "OAuthServiceUrl": "http://localhost:8080/uaa",
--        "ClientId": "steeltoesamplesserver",
--        "ClientSecret": "server_secret",
--      }
--    }
--  }
-+  "Authentication": {
-+    "Schemes": {
-+      "Bearer": {
-+        "Authority": "http://localhost:8080/uaa",
-+        "ClientId": "steeltoesamplesserver",
-+        "ClientSecret": "server_secret",
-+      }
-+    }
-+  }
-```
-
-> [!NOTE]
-> This is not a complete listing of appsettings. As of version 4, Steeltoe configures Microsoft's option class rather than maintaining separate options.
-> Refer to [the JwtBearerOptions class documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions) for the new options.
 
 ### Certificates / MutualTLS
 
