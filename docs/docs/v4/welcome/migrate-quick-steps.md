@@ -1275,9 +1275,14 @@ appsettings.json:
 -  "Security": {
 -    "Oauth2": {
 -      "Client": {
--        "OAuthServiceUrl": "http://localhost:8080/uaa",
+-        "Authority": "http://localhost:8080/uaa",
+-        "CallbackPath": "/signin-oidc",
 -        "ClientId": "steeltoesamplesclient",
--        "ClientSecret": "client_secret"
+-        "ClientSecret": "client_secret",
+-        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
+-        "AdditionalScopes": "profile sampleapi.read",
+-        "SaveTokens": true,
+-        "RequireHttpsMetadata": false
 -      }
 -    }
 -  }
@@ -1285,9 +1290,13 @@ appsettings.json:
 +    "Schemes": {
 +      "OpenIdConnect": {
 +        "Authority": "http://localhost:8080/uaa",
-+        "ClientId": "steeltoesamplesserver",
-+        "ClientSecret": "server_secret",
++        "CallbackPath": "/signin-oidc",
++        "ClientId": "steeltoesamplesclient",
++        "ClientSecret": "client_secret",
++        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
 +        "RequireHttpsMetadata": false
++        "SaveTokens": true,
++        "Scope": [ "openid", "sampleapi.read" ],
 +      }
 +    }
 +  }
@@ -1303,6 +1312,7 @@ Program.cs:
 using Microsoft.AspNetCore.Authentication.Cookies;
 +using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 -using Microsoft.AspNetCore.HttpOverrides;
+-using Microsoft.Extensions.Options;
 -using Steeltoe.Extensions.Configuration.CloudFoundry;
 +using Steeltoe.Configuration.CloudFoundry;
 -using Steeltoe.Security.Authentication.CloudFoundry;
@@ -1329,14 +1339,12 @@ var app = builder.Build();
 -    ForwardedHeaders = ForwardedHeaders.XForwardedProto
 -});
 
-app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 ```
 
 > [!NOTE]
-> The code above should also be used for applications that previously used `.AddCloudFoundryOAuth(builder.Configuration);`
+> Use the code above for applications that previously used `.AddCloudFoundryOAuth(builder.Configuration);`.
 
 ### JWT Bearer
 
@@ -1360,9 +1368,12 @@ appsettings.json:
 -  "Security": {
 -    "Oauth2": {
 -      "Client": {
--        "OAuthServiceUrl": "http://localhost:8080/uaa",
+-        "AuthDomain": "http://localhost:8080/uaa",
 -        "ClientId": "steeltoesamplesserver",
 -        "ClientSecret": "server_secret",
+-        "JwtKeyUrl": "http://localhost:8080/token_keys",
+-        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
+-        "RequireHttpsMetadata": false
 -      }
 -    }
 -  }
@@ -1407,8 +1418,6 @@ var app = builder.Build();
 -{
 -    ForwardedHeaders = ForwardedHeaders.XForwardedProto
 -});
-
-app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -1491,7 +1500,7 @@ var builder = WebApplication.CreateBuilder(args);
 -{
 -    var options = services.GetRequiredService<IOptions<CertificateOptions>>();
 -    var b64 = Convert.ToBase64String(options.Value.Certificate.Export(X509ContentType.Cert));
--    client.DefaultRequestHeaders.Add("X-Forwarded-Client-Cert", b64);
+-    client.DefaultRequestHeaders.Add("X-Client-Cert", b64);
 -});
 +builder.Services.AddHttpClient("withCertificate").AddAppInstanceIdentityCertificate();
 ```
