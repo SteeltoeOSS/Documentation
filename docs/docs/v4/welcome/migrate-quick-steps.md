@@ -208,6 +208,10 @@ var builder = WebApplication.CreateBuilder(args);
 For additional information, see the updated [Connectors documentation](../configuration/index.md) and
 [Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors).
 
+> [!IMPORTANT]
+> The configuration structure for Connectors has changed in Steeltoe 4. Always use the `ConnectionString` property instead of `Host`, `Port`, `Username`, `Password`, etc.
+> Replace the key `Default` with the name of the service binding if you have multiple.
+
 ### MySQL using ADO.NET
 
 Project file:
@@ -228,8 +232,20 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
--  "MySql:Client:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
-+  "Steeltoe:Client:MySql:Default:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+-  "MySql": {
+-    "Client": {
+-      "ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+-    }
+-  }
++  "Steeltoe": {
++    "Client": {
++      "MySql": {
++        "Default": {
++          "ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
++        }
++      }
++    }
++  }
 }
 ```
 
@@ -282,8 +298,20 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
--  "MySql:Client:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
-+  "Steeltoe:Client:MySql:Default:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+-  "MySql": {
+-    "Client": {
+-      "ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+-    }
+-  }
++  "Steeltoe": {
++    "Client": {
++      "MySql": {
++        "Default": {
++          "ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
++        }
++      }
++    }
++  }
 }
 ```
 
@@ -330,8 +358,20 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
--  "Postgres:Client:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
-+  "Steeltoe:Client:PostgreSQL:Default:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+-  "Postgres": {
+-    "Client": {
+-      "ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+-    }
+-  }
++  "Steeltoe": {
++    "Client": {
++      "PostgreSql": {
++        "Default": {
++          "ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
++        }
++      }
++    }
++  }
 }
 ```
 
@@ -384,8 +424,20 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
--  "Postgres:Client:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
-+  "Steeltoe:Client:PostgreSQL:Default:ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+-  "Postgres": {
+-    "Client": {
+-      "ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
+-    }
+-  }
++  "Steeltoe": {
++    "Client": {
++      "PostgreSql": {
++        "Default": {
++          "ConnectionString": "Server=localhost;Database=steeltoe;Uid=steeltoe;Pwd=steeltoe"
++        }
++      }
++    }
++  }
 }
 ```
 
@@ -432,8 +484,20 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
--  "RabbitMQ:Client:ConnectionString": "Server=localhost"
-+  "Steeltoe:Client:RabbitMQ:Default:ConnectionString": "amqp://localhost:5672"
+-  "Rabbitmq": {
+-    "Client": {
+-      "Uri": "amqp://guest:guest@127.0.0.1/"
+-    }
+-  }
++  "Steeltoe": {
++    "Client": {
++      "RabbitMQ": {
++        "Default": {
++          "ConnectionString": "amqp://localhost:5672"
++        }
++      }
++    }
++  }
 }
 ```
 
@@ -493,8 +557,20 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
--  "Redis:Client:ConnectionString": "localhost:6379"
-+  "Steeltoe:Client:Redis:Default:ConnectionString": "localhost"
+-  "Redis": {
+-    "Client": {
+-      "ConnectionString": "localhost:6379"
+-    }
+-  }
++  "Steeltoe": {
++    "Client": {
++      "Redis": {
++        "Default": {
++          "ConnectionString": "localhost"
++        }
++      }
++    }
++  }
 }
 ```
 
@@ -548,9 +624,17 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
-  "Spring:Application:Name": "example-service",
-  "Eureka:Client:ShouldRegisterWithEureka": true,
-  "Eureka:Client:ShouldFetchRegistry": false
+  "Spring": {
+    "Application": {
+      "Name": "example-service"
+    }
+  },
+  "Eureka": {
+    "Client": {
+      "ShouldRegisterWithEureka": true,
+      "ShouldFetchRegistry": false
+    }
+  }
 }
 ```
 
@@ -607,8 +691,17 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
-  "Eureka:Client:ShouldRegisterWithEureka": false,
-  "Eureka:Client:ShouldFetchRegistry": true
+  "Spring": {
+    "Application": {
+      "Name": "example-service"
+    }
+  },
+  "Eureka": {
+    "Client": {
+      "ShouldRegisterWithEureka": false,
+      "ShouldFetchRegistry": true
+    }
+  }
 }
 ```
 
@@ -663,8 +756,16 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
-  "Spring:Application:Name": "example-service",
-  "Consul:Discovery:Register": true
+  "Spring": {
+    "Application": {
+      "Name": "example-service"
+    }
+  },
+  "Consul": {
+    "Discovery": {
+      "Register": true
+    }
+  }
 }
 ```
 
@@ -721,7 +822,11 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
-  "Consul:Discovery:Register": false
+  "Consul": {
+    "Discovery": {
+      "Register": false
+    }
+  }
 }
 ```
 
@@ -829,11 +934,25 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
-  "Management:Endpoints:Actuator:Exposure:Include": ["*"],
-+  "Management:Endpoints:Health:ShowComponents": "Always",
-+  "Management:Endpoints:Health:ShowDetails": "Always",
-+  "Management:Endpoints:Health:Readiness:Enabled": true,
-+  "Management:Endpoints:Health:Liveness:Enabled": true
+  "Management": {
+    "Endpoints": {
+      "Actuator": {
+        "Exposure": {
+          "Include": [ "*" ]
+        }
++      },
++      "Health": {
++        "ShowComponents": "Always",
++        "ShowDetails": "Always",
++        "Readiness": {
++          "Enabled": true
++        },
++        "Liveness": {
++          "Enabled": true
++        }
+      }
+    }
+  }
 }
 ```
 
@@ -856,10 +975,20 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
-+  "Management:Endpoints:Health:ShowComponents": "Always",
-+  "Management:Endpoints:Health:ShowDetails": "Always",
-+  "Management:Endpoints:Health:Readiness:Enabled": true,
-+  "Management:Endpoints:Health:Liveness:Enabled": true
++  "Management": {
++    "Endpoints": {
++      "Health": {
++        "ShowComponents": "Always",
++        "ShowDetails": "Always",
++        "Readiness": {
++          "Enabled": true
++        },
++        "Liveness": {
++          "Enabled": true
++        }
++      }
++    }
++  }
 }
 ```
 
@@ -980,11 +1109,29 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
-  "Spring:Application:Name": "example-service",
-  "Management:Endpoints:Actuator:Exposure:Include": [ "*" ],
-  "Spring:Boot:Admin:Client:Url": "http://localhost:9099",
--  "Spring:Boot:Admin:Client:BasePath": "http://host.docker.internal:5050"
-+  "Spring:Boot:Admin:Client:BaseHost": "host.docker.internal"
+  "Spring": {
+    "Application": {
+      "Name": "example-service"
+    },
+    "Boot": {
+      "Admin": {
+        "Client": {
+          "Url": "http://localhost:9099",
+-          "BasePath": "http://host.docker.internal:5050"
++          "BaseHost": "host.docker.internal"
+        }
+      }
+    }
+  },
+  "Management": {
+    "Endpoints": {
+      "Actuator": {
+        "Exposure": {
+          "Include": [ "*" ]
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -1125,8 +1272,20 @@ appsettings.json:
 {
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
 +  "$schema": "https://steeltoe.io/schema/v4/schema.json",
--  "Redis:Client:ConnectionString": "localhost:6379"
-+  "Steeltoe:Client:Redis:Default:ConnectionString": "localhost"
+-  "Redis": {
+-    "Client": {
+-      "ConnectionString": "localhost:6379"
+-    }
+-  }
++  "Steeltoe": {
++    "Client": {
++      "Redis": {
++        "Default": {
++          "ConnectionString": "localhost"
++        }
++      }
++    }
++  }
 }
 ```
 
@@ -1167,28 +1326,4 @@ app.MapGet("get-session", async httpContext =>
 });
 
 app.Run();
-```
-
-# TODO: Remove temporary template below
-
-Project file:
-
-```diff
-<Project>
-  <ItemGroup>
--    <PackageReference Include="XXXXX" Version="3.*" />
-+    <PackageReference Include="XXXXX" Version="4.0.0" />
-  </ItemGroup>
-</Project>
-```
-
-Program.cs:
-
-```diff
--XXXXX
-+XXXXX
-
-var builder = WebApplication.CreateBuilder(args);
--XXXXX
-+XXXXX
 ```
