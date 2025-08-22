@@ -1251,7 +1251,9 @@ For additional information, see the updated [Security documentation](../security
 The CredHub client has been removed from Steeltoe in v4.
 Use [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html) instead.
 
-### OAuth / OpenID Connect
+### OAuth and OpenID Connect
+
+OAuth support has been removed from Steeltoe in v4. Use OpenID Connect instead.
 
 Project file:
 
@@ -1307,9 +1309,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 +using Steeltoe.Security.Authentication.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.AddCloudFoundryConfiguration();
-
 builder.Services.AddAuthentication((options) =>
     {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
