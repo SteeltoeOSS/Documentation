@@ -19,8 +19,12 @@ underscored that this is the time to refocus on Steeltoe's core goals and re-eva
 Steeltoe 4 is a major release that brings many improvements and changes to the library.
 The goal of this release is to make Steeltoe better integrated in the .NET ecosystem in a more developer-friendly way, compatible
 with the latest versions of .NET and third-party libraries/products, and to improve the overall quality of the library.
-This document provides an overview of the changes in Steeltoe 4, the impact on existing applications, and serves as the upgrade guide (with a searchable API diff and replacement notes).
 Steeltoe 4 requires .NET 8 or higher.
+
+This document provides an overview of the changes in Steeltoe 4 and the impact on existing applications (with a searchable API diff and replacement notes).
+
+> [!TIP]
+> For quick steps to upgrade an existing application from Steeltoe 3, see [Migrating from Steeltoe 3](./migrate-quick-steps.md).
 
 ### Quality of Life improvements
 
