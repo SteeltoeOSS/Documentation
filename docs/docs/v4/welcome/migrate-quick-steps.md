@@ -1423,7 +1423,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 ```
 
-### Certificates / MutualTLS
+### Client Certificates (Mutual TLS)
 
 Project file:
 
