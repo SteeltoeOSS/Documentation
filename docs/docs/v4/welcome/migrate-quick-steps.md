@@ -1251,9 +1251,72 @@ For additional information, see the updated [Security documentation](../security
 The CredHub client has been removed from Steeltoe in v4.
 Use [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html) instead.
 
-### OAuth and OpenID Connect
+### OAuth
 
 OAuth support has been removed from Steeltoe in v4. Use OpenID Connect instead.
+
+Consider migrating to OpenID Connect on Steeltoe v3 before moving to v4.
+
+appsettings.json:
+
+```diff
+{
+  "$schema": "https://steeltoe.io/schema/v3/schema.json",
+  "Security": {
+    "Oauth2": {
+      "Client": {
+-        "AuthDomain": "http://localhost:8080",
++        "Authority": "http://localhost:8080/uaa",
+        "CallbackPath": "/signin-oidc",
+        "ClientId": "steeltoesamplesclient",
+        "ClientSecret": "client_secret",
++        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
++        "RequireHttpsMetadata": false,
++        "AdditionalScopes": "sampleapi.read"
+      }
+    }
+  }
+}
+```
+
+> [!NOTE]
+> Depending on your application's needs, you may need to add scopes to the application's configuration that did not previously need to be specified.
+
+program.cs:
+
+```diff
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.HttpOverrides;
+using Steeltoe.Extensions.Configuration.CloudFoundry;
+using Steeltoe.Security.Authentication.CloudFoundry;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.AddCloudFoundryConfiguration();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
+})
+    .AddCookie(options => options.AccessDeniedPath = new PathString("/Home/AccessDenied"))
+-    .AddCloudFoundryOAuth(builder.Configuration);
++    .AddCloudFoundryOpenIdConnect(builder.Configuration);
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("read", policy => policy.RequireClaim("scope", "sampleapi.read"))
+    .AddPolicy("write", policy => policy.RequireClaim("scope", "sampleapi.write"));
+
+var app = builder.Build();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedProto
+});
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+```
+
+### OpenID Connect
 
 Project file:
 
@@ -1271,7 +1334,9 @@ Project file:
 appsettings.json:
 
 ```diff
+{
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
++  "$schema": "https://steeltoe.io/schema/v4/schema.json",
 -  "Security": {
 -    "Oauth2": {
 -      "Client": {
@@ -1280,7 +1345,7 @@ appsettings.json:
 -        "ClientId": "steeltoesamplesclient",
 -        "ClientSecret": "client_secret",
 -        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
--        "AdditionalScopes": "profile sampleapi.read",
+-        "AdditionalScopes": "sampleapi.read",
 -        "SaveTokens": true,
 -        "RequireHttpsMetadata": false
 -      }
@@ -1294,12 +1359,13 @@ appsettings.json:
 +        "ClientId": "steeltoesamplesclient",
 +        "ClientSecret": "client_secret",
 +        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
-+        "RequireHttpsMetadata": false
++        "RequireHttpsMetadata": false,
 +        "SaveTokens": true,
-+        "Scope": [ "openid", "sampleapi.read" ],
++        "Scope": [ "openid", "sampleapi.read" ]
 +      }
 +    }
 +  }
+}
 ```
 
 > [!NOTE]
@@ -1310,27 +1376,29 @@ Program.cs:
 
 ```diff
 using Microsoft.AspNetCore.Authentication.Cookies;
-+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 -using Microsoft.AspNetCore.HttpOverrides;
--using Microsoft.Extensions.Options;
 -using Steeltoe.Extensions.Configuration.CloudFoundry;
 +using Steeltoe.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry.ServiceBindings;
 -using Steeltoe.Security.Authentication.CloudFoundry;
++using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 +using Steeltoe.Security.Authentication.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddCloudFoundryConfiguration();
-builder.Services.AddAuthentication((options) =>
-    {
-        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
--        options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
-+        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-    })
++builder.Configuration.AddCloudFoundryServiceBindings();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+-    options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
++    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+})
     .AddCookie(options => options.AccessDeniedPath = new PathString("/Home/AccessDenied"))
 -    .AddCloudFoundryOpenIdConnect(builder.Configuration);
 +    .AddOpenIdConnect().ConfigureOpenIdConnectForCloudFoundry();
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("some-group", policy => policy.RequireClaim("scope", "some-group"));
+    .AddPolicy("read", policy => policy.RequireClaim("scope", "sampleapi.read"))
+    .AddPolicy("write", policy => policy.RequireClaim("scope", "sampleapi.write"));
 
 var app = builder.Build();
 
@@ -1342,9 +1410,6 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 ```
-
-> [!NOTE]
-> Use the code above for applications that previously used `.AddCloudFoundryOAuth(builder.Configuration);`.
 
 ### JWT Bearer
 
@@ -1364,11 +1429,13 @@ Project file:
 appsettings.json:
 
 ```diff
+{
 -  "$schema": "https://steeltoe.io/schema/v3/schema.json",
++  "$schema": "https://steeltoe.io/schema/v4/schema.json",
 -  "Security": {
 -    "Oauth2": {
 -      "Client": {
--        "AuthDomain": "http://localhost:8080/uaa",
+-        "AuthDomain": "http://localhost:8080",
 -        "ClientId": "steeltoesamplesserver",
 -        "ClientSecret": "server_secret",
 -        "JwtKeyUrl": "http://localhost:8080/token_keys",
@@ -1380,12 +1447,16 @@ appsettings.json:
 +  "Authentication": {
 +    "Schemes": {
 +      "Bearer": {
-+        "Authority": "http://localhost:8080/uaa",
++        "Authority": "http://localhost:8080",
 +        "ClientId": "steeltoesamplesserver",
 +        "ClientSecret": "server_secret",
++        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
++        "RequireHttpsMetadata": false,
++        "ValidAudiences": [ "sampleapi" ]
 +      }
 +    }
 +  }
+}
 ```
 
 > [!NOTE]
@@ -1395,22 +1466,23 @@ appsettings.json:
 Program.cs:
 
 ```diff
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 -using Microsoft.AspNetCore.HttpOverrides;
 -using Steeltoe.Extensions.Configuration.CloudFoundry;
 +using Steeltoe.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry.ServiceBindings;
 -using Steeltoe.Security.Authentication.CloudFoundry;
 +using Steeltoe.Security.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddCloudFoundryConfiguration();
++builder.Configuration.AddCloudFoundryServiceBindings();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication()
 -    .AddCloudFoundryJwtBearer(builder.Configuration);
 +    .AddJwtBearer().ConfigureJwtBearerForCloudFoundry();
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("some-group", policy => policy.RequireClaim("scope", "some-group"));
+    .AddPolicy("sampleapi.read", policy => policy.RequireClaim("scope", "sampleapi.read"));
 
 var app = builder.Build();
 
@@ -1421,6 +1493,14 @@ var app = builder.Build();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGet("/jwt", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("JWT is valid and contains the required claim");
+    }).RequireAuthorization("sampleapi.read");
+app.Run();
 ```
 
 ### Client Certificates (Mutual TLS)
@@ -1443,12 +1523,15 @@ Program.cs (server-side):
 -using Steeltoe.Security.Authentication.CloudFoundry;
 +using Steeltoe.Security.Authorization.Certificate;
 
+const string orgId = "a8fef16f-94c0-49e3-aa0b-ced7c3da6229";
+const string spaceId = "122b942a-d7b9-4839-b26e-836654b9785f";
+
 var builder = WebApplication.CreateBuilder(args);
 
--builder.Configuration.AddCloudFoundryContainerIdentity();
-+builder.Configuration.AddAppInstanceIdentityCertificate();
+-builder.Configuration.AddCloudFoundryContainerIdentity(orgId, spaceId);
++builder.Configuration.AddAppInstanceIdentityCertificate(new Guid(orgId), new Guid(spaceId));
 
--builder.Services.AddCloudFoundryCertificateAuth();
+-builder.Services.AddCloudFoundryCertificateAuth(options => options.CertificateHeader = "X-Client-Cert");
 +builder.Services.AddAuthentication().AddCertificate();
 +builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies();
 
@@ -1456,29 +1539,23 @@ var app = builder.Build();
 
 -app.UseCloudFoundryCertificateAuth();
 +app.UseCertificateAuthorization();
-```
+app.MapGet("/sameOrg", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("Client and server identity certificates have matching Org values");
+    })
+-    .RequireAuthorization(CloudFoundryDefaults.SameOrganizationAuthorizationPolicy);
++    .RequireAuthorization(CertificateAuthorizationPolicies.SameOrg);
 
-Secured endpoints:
-
-```diff
--using Steeltoe.Security.Authentication.CloudFoundry;
-+using Steeltoe.Security.Authorization.Certificate;
-
--        [Authorize(CloudFoundryDefaults.SameOrganizationAuthorizationPolicy)]
-+        [Authorize(CertificateAuthorizationPolicies.SameOrg)]
-        [HttpGet]
-        public string SameOrg()
-        {
-            return "Certificate is valid and both client and server are in the same org";
-        }
-
--        [Authorize(CloudFoundryDefaults.SameSpaceAuthorizationPolicy)]
-+        [Authorize(CertificateAuthorizationPolicies.SameSpace)]
-        [HttpGet]
-        public string SameSpace()
-        {
-            return "Certificate is valid and both client and server are in the same space";
-        }
+app.MapGet("/sameSpace", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("Client and server identity certificates have matching Space values");
+    })
+-    .RequireAuthorization(CloudFoundryDefaults.SameSpaceAuthorizationPolicy);
++    .RequireAuthorization(CertificateAuthorizationPolicies.SameSpace);
 ```
 
 Program.cs (client-side):
@@ -1491,18 +1568,40 @@ Program.cs (client-side):
 -using Steeltoe.Security.Authentication.CloudFoundry;
 +using Steeltoe.Security.Authorization.Certificate;
 
+const string orgId = "a8fef16f-94c0-49e3-aa0b-ced7c3da6229";
+const string spaceId = "122b942a-d7b9-4839-b26e-836654b9785f";
+
 var builder = WebApplication.CreateBuilder(args);
 
--builder.Configuration.AddCloudFoundryContainerIdentity();
-+builder.Configuration.AddAppInstanceIdentityCertificate();
-
--builder.Services.AddHttpClient("withCertificate", (services, client) =>
+-builder.Configuration.AddCloudFoundryContainerIdentity(orgId, spaceId);
++builder.Configuration.AddAppInstanceIdentityCertificate(new Guid(orgId), new Guid(spaceId));
+-builder.Services.AddCloudFoundryContainerIdentity();
+builder.Services
+-    .AddHttpClient<PingClient>((services, client) =>
 -{
+-    client.BaseAddress = new Uri("http://example-service/")
 -    var options = services.GetRequiredService<IOptions<CertificateOptions>>();
 -    var b64 = Convert.ToBase64String(options.Value.Certificate.Export(X509ContentType.Cert));
 -    client.DefaultRequestHeaders.Add("X-Client-Cert", b64);
 -});
-+builder.Services.AddHttpClient("withCertificate").AddAppInstanceIdentityCertificate();
++    .AddHttpClient<PingClient>(httpClient => httpClient.BaseAddress = new Uri("http://example-service/"))
++        .AddAppInstanceIdentityCertificate();
+
+var app = builder.Build();
+
+var pingClient = app.Services.GetRequiredService<PingClient>();
+string orgResponse = await pingClient.GetPingAsync("org");
+Console.WriteLine($"Org response: {orgResponse}");
+string spaceResponse = await pingClient.GetPingAsync("space");
+Console.WriteLine($"Space response: {spaceResponse}");
+
+public class PingClient(HttpClient httpClient)
+{
+    public async Task<string> GetPingAsync(string matchType)
+    {
+        return await httpClient.GetStringAsync($"same{matchType}");
+    }
+}
 ```
 
 ### DataProtection Key Store using Redis/Valkey
