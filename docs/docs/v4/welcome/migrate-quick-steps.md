@@ -640,7 +640,7 @@ appsettings.json:
 
 launchSettings.json:
 
-```
+```text
 {
   "profiles": {
     "http": {
@@ -771,7 +771,7 @@ appsettings.json:
 
 launchSettings.json:
 
-```
+```text
 {
   "profiles": {
     "http": {
