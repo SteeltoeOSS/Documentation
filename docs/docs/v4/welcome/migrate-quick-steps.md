@@ -1255,7 +1255,7 @@ Use [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/pl
 
 OAuth support has been removed from Steeltoe in v4. Use OpenID Connect instead.
 
-Consider migrating to OpenID Connect on Steeltoe v3 before moving to v4.
+Before migrating to Steeltoe v4, apply the following changes to migrate from OAuth to OpenID Connect using Steeltoe v3.
 
 appsettings.json:
 
