@@ -1267,12 +1267,12 @@ appsettings.json:
       "Client": {
 -        "AuthDomain": "http://localhost:8080",
 +        "Authority": "http://localhost:8080/uaa",
-        "CallbackPath": "/signin-oidc",
-        "ClientId": "steeltoesamplesclient",
-        "ClientSecret": "client_secret",
 +        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
 +        "RequireHttpsMetadata": false,
-+        "AdditionalScopes": "sampleapi.read"
++        "AdditionalScopes": "sampleapi.read",
+        "CallbackPath": "/signin-oidc",
+        "ClientId": "steeltoesamplesclient",
+        "ClientSecret": "client_secret"
       }
     }
   }
@@ -1345,9 +1345,9 @@ appsettings.json:
 -        "ClientId": "steeltoesamplesclient",
 -        "ClientSecret": "client_secret",
 -        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
--        "AdditionalScopes": "sampleapi.read",
+-        "RequireHttpsMetadata": false,
 -        "SaveTokens": true,
--        "RequireHttpsMetadata": false
+-        "AdditionalScopes": "sampleapi.read"
 -      }
 -    }
 -  }
@@ -1531,9 +1531,9 @@ var builder = WebApplication.CreateBuilder(args);
 -builder.Configuration.AddCloudFoundryContainerIdentity(orgId, spaceId);
 +builder.Configuration.AddAppInstanceIdentityCertificate(new Guid(orgId), new Guid(spaceId));
 
--builder.Services.AddCloudFoundryCertificateAuth(options => options.CertificateHeader = "X-Client-Cert");
+-builder.Services.AddCloudFoundryCertificateAuth(options => options.CertificateHeader = "X-Forwarded-Client-Cert");
 +builder.Services.AddAuthentication().AddCertificate();
-+builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies();
++builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies("X-Forwarded-Client-Cert");
 
 var app = builder.Build();
 
@@ -1558,6 +1558,24 @@ app.MapGet("/sameSpace", async httpContext =>
 +    .RequireAuthorization(CertificateAuthorizationPolicies.SameSpace);
 ```
 
+> [!NOTE]
+> Prior to Steeltoe 3.3.0, Steeltoe Certificate Auth used the header `X-Forwarded-Client-Cert`, which was not configurable.
+> The code shown above is provided for compatibility between the versions. The preferred header name is `X-Client-Cert`.
+> In Steeltoe 4.0, the default header is `X-Client-Cert`, so the parameter can be omitted if cross-compatibility is not required.
+
+launchsettings.json (server-side):
+
+```diff
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "applicationUrl": "https://+:7107" // bind to all host names and IP addresses
+    }
+  }
+}
+```
+
 Program.cs (client-side):
 
 ```diff
@@ -1579,13 +1597,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
 -    .AddHttpClient<PingClient>((services, client) =>
 -{
--    client.BaseAddress = new Uri("http://example-service/")
+-    client.BaseAddress = new Uri("https://localhost:7107")
 -    var options = services.GetRequiredService<IOptions<CertificateOptions>>();
 -    var b64 = Convert.ToBase64String(options.Value.Certificate.Export(X509ContentType.Cert));
--    client.DefaultRequestHeaders.Add("X-Client-Cert", b64);
+-    client.DefaultRequestHeaders.Add("X-Forwarded-Client-Cert", b64);
 -});
-+    .AddHttpClient<PingClient>(httpClient => httpClient.BaseAddress = new Uri("http://example-service/"))
-+        .AddAppInstanceIdentityCertificate();
++    .AddHttpClient<PingClient>(httpClient => httpClient.BaseAddress = new Uri("https://localhost:7107"))
++        .AddAppInstanceIdentityCertificate("X-Forwarded-Client-Cert");
 
 var app = builder.Build();
 
@@ -1603,6 +1621,11 @@ public class PingClient(HttpClient httpClient)
     }
 }
 ```
+
+> [!NOTE]
+> Prior to Steeltoe 3.3.0, Steeltoe Certificate Auth used the header `X-Forwarded-Client-Cert`, which was not configurable.
+> The code shown above is provided for compatibility between the versions. The preferred header name is `X-Client-Cert`.
+> In Steeltoe 4.0, the default header is `X-Client-Cert`, so the parameter can be omitted if cross-compatibility is not required.
 
 ### DataProtection Key Store using Redis/Valkey
 
