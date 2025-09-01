@@ -645,7 +645,7 @@ launchSettings.json:
   "profiles": {
     "http": {
       "commandName": "Project",
-      "applicationUrl": "http://+:5005" // bind to all host names and IP addressess
+      "applicationUrl": "http://+:5005" // bind to all host names and IP addresses
     }
   }
 }
@@ -776,7 +776,7 @@ launchSettings.json:
   "profiles": {
     "http": {
       "commandName": "Project",
-      "applicationUrl": "http://+:5005" // bind to all host names and IP addressess
+      "applicationUrl": "http://+:5005" // bind to all host names and IP addresses
     }
   }
 }
