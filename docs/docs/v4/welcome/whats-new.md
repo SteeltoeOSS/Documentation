@@ -989,8 +989,8 @@ For more information, see the updated [Logging documentation](../logging/index.m
 - Update health checks and actuator to align with latest Spring
   - Hide components/details by default
   - Liveness/readiness contributors are turned off by default
-  - Contributors can be turned on/off at runtime using configuration
-  - Contributors must be singletons (you can inject `IHttpContextAccessor`, but `HttpContext` is unavailable from Discovery)
+  - Health contributors can be turned on/off at runtime using configuration
+- Contributors (both health and info) must be singletons (you can inject `IHttpContextAccessor`, but `HttpContext` may not always be available)
 - Support Windows network shares in disk space health contributor
 - Update `/mappings` actuator to include endpoints from Minimal APIs, Razor Pages, and Blazor, with richer metadata and improved compatibility with Spring
 - Heap dumps are enabled by default in Cloud Foundry on Linux; all dump types supported on Windows/Linux/macOS
