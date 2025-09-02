@@ -1477,7 +1477,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddCloudFoundryConfiguration();
 +builder.Configuration.AddCloudFoundryServiceBindings();
-
 builder.Services.AddAuthentication()
 -    .AddCloudFoundryJwtBearer(builder.Configuration);
 +    .AddJwtBearer().ConfigureJwtBearerForCloudFoundry();
@@ -1494,7 +1493,7 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/jwt", async httpContext =>
+app.MapGet("/test-jwt", async httpContext =>
     {
         httpContext.Response.StatusCode = 200;
         httpContext.Response.ContentType = "text/plain";
