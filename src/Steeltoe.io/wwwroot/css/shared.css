@@ -83,6 +83,10 @@ footer a:hover {
     color: steelblue;
 }
 
+.hljs-deletion {
+    color: red;
+}
+
 :not(a):not(pre) > code,
 body[data-yaml-mime=ManagedReference] article dl.parameters > dt > code,
 body[data-yaml-mime=ApiPage] article dl.parameters > dt > code {
@@ -95,6 +99,14 @@ body[data-yaml-mime=ApiPage] article dl.parameters > dt > code {
 
     .hljs-title {
         color: #006881
+    }
+
+    .hljs-deletion, .hljs-addition {
+        display: inline-block;
+    }
+
+    .hljs-addition {
+        color: green;
     }
 
     :not(a):not(pre) > code {
@@ -187,6 +199,15 @@ body[data-yaml-mime=ApiPage] article dl.parameters > dt > code {
 
         .hljs-built_in {
             color: #569cd6;
+        }
+
+        .hljs-deletion {
+            background-color: transparent;
+        }
+
+        .hljs-addition {
+            background-color: transparent;
+            color: lightgreen;
         }
     }
 }

@@ -19,8 +19,12 @@ underscored that this is the time to refocus on Steeltoe's core goals and re-eva
 Steeltoe 4 is a major release that brings many improvements and changes to the library.
 The goal of this release is to make Steeltoe better integrated in the .NET ecosystem in a more developer-friendly way, compatible
 with the latest versions of .NET and third-party libraries/products, and to improve the overall quality of the library.
-This document provides an overview of the changes in Steeltoe 4, the impact on existing applications, and serves as the upgrade guide (with a searchable API diff and replacement notes).
 Steeltoe 4 requires .NET 8 or higher.
+
+This document provides an overview of the changes in Steeltoe 4 and the impact on existing applications (with a searchable API diff and replacement notes).
+
+> [!TIP]
+> For quick steps to upgrade an existing application from Steeltoe 3, see [Migrating from Steeltoe 3](./migrate-quick-steps.md).
 
 ### Quality of Life improvements
 
@@ -620,8 +624,6 @@ For more information, see the updated [Configuration documentation](../configura
 For more information, see the updated [Connectors documentation](../configuration/index.md) and
 [Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors).
 
----
-
 ## Discovery
 
 ### Behavior changes
@@ -984,7 +986,11 @@ For more information, see the updated [Logging documentation](../logging/index.m
 - Actuators can be turned on/off or bound to different verbs at runtime using configuration
 - Simplified content negotiation; updated all actuators to support latest Spring media type
 - New actuator `/beans` that lists the contents of the .NET dependency container, including support for keyed services
-- Update health checks and actuator to align with latest Spring; hide details by default; contributors can be turned on/off at runtime using configuration
+- Update health checks and actuator to align with latest Spring
+  - Hide components/details by default
+  - Liveness/readiness contributors are turned off by default
+  - Health contributors can be turned on/off at runtime using configuration
+- Contributors (both health and info) must be singletons (you can inject `IHttpContextAccessor`, but `HttpContext` may not always be available)
 - Support Windows network shares in disk space health contributor
 - Update `/mappings` actuator to include endpoints from Minimal APIs, Razor Pages, and Blazor, with richer metadata and improved compatibility with Spring
 - Heap dumps are enabled by default in Cloud Foundry on Linux; all dump types supported on Windows/Linux/macOS
