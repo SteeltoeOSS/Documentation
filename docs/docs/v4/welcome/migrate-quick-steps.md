@@ -1266,7 +1266,7 @@ appsettings.json:
     "Oauth2": {
       "Client": {
 -        "AuthDomain": "http://localhost:8080",
-+        "Authority": "http://localhost:8080/uaa",
++        "Authority": "http://localhost:8080",
 +        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
 +        "RequireHttpsMetadata": false,
 +        "AdditionalScopes": "sampleapi.read",
@@ -1293,16 +1293,15 @@ using Steeltoe.Security.Authentication.CloudFoundry;
 var builder = WebApplication.CreateBuilder(args);
 builder.AddCloudFoundryConfiguration();
 builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
-})
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
+    })
     .AddCookie(options => options.AccessDeniedPath = new PathString("/Home/AccessDenied"))
 -    .AddCloudFoundryOAuth(builder.Configuration);
 +    .AddCloudFoundryOpenIdConnect(builder.Configuration);
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("read", policy => policy.RequireClaim("scope", "sampleapi.read"))
-    .AddPolicy("write", policy => policy.RequireClaim("scope", "sampleapi.write"));
+    .AddPolicy("read", policy => policy.RequireClaim("scope", "sampleapi.read"));
 
 var app = builder.Build();
 
@@ -1314,6 +1313,12 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGet("/test-auth", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("You are logged in and carry the required claim.");
+    }).RequireAuthorization("read");
 ```
 
 ### OpenID Connect
@@ -1340,28 +1345,26 @@ appsettings.json:
 -  "Security": {
 -    "Oauth2": {
 -      "Client": {
--        "Authority": "http://localhost:8080/uaa",
--        "CallbackPath": "/signin-oidc",
--        "ClientId": "steeltoesamplesclient",
--        "ClientSecret": "client_secret",
+-        "Authority": "http://localhost:8080",
 -        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
 -        "RequireHttpsMetadata": false,
--        "SaveTokens": true,
--        "AdditionalScopes": "sampleapi.read"
+-        "AdditionalScopes": "sampleapi.read",
+-        "CallbackPath": "/signin-oidc",
+-        "ClientId": "steeltoesamplesclient",
+-        "ClientSecret": "client_secret"
 -      }
 -    }
 -  }
 +  "Authentication": {
 +    "Schemes": {
 +      "OpenIdConnect": {
-+        "Authority": "http://localhost:8080/uaa",
-+        "CallbackPath": "/signin-oidc",
-+        "ClientId": "steeltoesamplesclient",
-+        "ClientSecret": "client_secret",
++        "Authority": "http://localhost:8080",
 +        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
 +        "RequireHttpsMetadata": false,
-+        "SaveTokens": true,
-+        "Scope": [ "openid", "sampleapi.read" ]
++        "Scope": [ "openid", "sampleapi.read" ],
++        "CallbackPath": "/signin-oidc",
++        "ClientId": "steeltoesamplesclient",
++        "ClientSecret": "client_secret"
 +      }
 +    }
 +  }
@@ -1388,17 +1391,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddCloudFoundryConfiguration();
 +builder.Configuration.AddCloudFoundryServiceBindings();
 builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
--    options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
-+    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-})
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+-        options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
++        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+    })
     .AddCookie(options => options.AccessDeniedPath = new PathString("/Home/AccessDenied"))
 -    .AddCloudFoundryOpenIdConnect(builder.Configuration);
 +    .AddOpenIdConnect().ConfigureOpenIdConnectForCloudFoundry();
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("read", policy => policy.RequireClaim("scope", "sampleapi.read"))
-    .AddPolicy("write", policy => policy.RequireClaim("scope", "sampleapi.write"));
+    .AddPolicy("read", policy => policy.RequireClaim("scope", "sampleapi.read"));
 
 var app = builder.Build();
 
@@ -1409,6 +1411,13 @@ var app = builder.Build();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGet("/test-auth", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("You are logged in and carry the required claim.");
+    }).RequireAuthorization("read");
 ```
 
 ### JWT Bearer
@@ -1436,11 +1445,10 @@ appsettings.json:
 -    "Oauth2": {
 -      "Client": {
 -        "AuthDomain": "http://localhost:8080",
--        "ClientId": "steeltoesamplesserver",
--        "ClientSecret": "server_secret",
--        "JwtKeyUrl": "http://localhost:8080/token_keys",
 -        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
--        "RequireHttpsMetadata": false
+-        "RequireHttpsMetadata": false,
+-        "ClientId": "steeltoesamplesserver",
+-        "ClientSecret": "server_secret"
 -      }
 -    }
 -  }
@@ -1448,10 +1456,10 @@ appsettings.json:
 +    "Schemes": {
 +      "Bearer": {
 +        "Authority": "http://localhost:8080",
-+        "ClientId": "steeltoesamplesserver",
-+        "ClientSecret": "server_secret",
 +        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
 +        "RequireHttpsMetadata": false,
++        "ClientId": "steeltoesamplesserver",
++        "ClientSecret": "server_secret",
 +        "ValidAudiences": [ "sampleapi" ]
 +      }
 +    }
@@ -1515,6 +1523,19 @@ Project file:
 </Project>
 ```
 
+launchsettings.json (server-side):
+
+```diff
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "applicationUrl": "https://localhost:7107"
+    }
+  }
+}
+```
+
 Program.cs (server-side):
 
 ```diff
@@ -1558,19 +1579,6 @@ app.MapGet("/test-same-space", async httpContext =>
 > Prior to Steeltoe 3.3.0, Steeltoe Certificate Auth used the header `X-Forwarded-Client-Cert`, which was not configurable.
 > The code shown above is provided for compatibility between the versions. The preferred header name is `X-Client-Cert`.
 > In Steeltoe 4.0, the default header is `X-Client-Cert`, so the parameter can be omitted if cross-compatibility is not required.
-
-launchsettings.json (server-side):
-
-```diff
-{
-  "profiles": {
-    "http": {
-      "commandName": "Project",
-      "applicationUrl": "https://localhost:7107"
-    }
-  }
-}
-```
 
 Program.cs (client-side):
 
