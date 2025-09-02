@@ -1498,7 +1498,7 @@ app.MapGet("/jwt", async httpContext =>
     {
         httpContext.Response.StatusCode = 200;
         httpContext.Response.ContentType = "text/plain";
-        await httpContext.Response.WriteAsync("JWT is valid and contains the required claim");
+        await httpContext.Response.WriteAsync("JWT is valid and contains the required claim.");
     }).RequireAuthorization("sampleapi.read");
 app.Run();
 ```
@@ -1527,10 +1527,8 @@ const string orgId = "a8fef16f-94c0-49e3-aa0b-ced7c3da6229";
 const string spaceId = "122b942a-d7b9-4839-b26e-836654b9785f";
 
 var builder = WebApplication.CreateBuilder(args);
-
 -builder.Configuration.AddCloudFoundryContainerIdentity(orgId, spaceId);
 +builder.Configuration.AddAppInstanceIdentityCertificate(new Guid(orgId), new Guid(spaceId));
-
 -builder.Services.AddCloudFoundryCertificateAuth(options => options.CertificateHeader = "X-Forwarded-Client-Cert");
 +builder.Services.AddAuthentication().AddCertificate();
 +builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies("X-Forwarded-Client-Cert");
@@ -1539,20 +1537,19 @@ var app = builder.Build();
 
 -app.UseCloudFoundryCertificateAuth();
 +app.UseCertificateAuthorization();
-app.MapGet("/sameOrg", async httpContext =>
+app.MapGet("/test-same-org", async httpContext =>
     {
         httpContext.Response.StatusCode = 200;
         httpContext.Response.ContentType = "text/plain";
-        await httpContext.Response.WriteAsync("Client and server identity certificates have matching Org values");
+        await httpContext.Response.WriteAsync("Client and server identity certificates have matching Org values.");
     })
 -    .RequireAuthorization(CloudFoundryDefaults.SameOrganizationAuthorizationPolicy);
 +    .RequireAuthorization(CertificateAuthorizationPolicies.SameOrg);
-
-app.MapGet("/sameSpace", async httpContext =>
+app.MapGet("/test-same-space", async httpContext =>
     {
         httpContext.Response.StatusCode = 200;
         httpContext.Response.ContentType = "text/plain";
-        await httpContext.Response.WriteAsync("Client and server identity certificates have matching Space values");
+        await httpContext.Response.WriteAsync("Client and server identity certificates have matching Space values.");
     })
 -    .RequireAuthorization(CloudFoundryDefaults.SameSpaceAuthorizationPolicy);
 +    .RequireAuthorization(CertificateAuthorizationPolicies.SameSpace);
@@ -1570,7 +1567,7 @@ launchsettings.json (server-side):
   "profiles": {
     "http": {
       "commandName": "Project",
-      "applicationUrl": "https://+:7107" // bind to all host names and IP addresses
+      "applicationUrl": "https://localhost:7107"
     }
   }
 }
@@ -1595,29 +1592,29 @@ var builder = WebApplication.CreateBuilder(args);
 +builder.Configuration.AddAppInstanceIdentityCertificate(new Guid(orgId), new Guid(spaceId));
 -builder.Services.AddCloudFoundryContainerIdentity();
 builder.Services
--    .AddHttpClient<PingClient>((services, client) =>
--{
--    client.BaseAddress = new Uri("https://localhost:7107")
--    var options = services.GetRequiredService<IOptions<CertificateOptions>>();
--    var b64 = Convert.ToBase64String(options.Value.Certificate.Export(X509ContentType.Cert));
--    client.DefaultRequestHeaders.Add("X-Forwarded-Client-Cert", b64);
--});
-+    .AddHttpClient<PingClient>(httpClient => httpClient.BaseAddress = new Uri("https://localhost:7107"))
+-    .AddHttpClient<TestClient>((services, client) =>
+-    {
+-        client.BaseAddress = new Uri("https://localhost:7107");
+-        var options = services.GetRequiredService<IOptions<CertificateOptions>>();
+-        var b64 = Convert.ToBase64String(options.Value.Certificate.Export(X509ContentType.Cert));
+-        client.DefaultRequestHeaders.Add("X-Forwarded-Client-Cert", b64);
+-    });
++    .AddHttpClient<TestClient>(httpClient => httpClient.BaseAddress = new Uri("https://localhost:7107"))
 +        .AddAppInstanceIdentityCertificate("X-Forwarded-Client-Cert");
 
 var app = builder.Build();
 
-var pingClient = app.Services.GetRequiredService<PingClient>();
-string orgResponse = await pingClient.GetPingAsync("org");
+var testClient = app.Services.GetRequiredService<TestClient>();
+string orgResponse = await testClient.GetAsync("/test-same-org");
 Console.WriteLine($"Org response: {orgResponse}");
-string spaceResponse = await pingClient.GetPingAsync("space");
+string spaceResponse = await testClient.GetAsync("/test-same-space");
 Console.WriteLine($"Space response: {spaceResponse}");
 
-public class PingClient(HttpClient httpClient)
+public class TestClient(HttpClient httpClient)
 {
-    public async Task<string> GetPingAsync(string matchType)
+    public async Task<string> GetAsync(string requestPath)
     {
-        return await httpClient.GetStringAsync($"same{matchType}");
+        return await httpClient.GetStringAsync(requestPath);
     }
 }
 ```
