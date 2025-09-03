@@ -1319,6 +1319,8 @@ app.MapGet("/test-auth", async httpContext =>
         httpContext.Response.ContentType = "text/plain";
         await httpContext.Response.WriteAsync("You are logged in and carry the required claim.");
     }).RequireAuthorization("read");
+
+app.Run();
 ```
 
 ### OpenID Connect
@@ -1418,6 +1420,8 @@ app.MapGet("/test-auth", async httpContext =>
         httpContext.Response.ContentType = "text/plain";
         await httpContext.Response.WriteAsync("You are logged in and carry the required claim.");
     }).RequireAuthorization("read");
+
+app.Run();    
 ```
 
 ### JWT Bearer
@@ -1507,6 +1511,7 @@ app.MapGet("/test-jwt", async httpContext =>
         httpContext.Response.ContentType = "text/plain";
         await httpContext.Response.WriteAsync("JWT is valid and contains the required claim.");
     }).RequireAuthorization("sampleapi.read");
+
 app.Run();
 ```
 
@@ -1557,6 +1562,7 @@ var app = builder.Build();
 
 -app.UseCloudFoundryCertificateAuth();
 +app.UseCertificateAuthorization();
+
 app.MapGet("/test-same-org", async httpContext =>
     {
         httpContext.Response.StatusCode = 200;
@@ -1573,6 +1579,8 @@ app.MapGet("/test-same-space", async httpContext =>
     })
 -    .RequireAuthorization(CloudFoundryDefaults.SameSpaceAuthorizationPolicy);
 +    .RequireAuthorization(CertificateAuthorizationPolicies.SameSpace);
+
+app.Run();
 ```
 
 > [!NOTE]
