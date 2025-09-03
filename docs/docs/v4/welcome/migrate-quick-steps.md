@@ -1251,7 +1251,393 @@ For additional information, see the updated [Security documentation](../security
 The CredHub client has been removed from Steeltoe in v4.
 Use [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html) instead.
 
-### TODO: JWT/OAuth/OpenID Connect/Certificates...
+### OAuth
+
+OAuth support has been removed from Steeltoe in v4. Use OpenID Connect instead.
+
+Before migrating to Steeltoe v4, apply the following changes to migrate from OAuth to OpenID Connect using Steeltoe v3.
+
+appsettings.json:
+
+```diff
+{
+  "$schema": "https://steeltoe.io/schema/v3/schema.json",
+  "Security": {
+    "Oauth2": {
+      "Client": {
+-        "AuthDomain": "http://localhost:8080",
++        "Authority": "http://localhost:8080",
++        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
++        "RequireHttpsMetadata": false,
++        "AdditionalScopes": "sampleapi.read",
+        "CallbackPath": "/signin-oidc",
+        "ClientId": "steeltoesamplesclient",
+        "ClientSecret": "client_secret"
+      }
+    }
+  }
+}
+```
+
+> [!NOTE]
+> Depending on your application's needs, you may need to add scopes to the application's configuration that did not previously need to be specified.
+
+program.cs:
+
+```diff
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.HttpOverrides;
+using Steeltoe.Extensions.Configuration.CloudFoundry;
+using Steeltoe.Security.Authentication.CloudFoundry;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.AddCloudFoundryConfiguration();
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
+    })
+    .AddCookie(options => options.AccessDeniedPath = new PathString("/Home/AccessDenied"))
+-    .AddCloudFoundryOAuth(builder.Configuration);
++    .AddCloudFoundryOpenIdConnect(builder.Configuration);
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("read", policy => policy.RequireClaim("scope", "sampleapi.read"));
+
+var app = builder.Build();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedProto
+});
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapGet("/test-auth", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("You are logged in and carry the required claim.");
+    }).RequireAuthorization("read");
+
+app.Run();
+```
+
+### OpenID Connect
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.0.0" />
+-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Security.Authentication.OpenIdConnect" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+appsettings.json:
+
+```diff
+{
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
++  "$schema": "https://steeltoe.io/schema/v4/schema.json",
+-  "Security": {
+-    "Oauth2": {
+-      "Client": {
+-        "Authority": "http://localhost:8080",
+-        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
+-        "RequireHttpsMetadata": false,
+-        "AdditionalScopes": "sampleapi.read",
+-        "CallbackPath": "/signin-oidc",
+-        "ClientId": "steeltoesamplesclient",
+-        "ClientSecret": "client_secret"
+-      }
+-    }
+-  }
++  "Authentication": {
++    "Schemes": {
++      "OpenIdConnect": {
++        "Authority": "http://localhost:8080",
++        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
++        "RequireHttpsMetadata": false,
++        "Scope": [ "openid", "sampleapi.read" ],
++        "CallbackPath": "/signin-oidc",
++        "ClientId": "steeltoesamplesclient",
++        "ClientSecret": "client_secret"
++      }
++    }
++  }
+}
+```
+
+> [!NOTE]
+> This is not a complete listing of appsettings. As of version 4, Steeltoe configures Microsoft's option class rather than maintaining separate options.
+> Refer to [the OpenIdConnectOptions class documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.openidconnect.openidconnectoptions) for the new options.
+
+Program.cs:
+
+```diff
+using Microsoft.AspNetCore.Authentication.Cookies;
+-using Microsoft.AspNetCore.HttpOverrides;
+-using Steeltoe.Extensions.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry.ServiceBindings;
+-using Steeltoe.Security.Authentication.CloudFoundry;
++using Microsoft.AspNetCore.Authentication.OpenIdConnect;
++using Steeltoe.Security.Authentication.OpenIdConnect;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.AddCloudFoundryConfiguration();
++builder.Configuration.AddCloudFoundryServiceBindings();
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+-        options.DefaultChallengeScheme = CloudFoundryDefaults.AuthenticationScheme;
++        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+    })
+    .AddCookie(options => options.AccessDeniedPath = new PathString("/Home/AccessDenied"))
+-    .AddCloudFoundryOpenIdConnect(builder.Configuration);
++    .AddOpenIdConnect().ConfigureOpenIdConnectForCloudFoundry();
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("read", policy => policy.RequireClaim("scope", "sampleapi.read"));
+
+var app = builder.Build();
+
+-app.UseForwardedHeaders(new ForwardedHeadersOptions
+-{
+-    ForwardedHeaders = ForwardedHeaders.XForwardedProto
+-});
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapGet("/test-auth", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("You are logged in and carry the required claim.");
+    }).RequireAuthorization("read");
+
+app.Run();    
+```
+
+### JWT Bearer
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.0.0" />
+-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Security.Authentication.JwtBearer" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+appsettings.json:
+
+```diff
+{
+-  "$schema": "https://steeltoe.io/schema/v3/schema.json",
++  "$schema": "https://steeltoe.io/schema/v4/schema.json",
+-  "Security": {
+-    "Oauth2": {
+-      "Client": {
+-        "AuthDomain": "http://localhost:8080",
+-        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
+-        "RequireHttpsMetadata": false,
+-        "ClientId": "steeltoesamplesserver",
+-        "ClientSecret": "server_secret"
+-      }
+-    }
+-  }
++  "Authentication": {
++    "Schemes": {
++      "Bearer": {
++        "Authority": "http://localhost:8080",
++        "MetadataAddress": "http://localhost:8080/.well-known/openid-configuration",
++        "RequireHttpsMetadata": false,
++        "ClientId": "steeltoesamplesserver",
++        "ClientSecret": "server_secret",
++        "ValidAudiences": [ "sampleapi" ]
++      }
++    }
++  }
+}
+```
+
+> [!NOTE]
+> This is not a complete listing of appsettings. As of version 4, Steeltoe configures Microsoft's option class rather than maintaining separate options.
+> Refer to [the JwtBearerOptions class documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer.jwtbeareroptions) for the new options.
+
+Program.cs:
+
+```diff
+-using Microsoft.AspNetCore.HttpOverrides;
+-using Steeltoe.Extensions.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry;
++using Steeltoe.Configuration.CloudFoundry.ServiceBindings;
+-using Steeltoe.Security.Authentication.CloudFoundry;
++using Steeltoe.Security.Authentication.JwtBearer;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddCloudFoundryConfiguration();
++builder.Configuration.AddCloudFoundryServiceBindings();
+builder.Services.AddAuthentication()
+-    .AddCloudFoundryJwtBearer(builder.Configuration);
++    .AddJwtBearer().ConfigureJwtBearerForCloudFoundry();
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("sampleapi.read", policy => policy.RequireClaim("scope", "sampleapi.read"));
+
+var app = builder.Build();
+
+-app.UseForwardedHeaders(new ForwardedHeadersOptions
+-{
+-    ForwardedHeaders = ForwardedHeaders.XForwardedProto
+-});
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapGet("/test-jwt", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("JWT is valid and contains the required claim.");
+    }).RequireAuthorization("sampleapi.read");
+
+app.Run();
+```
+
+### Client Certificates (Mutual TLS)
+
+Project file:
+
+```diff
+<Project>
+  <ItemGroup>
+-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.*" />
++    <PackageReference Include="Steeltoe.Security.Authorization.Certificate" Version="4.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+launchsettings.json (server-side):
+
+```diff
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "applicationUrl": "https://localhost:7107"
+    }
+  }
+}
+```
+
+Program.cs (server-side):
+
+```diff
++using Steeltoe.Common.Certificates;
+-using Steeltoe.Security.Authentication.CloudFoundry;
++using Steeltoe.Security.Authorization.Certificate;
+
+const string orgId = "a8fef16f-94c0-49e3-aa0b-ced7c3da6229";
+const string spaceId = "122b942a-d7b9-4839-b26e-836654b9785f";
+
+var builder = WebApplication.CreateBuilder(args);
+-builder.Configuration.AddCloudFoundryContainerIdentity(orgId, spaceId);
++builder.Configuration.AddAppInstanceIdentityCertificate(new Guid(orgId), new Guid(spaceId));
+-builder.Services.AddCloudFoundryCertificateAuth(options => options.CertificateHeader = "X-Forwarded-Client-Cert");
++builder.Services.AddAuthentication().AddCertificate();
++builder.Services.AddAuthorizationBuilder().AddOrgAndSpacePolicies("X-Forwarded-Client-Cert");
+
+var app = builder.Build();
+
+-app.UseCloudFoundryCertificateAuth();
++app.UseCertificateAuthorization();
+
+app.MapGet("/test-same-org", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("Client and server identity certificates have matching Org values.");
+    })
+-    .RequireAuthorization(CloudFoundryDefaults.SameOrganizationAuthorizationPolicy);
++    .RequireAuthorization(CertificateAuthorizationPolicies.SameOrg);
+app.MapGet("/test-same-space", async httpContext =>
+    {
+        httpContext.Response.StatusCode = 200;
+        httpContext.Response.ContentType = "text/plain";
+        await httpContext.Response.WriteAsync("Client and server identity certificates have matching Space values.");
+    })
+-    .RequireAuthorization(CloudFoundryDefaults.SameSpaceAuthorizationPolicy);
++    .RequireAuthorization(CertificateAuthorizationPolicies.SameSpace);
+
+app.Run();
+```
+
+> [!NOTE]
+> Prior to Steeltoe 3.3.0, Steeltoe Certificate Auth used the header `X-Forwarded-Client-Cert`, which was not configurable.
+> The code shown above is provided for compatibility between the versions. The preferred header name is `X-Client-Cert`.
+> In Steeltoe 4.0, the default header is `X-Client-Cert`, so the parameter can be omitted if cross-compatibility is not required.
+
+Program.cs (client-side):
+
+```diff
+-using System.Security.Cryptography.X509Certificates;
+-using Microsoft.Extensions.Options;
+-using Steeltoe.Common.Options;
++using Steeltoe.Common.Certificates;
+-using Steeltoe.Security.Authentication.CloudFoundry;
++using Steeltoe.Security.Authorization.Certificate;
+
+const string orgId = "a8fef16f-94c0-49e3-aa0b-ced7c3da6229";
+const string spaceId = "122b942a-d7b9-4839-b26e-836654b9785f";
+
+var builder = WebApplication.CreateBuilder(args);
+
+-builder.Configuration.AddCloudFoundryContainerIdentity(orgId, spaceId);
++builder.Configuration.AddAppInstanceIdentityCertificate(new Guid(orgId), new Guid(spaceId));
+-builder.Services.AddCloudFoundryContainerIdentity();
+builder.Services
+-    .AddHttpClient<TestClient>((services, client) =>
+-    {
+-        client.BaseAddress = new Uri("https://localhost:7107");
+-        var options = services.GetRequiredService<IOptions<CertificateOptions>>();
+-        var b64 = Convert.ToBase64String(options.Value.Certificate.Export(X509ContentType.Cert));
+-        client.DefaultRequestHeaders.Add("X-Forwarded-Client-Cert", b64);
+-    });
++    .AddHttpClient<TestClient>(httpClient => httpClient.BaseAddress = new Uri("https://localhost:7107"))
++        .AddAppInstanceIdentityCertificate("X-Forwarded-Client-Cert");
+
+var app = builder.Build();
+
+var testClient = app.Services.GetRequiredService<TestClient>();
+string orgResponse = await testClient.GetAsync("/test-same-org");
+Console.WriteLine($"Org response: {orgResponse}");
+string spaceResponse = await testClient.GetAsync("/test-same-space");
+Console.WriteLine($"Space response: {spaceResponse}");
+
+public class TestClient(HttpClient httpClient)
+{
+    public async Task<string> GetAsync(string requestPath)
+    {
+        return await httpClient.GetStringAsync(requestPath);
+    }
+}
+```
+
+> [!NOTE]
+> Prior to Steeltoe 3.3.0, Steeltoe Certificate Auth used the header `X-Forwarded-Client-Cert`, which was not configurable.
+> The code shown above is provided for compatibility between the versions. The preferred header name is `X-Client-Cert`.
+> In Steeltoe 4.0, the default header is `X-Client-Cert`, so the parameter can be omitted if cross-compatibility is not required.
 
 ### DataProtection Key Store using Redis/Valkey
 
