@@ -11,6 +11,20 @@ uid: articles
 <!-- markdownlint-disable MD033 --> <!-- Allow HTML on this page -->
 <ul class="blog-list">
     <li class="blog-item">
+        <a href="releases/steeltoe-4-0-0.md">
+            <span class="blog-date">September 5 2025</span>
+            <div class="blog-author">Tim Hess</div>
+            <div class="blog-title">Steeltoe 4.0.0 GA is Available Now</div>
+        </a>
+    </li>
+    <li class="blog-item">
+        <a href="releases/steeltoe-3-3-0.md">
+            <span class="blog-date">September 5 2025</span>
+            <div class="blog-author">Tim Hess</div>
+            <div class="blog-title">Steeltoe 3.3.0 GA is Available Now</div>
+        </a>
+    </li>
+    <li class="blog-item">
         <a href="releases/steeltoe-4-0-0-rc1.md">
             <span class="blog-date">July 29 2025</span>
             <div class="blog-author">Tim Hess</div>
