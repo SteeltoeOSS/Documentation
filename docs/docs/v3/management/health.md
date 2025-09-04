@@ -125,7 +125,7 @@ For any group that has been defined, you may access health information from the 
 
 Applications deployed on Kubernetes can provide information about their internal state with [Container Probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes). Depending on your [Kubernetes configuration](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), the kubelet will call those probes and react to the result.
 
-Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Common/src/Common/Availability/ApplicationAvailability.cs) class for managing various types of application state. Out of the box support is provided for Liveness and Readiness, where each are exposed in a corresponding `IHealthContributor` and Health Group.
+Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/3.x/src/Common/src/Common/Availability/ApplicationAvailability.cs) class for managing various types of application state. Out of the box support is provided for Liveness and Readiness, where each are exposed in a corresponding `IHealthContributor` and Health Group.
 
 In order to change the health contributors that are included in either of the two default groups, use the same style of configuration seen above. Please note that this will _replace_ the default groupings, so if you would like to _add_ an `IHealthContributor` you will need to include the original entry. These entries demonstrate including disk space in both groups:
 

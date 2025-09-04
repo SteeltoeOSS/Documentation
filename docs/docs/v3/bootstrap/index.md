@@ -1,6 +1,6 @@
 # Application Bootstrapping
 
-In order to improve the Steeltoe developer experience, Steeltoe 3.1.0 added this new feature that allows the configuration of most Steeltoe components with a single line of code in your application. The package is named [`Steeltoe.Bootstrap.Autoconfig`](https://github.com/SteeltoeOSS/Steeltoe/tree/release/3.2/src/Bootstrap/src/Autoconfig), and it works by applying the same extensions that are already included in Steeltoe packages to automatically wire up each of those components.
+In order to improve the Steeltoe developer experience, Steeltoe 3.1.0 added this new feature that allows the configuration of most Steeltoe components with a single line of code in your application. The package is named [`Steeltoe.Bootstrap.Autoconfig`](https://github.com/SteeltoeOSS/Steeltoe/tree/3.x/src/Bootstrap/src/Autoconfig), and it works by applying the same extensions that are already included in Steeltoe packages to automatically wire up each of those components.
 
 Applications running on .NET Core 3.1+ and .NET 5.0+ are supported. Get started by adding a reference to the Autoconfig package (you may want to add other Steeltoe references at this point too, see [the table below](#supported-steeltoe-packages) for the full list of what's supported now):
 

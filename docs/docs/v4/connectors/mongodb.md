@@ -11,7 +11,7 @@ The remainder of this topic assumes that you are familiar with the basic concept
 
 To use this connector:
 
-1. Create a MongoDB server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#mongodb).
+1. Create a MongoDB server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/4.x/CommonTasks.md#mongodb).
 1. Add NuGet references to your project.
 1. Configure your connection string in `appsettings.json`.
 1. Initialize the Steeltoe Connector at startup.
@@ -98,7 +98,7 @@ builder.AddMongoDb();
     }
     ```
 
-A complete sample app that uses `IMongoClient` is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/MongoDb.
+A complete sample app that uses `IMongoClient` is provided at https://github.com/SteeltoeOSS/Samples/tree/4.x/Connectors/src/MongoDb.
 
 ## Cloud Foundry
 
@@ -131,4 +131,4 @@ You can create and bind an instance to your application by using the Cloud Found
 This Connector supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
 It can be used through the [Services Toolkit](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/services-toolkit-install-services-toolkit.html).
 
-For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/MongoDb#running-on-tanzu-platform-for-kubernetes.
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/4.x/Connectors/src/MongoDb#running-on-tanzu-platform-for-kubernetes.

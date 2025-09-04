@@ -6,7 +6,7 @@ The Steeltoe Prometheus endpoint configures the [OpenTelemetry Prometheus Export
 
 The Prometheus endpoint does not automatically instrument your application, but does make it easy to export metrics in the Prometheus metrics format, which can be used by tools like [Prometheus Server](https://prometheus.io/) and the [Metric Registrar for Tanzu Platform for Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/metric-registrar-index.html).
 
-See the [Steeltoe Management samples](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src/ActuatorWeb/README.md) for more information about using this tool.
+See the [Steeltoe Management samples](https://github.com/SteeltoeOSS/Samples/tree/4.x/Management/src/ActuatorWeb/README.md) for more information about using this tool.
 
 ## Add NuGet Reference
 

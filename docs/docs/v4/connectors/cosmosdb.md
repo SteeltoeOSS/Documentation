@@ -122,4 +122,4 @@ To retrieve data from CosmosDB in your app, use the following steps:
     }
     ```
 
-A complete sample app that uses `CosmosClient` is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/CosmosDb.
+A complete sample app that uses `CosmosClient` is provided at https://github.com/SteeltoeOSS/Samples/tree/4.x/Connectors/src/CosmosDb.

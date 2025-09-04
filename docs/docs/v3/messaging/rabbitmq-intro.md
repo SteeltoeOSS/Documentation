@@ -239,7 +239,7 @@ Alternatively, you could configure the same connection settings using the `Addre
 >When specifying addresses as shown above, the `host` and `port` properties are ignored.
 If the address uses the `amqps` protocol, SSL support is automatically enabled.
 
-See [`RabbitOptions`](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Messaging/src/RabbitMQ/Config/RabbitOptions.cs) for more of the supported options.
+See [`RabbitOptions`](https://github.com/SteeltoeOSS/Steeltoe/blob/3.x/src/Messaging/src/RabbitMQ/Config/RabbitOptions.cs) for more of the supported options.
 
 >TIP: See [Understanding AMQP, the protocol used by RabbitMQ](https://www.rabbitmq.com/tutorials/amqp-concepts.html) for more details.
 

@@ -6,7 +6,7 @@ The Spring Cloud Config Server is an application configuration service that give
 
 To gain a better understanding of the Spring Cloud Config Server, you should read the [Spring Cloud Config documentation](https://spring.io/projects/spring-cloud-config).
 
-In addition to the Quick Start provided later, you can refer to the [Steeltoe ConfigurationProviders](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration/src/ConfigurationProviders) sample application when you need to understand how to use this provider.
+In addition to the Quick Start provided later, you can refer to the [Steeltoe ConfigurationProviders](https://github.com/SteeltoeOSS/Samples/tree/4.x/Configuration/src/ConfigurationProviders) sample application when you need to understand how to use this provider.
 
 ## Using the Config Server Provider
 
@@ -129,7 +129,7 @@ builder.AddConfigServer();
 
 ### Bind to Cloud Foundry
 
-When you want to use a Config Server on Cloud Foundry and you have installed [Spring Cloud Services](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#provision-sccs-on-cloud-foundry), you can create and bind an instance of it to your application by using the Cloud Foundry CLI.
+When you want to use a Config Server on Cloud Foundry and you have installed [Spring Cloud Services](https://github.com/SteeltoeOSS/Samples/blob/4.x/CommonTasks.md#provision-sccs-on-cloud-foundry), you can create and bind an instance of it to your application by using the Cloud Foundry CLI.
 
 1. Create a Config Server instance:
 

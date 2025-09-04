@@ -39,7 +39,7 @@ Use [Polly](https://github.com/App-vNext/Polly) instead.
 ## Configuration
 
 For additional information, see the updated [Configuration documentation](../configuration/index.md) and
-[Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/main/Configuration).
+[Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/4.x/Configuration).
 
 ### Cloud Foundry
 
@@ -206,7 +206,7 @@ var builder = WebApplication.CreateBuilder(args);
 ## Connectors
 
 For additional information, see the updated [Connectors documentation](../configuration/index.md) and
-[Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors).
+[Configuration samples](https://github.com/SteeltoeOSS/Samples/tree/4.x/Connectors).
 
 > [!IMPORTANT]
 > The configuration structure for Connectors has changed in Steeltoe 4. Always use the `ConnectionString` property instead of `Host`, `Port`, `Username`, `Password`, etc.
@@ -601,7 +601,7 @@ Console.WriteLine($"Received value: {value}");
 ## Discovery
 
 For additional information, see the updated [Discovery documentation](../discovery/index.md) and
-[Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/main/Discovery).
+[Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/4.x/Discovery).
 
 ### Eureka
 
@@ -911,7 +911,7 @@ await Task.Delay(TimeSpan.FromMilliseconds(250)); // wait for logs to flush
 ## Management
 
 For additional information, see the updated [Management documentation](../management/index.md) and
-[Management samples](https://github.com/SteeltoeOSS/Samples/tree/main/Management).
+[Management samples](https://github.com/SteeltoeOSS/Samples/tree/4.x/Management).
 
 ### Endpoints
 
@@ -1155,7 +1155,7 @@ Using OpenTelemetry for collecting logs, metrics and distributed traces now work
 See the instructions [here](../tracing/index.md) to configure OpenTelemetry in your application.
 See [here](../management/prometheus.md) to export metrics to Prometheus using Steeltoe v4.
 
-The sample [here](https://github.com/SteeltoeOSS/Samples/blob/main/Management/src/ActuatorWeb/README.md#viewing-metric-dashboards) demonstrates exporting to Prometheus and Grafana.
+The sample [here](https://github.com/SteeltoeOSS/Samples/blob/4.x/Management/src/ActuatorWeb/README.md#viewing-metric-dashboards) demonstrates exporting to Prometheus and Grafana.
 
 ### Kubernetes
 
@@ -1244,7 +1244,7 @@ Spring Cloud Stream support has been removed from Steeltoe in v4.
 ## Security
 
 For additional information, see the updated [Security documentation](../security/index.md) and
-[Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/main/Security).
+[Discovery samples](https://github.com/SteeltoeOSS/Samples/tree/4.x/Security).
 
 ### CredHub client
 
