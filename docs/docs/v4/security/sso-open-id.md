@@ -9,7 +9,7 @@ General guidance on the use of OpenID Connect is beyond the scope of this docume
 * [OpenID](https://openid.net/developers/how-connect-works/)
 * [Microsoft OpenID Connect library](https://learn.microsoft.com/aspnet/core/security/authentication/configure-oidc-web-authentication)
 
-For more information about how to use this library, see the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md).
+For more information about how to use this library, see the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/AuthWeb/README.md).
 
 ## Using the OpenID Connect Library
 
@@ -173,7 +173,7 @@ The preceding example establishes the following security rules:
 > The Steeltoe UAA server has several pre-provisioned user accounts. Sign in with `testuser` and password `password` to access resources secured with `sampleapi.read`
 > To test with a user that does not have the permission `sampleapi.read`, sign in with the user `customer` and password `password`.
 >
-> See the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md) for examples of additional basic functionality, such as signing out of the application.
+> See the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/AuthWeb/README.md) for examples of additional basic functionality, such as signing out of the application.
 
 ### Single Sign-On for VMware Tanzu
 
@@ -229,7 +229,7 @@ Then you can configure the SSO binding with the web interface.
 For more information, see:
 
 * [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html)
-* [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md).
+* [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/AuthWeb/README.md).
 
 ### UAA Server
 

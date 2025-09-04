@@ -2,7 +2,7 @@
 
 This library is a supplement to ASP.NET Core Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or a [UAA Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using JSON Web Tokens (JWT) in ASP.NET Core web applications.
 
-For more information, see also the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md).
+For more information, see also the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/AuthWeb/README.md).
 
 General guidance for use of JWT is beyond the scope of this document. For information, see:
 
@@ -150,7 +150,7 @@ public class SampleController : ControllerBase
 
 In the preceding example, if an incoming GET request is made to the `/api/sample` endpoint and the request does not contain a valid JWT bearer token for a user with a `scope` claim equal to `sampleapi.read`, the request is rejected.
 
-See the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md) for examples using a user's access token to interact with downstream APIs, focusing on these locations:
+See the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/AuthWeb/README.md) for examples using a user's access token to interact with downstream APIs, focusing on these locations:
 
 * [Configure ASP.NET Core to save the user's token](https://github.com/SteeltoeOSS/Samples/blob/4c0b222a8ea201240bb6b99aae46434864cf4dd1/Security/src/AuthWeb/appsettings.json#L15)
 * [Get the user's token](https://github.com/SteeltoeOSS/Samples/blob/4c0b222a8ea201240bb6b99aae46434864cf4dd1/Security/src/AuthWeb/Controllers/HomeController.cs#L60)
@@ -209,7 +209,7 @@ Then you can configure the SSO binding with the web interface.
 For more information, see:
 
 * the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html)
-* the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/AuthWeb/README.md)
+* the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/AuthWeb/README.md)
 
 ### UAA Server
 

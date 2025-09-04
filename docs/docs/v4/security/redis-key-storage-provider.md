@@ -12,7 +12,7 @@ Even when not used by the application directly, these cryptographic keys are use
 
 By using the Steeltoe Redis Key Storage Provider, you can easily reconfigure the data protection service to store these keys in Redis/Valkey instances that are accessible through the [Steeltoe Redis Connector](../connectors/redis.md).
 
-For more information, see the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/RedisDataProtection/README.md).
+For more information, see the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/RedisDataProtection/README.md).
 
 ## Using the Redis Key Storage Provider
 
@@ -131,4 +131,4 @@ After the service is bound to your application, the configuration settings are a
 > If you use a different service, adjust the `create-service` command accordingly.
 
 > [!TIP]
-> For more information, see the [Steeltoe sample application](https://github.com/SteeltoeOSS/Samples/blob/main/Security/src/RedisDataProtection/README.md).
+> For more information, see the [Steeltoe sample application](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/RedisDataProtection/README.md).

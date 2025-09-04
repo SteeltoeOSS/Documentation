@@ -92,7 +92,7 @@ a few additional steps are needed:
   For the server to report the app as `UP`, you must add at least the hypermedia and health actuators in `Program.cs`.
 
 > [!TIP]
-> For testing, you can use the [Steeltoe docker image for SBA](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#spring-boot-admin).
+> For testing, you can use the [Steeltoe docker image for SBA](https://github.com/SteeltoeOSS/Samples/blob/4.x/CommonTasks.md#spring-boot-admin).
 
 Putting it all together, your config files contain the contents shown in the following:
 

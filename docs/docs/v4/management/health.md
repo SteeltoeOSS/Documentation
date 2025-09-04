@@ -203,7 +203,7 @@ For any group that has been defined, you can access health information from the 
 Applications deployed on Kubernetes can provide information about their internal state with [Container Probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 Depending on your [Kubernetes configuration](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), the kubelet calls those probes and reacts to the result.
 
-Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/main/src/Management/src/Endpoint/Actuators/Health/Availability/ApplicationAvailability.cs) class for managing various types of application state.
+Steeltoe provides an [`ApplicationAvailability`](https://github.com/SteeltoeOSS/Steeltoe/blob/4.x/src/Management/src/Endpoint/Actuators/Health/Availability/ApplicationAvailability.cs) class for managing various types of application state.
 Support is provided, out of the box, for Liveness and Readiness, where each is exposed in a corresponding `IHealthContributor` and health group.
 While these health contributors are included, they are disabled by default and must be enabled in the configuration (as shown in the example below).
 
@@ -391,7 +391,7 @@ builder.Services.AddHealthChecks().AddMySql(serviceProvider =>
 });
 ```
 
-The code above assumes the following `appsettings.json` configuration, combined with the [Steeltoe docker container for MySQL](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#mysql):
+The code above assumes the following `appsettings.json` configuration, combined with the [Steeltoe docker container for MySQL](https://github.com/SteeltoeOSS/Samples/blob/4.x/CommonTasks.md#mysql):
 
 ```json
 {

@@ -72,7 +72,7 @@ This contributor exposes any values below the `Info` configuration key. For exam
 This contributor exposes information from the `git.properties` Spring Boot file, if available. The file contains information from git, such as branch/tag name, commit hash, and remote.
 
 > [!TIP]
-> For an example of how to use this contributor within MSBuild using [GitInfo](https://github.com/devlooped/GitInfo), see the [Steeltoe Management sample](https://github.com/SteeltoeOSS/Samples/tree/main/Management/src).
+> For an example of how to use this contributor within MSBuild using [GitInfo](https://github.com/devlooped/GitInfo), see the [Steeltoe Management sample](https://github.com/SteeltoeOSS/Samples/tree/4.x/Management/src).
 
 ## Sample Output
 

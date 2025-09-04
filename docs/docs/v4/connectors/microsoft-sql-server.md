@@ -140,7 +140,7 @@ you can inject it and use it in a controller or view:
     }
     ```
 
-A complete sample app that uses Entity Framework Core with SQL Server is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/SqlServerEFCore.
+A complete sample app that uses Entity Framework Core with SQL Server is provided at https://github.com/SteeltoeOSS/Samples/tree/4.x/Connectors/src/SqlServerEFCore.
 
 ## Cloud Foundry
 

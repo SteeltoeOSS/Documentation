@@ -260,7 +260,7 @@ public class HomeController : Controller
 Out of the box, configuration providers in .NET do not have access to the same logging infrastructure that is available to the rest of the application.
 
 Logging in the Steeltoe Config Server Client is enabled when an `ILoggerFactory` has been provided.
-Starting with version 3.2.0, when no `ILoggerFactory` is provided, Steeltoe automatically configures [UpgradableBootstrapLoggerFactory](https://github.com/SteeltoeOSS/Steeltoe/blob/release/3.2/src/Common/src/Common/Logging/UpgradableBootstrapLoggerFactory.cs). This `ILoggerFactory` can be automatically replaced by the runtime logging infrastructure after the application starts with a couple extra steps:
+Starting with version 3.2.0, when no `ILoggerFactory` is provided, Steeltoe automatically configures [UpgradableBootstrapLoggerFactory](https://github.com/SteeltoeOSS/Steeltoe/blob/3.x/src/Common/src/Common/Logging/UpgradableBootstrapLoggerFactory.cs). This `ILoggerFactory` can be automatically replaced by the runtime logging infrastructure after the application starts with a couple extra steps:
 
 1. Add a NuGet Package reference to `Steeltoe.Common.Hosting`.
 1. Add the hosted service to the service container with this code:

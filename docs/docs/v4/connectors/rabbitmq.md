@@ -11,7 +11,7 @@ The remainder of this topic assumes that you are familiar with the basic concept
 
 To use this connector:
 
-1. Create a RabbitMQ server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/main/CommonTasks.md#rabbitmq).
+1. Create a RabbitMQ server instance or use a [docker container](https://github.com/SteeltoeOSS/Samples/blob/4.x/CommonTasks.md#rabbitmq).
 1. Add NuGet references to your project.
 1. Configure your connection string in `appsettings.json` (optional).
 1. Initialize the Steeltoe Connector at startup.
@@ -83,7 +83,7 @@ public class HomeController : Controller
 }
 ```
 
-A complete sample app that uses `IConnection` is provided at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/RabbitMQ.
+A complete sample app that uses `IConnection` is provided at https://github.com/SteeltoeOSS/Samples/tree/4.x/Connectors/src/RabbitMQ.
 
 ## Cloud Foundry
 
@@ -116,4 +116,4 @@ You can create and bind an instance to your application by using the Cloud Found
 This Connector supports the [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec).
 It can be used through the [Services Toolkit](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/services-toolkit-install-services-toolkit.html).
 
-For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/RabbitMQ#running-on-tanzu-platform-for-kubernetes.
+For details on how to use this, see the instructions at https://github.com/SteeltoeOSS/Samples/tree/4.x/Connectors/src/RabbitMQ#running-on-tanzu-platform-for-kubernetes.
