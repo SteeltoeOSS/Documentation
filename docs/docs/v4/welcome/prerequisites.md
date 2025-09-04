@@ -20,7 +20,7 @@ To use the latest *unstable* packages from the development feed, create a `nuget
     <!-- Stable releases and release candidates -->
     <add key="NuGet" value="https://api.nuget.org/v3/index.json" />
     <!-- Latest unstable packages from CI builds -->
-    <add key="SteeltoeDev" value="https://pkgs.dev.azure.com/dotnet/Steeltoe/_packaging/ci/nuget/v3/index.json" />
+    <add key="Steeltoe-ci" value="https://pkgs.dev.azure.com/dotnet/Steeltoe/_packaging/ci/nuget/v3/index.json" />
   </packageSources>
 </configuration>
 ```
