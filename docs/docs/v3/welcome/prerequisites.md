@@ -20,7 +20,7 @@ The following example shows a NuGet.config file that you can edit and use when d
     <!-- Release or Release Candidates -->
     <add key="NuGet" value="https://api.nuget.org/v3/index.json" />
     <!-- The Development feed provides the latest packages (all CI builds) -->
-    <add key="SteeltoeDev" value="https://pkgs.dev.azure.com/dotnet/Steeltoe/_packaging/dev/nuget/v3/index.json" />
+    <add key="Steeltoe-ci" value="https://pkgs.dev.azure.com/dotnet/Steeltoe/_packaging/ci/nuget/v3/index.json" />
   </packageSources>
 </configuration>
 ```
