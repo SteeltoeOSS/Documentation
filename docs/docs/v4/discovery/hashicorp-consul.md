@@ -55,7 +55,7 @@ All of these settings must start with `Consul:Discovery:`.
 | `Retry:MaxInterval` | Upper bound (in milliseconds) for intervals | `2000` |
 | `Deregister` | Whether to de-register the running app on shutdown | `true` |
 | `ServiceName` | Friendly name with which to register the running app | computed |
-| `Scheme` | Scheme with which to register the running app (`http` or `https`) | `http` |
+| `Scheme` | Scheme with which to register the running app (`http` or `https`) | computed |
 | `HostName` | Hostname with which to register the running app (if `PreferIPAddress` is `false`) | computed |
 | `IPAddress` | IP address with which to register the running app (if `PreferIPAddress` is `true`) | computed |
 | `UseNetworkInterfaces` | Query the operating system for network interfaces to determine `HostName` and `IPAddress` | `false` |
