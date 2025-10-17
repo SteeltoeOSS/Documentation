@@ -1,7 +1,7 @@
 # Documentation
 
 ## Overview
-
+   
 This is the home of the [Steeltoe website](https://steeltoe.io/), which hosts documentation and blog articles.
 
 The website is built with [ASP.NET Core Blazor](https://learn.microsoft.com/aspnet/core/blazor/) and [docfx](https://dotnet.github.io/docfx).
