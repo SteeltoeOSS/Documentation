@@ -10,21 +10,6 @@
     [
         new()
         {
-            Title = (MarkupString)"Slack",
-            Description = b =>
-            {
-                b.AddMarkupContent(1, "Stay up to date with the latest announcements, open a direct conversation with the team, or ask a general question to the community.<br /><br />");
-                b.OpenComponent<Href>(2);
-                b.AddAttribute(3, "href", "https://slack.steeltoe.io");
-                b.AddAttribute(4, "NewWindow", true);
-                b.AddAttribute(5, "AsButton", true);
-                b.AddAttribute(6, "ChildContent", (RenderFragment)(child => { child.AddContent(7, "GO NOW"); }));
-                b.CloseComponent();
-            },
-            Img = "https://assets.brandfolder.com/pl546j-7le8zk-838dm2/view@2x.png?v=1547165068"
-        },
-        new()
-        {
             Title = (MarkupString)"GitHub",
             Description = b =>
             {

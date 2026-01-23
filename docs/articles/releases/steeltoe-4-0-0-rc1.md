@@ -106,7 +106,6 @@ This is the perfect time to give it a try on a new app or upgrade your existing 
 We're planning to release the general availability version later this summer. No RC2 is currently planned — so your feedback now is especially valuable.
 
 * 📚 Browse the updated [samples](https://github.com/SteeltoeOSS/Samples/tree/4.x)
-* 🔗 Ask questions and join the conversation on [Slack](https://slack.steeltoe.io/)
 * 📢 Reach us on [Twitter/X](https://x.com/SteeltoeOSS) and [Bluesky](https://bsky.app/profile/steeltoe.io)
 
 Thanks to everyone in the community who has tested pre-releases, filed issues, and contributed code, docs, and encouragement.
