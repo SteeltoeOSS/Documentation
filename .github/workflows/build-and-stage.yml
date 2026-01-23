@@ -25,10 +25,10 @@ jobs:
     name: Build and publish app
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: |
           8.0.*
@@ -46,7 +46,7 @@ jobs:
       run: dotnet publish src/Steeltoe.io --configuration Release --no-build --output ${{ env.DOTNET_ROOT }}/mainsite
 
     - name: Upload artifact for deployment job
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: Steeltoe.io
         path: ${{ env.DOTNET_ROOT }}/mainsite
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download artifact from build job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: Steeltoe.io
 
