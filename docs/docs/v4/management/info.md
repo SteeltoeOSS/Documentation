@@ -74,6 +74,20 @@ This contributor exposes information from the `git.properties` Spring Boot file,
 > [!TIP]
 > For an example of how to use this contributor within MSBuild using [GitInfo](https://github.com/devlooped/GitInfo), see the [Steeltoe Management sample](https://github.com/SteeltoeOSS/Samples/tree/4.x/Management/src).
 
+### Runtime info
+
+This contributor, added in Steeltoe 4.1.0, exposes information about the environment in which the application is running. It includes:
+
+| Property | Description |
+| --- | --- |
+| `runtimeName` | The name and version of the .NET runtime (for example, ".NET 10.0.0") |
+| `runtimeVersion` | The version of the common language runtime |
+| `runtimeIdentifier` | The runtime identifier (RID) of the platform (for example, "linux-x64", "win-x64") |
+| `processArchitecture` | The process architecture (for example, "X64", "Arm64") |
+| `osArchitecture` | The operating system architecture |
+| `osDescription` | A description of the operating system |
+| `osVersion` | The operating system version |
+
 ## Sample Output
 
 The response is always returned as JSON:
@@ -119,6 +133,15 @@ The response is always returned as JSON:
   },
   "build": {
     "version": "1.0.0.0"
+  },
+  "runtime": {
+    "runtimeName": ".NET 10.0.0",
+    "runtimeVersion": "10.0.0",
+    "runtimeIdentifier": "linux-x64",
+    "processArchitecture": "X64",
+    "osArchitecture": "X64",
+    "osDescription": "Ubuntu 22.04.3 LTS",
+    "osVersion": "Unix 5.15.0.88"
   }
 }
 ```
