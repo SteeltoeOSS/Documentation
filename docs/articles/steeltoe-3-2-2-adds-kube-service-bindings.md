@@ -104,5 +104,5 @@ As an added feature, the Steeltoe team has added integration with the [Steeltoe 
 
 Take a look at the Steeltoe [PostgreSql Connector sample](https://github.com/SteeltoeOSS/Samples/tree/3.x/Connectors/src/PostgreSql) for more details.
 
-The Steeltoe team is excited to hear your thoughts and opinions on this latest release. Remember you can join us on the Steeltoe Community call.
+The Steeltoe team is excited to hear your thoughts and opinions on this latest release. Remember you can join us on the Steeltoe Community call or reach out to the team directly on the [Steeltoe Slack](https://steeltoeteam.slack.com//).
 
