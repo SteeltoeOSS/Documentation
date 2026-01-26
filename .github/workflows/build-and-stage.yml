@@ -26,6 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
+      with:
+        persist-credentials: false
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v5
@@ -63,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download artifact from build job
-      uses: actions/download-artifact@v7
+      uses: actions/download-artifact@v4
       with:
         name: Steeltoe.io
 
