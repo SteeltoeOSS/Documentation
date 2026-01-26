@@ -20,5 +20,6 @@ The previous labs were meant to give you an introduction to the power available 
 
 ## Support
 
+- GitHub Discussions (https://github.com/SteeltoeOSS/Steeltoe/discussions)
 - GitHub (https://github.com/steeltoeoss)
 - NuGet (https://nuget.org/profiles/steeltoe)

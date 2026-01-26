@@ -110,4 +110,4 @@ Currently unsupported:
 
 ## Feedback
 
-Love it? Hate it? Want to know more or make a suggestion? Let us know by [filing an issue](https://github.com/SteeltoeOSS/Steeltoe/issues/new/choose) or [tagging us on Twitter/X](https://x.com/steeltoeoss).
+Love it? Hate it? Want to know more or make a suggestion? Let us know by [filing an issue](https://github.com/SteeltoeOSS/Steeltoe/issues/new/choose), [joining us on GitHub Discussions](https://github.com/SteeltoeOSS/Steeltoe/discussions) or [tagging us on Twitter/X](https://x.com/steeltoeoss).
