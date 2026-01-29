@@ -33,7 +33,7 @@ All of these settings must start with `Consul:`.
 | --- | --- | --- |
 | `Host` | Hostname or IP address of the Consul server | `localhost` |
 | `Port` | Port number the Consul server is listening on | `8500` |
-| `Scheme` | Scheme to connect with the Consul server (`http` or `https`) | `http` |
+| `Scheme` | Scheme to connect with the Consul server (`http` or `https`) | computed |
 | `Datacenter` | The datacenter name passed in each request to the server | |
 | `Token` | Authentication token passed in each request to the server | |
 | `WaitTime` | The maximum duration for a blocking request | |
