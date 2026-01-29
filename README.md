@@ -42,12 +42,3 @@ The site should now be running at <https://localhost:8080>.
 > [!NOTE]
 > If this is your first time running the site and you skip steps 1 and 2, none of the static content will be processed.
 > You will encounter `InvalidFileLink` warnings from files at the path `docs/api` and 404 errors when browsing the site.
-
-### NavigationException while debugging
-
-This site uses `NavigationManager` to redirect to static content in several places.
-When running the app locally, you will experience a `NavigationException` every time you are redirected.
-If you've already run the docfx steps, let the debugger continue, and you should be redirected to the static content as expected.
-
-While annoying, this behavior is according to Blazor's design, and handling the exception would break the redirect.
-[Learn more about plans to address `NavigationException` in .NET 10](https://github.com/dotnet/aspnetcore/issues/59451).
