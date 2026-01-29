@@ -6,15 +6,25 @@ param (
 
 set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
+
 Write-Host "Starting value of DOCFX_SOURCE_BRANCH_NAME: '$env:DOCFX_SOURCE_BRANCH_NAME'"
 $OriginalSourceBranchName = $env:DOCFX_SOURCE_BRANCH_NAME
-
-# Restore docfx tool
-dotnet tool restore
 
 # Get the script's directory
 $baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Push-Location $baseDir
+
+function EnsureDocfxBinaries() {
+    # Temporary workaround until a proper DocFX build supporting .NET 10 is available.
+    $zipFile = [IO.Path]::Combine($env:TEMP, 'docfx-net10-binaries.zip')
+
+    if (!(Test-Path -Path 'docfx-net10-binaries')) {
+        Invoke-WebRequest -Uri 'https://ent.box.com/shared/static/7uekfex8ugc1kijt60lwx6q4n1r3d1m6.zip' -Method 'GET' -OutFile $zipFile
+        Expand-Archive $zipFile -Force
+    }
+}
+
+EnsureDocfxBinaries
 
 # Repository information
 $gitSourcesUrl = 'https://github.com/SteeltoeOSS/Steeltoe'
@@ -55,8 +65,8 @@ function Clone-Source-Build-Metadata
 
     Write-Output "Setting DOCFX_SOURCE_BRANCH_NAME to '$branch'"
     $env:DOCFX_SOURCE_BRANCH_NAME = $branch
-    Write-Output "Running command: dotnet docfx metadata $apiFile"
-    dotnet docfx metadata $apiFile
+    Write-Output "Running command: dotnet exec docfx-net10-binaries/docfx.dll metadata $apiFile"
+    dotnet exec docfx-net10-binaries/docfx.dll metadata $apiFile
 }
 
 $buildAll = $false;
@@ -90,7 +100,7 @@ if ($SteeltoeVersion -eq 'source')
 Write-Output "Setting DOCFX_SOURCE_BRANCH_NAME back to '$OriginalSourceBranchName'"
 $env:DOCFX_SOURCE_BRANCH_NAME = $OriginalSourceBranchName
 
-$buildArgs = @('docfx', 'build', (Join-Path '..' 'docs' 'docfx-all.json'))
+$buildArgs = @('exec', 'docfx-net10-binaries/docfx.dll', 'build', (Join-Path '..' 'docs' 'docfx-all.json'))
 if ($buildAll -eq $true) {
     $buildArgs += '--warningsAsErrors'
     $buildArgs += 'true'
