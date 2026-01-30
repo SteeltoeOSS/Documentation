@@ -214,7 +214,7 @@
             },
             "Scheme": {
               "type": "string",
-              "description": "Gets or sets the scheme to register the running app with (\"http\" or \"https\"). Default value: http."
+              "description": "Gets or sets the scheme to register the running app with (\"http\" or \"https\")."
             },
             "ServiceName": {
               "type": "string",
@@ -1233,9 +1233,13 @@
             "SerializerOptions": {
               "type": "object",
               "properties": {
+                "AllowDuplicateProperties": {
+                  "type": "boolean",
+                  "description": "Gets or sets a value that indicates whether duplicate property names are allowed when deserializing JSON objects."
+                },
                 "AllowOutOfOrderMetadataProperties": {
                   "type": "boolean",
-                  "description": "Allows JSON metadata properties to be specified after regular properties in a deserialized JSON object."
+                  "description": "Gets or sets a value that indicates whether JSON metadata properties can be specified after regular properties in a deserialized JSON object."
                 },
                 "AllowTrailingCommas": {
                   "type": "boolean",
@@ -1250,7 +1254,9 @@
                     "Never",
                     "Always",
                     "WhenWritingDefault",
-                    "WhenWritingNull"
+                    "WhenWritingNull",
+                    "WhenWriting",
+                    "WhenReading"
                   ],
                   "description": "Gets or sets a value that determines when properties with default values are ignored during serialization or deserialization. The default value is 'System.Text.Json.Serialization.JsonIgnoreCondition.Never'."
                 },
