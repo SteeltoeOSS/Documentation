@@ -417,3 +417,6 @@ src/Steeltoe.io/wwwroot/*xrefmap.yml
 
 # Overrides
 !docs/articles/releases
+
+# Temporary workaround until a proper DocFX build supporting .NET 10 is available.
+docfx-net10-binaries/
