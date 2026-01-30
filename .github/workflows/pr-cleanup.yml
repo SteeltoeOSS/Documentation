@@ -22,16 +22,37 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Delete slot on staging site
-      run: az webapp deployment slot delete --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WWW_NAME}} --slot ${{ env.SLOT_NAME }}
+    - name: Delete staging slot
+      id: delete-slot
+      continue-on-error: true
+      run: |
+        az webapp deployment slot delete \
+          --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+          --name ${{ vars.AZURE_WWW_NAME }} \
+          --slot ${{ env.SLOT_NAME }} 2>&1
+
+    - name: Report slot deletion result
+      run: |
+        if [ "${{ steps.delete-slot.outcome }}" == "success" ]; then
+          echo "::notice::Successfully deleted slot ${{ env.SLOT_NAME }}"
+        else
+          echo "::error::Failed to delete slot ${{ env.SLOT_NAME }}"
+          exit 1
+        fi
 
   delete-deployment:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Delete Deployment Environment
-        uses: strumwolf/delete-deployment-environment@v3
-        with:
-          environment: "pr-${{ github.event.number }}"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          onlyRemoveDeployments: true
+    - name: Generate GitHub App Token
+      id: app-token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ secrets.ENV_CLEANUP_APP_ID }}
+        private-key: ${{ secrets.ENV_CLEANUP_APP_PRIVATE_KEY }}
+
+    - name: Delete Deployment Environment
+      uses: strumwolf/delete-deployment-environment@v3
+      with:
+        environment: "pr-${{ github.event.number }}"
+        token: ${{ steps.app-token.outputs.token }}
