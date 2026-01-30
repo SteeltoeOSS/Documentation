@@ -10,21 +10,6 @@
     [
         new()
         {
-            Title = (MarkupString)"GitHub Discussions",
-            Description = b =>
-            {
-                b.AddMarkupContent(1, "Ask questions, share your experiences, and join the conversation with the Steeltoe community and development team.<br /><br />");
-                b.OpenComponent<Href>(2);
-                b.AddAttribute(3, "href", "https://github.com/SteeltoeOSS/Steeltoe/discussions");
-                b.AddAttribute(4, "NewWindow", true);
-                b.AddAttribute(5, "AsButton", true);
-                b.AddAttribute(6, "ChildContent", (RenderFragment)(child => { child.AddContent(7, "GO NOW"); }));
-                b.CloseComponent();
-            },
-            Img = "https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png"
-        },
-        new()
-        {
             Title = (MarkupString)"GitHub",
             Description = b =>
             {
