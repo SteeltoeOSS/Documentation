@@ -20,6 +20,5 @@ The previous labs were meant to give you an introduction to the power available 
 
 ## Support
 
-- Slack (https://slack.steeltoe.io)
 - GitHub (https://github.com/steeltoeoss)
 - NuGet (https://nuget.org/profiles/steeltoe)
