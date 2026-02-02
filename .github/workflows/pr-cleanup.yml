@@ -28,7 +28,7 @@ jobs:
       run: |
         az webapp deployment slot delete \
           --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
-          --name ${{ vars.AZURE_WWW_NAME }} \
+          --name ${{ vars.AZURE_WEBAPP_NAME }} \
           --slot ${{ env.SLOT_NAME }} 2>&1
 
     - name: Report slot deletion result

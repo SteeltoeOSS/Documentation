@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Production
-      url: 'https://${{ vars.AZURE_WWW_NAME }}.azurewebsites.net/'
+      url: 'https://${{ vars.AZURE_WEBAPP_NAME }}.azurewebsites.net/'
 
     steps:
     - name: Log into Azure CLI with service principal
@@ -18,5 +18,5 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Swap slots
-      run: az webapp deployment slot swap -s ${{ vars.STAGING_SLOT_NAME }} -n ${{ vars.AZURE_WWW_NAME }} -g ${{ vars.AZURE_RESOURCE_GROUP }}
+      run: az webapp deployment slot swap -s ${{ vars.STAGING_SLOT_NAME }} -n ${{ vars.AZURE_WEBAPP_NAME }} -g ${{ vars.AZURE_RESOURCE_GROUP }}
 
