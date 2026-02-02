@@ -78,20 +78,20 @@ jobs:
       if: ${{ github.event_name == 'pull_request' }}
       shell: pwsh
       run: |
-        if (az webapp deployment slot list --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WWW_NAME}} | Select-String '"name": "${{ env.SLOT_NAME }}"')
+        if (az webapp deployment slot list --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WEBAPP_NAME}} | Select-String '"name": "${{ env.SLOT_NAME }}"')
         {
           Write-Host "Staging slot already exists"
         }
         else
         {
-          az webapp deployment slot create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WWW_NAME}} --slot ${{ env.SLOT_NAME }} --configuration-source ${{ vars.STAGING_SLOT_NAME }}
+          az webapp deployment slot create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_WEBAPP_NAME}} --slot ${{ env.SLOT_NAME }} --configuration-source ${{ vars.STAGING_SLOT_NAME }}
         }
 
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v3
       with:
-        app-name: ${{ vars.AZURE_WWW_NAME }}
+        app-name: ${{ vars.AZURE_WEBAPP_NAME }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         slot-name: ${{ env.SLOT_NAME }}
         clean: true
@@ -101,7 +101,7 @@ jobs:
       uses: mshick/add-pr-comment@v2
       with:
         message: |
-          ## Preview link: https://${{ vars.AZURE_WWW_NAME }}-${{ env.SLOT_NAME }}.azurewebsites.net
+          ## Preview link: https://${{ vars.AZURE_WEBAPP_NAME }}-${{ env.SLOT_NAME }}.azurewebsites.net
 
           - Your changes have been deployed to the preview site. The preview site will update as you add more commits to this branch.
           - The preview link is shareable, but will be deleted when the pull request is merged or closed.
