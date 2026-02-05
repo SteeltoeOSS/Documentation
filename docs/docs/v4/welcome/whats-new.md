@@ -4,7 +4,7 @@
 
 ### Introduction
 
-The Steeltoe project began all the way back in 2016 (before .NET Core 1.0.0 was released) at the request of enterprises experiencing great success with their [Spring Cloud](https://spring.io/cloud) powered applications on [Cloud Foundry](https://www.cloudfoundry.org/).
+The Steeltoe project began all the way back in 2016 (before .NET Core 1.0.0 was released) at the request of enterprises experiencing great success with their [Spring Cloud](https://spring.io/cloud/) powered applications on [Cloud Foundry](https://www.cloudfoundry.org/).
 These organizations were looking for similar outcomes (such as reduced developer toil, easy-to-implement observability, scaling and resiliency) for their .NET applications.
 Rather than starting from scratch, Steeltoe took the approach of building clients for Spring Cloud services and porting code from Spring as needed, adapting the codebase to fit with .NET while trying to stay close to the Spring origins.
 In order to deliver higher-level Spring project features, Steeltoe libraries grew rapidly with building-block components matching the architecture and conventions in Spring.
@@ -71,7 +71,7 @@ This document provides an overview of the changes in Steeltoe 4 and the impact o
 
 - Everything that interacts with the Kubernetes API directly, because the features were not well-defined,
   test coverage was minimal, and the Steeltoe team believes these packages aren't widely used
-- CredHub client, because we have no _known_ use cases since the introduction of the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html)
+- CredHub client, because we have no _known_ use cases since the introduction of the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/credhub-secrets-management/services/credhub/index.html)
 - CircuitBreaker, because [Polly](https://github.com/App-vNext/Polly) provides similar features and is widely used in .NET apps
 - Messaging/Integration/Stream, because usage and implementation are too complicated and the adoption rate is very low
 - Spring Expression Language (SpEL), because it was added for Stream and doesn't support many C# language features
@@ -1423,7 +1423,7 @@ For more information, see the updated [Management documentation](../management/i
 
 - Drastically simplified implementation, leveraging the built-in ASP.NET option types
 - Dropped OAuth support in favor of OpenID Connect
-- Removed CredHub client, use [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html)
+- Removed CredHub client, use [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/credhub-secrets-management/services/credhub/index.html)
 
 ### NuGet Package changes
 

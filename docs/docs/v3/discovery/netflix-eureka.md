@@ -5,7 +5,6 @@ The Eureka client implementation lets applications register services with a Eure
 In addition to the Quick Start below, the following Steeltoe sample applications may help you to understand how to use this client:
 
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/3.x/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices-based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/3.x/FreddysBBQ): A polyglot microservices-based sample application showing interoperability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and uses Spring Cloud Services.
 
 ## Eureka Settings
 
@@ -88,7 +87,7 @@ For a complete understanding of the effects of many of these settings, we recomm
 
 ## Bind to Cloud Foundry
 
-When you want to use a Eureka Server on Cloud Foundry and you have installed [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/), you can create and bind an instance of the server to the application by using the Cloud Foundry CLI:
+When you want to use a Eureka Server on Cloud Foundry and you have installed [Spring Cloud Services](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-services/3-3/appservices/), you can create and bind an instance of the server to the application by using the Cloud Foundry CLI:
 
 ```bash
 # Create eureka server instance named `myDiscoveryService`
@@ -104,7 +103,7 @@ cf bind-service myApp myDiscoveryService
 cf restage myApp
 ```
 
-For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/) documentation.
+For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-services/3-3/appservices/) documentation.
 
 Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`.
 

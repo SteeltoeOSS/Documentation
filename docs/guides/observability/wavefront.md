@@ -18,7 +18,7 @@ This tutorial takes you creating a simple Steeltoe app with actuators, logging, 
 
 ### Prereq's
 
-You'll need a Wavefront account to complete this guide successfully. [Create a 30 day trial](https://www.wavefront.com/sign-up/), if you don't already have access.
+You'll need access to VMware Aria Operations for Applications (formerly Wavefront) to complete this guide successfully.
 
 First, **clone to accompanying repo** that contains all the needed assets
 

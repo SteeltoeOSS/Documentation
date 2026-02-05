@@ -10,15 +10,14 @@ Currently, the connector supports the following providers:
 The following Steeltoe sample applications can help you understand how to use this connector:
 
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/3.x/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/3.x/FreddysBBQ): A polyglot (Java and .NET) microservices-based sample application showing interoperability between Java- and .NET-based microservices running on Cloud Foundry, secured with OAuth2 Security Services and using Spring Cloud Services.
 
 This connector provides a `IHealthContributor` object, which you can use in conjunction with the [Steeltoe Management Health](../management/health.md) check endpoint.
 
 ## Usage
 
-You should know how the .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary to configure the connector.
+You should know how the .NET [configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary to configure the connector.
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
+You should also know how the ASP.NET Core [Startup](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
 
 To use this connector:
 
@@ -99,9 +98,9 @@ cf bind-service myApp myMySqlService
 cf restage myApp
 ```
 
->The preceding commands assume you use [MySQL for VMware Tanzu](https://network.pivotal.io/products/pivotal-mysql/), provided by VMware on Tanzu. If you use a different service, you must adjust the `create-service` command to fit your environment.
+>The preceding commands assume you use [Tanzu for MySQL](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-mysql-tanzu-platform/10-1/mysql-tp/index.html), provided by Tanzu Platform. If you use a different service, you must adjust the `create-service` command to fit your environment.
 
-This connector also works with the [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/).
+This connector also works with the [Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-azure/1-13/csb-azure/index.html). Note that Azure MySQL was removed from newer versions of the service broker.
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -262,7 +261,7 @@ If you need to set additional properties for the `DbContext` like `MigrationsAss
 Action<MySqlDbContextOptionsBuilder> mySqlOptionsAction = (o) =>
 {
   o.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-  // Configuring Connection Resiliency: https://docs.microsoft.com/ef/core/miscellaneous/connection-resiliency
+  // Configuring Connection Resiliency: https://learn.microsoft.com/ef/core/miscellaneous/connection-resiliency
   o.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
 };
 ```

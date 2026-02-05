@@ -13,7 +13,7 @@ Steeltoe distributed tracing:
 
 ## Usage
 
-You should understand how the .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints. You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+You should understand how the .NET [configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the management endpoints. You need at least a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
 
 Steeltoe distributed tracing automatically applies instrumentation at key ingress and egress points in your ASP.NET Core application so that you are able to get meaningful traces without having to do any instrumentation yourself. These points include:
 
@@ -53,7 +53,7 @@ dotnet add package Steeltoe.Management.TracingCore --version 3.2.0
 
 ### Configure Settings
 
-You can configure distributed tracing by using the normal .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration).
+You can configure distributed tracing by using the normal .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration).
 
 All settings should be placed under the prefix with a key of `Management:Tracing:`.
 The following table describes the available settings:
@@ -84,11 +84,11 @@ When working with distributed tracing systems, you will find that a trace contex
 
 Steeltoe makes this easy by automatically configuring some of the instrumentation packages provided by Open Telemetry.
 
-* TracingBase configures [instrumentation on outbound requests](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.Http/README.md)
-* TracingCore builds on top of TracingBase, also configuring [instrumentation on inbound requests through ASP.NET Core and Grpc.AspNetCore](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md)
+* TracingBase configures [instrumentation on outbound requests](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Http/README.md)
+* TracingCore builds on top of TracingBase, also configuring [instrumentation on inbound requests through ASP.NET Core and Grpc.AspNetCore](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md)
 * Additional instrumentation libraries can be added with the [`Action<TracerProviderBuilder>` parameter](#adding-to-tracerproviderbuilder)
 
- Steeltoe currently uses [Zipkin B3 Propagation](https://github.com/openzipkin/b3-propagation) by default, but can be configured to use [W3C trace context](https://www.w3.org/TR/trace-context/). As a result, you will find that Steeltoe tracing is interoperable with several other instrumentation libraries, such as [Spring Cloud Sleuth](https://spring.io/projects/spring-cloud-sleuth).
+ Steeltoe currently uses [Zipkin B3 Propagation](https://github.com/openzipkin/b3-propagation) by default, but can be configured to use [W3C trace context](https://www.w3.org/TR/trace-context/). As a result, you will find that Steeltoe tracing is interoperable with several other instrumentation libraries, such as [Spring Cloud Sleuth](https://spring.io/projects/spring-cloud-sleuth/).
 
 ### Add Distributed Tracing
 
@@ -109,7 +109,7 @@ var host = Host.CreateDefaultBuilder(args)
 
 ### Code-based Instrumentation Configuration
 
-Some of the options for HttpClient and ASP.NET Core instrumentation must be configured in code. These can be accessed using IOptions configuration methods like [`PostConfigure`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.optionsservicecollectionextensions.postconfigure):
+Some of the options for HttpClient and ASP.NET Core instrumentation must be configured in code. These can be accessed using IOptions configuration methods like [`PostConfigure`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.optionsservicecollectionextensions.postconfigure):
 
 ```csharp
 services.PostConfigure<AspNetCoreInstrumentationOptions>(options =>

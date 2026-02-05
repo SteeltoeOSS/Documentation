@@ -25,7 +25,7 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 ### Configure connection string
 
-The available connection string parameters for RabbitMQ are described in the [RabbitMQ documentation](https://www.rabbitmq.com/uri-spec.html).
+The available connection string parameters for RabbitMQ are described in the [RabbitMQ documentation](https://www.rabbitmq.com/docs/uri-spec).
 
 The following example `appsettings.json` uses the docker container referred to earlier:
 
@@ -89,7 +89,7 @@ A complete sample app that uses `IConnection` is provided at https://github.com/
 
 This Connector supports the following service brokers:
 
-- [Tanzu RabbitMQ on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-cloud-foundry/10-0/tanzu-rabbitmq-cloud-foundry/index.html)
+- [Tanzu RabbitMQ on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-rabbitmq-tanzu-platform/10-0/rabbitmq-tp/index.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI.
 

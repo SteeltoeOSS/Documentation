@@ -13,7 +13,7 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/docs/download) and installed and running
 > on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
 >
 > In case you use a different host, port or credentials, connections settings would require adjusting.

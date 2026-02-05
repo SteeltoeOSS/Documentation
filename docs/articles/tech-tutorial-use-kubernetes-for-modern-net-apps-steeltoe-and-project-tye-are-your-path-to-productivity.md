@@ -14,7 +14,7 @@ author.twitter: dierufdavid
 
 # Tech Tutorial: Use Kubernetes for Modern .NET Apps? Steeltoe and Project Tye are Your Path to Productivity
 
-I recently went through training to get my [Kubernetes Application Developer certification](https://www.cncf.io/certification/ckad/) (CKAD). I went into it with a decent amount of K8s knowledge and an even greater understanding of microservices. In fact my understanding of proper microservice architectures has raised my expectations for the tech I use.
+I recently went through training to get my [Kubernetes Application Developer certification](https://www.cncf.io/training/certification/ckad/) (CKAD). I went into it with a decent amount of K8s knowledge and an even greater understanding of microservices. In fact my understanding of proper microservice architectures has raised my expectations for the tech I use.
 
 For example, I expect my selected platform to automatically provide some of the [12 factors](https://12factor.net/) I use in my design patterns. It should capture my streamed logs. It should allow me to autoscale app instances. It should allow for dynamic port binding. Everything should be immutable. And (the biggest one on my list) it should be architected in a way where I can recreate it locally while developing. Do these may seem like tall expectations? Perhaps, but any modern platform should do this.
 
@@ -28,7 +28,7 @@ As I digested all this Kubernetes magic, a realization dawned on me. I don't wan
 
 Turns out, lots of other developers are wrestling with the same thing. But it gets better - the community has developed a project to deal with this exact scenario: [Steeltoe](https://steeltoe.io).
 
-Steeltoe 3.0  brings in Kubernetes goodies that abstract much of this toil away. When I coupled Steeltoe 3 with Microsoft’s [Project Tye](https://devblogs.microsoft.com/aspnet/introducing-project-tye/), my sky-high developer expectations are met.
+Steeltoe 3.0  brings in Kubernetes goodies that abstract much of this toil away. When I coupled Steeltoe 3 with Microsoft’s [Project Tye](https://devblogs.microsoft.com/dotnet/introducing-project-tye/), my sky-high developer expectations are met.
 
 Let's look at how the combination of Steeltoe and Tye make consuming Kubernetes a whole lot easier.
 
@@ -40,7 +40,7 @@ As a microservice moves through its environments (local, staging, production) co
 
 Further, configuration values come from different sources in different environments. A microservice should be smart enough to check every possible source and decide what value should be used.
 
-.NET Core introduced [configuration providers](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/?view=aspnetcore-3.1#configuration-providers) and a hierarchy to them. So it's natural that a Kubernetes configmap (which is just another key/value store) should be a config source in a .NET microservice.
+.NET Core introduced [configuration providers](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/?view=aspnetcore-3.1#configuration-providers) and a hierarchy to them. So it's natural that a Kubernetes configmap (which is just another key/value store) should be a config source in a .NET microservice.
 
 [Steeltoe offers a Kubernetes provider](/docs/v3/configuration/kubernetes-providers.md) to do just this! To add the client all you need to do is let the HostBuilder know about it.
 
@@ -151,4 +151,3 @@ Project Tye solves a cloud-native developer’s biggest challenge, environment p
 
 To get started with any Steeltoe projects, head over to the [getting started guides](../guides/index.md). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples/tree/3.x), and you’ll have .NET microservices up and running before you know it!
 
-Want to get deeper into creating cloud-native .NET apps? Attend the VMware Pivotal Labs’s [4 -day .NET developer course](https://pivotal.io/platform-acceleration-lab/pal-for-developers-net). You’ll get hands-on cloud-native .NET training learn best practices when creating microservices and become a Steeltoe ninja!

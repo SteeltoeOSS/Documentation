@@ -1,6 +1,6 @@
 # Exporting Distributed Traces
 
-Steeltoe is able to automatically configure several exporters provided by the [OpenTelemetry](https://opentelemetry.io) project, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [Jaeger](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/docs/trace/getting-started-jaeger/README.md) and [OpenTelemetryProtocol](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol), if a NuGet reference to the desired exporter is included. The `Steeltoe.Management.ExporterBase` and `Steeltoe.Management.ExporterCore` packages are no longer required. In addition, Steeltoe supports exporting traces to [TanzuObservability](https://tanzu.vmware.com/observability) without any other NuGet references.
+Steeltoe is able to automatically configure several exporters provided by the [OpenTelemetry](https://opentelemetry.io) project, including [Zipkin](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.Zipkin), [Jaeger](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/docs/trace/getting-started-jaeger/README.md) and [OpenTelemetryProtocol](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol), if a NuGet reference to the desired exporter is included. The `Steeltoe.Management.ExporterBase` and `Steeltoe.Management.ExporterCore` packages are no longer required. In addition, Steeltoe supports exporting traces to [Tanzu Observability](https://www.broadcom.com/products/software/aiops-observability/tanzu-observability) without any other NuGet references.
 
 ## Common Settings
 
@@ -40,7 +40,7 @@ Steeltoe will discover and automatically configure the Zipkin exporter when a st
 
 ## Jaeger Server
 
-Jaeger is another popular distributed tracing system that has been around for several years. For more information on Jaeger, we encourage you to visit the [Jaeger site](https://www.jaegertracing.io/). See the [Getting Started](https://www.jaegertracing.io/docs/1.24/getting-started/) guide for details on how to quickly set up a server.
+Jaeger is another popular distributed tracing system that has been around for several years. For more information on Jaeger, we encourage you to visit the [Jaeger site](https://www.jaegertracing.io/). See the [Getting Started](https://www.jaegertracing.io/docs/1.76/getting-started/) guide for details on how to quickly set up a server.
 
 ### Configure Jaeger Options
 
@@ -88,7 +88,7 @@ Steeltoe will discover and automatically configure the Open Telemetry Protocol e
 
 ## Tanzu Observability by Wavefront
 
-[Tanzu Observability](https://docs.wavefront.com/wavefront_introduction.html) is an observability platform for distributed applications that can ingest metric & trace data. A free trial is available [here](https://tanzu.vmware.com/observability-trial) to try it.
+[Tanzu Observability](https://www.broadcom.com/products/software/aiops-observability/tanzu-observability) is an observability platform for distributed applications that can ingest metric & trace data.
 
 ### Use Wavefront Exporter (Tanzu Observability)
 

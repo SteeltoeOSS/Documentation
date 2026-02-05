@@ -69,7 +69,7 @@ The following endpoints can be used by CLI users to browse project configuration
 ### Sample: List available Steeltoe versions
 
 ```bash
-http -p b https://start.steeltoe.io/api/config/steeltoeVersions
+http -p b https://start.steeltoe.io/api/uiconfig/steeltoeVersions
 [
     {
         "id": "2.4.4",
@@ -89,7 +89,7 @@ http -p b https://start.steeltoe.io/api/config/steeltoeVersions
 ### Sample: List available dependency IDs
 
 ```bash
-http https://start.steeltoe.io/api/config/dependencies | jq '.[] .values[] .id' | sort
+http https://start.steeltoe.io/api/uiconfig/dependencies | jq '.[] .values[] .id' | sort
 ```
 
 ```text

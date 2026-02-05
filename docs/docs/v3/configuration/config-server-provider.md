@@ -4,17 +4,16 @@ This provider enables the Spring Cloud Config Server to be used as a source of c
 
 The Spring Cloud Config Server is an application configuration service that gives you a central place to manage an application's configuration values externally across all environments. As an application moves through the deployment pipeline from development to test and into production, you can use the config server to manage the configuration between environments and be certain that the application has everything it needs to run when you migrate it. The config server easily supports labelled versions of environment-specific configurations and is accessible to a wide range of tooling for managing its content.
 
-To gain a better understanding of the Spring Cloud Config Server, you should read the [Spring Cloud](https://projects.spring.io/spring-cloud/) documentation.
+To gain a better understanding of the Spring Cloud Config Server, you should read the [Spring Cloud](https://spring.io/projects/spring-cloud-config/) documentation.
 
 In addition to the Quick Start provided later, you can refer to several other Steeltoe sample applications when you need to understand how to use this provider:
 
 * [AspDotNetCore/Simple](https://github.com/SteeltoeOSS/Samples/tree/3.x/Configuration/src/Simple): ASP.NET Core sample application showing how to use the open source Config Server.
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/3.x/MusicStore): A sample application showing how to use all of the Steeltoe components together in a ASP.NET Core application. This is a microservices based application built from the ASP.NET Core MusicStore reference app provided by Microsoft.
-* [FreddysBBQ](https://github.com/SteeltoeOSS/Samples/tree/3.x/FreddysBBQ): A polyglot microservices-based sample application showing inter-operability between Java and .NET on Cloud Foundry. It is secured with OAuth2 Security Services and uses Spring Cloud Services.
 
 ## Usage
 
-You should know how the .NET [Configuration services](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary.
+You should know how the .NET [Configuration services](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary.
 
 You should also have a good understanding of the [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/).
 
@@ -30,7 +29,7 @@ To use the Steeltoe provider, you need to do the following:
 
 You can choose one of two Config Server client NuGets, depending on your needs.
 
-If you plan on only connecting to the open source version of [Spring Cloud Config Server](https://projects.spring.io/spring-cloud/), you should use one of the packages described by the following table, depending on your application type and needs:
+If you plan on only connecting to the open source version of [Spring Cloud Config Server](https://spring.io/projects/spring-cloud-config/), you should use one of the packages described by the following table, depending on your application type and needs:
 
 | Package | Description | .NET Target |
 | --- | --- | --- |
@@ -157,7 +156,7 @@ public class Program
 
 ### Bind to Cloud Foundry
 
-When you want to use a Config Server on Cloud Foundry and you have installed [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/), you can create and bind an instance of it to your application by using the Cloud Foundry CLI, as follows:
+When you want to use a Config Server on Cloud Foundry and you have installed [Spring Cloud Services](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-services/3-3/appservices/), you can create and bind an instance of it to your application by using the Cloud Foundry CLI, as follows:
 
 ```bash
 # Create config server instance named `myConfigServer`
@@ -197,7 +196,7 @@ var property2 = config["myconfiguration:property2"];
 ...
 ```
 
-Alternatively, you can create a class to hold your configuration data and then use the [Options](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) framework together with [Dependency Injection](https://docs.asp.net/en/latest/fundamentals/dependency-injection.html) to inject an instance of the class into your controllers and view.
+Alternatively, you can create a class to hold your configuration data and then use the [Options](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) framework together with [Dependency Injection](https://learn.microsoft.com/aspnet/core/fundamentals/dependency-injection) to inject an instance of the class into your controllers and view.
 
 To do so, first create a class representing the configuration data you expect to retrieve from the server, as follows:
 

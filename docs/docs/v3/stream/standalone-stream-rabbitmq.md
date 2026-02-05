@@ -5,7 +5,7 @@ In another guide, we [deploy these applications using Data Flow](./data-flow-str
 Taking the time to deploy the applications manually will provide you with a better understanding of the steps that Data Flow automates for you.
 
 The following sections describe how to build these applications from scratch.
-If you prefer, you can clone the Steeltoe [sample applications](https://github.com/SteeltoeOSS/Samples/blob/3.x/Stream/UsageCost), and proceed to the [deployment](#deployment) section.
+If you prefer, you can clone the Steeltoe [sample applications](https://github.com/SteeltoeOSS/Samples/tree/3.x/Stream/UsageCost), and proceed to the [deployment](#deployment) section.
 
 ## Development
 
@@ -128,7 +128,7 @@ The `[EnableBinding]` attribute indicates that you want to bind your application
 The attribute takes one or more interfaces as a parameter, in this case, the [ISource](https://github.com/SteeltoeOSS/Steeltoe/blob/3.x/src/Stream/src/Abstractions/Messaging/ISource.cs) interface that defines an output channel named `output`.
 In the case of RabbitMQ, messages sent to the `output` channel are in turn sent to the RabbitMQ message broker by using a `TopicExchange`.
 
-Deriving from [BackgroundService](https://docs.microsoft.com/aspnet/core/fundamentals/host/hosted-services#backgroundservice-base-class) and calling `Task.Delay` makes the UsageGenerator a background task that gets called by the framework every `5` seconds.
+Deriving from [BackgroundService](https://learn.microsoft.com/aspnet/core/fundamentals/host/hosted-services#backgroundservice-base-class) and calling `Task.Delay` makes the UsageGenerator a background task that gets called by the framework every `5` seconds.
 
 In every iteration of the loop, The `GenerateAndSend` method constructs a `UsageDetail` object which is sent to the output channel by accessing the `_source` object's `Output.Send()` method.
 
@@ -307,7 +307,7 @@ Create a new .NET Console  project and add the NuGet packages as referred in the
 
 To create the business logic:
 
-1.  Create a `UsageCostDetail` class that looks like [UsageCostDetail.cs](https://github.com/SteeltoeOSS/Samples/blob/3.x/Stream/UsageCost/UsageLogger/UsageCostDetail.cs).
+1.  Create a `UsageCostDetail` class that looks like [UsageCostDetail.cs](https://github.com/SteeltoeOSS/Samples/tree/3.x/Stream/UsageCost/UsageLogger/UsageCostDetail.cs).
     The `UsageCostDetail` class contains `UserId`, `CallCost`, and `DataCost` properties.
 1.  Create the `UsageCostLogger` class, which receives the `UsageCostDetail` message and logs it. The following listing shows the source code:
 
@@ -594,7 +594,7 @@ This section walks you through how to deploy the three Stream Stream application
 
 #### Setting up the Kubernetes cluster
 
-For this example, we need a running Kubernetes cluster. For this example, we deploy to [Docker for Windows Desktop](https://docs.docker.com/docker-for-windows/install/) with integrated [Kubernetes](https://docs.docker.com/desktop/kubernetes/).
+For this example, we need a running Kubernetes cluster. For this example, we deploy to [Docker for Windows Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) with integrated [Kubernetes](https://docs.docker.com/desktop/use-desktop/kubernetes/).
 
 ##### Verifying Kubernetes is running
 

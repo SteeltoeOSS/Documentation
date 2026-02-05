@@ -4,7 +4,7 @@ Kubernetes itself is natively capable of service discovery (see [the docs](https
 
 ## Api-based
 
-The Kubernetes discovery client lets applications query Kubernetes endpoints by name (see [services](https://kubernetes.io/docs/user-guide/services/)). A service is typically exposed by the Kubernetes API server as a collection of endpoints that represent `http` and `https` addresses and that a client can access from any application running as a pod.
+The Kubernetes discovery client lets applications query Kubernetes endpoints by name (see [services](https://kubernetes.io/docs/concepts/services-networking/service/)). A service is typically exposed by the Kubernetes API server as a collection of endpoints that represent `http` and `https` addresses and that a client can access from any application running as a pod.
 
 ### Settings
 

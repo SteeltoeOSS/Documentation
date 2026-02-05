@@ -1,11 +1,11 @@
 # Prerequisites
 
-While not required, we recommend installing one of the development tools ([Visual Studio](https://www.visualstudio.com/) or [Visual Studio Code](https://code.visualstudio.com/)) provided by Microsoft.
+While not required, we recommend installing one of the development tools ([Visual Studio](https://visualstudio.microsoft.com/) or [Visual Studio Code](https://code.visualstudio.com/)) provided by Microsoft.
 
 If you plan to develop with [.NET](https://learn.microsoft.com/dotnet/fundamentals) or [ASP.NET Core](https://learn.microsoft.com/aspnet/core), you must download and install the latest [.NET SDK](https://dotnet.microsoft.com/download). Additionally, if you do not already know the language and framework well, we recommend you first spend time working through some of the following tutorials from Microsoft:
 
-* [Getting Started with C#](https://learn.microsoft.com/dotnet/csharp)
-* [Getting Started with ASP.NET Core](https://learn.microsoft.com/aspnet/core/getting-started)
+* [Getting Started with C#](https://learn.microsoft.com/dotnet/csharp/)
+* [Getting Started with ASP.NET Core](https://learn.microsoft.com/aspnet/core/get-started)
 
 ## NuGet Feeds
 

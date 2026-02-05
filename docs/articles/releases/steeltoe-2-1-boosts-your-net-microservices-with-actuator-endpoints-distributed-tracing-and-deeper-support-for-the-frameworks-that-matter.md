@@ -25,5 +25,5 @@ The new features in Steeltoe 2.1, all based on community feedback, largely fall 
 
 Let’s take a deeper look at each category...
 
-| [Read More](https://tanzu.vmware.com/content/blog/steeltoe-2-1-boosts-your-net-microservices-with-actuator-endpoints-distributed-tracing-and-deeper-support-for-the-frameworks-that-matter) |
+| [Read More](https://blogs.vmware.com/tanzu/steeltoe-2-1-boosts-your-net-microservices-with-actuator-endpoints-distributed-tracing-and-deeper-support-for-the-frameworks-that-matter/) |
 | :---: |

@@ -11,7 +11,7 @@ The remainder of this topic assumes that you are familiar with the basic concept
 
 To use this connector:
 
-1. Create a CosmosDB server instance or use the [emulator](https://learn.microsoft.com/azure/cosmos-db/local-emulator).
+1. Create a CosmosDB server instance or use the [emulator](https://learn.microsoft.com/azure/cosmos-db/emulator).
 1. Add NuGet references to your project.
 1. Configure your connection string in `appsettings.json`.
 1. Initialize the Steeltoe Connector at startup.

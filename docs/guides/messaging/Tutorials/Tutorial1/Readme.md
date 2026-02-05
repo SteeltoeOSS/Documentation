@@ -13,7 +13,7 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html), installed and running
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/docs/download), installed and running
 > on `localhost` and on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
 >
 > In case you use a different host, port or credentials, connections settings would require adjusting.
@@ -69,14 +69,14 @@ on behalf of the **consumer**.
  RabbitMQ speaks multiple protocols and message formats. This tutorial and the others in this series use AMQP 0-9-1, which is an open, general-purpose protocol for messaging.
 
  There are a number of different clients for RabbitMQ with each supporting
- [many different languages and libraries](http://rabbitmq.com/devtools.html).
+ [many different languages and libraries](https://www.rabbitmq.com/client-libraries/devtools).
 
 In this tutorial, we'll be using .NET Core and the C# language.  In addition we will be using the Steeltoe
 Messaging library to help simplify the code we write while creating our messaging applications in .NET.
 
 We have also chosen to use Visual Studio 2022 to edit and build the project; but we could have just as easily chosen VSCode.
 
-The [source code of the tutorials](https://github.com/SteeltoeOSS/Samples/tree/3.x/messaging/tutorials)
+The [source code of the tutorials](https://github.com/SteeltoeOSS/Samples/tree/3.x/Messaging/src/Tutorials)
 is available online. You can either just run the finished tutorials or you can do the tutorials from scratch by following the steps outlined in each of tutorial writeups.
 
 If you choose to start from scratch, open Visual Studio and create a new **Console** application using the VS2022 template:

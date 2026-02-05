@@ -61,7 +61,7 @@ cf bind-service myApp myCosmosDb
 cf restage myApp
 ```
 
->The connector is built to work with Azure Cosmos DB service instances that have been provisioned with the [Microsoft Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html).
+>The connector is built to work with Azure Cosmos DB service instances that have been provisioned with the [Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-azure/1-13/csb-azure/reference-azure-cosmosdb-mongo.html).
 
 ### Use CosmosClient
 

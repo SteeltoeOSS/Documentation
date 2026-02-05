@@ -6,8 +6,8 @@ Steeltoe provides a base set of endpoint functionality, along with several imple
 
 In this section, it is helpful to understand the following:
 
-* How the .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works and an understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
-* How the ASP.NET Core [`Startup`](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
+* How the .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works and an understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+* How the ASP.NET Core [`Startup`](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
 
 When adding Steeltoe Management endpoints to your ASP.NET 4.x applications, you can choose between using HTTP modules and OWIN middleware. If you select HTTP modules, you should be familiar with `Global.asax.cs` and how it is used in initializing and configuring your application. If you select the OWIN middleware approach, you should be familiar with how the Startup class is used in configuring application middleware. The rest of this document will refer to the HTTP Module implementation simply as ASP.NET 4.x, and the OWIN implementation as ASP.NET OWIN.
 
@@ -35,7 +35,7 @@ The following table describes the available Steeltoe management endpoints that c
 
 Each endpoint has an associated ID. When you want to expose that endpoint over HTTP, that ID is used in the mapped URL that exposes the endpoint. For example, the `health` endpoint below is mapped to `/health`.
 
->NOTE: When you want to integrate with the [TAS Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`. To do so, add `management:endpoints:path=/cloudfoundryapplication` to your configuration.
+>NOTE: When you want to integrate with the [Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/dev-console.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`. To do so, add `management:endpoints:path=/cloudfoundryapplication` to your configuration.
 
 ## Add NuGet References
 
@@ -46,11 +46,11 @@ The following table describes the available packages:
 | App Type | Package | Description |
 | --- | --- | --- |
 | All | `Steeltoe.Management.EndpointBase` | Base functionality, no dependency injection, no HTTP middleware. |
-| ASP.NET Core | `Steeltoe.Management.EndpointCore` | Includes `EndpointBase`, adds ASP.NET Core DI, includes HTTP middleware,  no TAS Apps Manager integration. |
-| ASP.NET Core | `Steeltoe.Management.CloudFoundryCore` | Includes `EndpointCore`, enables TAS Apps Manager integration. |
-| ASP.NET 4.x | `Steeltoe.Management.EndpointWeb` | Includes `EndpointBase`, enables TAS Apps Manager integration. |
-| ASP.NET 4.x OWIN | `Steeltoe.Management.EndpointOwin` | Includes `EndpointBase`, enables TAS Apps Manager integration. |
-| ASP.NET 4.x OWIN with Autofac | `Steeltoe.Management.EndpointOwinAutofac` | Includes `EndpointOwin`, adds Autofac DI, enables TAS Apps Manager integration. |
+| ASP.NET Core | `Steeltoe.Management.EndpointCore` | Includes `EndpointBase`, adds ASP.NET Core DI, includes HTTP middleware,  no Apps Manager integration. |
+| ASP.NET Core | `Steeltoe.Management.CloudFoundryCore` | Includes `EndpointCore`, enables Apps Manager integration. |
+| ASP.NET 4.x | `Steeltoe.Management.EndpointWeb` | Includes `EndpointBase`, enables Apps Manager integration. |
+| ASP.NET 4.x OWIN | `Steeltoe.Management.EndpointOwin` | Includes `EndpointBase`, enables Apps Manager integration. |
+| ASP.NET 4.x OWIN with Autofac | `Steeltoe.Management.EndpointOwinAutofac` | Includes `EndpointOwin`, adds Autofac DI, enables Apps Manager integration. |
 
 To add this type of NuGet to your project, add a `PackageReference` resembling the following:
 
@@ -70,7 +70,7 @@ dotnet add package Steeltoe.Management.EndpointCore --version 2.5.2
 
 ## Configure Global Settings
 
-Endpoints can be configured by using the normal .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration). You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.
+Endpoints can be configured by using the normal .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration). You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.
 
 All management endpoint settings should be placed under the prefix with the key `management:endpoints`. Any settings found under this prefix apply to all endpoints globally.
 
@@ -86,7 +86,7 @@ The following table describes the settings that you can apply globally:
 
 >When running an application in IIS or with the HWC buildpack, response body content is automatically filtered out when the HTTP response code is 503. Some actuator responses intentionally return a code of 503 in failure scenarios. Setting `useStatusCodeFromResponse` to `false` will allow the response body to be returned by using a status code of 200 instead. This switch will not affect the status code of responses outside of Steeltoe.
 
-When you want to integrate with the [TAS Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/index.html), you need to configure the global management path prefix to be `/cloudfoundryapplication`.
+When you want to integrate with the Apps Manager, you need to configure the global management path prefix to be `/cloudfoundryapplication`.
 
 ### Exposing Endpoints
 
@@ -145,7 +145,7 @@ Starting in Steeltoe version 2.4.0, extensions for both `IHostBuilder` and `IWeb
 
 >NOTE: `AddCloudFoundryActuators()` and `AddLoggingActuator()` will automatically configure the DynamicConsoleLogger. If you wish to use the dynamic Serilog console logger, be sure to do so before adding actuators.
 
-If you prefer to configure the actuators in `Startup.cs`, extensions are provided for `IServiceCollection` and `IApplicationBuilder` to configure and activate the actuator middlewares. If you wish to use all of the Steeltoe endpoints which integrate with the TAS Apps Manager, use `AddCloudFoundryActuators()` and `UseCloudFoundryActuators()` to add them all at once instead of including each individually, as shown in the following example:
+If you prefer to configure the actuators in `Startup.cs`, extensions are provided for `IServiceCollection` and `IApplicationBuilder` to configure and activate the actuator middlewares. If you wish to use all of the Steeltoe endpoints which integrate with the Apps Manager, use `AddCloudFoundryActuators()` and `UseCloudFoundryActuators()` to add them all at once instead of including each individually, as shown in the following example:
 
 ```csharp
 public class Startup
@@ -177,7 +177,7 @@ public class Startup
 }
 ```
 
->NOTE: The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/?view=aspnetcore-2.1&tabs=aspnetcore2x) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
+>NOTE: The order in which you add middleware to the [ASP.NET Core pipeline](https://learn.microsoft.com/aspnet/core/fundamentals/middleware/?view=aspnetcore-2.1&tabs=aspnetcore2x) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
 
 ### HTTP Access ASP.NET 4.x
 
@@ -205,7 +205,7 @@ To expose any of the management endpoints over HTTP in an ASP.NET 4.x applicatio
 
 >NOTE: Each endpoint uses the same host and port as the application. The default path to each endpoint is specified in its section on this page, along with specific `Use` method name.
 
-If you wish to use all of the Steeltoe endpoints which integrate with the TAS Apps Manager, call `UseCloudFoundryActuators()` to configure them all at once instead of including each individually, as shown in the following example:
+If you wish to use all of the Steeltoe endpoints which integrate with the Apps Manager, call `UseCloudFoundryActuators()` to configure them all at once instead of including each individually, as shown in the following example:
 
 ```csharp
 public class ManagementConfig
@@ -242,7 +242,7 @@ public class ManagementConfig
 }
 ```
 
-The above static methods should be called in `Global.asax.cs`.  In the `Application_Start()` method call `ConfigureActuators()`and `Start()` and in `Application_Stop()` call `Stop()`.  See the [Steeltoe Samples repository](https://github.com/SteeltoeOSS/Samples/tree/dev/Management/src/AspDotNet4) for more details.
+The above static methods should be called in `Global.asax.cs`.  In the `Application_Start()` method call `ConfigureActuators()`and `Start()` and in `Application_Stop()` call `Stop()`.  See the [Steeltoe Samples repository](https://github.com/SteeltoeOSS/Samples/tree/2.x/Management/src/AspDotNet4) for more details.
 
 ### HTTP Access ASP.NET OWIN
 
@@ -261,7 +261,7 @@ To expose any of the management endpoints over HTTP in an ASP.NET 4.x applicatio
     <system.webServer>
         <handlers>
             <!-- Allow GET, POST and OPTIONS requests to go past IIS to actuators -->
-            <!-- Adjust the path value if you are not using TAS Apps Manager -->
+            <!-- Adjust the path value if you are not using Apps Manager -->
             <add name="ApiURIs-ISAPI-Integrated-4.0"
                     path="cloudfoundryapplication/*"
                     verb="GET,POST,OPTIONS"
@@ -273,7 +273,7 @@ To expose any of the management endpoints over HTTP in an ASP.NET 4.x applicatio
 
 >NOTE: Each endpoint uses the same host and port as the application. The default path to each endpoint is specified in its section on this page, along with specific `Use` method name.
 
-If you wish to use all of the Steeltoe endpoints which integrate with the TAS Apps Manager, use `UseCloudFoundryActuators()` to configure them all at once instead of including each individually, as shown in the following example:
+If you wish to use all of the Steeltoe endpoints which integrate with the Apps Manager, use `UseCloudFoundryActuators()` to configure them all at once instead of including each individually, as shown in the following example:
 
 ```csharp
 public class Startup

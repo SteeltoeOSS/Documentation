@@ -49,7 +49,7 @@ dotnet add package Steeltoe.Management.EndpointCore --version 2.5.2
 
 ## Cloud Foundry Forwarder
 
-The [Metrics Forwarder for TAS](https://docs.pivotal.io/metrics-forwarder/) is no longer supported on Tanzu Application Service (TAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/platform/application-service/2-8/metric-registrar/index.html).
+The Metrics Forwarder for TAS is no longer supported on Tanzu Application Service (TAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/metric-registrar-index.html) to emit metrics to [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html).
 
 To register your endpoint for metrics collection install the metrics-registrar plugin and use it to register your endpoint.
 
@@ -74,7 +74,7 @@ scrape_configs:
     static_configs:
       - targets: ['host.docker.internal:8000']
 ```
-Running Prometheus server with this configuration will allow you view metrics in the built-in UI. Other visualization tools such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/) can then be configured to use Prometheus as a datasource.
+Running Prometheus server with this configuration will allow you view metrics in the built-in UI. Other visualization tools such as [Grafana](https://grafana.com/docs/grafana/latest/datasources/prometheus/) can then be configured to use Prometheus as a datasource.
 
 ```shell
 docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml

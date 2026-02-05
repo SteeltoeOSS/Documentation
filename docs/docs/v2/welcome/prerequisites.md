@@ -1,11 +1,11 @@
 # Prerequisites
 
-While not required, we recommend installing one of the development tools ([Visual Studio](https://www.visualstudio.com/) or [Visual Studio Code](https://code.visualstudio.com/)) provided by Microsoft.
+While not required, we recommend installing one of the development tools ([Visual Studio](https://visualstudio.microsoft.com/) or [Visual Studio Code](https://code.visualstudio.com/)) provided by Microsoft.
 
-If you plan to develop with [.NET Core](https://docs.microsoft.com/dotnet/fundamentals/) or [ASP.NET Core](https://docs.microsoft.com/aspnet/core/), you will need to download and install the latest [.NET SDK](https://dotnet.microsoft.com/download). Additionally, if you do not already know the language and framework well, we recommend you first spend time working through some of the following tutorials from Microsoft:
+If you plan to develop with [.NET Core](https://learn.microsoft.com/dotnet/fundamentals/) or [ASP.NET Core](https://learn.microsoft.com/aspnet/core/), you will need to download and install the latest [.NET SDK](https://dotnet.microsoft.com/download). Additionally, if you do not already know the language and framework well, we recommend you first spend time working through some of the following tutorials from Microsoft:
 
-* [Getting Started with ASP.NET Core](https://docs.microsoft.com/aspnet/core/getting-started)
-* [Getting Started with C#](https://www.microsoft.com/net/tutorials/csharp/getting-started)
+* [Getting Started with ASP.NET Core](https://learn.microsoft.com/aspnet/core/get-started)
+* [Getting Started with C#](https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial/intro)
 
 >NOTE: Many of the Steeltoe packages can also be used with .NET Framework and ASP.NET 4 based applications. You are not required to target .NET/ASP.NET Core when using Steeltoe.
 

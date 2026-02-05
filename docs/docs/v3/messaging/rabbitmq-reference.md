@@ -256,7 +256,7 @@ If you need to implement your own `ConnectionFactory` for some reason, the `Abst
 
 ### Blocked Connections and Resource Constraints
 
-The connection might become blocked for interaction from the broker that corresponds to the [Memory Alarm](https://www.rabbitmq.com/memory.html).
+The connection might become blocked for interaction from the broker that corresponds to the [Memory Alarm](https://www.rabbitmq.com/docs/memory).
 The `Steeltoe.Messaging.RabbitMQ.IConnection` can be supplied with `IBlockedListener` instances to be notified for connection blocked and unblocked events. You can use the `AddBlockedListener(..)` methods to be notified of the events.
 
 >IMPORTANT:  When the application is configured with a single `CachingConnectionFactory`, as it is by default, the application stops working when the connection is blocked by the Broker.
@@ -286,7 +286,7 @@ Steeltoe RabbitMQ disables the automatic recovery feature unless you explicitly 
 
 A convenient `RabbitOptions.SslOptions` is provided to enable convenient configuration of SSL properties on the underlying client connection factory when using .NET Core `IConfiguration`.
 
-See the [RabbitMQ Documentation](https://www.rabbitmq.com/ssl.html) for information about configuring SSL.
+See the [RabbitMQ Documentation](https://www.rabbitmq.com/docs/ssl) for information about configuring SSL.
 
 ```json
 {
@@ -403,7 +403,7 @@ These features are explained further in the following sections.
 
 See also `PublisherConfirms` in [Scoped Operations](#scoped-operations).
 
->TIP: For some more background information on publisher confirms and returns, see the blog post by the RabbitMQ team titled [Introducing Publisher Confirms](https://www.rabbitmq.com/blog/2011/02/10/introducing-publisher-confirms/).
+>TIP: For some more background information on publisher confirms and returns, see the blog post by the RabbitMQ team titled [Introducing Publisher Confirms](https://www.rabbitmq.com/blog/2011/02/10/introducing-publisher-confirms).
 
 ### Connection and Channel Listeners
 
@@ -516,7 +516,7 @@ We will explore message sending and reception, respectively, in [Sending Message
 
 You can now configure the `RabbitTemplate` to use a `RetryTemplate` to help with handling problems with broker connectivity.
 See the [Steeltoe Retry](https://github.com/SteeltoeOSS/Steeltoe/tree/3.x/src/Common/src/Common/Retry) framework for complete information.
-The following is only one example that uses a [Polly](http://www.thepollyproject.org/) based retry policy, which makes three tries before throwing the exception to the caller.
+The following is only one example that uses a [Polly](https://github.com/App-vNext/Polly) based retry policy, which makes three tries before throwing the exception to the caller.
 
 ```csharp
 public RabbitTemplate GetRabbitTemplate() {
@@ -988,7 +988,7 @@ The `BasicAck` is an asynchronous operation and, if something wrong happens on t
 See [Message Listener Container Configuration](#message-listener-container-configuration).
 
 For more background about `PrefetchCount`, see this post about [consumer utilization in RabbitMQ](https://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3)
-and this post about [queuing theory](https://www.rabbitmq.com/blog/2012/05/11/some-queuing-theory-throughput-latency-and-bandwidth/).
+and this post about [queuing theory](https://www.rabbitmq.com/blog/2012/05/11/some-queuing-theory-throughput-latency-and-bandwidth).
 
 #### Message Listener
 
@@ -1159,7 +1159,7 @@ public class MyMessageListener : IMessageListener
 
 #### Consumer Priority
 
-The broker now supports consumer priority (see [Using Consumer Priorities with RabbitMQ](https://www.rabbitmq.com/blog/2013/12/16/using-consumer-priorities-with-rabbitmq/)).
+The broker now supports consumer priority (see [Using Consumer Priorities with RabbitMQ](https://www.rabbitmq.com/blog/2013/12/16/using-consumer-priorities-with-rabbitmq)).
 This is enabled by setting the `x-priority` argument on the consumer.
 The `DirectMessageListenerContainer` supports setting consumer arguments, as the following example shows:
 
@@ -1171,7 +1171,7 @@ You can modify the queues on which the container listens at runtime. See [Listen
 
 #### Auto Delete Queues
 
-When a container is configured to listen on `auto-delete` queues, or the queue has an `x-expires` option, or the [Time-To-Live](https://www.rabbitmq.com/ttl.html) policy is configured on the Broker, the queue is removed by the broker when the container is stopped (that is, when the last consumer is cancelled). If the container is restarted, the container uses a `RabbitAdmin` to redeclare any missing queues during startup.
+When a container is configured to listen on `auto-delete` queues, or the queue has an `x-expires` option, or the [Time-To-Live](https://www.rabbitmq.com/docs/ttl) policy is configured on the Broker, the queue is removed by the broker when the container is stopped (that is, when the last consumer is cancelled). If the container is restarted, the container uses a `RabbitAdmin` to redeclare any missing queues during startup.
 
 You can also use conditional declaration (see [Conditional Declaration](#conditional-declaration) together with setting `AutoStartup = "false"` on the `RabbitAdmin` to defer queue declaration until the container is started.
 The following example shows how to do so:
@@ -2370,7 +2370,7 @@ The exception passed in is a `ListenerExecutionFailedException`, which has a `Fa
 
 ## RabbitMQ Direct Reply-To
 
->IMPORTANT: Starting with versions 3.4.0+, RabbitMQ server supports [Direct Reply-To](https://www.rabbitmq.com/direct-reply-to.html).
+>IMPORTANT: Starting with versions 3.4.0+, RabbitMQ server supports [Direct Reply-To](https://www.rabbitmq.com/docs/direct-reply-to).
 This eliminates the main reason for a fixed reply queue (to avoid the need to create a temporary queue for each request).
 Direct reply-to is used by default (if supported by the server) instead of creating temporary reply queues.
 When no `ReplyAddress` is provided (or it is set with a name of `amq.rabbitmq.reply-to`), the `RabbitTemplate` automatically detects whether direct reply-to is supported and either uses it or falls back to using a temporary reply queue.
@@ -2390,7 +2390,7 @@ The template takes care of correlating the replies, so there is no danger of a l
 ### Message Correlation With A Reply Queue
 
 When using a fixed reply queue (i.e. other than `amq.rabbitmq.reply-to`), you must provide correlation data so that replies can be correlated to requests.
-See [RabbitMQ Remote Procedure Call (RPC)](https://www.rabbitmq.com/tutorials/tutorial-six-dotnet.html).
+See [RabbitMQ Remote Procedure Call (RPC)](https://www.rabbitmq.com/tutorials/tutorial-six-dotnet).
 By default, the standard RabbitMQ `IBasicProperties CorrelationId` property is used to hold the correlation data.
 However, if you wish to use a custom property to hold correlation data, you can set the `CorrelationKey` property on the `RabbitTemplate`.
 The client and server must use the same header for correlation data.
@@ -2466,7 +2466,7 @@ If a late reply is received, it is rejected (the template throws an `RabbitRejec
 If the reply queue is configured to send rejected messages to a dead letter exchange, the reply can be retrieved for later analysis.
 To do so, bind a queue to the configured dead letter exchange with a routing key equal to the reply queue's name.
 
-See the [RabbitMQ Dead Letter Documentation](https://www.rabbitmq.com/dlx.html) for more information about configuring dead lettering.
+See the [RabbitMQ Dead Letter Documentation](https://www.rabbitmq.com/docs/dlx) for more information about configuring dead lettering.
 You can also take a look at the [FixedReplyQueueDeadLetterTest](https://github.com/SteeltoeOSS/Steeltoe/blob/3.x/src/Messaging/test/RabbitMQ.Test/Core/FixedReplyQueueDeadLetterTest.cs) test case for an example.
 
 ## Configuring the Broker
@@ -2870,7 +2870,7 @@ public void listener(BrokerEvent event) {
 
 ## Delayed Message Exchange
 
-You can read more about the Delayed Message Exchange Plugin [here](https://www.rabbitmq.com/blog/2015/04/16/scheduling-messages-with-rabbitmq/).
+You can read more about the Delayed Message Exchange Plugin [here](https://www.rabbitmq.com/blog/2015/04/16/scheduling-messages-with-rabbitmq).
 
 >The plugin is currently marked as experimental but has been available for over a year (at the time of writing).
 If changes to the plugin make it necessary, we plan to add support for such changes as soon as practical.
@@ -3053,7 +3053,7 @@ Consequently, when there is a rollback of a transaction and a message has been r
 The action taken on message rejection is independent of transactions and depends on the `DefaultRequeueRejected` property (default: `true`).
 For more information about rejecting failed messages, see [Message Listeners and the Asynchronous Case](#message-listeners-and-the-asynchronous-case).
 
-For more information about RabbitMQ transactions and their limitations, see [RabbitMQ Broker Semantics](https://www.rabbitmq.com/semantics.html).
+For more information about RabbitMQ transactions and their limitations, see [RabbitMQ Broker Semantics](https://www.rabbitmq.com/docs/semantics).
 
 >Prior to RabbitMQ 2.7.0, such messages (and any that are un-acked when a channel is closed or aborts) went to the back of the queue on a Rabbit broker.
 Since 2.7.0, rejected messages go to the front of the queue, in a similar manner to JMS rolled back messages.
@@ -3285,5 +3285,5 @@ It is, of course, the authoritative source of information, and the Spring AMQP c
 Our current implementation of the RabbitMQ support is based on their 2.8.x version, and it officially supports AMQP 0.8 and 0.9.1.
 We recommend reading the 0.9.1 document.
 
-There are many great articles, presentations, and blogs available on the RabbitMQ [Getting Started](https://www.rabbitmq.com/how.html) page.
+There are many great articles, presentations, and blogs available on the RabbitMQ [Getting Started](https://www.rabbitmq.com/tutorials) page.
 Since that is currently the only supported implementation for Spring AMQP, we also recommend that as a general starting point for all broker-related concerns.

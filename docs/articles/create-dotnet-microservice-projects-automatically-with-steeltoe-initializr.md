@@ -89,7 +89,7 @@ Below is a brief explanation of Initializr's top level endpoints. But the conver
 
   **Service Configuration**
 
-  The config endpoint ([https://start.steeltoe.io/api/config/](https://start.steeltoe.io/api/config/)) provides a way to get how Initializr has been configured. This endpoint has quite a few sub-endpoints that let you drill deeper into specific config values. Say you wanted to know what .NET runtimes are supported as well what the default version is. You could send a request to [https://start.steeltoe.io/api/config/dotNetFrameworks](https://start.steeltoe.io/api/config/dotNetFrameworks) and receive a JSON formatted answer.
+  The config endpoint ([https://start.steeltoe.io/api/uiconfig/](https://start.steeltoe.io/api/uiconfig/)) provides a way to get how Initializr has been configured. This endpoint has quite a few sub-endpoints that let you drill deeper into specific config values. Say you wanted to know what .NET runtimes are supported as well what the default version is. You could send a request to [https://start.steeltoe.io/api/uiconfig/dotNetFrameworks](https://start.steeltoe.io/api/uiconfig/dotNetFrameworks) and receive a JSON formatted answer.
 
   You can create quite a rich set of tooling with the config endpoint. In true cloud-native design, you can run instances of Initializr in different environments while the tooling keeps a consistent experience.
 

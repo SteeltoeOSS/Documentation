@@ -57,7 +57,7 @@ The following table describes the settings that you can apply to the observers:
 | `HystrixEvents` | Enable Circuit Breaker Metrics. | `false` |
 | `ExcludedMetrics` | Specify a list of metrics that should not be captured | none |
 
-> The ExcludedMetrics option is new in 3.1.0 and only applies to [these events](https://docs.microsoft.com/dotnet/core/diagnostics/available-counters#systemruntime-counters), which are captured from counters in the runtime. Tne observer that reports these metrics is controlled by the `EventCounterEvents` setting above.
+> The ExcludedMetrics option is new in 3.1.0 and only applies to [these events](https://learn.microsoft.com/dotnet/core/diagnostics/available-counters#systemruntime-counters), which are captured from counters in the runtime. Tne observer that reports these metrics is controlled by the `EventCounterEvents` setting above.
 
 ### Hystrix Event Source
 
@@ -69,7 +69,7 @@ Steeltoe supports both pull and push-based configuration for exporting metrics. 
 
 ### Tanzu Observability (Wavefront)
 
-[Tanzu Observability](https://docs.wavefront.com/wavefront_introduction.html) is an observability platform for distributed applications that can ingest metric & trace data. A free trial is available [here](https://tanzu.vmware.com/observability-trial) to try it.
+[Tanzu Observability](https://www.broadcom.com/products/software/aiops-observability/tanzu-observability) is an observability platform for distributed applications that can ingest metric & trace data.
 
 To add the Wavefront metric exporter, you can use any of the available extension methods:
 
@@ -103,7 +103,7 @@ In addition, the following settings can be used to set the application and servi
 
 ### Tanzu Application Service (TAS for VMs)
 
-To emit custom metrics on TAS for VMs v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/2-11/metric-registrar/index.html).
+To emit custom metrics on TAS for VMs v2.5 or later, use the [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/metric-registrar-index.html) to emit metrics to [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html).
 
 To register your endpoint for metrics collection, install the metrics-registrar plugin and use it to register your endpoint:
 
@@ -130,7 +130,7 @@ scrape_configs:
       - targets: ['host.docker.internal:8000']
 ```
 
-Running Prometheus server with this configuration lets you view metrics in the built-in UI. You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/), to use Prometheus as a datasource. The following example shows how to run Prometheus in Docker:
+Running Prometheus server with this configuration lets you view metrics in the built-in UI. You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/datasources/prometheus/), to use Prometheus as a datasource. The following example shows how to run Prometheus in Docker:
 
 ```shell
 docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
@@ -138,7 +138,7 @@ docker run -d  --name=prometheus -p 9090:9090 -v <Absolute-Path>/prometheus.yml:
 
 ### Tanzu App Live View
 
- [App Live View](https://docs.vmware.com/en/Application-Live-View-for-VMware-Tanzu/1.0/docs/GUID-index.html) has the ability to display and query metrics via the [Metrics endpoint](metrics-endpoint.md) in addition to other management endpoints.
+ App Live View has the ability to display and query metrics via the [Metrics endpoint](metrics-endpoint.md) in addition to other management endpoints.
 
 ### Spring Boot Admin
 

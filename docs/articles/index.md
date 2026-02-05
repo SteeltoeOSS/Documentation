@@ -58,7 +58,7 @@ uid: articles
         </a>
     </li>
     <li class="blog-item">
-        <a href="https://techcommunity.microsoft.com/t5/apps-on-azure/net-and-java-together-in-azure-spring-cloud-with-pet-clinic/ba-p/2087416">
+        <a href="https://techcommunity.microsoft.com/blog/appsonazureblog/-net-and-java-together-in-azure-spring-cloud-with-pet-clinic/2087416">
             <span class="blog-date" href="">January 25 2021</span>
             <div class="blog-author">David Dieruf</div><br>
             <div class="blog-title" style="display:inline-block">.NET and Java together in Azure Spring Cloud with Pet Clinic</div>

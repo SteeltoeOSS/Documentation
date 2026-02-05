@@ -8,19 +8,19 @@ Each Hystrix command also has the ability to create a timeout for any calls that
 
 Each command has a built-in configurable circuit breaker that stops all requests to failing back-end dependencies when the error percentage passes a threshold. The circuit remains open (broken) for a configurable period of time, and all requests are then sent to the fallback mechanism until the circuit is closed (connected) again.
 
-Hystrix also provides a means to measure command successes, failures, timeouts, short-circuits, and thread rejections. Statistics are gathered for all of these and can optionally be reported to a [Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard) for monitoring in real-time.
+Hystrix also provides a means to measure command successes, failures, timeouts, short-circuits, and thread rejections. Statistics are gathered for all of these and can optionally be reported to a [Hystrix Dashboard](https://github.com/Netflix-Skunkworks/hystrix-dashboard) for monitoring in real-time.
 
-The remaining sections of this chapter describe these features. Also, you should understand that Steeltoe's Hystrix implementation follows the Netflix implementation closely. As a result, its worthwhile to review the [Netflix documentation](https://github.com/Netflix/Hystrix/wiki) in addition to this documentation.  Pay particular attention to the [How it Works](https://github.com/Netflix/Hystrix/wiki/How-it-Works) section as it provides a [Flow Chart](https://github.com/Netflix/Hystrix/wiki/How-it-Works#Flow) explaining how a command executes and how the default [Circuit Breaker](https://github.com/Netflix/Hystrix/wiki/How-it-Works#CircuitBreaker) transitions between the CLOSED, OPEN and HALF-OPEN states.  It also provides details on how the [Bulkhead pattern](https://docs.microsoft.com/azure/architecture/patterns/bulkhead) is implemented by using isolation techniques that employ [Threads and Thread Pools](https://github.com/Netflix/Hystrix/wiki/How-it-Works#isolation).
+The remaining sections of this chapter describe these features. Also, you should understand that Steeltoe's Hystrix implementation follows the Netflix implementation closely. As a result, its worthwhile to review the [Netflix documentation](https://github.com/Netflix/Hystrix/wiki) in addition to this documentation.  Pay particular attention to the [How it Works](https://github.com/Netflix/Hystrix/wiki/How-it-Works) section as it provides a [Flow Chart](https://github.com/Netflix/Hystrix/wiki/How-it-Works#Flow) explaining how a command executes and how the default [Circuit Breaker](https://github.com/Netflix/Hystrix/wiki/How-it-Works#CircuitBreaker) transitions between the CLOSED, OPEN and HALF-OPEN states.  It also provides details on how the [Bulkhead pattern](https://learn.microsoft.com/azure/architecture/patterns/bulkhead) is implemented by using isolation techniques that employ [Threads and Thread Pools](https://github.com/Netflix/Hystrix/wiki/How-it-Works#isolation).
 
 ## Usage
 
-You should have a good understanding of how the .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before you start to use the Hystrix framework. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary to configure the framework.
+You should have a good understanding of how the .NET [configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before you start to use the Hystrix framework. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary to configure the framework.
 
-You should also have a good understanding of how the [ASP.NET Core Startup class](https://docs.microsoft.com/aspnet/core/fundamentals/startup) is used to configure the application services and the middleware used in the app. You should pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
+You should also have a good understanding of how the [ASP.NET Core Startup class](https://learn.microsoft.com/aspnet/core/fundamentals/startup) is used to configure the application services and the middleware used in the app. You should pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
 
 In addition to the information in this section, you should review the [Netflix Hystrix Wiki](https://github.com/Netflix/Hystrix/wiki). The Steeltoe Hystrix framework implementation aligns closely with the Netflix implementation. Consequently, the Wiki information applies directly to Steeltoe.
 
-If you plan to use the Hystrix Dashboard, you should also spend time understanding the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard) information on the wiki.
+If you plan to use the Hystrix Dashboard, you should also spend time understanding the [Netflix Hystrix Dashboard](https://github.com/Netflix-Skunkworks/hystrix-dashboard) information on the wiki.
 
 To use the Steeltoe framework:
 
@@ -53,7 +53,7 @@ To add this type of NuGet to your project, add something like the following `Pac
 </ItemGroup>
 ```
 
-The second type of NuGet that you may need to add relates to collecting Hystrix metrics. If you are developing an ASP.NET Core application and want to collect Hystrix metrics and you are using the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard), you need to also include the `Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore` package in your application.
+The second type of NuGet that you may need to add relates to collecting Hystrix metrics. If you are developing an ASP.NET Core application and want to collect Hystrix metrics and you are using the [Netflix Hystrix Dashboard](https://github.com/Netflix-Skunkworks/hystrix-dashboard), you need to also include the `Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore` package in your application.
 
 To do so, include the following `PackageReference` in your application:
 
@@ -65,7 +65,7 @@ To do so, include the following `PackageReference` in your application:
 </ItemGroup>
 ```
 
-Alternatively, if you are pushing your application to Cloud Foundry/Tanzu Application Service and want to use the [Spring Cloud Services Hystrix Dashboard](https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/2.1/spring-cloud-services/GUID-index.html), then include the following package instead of the one above:
+Alternatively, if you are pushing your application to Cloud Foundry/Tanzu Application Service and want to use the Spring Cloud Services Hystrix Dashboard (deprecated as of Spring Cloud Services 3.x, no longer available), then include the following package instead of the one above:
 
 | App Type | Package | Description |
 | --- | --- | --- |
@@ -783,11 +783,11 @@ As `HystrixCommand` instances run, they generate metrics and status information 
 
 With Steeltoe, you can currently choose from two dashboards to view the captured metrics.
 
-The first is the [Netflix Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard). This dashboard is appropriate when you are not running your application on Cloud Foundry/Tanzu Application Service -- for example, when you are developing and testing your application locally on your desktop.
+The first is the [Netflix Hystrix Dashboard](https://github.com/Netflix-Skunkworks/hystrix-dashboard). This dashboard is appropriate when you are not running your application on Cloud Foundry/Tanzu Application Service -- for example, when you are developing and testing your application locally on your desktop.
 
-The second is the [Spring Cloud Services Hystrix Dashboard](https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/2.1/spring-cloud-services/GUID-index.html). This dashboard is part of the [Spring Cloud Services v2](https://docs.pivotal.io/spring-cloud-services/) offering and is made available to applications through the normal service instance binding mechanisms on Cloud Foundry.
+The second is the Spring Cloud Services Hystrix Dashboard. This dashboard was part of the Spring Cloud Services v2 offering and was made available to applications through the normal service instance binding mechanisms on Cloud Foundry.
 
-> As of Spring Cloud Services 3.x, the Hystrix Dashboard has been deprecated. The dashboard is still supported in version 2.x.
+> The Spring Cloud Services Hystrix Dashboard has been deprecated as of Spring Cloud Services 3.x and is no longer available.
 
 You should use the `Steeltoe.CircuitBreaker.Hystrix.MetricsEventsCore` package in an ASP.NET Core application when targeting the Netflix Hystrix Dashboard. When added to your application, it exposes a new REST endpoint in your application: `/hystrix/hystrix.stream`. This endpoint is used by the Netflix dashboard in receiving `SSE` metrics and status events from your application.
 
@@ -873,7 +873,7 @@ To run a Hystrix Dashboard without Docker:
 
 1. Install Java 8 JDK.
 1. Install Maven 3.x.
-1. Clone the Spring Cloud Samples Hystrix dashboard: `cd https://github.com/spring-cloud-samples/hystrix-dashboard`
+1. Clone the Hystrix dashboard: `git clone https://github.com/Netflix-Skunkworks/hystrix-dashboard`
 1. Change to the hystrix dashboard directory: `cd hystrix-dashboard`
 1. Start the server `mvn spring-boot:run`
 1. Open a browser window and connect to the dashboard: <http://localhost:7979>
@@ -893,12 +893,12 @@ cf create-service p-circuit-breaker-dashboard standard myHystrixService
 cf services
 ```
 
-For more information on using the Hystrix Dashboard on Cloud Foundry, see the [Spring Cloud Services v2](https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/2.1/spring-cloud-services/GUID-index.html) documentation.
+> The Spring Cloud Services Hystrix Dashboard has been deprecated as of Spring Cloud Services 3.x and is no longer available.
 
 Once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
 Once you have performed the steps described earlier and you have made the changes described in the use metrics section, you can use the Spring Cloud Services dashboard by following these instructions:
 
-1. Open a browser and connect to the TAS Apps Manager.
-1. Follow [these instructions](https://docs.vmware.com/en/Spring-Cloud-Services-for-VMware-Tanzu/2.1/spring-cloud-services/GUID-circuit-breaker-using-the-dashboard.html) to open the Hystrix Dashboard service.
+1. Open a browser and connect to the Apps Manager.
+1. Open the Hystrix Dashboard service.
 1. Use your application and see the metrics begin to flow.

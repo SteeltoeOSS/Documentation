@@ -36,7 +36,7 @@ using (new WindowsNetworkFileShare(@"\\server\path", new NetworkCredential("user
 
 ### Managing Credentials
 
-Credentials are generally required for interacting with SMB shares. `WindowsNetworkFileShare` does not have an opinion on where those credentials are stored. However, as a general guideline, storing credentials with your application's code or standard configuration is not recommended. Consider using the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html) for storing and retrieving your credentials.
+Credentials are generally required for interacting with SMB shares. `WindowsNetworkFileShare` does not have an opinion on where those credentials are stored. However, as a general guideline, storing credentials with your application's code or standard configuration is not recommended. Consider using the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/credhub-secrets-management/services/credhub/index.html) for storing and retrieving your credentials.
 
 When used with the Cloud Foundry Configuration Provider, you can access the values as follows:
 

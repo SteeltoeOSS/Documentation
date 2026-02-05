@@ -81,16 +81,16 @@ dotnet add package Steeltoe.Management.ExporterCore --version 2.5.2
 
 ## Cloud Foundry Forwarder
 
-The [Metrics Forwarder for TAS](https://docs.pivotal.io/metrics-forwarder/) is a service that allows apps to emit metrics to the [Loggregator](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html) system and consume those metrics from the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html#firehose).
+The Metrics Forwarder for TAS (discontinued) is a service that allows apps to emit metrics to the [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html) system and consume those metrics from the [Loggregator Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html).
 
-You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI), [TAS Apps Manager](https://docs.pivotal.io/pivotalcf/2-0/console/manage-apps.html), and an [HTTP API](https://docs.pivotal.io/metrics-forwarder/api/). See the [documentation](https://docs.pivotal.io/metrics-forwarder/using.html) for details on how to use the service in your application.
+You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI), [Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/dev-console.html), and an HTTP API. See the Tanzu Platform documentation for details on how to use the service in your application.
 
-[Metrics Forwarder for TAS](https://docs.pivotal.io/metrics-forwarder/)  enables users to do the following:
+Metrics Forwarder for TAS (discontinued)  enables users to do the following:
 
-* Configure apps to emit custom metrics to [Loggregator](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html) system.
-* Read custom metrics from the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/2-2/loggregator/architecture.html#firehose) using a Firehose consumer of their choice, including [community](https://github.com/cloudfoundry/loggregator-release/blob/develop/docs/community-nozzles.md) and third-party nozzles.
+* Configure apps to emit custom metrics to [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html) system.
+* Read custom metrics from the [Loggregator Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html) using a Firehose consumer of their choice, including [community](https://github.com/cloudfoundry/loggregator-release/blob/main/docs/community-nozzles.md) and third-party nozzles.
 
-There are many third-party products you can choose from, including [PCF Metrics](https://docs.pivotal.io/pcf-metrics/1-4/).
+There are many third-party products you can choose from, including PCF Metrics (discontinued).
 
 ## Configure Settings
 
@@ -114,7 +114,7 @@ The following table describes the settings that you can apply to the exporter:
 
 There are three steps needed to use the Metrics Forwarder for TAS service:
 
-1. Create and bind a forwarder service to your application. Follow the steps in the Metrics Forwarder for PCF [documentation](https://docs.pivotal.io/metrics-forwarder/using.html).
+1. Create and bind a forwarder service to your application. Follow the steps in the Metrics Forwarder for PCF documentation (discontinued).
 1. Add the exporter to the service container. Use the `AddMetricsForwarderExporter()` extension method from `EndpointServiceCollectionExtensions`.
 1. Start the exporter background thread. Use the `UseMetricsExporter()` extension method from `EndpointApplicationBuilderExtensions`.
 
@@ -153,7 +153,7 @@ public class Startup
 
 There are two steps needed to use the Metrics Forwarder for TAS service:
 
-1. Create and bind a forwarder service to your application. Follow the steps in the Metrics Forwarder for PCF [documentation](https://docs.pivotal.io/metrics-forwarder/using.html).
+1. Create and bind a forwarder service to your application. Follow the steps in the Metrics Forwarder for PCF documentation (discontinued).
 1. Configure and start the exporter background thread.
 
 ```csharp

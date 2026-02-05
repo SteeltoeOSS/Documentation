@@ -17,11 +17,11 @@ Here are several Steeltoe sample applications when looking for help in understan
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the client. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the client.
+You should know how the new .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the client. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the client.
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services and the middleware used in the app. Pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
+You should also know how the ASP.NET Core [Startup](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services and the middleware used in the app. Pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
 
-You should also have a good understanding of the [Spring Cloud Eureka Server](https://projects.spring.io/spring-cloud/).
+You should also have a good understanding of the [Spring Cloud Eureka Server](https://spring.io/projects/spring-cloud-netflix/).
 
 In order to use the Steeltoe Discovery client, you need to do the following:
 
@@ -165,7 +165,7 @@ The samples and most templates are already set up to read from `appsettings.json
 
 ### Bind to Cloud Foundry
 
-When you want to use a Eureka Server on Cloud Foundry and you have installed [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/), you can create and bind a instance of the server to the application by using the Cloud Foundry CLI, as follows:
+When you want to use a Eureka Server on Cloud Foundry and you have installed [Spring Cloud Services](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-services/3-3/appservices/), you can create and bind a instance of the server to the application by using the Cloud Foundry CLI, as follows:
 
 ```bash
 # Create eureka server instance named `myDiscoveryService`
@@ -181,7 +181,7 @@ cf bind-service myApp myDiscoveryService
 cf restage myApp
 ```
 
-For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://docs.pivotal.io/spring-cloud-services/) documentation.
+For more information on using the Eureka Server on Cloud Foundry, see the [Spring Cloud Services](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-services/3-3/appservices/) documentation.
 
 Once the service is bound to your application, the connection properties are available in `VCAP_SERVICES`.
 
