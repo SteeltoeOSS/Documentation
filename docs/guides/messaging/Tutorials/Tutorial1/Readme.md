@@ -76,7 +76,7 @@ Messaging library to help simplify the code we write while creating our messagin
 
 We have also chosen to use Visual Studio 2022 to edit and build the project; but we could have just as easily chosen VSCode.
 
-The [source code of the tutorials](https://github.com/SteeltoeOSS/Samples/tree/3.x/messaging/tutorials)
+The [source code of the tutorials](https://github.com/SteeltoeOSS/Samples/tree/main/Messaging/src/AspNetCore/RabbitMQTutorials)
 is available online. You can either just run the finished tutorials or you can do the tutorials from scratch by following the steps outlined in each of tutorial writeups.
 
 If you choose to start from scratch, open Visual Studio and create a new **Console** application using the VS2022 template:

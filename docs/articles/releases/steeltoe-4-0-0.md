@@ -11,9 +11,9 @@ tags: ["new-release"]
 
 # Steeltoe 4.0.0 now Generally Available
 
-Steeltoe 4 is a major release that brings many improvements and changes to the library. Minimal changes have been made since [the RC1 release announcement](./steeltoe-4-0-0-rc1.md), but we've added a [guide for migrating from Steeltoe 3](../../docs/v4/welcome/migrate-quick-steps.md).
+Steeltoe 4 is a major release that brings many improvements and changes to the library. Minimal changes have been made since [the RC1 release announcement](./steeltoe-4-0-0-rc1.md), but we've added a [guide for migrating from Steeltoe 3](../../docs/v4/welcome/migrate-quick-steps.html).
 
-Review [What's New in Steeltoe 4](../../docs/v4/welcome/whats-new.md) for more information about all the improvements.
+Review [What's New in Steeltoe 4](../../docs/v4/welcome/whats-new.html) for more information about all the improvements.
 
 We know that upgrades can be tough, especially when dependencies have name changes or disappear entirely. For the packages that no longer exist we've shipped placeholders that will show up as upgrades, but prevent projects from building and recommend how to move forward. These placeholder packages should make it easier to spot where changes are required.
 

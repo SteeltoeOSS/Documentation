@@ -1,6 +1,6 @@
 # CredHub API Client
 
-[CredHub](https://github.com/cloudfoundry-incubator/credhub) manages credentials such as  passwords, certificates, certificate authorities, ssh keys, rsa keys, and other arbitrary values. Steeltoe provides the `CredHubBase` library for interacting with the [CredHub API](https://credhub-api.cfapps.io/) and provides the `CredHubCore` library for making that client library simpler to use in ASP.NET Core applications. Cloud Foundry is not required for the CredHub server or client but is used in this documentation as the hosting environment. You may wish to review the documentation for [CredHub on PCF](https://docs.pivotal.io/pivotalcf/2-0/credhub/). If you do not already have a UAA user to use for this test, you will need to use the UAA command line tool to establish some security credentials for the sample app. Choose one of the provided `credhub-setup` scripts in the folder `samples/Security/scripts` to target your Cloud Foundry environment and create a UAA client with permissions to read and write in CredHub.
+[CredHub](https://github.com/cloudfoundry-incubator/credhub) manages credentials such as  passwords, certificates, certificate authorities, ssh keys, rsa keys, and other arbitrary values. Steeltoe provides the `CredHubBase` library for interacting with the [CredHub API](https://github.com/cloudfoundry/credhub/blob/main/docs/README.md) and provides the `CredHubCore` library for making that client library simpler to use in ASP.NET Core applications. Cloud Foundry is not required for the CredHub server or client but is used in this documentation as the hosting environment. You may wish to review the documentation for [CredHub on PCF](https://docs.pivotal.io/pivotalcf/2-0/credhub/). If you do not already have a UAA user to use for this test, you will need to use the UAA command line tool to establish some security credentials for the sample app. Choose one of the provided `credhub-setup` scripts in the folder `samples/Security/scripts` to target your Cloud Foundry environment and create a UAA client with permissions to read and write in CredHub.
 
 >NOTE: If you choose to change the values for `UAA_CLIENT_ID` or `UAA_CLIENT_SECRET`, be sure to update the credentials in appsettings.json
 
@@ -128,7 +128,7 @@ If you wish to use CredHub to interpolate entries in `VCAP_SERVICES`, you can us
 
 ### Credential Types
 
-These are the .NET representations of credentials that can be stored in CredHub. Refer to the [CredHub documentation](https://credhub-api.cfapps.io/) for more detail.
+These are the .NET representations of credentials that can be stored in CredHub. Refer to the [CredHub documentation](https://github.com/cloudfoundry/credhub/blob/main/docs/README.md) for more detail.
 
 #### ValueCredential
 
@@ -167,7 +167,7 @@ The `SshCredential` has string properties for `PublicKey`, `PrivateKey`, and `Pu
 
 ### CredHub Read Operations
 
-All `CredHubClient` Read operations operate asynchronously and do not change the credentials or permissions stored in CredHub. Refer to the [CredHub documentation](https://credhub-api.cfapps.io/) for more detail. For brevity, the samples shown later in this guide use `_credHubClient` to reference an instance of `CredHubClient` that has been created previously.
+All `CredHubClient` Read operations operate asynchronously and do not change the credentials or permissions stored in CredHub. Refer to the [CredHub documentation](https://github.com/cloudfoundry/credhub/blob/main/docs/README.md) for more detail. For brevity, the samples shown later in this guide use `_credHubClient` to reference an instance of `CredHubClient` that has been created previously.
 
 #### Get by ID
 
@@ -254,7 +254,7 @@ The following example shows a typical response object from the `Interpolate` end
 
 ### CredHub Change Operations
 
-All `CredHubClient` Change operations operate asynchronously and affect stored credentials. Refer to the [CredHub documentation](https://credhub-api.cfapps.io/) for more detail. For brevity, the samples shown later in this guide use `_credHubClient` to reference an instance of `CredHubClient` that has been created previously.
+All `CredHubClient` Change operations operate asynchronously and affect stored credentials. Refer to the [CredHub documentation](https://github.com/cloudfoundry/credhub/blob/main/docs/README.md) for more detail. For brevity, the samples shown later in this guide use `_credHubClient` to reference an instance of `CredHubClient` that has been created previously.
 
 #### Write
 
@@ -270,7 +270,7 @@ setValueRequest.Overwrite = true;
 var setValue2 = await _credHub.WriteAsync<ValueCredential>(setValueRequest);
 ```
 
->NOTE: The default behavior on `Write` requests is to leave existing values alone. If you wish to overwrite a credential, be sure to pass either `OverwriteMode.converge` or `OverwriteMode.overwrite` for the `overwriteMode` parameter on your request object. See [Overwriting Credential Values](https://credhub-api.cfapps.io/#overwriting-credential-values).
+>NOTE: The default behavior on `Write` requests is to leave existing values alone. If you wish to overwrite a credential, be sure to pass either `OverwriteMode.converge` or `OverwriteMode.overwrite` for the `overwriteMode` parameter on your request object. See [Overwriting Credential Values](https://github.com/cloudfoundry/credhub/blob/main/docs/credential-types.md) in the CredHub documentation.
 
 Write requests allow the setting of permissions on a credential during generation, as shown in the following example:
 
@@ -311,7 +311,7 @@ var genRequest = new PasswordGenerationRequest("generatedPW", genParams, new Lis
 CredHubCredential<PasswordCredential> genPassword = await _credHub.GenerateAsync<PasswordCredential>(genRequest);
 ```
 
->NOTE: The default behavior on `Generate` requests is to leave existing values alone. If you wish to overwrite a credential, be sure to pass either `OverwriteMode.converge` or `OverwriteMode.overwrite` for the `overwriteMode` parameter on your request object. See [Overwriting Credential Values](https://credhub-api.cfapps.io/#overwriting-credential-values).
+>NOTE: The default behavior on `Generate` requests is to leave existing values alone. If you wish to overwrite a credential, be sure to pass either `OverwriteMode.converge` or `OverwriteMode.overwrite` for the `overwriteMode` parameter on your request object. See [Overwriting Credential Values](https://github.com/cloudfoundry/credhub/blob/main/docs/credential-types.md) in the CredHub documentation.
 
 #### Regenerate
 
@@ -343,7 +343,7 @@ bool deleteCertificate = await _credHub.DeleteByNameAsync("/MyPreviouslyGenerate
 
 ### Permission Operations
 
-CredHub supports permissions management on credential access for UAA users. See the [offical CredHub Permissions documentation](https://credhub-api.cfapps.io/#permissions).
+CredHub supports permissions management on credential access for UAA users. See the [offical CredHub Permissions documentation](https://github.com/cloudfoundry/credhub/blob/main/docs/permissions.md).
 
 #### Get Permissions
 

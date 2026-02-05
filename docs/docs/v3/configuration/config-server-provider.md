@@ -4,7 +4,7 @@ This provider enables the Spring Cloud Config Server to be used as a source of c
 
 The Spring Cloud Config Server is an application configuration service that gives you a central place to manage an application's configuration values externally across all environments. As an application moves through the deployment pipeline from development to test and into production, you can use the config server to manage the configuration between environments and be certain that the application has everything it needs to run when you migrate it. The config server easily supports labelled versions of environment-specific configurations and is accessible to a wide range of tooling for managing its content.
 
-To gain a better understanding of the Spring Cloud Config Server, you should read the [Spring Cloud](https://projects.spring.io/spring-cloud/) documentation.
+To gain a better understanding of the Spring Cloud Config Server, you should read the [Spring Cloud](https://spring.io/projects/spring-cloud-config) documentation.
 
 In addition to the Quick Start provided later, you can refer to several other Steeltoe sample applications when you need to understand how to use this provider:
 
@@ -30,7 +30,7 @@ To use the Steeltoe provider, you need to do the following:
 
 You can choose one of two Config Server client NuGets, depending on your needs.
 
-If you plan on only connecting to the open source version of [Spring Cloud Config Server](https://projects.spring.io/spring-cloud/), you should use one of the packages described by the following table, depending on your application type and needs:
+If you plan on only connecting to the open source version of [Spring Cloud Config Server](https://spring.io/projects/spring-cloud-config), you should use one of the packages described by the following table, depending on your application type and needs:
 
 | Package | Description | .NET Target |
 | --- | --- | --- |

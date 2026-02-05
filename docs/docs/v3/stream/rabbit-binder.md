@@ -72,7 +72,7 @@ A comma-separated list of RabbitMQ management plugin URLs.
 Only used when `nodes` contains more than one entry.
 Each entry in this list must have a corresponding entry in `spring:rabbitmq:addresses`.
 Only needed if you use a RabbitMQ cluster and wish to consume from the node that hosts the queue.
-See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/#queue-affinity) for more information.
+See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/#queue-affinity) for more information.
 
 Default: empty.
 
@@ -81,7 +81,7 @@ A comma-separated list of RabbitMQ node names.
 When more than one entry, used to locate the server address where a queue is located.
 Each entry in this list must have a corresponding entry in `spring:rabbitmq:addresses`.
 Only needed if you use a RabbitMQ cluster and wish to consume from the node that hosts the queue.
-See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/#queue-affinity) for more information.
+See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/#queue-affinity) for more information.
 
   Default: empty.
 
