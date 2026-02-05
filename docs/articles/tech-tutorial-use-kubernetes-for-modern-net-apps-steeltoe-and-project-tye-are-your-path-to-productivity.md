@@ -42,7 +42,7 @@ Further, configuration values come from different sources in different environme
 
 .NET Core introduced [configuration providers](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/?view=aspnetcore-3.1#configuration-providers) and a hierarchy to them. So it's natural that a Kubernetes configmap (which is just another key/value store) should be a config source in a .NET microservice.
 
-[Steeltoe offers a Kubernetes provider](/docs/v3/configuration/kubernetes-providers.md) to do just this! To add the client all you need to do is let the HostBuilder know about it.
+[Steeltoe offers a Kubernetes provider](/docs/v3/configuration/kubernetes-providers.html) to do just this! To add the client all you need to do is let the HostBuilder know about it.
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>     Host.CreateDefaultBuilder(args)
@@ -65,7 +65,7 @@ public WeatherForecastController(IConfiguration config){
 
 Also included is the option to automatically refresh values. When enabled, your application will poll (or maintain an open connection) with the Kubernetes API server. Whenever a value in the ConfigMap is changed, your app’s values will also change -- no restart needed. Whenever a value is added or removed from the ConfigMap (or Secret) your app will automatically see those changes -- also no restart required. That's some cloud-native ninja action!
 
-Getting the value(s) of Kubernetes secrets to the application follows the same pattern as ConfigMaps. Additionally you can pick and choose which source should be made available to the application. [Learn more in the docs](/docs/v3/configuration/kubernetes-providers.md).
+Getting the value(s) of Kubernetes secrets to the application follows the same pattern as ConfigMaps. Additionally you can pick and choose which source should be made available to the application. [Learn more in the docs](/docs/v3/configuration/kubernetes-providers.html).
 
 ## If all the services are in the same cluster...
 
@@ -115,7 +115,7 @@ public FortuneService(HttpClient httpClient, ILoggerFactory logFactory){
 }
 ```
 
-[Customizable load-balancing](/docs/v3/discovery/load-balancing.md) between multiple application instances of the same service? Done. Automatic service registration? Done. Steeltoe and Kubernetes are like peanut butter and jelly. They were made for one another.
+[Customizable load-balancing](/docs/v3/discovery/load-balancing.html) between multiple application instances of the same service? Done. Automatic service registration? Done. Steeltoe and Kubernetes are like peanut butter and jelly. They were made for one another.
 
 ## Teach Kubernetes what a healthy application is
 
@@ -123,13 +123,13 @@ Any proper platform running containers is going to have a concept of health repo
 
 In Kubernetes, there are two deeper probes offered named `readiness` and `liveness`. Readiness is about ensuring the application is ready to start receiving traffic. While liveness is about making sure the application is still healthy over time.
 
-Fortunately, Steeltoe is here to help set up both of these probes. Using new IHealthContributors and support for grouping, Steeltoe’s [health actuator endpoint](/docs/v3/management/health.md) builds several different views of the app’s dependencies.
+Fortunately, Steeltoe is here to help set up both of these probes. Using new IHealthContributors and support for grouping, Steeltoe’s [health actuator endpoint](/docs/v3/management/health.html) builds several different views of the app’s dependencies.
 
 A view is a collection of decisions that reflect the current state of the application. For example if an application depends on a service and it (for some reason) goes offline, then the view should return a negative state. When the service is back up, then the view’s state should update to positive.
 
 The current state of the views are a part of the response body in the health actuator endpoint. Kubernetes uses this to know how the app is doing.
 
-Learn more about Steeltoe’s health endpoint with documentation and code snippets, [here](/docs/v3/management/health.md).
+Learn more about Steeltoe’s health endpoint with documentation and code snippets, [here](/docs/v3/management/health.html).
 
 ## Develop locally, as if you’re already in production
 
@@ -149,6 +149,6 @@ Project Tye solves a cloud-native developer’s biggest challenge, environment p
 
 ## Learn more and get started today
 
-To get started with any Steeltoe projects, head over to the [getting started guides](../guides/index.md). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples/tree/3.x), and you’ll have .NET microservices up and running before you know it!
+To get started with any Steeltoe projects, head over to the [getting started guides](../guides/index.html). Combine this with the samples in the [Steeltoe GitHub repo](https://github.com/SteeltoeOSS/Samples/tree/3.x), and you’ll have .NET microservices up and running before you know it!
 
 Want to get deeper into creating cloud-native .NET apps? Attend the VMware Pivotal Labs’s [4 -day .NET developer course](https://pivotal.io/platform-acceleration-lab/pal-for-developers-net). You’ll get hands-on cloud-native .NET training learn best practices when creating microservices and become a Steeltoe ninja!
