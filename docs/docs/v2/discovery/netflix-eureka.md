@@ -21,7 +21,7 @@ You should know how the new .NET [Configuration service](https://docs.microsoft.
 
 You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services and the middleware used in the app. Pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
 
-You should also have a good understanding of the [Spring Cloud Eureka Server](https://projects.spring.io/spring-cloud/).
+You should also have a good understanding of the [Spring Cloud Eureka Server](https://spring.io/projects/spring-cloud-netflix).
 
 In order to use the Steeltoe Discovery client, you need to do the following:
 
