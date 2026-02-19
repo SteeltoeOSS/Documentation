@@ -14,7 +14,7 @@ If you are working with API Browser content, view [this README](../build/README.
 
 ## Installing docfx
 
-Install docfx by running `dotnet tool restore`, which installs tools defined in [dotnet-tools.json](../.config/dotnet-tools.json).
+docfx is automatically downloaded by the [build-metadata.ps1](../build/build-metadata.ps1) script when building API Browser metadata.
 
 ## docfx Markdown
 

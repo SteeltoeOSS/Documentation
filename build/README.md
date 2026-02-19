@@ -22,7 +22,7 @@ This process can take a while to complete, will display many warnings and may in
 
 ## What does the script do?
 
-1. Install docfx (by running `dotnet tool restore`, which installs tools defined in [dotnet-tools.json](../.config/dotnet-tools.json))
+1. Download docfx binaries (temporary workaround for .NET 10 support)
 1. Clone several copies of Steeltoe (using [metadata.conf](./metadata.conf) to identify checkout targets)
 1. Run `docfx metadata api-v{version}.json` for each copy
    1. This command will produce many yaml files and place them in [docs](../docs), alongside the index pages for each API version
