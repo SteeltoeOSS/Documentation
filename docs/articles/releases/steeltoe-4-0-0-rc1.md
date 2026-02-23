@@ -19,7 +19,7 @@ Whether you're starting something new or modernizing an existing app, 4.0 is the
 
 Steeltoe 4.0 introduces changes across nearly every area of the framework and surrounding projects and is built for .NET 8+
 
-For a deeper dive, check out the full changelog in the docs: [What's New in Steeltoe 4.0](/docs/v4/welcome/whats-new.md)
+For a deeper dive, check out the full changelog in the docs: [What's New in Steeltoe 4.0](../../docs/v4/welcome/whats-new.md)
 
 ### Enhanced Developer Experience
 
@@ -45,7 +45,7 @@ With Steeltoe 4.0, we've taken a deliberate approach to address this:
 * **Aligned APIs more closely with Microsoft conventions**, reducing surprises for all developers.
 * **Added internal tooling** to detect breaking changes across releases and ensure future stability.
 
-Breaking changes are [documented](/docs/v4/welcome/whats-new.md), and our [samples](https://github.com/SteeltoeOSS/Samples/tree/4.x) reflect the latest best practices.
+Breaking changes are [documented](../../docs/v4/welcome/whats-new.md), and our [samples](https://github.com/SteeltoeOSS/Samples/tree/4.x) reflect the latest best practices.
 
 #### Steeltoe Entrypoint Changes
 
