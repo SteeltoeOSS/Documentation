@@ -46,7 +46,6 @@ jobs:
             --exclude 'consul-register-example'
             --exclude '^docker://'
             --exclude-path '.git'
-            --exclude-path 'docs/api'
             --max-concurrency 5
             --max-retries 6
             --retry-wait-time 15
@@ -55,15 +54,16 @@ jobs:
           fail: true
           jobSummary: false
 
-      - name: Write link checking results to job summary
+      - name: Add link checking results to job summary
         if: ${{ !cancelled() }}
         run: |
-          sed -i 's/^# Summary$/# Link checking results/' ./lychee/out.md
-          cat ./lychee/out.md >> "$GITHUB_STEP_SUMMARY"
+          if [ -f ./lychee/out.md ]; then
+            sed 's/^# Summary$/# Link checking results/' ./lychee/out.md | tee -a "$GITHUB_STEP_SUMMARY" > ./lychee/results.md
+          fi
 
       - name: Comment on PR with link check results
         if: ${{ !cancelled() && github.event_name == 'pull_request' }}
         uses: mshick/add-pr-comment@v2
         with:
           message-id: broken-links-check
-          message-path: ./lychee/out.md
+          message-path: ./lychee/results.md

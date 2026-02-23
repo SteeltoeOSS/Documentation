@@ -28,3 +28,13 @@ This process can take a while to complete, will display many warnings and may in
    1. This command will produce many yaml files and place them in [docs](../docs), alongside the index pages for each API version
    1. The script offers a parameter to target a single version (for example: `build-metadata.ps1 3`)
 1. Run `docfx build` with [docfx-all.json](../docs/docfx-all.json), which will copy the html files into `wwwroot` of the Steeltoe.io project
+
+## Checking internal links locally
+
+After running the docfx build, check internal links in the generated HTML with the same tools CI uses:
+
+```pwsh
+pwsh build/check-internal-links.ps1
+```
+
+Requires [lychee](https://lychee.cli.rs/installation/).

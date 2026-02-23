@@ -56,23 +56,23 @@ jobs:
         args: |
           --verbose
           --no-progress
-          --root-dir ${{ env.PUBLISH_DIR }}
+          --root-dir ${{ env.PUBLISH_DIR }}/wwwroot
           --exclude '^https?://'
+          --exclude '^file:///[^#?]*/[^.#?/]+$'
           --exclude-path '.git'
           --max-concurrency 5
           --max-retries 6
           --retry-wait-time 15
           --timeout 30
-          '${{ env.PUBLISH_DIR }}/**/*.html'
+          '${{ env.PUBLISH_DIR }}/wwwroot/**/*.html'
         fail: true
         jobSummary: false
 
-    - name: Add internal link check results to job summary
+    - name: Add internal link checking results to job summary
       if: ${{ !cancelled() }}
       run: |
         if [ -f ./lychee/out.md ]; then
-          sed -i 's/^# Summary$/# Internal link check (built site)/' ./lychee/out.md
-          cat ./lychee/out.md >> "$GITHUB_STEP_SUMMARY"
+          sed 's/^# Summary$/# Internal link checking results/' ./lychee/out.md >> "$GITHUB_STEP_SUMMARY"
         fi
 
     - name: Upload artifact for deployment job
