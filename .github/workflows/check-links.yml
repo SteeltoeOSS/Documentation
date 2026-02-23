@@ -3,9 +3,12 @@ name: Check broken links
 on:
   workflow_dispatch:
   pull_request:
+    branches:
+      - main
     paths:
       - '**.md'
       - 'docs/**'
+      - '.github/workflows/check-links.yml'
 
 permissions:
   contents: read
@@ -16,8 +19,10 @@ jobs:
     name: Check links in documentation
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Git checkout
         uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - name: Restore lychee cache
         uses: actions/cache@v4
@@ -51,13 +56,13 @@ jobs:
           jobSummary: false
 
       - name: Write link checking results to job summary
-        if: always()
+        if: ${{ !cancelled() }}
         run: |
           sed -i 's/^# Summary$/# Link checking results/' ./lychee/out.md
           cat ./lychee/out.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Comment on PR with link check results
-        if: always() && github.event_name == 'pull_request'
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
         uses: mshick/add-pr-comment@v2
         with:
           message-id: broken-links-check
