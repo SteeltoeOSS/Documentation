@@ -1,4 +1,4 @@
-name: Check broken links
+name: Check external links
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   check-links:
-    name: Check links in documentation
+    name: Check external links in documentation
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -31,7 +31,7 @@ jobs:
           key: cache-lychee-${{ github.sha }}
           restore-keys: cache-lychee-
 
-      - name: Check links with lychee
+      - name: Check external links with lychee
         uses: lycheeverse/lychee-action@v2
         with:
           args: |
@@ -58,12 +58,12 @@ jobs:
         if: ${{ !cancelled() }}
         run: |
           if [ -f ./lychee/out.md ]; then
-            sed 's/^# Summary$/# Link checking results/' ./lychee/out.md | tee -a "$GITHUB_STEP_SUMMARY" > ./lychee/results.md
+            sed 's/^# Summary$/# External link checking results/' ./lychee/out.md | tee -a "$GITHUB_STEP_SUMMARY" > ./lychee/results.md
           fi
 
       - name: Comment on PR with link check results
         if: ${{ !cancelled() && github.event_name == 'pull_request' }}
         uses: mshick/add-pr-comment@v2
         with:
-          message-id: broken-links-check
+          message-id: external-links-check
           message-path: ./lychee/results.md

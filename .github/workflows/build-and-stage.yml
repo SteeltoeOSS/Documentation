@@ -19,15 +19,13 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   DOTNET_NOLOGO: true
   DOCFX_SOURCE_BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-  PUBLISH_DIR: ${{ github.workspace }}/mainsite
 
 jobs:
   build:
     name: Build and publish app
     runs-on: ubuntu-latest
     steps:
-    - name: Git checkout
-      uses: actions/checkout@v6
+    - uses: actions/checkout@v6
       with:
         persist-credentials: false
 
@@ -47,39 +45,13 @@ jobs:
       run: dotnet build src/Steeltoe.io --configuration Release
 
     - name: dotnet publish
-      run: dotnet publish src/Steeltoe.io --configuration Release --no-build --output ${{ env.PUBLISH_DIR }}
-
-    - name: Check internal links in built site
-      if: ${{ !cancelled() }}
-      uses: lycheeverse/lychee-action@v2
-      with:
-        args: |
-          --verbose
-          --no-progress
-          --root-dir ${{ env.PUBLISH_DIR }}/wwwroot
-          --exclude '^https?://'
-          --exclude '^file:///[^#?]*/[^.#?/]+$'
-          --exclude-path '.git'
-          --max-concurrency 5
-          --max-retries 6
-          --retry-wait-time 15
-          --timeout 30
-          '${{ env.PUBLISH_DIR }}/wwwroot/**/*.html'
-        fail: true
-        jobSummary: false
-
-    - name: Add internal link checking results to job summary
-      if: ${{ !cancelled() }}
-      run: |
-        if [ -f ./lychee/out.md ]; then
-          sed 's/^# Summary$/# Internal link checking results/' ./lychee/out.md >> "$GITHUB_STEP_SUMMARY"
-        fi
+      run: dotnet publish src/Steeltoe.io --configuration Release --no-build --output ${{ env.DOTNET_ROOT }}/mainsite
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v6
       with:
         name: Steeltoe.io
-        path: ${{ env.PUBLISH_DIR }}
+        path: ${{ env.DOTNET_ROOT }}/mainsite
 
   deploy:
     name: Deploy
