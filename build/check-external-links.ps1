@@ -24,6 +24,8 @@ try {
     & lychee `
         --verbose `
         --no-progress `
+        --scheme https `
+        --scheme http `
         --cache `
         --max-cache-age 1d `
         --accept '100..=103,200..=299,403,429' `
@@ -31,8 +33,7 @@ try {
         --exclude 'fortuneservice' `
         --exclude '\.internal' `
         --exclude 'consul-register-example' `
-        --exclude '^docker://' `
-        --exclude-path '.git' `
+        --exclude-path 'build.sources' `
         --max-concurrency 5 `
         --max-retries 6 `
         --retry-wait-time 15 `
