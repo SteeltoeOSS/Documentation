@@ -26,6 +26,7 @@ try {
         --no-progress `
         --scheme https `
         --scheme http `
+        --root-dir '.' `
         --cache `
         --max-cache-age 1d `
         --accept '100..=103,200..=299,403,429' `
