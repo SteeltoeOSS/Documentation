@@ -196,7 +196,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public async Task<string> Get()
     {
-        return await _httpClient.GetStringAsync("http://Consul-Register-Example/WeatherForecast");
+        return await _httpClient.GetStringAsync("http://consul-register-example/WeatherForecast");
     }
 }
 ```
@@ -205,7 +205,7 @@ Some notes about the above code:
 
 * Steeltoe configures [`HttpClientFactory`](https://docs.microsoft.com/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) to provide named `HttpClient`s that are configured with Random or RoundRobin load balancers.
   * There are several other ways to [discover services](../../docs/v3/discovery/discovering-services.md)
-* Inside the outbound HTTP request pipeline, Steeltoe replaces "http://Consul-Register-Example/" in the request Uri with a scheme + host + port returned from Consul
+* Inside the outbound HTTP request pipeline, Steeltoe replaces "http://consul-register-example/" in the request Uri with a scheme + host + port returned from Consul
 
 Run the app to see discovery in action:
 
