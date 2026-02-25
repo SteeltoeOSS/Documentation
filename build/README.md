@@ -37,4 +37,4 @@ Check external links in markdown files with the same tools CI uses (no build req
 pwsh build/check-external-links.ps1
 ```
 
-Requires [lychee](https://lychee.cli.rs/installation/).
+Requires [lychee](https://lychee.cli.rs/guides/getting-started/).

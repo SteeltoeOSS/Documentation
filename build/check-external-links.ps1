@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 # Check external links in markdown files, matching what the check-links CI job does.
-# Run from anywhere in the repo. Requires lychee: https://lychee.cli.rs/installation/
+# Run from anywhere in the repo. Requires lychee: https://lychee.cli.rs/guides/getting-started/
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
