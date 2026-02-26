@@ -33,6 +33,7 @@ try {
         --include-fragments `
         --require-https `
         --retry-wait-time 3 `
+        --root-dir '.' `
         --scheme http `
         --scheme https `
         '**/*.md'
