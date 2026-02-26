@@ -5,15 +5,15 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+if (-not (Get-Command lychee -ErrorAction SilentlyContinue)) {
+    throw 'lychee not found. Install: cargo install lychee, scoop install lychee, or winget install lycheeverse.lychee'
+}
+
 $baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = (Get-Item $baseDir).Parent.FullName
 Push-Location $repoRoot
 
 try {
-    if (-not (Get-Command lychee -ErrorAction SilentlyContinue)) {
-        throw 'lychee not found. Install: cargo install lychee, scoop install lychee, or winget install lycheeverse.lychee'
-    }
-
     $mdFiles = Get-ChildItem -Path . -Filter '*.md' -Recurse -File
     if ($mdFiles.Count -eq 0) {
         throw 'No .md files found in the repository.'
@@ -22,23 +22,19 @@ try {
     Write-Output "Checking external links in $($mdFiles.Count) markdown files ..."
 
     & lychee `
-        --verbose `
-        --no-progress `
-        --scheme https `
-        --scheme http `
-        --root-dir '.' `
         --cache `
-        --max-cache-age 1d `
-        --accept '100..=103,200..=299,403,429' `
-        --exclude 'localhost' `
         --exclude 'fortuneservice' `
         --exclude '\.internal' `
         --exclude 'consul-register-example' `
+        --exclude-loopback `
         --exclude-path 'build.sources' `
-        --max-concurrency 5 `
-        --max-retries 6 `
-        --retry-wait-time 15 `
-        --timeout 30 `
+        --host-concurrency 5 `
+        --host-request-interval 100ms `
+        --include-fragments `
+        --require-https `
+        --retry-wait-time 3 `
+        --scheme http `
+        --scheme https `
         '**/*.md'
 
     if ($LASTEXITCODE -ne 0) {

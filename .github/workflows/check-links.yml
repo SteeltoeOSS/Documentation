@@ -37,36 +37,33 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: |
-            --verbose
             --no-progress
-            --scheme https
-            --scheme http
-            --root-dir '.'
             --cache
-            --max-cache-age 1d
-            --accept 100..=103,200..=299,403,429
-            --exclude 'localhost'
             --exclude 'fortuneservice'
             --exclude '\.internal'
             --exclude 'consul-register-example'
+            --exclude-loopback
             --exclude-path 'build.sources'
-            --max-concurrency 5
-            --max-retries 6
-            --retry-wait-time 15
-            --timeout 30
+            --host-concurrency 5
+            --host-request-interval 100ms
+            --include-fragments
+            --require-https
+            --retry-wait-time 3
+            --scheme http
+            --scheme https
             '**/*.md'
-          fail: true
+          failIfEmpty: true
           jobSummary: false
 
       - name: Add link checking results to job summary
-        if: ${{ !cancelled() }}
+        if: always()
         run: |
           if [ -f ./lychee/out.md ]; then
             sed 's/^# Summary$/# External link checking results/' ./lychee/out.md | tee -a "$GITHUB_STEP_SUMMARY" > ./lychee/results.md
           fi
 
       - name: Comment on PR with link check results
-        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+        if: always() && github.event_name == 'pull_request'
         uses: mshick/add-pr-comment@v2
         with:
           message-id: external-links-check
