@@ -45,13 +45,14 @@ jobs:
             --exclude-loopback
             --exclude-path 'build.sources'
             --host-concurrency 5
-            --host-request-interval 100ms
+            --host-request-interval 250ms
             --include-fragments
             --require-https
-            --retry-wait-time 3
+            --retry-wait-time 5
             --root-dir '.'
             --scheme http
             --scheme https
+            --verbose
             '**/*.md'
           failIfEmpty: true
           jobSummary: false

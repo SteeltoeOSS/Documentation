@@ -28,14 +28,17 @@ try {
         --exclude 'consul-register-example' `
         --exclude-loopback `
         --exclude-path 'build.sources' `
+        --exclude-path 'build.docfx-net10-binaries' `
         --host-concurrency 5 `
-        --host-request-interval 100ms `
+        --host-request-interval 300ms `
         --include-fragments `
         --require-https `
-        --retry-wait-time 3 `
+        --retry-wait-time 5 `
         --root-dir '.' `
-        --scheme http `
-        --scheme https `
+        --scheme 'http' `
+        --scheme 'https' `
+        --user-agent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' `
+        --verbose `
         '**/*.md'
 
     if ($LASTEXITCODE -ne 0) {
