@@ -13,7 +13,7 @@ All previous versions of Steeltoe had capability and feature expansion as the ma
 As a result of this weighting of priorities, Steeltoe was built to land somewhere in between Spring and .NET, inconsistently favoring conventions from one camp or the other, sometimes with the weight of additional lower-level abstractions from Spring.
 Add to that the breaking changes needed to adapt to updates in the .NET ecosystem since some of the older Steeltoe components were written, and you can see why it was time for a major overhaul.
 
-The introduction of [.NET Aspire](https://learn.microsoft.com/dotnet/aspire/get-started/aspire-overview) and the acquisition of VMware by Broadcom
+The introduction of [Aspire](https://aspire.dev) and the acquisition of VMware by Broadcom
 underscored that this is the time to refocus on Steeltoe's core goals and re-evaluate how the desired outcomes are achieved.
 
 Steeltoe 4 is a major release that brings many improvements and changes to the library.

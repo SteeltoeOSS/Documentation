@@ -343,7 +343,7 @@ bool deleteCertificate = await _credHub.DeleteByNameAsync("/MyPreviouslyGenerate
 
 ### Permission Operations
 
-CredHub supports permissions management on credential access for UAA users. See the [offical CredHub Permissions documentation](https://docs.cloudfoundry.org/api/credhub/version/main/#_permissions).
+CredHub supports permissions management on credential access for UAA users. See the [offical CredHub Permissions documentation](https://docs.cloudfoundry.org/api/credhub/version/main/#_permissions_v2_endpoint).
 
 #### Get Permissions
 

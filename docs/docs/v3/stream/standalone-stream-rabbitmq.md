@@ -307,7 +307,7 @@ Create a new .NET Console  project and add the NuGet packages as referred in the
 
 To create the business logic:
 
-1.  Create a `UsageCostDetail` class that looks like [UsageCostDetail.cs](https://github.com/SteeltoeOSS/Samples/tree/3.x/Stream/UsageCost/UsageLogger/UsageCostDetail.cs).
+1.  Create a `UsageCostDetail` class that looks like [UsageCostDetail.cs](https://github.com/SteeltoeOSS/Samples/blob/3.x/Stream/UsageCost/UsageLogger/UsageCostDetail.cs).
     The `UsageCostDetail` class contains `UserId`, `CallCost`, and `DataCost` properties.
 1.  Create the `UsageCostLogger` class, which receives the `UsageCostDetail` message and logs it. The following listing shows the source code:
 

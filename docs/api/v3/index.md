@@ -29,7 +29,7 @@ Contains several packages that are common to other Steeltoe components.
 
 ## Steeltoe Configuration Providers
 
-[Custom configuration providers](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/#custom-configuration-providers) for use with Microsoft's [application configuration](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) for accessing configuration settings for an application.
+[Custom configuration providers](https://learn.microsoft.com/aspnet/core/fundamentals/configuration/#custom-configuration-provider) for use with Microsoft's [application configuration](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) for accessing configuration settings for an application.
 
 [view](Steeltoe.Extensions.Configuration.yml)
 

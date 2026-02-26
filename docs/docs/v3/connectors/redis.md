@@ -1,6 +1,6 @@
 # Redis
 
-This connector simplifies using a Microsoft [`RedisCache`](https://learn.microsoft.com/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/).
+This connector simplifies using a Microsoft [`RedisCache`](https://learn.microsoft.com/aspnet/core/performance/caching/distributed#use-the-distributed-cache) or a StackExchange [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/).
 
 The following Steeltoe sample applications are available to help you understand how to use this connector:
 
@@ -15,7 +15,7 @@ You should know how the .NET [configuration service](https://learn.microsoft.com
 
 You should also know how the ASP.NET Core [`Startup`](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the application. Pay particular attention to the usage of the `ConfigureServices()` method.
 
-You probably want some understanding of how to use the [`RedisCache`](https://learn.microsoft.com/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/) before starting to use this connector.
+You probably want some understanding of how to use the [`RedisCache`](https://learn.microsoft.com/aspnet/core/performance/caching/distributed#use-the-distributed-cache) or [`IConnectionMultiplexer`](https://stackexchange.github.io/StackExchange.Redis/) before starting to use this connector.
 
 To use this connector:
 

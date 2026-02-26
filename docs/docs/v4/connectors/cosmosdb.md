@@ -25,7 +25,7 @@ Also add a NuGet reference to one of the .NET drivers listed above, as you would
 
 ### Configure connection string
 
-The CosmosDB connection string can be obtained as described in the [Microsoft documentation](https://learn.microsoft.com/azure/cosmos-db/nosql/how-to-dotnet-get-started#retrieve-your-account-connection-string).
+The CosmosDB connection string can be obtained as described in the [Microsoft documentation](https://learn.microsoft.com/azure/cosmos-db/how-to-dotnet-get-started).  <!-- TODO: what page describes how to get connection strings now? not this one -->
 
 The following example `appsettings.json` uses the emulator:
 

@@ -196,7 +196,7 @@ public class HomeController : Controller
 }
 ```
 
-Requiring claims is not built into the framework, so it is not quite as simple as in ASP.NET Core, but is still possible in a variety of ways. The Steeltoe SSO sample demonstrates extending the Thinktecture `ClaimsAuthorizeAttribute` (from the now-archived [IdentityModel](https://github.com/IdentityModel/IdentityModel) project) with a [CustomClaimsAuthorizeAttribute](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNet4/CloudFoundrySingleSignon/CustomClaimsAuthorizeAttribute.cs) to redirect to an &quot;Access Denied&quot; page when a user is authenticated but lacks the required claim. Using these attributes is straightforward, as shown in this example:
+Requiring claims is not built into the framework, so it is not quite as simple as in ASP.NET Core, but is still possible in a variety of ways. The Steeltoe SSO sample demonstrates extending the Thinktecture `ClaimsAuthorizeAttribute` (from the now-archived [IdentityModel](https://github.com/DuendeArchive/IdentityModel) project) with a [CustomClaimsAuthorizeAttribute](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNet4/CloudFoundrySingleSignon/CustomClaimsAuthorizeAttribute.cs) to redirect to an &quot;Access Denied&quot; page when a user is authenticated but lacks the required claim. Using these attributes is straightforward, as shown in this example:
 
 ```csharp
 // When using this attribute, an authenticated user who does not have the claim will be redirected to the login page

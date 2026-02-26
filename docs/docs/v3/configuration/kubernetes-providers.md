@@ -184,7 +184,7 @@ Additional Secrets can be specified in the Sources list using the name and names
 
 All settings above should start with `Spring:Cloud:Kubernetes:Secrets`.
 
-For more information about risks and best practices when consuming Secrets through the API refer to the [best practices](https://kubernetes.io/docs/concepts/configuration/secret/#best-practices).
+For more information about risks and best practices when consuming Secrets through the API refer to the [best practices](https://kubernetes.io/docs/concepts/security/secrets-good-practices/).
 
 ### Reload Settings
 

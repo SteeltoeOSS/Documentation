@@ -40,5 +40,5 @@ This repository hosts the [Steeltoe website](https://steeltoe.io/): documentatio
 ## Resources
 
 - **Canonical instructions:** [README.md](README.md), [build/README.md](build/README.md), [docs/README.md](docs/README.md).
-- [docfx documentation](https://dotnet.github.io/docfx) · [docfx Flavored Markdown](https://dotnet.github.io/docfx/docs/markdown.html)
+- [docfx documentation](https://dotnet.github.io/docfx/) · [docfx Flavored Markdown](https://dotnet.github.io/docfx/docs/markdown.html)
 - [Steeltoe website](https://steeltoe.io) · [ASP.NET Core Blazor](https://learn.microsoft.com/aspnet/core/blazor/)

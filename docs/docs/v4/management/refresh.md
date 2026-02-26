@@ -19,7 +19,7 @@ Each key must be prefixed with `Management:Endpoints:Refresh:`.
 
 > [!CAUTION]
 > Despite it being *possible* to configure this endpoint to respond to `GET` requests,
-> this is discouraged because it is not a [Safe HTTP Method](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP).
+> this is discouraged because it is not a [Safe HTTP Method](https://developer.mozilla.org/docs/Glossary/Safe/HTTP).
 
 ## Enable HTTP Access
 

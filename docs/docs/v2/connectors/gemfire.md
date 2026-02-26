@@ -19,7 +19,7 @@ To use this connector:
 
 Follow the instructions in the [GemFire Native Client documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-gemfire-native-client/10-4/gf-nc/dotnet-install-upgrade-native.html) for instructions on downloading the driver and getting started with general driver usage.
 
->TIP: Should you wish to avoid committing the driver to source, you are free to copy the [script](https://github.com/SteeltoeOSS/steeltoe/blob/2.x/src/Connectors/EnableGemFire.ps1) that Steeltoe's CI process uses in your own pipelines. You will need a [legacy API token](https://network.pivotal.io/docs/api#how-to-authenticate) for the script to complete.
+>TIP: Should you wish to avoid committing the driver to source, you are free to copy the [script](https://github.com/SteeltoeOSS/steeltoe/blob/2.x/src/Connectors/EnableGemFire.ps1) that Steeltoe's CI process uses in your own pipelines. You will need an API token from the Broadcom Support Portal for the script to complete.
 
 ### Add NuGet Reference
 
