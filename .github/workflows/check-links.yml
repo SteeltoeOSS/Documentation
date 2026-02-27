@@ -27,12 +27,22 @@ jobs:
         with:
           persist-credentials: false
 
+      # To bust the lychee cache for a PR, replace `<pull-request-number>` with the PR number and run in pwsh:
+      # $ids = gh api repos/SteeltoeOSS/Documentation/actions/caches `
+      #   --paginate `
+      #   --jq '.actions_caches[]
+      #         | select(.key | startswith("cache-lychee-<pull-request-number>-"))
+      #         | .id'
+      # $ids | ForEach-Object {
+      #   gh api -X DELETE "repos/SteeltoeOSS/Documentation/actions/caches/$_"
+      #   Write-Host "Deleted cache $_"
+      # }
       - name: Restore lychee cache
         uses: actions/cache@v4
         with:
           path: .lycheecache
-          key: cache-lychee-${{ github.sha }}
-          restore-keys: cache-lychee-
+          key: cache-lychee-${{ github.event.pull_request.number || 'manual' }}-${{ github.sha }}
+          restore-keys: cache-lychee-${{ github.event.pull_request.number || 'manual' }}-
 
       - name: Check external links with lychee
         uses: lycheeverse/lychee-action@v2
