@@ -1,0 +1,32 @@
+# Shared lychee config for CI and local script (build/check-external-links.ps1).
+
+verbose = "info"
+cache = true
+scheme = ["http", "https"]
+require_https = true
+include_fragments = true
+retry_wait_time = 5
+root_dir = "."
+host_concurrency = 5
+host_request_interval = "250ms"
+exclude_loopback = true
+
+# Browser-like UA so sites that block bots (e.g. mysql.com) respond normally.
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+
+exclude = [
+    # Placeholder hostnames in code samples.
+    "fortuneservice",
+    "\\.internal",
+    "consul-register-example",
+    # False positives: these sites generate anchor IDs via JS, so fragments
+    # aren't in the raw HTML. Track https://github.com/lycheeverse/lychee/issues/1729
+    "https://learn\\.microsoft\\.com/.*#remarks",
+    "https://github\\.com/.*#",
+]
+
+exclude_path = [
+    # Vendored sources from API browser build.
+    "build/sources",
+    "build/docfx-net10-binaries",
+]

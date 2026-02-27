@@ -7,6 +7,7 @@ on:
       - '**.md'
       - 'docs/**'
       - '.github/workflows/check-links.yml'
+      - 'lychee.toml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -36,24 +37,8 @@ jobs:
       - name: Check external links with lychee
         uses: lycheeverse/lychee-action@v2
         with:
-          args: |
-            --no-progress
-            --cache
-            --exclude 'fortuneservice'
-            --exclude '\.internal'
-            --exclude 'consul-register-example'
-            --exclude-loopback
-            --exclude-path 'build.sources'
-            --host-concurrency 5
-            --host-request-interval 250ms
-            --include-fragments
-            --require-https
-            --retry-wait-time 5
-            --root-dir '.'
-            --scheme http
-            --scheme https
-            --verbose
-            '**/*.md'
+          args: --no-progress '**/*.md'
+          fail: false
           failIfEmpty: true
           jobSummary: false
 

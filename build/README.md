@@ -38,3 +38,4 @@ pwsh build/check-external-links.ps1
 ```
 
 Requires [lychee](https://lychee.cli.rs/guides/getting-started/).
+Settings are shared between CI and the local script via [`lychee.toml`](../lychee.toml) at the repo root.
