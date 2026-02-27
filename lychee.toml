@@ -1,6 +1,5 @@
 # Shared lychee config for CI and local script (build/check-external-links.ps1).
 
-verbose = "info"
 cache = true
 scheme = ["http", "https"]
 require_https = true
