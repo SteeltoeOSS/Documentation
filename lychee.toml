@@ -27,6 +27,6 @@ exclude = [
 
 exclude_path = [
     # Vendored sources from API browser build.
-    "build/sources",
-    "build/docfx-net10-binaries",
+    "build.sources",
+    "build.docfx-net10-binaries",
 ]
