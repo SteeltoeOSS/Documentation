@@ -2,6 +2,9 @@
 
 This connector simplifies using Azure Cosmos DB. The connector is built to work with Azure Cosmos DB from either `Microsoft.Azure.Cosmos` or the newer package `Azure.Cosmos`.
 
+> [!NOTE]
+> The Microsoft Azure Service Broker has been retired and there is currently no supported service broker for provisioning CosmosDB NoSQL instances on Cloud Foundry.
+
 ## Usage
 
 To use this connector:
@@ -60,8 +63,6 @@ cf bind-service myApp myCosmosDb
 # Restage the app to pick up change
 cf restage myApp
 ```
-
->The connector is built to work with Azure Cosmos DB service instances that have been provisioned with the [Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-azure/1-13/csb-azure/reference-azure-cosmosdb-mongo.html).
 
 ### Use CosmosClient
 

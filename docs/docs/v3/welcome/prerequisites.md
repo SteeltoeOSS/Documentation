@@ -5,7 +5,7 @@ While not required, we recommend installing one of the development tools ([Visua
 If you plan to develop with [.NET Core](https://learn.microsoft.com/dotnet/fundamentals/) or [ASP.NET Core](https://learn.microsoft.com/aspnet/core/), you will need to download and install the latest [.NET SDK](https://dotnet.microsoft.com/download). Additionally, if you do not already know the language and framework well, we recommend you first spend time working through some of the following tutorials from Microsoft:
 
 * [Getting Started with ASP.NET Core](https://learn.microsoft.com/aspnet/core/get-started)
-* [Getting Started with C#](https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial/intro)
+* [Getting Started with C#](https://learn.microsoft.com/dotnet/csharp/)
 
 ## NuGet Feeds
 

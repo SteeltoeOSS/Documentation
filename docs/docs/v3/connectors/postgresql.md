@@ -76,7 +76,7 @@ cf restage myApp
 
 >The preceding commands work for the PostgreSQL service provided by EDB on Cloud Foundry. For another service, adjust the `create-service` command to fit your environment.
 
-This connector also works with the [Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-azure/1-13/csb-azure/index.html). Note that Azure PostgreSQL was removed from newer versions of the service broker.
+This connector was built to work with the [Open Service Broker for Azure](https://github.com/Azure/open-service-broker-azure) (archived).
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 

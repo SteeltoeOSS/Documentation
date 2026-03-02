@@ -100,8 +100,6 @@ cf restage myApp
 
 >The preceding commands assume you use [Tanzu for MySQL](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-mysql-tanzu-platform/10-1/mysql-tp/index.html), provided by Tanzu Platform. If you use a different service, you must adjust the `create-service` command to fit your environment.
 
-This connector also works with the [Tanzu Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-azure/1-13/csb-azure/index.html). Note that Azure MySQL was removed from newer versions of the service broker.
-
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
 ### Add MySqlConnection
