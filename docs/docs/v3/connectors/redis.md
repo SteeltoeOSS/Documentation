@@ -93,7 +93,7 @@ cf restage myApp
 
 >The preceding commands assume you use the Redis service provided by TAS. If you use a different service, you have to adjust the `create-service` command to fit your environment.
 
-This connector also works with the [Cloud Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-azure/1-13/csb-azure/index.html).
+This connector also works with the [Cloud Service Broker for Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-azure/1-13/csb-azure/reference-azure-redis.html).
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 

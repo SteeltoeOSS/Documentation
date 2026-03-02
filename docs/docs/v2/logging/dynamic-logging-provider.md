@@ -8,7 +8,7 @@ For more information on how to use [Apps Manager](https://techdocs.broadcom.com/
 
 ## Usage
 
-Before starting to use Steeltoe provider, you should have a good understanding of how the .NET [Logging service](https://learn.microsoft.com/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x) works, as it is nothing more than a wrapper around the existing Microsoft Console logger.
+Before starting to use Steeltoe provider, you should have a good understanding of how the .NET [Logging service](https://learn.microsoft.com/aspnet/core/fundamentals/logging/) works, as it is nothing more than a wrapper around the existing Microsoft Console logger.
 
 In order to use the Steeltoe logging provider, you need to do the following:
 
@@ -34,7 +34,7 @@ You can add the provider to your project by using the following `PackageReferenc
 
 ### Configure Settings
 
-As mentioned earlier, the Steeltoe Logging provider is a wrapper around the Microsoft Console logging provider. Consequently, you can configure it the same way you would the Microsoft provider. For more details on how this is done, see the section on [Log Filtering](https://learn.microsoft.com/aspnet/core/fundamentals/logging/#how-filtering-rules-are-applied).
+As mentioned earlier, the Steeltoe Logging provider is a wrapper around the Microsoft Console logging provider. Consequently, you can configure it the same way you would the Microsoft provider. For more details on how this is done, see the section on [Apply log filter rules in code](https://learn.microsoft.com/aspnet/core/fundamentals/logging/#apply-log-filter-rules-in-code).
 
 ### Add Logging Provider
 

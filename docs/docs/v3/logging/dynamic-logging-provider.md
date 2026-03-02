@@ -32,7 +32,7 @@ You can add the provider to your project by using the following `PackageReferenc
 
 ### Configure Settings
 
-As mentioned earlier, the Steeltoe Logging provider is a wrapper around the Microsoft Console logging provider. Consequently, you can configure it the same way you would the Microsoft provider. For more details on how this is done, see the section on [Log Filtering](https://learn.microsoft.com/aspnet/core/fundamentals/logging/#how-filtering-rules-are-applied).
+As mentioned earlier, the Steeltoe Logging provider is a wrapper around the Microsoft Console logging provider. Consequently, you can configure it the same way you would the Microsoft provider. For more details on how this is done, see the section on [Apply log filter rules in code](https://learn.microsoft.com/aspnet/core/fundamentals/logging/#apply-log-filter-rules-in-code).
 
 ### Add the Logging Provider
 
