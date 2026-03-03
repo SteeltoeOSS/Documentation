@@ -14,8 +14,7 @@
       "filter": "api-filter-v4.yml",
       "properties": {
         "ProduceReferenceAssembly": "true",
-        "RunAnalyzers": "false",
-        "TargetFramework": "net8.0"
+        "RunAnalyzers": "false"
       }
     }
   ]
