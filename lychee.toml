@@ -17,7 +17,9 @@ exclude = [
     # Placeholder hostnames in code samples.
     "fortuneservice",
     "\\.internal",
-    "consul-register-example",
+    "(?i)consul-register-example",
+    # mysql.com returns 403 to automated requests despite browser-like UA.
+    "mysql\\.com",
     # False positives: these sites generate anchor IDs via JS, so fragments
     # aren't in the raw HTML. Track https://github.com/lycheeverse/lychee/issues/1729
     "https://learn\\.microsoft\\.com/.*#remarks",

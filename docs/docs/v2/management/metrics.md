@@ -81,14 +81,14 @@ dotnet add package Steeltoe.Management.ExporterCore --version 2.5.2
 
 ## Cloud Foundry Forwarder
 
-The Metrics Forwarder for TAS (discontinued) is a service that allows apps to emit metrics to the [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html) system and consume those metrics from the [Loggregator Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html).
+The Metrics Forwarder for TAS (discontinued) is a service that allows apps to emit metrics to the [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html) system and consume those metrics from the [Loggregator Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#-loggregator-firehose-architecture).
 
 You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI), [Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/dev-console.html), and an HTTP API. See the Tanzu Platform documentation for details on how to use the service in your application.
 
 Metrics Forwarder for TAS (discontinued)  enables users to do the following:
 
 * Configure apps to emit custom metrics to [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html) system.
-* Read custom metrics from the [Loggregator Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html) using a Firehose consumer of their choice, including [community](https://github.com/cloudfoundry/loggregator-release/blob/main/docs/community-nozzles.md) and third-party nozzles.
+* Read custom metrics from the [Loggregator Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#-loggregator-firehose-architecture) using a Firehose consumer of their choice, including [community](https://github.com/cloudfoundry/loggregator-release/blob/main/docs/community-nozzles.md) and third-party nozzles.
 
 There are many third-party products you can choose from, including PCF Metrics (discontinued).
 
