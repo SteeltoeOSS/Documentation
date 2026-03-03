@@ -13,9 +13,9 @@ This section describes how to publish a sample on Windows, Linux, or macOS.
 
 You can use the `dotnet` CLI to [build and locally publish](https://learn.microsoft.com/dotnet/core/tools/dotnet-publish) the application for the target framework and runtime to which you want to deploy the application:
 
-* Windows: `dotnet publish --framework net8.0 --runtime win-x64`
-* Linux: `dotnet publish --framework net8.0 --runtime linux-x64`
-* macOS: `dotnet publish --framework net8.0 --runtime osx-x64`
+* Windows: `dotnet publish --framework net10.0 --runtime win-x64`
+* Linux: `dotnet publish --framework net10.0 --runtime linux-x64`
+* macOS: `dotnet publish --framework net10.0 --runtime osx-x64`
 
 > [!NOTE]
 > Since .NET Core 2.0, the `dotnet publish` command automatically runs the NuGet package restore for you. Running `dotnet restore` explicitly is no longer required.
@@ -27,13 +27,13 @@ This section describes how to use the [Cloud Foundry CLI](https://docs.cloudfoun
 - Push to Linux cell:
 
   ```shell
-  cf push -f manifest.yml -p bin/Debug/net8.0/linux-x64/publish
+  cf push -f manifest.yml -p bin/Debug/net10.0/linux-x64/publish
   ```
 
 - Push to Windows cell:
 
   ```shell
-  cf push -f manifest-windows.yml -p bin/Debug/net8.0/win-x64/publish
+  cf push -f manifest-windows.yml -p bin/Debug/net10.0/win-x64/publish
   ```
 
 > [!NOTE]

@@ -123,8 +123,8 @@ The parameter `dependencies` is different than other parameters in that it is se
 > [!TIP]
 > To get a list of parameters and dependencies, send a `GET` request to `api/`.
 
-### Sample: Generate a .NET 8 project with actuator endpoints and a Redis backend
+### Sample: Generate a .NET 10 project with actuator endpoints and a Redis backend
 
 ```bash
-http https://start.steeltoe.io/api/project dotNetFramework=net8.0 dependencies==actuators,redis -d
+http https://start.steeltoe.io/api/project dotNetFramework=net10.0 dependencies==actuators,redis -d
 ```

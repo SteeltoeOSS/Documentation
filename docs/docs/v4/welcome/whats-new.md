@@ -37,7 +37,7 @@ This document provides an overview of the changes in Steeltoe 4 and the impact o
 - Cleanup of logging output
 - Substantially improved documentation
 - Improved test coverage, including interaction between different Steeltoe components
-- All samples updated to .NET 8, fully tested and working
+- All samples updated to .NET 10, fully tested and working
 - Automated code style validation (Resharper, StyleCop, Sonar, Microsoft CodeAnalysis)
 
 ### General
