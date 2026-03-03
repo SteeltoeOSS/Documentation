@@ -27,7 +27,7 @@ jobs:
         with:
           persist-credentials: false
 
-      # To bust the lychee cache for a PR, replace `<pull-request-number>` with the PR number and run in pwsh:
+      # To clear the lychee cache for a PR, replace `<pull-request-number>` with the PR number and run in pwsh:
       # $ids = gh api repos/SteeltoeOSS/Documentation/actions/caches `
       #   --paginate `
       #   --jq '.actions_caches[]
@@ -53,14 +53,13 @@ jobs:
           jobSummary: false
 
       - name: Add link checking results to job summary
-        if: always()
         run: |
           if [ -f ./lychee/out.md ]; then
             sed 's/^# Summary$/# External link checking results/' ./lychee/out.md | tee -a "$GITHUB_STEP_SUMMARY" > ./lychee/results.md
           fi
 
       - name: Comment on PR with link check results
-        if: always() && github.event_name == 'pull_request'
+        if: ${{ github.event_name == 'pull_request' }}
         uses: mshick/add-pr-comment@v2
         with:
           message-id: external-links-check
