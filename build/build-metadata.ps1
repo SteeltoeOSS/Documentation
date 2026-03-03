@@ -19,7 +19,7 @@ function EnsureDocfxBinaries() {
     $zipFile = [IO.Path]::Combine($env:TEMP, 'docfx-net10-binaries.zip')
 
     if (!(Test-Path -Path 'docfx-net10-binaries')) {
-        Invoke-WebRequest -Uri 'https://ent.box.com/shared/static/7uekfex8ugc1kijt60lwx6q4n1r3d1m6.zip' -Method 'GET' -OutFile $zipFile
+        Invoke-WebRequest -Uri 'https://ent.box.com/shared/static/3b9s1j71jmcsbjgug0yjel8fohk1n720.zip' -Method 'GET' -OutFile $zipFile
         Expand-Archive $zipFile -Force
     }
 }
