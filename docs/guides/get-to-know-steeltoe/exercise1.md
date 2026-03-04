@@ -74,8 +74,8 @@ Finally the `Steeltoe.Management.TracingCore` package and install.
 # [.NET CLI](#tab/dotnet-cli)
 
 ```shell
-dotnet add package Steeltoe.Management.EndpointCore
-dotnet add package Steeltoe.Management.TracingCore
+dotnet add package Steeltoe.Management.EndpointCore --version 3.*
+dotnet add package Steeltoe.Management.TracingCore --version 3.*
 ```
 
 ---

@@ -12,7 +12,7 @@ For example, simply add the following to your `.csproj` file:
 
 ```xml
   <ItemGroup>
-    <PackageReference Include="Steeltoe.Messaging.RabbitMQ" Version="3.x.x" />
+    <PackageReference Include="Steeltoe.Messaging.RabbitMQ" Version="3.*" />
   </ItemGroup>
 ```
 

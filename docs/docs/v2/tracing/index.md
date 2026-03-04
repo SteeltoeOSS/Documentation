@@ -48,7 +48,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TracingCore" Version="2.5.2" />
+    <PackageReference Include="Steeltoe.Management.TracingCore" Version="2.*" />
 ...
 </ItemGroup>
 ```
@@ -56,7 +56,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Or, from the command line:
 
 ```shell
-dotnet add package Steeltoe.Management.TracingCore --version 2.5.2
+dotnet add package Steeltoe.Management.TracingCore --version 2.*
 ```
 
 ### Configure Settings

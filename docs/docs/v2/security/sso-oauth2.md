@@ -39,7 +39,7 @@ You can add the provider to your project by using the following `PackageReferenc
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="2.5.2" />
+    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="2.*" />
 ...
 </ItemGroup>
 ```

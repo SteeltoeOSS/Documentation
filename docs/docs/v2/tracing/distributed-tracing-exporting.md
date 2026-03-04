@@ -17,7 +17,7 @@ To use an exporter in a ASP.NET Core application, then add the following `Packag
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.ExporterCore" Version="2.5.2" />
+    <PackageReference Include="Steeltoe.Management.ExporterCore" Version="2.*" />
 ...
 </ItemGroup>
 ```
@@ -25,7 +25,7 @@ To use an exporter in a ASP.NET Core application, then add the following `Packag
 Or, from the command line:
 
 ```shell
-dotnet add package Steeltoe.Management.ExporterCore --version 2.5.2
+dotnet add package Steeltoe.Management.ExporterCore --version 2.*
 ```
 
 ### Zipkin Server

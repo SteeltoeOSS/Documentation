@@ -11,7 +11,7 @@ Add the following PackageReference to your .csproj file.
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.TaskCore" Version="3.2.0"/>
+    <PackageReference Include="Steeltoe.Management.TaskCore" Version="3.*" />
 ...
 </ItemGroup>
 ```
@@ -19,7 +19,7 @@ Add the following PackageReference to your .csproj file.
 Or, from the command line:
 
 ```shell
-dotnet add package Steeltoe.Management.TaskCore --version 3.2.0
+dotnet add package Steeltoe.Management.TaskCore --version 3.*
 ```
 
 ## Implement Task Interface

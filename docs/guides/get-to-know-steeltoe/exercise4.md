@@ -40,7 +40,7 @@ Right-click on the project name in the solution explorer and choose "Manage NuGe
 # [.NET CLI](#tab/dotnet-cli)
 
 ```shell
-dotnet add package Steeltoe.Extensions.Configuration.ConfigServerCore
+dotnet add package Steeltoe.Extensions.Configuration.ConfigServerCore --version 3.*
 ```
 
 ---

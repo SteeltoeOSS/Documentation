@@ -45,7 +45,7 @@ dotnet new webapi --name Consul_Register_Example
 cd Consul_Register_Example
 
 # add the NuGet reference
-dotnet add package Steeltoe.Discovery.Consul --version 3.2.0
+dotnet add package Steeltoe.Discovery.Consul --version 3.*
 ```
 
 ---
@@ -148,7 +148,7 @@ dotnet new webapi --name Consul_Discover_Example
 cd Consul_Discover_Example
 
 # add the NuGet reference
-dotnet add package Steeltoe.Discovery.Consul --version 3.2.0
+dotnet add package Steeltoe.Discovery.Consul --version 3.*
 ```
 
 ---
