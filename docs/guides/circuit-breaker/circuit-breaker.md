@@ -34,7 +34,7 @@ Alternatively, to run a Hystrix Dashboard with Java on your local workstation
 
 1. Install Java 8 JDK.
 1. Install Maven 3.x.
-1. Clone the Spring Cloud Samples Hystrix dashboard: `cd https://github.com/spring-cloud-samples/hystrix-dashboard`
+1. Clone the Hystrix dashboard: `git clone https://github.com/Netflix-Skunkworks/hystrix-dashboard`
 1. Change to the hystrix dashboard directory: `cd hystix-dashboard`
 1. Start the server `mvn spring-boot:run`
 1. Open a browser window and connect to the dashboard: <http://localhost:7979/hystrix>

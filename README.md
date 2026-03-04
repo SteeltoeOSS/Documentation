@@ -4,7 +4,7 @@
 
 This is the home of the [Steeltoe website](https://steeltoe.io/), which hosts documentation and blog articles.
 
-The website is built with [ASP.NET Core Blazor](https://learn.microsoft.com/aspnet/core/blazor/) and [docfx](https://dotnet.github.io/docfx).
+The website is built with [ASP.NET Core Blazor](https://learn.microsoft.com/aspnet/core/blazor/) and [docfx](https://dotnet.github.io/docfx/).
 docfx generates API documentation from triple-slash comments in Steeltoe source code and converts [Markdown](https://dotnet.github.io/docfx/docs/markdown.html) documents to HTML.
 
 ## Building and running the site

@@ -1,22 +1,21 @@
 # Resource Protection using JWT in ASP.NET Core
 
-This provider lets you control access to REST resources by using JSON Web Tokens (JWT) issued by Cloud Foundry Security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [TAS Single-Sign-on](https://docs.pivotal.io/p-identity)) in ASP.NET Core.
+This provider lets you control access to REST resources by using JSON Web Tokens (JWT) issued by Cloud Foundry Security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [Single Sign-On](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html)) in ASP.NET Core.
 
-Other Steeltoe sample applications can help you understand how to use this tool, including `FreddysBBQ` (a polyglot microservices-based sample showing interoperability between Java and .NET on Cloud Foundry, secured with OAuth2 Security Services, and using Spring Cloud Services).
 
 ## Usage
 
 This package uses JSON Web Tokens (JWT) and builds on JWT Security services provided by ASP.NET Core Security. You should take some time to understand both before proceeding to use this provider.
 
-Many resources are available for understanding JWT (for example, see [JWT IO](https://jwt.io/) or [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)).
+Many resources are available for understanding JWT (for example, see [JWT IO](https://www.jwt.io/) or [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)).
 
-To get a good understanding of ASP.NET Core Security, see the [documentation](https://docs.microsoft.com/aspnet/core/) provided by Microsoft.
+To get a good understanding of ASP.NET Core Security, see the [documentation](https://learn.microsoft.com/aspnet/core/) provided by Microsoft.
 
-Additionally, you should know how the .NET [configuration services](https://docs.asp.net/en/latest/fundamentals/configuration.html) and the `ConfigurationBuilder` work and how to add providers to the builder.
+Additionally, you should know how the .NET [configuration services](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) and the `ConfigurationBuilder` work and how to add providers to the builder.
 
-You should also know how the ASP.NET Core [`Startup`](https://docs.asp.net/en/latest/fundamentals/startup.html) class is used in configuring the application services and how the middleware is used by the app. Pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
+You should also know how the ASP.NET Core [`Startup`](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services and how the middleware is used by the app. Pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
 
-With regard to Cloud Foundry, you should have a good understanding of Cloud Foundry OAuth2 security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [TAS Single Signon](https://docs.pivotal.io/p-identity/)) along with an understanding how they use and issue JWT.
+With regard to Cloud Foundry, you should have a good understanding of Cloud Foundry OAuth2 security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) or [Single Sign-On](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html)) along with an understanding how they use and issue JWT.
 
 To use the JWT Security provider:
 
@@ -68,7 +67,7 @@ The samples and most templates are already set up to read from `appsettings.json
 
 ### Cloud Foundry
 
-As mentioned earlier. you can use a couple of OAuth2 services (such as UAA Server or TAS SSO) on Cloud Foundry. Rather than explaining how to create and bind OAuth2 services to your application here, we recommend that you read the documentation provided by each of the service providers.
+As mentioned earlier. you can use a couple of OAuth2 services (such as UAA Server or Single Sign-On) on Cloud Foundry. Rather than explaining how to create and bind OAuth2 services to your application here, we recommend that you read the documentation provided by each of the service providers.
 
 Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
@@ -115,7 +114,7 @@ The `AddCloudFoundryJwtBearer(Configuration)` method call configures and adds th
 
 Once you have the work done in your `Startup` class, you can then start to secure endpoints by using the standard ASP.NET Core `Authorize` attribute.
 
-See the Microsoft documentation on [ASP.NET Core Security](https://docs.asp.net/en/latest/security/) for a better understanding of how to use these attributes.
+See the Microsoft documentation on [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security/) for a better understanding of how to use these attributes.
 
 The following example shows a controller using the security attributes:
 

@@ -1,6 +1,6 @@
 # Cloud Foundry Integration
 
-Integration with [Tanzu Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/console-index.html) is accomplished by adding the Cloud Foundry management endpoint to your application.
+Integration with [Tanzu Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/dev-console.html) is accomplished by adding the Cloud Foundry management endpoint to your application.
 
 When used, this endpoint enables the following additional functionality on Cloud Foundry:
 
@@ -58,7 +58,7 @@ builder.Services.AddCloudFoundryActuator();
 ### Cross Origin Resource Sharing
 
 When viewing an application in Apps Manager, HTTP requests are sent directly to application instances, with the bearer token of the logged-in user attached.
-The nature of this integration requires the use of Cross Origin Resource Sharing ([CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)).
+The nature of this integration requires the use of Cross Origin Resource Sharing ([CORS](https://developer.mozilla.org/docs/Web/HTTP/Guides/CORS)).
 The policy defined in Steeltoe intends to limit sharing to the minimum required for the endpoints to function; however, there is no way for Steeltoe to discover or infer what the origin of an Apps Manager instance could be.
 As such, the default policy allows any origin, unless the policy is customized. You should consider [customizing the CORS policy](./using-endpoints.md#customizing-the-cors-policy) to be more specific.
 

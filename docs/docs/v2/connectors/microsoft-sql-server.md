@@ -6,9 +6,9 @@ This connector provides a `IHealthContributor` which you can use in conjunction 
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
+You should know how the new .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. You need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the connector.
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services. Pay particular attention to the usage of the `ConfigureServices()` method.
+You should also know how the ASP.NET Core [Startup](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services. Pay particular attention to the usage of the `ConfigureServices()` method.
 
 To use this connector:
 
@@ -60,7 +60,7 @@ The samples and most templates are already set up to read from `appsettings.json
 
 ### Cloud Foundry
 
-To use Microsoft SQL Server on Cloud Foundry, you need a service instance bound to your application. If the [Microsoft SQL Server broker](https://github.com/cf-platform-eng/mssql-server-broker) is installed in your Cloud Foundry instance, use it to create a new service instance, as follows:
+To use Microsoft SQL Server on Cloud Foundry, you need a service instance bound to your application. If the [Microsoft SQL Server broker](https://github.com/cloudfoundry-attic/mssql-server-broker) is installed in your Cloud Foundry instance, use it to create a new service instance, as follows:
 
 ```shell
 cf create-service SqlServer sharedVM mySqlServerService
@@ -72,7 +72,7 @@ An alternative to the broker is to use a user-provided service to explicitly pro
 cf cups mySqlServerService -p '{"pw": "|password|","uid": "|user id|","uri": "jdbc:sqlserver://|host|:|port|;databaseName=|database name|"}'
 ```
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `sqlServer:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
+Version 2.1.1+ of this connector works with the [Open Service Broker for Azure](https://github.com/Azure/open-service-broker-azure) (archived). Be sure to set `sqlServer:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
 
 If you are creating a service for an application that has already been deployed, you need to bind the service and restart or restage the application with the following commands:
 
@@ -245,7 +245,7 @@ If you need to set additional properties for the `DbContext` like `MigrationsAss
 Action<SqlServerDbContextOptionsBuilder> sqlServerOptionsAction = (o) =>
 {
   o.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-  // Configuring Connection Resiliency: https://docs.microsoft.com/ef/core/miscellaneous/connection-resiliency
+  // Configuring Connection Resiliency: https://learn.microsoft.com/ef/core/miscellaneous/connection-resiliency
   o.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
 };
 ```

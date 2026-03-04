@@ -2,7 +2,7 @@
 
 The Consul client implementation lets applications register services with a Consul server and discover services registered by other applications. This Steeltoe client uses a Consul .NET package provided by either the (now archived) [Playfab](https://github.com/PlayFab/consuldotnet) or [G-Research](https://github.com/g-research/consuldotnet) `consuldotnet` open source project.
 
-This project is based on the [Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul) project.
+This project is based on the [Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul/) project.
 
 ## Consul Settings
 

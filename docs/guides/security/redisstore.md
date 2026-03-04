@@ -11,7 +11,7 @@ _hideTocVersionToggle: true
 
 ## Using Cloud Security with a Redis Cache for key ring store
 
-This tutorial takes you through setting up a .NET Core application that stores its master keys used to protect payloads in an external Redis cache. Learn more about ASP.NET data protection [here](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection).
+This tutorial takes you through setting up a .NET Core application that stores its master keys used to protect payloads in an external Redis cache. Learn more about ASP.NET data protection [here](https://learn.microsoft.com/aspnet/core/security/data-protection/introduction).
 
 > [!NOTE]
 > For more detailed examples, please refer to the [RedisDataProtectionKeyStore](https://github.com/SteeltoeOSS/Samples/tree/3.x/Security/src/RedisDataProtectionKeyStore) project in the [Steeltoe Samples Repository](https://github.com/SteeltoeOSS/Samples/tree/3.x).

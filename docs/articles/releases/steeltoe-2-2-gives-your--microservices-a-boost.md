@@ -19,7 +19,7 @@ My wife and I have an agreement. She doesn't question my fashion sense and I don
 
 While my better half may not be excited about the new Steeltoe, over 2.4 million NuGet downloads and a very active community suggest that lots of .NET developers are eager to dive in.
 
-Each Steeltoe release is always jam-packed with useful new capabilities. [Steeltoe 2.2](http://steeltoe.io/reference/reference-release-notes/), now GA, delivers! Let’s take a spin through the highlights...
+Each Steeltoe release is always jam-packed with useful new capabilities. Steeltoe 2.2, now GA, delivers! Let’s take a spin through the highlights...
 
-| [Read More](https://tanzu.vmware.com/content/blog/steeltoe-2-2-gives-your-net-microservices-a-boost) |
+| [Read More](https://blogs.vmware.com/tanzu/steeltoe-2-2-gives-your-net-microservices-a-boost/) |
 | :---: |

@@ -13,7 +13,7 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/docs/download) and installed and running
 > on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
 >
 > In case you use a different host, port or credentials, connections settings would require adjusting.
@@ -37,7 +37,7 @@ In our messaging system we might want to subscribe to not only queues
 based on the routing key, but also based on the source which produced
 the message.
 You might know this concept from the
-[`syslog`](http://en.wikipedia.org/wiki/Syslog) unix tool, which
+[`syslog`](https://en.wikipedia.org/wiki/Syslog) unix tool, which
 routes logs based on both severity (info/warn/crit...) and facility
 (auth/cron/kern...). Our example is a little simpler than this.
 

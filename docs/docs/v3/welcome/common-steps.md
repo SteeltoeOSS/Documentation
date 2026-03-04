@@ -11,7 +11,7 @@ This section describes how to deploy the publish sample on either Linux or Windo
 
 ### ASP.NET Core
 
-You can use the `dotnet` CLI to [build and locally publish](https://docs.microsoft.com/dotnet/core/tools/dotnet-publish) the application for the framework and runtime to which you want to deploy the application:
+You can use the `dotnet` CLI to [build and locally publish](https://learn.microsoft.com/dotnet/core/tools/dotnet-publish) the application for the framework and runtime to which you want to deploy the application:
 
 * Linux with .NET Core: `dotnet publish -f net6.0 -r linux-x64`
 * Windows with .NET Core: `dotnet publish -f net6.0 -r win-x64`

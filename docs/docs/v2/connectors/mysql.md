@@ -17,9 +17,9 @@ This connector provides a `IHealthContributor` which you can use in conjunction 
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the connector.
+You should know how the new .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the connector.
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
+You should also know how the ASP.NET Core [Startup](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
 
 To use this connector:
 
@@ -101,9 +101,9 @@ cf bind-service myApp myMySqlService
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use [MySQL for PCF](https://network.pivotal.io/products/p-mysql), provided by TAS. If you use a different service, you must adjust the `create-service` command to fit your environment.
+>NOTE: The preceding commands assume you use [Tanzu for MySQL](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-mysql-tanzu-platform/10-1/mysql-tp/index.html), provided by Tanzu Platform. If you use a different service, you must adjust the `create-service` command to fit your environment.
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `mysql:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
+Version 2.1.1+ of this connector works with the [Open Service Broker for Azure](https://github.com/Azure/open-service-broker-azure) (archived). Be sure to set `mysql:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 
@@ -262,7 +262,7 @@ If you need to set additional properties for the `DbContext` like `MigrationsAss
 Action<MySqlDbContextOptionsBuilder> mySqlOptionsAction = (o) =>
 {
   o.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-  // Configuring Connection Resiliency: https://docs.microsoft.com/ef/core/miscellaneous/connection-resiliency
+  // Configuring Connection Resiliency: https://learn.microsoft.com/ef/core/miscellaneous/connection-resiliency
   o.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
 };
 ```

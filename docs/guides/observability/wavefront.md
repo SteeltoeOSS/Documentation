@@ -18,7 +18,7 @@ This tutorial takes you creating a simple Steeltoe app with actuators, logging, 
 
 ### Prereq's
 
-You'll need a Wavefront account to complete this guide successfully. [Create a 30 day trial](https://www.wavefront.com/sign-up/), if you don't already have access.
+You'll need access to VMware Aria Operations for Applications (formerly Wavefront) to complete this guide successfully.
 
 First, **clone to accompanying repo** that contains all the needed assets
 
@@ -187,4 +187,4 @@ Further **learning** in Wavefront
 1. Get the last 100 traces: `limit(100, traces("Zipkin.wavefront_demo_app.httpclient:/api/v1/spans"))`
    Find traces that took longer than 30 seconds: `limit(100, highpass(30ms, traces("Zipkin.wavefront_demo_app.httpclient:/api/v1/spans")))`
 
-If you would like to learn more about the query builder have a look at [Wavefront docs](https://docs.wavefront.com/trace_data_query.html#use-query-editor-power-usershttps://docs.wavefront.com/trace_data_query.html#use-query-editor-power-users).
+If you would like to learn more about the query builder have a look at [Wavefront docs](https://docs.wavefront.com/trace_data_query.html).

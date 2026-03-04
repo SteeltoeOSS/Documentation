@@ -1,6 +1,6 @@
 # MongoDB
 
-This connector simplifies using MongoDB with the [.NET MongoDB Driver](https://docs.mongodb.com/ecosystem/drivers/csharp/).
+This connector simplifies using MongoDB with the [.NET MongoDB Driver](https://www.mongodb.com/docs/drivers/csharp/current/).
 
 ## Usage
 

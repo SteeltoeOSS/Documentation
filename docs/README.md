@@ -1,6 +1,6 @@
 # Directory Contents
 
-The directories below this one are used with [docfx](https://dotnet.github.io/docfx) to generate static HTML files that are served from the `/src/Steeltoe.io/wwwroot` directory.
+The directories below this one are used with [docfx](https://dotnet.github.io/docfx/) to generate static HTML files that are served from the `/src/Steeltoe.io/wwwroot` directory.
 
 | Path | Description |
 | --- | --- |

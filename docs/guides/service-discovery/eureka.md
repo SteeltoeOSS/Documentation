@@ -55,7 +55,7 @@ Next, **create a .NET Core WebAPI** that registers itself as a service.
    ```
 
    > [!TIP]
-   > Looking for additional params to use when connecting? Have a look at the [docs](/service-discovery/docs).
+   > Looking for additional params to use when connecting? Have a look at the [docs](../../docs/v4/discovery/netflix-eureka.md).
 
 1. Change "applicationUrl" to "http://localhost:8080", in **launchSettings.json**
 

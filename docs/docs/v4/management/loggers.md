@@ -121,7 +121,7 @@ For example, changing the minimum log level of `Microsoft.AspNetCore` affects al
 `Microsoft.AspNetCore`; for example, `Microsoft.AspNetCore` and `Microsoft.AspNetCore.Cors` (but not `Microsoft.AspNetCoreExtra`).
 
 > [!NOTE]
-> [Spring Boot Admin](https://www.baeldung.com/spring-boot-changing-log-level-at-runtime) and [Tanzu Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/4-0/tpcf/using-actuators.html#manage-log-levels)
+> [Spring Boot Admin](https://www.baeldung.com/spring-boot-changing-log-level-at-runtime) and [Tanzu Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/dev-console.html)
 > provide a UI to change the minimum levels at runtime. For compatibility, the level names used by this actuator differ from the names used by .NET.
 >
 > | Actuator level | .NET level |

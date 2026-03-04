@@ -1,6 +1,9 @@
 # CosmosDB
 
-This connector simplifies using Azure Cosmos DB in an application running on Cloud Foundry. The connector is built to work with Azure Cosmos DB service instances that have been provisioned using the [Microsoft Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html), where  from either `Microsoft.Azure.Cosmos` or the newer package `Azure.Cosmos`.
+This connector simplifies using Azure Cosmos DB in an application running on Cloud Foundry. The connector is built to work with Azure Cosmos DB service instances that have been provisioned using the Microsoft Azure Service Broker, using either `Microsoft.Azure.Cosmos` or the newer package `Azure.Cosmos`.
+
+> [!NOTE]
+> The Microsoft Azure Service Broker has been retired and there is currently no supported service broker for provisioning CosmosDB NoSQL instances on Cloud Foundry.
 
 ## Usage
 

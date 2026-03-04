@@ -28,7 +28,7 @@ Steeltoe provides the class `TracingLogProcessor`, which is an `IDynamicMessageP
 It enriches log entries with correlation data using the same trace format popularized by [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#log-correlation),
 that include `[<ApplicationName>,<TraceId>,<SpanId>,<ParentSpanId>,<IsAllDataRequested>]`.
 
-Consider this pair of log entries from the [Steeltoe Management sample applications](https://github.com/SteeltoeOSS/Samples/blob/4.x/Management/src/):
+Consider this pair of log entries from the [Steeltoe Management sample applications](https://github.com/SteeltoeOSS/Samples/tree/4.x/Management/src/):
 
 ```text
 info: System.Net.Http.HttpClient.ActuatorApiClient.LogicalHandler[100]
@@ -38,7 +38,7 @@ dbug: Microsoft.EntityFrameworkCore.Database.Command[20104]
        [ActuatorApi,44ed2fe24a051bda2d1a56815448e9fb,c32846ff227bed40,f315823f4c554816,true] Created DbCommand for 'ExecuteReader' (1ms).
 ```
 
-Log correlation is easiest with a tool such as [Splunk](https://www.splunk.com/en_us/solutions/isolate-cloud-native-problems.html), [SumoLogic](https://www.sumologic.com/lp/log-analytics/), or [DataDog](https://www.datadoghq.com/dg/enterprise/log-management-analytics-security). (This is not an endorsement of any tool, only a pointer to some popular options.)
+Log correlation is easiest with a tool such as [Splunk](https://www.splunk.com/en_us/solutions/isolate-cloud-native-problems.html), [SumoLogic](https://www.sumologic.com/lp/log-analytics), or [DataDog](https://www.datadoghq.com/dg/enterprise/log-management-analytics-security/). (This is not an endorsement of any tool, only a pointer to some popular options.)
 
 ### Using TracingLogProcessor
 
@@ -170,7 +170,7 @@ builder.Services.Configure<AspNetCoreTraceInstrumentationOptions>(options =>
 > By default, the ASP.NET Core instrumentation does not filter out any requests.
 > The alternative approach described can quickly prove unwieldy if there are many patterns to ignore, such as when listing many file types.
 
-To learn more about ASP.NET Core instrumentation for OpenTelemetry see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore).
+To learn more about ASP.NET Core instrumentation for OpenTelemetry see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.AspNetCore).
 
 #### HttpClient
 
@@ -200,7 +200,7 @@ To instrument requests leaving the application through `HttpClient`:
     });
     ```
 
-To learn more about HttpClient instrumentation for OpenTelemetry see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.Http).
+To learn more about HttpClient instrumentation for OpenTelemetry see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.Http).
 
 ### Propagating Trace Context
 

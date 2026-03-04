@@ -1,6 +1,6 @@
 # Resource Protection using Mutual TLS in ASP.NET Core
 
-This component builds on top of [ASP.Net Core's Certificate Authentication](https://docs.microsoft.com/aspnet/core/security/authentication/certauth), with the addition of automatic configuration for [Cloud Foundry Instance Identity certificates](https://docs.cloudfoundry.org/devguide/deploy-apps/instance-identity.html) and authorization policies based on certificate data. Additionally, resources are included for automatically generating certificates for local development that resemble what is found on the platform.
+This component builds on top of [ASP.Net Core's Certificate Authentication](https://learn.microsoft.com/aspnet/core/security/authentication/certauth), with the addition of automatic configuration for [Cloud Foundry Instance Identity certificates](https://docs.cloudfoundry.org/devguide/deploy-apps/instance-identity.html) and authorization policies based on certificate data. Additionally, resources are included for automatically generating certificates for local development that resemble what is found on the platform.
 
 ## Usage
 
@@ -80,7 +80,7 @@ public void Configure(IApplicationBuilder app, ...)
 
 Steeltoe includes policies for validating that a request came from an application in the same org or the space. Once you have done the work in the `Startup` class, you can secure endpoints by using the standard ASP.NET Core `Authorize` attribute with one of these security policies.
 
-See the Microsoft documentation on [ASP.NET Core Security](https://docs.asp.net/en/latest/security/) for a better understanding of how to use these attributes.
+See the Microsoft documentation on [ASP.NET Core Security](https://learn.microsoft.com/aspnet/core/security/) for a better understanding of how to use these attributes.
 
 The following example shows a controller using the security attributes with the included policies:
 

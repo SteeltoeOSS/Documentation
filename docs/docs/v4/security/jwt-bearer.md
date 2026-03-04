@@ -1,12 +1,12 @@
 # Resource Protection using JWT in ASP.NET Core
 
-This library is a supplement to ASP.NET Core Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html) or a [UAA Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using JSON Web Tokens (JWT) in ASP.NET Core web applications.
+This library is a supplement to ASP.NET Core Security, adding functionality that helps you use Cloud Foundry Security services such as [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html) or a [UAA Server](https://github.com/cloudfoundry/uaa) for authentication and authorization using JSON Web Tokens (JWT) in ASP.NET Core web applications.
 
 For more information, see also the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/AuthWeb/README.md).
 
 General guidance for use of JWT is beyond the scope of this document. For information, see:
 
-* [JWT IO](https://jwt.io/)
+* [JWT IO](https://www.jwt.io/)
 * [Wikipedia](https://en.wikipedia.org/wiki/JSON_Web_Token)
 
 For information about the underlying Microsoft JWT Bearer Authentication library, see the [Microsoft documentation](https://learn.microsoft.com/aspnet/core/security/authentication/configure-jwt-bearer-authentication).
@@ -160,7 +160,7 @@ See the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/
 
 When using Single Sign-On for VMware Tanzu, you must choose a service plan before you create a service instance.
 If you do not have an existing service plan, a platform operator might need to create a new plan for you.
-For information about configuring service plans for use by developers, a platform operator should follow the steps in the [Single Sign-On for Tanzu operator guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/operator-index.html).
+For information about configuring service plans for use by developers, a platform operator should follow the steps in the [Single Sign-On for Tanzu operator guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/operator-index.html).
 
 After you have identified the service plan to use, create a service instance:
 
@@ -171,7 +171,7 @@ cf create-service p-identity your-plan sampleService
 #### Bind and configure with app manifest
 
 Using a manifest file when you deploy to Cloud Foundry is recommended, and can save some work with the SSO configuration.
-For information about configuring an app manifest, see the [Single Sign-On documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/config-apps.html#configure-app-manifest).
+For information about configuring an app manifest, see the [Single Sign-On documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/config-apps.html#configure-app-manifest).
 
 Consider this example manifest that names the application and buildpack, and configures properties for the SSO binding:
 
@@ -208,7 +208,7 @@ Then you can configure the SSO binding with the web interface.
 
 For more information, see:
 
-* the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/developer-index.html)
+* the [Single Sign-On for Tanzu developer guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/developer-index.html)
 * the [Steeltoe Security samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Security/src/AuthWeb/README.md)
 
 ### UAA Server

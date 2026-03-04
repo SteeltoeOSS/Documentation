@@ -1,6 +1,6 @@
 # Single Sign-on with OAuth2
 
-Single Sign-on with OAuth 2.0 enables you to leverage existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [TAS Single-Sign-on service](https://docs.pivotal.io/p-identity) for authentication and authorization in ASP.NET Core applications. Single signon functionality for ASP.NET 4.x applications is available with the OpenID Connect provider.
+Single Sign-on with OAuth 2.0 enables you to leverage existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [Single Sign-On](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html) for authentication and authorization in ASP.NET Core applications. Single signon functionality for ASP.NET 4.x applications is available with the OpenID Connect provider.
 
 In addition to the Quick Start, you can use other Steeltoe sample applications to help you understand how to use this provider, including:
 
@@ -10,15 +10,15 @@ In addition to the Quick Start, you can use other Steeltoe sample applications t
 
 This package is built on the OAuth 2 authentication flow and the services provided by ASP.NET Core Security. You should take some time to understand both before proceeding to use this provider.
 
-Many resources are available for understanding OAuth 2. For example, see [Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2) or [Understanding OAuth 2](https://www.bubblecode.net/en/2016/01/22/understanding-oauth2/).
+Many resources are available for understanding OAuth 2. For example, see [Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2).
 
-To get a good understanding of ASP.NET Core Security, review the [documentation](https://docs.microsoft.com/aspnet/core/security) provided by Microsoft. If you are upgrading an application from ASP.NET Core 1.x, you may also want to review [Migrating Auth and Identity to ASP.NET Core 2.0](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/identity-2x).
+To get a good understanding of ASP.NET Core Security, review the [documentation](https://learn.microsoft.com/aspnet/core/security) provided by Microsoft. If you are upgrading an application from ASP.NET Core 1.x, you may also want to review [Migrating Auth and Identity to ASP.NET Core 2.0](https://learn.microsoft.com/aspnet/core/migration/1x-to-2x/identity-2x).
 
-Additionally, you should know how the [.NET Configuration service](https://docs.asp.net/en/latest/fundamentals/configuration.html) and the `ConfigurationBuilder` work and how to add providers to the builder.
+Additionally, you should know how the [.NET Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) and the `ConfigurationBuilder` work and how to add providers to the builder.
 
-You should also know how the ASP.NET Core [Startup](https://docs.asp.net/en/latest/fundamentals/startup.html) class is used in configuring the application services and how the middleware used in the application. Pay particular attention to the usage of the `Configure()` and `ConfigureService())` methods.
+You should also know how the ASP.NET Core [Startup](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services and how the middleware used in the application. Pay particular attention to the usage of the `Configure()` and `ConfigureService())` methods.
 
-With regard to Cloud Foundry, you should know how Cloud Foundry OAuth2 security services (for example, [UAA Server](https://github.com/cloudfoundry/uaa) or [TAS Single Signon](https://docs.pivotal.io/p-identity/)) work.
+With regard to Cloud Foundry, you should know how Cloud Foundry OAuth2 security services (for example, [UAA Server](https://github.com/cloudfoundry/uaa) or [Single Sign-On](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html)) work.
 
 In order to use the security provider:
 
@@ -62,7 +62,7 @@ Configuring settings for the provider beyond what is provided in a service bindi
 
 The samples and most templates are already set up to read from `appsettings.json`.
 
-The Steeltoe OAuth2 security provider options are based on [`Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions`](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.oauth.oauthoptions), with these additional properties:
+The Steeltoe OAuth2 security provider options are based on [`Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.oauth.oauthoptions), with these additional properties:
 
 | Name | Description | Default |
 | --- | --- | --- |
@@ -73,7 +73,7 @@ The Steeltoe OAuth2 security provider options are based on [`Microsoft.AspNetCor
 
 ### Cloud Foundry
 
-As mentioned earlier, there are two OAuth-compatible services available on Cloud Foundry. We recommend you read the offical documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [TAS SSO](https://docs.pivotal.io/p-identity/1-5/getting-started.html)) or follow the instructions included in the samples for [UAA Server](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNetCore/CloudFoundrySingleSignon/README.md) and [TAS SSO](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNetCore/CloudFoundrySingleSignon/README-SSO.md) to quickly learn how to create and bind OAuth2 services.
+As mentioned earlier, there are two OAuth-compatible services available on Cloud Foundry. We recommend you read the offical documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [Single Sign-On](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html)) or follow the instructions included in the samples for [UAA Server](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNetCore/CloudFoundrySingleSignon/README.md) and [Single Sign-On](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNetCore/CloudFoundrySingleSignon/README-SSO.md) to quickly learn how to create and bind OAuth2 services.
 
 Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
@@ -167,4 +167,4 @@ The preceding example code establishes the following security rules:
 * If a user attempts to access the `About` action and the user is not authenticated, then the user is redirected to the OAuth2 server (such as a UAA Server) to login.
 * If an authenticated user attempts to access the `Contact` action but does not meet the restrictions established by the policy `testgroup1`, the user is denied access.
 
->TIP: See the Microsoft documentation on [ASP.NET Core Authorization](https://docs.microsoft.com/aspnet/core/security/authorization/introduction).
+>TIP: See the Microsoft documentation on [ASP.NET Core Authorization](https://learn.microsoft.com/aspnet/core/security/authorization/introduction).

@@ -13,7 +13,7 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/docs/download) and installed and running
 > on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
 >
 > In case you use a different host, port or credentials, connections settings would require adjusting.
@@ -79,7 +79,7 @@ request. Steeltoe's `RabbitTemplate` handles the callback queue for
 us when we use the above `ConvertSendAndReceiveAsync()` method.  There is
 no need to do any other setup when using the `RabbitTemplate`.
 For a thorough explanation please see
-[Request/Reply Message](/docs/v3/messaging/rabbitmq-reference.md#request-and-reply-messaging).
+[Request/Reply Message](../../../../docs/v3/messaging/rabbitmq-reference.md#request-and-reply-messaging).
 
 > **Message properties**
 >

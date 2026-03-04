@@ -22,7 +22,7 @@ These configuration providers will search for resources named `<ApplicationName>
 
 ## Usage
 
-These providers integrate with [.NET Configuration](https://docs.microsoft.com/aspnet/core/fundamentals/configuration), you may wish to read more of that documentation if you're not familiar with it.
+These providers integrate with [.NET Configuration](https://learn.microsoft.com/aspnet/core/fundamentals/configuration), you may wish to read more of that documentation if you're not familiar with it.
 
 The steps to use both Steeltoe Kubernetes configuration providers are the same:
 
@@ -184,7 +184,7 @@ Additional Secrets can be specified in the Sources list using the name and names
 
 All settings above should start with `Spring:Cloud:Kubernetes:Secrets`.
 
-For more information about risks and best practices when consuming Secrets through the API refer to the [best practices](https://kubernetes.io/docs/concepts/configuration/secret/#best-practices).
+For more information about risks and best practices when consuming Secrets through the API refer to the [best practices](https://kubernetes.io/docs/concepts/security/secrets-good-practices/).
 
 ### Reload Settings
 

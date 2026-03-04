@@ -1249,7 +1249,7 @@ For additional information, see the updated [Security documentation](../security
 ### CredHub client
 
 The CredHub client has been removed from Steeltoe in v4.
-Use [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/credhub-service-broker/services/credhub-sb/index.html) instead.
+Use [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/credhub-secrets-management/services/credhub/index.html) instead.
 
 ### OAuth
 

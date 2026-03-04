@@ -47,7 +47,7 @@ Some options are described in [Dead-Letter Queue Processing](#dead-letter-queue-
 >**NOTE:** When multiple RabbitMQ binders are used in a Stream application, it is important to disable 'RabbitAutoConfiguration' to avoid the same configuration from `RabbitAutoConfiguration` being applied to the two binders.
 You can exclude the class by using the `@SpringBootApplication` annotation. -->
 
-The `RabbitMessageChannelBinder` sets the `RabbitTemplate.userPublisherConnection` property to `True` so that the non-transactional producers avoid deadlocks on consumers, which can happen if cached connections are blocked because of a [memory alarm](https://www.rabbitmq.com/memory.html) on the broker.
+The `RabbitMessageChannelBinder` sets the `RabbitTemplate.userPublisherConnection` property to `True` so that the non-transactional producers avoid deadlocks on consumers, which can happen if cached connections are blocked because of a [memory alarm](https://www.rabbitmq.com/docs/memory) on the broker.
 
 <!-- // TODO: verify multiplex consumers work -->
 >**NOTE:** Currently, a `multiplex` consumer (a single consumer listening to multiple queues) is only supported for message-driven consumers; polled consumers can only retrieve messages from a single queue.
@@ -72,7 +72,7 @@ A comma-separated list of RabbitMQ management plugin URLs.
 Only used when `nodes` contains more than one entry.
 Each entry in this list must have a corresponding entry in `spring:rabbitmq:addresses`.
 Only needed if you use a RabbitMQ cluster and wish to consume from the node that hosts the queue.
-See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/#queue-affinity) for more information.
+See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/amqp/connections.html#queue-affinity) for more information.
 
 Default: empty.
 
@@ -81,7 +81,7 @@ A comma-separated list of RabbitMQ node names.
 When more than one entry, used to locate the server address where a queue is located.
 Each entry in this list must have a corresponding entry in `spring:rabbitmq:addresses`.
 Only needed if you use a RabbitMQ cluster and wish to consume from the node that hosts the queue.
-See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/html/#queue-affinity) for more information.
+See [Queue Affinity and the LocalizedQueueConnectionFactory](https://docs.spring.io/spring-amqp/reference/amqp/connections.html#queue-affinity) for more information.
 
   Default: empty.
 
@@ -197,7 +197,7 @@ How long before an unused dead letter queue is deleted (in milliseconds).
 
 **dlqLazy**
 Declare the dead letter queue with the `x-queue-mode=lazy` argument.
-See [Lazy Queues](https://www.rabbitmq.com/lazy-queues.html).
+See [Lazy Queues](https://www.rabbitmq.com/docs/lazy-queues).
 Consider using a policy instead of this setting, because using a policy allows changing the setting without deleting the queue.
 
   Default: `False`.
@@ -281,7 +281,7 @@ Patterns for headers to be mapped from inbound messages.
 
 **lazy**
 Declare the queue with the `x-queue-mode=lazy` argument.
-See [Lazy Queues](https://www.rabbitmq.com/lazy-queues.html).
+See [Lazy Queues](https://www.rabbitmq.com/docs/lazy-queues).
 Consider using a policy instead of this setting, because using a policy allows changing the setting without deleting the queue.
 
   Default: `False`.
@@ -518,7 +518,7 @@ Applies only when `requiredGroups` are provided and then only to those groups.
 
 **dlqLazy**
 Declare the dead letter queue with the `x-queue-mode=lazy` argument.
-See [Lazy Queues](https://www.rabbitmq.com/lazy-queues.html).
+See [Lazy Queues](https://www.rabbitmq.com/docs/lazy-queues).
 Consider using a policy instead of this setting, because using a policy allows changing the setting without deleting the queue.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
@@ -574,7 +574,7 @@ Patterns for headers to be mapped to outbound messages.
 
 **lazy**
 Declare the queue with the `x-queue-mode=lazy` argument.
-See [Lazy Queues](https://www.rabbitmq.com/lazy-queues.html).
+See [Lazy Queues](https://www.rabbitmq.com/docs/lazy-queues).
 Consider using a policy instead of this setting, because using a policy allows changing the setting without deleting the queue.
 Applies only when `requiredGroups` are provided and then only to those groups.
 
@@ -755,7 +755,7 @@ See [Error Handling](./stream-reference.md#error-handling) for more information.
 RabbitMQ has two types of send failures:
 
 * Returned messages
-* Negatively acknowledged [Publisher Confirms](https://www.rabbitmq.com/confirms.html).
+* Negatively acknowledged [Publisher Confirms](https://www.rabbitmq.com/docs/confirms).
 
 The latter is rare.
 According to the RabbitMQ documentation "[A nack] will only be delivered if an internal error occurs in the Erlang process responsible for a queue.".
@@ -788,7 +788,7 @@ Because you cannot anticipate how users would want to dispose of dead-lettered m
 If the reason for the dead-lettering is transient, you may wish to route the messages back to the original queue.
 However, if the problem is a permanent issue, that could cause an infinite loop.
 The following application shows an example of how to route those messages back to the original queue but moves them to a third "`parking lot`" queue after three attempts.
-The second example uses the [RabbitMQ Delayed Message Exchange](https://www.rabbitmq.com/blog/2015/04/16/scheduling-messages-with-rabbitmq/) to introduce a delay to the re-queued message.
+The second example uses the [RabbitMQ Delayed Message Exchange](https://www.rabbitmq.com/blog/2015/04/16/scheduling-messages-with-rabbitmq) to introduce a delay to the re-queued message.
 In this example, the delay increases for each attempt.
 These examples use a `@RabbitListener` to receive messages from the DLQ.
 You could also use `RabbitTemplate.receive()` in a batch process.

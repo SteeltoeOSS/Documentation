@@ -6,8 +6,8 @@ Steeltoe provides a base set of endpoint (also known as actuator) functionality,
 
 In this section, it is helpful to understand the following:
 
-* How the .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works and an understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
-* How the ASP.NET Core [`Startup`](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
+* How the .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works and an understanding of the `ConfigurationBuilder` and how to add providers to the builder to configure the endpoints.
+* How the ASP.NET Core [`Startup`](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` and `Configure()` methods.
 
 ## Endpoint Listing
 
@@ -58,7 +58,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 
 ## Configure Global Settings
 
-Endpoints can be configured by using the normal .NET [configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration). You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.
+Endpoints can be configured by using the normal .NET [configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration). You can globally configure settings that apply to all endpoints as well as configure settings that are specific to a particular endpoint.
 
 All management endpoint settings should be placed under the prefix with the `Management:Endpoints` key. Any settings found under this prefix apply to all endpoints globally.
 
@@ -78,7 +78,7 @@ The following table describes the settings that you can apply globally:
 
 ### Custom Serialization Options
 
-As of 3.1.1, the `JsonSerializerOptions` used to serialize actuator responses are configurable, and custom JsonConverters can be used by adding the [assembly-qualified type](https://docs.microsoft.com/dotnet/api/system.type.assemblyqualifiedname).
+As of 3.1.1, the `JsonSerializerOptions` used to serialize actuator responses are configurable, and custom JsonConverters can be used by adding the [assembly-qualified type](https://learn.microsoft.com/dotnet/api/system.type.assemblyqualifiedname).
 
 For example, to have DateTime values serialized as epoch times and all JSON pretty printed:
 
@@ -183,7 +183,7 @@ public class Startup
 }
 ```
 
->The order in which you add middleware to the [ASP.NET Core pipeline](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
+>The order in which you add middleware to the [ASP.NET Core pipeline](https://learn.microsoft.com/aspnet/core/fundamentals/middleware/) is important. We recommend that you add the Steeltoe management endpoints before others to ensure proper operation.
 
 ## Securing Endpoints
 

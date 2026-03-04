@@ -1,6 +1,6 @@
 # Single Sign-on with OpenID Connect
 
-Single Sign-on with OpenID Connect enables you to leverage existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [TAS Single-Sign-on service](https://docs.pivotal.io/p-identity) for authentication and authorization in ASP.NET 4.x (via OWIN middleware) and ASP.NET Core applications.
+Single Sign-on with OpenID Connect enables you to leverage existing credentials configured in a [UAA Server](https://github.com/cloudfoundry/uaa) or [Single Sign-On](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html) for authentication and authorization in ASP.NET 4.x (via OWIN middleware) and ASP.NET Core applications.
 
 ## Usage
 
@@ -23,13 +23,13 @@ Aside from the different base class for options, the only usage change is to cal
 
 This package is built on OpenID Connect and OWIN Middleware. You should take some time to understand both before proceeding to use this provider.
 
-Resources are available elsewhere for understanding OpenID Connect. For example, see [Understanding OAuth 2.0 and OpenID Connect](https://blog.runscope.com/posts/understanding-oauth-2-and-openid-connect).
+Resources are available elsewhere for understanding OpenID Connect.
 
-To learn more about OWIN, start with the [Overview of Project Katana](https://docs.microsoft.com/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana).
+To learn more about OWIN, start with the [Overview of Project Katana](https://learn.microsoft.com/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana).
 
-Additionally, you should know how the .NET [Configuration service](https://docs.asp.net/en/latest/fundamentals/configuration.html) and the `ConfigurationBuilder` work and how to add providers to the builder.
+Additionally, you should know how the .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) and the `ConfigurationBuilder` work and how to add providers to the builder.
 
-With regard to Cloud Foundry, you should know how Cloud Foundry OAuth security services (for example, [UAA Server](https://github.com/cloudfoundry/uaa) or [TAS Single Signon](https://docs.pivotal.io/p-identity/)) work.
+With regard to Cloud Foundry, you should know how Cloud Foundry OAuth security services (for example, [UAA Server](https://github.com/cloudfoundry/uaa) or [Single Sign-On](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html)) work.
 
 In order to use the Security provider:
 
@@ -79,13 +79,13 @@ This full list of settings can also be configured, though `AuthDomain`, `ClientI
 
 #### Cloud Foundry
 
-As mentioned earlier, there are two ways to use OAuth2 services on Cloud Foundry. We recommend you read the offical documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [TAS SSO](https://docs.pivotal.io/p-identity/1-5/getting-started.html)) or follow the instructions included in the samples for [UAA Server](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNet4/CloudFoundrySingleSignon/README.md) and [TAS SSO](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNet4/CloudFoundrySingleSignon/README-SSO.md) to quickly learn how to create and bind OAuth2 services.
+As mentioned earlier, there are two ways to use OAuth2 services on Cloud Foundry. We recommend you read the offical documentation ([UAA Server](https://github.com/cloudfoundry/uaa) and [Single Sign-On](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html)) or follow the instructions included in the samples for [UAA Server](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNet4/CloudFoundrySingleSignon/README.md) and [Single Sign-On](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNet4/CloudFoundrySingleSignon/README-SSO.md) to quickly learn how to create and bind OAuth2 services.
 
 Regardless of which provider you choose, once the service is bound to your application, the settings are available in `VCAP_SERVICES`.
 
 #### Configure OWIN Startup
 
-In order to configure the Cloud Foundry OWIN OAuth provider in your application, you will need an [OWIN Startup class](https://docs.microsoft.com/aspnet/aspnet/overview/owin-and-katana/owin-startup-class-detection) if you do not already have one.
+In order to configure the Cloud Foundry OWIN OAuth provider in your application, you will need an [OWIN Startup class](https://learn.microsoft.com/aspnet/aspnet/overview/owin-and-katana/owin-startup-class-detection) if you do not already have one.
 
 ```csharp
 using Steeltoe.Security.Authentication.CloudFoundry.Owin;
@@ -120,7 +120,7 @@ namespace CloudFoundrySingleSignon
 }
 ```
 
-The `app.UseCloudFoundryOpenIdConnect` method call adds an authentication middleware that has been configured to work with UAA or TAS SSO to the OWIN Request pipeline.
+The `app.UseCloudFoundryOpenIdConnect` method call adds an authentication middleware that has been configured to work with UAA or Single Sign-On to the OWIN Request pipeline.
 
 >TIP: This code is commonly refactored into a separate class (for example `Startup.Auth.cs`), particularly when there is additional configuration on the OWIN pipeline.
 
@@ -196,7 +196,7 @@ public class HomeController : Controller
 }
 ```
 
-Requiring claims is not built into the framework, so it is not quite as simple as in ASP.NET Core, but is still possible in a variety of ways. The Steeltoe SSO sample demonstrates extending the [Thinktecture ClaimsAuthorizeAttribute](https://github.com/IdentityModel/Thinktecture.IdentityModel.45/blob/master/IdentityModel/Thinktecture.IdentityModel/Authorization/MVC/ClaimsAuthorizeAttribute.cs) with a [CustomClaimsAuthorizeAttribute](https://github.com/SteeltoeOSS/Samples/blob/dev/Security/src/AspDotNet4/CloudFoundrySingleSignon/CustomClaimsAuthorizeAttribute.cs) to redirect to an &quot;Access Denied&quot; page when a user is authenticated but lacks the required claim. Using either of those attributes is straightforward, as shown in this example:
+Requiring claims is not built into the framework, so it is not quite as simple as in ASP.NET Core, but is still possible in a variety of ways. The Steeltoe SSO sample demonstrates extending the Thinktecture `ClaimsAuthorizeAttribute` (from the now-archived [IdentityModel](https://github.com/DuendeArchive/IdentityModel) project) with a [CustomClaimsAuthorizeAttribute](https://github.com/SteeltoeOSS/Samples/blob/2.x/Security/src/AspDotNet4/CloudFoundrySingleSignon/CustomClaimsAuthorizeAttribute.cs) to redirect to an &quot;Access Denied&quot; page when a user is authenticated but lacks the required claim. Using these attributes is straightforward, as shown in this example:
 
 ```csharp
 // When using this attribute, an authenticated user who does not have the claim will be redirected to the login page

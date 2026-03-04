@@ -104,7 +104,7 @@ A complete sample app that uses `IMongoClient` is provided at https://github.com
 
 This Connector supports the following service brokers:
 
-- [Tanzu Cloud Service Broker for Microsoft Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/tanzu-cloud-service-broker-for-microsoft-azure/1-13/csb-azure/reference-azure-cosmosdb-mongo.html)
+- [Tanzu Cloud Service Broker for Microsoft Azure](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-azure/1-13/csb-azure/reference-azure-cosmosdb-mongo.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI.
 

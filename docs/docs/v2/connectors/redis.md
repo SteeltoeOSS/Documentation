@@ -1,22 +1,22 @@
 # Redis
 
- This connector simplifies using a Microsoft [RedisCache](https://docs.microsoft.com/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or a StackExchange [IConnectionMultiplexer](https://stackexchange.github.io/StackExchange.Redis/) in an application running on Cloud Foundry.
+ This connector simplifies using a Microsoft [RedisCache](https://learn.microsoft.com/aspnet/core/performance/caching/distributed#use-the-distributed-cache) or a StackExchange [IConnectionMultiplexer](https://stackexchange.github.io/StackExchange.Redis/) in an application running on Cloud Foundry.
 
 Here are some Steeltoe sample applications are available to help you understand how to use this connector:
 
-* [AspDotNet4/Redis4](https://github.com/SteeltoeOSS/Samples/tree/dev/Connectors/src/AspDotNet4/Redis4): Same as the next Quick Start but built for ASP.NET 4.x.
-* [DataProtection](https://github.com/SteeltoeOSS/Samples/tree/2.x/Security/src/RedisDataProtectionKeyStore): A sample application showing how to use the Steeltoe DataProtection Key Storage Provider for Redis.
+* [AspDotNet4/Redis4](https://github.com/SteeltoeOSS/Samples/tree/2.x/Connectors/src/AspDotNet4/Redis4): Same as the next Quick Start but built for ASP.NET 4.x.
+* [DataProtection](https://github.com/SteeltoeOSS/Samples/tree/2.x/Security/src/AspDotNetCore/RedisDataProtectionKeyStore): A sample application showing how to use the Steeltoe DataProtection Key Storage Provider for Redis.
 * [MusicStore](https://github.com/SteeltoeOSS/Samples/tree/2.x/MusicStore): A sample application showing how to use all of the Steeltoe components together in an ASP.NET Core application. This is a micro-services based application built from the ASP.NET Core reference app MusicStore provided by Microsoft.
 
 This connector provides a `IHealthContributor` which you can use in conjunction with the [Steeltoe Management Health](../management/health.md) check endpoint.
 
 ## Usage
 
-You should know how the .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder.
+You should know how the .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the connector. To configure the connector, you need a basic understanding of the `ConfigurationBuilder` and how to add providers to the builder.
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
+You should also know how the ASP.NET Core [Startup](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services for the app. Pay particular attention to the usage of the `ConfigureServices()` method.
 
-You probably want some understanding of how to use the [RedisCache](https://docs.microsoft.com/aspnet/core/performance/caching/distributed#using-a-redis-distributed-cache) or [IConnectionMultiplexer](https://stackexchange.github.io/StackExchange.Redis/) before starting to use this connector.
+You probably want some understanding of how to use the [RedisCache](https://learn.microsoft.com/aspnet/core/performance/caching/distributed#use-the-distributed-cache) or [IConnectionMultiplexer](https://stackexchange.github.io/StackExchange.Redis/) before starting to use this connector.
 
 To use this connector:
 
@@ -98,7 +98,7 @@ cf restage myApp
 
 >NOTE: The preceding commands assume you use the Redis service provided by TAS. If you use a different service, you have to adjust the `create-service` command to fit your environment.
 
-Version 2.1.1+ of this connector works with the [Azure Open Service Broker for PCF](https://docs.pivotal.io/partners/azure-open-service-broker-pcf/index.html). Be sure to set `redis:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
+Version 2.1.1+ of this connector works with the [Open Service Broker for Azure](https://github.com/Azure/open-service-broker-azure) (archived). Be sure to set `redis:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
 
 Once the service is bound to your application, the connector's settings are available in `VCAP_SERVICES`.
 

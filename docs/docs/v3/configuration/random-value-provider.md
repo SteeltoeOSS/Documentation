@@ -30,7 +30,7 @@ You can also use the generator together with property placeholders. For example,
 
 ## Usage
 
-You should have a good understanding of how the .NET [Configuration services](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider.
+You should have a good understanding of how the .NET [Configuration services](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) work before starting to use this provider.
 
 In order to use the Steeltoe RandomValue provider, you need to:
 

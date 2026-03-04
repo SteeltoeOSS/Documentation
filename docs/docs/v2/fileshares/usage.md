@@ -14,7 +14,7 @@ The state of the connection to the file share is managed through the lifecycle o
 var fileShare = new WindowsNetworkFileShare(@"\\server\path", new System.Net.NetworkCredential("username", "password"));
 ```
 
-The constructor opens the connection with the equivalent of the `net use` command by calling [WNetAddConnection2](https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection2a) with the information provided in the constructor.
+The constructor opens the connection with the equivalent of the `net use` command by calling [WNetAddConnection2](https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection2a) with the information provided in the constructor.
 
 In order to close the connection, call dispose on the `WindowsNetworkFileShare`.
 
@@ -31,11 +31,11 @@ using (new WindowsNetworkFileShare(@"\\server\path", new System.Net.NetworkCrede
 }
 ```
 
->WARNING: Levels of support for accessing SMB shares on Tanzu Application Service for Windows may vary by installed version. Support for IP-based SMB shares was included with the initial 2.4 release and in patch releases for lower versions. Support for FQDN-based SMB shares will be included in PASW 2.5 and in patch releases for lower versions. See the [PASW Release notes](https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/windows-rn.html) to confirm the relevant patch version required.
+>WARNING: Levels of support for accessing SMB shares on Tanzu Application Service for Windows may vary by installed version. Support for IP-based SMB shares was included with the initial 2.4 release and in patch releases for lower versions. Support for FQDN-based SMB shares will be included in PASW 2.5 and in patch releases for lower versions. See the PASW Release notes to confirm the relevant patch version required.
 
 ## Managing Credentials
 
-Credentials are generally required for interacting with SMB shares. `WindowsNetworkFileShare` does not have an opinion on where those credentials are stored, but as a general guideline, storing credentials with your application's code or standard configuration is not recommended. Consider using the [CredHub Service Broker](https://docs.pivotal.io/credhub-service-broker/) for storing and retrieving your credentials.
+Credentials are generally required for interacting with SMB shares. `WindowsNetworkFileShare` does not have an opinion on where those credentials are stored, but as a general guideline, storing credentials with your application's code or standard configuration is not recommended. Consider using the [CredHub Service Broker](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/credhub-secrets-management/services/credhub/index.html) for storing and retrieving your credentials.
 
 When used in conjunction with the Cloud Foundry Configuration Provider, you can access the values in a relatively straightforward way:
 

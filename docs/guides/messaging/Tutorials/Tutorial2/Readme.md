@@ -13,7 +13,7 @@ _hideTocVersionToggle: true
 
 > **Prerequisites**
 >
-> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/download.html) and installed and running
+> This tutorial assumes RabbitMQ is [downloaded](https://www.rabbitmq.com/docs/download) and installed and running
 > on `localhost` on the [standard port](https://www.rabbitmq.com/networking.html#ports) (`5672`).
 >
 > In case you use a different host, port or credentials, connections settings would require adjusting.
@@ -288,11 +288,11 @@ Doing a task can take a few seconds, you may wonder what happens if a consumer s
 
 But we don't want to lose any tasks. If a worker dies, we'd like the task to be delivered to another worker.
 
-In order to make sure a message is never lost, RabbitMQ supports [message _acknowledgments_](https://www.rabbitmq.com/confirms.html). An acknowledgement is sent back by the consumer to tell RabbitMQ that a particular message has been received, processed and that RabbitMQ is free to delete it.
+In order to make sure a message is never lost, RabbitMQ supports [message _acknowledgments_](https://www.rabbitmq.com/docs/confirms). An acknowledgement is sent back by the consumer to tell RabbitMQ that a particular message has been received, processed and that RabbitMQ is free to delete it.
 
 If a consumer dies (its channel is closed, connection is closed, or TCP connection is lost) without sending an ack, RabbitMQ will understand that a message wasn't processed fully and will re-queue it. If there are other consumers online at the same time, it will then quickly redeliver it to another consumer. That way you can be sure that no message is lost, even if the workers occasionally die.
 
-By default Steeltoe takes a conservative approach to [message acknowledgement](https://www.rabbitmq.com/confirms.html).  If the listener throws an exception the underlying `Rabbit Container` created by Steeltoe (note: we talked about it the first tutorial) calls:
+By default Steeltoe takes a conservative approach to [message acknowledgement](https://www.rabbitmq.com/docs/confirms).  If the listener throws an exception the underlying `Rabbit Container` created by Steeltoe (note: we talked about it the first tutorial) calls:
 
 ```csharp
 channel.BasicReject(deliveryTag, requeue)
@@ -304,7 +304,7 @@ But, there are sometimes you want the message to be dropped (i.e. not requeued).
 
 Acknowledgements must be sent on the same channel the delivery
 was received on. Attempts to acknowledge using a different channel
-will result in a channel-level protocol exception. See the [doc guide on confirmations](https://www.rabbitmq.com/confirms.html) to learn more.
+will result in a channel-level protocol exception. See the [doc guide on confirmations](https://www.rabbitmq.com/docs/confirms) to learn more.
 Steeltoe generally takes care of this for you, but when used in combination with code
 that uses RabbitMQ .NET client directly, this is something to keep in mind.
 
@@ -351,7 +351,7 @@ is a good place to modify the message payload or any headers that will be sent.
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need a stronger guarantee then you can use
-> [publisher confirms](https://www.rabbitmq.com/confirms.html).
+> [publisher confirms](https://www.rabbitmq.com/docs/confirms).
 
 ## Fair dispatch vs Round-robin dispatching
 

@@ -2,7 +2,7 @@
 
 Steeltoe provides a number of Security related services that simplify using Cloud Foundry based security services in ASP.NET applications.
 
-These providers enable the use of Cloud Foundry security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) and/or [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/single-sign-on-for-tanzu/1-16/sso-tanzu/index.html)) for Authentication and Authorization.
+These providers enable the use of Cloud Foundry security services (such as [UAA Server](https://github.com/cloudfoundry/uaa) and/or [Single Sign-On for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/single-sign-on/1-16/sso/index.html)) for Authentication and Authorization.
 
 You can choose from several providers when adding Cloud Foundry security integration:
 

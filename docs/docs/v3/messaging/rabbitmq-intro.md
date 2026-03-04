@@ -6,7 +6,7 @@ This first part of the documentation is a high-level overview of Steeltoe Rabbit
 
 This is the five-minute tour to help you get started with Steeltoe and RabbitMQ.
 
-Prerequisites: [Download RabbitMQ broker](https://www.rabbitmq.com/download.html) and follow the instructions to install and run the broker locally.
+Prerequisites: [Download RabbitMQ broker](https://www.rabbitmq.com/docs/download) and follow the instructions to install and run the broker locally.
 Then grab the `Steeltoe.Messaging.RabbitMQ` nuget and all its dependencies. The easiest way to do so is to declare a dependency in your build tool.
 For example, simply add the following to your `.csproj` file:
 
@@ -241,7 +241,7 @@ If the address uses the `amqps` protocol, SSL support is automatically enabled.
 
 See [`RabbitOptions`](https://github.com/SteeltoeOSS/Steeltoe/blob/3.x/src/Messaging/src/RabbitMQ/Config/RabbitOptions.cs) for more of the supported options.
 
->TIP: See [Understanding AMQP, the protocol used by RabbitMQ](https://www.rabbitmq.com/tutorials/amqp-concepts.html) for more details.
+>TIP: See [Understanding AMQP, the protocol used by RabbitMQ](https://www.rabbitmq.com/tutorials/amqp-concepts) for more details.
 
 ### Sending a Message
 

@@ -10,11 +10,11 @@ The Consul client implementation supports the following .NET application types:
 
 ## Usage
 
-You should know how the new .NET [Configuration service](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the client. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the client.
+You should know how the new .NET [Configuration service](https://learn.microsoft.com/aspnet/core/fundamentals/configuration) works before starting to use the client. A basic understanding of the `ConfigurationBuilder` and how to add providers to the builder is necessary in order to configure the client.
 
-You should also know how the ASP.NET Core [Startup](https://docs.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services and the middleware used in the app. Pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
+You should also know how the ASP.NET Core [Startup](https://learn.microsoft.com/aspnet/core/fundamentals/startup) class is used in configuring the application services and the middleware used in the app. Pay particular attention to the usage of the `Configure()` and `ConfigureServices()` methods.
 
-It might be helpful to have an understanding of the [Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul) project as we have based our work on this project.
+It might be helpful to have an understanding of the [Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul/) project as we have based our work on this project.
 
 In order to use the Steeltoe Discovery client, you need to do the following:
 

@@ -4,9 +4,9 @@ You can use the Prometheus endpoint to expose application metrics for collection
 
 The Steeltoe Prometheus endpoint configures the [OpenTelemetry Prometheus Exporter](https://opentelemetry.io/docs/languages/net/exporters/#prometheus) to behave like a Steeltoe management endpoint.
 
-The Prometheus endpoint does not automatically instrument your application, but does make it easy to export metrics in the Prometheus metrics format, which can be used by tools like [Prometheus Server](https://prometheus.io/) and the [Metric Registrar for Tanzu Platform for Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/metric-registrar-index.html).
+The Prometheus endpoint does not automatically instrument your application, but does make it easy to export metrics in the Prometheus metrics format, which can be used by tools like [Prometheus Server](https://prometheus.io/) and the [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/metric-registrar-index.html) for Tanzu Platform for Cloud Foundry.
 
-See the [Steeltoe Management samples](https://github.com/SteeltoeOSS/Samples/tree/4.x/Management/src/ActuatorWeb/README.md) for more information about using this tool.
+See the [Steeltoe Management samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Management/src/ActuatorWeb/README.md) for more information about using this tool.
 
 ## Add NuGet Reference
 
@@ -59,7 +59,7 @@ builder.Services.AddPrometheusActuator(true, pipeline => pipeline.UseAuthorizati
 
 For the Prometheus endpoint to return metrics, the application and relevant libraries must be instrumented.
 This topic covers the basics for elements that previous versions of Steeltoe configured automatically.
-Refer to the [OpenTelemetry documentation](https://opentelemetry.io/docs/languages/net/instrumentation/) for more detailed information.
+Refer to the [OpenTelemetry documentation](https://opentelemetry.io/docs/languages/dotnet/instrumentation/) for more detailed information.
 
 ### ASP.NET Core
 
@@ -75,7 +75,7 @@ To instrument ASP.NET Core for metrics:
     builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics.AddAspNetCoreInstrumentation());
     ```
 
-For more information about ASP.NET Core instrumentation for OpenTelemetry, see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore).
+For more information about ASP.NET Core instrumentation for OpenTelemetry, see the [OpenTelemetry documentation](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src/OpenTelemetry.Instrumentation.AspNetCore).
 
 ### HttpClient
 
@@ -130,7 +130,7 @@ scrape_configs:
 ```
 
 Running the Prometheus server with this configuration lets you view metrics in the built-in UI.
-You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/), to use Prometheus as a data source.
+You can then configure other visualization tools, such as [Grafana](https://grafana.com/docs/grafana/latest/datasources/prometheus/), to use Prometheus as a data source.
 
 The following example shows how to run Prometheus in Docker, referencing the configuration file from above:
 
@@ -140,7 +140,7 @@ docker run -d --name=prometheus -p 9090:9090 -v ./prometheus.yml:/etc/prometheus
 
 ### Tanzu Platform for Cloud Foundry
 
-To emit custom metrics in Cloud Foundry, use [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/10-0/tpcf/metric-registrar-index.html).
+To emit custom metrics in Cloud Foundry, use [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/metric-registrar-index.html).
 
 > [!CAUTION]
 > Authenticated endpoints are not supported with Metric Registrar.
