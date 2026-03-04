@@ -15,7 +15,7 @@ To get started, use the following steps:
 1. Add a NuGet reference to the AutoConfiguration package:
 
    ```shell
-   dotnet add package Steeltoe.Bootstrap.AutoConfiguration
+   dotnet add package Steeltoe.Bootstrap.AutoConfiguration --version 4.*
    ```
 
    You may want to add additional Steeltoe packages at this point. See the [Supported Steeltoe Packages](#supported-steeltoe-packages) section for the complete list of what's supported.

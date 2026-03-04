@@ -11,7 +11,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.2.0"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.*" />
 ...
 </ItemGroup>
 ```
@@ -19,7 +19,7 @@ To add this type of NuGet to your project, add a `PackageReference` resembling t
 Or, from the command line:
 
 ```shell
-dotnet add package Steeltoe.Management.EndpointCore --version 3.2.0
+dotnet add package Steeltoe.Management.EndpointCore --version 3.*
 ```
 
 ## Metric Observers

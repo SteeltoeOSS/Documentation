@@ -40,7 +40,7 @@ You can do this via the NuGet Package Manager or by opening your project's cspro
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding" Version="3.2.2" />
+    <PackageReference Include="Steeltoe.Extensions.Configuration.Kubernetes.ServiceBinding" Version="3.*" />
 ...
 </ItemGroup>
 ```

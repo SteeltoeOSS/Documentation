@@ -16,7 +16,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Bootstrap.Autoconfig" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Bootstrap.AutoConfiguration" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Bootstrap.AutoConfiguration" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -49,7 +49,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -112,7 +112,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Configuration.ConfigServer" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Configuration.ConfigServer" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -139,7 +139,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Configuration.Placeholder" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Configuration.Placeholder" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -163,7 +163,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Extensions.Configuration.RandomValueBase" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Configuration.RandomValue" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Configuration.RandomValue" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -186,7 +186,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Extensions.Configuration.SpringBootCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Configuration.SpringBoot" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Configuration.SpringBoot" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -221,7 +221,7 @@ Project file:
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="9.4.0" />
 -    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Connectors" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Connectors" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -287,7 +287,7 @@ Project file:
     <PackageReference Include="MySql.EntityFrameworkCore" Version="9.0.6" />
 -    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
 -    <PackageReference Include="Steeltoe.Connector.EFCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Connectors.EntityFrameworkCore" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Connectors.EntityFrameworkCore" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -347,7 +347,7 @@ Project file:
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="9.0.3" />
 -    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Connectors" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Connectors" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -413,7 +413,7 @@ Project file:
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
 -    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
 -    <PackageReference Include="Steeltoe.Connector.EFCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Connectors.EntityFrameworkCore" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Connectors.EntityFrameworkCore" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -473,7 +473,7 @@ Project file:
   <ItemGroup>
     <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
 -    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Connectors" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Connectors" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -546,7 +546,7 @@ Project file:
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.8" />
 -    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Connectors" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Connectors" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -613,7 +613,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Discovery.Eureka" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Discovery.Eureka" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Discovery.Eureka" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -679,8 +679,8 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Discovery.Eureka" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Discovery.Eureka" Version="4.0.0" />
-+    <PackageReference Include="Steeltoe.Discovery.HttpClients" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Discovery.Eureka" Version="4.*" />
++    <PackageReference Include="Steeltoe.Discovery.HttpClients" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -745,7 +745,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Discovery.Consul" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Discovery.Consul" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Discovery.Consul" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -810,8 +810,8 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Discovery.Consul" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Discovery.Consul" Version="4.0.0" />
-+    <PackageReference Include="Steeltoe.Discovery.HttpClients" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Discovery.Consul" Version="4.*" />
++    <PackageReference Include="Steeltoe.Discovery.HttpClients" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -876,7 +876,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Extensions.Logging.DynamicLogger" Version="3.*" />
-+    <PackageReference Include="Steeltoe.logging.DynamicConsole" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.logging.DynamicConsole" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -921,7 +921,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Management.Endpoint" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Management.Endpoint" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -1169,7 +1169,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Management.TaskCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Management.Tasks" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Management.Tasks" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -1331,9 +1331,9 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.*" />
 -    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Security.Authentication.OpenIdConnect" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Security.Authentication.OpenIdConnect" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -1432,9 +1432,9 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Configuration.CloudFoundry" Version="4.*" />
 -    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Security.Authentication.JwtBearer" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Security.Authentication.JwtBearer" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -1523,7 +1523,7 @@ Project file:
 <Project>
   <ItemGroup>
 -    <PackageReference Include="Steeltoe.Security.Authentication.CloudFoundryCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Security.Authorization.Certificate" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Security.Authorization.Certificate" Version="4.*" />
   </ItemGroup>
 </Project>
 ```
@@ -1647,7 +1647,7 @@ public class TestClient(HttpClient httpClient)
 -    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.8" />
 -    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="3.*" />
 -    <PackageReference Include="Steeltoe.Security.DataProtection.RedisCore" Version="3.*" />
-+    <PackageReference Include="Steeltoe.Security.DataProtection.Redis" Version="4.0.0" />
++    <PackageReference Include="Steeltoe.Security.DataProtection.Redis" Version="4.*" />
   </ItemGroup>
 </Project>
 ```

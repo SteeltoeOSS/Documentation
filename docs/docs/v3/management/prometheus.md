@@ -45,7 +45,7 @@ To use the Prometheus endpoint, you need to add a reference to `Steeltoe.Managem
 ```xml
 <ItemGroup>
 ...
-    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.2.0"/>
+    <PackageReference Include="Steeltoe.Management.EndpointCore" Version="3.*" />
 ...
 </ItemGroup>
 ```
@@ -53,5 +53,5 @@ To use the Prometheus endpoint, you need to add a reference to `Steeltoe.Managem
 Or, from the command line:
 
 ```shell
-dotnet add package Steeltoe.Management.EndpointCore --version 3.2.0
+dotnet add package Steeltoe.Management.EndpointCore --version 3.*
 ```

@@ -42,7 +42,7 @@ Then search for the `Microsoft.EntityFrameworkCore.SqlServer` package and instal
 # [.NET CLI](#tab/dotnet-cli)
 
 ```shell
-dotnet add package Steeltoe.Connector.EFCore
+dotnet add package Steeltoe.Connector.EFCore --version 3.*
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
