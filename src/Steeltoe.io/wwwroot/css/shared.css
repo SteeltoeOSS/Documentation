@@ -47,6 +47,13 @@
     flex-basis: 100%;
 }
 
+@media (min-width: 992px) {
+    body>header>.navbar {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}
+
 @media (max-width: 1200px) {
     .navbar #navbar form.icons {
         display: block;
