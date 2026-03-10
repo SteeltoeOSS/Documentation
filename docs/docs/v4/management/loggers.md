@@ -197,7 +197,6 @@ To change back to the original minimum level, send another `POST` request to `/a
 
 ```json
 {
-  "configuredLevel": null
 }
 ```
 
