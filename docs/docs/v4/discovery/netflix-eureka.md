@@ -78,6 +78,7 @@ All of these settings must start with `Eureka:Instance:`.
 | `IPAddress` | IP address on which the instance is registered | computed |
 | `UseNetworkInterfaces` | Query the operating system for network interfaces to determine `HostName` and `IPAddress` | `false` |
 | `PreferIPAddress` | Whether to register with `IPAddress` instead of `HostName` | `false` |
+| `UseAspNetCoreUrls` | Use ASP.NET Core listen addresses for service registration [^5] | `true` |
 | `VipAddress` | Comma-separated list of VIP addresses for the instance | computed |
 | `SecureVipAddress` | Comma-separated list of secure VIP addresses for the instance | computed |
 | `Port` | Non-secure port number on which the instance should receive traffic | computed |
@@ -106,7 +107,9 @@ All of these settings must start with `Eureka:Instance:`.
 
 [^4]: Add a NuGet package reference to `Steeltoe.Management.Endpoint` to use its `health` and `info` actuator paths.
 
-The values for `Port` and `SecurePort`, and whether they are enabled, are automatically determined from the ASP.NET address bindings. [^1]
+[^5]: Has no effect when configured `Port` / `SecurePort` already apply (with the matching enabled flags). Set to `false` to disable listen-address probing. The default Cloud Foundry registration method (`route`) uses ports 80 and 443.
+
+When `UseAspNetCoreUrls` is `true` (the default), `Port`, `SecurePort`, and whether they are enabled follow ASP.NET listen addresses [^5].
 See [8 ways to set the URLs for an ASP.NET Core app](https://andrewlock.net/8-ways-to-set-the-urls-for-an-aspnetcore-app/)
 for how to influence them using environment variables.
 

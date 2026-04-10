@@ -61,7 +61,7 @@ All of these settings must start with `Consul:Discovery:`.
 | `UseNetworkInterfaces` | Query the operating system for network interfaces to determine `HostName` and `IPAddress` | `false` |
 | `PreferIPAddress` | Register the running app with IP address instead of hostname | `false` |
 | `Port` | Port number with which to register the running app | |
-| `UseAspNetCoreUrls` | Register with the port number ASP.NET Core is listening on | `true` |
+| `UseAspNetCoreUrls` | Use ASP.NET Core listen addresses for service registration [^3] | `true` |
 | `InstanceId` | The unique ID under which to register the running app | computed |
 | `Tags` | Array of tags used when registering the running app | |
 | `Meta` | Metadata key/value pairs used when registering the running app | see [Configuring metadata](#configuring-metadata) |
@@ -83,6 +83,12 @@ All of these settings must start with `Consul:Discovery:`.
 [^1]: This setting only affects operation when `RegisterHealthCheck` is `true`
 
 [^2]: This setting only affects operation when `RegisterHealthCheck` is `true` and `Heartbeat:Enabled` is `false`
+
+[^3]: Has no effect when `Port`, `Scheme`, or `UseNetworkInterfaces` already determine registration. Set to `false` to disable listen-address probing.
+
+When `UseAspNetCoreUrls` is `true` (the default), `Port` and `Scheme` follow ASP.NET listen addresses [^3].
+See [8 ways to set the URLs for an ASP.NET Core app](https://andrewlock.net/8-ways-to-set-the-urls-for-an-aspnetcore-app/)
+for how to influence them using environment variables.
 
 This section pertains to querying for app instances.
 All of these settings must start with `Consul:Discovery:`.
