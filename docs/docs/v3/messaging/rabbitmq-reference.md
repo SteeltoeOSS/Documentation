@@ -3280,7 +3280,7 @@ To use this classifier for retry, you can use a `PollyRetryPolicy` created with 
 
 ## Further Reading
 
-For those who are not familiar with AMQP, the [specification](https://www.amqp.org/resources/download) is actually quite readable.
+For those who are not familiar with AMQP, the [AMQP 0-9-1 specification (PDF)](https://www.rabbitmq.com/resources/specs/amqp0-9-1.pdf) is actually quite readable.
 It is, of course, the authoritative source of information, and the Spring AMQP code should be easy to understand for anyone who is familiar with the spec.
 Our current implementation of the RabbitMQ support is based on their 2.8.x version, and it officially supports AMQP 0.8 and 0.9.1.
 We recommend reading the 0.9.1 document.

@@ -61,7 +61,7 @@ All of these settings must start with `Consul:Discovery:`.
 | `UseNetworkInterfaces` | Query the operating system for network interfaces to determine `HostName` and `IPAddress` | `false` |
 | `PreferIPAddress` | Register the running app with IP address instead of hostname | `false` |
 | `Port` | Port number with which to register the running app | |
-| `UseAspNetCoreUrls` | Register with the port number ASP.NET Core is listening on | `true` |
+| `UseAspNetCoreUrls` | Register with the port number and scheme ASP.NET Core is listening on [^ASPNETUrls] | `true` |
 | `InstanceId` | The unique ID under which to register the running app | computed |
 | `Tags` | Array of tags used when registering the running app | |
 | `Meta` | Metadata key/value pairs used when registering the running app | see [Configuring metadata](#configuring-metadata) |
@@ -69,20 +69,22 @@ All of these settings must start with `Consul:Discovery:`.
 | `InstanceZone` | Metadata zone value to use when registering the running app | |
 | `DefaultZoneMetadataName` | Metadata key name for `InstanceZone` | `zone` |
 | `RegisterHealthCheck` | Whether to enable periodic health checking for the running app | `true` |
-| `HealthCheckCriticalTimeout` | Duration after which Consul deregisters the running app when in state `critical` [^1] | `30m` |
-| `Heartbeat:Enabled` | Whether the running app periodically sends TTL (time-to-live) heartbeats [^1] | `true` |
+| `HealthCheckCriticalTimeout` | Duration after which Consul deregisters the running app when in state `critical` [^RegisterHealthCheckTrue] | `30m` |
+| `Heartbeat:Enabled` | Whether the running app periodically sends TTL (time-to-live) heartbeats [^RegisterHealthCheckTrue] | `true` |
 | `Heartbeat:TtlValue` | How often a TTL heartbeat must be sent to be considered healthy | `30` |
 | `Heartbeat:TtlUnit` | Unit for `TtlValue` (`ms`, `s`, `m` or `h`) | `s` |
 | `Heartbeat:IntervalRatio` | Rate at which the running app sends TTL heartbeats, relative to `TtlValue` with `TtlUnit` | `0.66` |
-| `HealthCheckPath` | Relative URL to the health endpoint of the running app [^2] | `/actuator/health` |
-| `HealthCheckUrl` | Absolute URL to the health endpoint of the running app (overrides `HealthCheckPath`) [^2] | |
-| `HealthCheckTlsSkipVerify` | Whether Consul should skip TLS verification for HTTP health checks [^2] | `false` |
-| `HealthCheckInterval` | How often Consul should perform HTTP health checks [^2] | `10s` |
-| `HealthCheckTimeout` | The timeout Consul should use for HTTP health checks [^2] | `10s` |
+| `HealthCheckPath` | Relative URL to the health endpoint of the running app [^HealthCheckSettings] | `/actuator/health` |
+| `HealthCheckUrl` | Absolute URL to the health endpoint of the running app (overrides `HealthCheckPath`) [^HealthCheckSettings] | |
+| `HealthCheckTlsSkipVerify` | Whether Consul should skip TLS verification for HTTP health checks [^HealthCheckSettings] | `false` |
+| `HealthCheckInterval` | How often Consul should perform HTTP health checks [^HealthCheckSettings] | `10s` |
+| `HealthCheckTimeout` | The timeout Consul should use for HTTP health checks [^HealthCheckSettings] | `10s` |
 
-[^1]: This setting only affects operation when `RegisterHealthCheck` is `true`
+[^ASPNETUrls]: When `UseAspNetCoreUrls` is `true` (the default), Steeltoe sets `Port` and `Scheme` to match the address ASP.NET Core is listening on (the host portion is not used), preferring HTTPS. However, if there are configured values for `Port` or `Scheme` or if `UseNetworkInterfaces` is `true`, ASP.NET Core addresses are not used. See [8 ways to set the URLs for an ASP.NET Core app](https://andrewlock.net/8-ways-to-set-the-urls-for-an-aspnetcore-app/) for how to influence ASP.NET Core listen addresses.
 
-[^2]: This setting only affects operation when `RegisterHealthCheck` is `true` and `Heartbeat:Enabled` is `false`
+[^RegisterHealthCheckTrue]: This setting only affects operation when `RegisterHealthCheck` is `true`
+
+[^HealthCheckSettings]: This setting only affects operation when `RegisterHealthCheck` is `true` and `Heartbeat:Enabled` is `false`
 
 This section pertains to querying for app instances.
 All of these settings must start with `Consul:Discovery:`.

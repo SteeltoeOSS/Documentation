@@ -78,37 +78,36 @@ All of these settings must start with `Eureka:Instance:`.
 | `IPAddress` | IP address on which the instance is registered | computed |
 | `UseNetworkInterfaces` | Query the operating system for network interfaces to determine `HostName` and `IPAddress` | `false` |
 | `PreferIPAddress` | Whether to register with `IPAddress` instead of `HostName` | `false` |
+| `UseAspNetCoreUrls` | Register with the port number and scheme ASP.NET Core is listening on [^ASPNETUrls] | `true` |
 | `VipAddress` | Comma-separated list of VIP addresses for the instance | computed |
 | `SecureVipAddress` | Comma-separated list of secure VIP addresses for the instance | computed |
 | `Port` | Non-secure port number on which the instance should receive traffic | computed |
-| `NonSecurePortEnabled` | Whether the non-secure port should be enabled [^1] | computed |
+| `NonSecurePortEnabled` | Whether the non-secure port should be enabled [^PreferSecure] | computed |
 | `SecurePort` | Secure port on which the instance should receive traffic | computed |
-| `SecurePortEnabled` | Whether the secure port should be enabled [^1] | computed |
-| `RegistrationMethod` | How to register on Cloud Foundry; can be `route`, `direct`, or `hostname` [^2] | |
-| `InstanceEnabledOnInit` | Whether the instance should take traffic as soon as it is registered [^3] | `true` |
+| `SecurePortEnabled` | Whether the secure port should be enabled [^PreferSecure] | computed |
+| `RegistrationMethod` | How to register on Cloud Foundry; can be `route`, `direct`, or `hostname` [^RegistrationMethod] | |
+| `InstanceEnabledOnInit` | Whether the instance should take traffic as soon as it is registered [^EnabledOnInit] | `true` |
 | `LeaseRenewalIntervalInSeconds` | How often (in seconds) the client sends heartbeats to Eureka to indicate that it is still alive | `30` |
 | `LeaseExpirationDurationInSeconds` | Time (in seconds) that the Eureka server waits after receiving the last heartbeat before it marks the instance as down | `90` |
-| `StatusPageUrlPath` | Relative path to the status page for the instance [^4] | `/info` |
+| `StatusPageUrlPath` | Relative path to the status page for the instance [^ManagementRef] | `/info` |
 | `StatusPageUrl` | Absolute URL to the status page for the instance (overrides `StatusPageUrlPath`) | computed |
 | `HomePageUrlPath` | Relative path to the home page URL for the instance | `/` |
 | `HomePageUrl` | Absolute URL to the home page for the instance (overrides `HomePageUrlPath`) | computed |
-| `HealthCheckUrlPath` | Relative path to the health check endpoint of the instance [^4] | `/health` |
+| `HealthCheckUrlPath` | Relative path to the health check endpoint of the instance [^ManagementRef] | `/health` |
 | `HealthCheckUrl` | Absolute URL for health checks of the instance (overrides `HealthCheckUrlPath`) | computed |
 | `SecureHealthCheckUrl` | Secure absolute URL for health checks of the instance (overrides `HealthCheckUrlPath`) | computed |
 | `AsgName` | AWS auto-scaling group name associated with the instance | |
 | `DataCenterInfo` | Data center the instance is deployed to (`Netflix`, `Amazon`, or `MyOwn`) | `MyOwn` |
 
-[^1]: When both non-secure and secure ports are enabled, the secure port is preferred during service discovery.
+[^PreferSecure]: When both non-secure and secure ports are enabled, the secure port is preferred during service discovery.
 
-[^2]: Specify `direct` to use container-to-container networking on Cloud Foundry. Specify `hostname` to force using `HostName`.
+[^RegistrationMethod]: Specify `direct` to use container-to-container networking on Cloud Foundry. Specify `hostname` to force using `HostName`.
 
-[^3]: When set to `false`, call `EurekaApplicationInfoManager.UpdateInstance()` after initialization to mark the instance as `UP`.
+[^EnabledOnInit]: When set to `false`, call `EurekaApplicationInfoManager.UpdateInstance()` after initialization to mark the instance as `UP`.
 
-[^4]: Add a NuGet package reference to `Steeltoe.Management.Endpoint` to use its `health` and `info` actuator paths.
+[^ManagementRef]: Add a NuGet package reference to `Steeltoe.Management.Endpoint` to use its `health` and `info` actuator paths.
 
-The values for `Port` and `SecurePort`, and whether they are enabled, are automatically determined from the ASP.NET address bindings. [^1]
-See [8 ways to set the URLs for an ASP.NET Core app](https://andrewlock.net/8-ways-to-set-the-urls-for-an-aspnetcore-app/)
-for how to influence them using environment variables.
+[^ASPNETUrls]: When `UseAspNetCoreUrls` is `true` (the default), Steeltoe sets `Port`, `SecurePort`, `NonSecurePortEnabled`, and `SecurePortEnabled` using the addresses ASP.NET Core is listening on (the host portion is not used). However, if `Port` or `SecurePort` is configured (and the matching `*PortEnabled` flag is set to `true`), ASP.NET Core addresses are not used. See [8 ways to set the URLs for an ASP.NET Core app](https://andrewlock.net/8-ways-to-set-the-urls-for-an-aspnetcore-app/) for how to influence ASP.NET Core listen addresses. On Cloud Foundry, the default registration method (`route`) uses ports 80 and 443.
 
 It is also possible to use dynamic port bindings (by setting the port number to `0` in ASP.NET).
 In that case, Steeltoe adds a random number (outside the valid port range) to the `InstanceId` to make it unique.
