@@ -45,10 +45,11 @@ Add the following code to `Program.cs` to use the actuator endpoint:
 ```csharp
 using Steeltoe.Configuration.CloudFoundry;
 using Steeltoe.Management.Endpoint.Actuators.CloudFoundry;
-
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddCloudFoundry();
-builder.Services.AddCloudFoundryActuator();
+if (Platform.IsCloudFoundry) {
+    builder.Configuration.AddCloudFoundry();
+    builder.Services.AddCloudFoundryActuator();
+}
 ```
 
 > [!TIP]
