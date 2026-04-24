@@ -146,22 +146,22 @@
 
 @code
 {
-    private int _i = 0;
+    private int _i;
     private string _canonicalUrl;
 
     [Parameter] public string Name { get; set; }
     [Parameter] public string MetaDescription { get; set; }
     [Parameter] public string SocialShareTitle { get; set; }
     [Parameter] public string SocialShareDescription { get; set; }
-    [Parameter] public bool NameIsPlural { get; set; } = false;
+    [Parameter] public bool NameIsPlural { get; set; }
     [Parameter] public bool ShowBottomGetStarted { get; set; } = true;
     [Parameter] public bool ShowBottomDocsUrl { get; set; } = true;
     [Parameter] public RenderFragment Description { get; set; }
     [Parameter] public RenderFragment WhatIs { get; set; }
     [Parameter] public RenderFragment WhyUse { get; set; }
     [Parameter] public RenderFragment<Feature> FeatureTemplate { get; set; }
-    [Parameter] public RenderFragment<Feature> AltFeatureTemplate { get; set; } = null;
-    [Parameter] public IReadOnlyList<Feature> Features { get; set; } = null;
+    [Parameter] public RenderFragment<Feature> AltFeatureTemplate { get; set; }
+    [Parameter] public IReadOnlyList<Feature> Features { get; set; }
     [Parameter] public string GettingStartedUrl { get; set; }
     [Parameter] public string DocsUrl { get; set; }
     [Parameter] public RenderFragment OtherArea { get; set; }
