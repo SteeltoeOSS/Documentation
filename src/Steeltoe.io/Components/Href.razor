@@ -8,8 +8,8 @@
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string Class { get; set; }
-    [Parameter] public bool AsButton { get; set; } = false;
-    [Parameter] public bool NewWindow { get; set; } = false;
+    [Parameter] public bool AsButton { get; set; }
+    [Parameter] public bool NewWindow { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AdditionalAttributes { get; set; }

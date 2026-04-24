@@ -31,7 +31,7 @@ Follow the steps below to run/debug locally. The optional steps take longer, but
    dotnet tool restore && dotnet docfx build docs/docfx.json --warningsAsErrors true
    ```
 
-1. Open [Steeltoe.io.sln](src/Steeltoe.io.sln) in your preferred IDE, or run from the command line:
+1. Open [Steeltoe.io.slnx](src/Steeltoe.io.slnx) in your preferred IDE, or run from the command line:
 
    ```shell
    dotnet run --project .\src\Steeltoe.io
