@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/.github/" />
+  <Folder Name="/.github/workflows/">
+    <File Path="../.github/workflows/build-and-stage.yml" />
+    <File Path="../.github/workflows/pr-cleanup.yml" />
+    <File Path="../.github/workflows/stage-prod-swap.yml" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="../.editorconfig" />
+    <File Path="../.gitignore" />
+    <File Path="../README.md" />
+  </Folder>
+  <Project Path="Steeltoe.io/Steeltoe.io.csproj" />
+</Solution>
