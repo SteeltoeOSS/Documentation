@@ -347,3 +347,6 @@ builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
         sqlServerOptions.EnableRetryOnFailure();
     }));
 ```
+
+> [!TIP]
+> See [Extensibility](extensibility.md) to use third-party service brokers.
