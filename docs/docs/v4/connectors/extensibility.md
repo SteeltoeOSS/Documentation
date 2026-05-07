@@ -6,6 +6,9 @@ They are not open-ended plug-ins; extensibility means shaping platform credentia
 Connectors map credentials from [Cloud Foundry service bindings](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/binding-credentials.html) and
 [Service Binding Spec for Kubernetes](https://github.com/servicebinding/spec#well-known-secret-entries) into configuration keys starting with `steeltoe:service-bindings` and merge them with local settings from `Steeltoe:Client`.
 Each connector runs the binding logic for its own service type.
+> [!NOTE]
+> The remainder of this page covers Cloud Foundry. Equivalent support for custom Kubernetes service bindings is not yet implemented.
+> If you need it, [open an issue](https://github.com/SteeltoeOSS/Steeltoe/issues/new/choose) describing your scenario.
 
 To use a third-party `VCAP_SERVICES` structure, populate the `steeltoe:service-bindings` keys yourself.
 It is recommended to turn off the built-in binding logic to prevent conflicts by setting `SkipDefaultServiceBindings` to `true`.
