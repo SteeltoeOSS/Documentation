@@ -28,7 +28,7 @@ Follow the steps below to run/debug locally. The optional steps take longer, but
 1. Optional: Only process Markdown files in `docs`:
 
    ```shell
-   dotnet tool restore && dotnet docfx build docs/docfx.json --warningsAsErrors true
+   pwsh build/docfx-build.ps1
    ```
 
 1. Open [Steeltoe.io.slnx](src/Steeltoe.io.slnx) in your preferred IDE, or run from the command line:
