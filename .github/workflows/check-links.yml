@@ -38,7 +38,7 @@ jobs:
       #   Write-Host "Deleted cache $_"
       # }
       - name: Restore lychee cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .lycheecache
           key: cache-lychee-${{ github.event.pull_request.number || 'manual' }}-${{ github.sha }}
@@ -60,7 +60,7 @@ jobs:
 
       - name: Comment on PR with link check results
         if: ${{ github.event_name == 'pull_request' }}
-        uses: mshick/add-pr-comment@v2
+        uses: mshick/add-pr-comment@v3
         with:
           message-id: external-links-check
           message-path: ./lychee/results.md
