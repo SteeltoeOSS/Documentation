@@ -229,7 +229,7 @@
             },
             "UseAspNetCoreUrls": {
               "type": "boolean",
-              "description": "Gets or sets a value indicating whether to register with the port number ASP.NET Core is listening on. Default value: true."
+              "description": "Gets or sets a value indicating whether to register with the port number ASP.NET Core is listening on. Default value: true.\n\nThis property is ignored when 'Steeltoe.Discovery.Consul.Configuration.ConsulDiscoveryOptions.Port' or 'Steeltoe.Discovery.Consul.Configuration.ConsulDiscoveryOptions.Scheme' is explicitly configured."
             },
             "UseNetworkInterfaces": {
               "type": "boolean",
@@ -581,6 +581,10 @@
               "type": "string",
               "description": "Gets or sets the relative path to the status page for the instance. The status page URL is then constructed out of the 'Steeltoe.Discovery.Eureka.Configuration.EurekaInstanceOptions.HostName' and the type of communication - secure or non-secure, as specified in 'Steeltoe.Discovery.Eureka.Configuration.EurekaInstanceOptions.SecurePort' and 'Steeltoe.Discovery.Eureka.Configuration.EurekaInstanceOptions.NonSecurePort'. It is normally used for informational purposes for other services to find out about the status of the instance. Users can provide a simple HTML page indicating what the current status of the instance is. Default value: /info."
             },
+            "UseAspNetCoreUrls": {
+              "type": "boolean",
+              "description": "Gets or sets a value indicating whether to register with the port number(s) ASP.NET Core is listening on. Default value: true.\n\nThis property is ignored when 'Steeltoe.Discovery.Eureka.Configuration.EurekaInstanceOptions.NonSecurePort' or 'Steeltoe.Discovery.Eureka.Configuration.EurekaInstanceOptions.SecurePort' is explicitly configured."
+            },
             "UseNetworkInterfaces": {
               "type": "boolean",
               "description": "Gets or sets a value indicating whether 'System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces' is used to determine 'Steeltoe.Discovery.Eureka.Configuration.EurekaInstanceOptions.IPAddress' and 'Steeltoe.Discovery.Eureka.Configuration.EurekaInstanceOptions.HostName'. Default value: false."
@@ -769,7 +773,7 @@
                   "items": {
                     "type": "string"
                   },
-                  "description": "Gets the list of keys to sanitize. A key can be a simple string that the property must end with, or a regular expression. A case-insensitive match is always performed. Use a single-element empty string to disable sanitization. Default value: [ \"password\", \"secret\", \"key\", \"token\", \".*credentials.*\", \"vcap_services\" ]"
+                  "description": "Gets the list of keys to sanitize. A key can be a simple string that the property must end with, or a regular expression. A case-insensitive match is always performed. Use a single-element empty string to disable sanitization. Default value: [ \"password\", \"secret\", \"key\", \"token\", \".*credentials.*\", \"vcap_services\", \".*connectionstring.*\" ]"
                 },
                 "Path": {
                   "type": "string",
@@ -781,7 +785,7 @@
                     "Restricted",
                     "Full"
                   ],
-                  "description": "Gets or sets the permissions required to access this endpoint, when running on Cloud Foundry. Default value: Restricted."
+                  "description": "Gets or sets the permissions required to access this endpoint, when running on Cloud Foundry. Default value: Full."
                 }
               }
             },
@@ -964,7 +968,7 @@
                     "Restricted",
                     "Full"
                   ],
-                  "description": "Gets or sets the permissions required to access this endpoint, when running on Cloud Foundry. Default value: Restricted."
+                  "description": "Gets or sets the permissions required to access this endpoint, when running on Cloud Foundry. Default value: Full."
                 }
               }
             },
@@ -1413,13 +1417,13 @@
                     "Restricted",
                     "Full"
                   ],
-                  "description": "Gets or sets the permissions required to access this endpoint, when running on Cloud Foundry. Default value: Restricted."
+                  "description": "Gets or sets the permissions required to access this endpoint, when running on Cloud Foundry. Default value: Full."
                 }
               }
             },
             "UseStatusCodeFromResponse": {
               "type": "boolean",
-              "description": "Gets or sets a value indicating whether the HTTP response status code is based on the health status. This setting can be overruled by sending an X-Use-Status-Code-From-Response HTTP header. Default value: true."
+              "description": "Gets or sets a value indicating whether the HTTP response status code is based on the health status. This setting can be overridden by sending an X-Use-Status-Code-From-Response HTTP header. Default value: true."
             },
             "Web": {
               "type": "object",
@@ -1701,7 +1705,7 @@
                 },
                 "TokenRenewRate": {
                   "type": "integer",
-                  "description": "Gets or sets the vault token renew rate (in milliseconds). Default value: 60_000 (1 minute)."
+                  "description": "Gets or sets the Vault token renew rate (in milliseconds). Default value: 60_000 (1 minute)."
                 },
                 "TokenTtl": {
                   "type": "integer",
