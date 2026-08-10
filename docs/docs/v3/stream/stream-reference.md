@@ -1682,7 +1682,7 @@ When scaling up Stream applications horizontally, each instance can receive info
 Stream does this through the configuration setting `spring:cloud:stream:instanceCount` and `spring:cloud:stream:instanceIndex` settings.
 For example, if there are three instances of a "HDFS sink component", all three instances have `spring:cloud:stream:instanceCount` set to `3`, and the individual instances have `spring:cloud:stream:instanceIndex` set to `0`, `1`, and `2`, respectively.
 
-When Steeltoe Stream components are deployed through [Spring Cloud Data Flow](https://spring.io/projects/spring-cloud-dataflow/), these settings are configured automatically; when you launch the Stream components independently, these settings must be set correctly.
+When Steeltoe Stream components are deployed through [Spring Cloud Data Flow](https://enterprise.spring.io/projects/spring-cloud-dataflow/), these settings are configured automatically; when you launch the Stream components independently, these settings must be set correctly.
 By default, `spring:cloud:stream:instanceCount` is `1`, and `spring:cloud:stream:instanceIndex` is `0`.
 
 In a scaled-up scenario, correct configuration of these two settings is important for proper partitioning behavior (see below), and the two settings are always required by certain binders in order to ensure that data are split correctly across multiple consumer instances.
@@ -1775,4 +1775,4 @@ The binder allocates the partitions.
 This might be useful if you want messages for a particular partition to always go to the same instance.
 When a binder configuration requires them, it is important to set both values correctly in order to ensure that all of the data is consumed and that the application instances receive mutually exclusive datasets.
 
-While a scenario in which using multiple instances for partitioned data processing may be complex to set up in a standalone case, [Spring Cloud Data flow](https://spring.io/projects/spring-cloud-dataflow/) can simplify the process significantly by populating both the input and output values correctly and by letting you rely on the runtime infrastructure to provide information about the instance index and instance count.
+While a scenario in which using multiple instances for partitioned data processing may be complex to set up in a standalone case, [Spring Cloud Data flow](https://enterprise.spring.io/projects/spring-cloud-dataflow/) can simplify the process significantly by populating both the input and output values correctly and by letting you rely on the runtime infrastructure to provide information about the instance index and instance count.

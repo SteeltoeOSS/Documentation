@@ -25,7 +25,7 @@ Log correlation refers to the process of taking log entries from disparate syste
 The process is easier when important pieces of data are logged in the same format across different systems (such as .NET and Java apps communicating with each other).
 
 Steeltoe provides the class `TracingLogProcessor`, which is an `IDynamicMessageProcessor` for correlating logs. The processor is built for use with a [Steeltoe Dynamic Logging provider](../logging/index.md).
-It enriches log entries with correlation data using the same trace format popularized by [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#log-correlation),
+It enriches log entries with correlation data using the same trace format popularized by [Spring Cloud Sleuth](https://docs.spring.io/spring-cloud-sleuth/docs/2.2.x/reference/html/#log-correlation),
 that include `[<ApplicationName>,<TraceId>,<SpanId>,<ParentSpanId>,<IsAllDataRequested>]`.
 
 Consider this pair of log entries from the [Steeltoe Management sample applications](https://github.com/SteeltoeOSS/Samples/tree/4.x/Management/src/):
