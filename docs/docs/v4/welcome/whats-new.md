@@ -320,7 +320,7 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 - New configuration provider to decrypt settings in Config Server (should be added as late as possible)
 - Reduced noise in Config Server logging
 - Universal configuration of client certificates, using ASP.NET Options pattern (named, with fallback to default)
-- Added support for reading from [Application Configuration Service for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/application-configuration-service-for-tanzu/2-4/app-config-service/overview.html) on Kubernetes
+- Added support for reading from [Application Configuration Service for VMware Tanzu](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-application-platform/1-12/tap/application-configuration-service-about.html) on Kubernetes
 - Improved support for ASP.NET Options pattern, responding to configuration changes at runtime
 - Removed configuration provider that directly interacts with the Kubernetes API
 

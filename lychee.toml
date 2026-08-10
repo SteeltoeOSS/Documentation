@@ -3,7 +3,7 @@
 cache = true
 scheme = ["http", "https"]
 require_https = true
-include_fragments = true
+include_fragments = "full"
 retry_wait_time = 5
 root_dir = "."
 host_concurrency = 5
