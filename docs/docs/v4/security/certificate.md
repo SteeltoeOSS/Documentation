@@ -58,7 +58,7 @@ Several steps need to happen before certificate authorization policies can be us
 
 1. Bind configuration values into named `CertificateOptions`.
 1. Monitor certificate files for changes (to stay up to date when certificates are rotated).
-1. Configure certificate forwarding (so that ASP.NET reads the certificate from an HTTP Header).
+1. Configure certificate forwarding (so that ASP.NET reads the certificate forwarded by the Cloud Foundry Gorouter).
 1. Add authentication services.
 1. Add authorization services and policies.
 1. Activate middleware.
@@ -76,26 +76,29 @@ builder.Services
 // Register Microsoft authorization services
 builder.Services.AddAuthorizationBuilder()
     // Register Steeltoe components and policies requiring org and/or space to match between client and server certificates
-    .AddOrgAndSpacePolicies();
+    .AddOrgAndSpacePoliciesForMutualTls();
 ```
 
 > [!TIP]
-> Steeltoe configures the certificate forwarding middleware to look for a certificate in the `X-Client-Cert` HTTP header.
-> To change the HTTP header name used for authorization, include it when registering the policy. For example: `.AddOrgAndSpacePolicies("X-Custom-Certificate-Header")`.
+> `AddOrgAndSpacePoliciesForMutualTls` configures the certificate forwarding middleware to trust only the `X-Forwarded-Client-Cert` HTTP header.
+> This requires the Cloud Foundry Gorouter to be configured as the point of TLS termination. When configured correctly, Gorouter terminates the mutual TLS handshake itself and forwards the verified client certificate in the `X-Forwarded-Client-Cert` header, while stripping any instance of that header sent by the original client. This means a request cannot spoof its identity by setting the header directly, because Gorouter overwrites or removes it before the request reaches the app. If TLS termination is not enabled at the router, this header is never set and the configured policies will reject every request.
 
 Steeltoe exposes some of the policy-related components directly if more customized scenarios are required:
 
 ```csharp
 // AuthorizationPolicyBuilder setup
 builder.Services.AddAuthorizationBuilder()
-    .AddOrgAndSpacePolicies()
+    .AddOrgAndSpacePoliciesForMutualTls()
     .AddDefaultPolicy("sameOrgAndSpace", policy => policy.RequireSameOrg().RequireSameSpace());
 
 // Or the equivalent using different syntax
 builder.Services.AddAuthorizationBuilder()
-    .AddOrgAndSpacePolicies()
+    .AddOrgAndSpacePoliciesForMutualTls()
     .AddPolicy("sameOrgAndSpace", policy => policy.AddRequirements(new SameOrgRequirement(), new SameSpaceRequirement()));
 ```
+
+> [!NOTE]
+> The original `AddOrgAndSpacePolicies` method (and its overload accepting a custom header name) is marked obsolete since Steeltoe 4.3.0: it trusts whatever HTTP header is configured (`X-Client-Cert` by default) without verifying that a reverse proxy set it after a successful mTLS handshake, so any client can set that header itself and spoof its identity. It remains available to support scenarios where client and server applications are upgraded one side at a time.
 
 To activate certificate-based authorization in the request pipeline, use the `UseCertificateAuthorization` extension method on `IApplicationBuilder`:
 
@@ -115,7 +118,7 @@ app.UseCertificateAuthorization();
 > [!NOTE]
 > This step is required only for applications that are receiving certificate-authorized requests.
 
-As implied by the name of the extension method `AddOrgAndSpacePolicies` (from the previous section in this topic), Steeltoe provides policies for validating that a request came from an application in the same org and/or the same space. You can secure endpoints using the standard ASP.NET Core `Authorize` attribute with these security policies.
+As implied by the name of the extension method `AddOrgAndSpacePoliciesForMutualTls` (from the previous section in this topic), Steeltoe provides policies for validating that a request came from an application in the same org and/or the same space. You can secure endpoints using the standard ASP.NET Core `Authorize` attribute with these security policies.
 
 > [!TIP]
 > For more information about authorization in ASP.NET Core, see the [Microsoft documentation](https://learn.microsoft.com/aspnet/core/security/authorization/introduction).
@@ -165,8 +168,8 @@ To use app instance identity certificates in a client application, services must
 > [!NOTE]
 > This step is required only for applications that are sending certificate-authorized requests.
 
-For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an extension method on `IHttpClientBuilder` called `AddAppInstanceIdentityCertificate`.
-This method invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes, and places the certificate in an HTTP header named `X-Client-Cert` on all outbound requests.
+For applications that need to send identity certificates in outgoing requests, Steeltoe provides a smooth experience through an extension method on `IHttpClientBuilder` called `AddAppInstanceIdentityCertificateForMutualTls`.
+This method invokes code that handles loading certificates from paths defined in the application's configuration, monitors those file paths and their content for changes, and attaches the certificate to outbound requests using a real mutual TLS handshake.
 
 > [!TIP]
 > For more information about `IHttpClientFactory`, see the [Microsoft documentation](https://learn.microsoft.com/aspnet/core/fundamentals/http-requests).
@@ -175,10 +178,13 @@ This method invokes code that handles loading certificates from paths defined in
 using Steeltoe.Security.Authorization.Certificate;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddHttpClient<ExampleApiClient>().AddAppInstanceIdentityCertificate();
+builder.Services.AddHttpClient<ExampleApiClient>().AddAppInstanceIdentityCertificateForMutualTls();
 ```
 
-This method has an overload that changes the name of the HTTP header used to pass the certificate. For example: `.AddAppInstanceIdentityCertificate("X-Custom-Certificate-Header")`.
+> [!NOTE]
+> mTLS requires `SocketsHttpHandler` as the primary handler for the `HttpClient`. If none was explicitly configured, one is created automatically. If an incompatible primary handler was explicitly configured, an `InvalidOperationException` is thrown on .NET 9 and later; on .NET 8, the handler is silently replaced (logged at Debug level).
+
+To send a certificate to a service that has not yet been upgraded to trust mTLS, use `AddAppInstanceIdentityCertificate()` (or the `certificateName`-based `AddClientCertificate` overloads) instead. These methods inject the certificate into an HTTP header (`X-Client-Cert` by default, or a caller-supplied name) and are obsolete since Steeltoe 4.3.0 for the same reason described above, but remain available to support one-sided upgrade scenarios during a transition. For example: `.AddAppInstanceIdentityCertificate("X-Custom-Certificate-Header")`.
 
 ### Customizing CertificateAuthenticationOptions
 
