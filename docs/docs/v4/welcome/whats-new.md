@@ -1,3 +1,9 @@
+<style>
+ article>.table-responsive td {
+  white-space: nowrap
+ }
+</style>
+
 # What's new in Steeltoe 4
 
 ## Overview
@@ -1500,18 +1506,14 @@ The table above reflects the API surface as of the initial Steeltoe 4.0 release.
 
 #### Steeltoe.Security changes in 4.3
 
-<div class="no-wrap">
-
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
 | `Steeltoe.Security.Authorization.Certificate.CertificateAuthorizationBuilderExtensions.AddOrgAndSpacePolicies` | Extension method | Steeltoe.Security.Authorization.Certificate | Obsolete | `AddOrgAndSpacePoliciesForMutualTls()` | Header-based certificate forwarding can be spoofed by any client |
-| `Steeltoe.Security.Authorization.Certificate.CertificateAuthorizationBuilderExtensions.AddOrgAndSpacePoliciesForMutualTls` | <span style="white-space: nowrap">Extension method</span> | Steeltoe.Security.Authorization.Certificate | Added | | <span style="white-space: nowrap">Verify space/org in the incoming client certificate using mTLS forwarded by the Cloud Foundry Gorouter</span> |
+| `Steeltoe.Security.Authorization.Certificate.CertificateAuthorizationBuilderExtensions.AddOrgAndSpacePoliciesForMutualTls` | Extension method | Steeltoe.Security.Authorization.Certificate | Added | | Verify space/org in the incoming client certificate using mTLS forwarded by the Cloud Foundry Gorouter |
 | `Steeltoe.Security.Authorization.Certificate.CertificateHttpClientBuilderExtensions.AddAppInstanceIdentityCertificate` | Extension method | Steeltoe.Security.Authorization.Certificate | Obsolete | `AddAppInstanceIdentityCertificateForMutualTls()` | Header-based certificate injection can be spoofed by any client |
 | `Steeltoe.Security.Authorization.Certificate.CertificateHttpClientBuilderExtensions.AddAppInstanceIdentityCertificateForMutualTls` | Extension method | Steeltoe.Security.Authorization.Certificate | Added | | Send app-identity certificate with outgoing HTTP requests using mTLS |
 | `Steeltoe.Security.Authorization.Certificate.CertificateHttpClientBuilderExtensions.AddClientCertificate` | Extension method | Steeltoe.Security.Authorization.Certificate | Obsolete | `AddClientCertificateForMutualTls(string)` | Header-based certificate injection can be spoofed by any client |
 | `Steeltoe.Security.Authorization.Certificate.CertificateHttpClientBuilderExtensions.AddClientCertificateForMutualTls` | Extension method | Steeltoe.Security.Authorization.Certificate | Added | | Send custom certificate with outgoing HTTP requests using mTLS |
-
-</div>
 
 ### Notable PRs
 
