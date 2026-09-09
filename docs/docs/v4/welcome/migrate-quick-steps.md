@@ -1421,7 +1421,7 @@ app.MapGet("/test-auth", async httpContext =>
         await httpContext.Response.WriteAsync("You are logged in and carry the required claim.");
     }).RequireAuthorization("read");
 
-app.Run();    
+app.Run();
 ```
 
 ### JWT Bearer
@@ -1588,6 +1588,9 @@ app.Run();
 > The code shown above is provided for compatibility between the versions. The preferred header name is `X-Client-Cert`.
 > In Steeltoe 4.0, the default header is `X-Client-Cert`, so the parameter can be omitted if cross-compatibility is not required.
 
+> [!IMPORTANT]
+> `AddOrgAndSpacePolicies` is obsolete since Steeltoe 4.3.0. For new applications, use `AddOrgAndSpacePoliciesForMutualTls` instead, which trusts only the `X-Forwarded-Client-Cert` header set by the Cloud Foundry Gorouter after a real mTLS handshake. See [Resource Protection using Mutual TLS](../security/certificate.md) for details.
+
 Program.cs (client-side):
 
 ```diff
@@ -1638,6 +1641,9 @@ public class TestClient(HttpClient httpClient)
 > Prior to Steeltoe 3.3.0, Steeltoe Certificate Auth used the header `X-Forwarded-Client-Cert`, which was not configurable.
 > The code shown above is provided for compatibility between the versions. The preferred header name is `X-Client-Cert`.
 > In Steeltoe 4.0, the default header is `X-Client-Cert`, so the parameter can be omitted if cross-compatibility is not required.
+
+> [!IMPORTANT]
+> `AddAppInstanceIdentityCertificate` is obsolete since Steeltoe 4.3.0. For new applications, use `AddAppInstanceIdentityCertificateForMutualTls` instead, which attaches the certificate using a real mTLS handshake instead of an HTTP header. See [Resource Protection using Mutual TLS](../security/certificate.md) for details.
 
 ### DataProtection Key Store using Redis/Valkey
 
