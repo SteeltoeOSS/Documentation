@@ -1,9 +1,3 @@
-<style>
- article>.table-responsive td {
-  white-space: nowrap
- }
-</style>
-
 # What's new in Steeltoe 4
 
 ## Overview
@@ -165,10 +159,14 @@ The following sections provide details on the changes per Steeltoe component, as
 
 ### API changes
 
+<div class="text-nowrap">
+
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
 | `Steeltoe.Bootstrap.Autoconfig.SteeltoeAssemblies` | Type | Steeltoe.Bootstrap.Autoconfig | Renamed | `Steeltoe.Bootstrap.AutoConfiguration.SteeltoeAssemblyNames` | Updated members to new/changed assembly names |
 | `Steeltoe.Connector` | Namespace | Steeltoe.Bootstrap.Autoconfig | Removed | None | Type locators have been replaced with internal-only shims |
+
+</div>
 
 ### Notable PRs
 
@@ -206,6 +204,8 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | Steeltoe.Common.Utils | Removed | None | Contained internal helpers not designed for external usage |
 
 ### API changes
+
+<div class="text-nowrap">
 
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -298,6 +298,8 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | `Steeltoe.Common.Security.PemCertificateSource` | Type | Steeltoe.Common.Security | Removed | Store certificate paths in `IConfiguration` | Refactored to use ASP.NET Options pattern |
 | `Steeltoe.Common.Security.PemConfigureCertificateOptions` | Type | Steeltoe.Common.Security | Removed | Store certificate paths in `IConfiguration` | Refactored to use ASP.NET Options pattern |
 
+</div>
+
 [^1]: When using the binary buildpack, specify port bindings in an [environment variable](https://learn.microsoft.com/aspnet/core/fundamentals/servers/kestrel/endpoints#specify-ports-only) or on the command-line: `--urls=http://0.0.0.0:%PORT%`.
 
 ### Notable PRs
@@ -351,6 +353,8 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | Steeltoe.Extensions.Configuration.SpringBootCore | Renamed | Steeltoe.Configuration.SpringBoot | |
 
 ### API changes
+
+<div class="text-nowrap">
 
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -437,6 +441,8 @@ For more information, see the updated [Bootstrap documentation](../bootstrap/ind
 | `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootEnvSource` | Type | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core] | Removed | None | Renamed to internal `SpringBootEnvironmentVariableSource` |
 | `Steeltoe.Extensions.Configuration.SpringBoot.SpringBootHostBuilderExtensions.AddSpringBootConfiguration` | Extension method | Steeltoe.Extensions.Configuration.SpringBoot [Base/Core] | Removed | `builder.Configuration.AddSpringBootFromCommandLine/EnvironmentVariable()` | Redundant |
 
+</div>
+
 ### Notable PRs
 
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1360
@@ -495,6 +501,8 @@ For more information, see the updated [Configuration documentation](../configura
 | Steeltoe.Connector.EFCore | Renamed | Steeltoe.Connectors.EntityFrameworkCore | |
 
 ### API changes
+
+<div class="text-nowrap">
 
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -608,6 +616,8 @@ For more information, see the updated [Configuration documentation](../configura
 | `Steeltoe.Connector.SqlServer.EFCore.SqlServerDbContextOptionsExtensions.UseSqlServer` | Extension method | Steeltoe.Connector.EFCore | Moved | `SqlServerDbContextOptionsBuilderExtensions.UseSqlServer` | Takes an `IServiceProvider`, requires call to `builder.AddSqlServer()` first |
 | `Steeltoe.Connector.SqlServer.EFCore.SqlServerDbContextOptionsExtensions.UseSqlServer<TContext>` | Extension method | Steeltoe.Connector.EFCore | Removed | | Redundant |
 
+</div>
+
 ### Notable PRs
 
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1528
@@ -668,6 +678,8 @@ For more information, see the updated [Connectors documentation](../configuratio
 | Steeltoe.Discovery.Kubernetes | Removed | None | |
 
 ### API changes
+
+<div class="text-nowrap">
 
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -877,6 +889,8 @@ For more information, see the updated [Connectors documentation](../configuratio
 | `Steeltoe.Discovery.Eureka.Transport.IEurekaHttpClient` | Type | Steeltoe.Discovery.Eureka | Removed | `Steeltoe.Discovery.Eureka.EurekaClient` | |
 | `Steeltoe.Discovery.Eureka.Util.DateTimeConversions` | Type | Steeltoe.Discovery.Eureka | Removed | None | Made internal |
 
+</div>
+
 ### Notable PRs
 
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1372
@@ -924,6 +938,8 @@ For more information, see the updated [Discovery documentation](../discovery/ind
 
 ### API changes
 
+<div class="text-nowrap">
+
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
 | `Steeltoe.Extensions.Logging.DynamicLoggerConfiguration` | Type | Steeltoe.Extensions.Logging.Abstractions | Renamed | `Steeltoe.Logging.DynamicLoggerState` | Represents logger state, is unrelated to `IConfiguration` |
@@ -965,6 +981,8 @@ For more information, see the updated [Discovery documentation](../discovery/ind
 | `Steeltoe.Extensions.Logging.DynamicSerilog.SerilogWebHostBuilderExtensions.AddDynamicSerilog` | Extension method | Steeltoe.Extensions.Logging.DynamicSerilog [Base/Core] | Removed | `ILoggingBuilder.AddDynamicSerilog()` | |
 | `Steeltoe.Extensions.Logging.DynamicSerilog.SerilogWebHostBuilderExtensions.UseSerilogDynamicConsole` | Extension method | Steeltoe.Extensions.Logging.DynamicSerilog [Base/Core] | Removed | `ILoggingBuilder.AddDynamicSerilog()` | |
 | `Steeltoe.Logging.DynamicSerilog.SerilogMessageProcessingLogger` | Type | Steeltoe.Logging.DynamicSerilog | Added | | Preserve structured logs with `IDynamicMessageProcessor` in Serilog |
+
+</div>
 
 ### Notable PRs
 
@@ -1023,6 +1041,8 @@ For more information, see the updated [Logging documentation](../logging/index.m
 | Steeltoe.Management.TracingCore | Renamed | Steeltoe.Management.Tracing | |
 
 ### API changes
+
+<div class="text-nowrap">
 
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -1362,6 +1382,8 @@ For more information, see the updated [Logging documentation](../logging/index.m
 | `Steeltoe.Management.Tracing.TracingOptions` | Type | Steeltoe.Management.Tracing [Base/Core] | Removed | Use OpenTelemetry packages directly | |
 | `Steeltoe.Management.Tracing.TracingServiceCollectionExtensions.AddTracingLogProcessor` | Extension method | Steeltoe.Management.Tracing | Added | | Add trace info from `Activity.Current` to logs |
 
+</div>
+
 ### Notable PRs
 
 - https://github.com/SteeltoeOSS/Steeltoe/pull/1521
@@ -1446,6 +1468,8 @@ For more information, see the updated [Management documentation](../management/i
 
 ### API changes
 
+<div class="text-nowrap">
+
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
 | `Steeltoe.Security.Authentication.CloudFoundry.ApplicationBuilderExtensions.UseCloudFoundryCertificateAuth` | Extension method | Steeltoe.Security.Authentication.CloudFoundry [Base/Core] | Removed | `app.UseCertificateAuthorization()` | |
@@ -1500,11 +1524,15 @@ For more information, see the updated [Management documentation](../management/i
 | `Steeltoe.Security.DataProtection.Redis.RedisDataProtectionBuilderExtensions.PersistKeysToRedis` | Extension method | Steeltoe.Security.DataProtection.Redis | Added | | Takes an optional service binding name |
 | `Steeltoe.Security.DataProtection.RedisDataProtectionBuilderExtensions.PersistKeysToRedis` | Extension method | Steeltoe.Security.DataProtection.RedisCore | Moved | `PersistKeysToRedis()` in Steeltoe.Security.DataProtection.Redis package | |
 
+</div>
+
 ### Breaking API changes after the 4.0 release
 
 The table above reflects the API surface as of the initial Steeltoe 4.0 release. The following breaking changes were introduced in later 4.x releases.
 
 #### Steeltoe.Security changes in 4.3
+
+<div class="text-nowrap">
 
 | Source | Kind | Package | Change | Replacement | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -1514,6 +1542,8 @@ The table above reflects the API surface as of the initial Steeltoe 4.0 release.
 | `Steeltoe.Security.Authorization.Certificate.CertificateHttpClientBuilderExtensions.AddAppInstanceIdentityCertificateForMutualTls` | Extension method | Steeltoe.Security.Authorization.Certificate | Added | | Send app-identity certificate with outgoing HTTP requests using mTLS |
 | `Steeltoe.Security.Authorization.Certificate.CertificateHttpClientBuilderExtensions.AddClientCertificate` | Extension method | Steeltoe.Security.Authorization.Certificate | Obsolete | `AddClientCertificateForMutualTls(string)` | Header-based certificate injection can be spoofed by any client |
 | `Steeltoe.Security.Authorization.Certificate.CertificateHttpClientBuilderExtensions.AddClientCertificateForMutualTls` | Extension method | Steeltoe.Security.Authorization.Certificate | Added | | Send custom certificate with outgoing HTTP requests using mTLS |
+
+</div>
 
 ### Notable PRs
 
