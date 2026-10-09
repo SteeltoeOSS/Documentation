@@ -87,7 +87,7 @@ builder.AddMongoDb();
             [FromServices] ConnectorFactory<MongoDbOptions, IMongoClient> connectorFactory)
         {
             var connector = connectorFactory.Get();
-            IMongoClient client = connector.GetConnection();
+            using IMongoClient client = connector.GetConnection();
 
             IMongoDatabase database = client.GetDatabase(connector.Options.Database);
             IMongoCollection<SampleObject> collection = database.GetCollection<SampleObject>("SampleObjects");
