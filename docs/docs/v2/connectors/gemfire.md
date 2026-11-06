@@ -67,7 +67,7 @@ cf bind-service myApp myPCCService
 cf restage myApp
 ```
 
-If your application fails to [programmatically create regions](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-gemfire-native-client/10-4/gf-nc/dotnet-geode-native-docs-dotnet-regions-regions.html), use the [gfsh CLI](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-gemfire/10-1/gf/tools_modules-gfsh-chapter_overview.html) to create it. You will need the gfsh url and the cluster operator credentials provided in the service binding:
+If your application fails to [programmatically create regions](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-gemfire-native-client/10-4/gf-nc/dotnet-geode-native-docs-dotnet-regions-regions.html), use the [gfsh CLI](https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-gemfire/10-3/gf/tools_modules-gfsh-chapter_overview.html) to create it. You will need the gfsh url and the cluster operator credentials provided in the service binding:
 
 ```json
 "p-cloudcache": [{

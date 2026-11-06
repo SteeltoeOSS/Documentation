@@ -2,7 +2,7 @@
 
 This logging provider is a wrapper around the [Microsoft Console Logging](https://github.com/aspnet/Logging) provider. This wrapper allows for querying the currently defined loggers and their levels as well as then modifying the levels dynamically at runtime.
 
-For more information on how to use [Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/dev-console.html) on Cloud Foundry for viewing and modifying logging levels, see the Using Actuators with Apps Manager section of the Tanzu Platform documentation.
+For more information on how to use [Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/11-0/eart/dev-console.html) on Cloud Foundry for viewing and modifying logging levels, see the Using Actuators with Apps Manager section of the Tanzu Platform documentation.
 
 > NOTE: The Apps Manager integration involves sending the fully-qualified logger name over HTTP. Avoid using colons in the name of a logger to prevent invalid HTTP Requests.
 
