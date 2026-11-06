@@ -4,7 +4,7 @@ You can use the Prometheus endpoint to expose application metrics for collection
 
 The Steeltoe Prometheus endpoint configures the [OpenTelemetry Prometheus Exporter](https://opentelemetry.io/docs/languages/net/exporters/#prometheus) to behave like a Steeltoe management endpoint.
 
-The Prometheus endpoint does not automatically instrument your application, but does make it easy to export metrics in the Prometheus metrics format, which can be used by tools like [Prometheus Server](https://prometheus.io/) and the [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/metric-registrar-index.html) for Tanzu Platform for Cloud Foundry.
+The Prometheus endpoint does not automatically instrument your application, but does make it easy to export metrics in the Prometheus metrics format, which can be used by tools like [Prometheus Server](https://prometheus.io/) and the [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/11-0/eart/metric-registrar-index.html) for Tanzu Platform for Cloud Foundry.
 
 See the [Steeltoe Management samples](https://github.com/SteeltoeOSS/Samples/blob/4.x/Management/src/ActuatorWeb/README.md) for more information about using this tool.
 
@@ -140,7 +140,7 @@ docker run -d --name=prometheus -p 9090:9090 -v ./prometheus.yml:/etc/prometheus
 
 ### Tanzu Platform for Cloud Foundry
 
-To emit custom metrics in Cloud Foundry, use [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/metric-registrar-index.html).
+To emit custom metrics in Cloud Foundry, use [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/11-0/eart/metric-registrar-index.html).
 
 > [!CAUTION]
 > Authenticated endpoints are not supported with Metric Registrar.

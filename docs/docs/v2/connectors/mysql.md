@@ -101,7 +101,7 @@ cf bind-service myApp myMySqlService
 cf restage myApp
 ```
 
->NOTE: The preceding commands assume you use [Tanzu for MySQL](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-mysql-tanzu-platform/10-1/mysql-tp/index.html), provided by Tanzu Platform. If you use a different service, you must adjust the `create-service` command to fit your environment.
+>NOTE: The preceding commands assume you use [Tanzu for MySQL](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-mysql-tanzu-platform/11-0/mysql-tp/index.html), provided by Tanzu Platform. If you use a different service, you must adjust the `create-service` command to fit your environment.
 
 Version 2.1.1+ of this connector works with the [Open Service Broker for Azure](https://github.com/Azure/open-service-broker-azure) (archived). Be sure to set `mysql:client:urlEncodedCredentials` to `true` as this broker may provide credentials that have been URL Encoded.
 

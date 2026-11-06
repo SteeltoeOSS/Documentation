@@ -49,7 +49,7 @@ dotnet add package Steeltoe.Management.EndpointCore --version 2.*
 
 ## Cloud Foundry Forwarder
 
-The Metrics Forwarder for TAS is no longer supported on Tanzu Application Service (TAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/metric-registrar-index.html) to emit metrics to [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html).
+The Metrics Forwarder for TAS is no longer supported on Tanzu Application Service (TAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/11-0/eart/metric-registrar-index.html) to emit metrics to [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html).
 
 To register your endpoint for metrics collection install the metrics-registrar plugin and use it to register your endpoint.
 

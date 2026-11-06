@@ -103,7 +103,7 @@ In addition, the following settings can be used to set the application and servi
 
 ### Tanzu Application Service (TAS for VMs)
 
-To emit custom metrics on TAS for VMs v2.5 or later, use the [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/metric-registrar-index.html) to emit metrics to [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html).
+To emit custom metrics on TAS for VMs v2.5 or later, use the [Metric Registrar](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/11-0/eart/metric-registrar-index.html) to emit metrics to [Loggregator](https://docs.cloudfoundry.org/loggregator/architecture.html).
 
 To register your endpoint for metrics collection, install the metrics-registrar plugin and use it to register your endpoint:
 

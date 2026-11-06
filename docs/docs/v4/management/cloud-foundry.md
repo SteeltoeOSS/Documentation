@@ -1,6 +1,6 @@
 # Cloud Foundry Integration
 
-Integration with [Tanzu Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-3/eart/dev-console.html) is accomplished by adding the Cloud Foundry management endpoint to your application.
+Integration with [Tanzu Apps Manager](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/11-0/eart/dev-console.html) is accomplished by adding the Cloud Foundry management endpoint to your application.
 
 When used, this endpoint enables the following additional functionality on Cloud Foundry:
 

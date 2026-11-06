@@ -147,7 +147,7 @@ A complete sample app that uses Entity Framework Core with PostgreSQL is provide
 
 This Connector supports the following service brokers:
 
-- [Tanzu for Postgres on Tanzu Platform](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-postgres-tanzu-platform/10-2/postgres-tp/index.html)
+- [Tanzu for Postgres on Tanzu Platform](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-postgres-tanzu-platform/11-0/postgres-tp/index.html)
 - [Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-gcp/1-8/csb-gcp/reference-gcp-postgresql.html)
 - [Tanzu Cloud Service Broker for AWS](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-aws/1-15/csb-aws/reference-aws-postgres.html)
 
