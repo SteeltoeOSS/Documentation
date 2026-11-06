@@ -153,9 +153,9 @@ A complete sample app that uses Entity Framework Core with MySQL is provided at 
 
 This Connector supports the following service brokers:
 
-- [Tanzu for MySQL on Tanzu Platform](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-mysql-tanzu-platform/11-0/mysql-tp/index.html)
-- [Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-gcp/1-8/csb-gcp/reference-gcp-mysql.html)
-- [Tanzu Cloud Service Broker for AWS](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-aws/1-15/csb-aws/reference-aws-mysql.html)
+- [Tanzu for MySQL on Cloud Foundry](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-mysql-tanzu-platform/11-0/mysql-tp/index.html)
+- [Tanzu Cloud Service Broker for GCP](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-gcp/1-10/csb-gcp/reference-gcp-mysql.html)
+- [Tanzu Cloud Service Broker for AWS](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/cloud-service-broker-aws/1-17/csb-aws/reference-aws-mysql.html)
 
 You can create and bind an instance to your application by using the Cloud Foundry CLI.
 
