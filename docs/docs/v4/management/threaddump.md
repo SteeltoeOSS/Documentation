@@ -48,7 +48,7 @@ builder.Services.AddThreadDumpActuator();
 
 This endpoint returns a list of threads with their state and stack trace.
 
-The response is always returned as JSON:
+By default, the response is returned as JSON:
 
 ```json
 {
@@ -89,4 +89,19 @@ The response is always returned as JSON:
     }
   ]
 }
+```
+
+When the request includes the `Accept: text/plain` header, the response is returned as plain text instead.
+Spring Boot Admin uses this format when you download a thread dump from its Threads view.
+
+```text
+"Thread-11848" #11848
+   Thread State: WAITING
+  at [NativeClasses].[NativeMethods](Unknown Source)
+  at System.Threading.WaitHandle.WaitOneNoCheck(int32)(Unknown Source)
+  at System.Threading.PortableThreadPool+GateThread.GateThreadStart()(Unknown Source)
+  at ExampleNamespace.ExampleClass.Run()(C:\Source\Code\Example.cs:10)
+
+  Locked ownable synchronizers:
+  - None
 ```
